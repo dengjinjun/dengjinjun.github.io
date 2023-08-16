@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="模块和包-正则表达式和re模块" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            模块和包-正则表达式和re模块
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%A8%A1%E5%9D%97%E5%92%8C%E5%8C%85-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8Cre%E6%A8%A1%E5%9D%97"><span class="post-toc-text">模块和包-正则表达式和re模块</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="post-toc-text">正则表达式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E7%9B%B8%E5%85%B3"><span class="post-toc-text">字符相关</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B0%E9%87%8F%E7%9B%B8%E5%85%B3"><span class="post-toc-text">数量相关</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%86%E7%BB%84"><span class="post-toc-text">分组</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BA%94%E7%94%A8"><span class="post-toc-text">应用</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#re%E6%A8%A1%E5%9D%97"><span class="post-toc-text">re模块</span></a></li></ol></li></ol>
+        
+        <h1 id="模块和包-正则表达式和re模块"><a href="#模块和包-正则表达式和re模块" class="headerlink" title="模块和包-正则表达式和re模块"></a>模块和包-正则表达式和re模块</h1><h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>正则表达式，是用语句来描述一些字符串的特征，可以与<code>re</code>模块结合，将字符串提取出来。比如：</p>
+<pre><code class="python">import re
+
+text = &quot;sdhkfsgk23874823skjfsbj34563hsdj&quot;	# 一段任意字符串
+data_list = re.findall(&quot;正则表达式&quot;, text)	 # 可以提取得到想要的字符串，组成列表
+</code></pre>
+<h3 id="字符相关"><a href="#字符相关" class="headerlink" title="字符相关"></a>字符相关</h3><ul>
+<li><p>固定文本</p>
+<p>正则表达式不含任何特殊符号，表示直接匹配固定文本</p>
+<pre><code class="python">text = &quot;常州大学西太湖校区常州市武进区延政西大道&quot;
+re.findall(&quot;常州&quot;, text)		# [&#39;常州&#39;, &#39;常州&#39;]
+</code></pre>
+</li>
+<li><p>匹配字符</p>
+<p>如<code>[sdfhd]</code>表示，中括号里的任一字符都在选择范围内，数量较多时可使用如<code>[a-z]</code>或<code>[0-9]</code></p>
+<pre><code class="python">text = &quot;常州大学西太湖校区常州市武进区延政西大道&quot;
+re.findall(&quot;常州[大,市]&quot;, text)		# [&#39;常州大&#39;, &#39;常州市&#39;]-
+</code></pre>
+</li>
+<li><p><code>\d</code>代表数字</p>
+<pre><code class="python">text = &quot;sfkhd23394jdbdjkjd2323&quot;
+
+# \是转义字符，\d 代表一个数字
+re.findall(&quot;d\d&quot;, text)		# [&#39;d2&#39;, &#39;d2&#39;]
+</code></pre>
+</li>
+<li><p><code>\w</code>表示字母、数字、下划线或汉字</p>
+<pre><code class="python">import re
+
+text = &quot;常州大学cczu  常州大学cczu&quot;
+data_list = re.findall(&quot;大学\w+z&quot;,text)	
+# [&#39;大学ccz&#39;, &#39;大学ccz&#39;],\w不匹配空格
+</code></pre>
+<pre><code class="python"># 正则默认是尽可能多的去匹配，称为贪婪匹配
+text = &quot;常州大学cczu常州大学cczu&quot;
+data_list = re.findall(&quot;大学\w+z&quot;,text)	# [&#39;大学cczu常州大学ccz&#39;]
+
+# 非贪婪匹配是指找到第一个匹配就不要再匹配了，加上一个?即可
+text = &quot;常州大学cczu常州大学cczu&quot;
+data_list = re.findall(&quot;大学\w+?z&quot;,text)	# [&#39;大学ccz&#39;, &#39;大学ccz&#39;]
+</code></pre>
+</li>
+<li><p><code>.</code>表示除换行符以外的任何字符</p>
+<pre><code class="python">import re
+
+#  . 只代表一个字符
+text = &quot;adshjgkalsdkfjo&quot;
+data_list = re.findall(&quot;a.s&quot;,text)		# [&#39;ads&#39;, &#39;als&#39;]
+
+# 多个字符，贪婪匹配
+text = &quot;adshjgkalsdkfjo&quot;
+data_list = re.findall(&quot;a.+s&quot;,text)		# [&#39;adshjgkals&#39;]
+
+# 多个字符，非贪婪匹配
+text = &quot;adshjgkalsdkfjo&quot;
+data_list = re.findall(&quot;a.+?s&quot;,text)	# [&#39;ads&#39;, &#39;als&#39;]	
+</code></pre>
+</li>
+<li><p><code>\s</code>表示空白字符</p>
+<pre><code class="python">import re
+
+text = &quot;add admin    a&quot;
+data_list = re.findall(&quot;a\w+\s+\w&quot;,text)	# [&#39;add a&#39;], \s后不带+只代表一个字符
+</code></pre>
+</li>
+</ul>
+<h3 id="数量相关"><a href="#数量相关" class="headerlink" title="数量相关"></a>数量相关</h3><ul>
+<li><code>*</code>代表0或多个</li>
+<li><code>+</code>代表1或多个</li>
+<li><code>?</code>代表0或1个</li>
+<li><code>&#123;n&#125;</code>代表固定<code>n</code>个</li>
+<li><code>&#123;n,&#125;</code>代表<code>n</code>个及以上</li>
+<li><code>&#123;n,m&#125;</code>代表大于等于<code>n</code>,小于等于<code>m</code>个</li>
+</ul>
+<p>注意：默认贪婪匹配，非贪婪匹配需要在数量后加<code>?</code></p>
+<pre><code class="python"># \d+ 代表一个或多个数字
+re.findall(&quot;d\d+&quot;, text)	# [&#39;d23394&#39;, &#39;d2323&#39;]
+
+# \d* 代表0个或1个或多个
+re.findall(&quot;d\d*&quot;, text)	# [&#39;d23394&#39;, &#39;d&#39;, &#39;d&#39;, &#39;d2323&#39;]
+
+# \d? 代表0个或1个，如果后面有多个数字，只取第一个
+re.findall(&quot;d\d?&quot;, text)	# [&#39;d2&#39;, &#39;d&#39;, &#39;d&#39;, &#39;d2&#39;, &#39;d1&#39;]
+
+# \d&#123;n&#125; 代表固定n个，如果后面有超过n个，只取n个
+re.findall(&quot;d\d&#123;3&#125;&quot;, text)	# [&#39;d233&#39;, &#39;d232&#39;]
+
+# \d&#123;n,&#125; 代表n个或n个以上
+re.findall(&quot;d\d&#123;5,&#125;&quot;, text)	# [&#39;d23394&#39;]
+
+# \d&#123;n,m&#125; 代表大于等于n,小于等于m
+re.findall(&quot;d\d&#123;5,6&#125;&quot;, text)	# [&#39;d23394&#39;]
+
+# 注意：以上的+，*，?，&#123;&#125;等代表次数，也可以与一般字符串搭配使用，如：
+text = &quot;aabbccccaaadddd&quot;
+res = re.findall(&quot;a+&quot;, text)	# [&#39;aa&#39;, &#39;aaa&#39;]
+</code></pre>
+<h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h3><ul>
+<li><p>提取部分区域的数据</p>
+<pre><code class="python">import re
+
+# 将目标区域用()围住即可，()不影响正则表达式的整体含义
+text = &quot;手机号17633554278中国联通&quot;
+data_list = re.findall(&quot;1\d&#123;6&#125;(\d&#123;4&#125;)&quot;,text)		# [&#39;4278&#39;]
+
+# 当要提取多个部分时，或存在区域包含关系时，仍然可用
+data_list = re.findall(&quot;((1\d&#123;2&#125;)\d&#123;4&#125;(\d&#123;4&#125;))&quot;,text)	
+# [(&#39;17633554278&#39;, &#39;176&#39;, &#39;4278&#39;)]
+</code></pre>
+</li>
+<li><p>“或”的关系</p>
+<pre><code class="python">import re
+
+# 用()围住的部分中，可以存在&quot;或&quot;的关系,用|实现
+text = &quot;手机号17633554278和手机号17633554273都是我名下的，后面那个送人了&quot;
+data_list = re.import(&quot;1\d&#123;6&#125;427(8|3)&quot;,text)	# [&#39;8&#39;, &#39;3&#39;]
+</code></pre>
+</li>
+<li><p>限制开头和结尾</p>
+<pre><code class="python"># 在正则表达式的开头加上 ^ ,在结尾加上 $ ,表示严格限制文本的开头和结尾，常用于文本校验
+import re
+
+text = input(&quot;请输入手机号：&quot;)		
+res = re.match(&quot;^1[3-9]\d&#123;9&#125;$&quot;, text)	# 只能输入符合要求的11位数，后续不能存在更多字符
+</code></pre>
+</li>
+</ul>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><ul>
+<li><p>企鹅号</p>
+</li>
+<li><p>手机号</p>
+<pre><code class="python"># 手机号格式：&quot;1[3-9]\d&#123;9&#125;&quot;
+</code></pre>
+</li>
+<li><p>身份证号</p>
+</li>
+<li><p>邮箱</p>
+<pre><code class="python">&quot;&quot;&quot;
+一般邮箱格式：xxx@xxx.com
+正则表达式出现的 . 代表的是除换行符外的一个任意字符,当需要表示字符 . 时，用 \. 
+&quot;&quot;&quot;
+import re
+
+text = &quot;我的126邮箱是dengjinjun0805@126.com，QQ邮箱是498790885@qq.com&quot;
+data_list = re.findall(&quot;\w+@\w+\.com&quot;, text, re.ASCII)	# re.ASCII让\w不匹配中文
+print(data_list)	# [&#39;dengjinjun0805@126.com&#39;, &#39;498790885@qq.com&#39;]
+
+# 对于较为复杂的支持 - 和 _ 以及域名为cn或en等的邮箱，可以使用如下语句
+data_list = re.findall(&quot;[a-zA-Z0-9-_]+@[a-zA-Z0-9-_]+\.[a-zA-Z0-9-_]+&quot;，text)
+</code></pre>
+</li>
+</ul>
+<h2 id="re模块"><a href="#re模块" class="headerlink" title="re模块"></a>re模块</h2><ul>
+<li><p>获取所有匹配成功的结果</p>
+<pre><code class="python">re.findall(&quot;正则表达式&quot;, &quot;文本&quot;)	# 在正则表达式中已介绍
+</code></pre>
+</li>
+<li><p>从字符串开头进行匹配，返回第一个对象</p>
+<p>使用<code>re.match()</code>对字符串开头第一个字符开始匹配，如果开头不匹配不会继续寻找。</p>
+<pre><code class="python">import re
+
+text = &quot;changzhou university&quot;
+res = re.match(&quot;u\w+y&quot;, text)	# None
+res = re.match(&quot;c\w+\s&quot;, text)	# &lt;re.Match object; span=(0, 10), match=&#39;changzhou &#39;&gt;
+# 得到的是一个re.match类型的对象，可以通过group()方法获得
+# 为了防止匹配失败得到空对象，然后使用group方法时报错，一般需要添加判断条件
+if res:
+    content = res.group()			# changzhou
+</code></pre>
+</li>
+<li><p>从整个字符串进行匹配，返回第一个对象</p>
+<p>使用<code>re.search()</code>对整个字符串进行匹配，返回第一个对象，与<code>re.match()</code>不同的是，开头不匹配，仍然会继续寻找，找到后返回一个对象，通过<code>group()</code>方法获取，否则返回<code>None</code></p>
+<pre><code class="python">import re
+
+text = &quot;changzhou university&quot;
+res = re.search(&quot;u\w+y&quot;, text)	# &lt;re.Match object; span=(10, 20), match=&#39;university&#39;&gt;
+if res:
+    content = res.group()	# university
+</code></pre>
+</li>
+<li><p>字符串的分割</p>
+<p>使用<code>re.split()</code>对字符串进行分割，一般的字符串分割只能按照一个字符进行分割，而利用正则表达式，可以实现按照不同的字符进行分割，比如:</p>
+<pre><code class="python">import re
+
+text = &quot;23+34-5&quot;
+data_lsit = re.split(&quot;[+-]&quot;, text)	# [&#39;23&#39;, &#39;34&#39;, &#39;5&#39;]
+</code></pre>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-15</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/python/'>
+                            python
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+                
+                    / <a href="/contact/"> 联系 </a>
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>去码头搞点薯条</span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>

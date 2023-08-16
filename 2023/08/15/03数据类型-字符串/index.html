@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="数据类型-字符串" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            数据类型-字符串
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%88str%EF%BC%89"><span class="post-toc-text">数据类型-字符串（str）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%B8%80%E8%8A%82-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E7%8B%AC%E6%9C%89%E5%8A%9F%E8%83%BD"><span class="post-toc-text">第一节 字符串的独有功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%A4%A7%E5%B0%8F%E5%86%99%E5%8A%9F%E8%83%BD"><span class="post-toc-text">大小写功能</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E8%BD%AC%E5%8C%96%E4%B8%BA%E6%95%B4%E5%9E%8B"><span class="post-toc-text">判断字符串是否可以转化为整型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%98%AF%E5%90%A6%E4%BB%A5%E2%80%9Dxx%E2%80%9C%E5%BC%80%E5%A4%B4%E6%88%96%E2%80%9Dxx%E2%80%9C%E7%BB%93%E5%B0%BE"><span class="post-toc-text">判断字符串是否以”xx“开头或”xx“结尾</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8E%BB%E9%99%A4%E7%A9%BA%E7%99%BD"><span class="post-toc-text">去除空白</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9B%BF%E6%8D%A2%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E9%83%A8%E5%88%86%E5%86%85%E5%AE%B9"><span class="post-toc-text">替换字符串中的部分内容</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%87%E5%89%B2%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="post-toc-text">切割字符串</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="post-toc-text">字符串拼接的三种方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E5%AD%97%E8%8A%82%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%BD%AC%E5%8C%96"><span class="post-toc-text">字符串和字节类型的转化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%95%BF%E5%BA%A6%E7%9A%84%E8%A1%A5%E8%B6%B3"><span class="post-toc-text">字符串长度的补足</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B7%A6%E8%BE%B9%E8%A1%A50"><span class="post-toc-text">字符串左边补0</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%BA%8C%E8%8A%82-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%85%AC%E5%85%B1%E5%8A%9F%E8%83%BD"><span class="post-toc-text">第二节 字符串的公共功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E9%95%BF%E5%BA%A6"><span class="post-toc-text">获取长度</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E7%B4%A2%E5%BC%95"><span class="post-toc-text">字符串的索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%B0%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%87%E7%89%87"><span class="post-toc-text">将字符串切片</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BE%AA%E7%8E%AF%E8%BE%93%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="post-toc-text">循环输出字符串</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8C%85%E5%90%AB"><span class="post-toc-text">包含</span></a></li></ol></li></ol></li></ol>
+        
+        <h1 id="数据类型-字符串（str）"><a href="#数据类型-字符串（str）" class="headerlink" title="数据类型-字符串（str）"></a>数据类型-字符串（str）</h1><p>字符串是一个不可变类型。</p>
+<p>字符串用一对双引号或一对单引号作为开头和结尾，只能表示单行的字符串,之所以可以用单引号或双引号是为了当字符串里面出现单引号或双引号时出现歧义，用三对双引号或三对单引号表示多行的字符串。</p>
+<pre><code class="python">单行文本
+&#39;字符串&#39;
+&quot;字符串&quot;
+多行文本
+&quot;&quot;&quot;字符串&quot;&quot;&quot;
+&#39;&#39;&#39;
+字
+符
+串
+&#39;&#39;&#39;
+</code></pre>
+<p>字符串乘以数字，表示让字符串重复多少次</p>
+<pre><code class="python">print(&#39;6&#39;*3)	#666
+</code></pre>
+<p>部分整型和字符串可以相互转换，比如</p>
+<pre><code class="python">str(19)			把整型数据类型19转换成字符串类型
+int(&#39;19&#39;)		把字符串类型的19转换成整型
+int(&#39;字符串&#39;)		这样的无法转换
+</code></pre>
+<h2 id="第一节-字符串的独有功能"><a href="#第一节-字符串的独有功能" class="headerlink" title="第一节 字符串的独有功能"></a>第一节 字符串的独有功能</h2><p>字符串类型具有独有的功能，使用方法有两种,比如字符串<code>n1 = &quot;root&quot;</code>，①<code>n1.功能名()</code>	②<code>&quot;root&quot;.功能名()</code></p>
+<h3 id="大小写功能"><a href="#大小写功能" class="headerlink" title="大小写功能"></a>大小写功能</h3><p>  英文字符串可以使用<code>upper()</code>可以使之转化为大写，使用<code>lower()</code>使之转化为小写，比如：</p>
+<pre><code class="python">n1 = root
+n2 = WHERE
+n3 = n1.upper()	 # n3是一个新的字符串，n3 = UPPER
+n4 = n2.lower()	 # n4是一个新的字符串，n4 = where
+</code></pre>
+<h3 id="判断字符串是否可以转化为整型"><a href="#判断字符串是否可以转化为整型" class="headerlink" title="判断字符串是否可以转化为整型"></a>判断字符串是否可以转化为整型</h3><p>​	使用<code>isdecimal()</code>可以判断一个字符串是否可以转化为整型，结果会得到一个布尔值，比如：</p>
+<pre><code class="python">n1 = &quot;123&quot;
+n2 = &quot;张三&quot;
+b1 = n1.isdecimal()	#b1 = True
+b2 = n2.isdecimal()	#b2 = False
+</code></pre>
+<h3 id="判断字符串是否以”xx“开头或”xx“结尾"><a href="#判断字符串是否以”xx“开头或”xx“结尾" class="headerlink" title="判断字符串是否以”xx“开头或”xx“结尾"></a>判断字符串是否以”xx“开头或”xx“结尾</h3><p>​	使用<code>startswith()</code>判断是否以某字符串开头，使用<code>endwith()</code>判断是否以某字符串结尾</p>
+<pre><code class="python">n1 = &quot;中华人民共和国&quot;
+b1 = n1.startswith(&quot;中华&quot;)	#b1 = True
+b2 = n1.endswith(&quot;中华&quot;)	#b2 = False
+</code></pre>
+<h3 id="去除空白"><a href="#去除空白" class="headerlink" title="去除空白"></a>去除空白</h3><p>​	空白是指空格、回车、制表符，使用<code>strip()</code>去除左右两边的空白，使用<code>lstrip()</code>和<code>rstrip()</code>分别去除左边和右边的空白，上述三种方法并不能去除字符串中间的空白。</p>
+<pre><code class="python">n1 = &quot; 台湾省 &quot;
+v1 = n1.strip()		#v1 = &quot;台湾省&quot;
+v2 = n1.lstrip()	#v2 = &quot;台湾省 &quot;
+v3 = n1.rstrip()	#v3 = &quot; 台湾省&quot;
+</code></pre>
+<h3 id="替换字符串中的部分内容"><a href="#替换字符串中的部分内容" class="headerlink" title="替换字符串中的部分内容"></a>替换字符串中的部分内容</h3><p>​	使用<code>replace()</code>将字符串中的部分内容替换为另一部分内容</p>
+<pre><code class="python">n1 = &quot;常州大学西太湖校区&quot;
+n2 = n1.replace(&quot;西太湖&quot;,&quot;武进&quot;)		#n2 = &quot;常州大学武进校区&quot;
+</code></pre>
+<h3 id="切割字符串"><a href="#切割字符串" class="headerlink" title="切割字符串"></a>切割字符串</h3><p>​	使用<code>split()</code>将字符串切割为几个部分,切割后得到的是一个列表，通过索引来获取各个切割后的各个部分</p>
+<pre><code class="python">campu_name = &quot;常州大学-西太湖校区&quot;
+name_list = campu_list.split(&quot;-&quot;)	#name_list = [ &quot;常州大学&quot; , &quot;西太湖校区&quot; ]
+name_list[0]						#&quot;常州大学&quot;
+name_list[1]						#&quot;西太湖校区&quot;
+</code></pre>
+<h3 id="字符串拼接的三种方法"><a href="#字符串拼接的三种方法" class="headerlink" title="字符串拼接的三种方法"></a>字符串拼接的三种方法</h3><p>将多个字符串拼接起来有三种方法：①通过<code>&quot;+&quot;</code>	②字符串格式化	③通过<code>join()</code></p>
+<ul>
+<li>通过<code>&quot;+&quot;</code></li>
+</ul>
+<pre><code class="python">n1 = &quot;常州大学西太湖校区&quot;
+n2 = &quot;常州大学&quot;+&quot;西太湖校区&quot;		#n2 = &quot;常州大学西太湖校区&quot;
+</code></pre>
+<ul>
+<li><p>字符串格式化</p>
+<ul>
+<li><p>使用<code>format()</code>（推荐）</p>
+<p>在一个字符串中使用{}代表了一个占位符，在字符串后面加上<code>.format()</code>可以传入其他字符串到占位符里，比如</p>
+<pre><code class="python">text=&quot;我是&#123;0&#125;，今年&#123;1&#125;岁&quot;.format(&quot;邓金俊&quot;,22)
+#text=我是邓金俊，今年22岁
+</code></pre>
+<p>也可以不使用0，1的序号，那么<code>format()</code>里面的字符串将会按顺序传入占位符里，比如</p>
+<pre><code class="python">text=&quot;我是&#123;0&#125;，今年&#123;1&#125;岁&quot;.format(&quot;邓金俊&quot;,22)
+#text=我是邓金俊，今年22岁
+</code></pre>
+<p>可以不使用0，1的序号，而是在<code>format()</code>里面给进行替换的字符串命名，使用变量名来指代字符	串，比如</p>
+<pre><code class="python">text=&quot;我是&#123;name&#125;，今年&#123;age&#125;岁&quot;.format(name=&quot;邓金俊&quot;,age=22)
+#text=我是邓金俊，今年22岁
+</code></pre>
+<p>字符串可以重用，比如</p>
+<pre><code class="python">text = &quot;我是&#123;0&#125;，今年&#123;1&#125;岁&quot;
+text1 = text.format(&quot;张三&quot;, 13)	#text1=我是张三，今年13岁
+text2 = text.format(&quot;李四&quot;, 14)	#text2=我是李四，今年14岁
+</code></pre>
+</li>
+<li><p>使用<code>%</code></p>
+<p>在一个字符串中使用<code>%</code>代表占位符，在字符串后面使用空格加上一个<code>%</code>可以传入其他字符串到占位符里。<code>%s</code>、<code>%d</code>分别代表一个字符串和一个整型的占位符，与C语言中相似，比如：</p>
+<pre><code class="python">text=&quot;我是%s，今年%d岁&quot; %(&quot;邓金俊&quot;,22)
+#text=我是邓金俊，今年22岁
+</code></pre>
+<p>字符串按顺序传入，与<code>format()</code>的用法相似，也可以进行字符串的重用</p>
+</li>
+<li><p>使用<code>f-string</code></p>
+<p>预先给字符串命名，需要传入字符串时再使用{}传入，字符串前要加上<code>f</code>。<code>f-string</code>是Python3.6版本后才出现的用法,比如:</p>
+<pre><code class="python">name=&quot;邓金俊&quot;
+age=22
+text=f&quot;我是&#123;name&#125;，今年&#123;age&#125;岁&quot;
+#text=我是邓金俊，今年22岁
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>通过<code>join()</code>将列表中的字符串拼接起来</p>
+<p>列表中必须全部都是字符串，通过任意符号将所有字符串按顺序连接，比如：</p>
+<pre><code class="python">name_list = [ &quot;张三&quot; , &quot;李四&quot; , &quot;王五&quot; ]
+n1 = &quot;和&quot;.join(name_list)	# n1 = &quot;张三和李四和王五&quot;
+n2 = &quot;&quot;.join(name_list)		# n2 = &quot;张三李四王五&quot; 
+</code></pre>
+</li>
+</ul>
+<h3 id="字符串和字节类型的转化"><a href="#字符串和字节类型的转化" class="headerlink" title="字符串和字节类型的转化"></a>字符串和字节类型的转化</h3><p>​	python中默认使用的是unicode方式编码的字符串类型，可以使用<code>encode()</code>将字符串类型转化为字节类型，使用<code>decode()</code>将字节类型转化为字符串类型，比如：</p>
+<pre><code class="python">n1 = &quot;常州大学&quot;
+v1 = n1.encode(&quot;utf-8&quot;)	# 此时v1是字节类型，v1 = b&#39;\xe5\xb8\……\xa6&#39;,b&#39;表示是字节类型
+n2 = v1.decode(&quot;utf-8&quot;)	# 此时v2是字符串类型，v2 = &quot;常州大学&quot;
+</code></pre>
+<h3 id="字符串长度的补足"><a href="#字符串长度的补足" class="headerlink" title="字符串长度的补足"></a>字符串长度的补足</h3><p>​	当需要将字符串的长度未达到预设的长度时，可以使用<code>center()</code>、<code>ljust()</code>、<code>rjust()</code>对字符串长度进行补足，括号里放预设的长度和任意的填充符，<code>center()</code>是将字符串放到填充符的中间，<code>ljust()</code>和<code>rjust()</code>是将字符串放到填充符的左边和右边，比如：</p>
+<pre><code class="python">n1 = &quot;常州大学&quot;
+v1 = n1.center(13,&quot;-&quot;)	# v1 = -----常州大学----
+v2 = n1.ljust(13,&quot;*&quot;)	# v2 = 常州大学*********
+v3 = n1.rjust(13,&quot; &quot;)	# v3 =          常州大学
+</code></pre>
+<h3 id="字符串左边补0"><a href="#字符串左边补0" class="headerlink" title="字符串左边补0"></a>字符串左边补0</h3><p>​	使用<code>zfill()</code>在字符串的左边进行补0，直到达到预设长度，是<code>ljust()</code>的子集用法，常用于二进制字符串</p>
+<pre><code class="python">data = &quot;01101&quot;
+v1 = data.zfill(8)	# v1 = &quot;00001101&quot;
+</code></pre>
+<h2 id="第二节-字符串的公共功能"><a href="#第二节-字符串的公共功能" class="headerlink" title="第二节 字符串的公共功能"></a>第二节 字符串的公共功能</h2><h3 id="获取长度"><a href="#获取长度" class="headerlink" title="获取长度"></a>获取长度</h3><p>​	使用<code>len()</code>获取字符串长度，比如：</p>
+<pre><code class="python">name = &quot;百里守约&quot;
+l1 = len(name)	# l1= 4
+text = &quot;紫霞仙子yyds&quot;
+l2 = len(text) # l2 = 8
+</code></pre>
+<h3 id="字符串的索引"><a href="#字符串的索引" class="headerlink" title="字符串的索引"></a>字符串的索引</h3><p>字符串的每个字符都有索引，通过字符串名称+[]获取，比如：</p>
+<pre><code class="python">
+text = &quot;常州大学西太湖校区&quot;
+#       0 1 23 4 56 7 8	一共9个字符
+# 也可以从后往前      -2-1
+text[0] # &quot;常&quot;
+text[4] # &quot;西&quot;
+text[-1]# &quot;区&quot;
+text[9] # 报错
+</code></pre>
+<h3 id="将字符串切片"><a href="#将字符串切片" class="headerlink" title="将字符串切片"></a>将字符串切片</h3><p>通过字符串每个字符的索引，可以截取一部分字符串，通过text[索引号:索引号]获取，比如：</p>
+<pre><code class="python">text = &quot;常州大学西太湖校区&quot;
+#       0 1 23 4 56 7 8	一共9个字符
+# 也可以从后往前      -2-1
+text[0:7] # &quot;常州大学西太湖&quot; 从第一个索引号开始，取到第二个索引号的前一位
+text[4:7] # &quot;西太湖&quot;
+text[0:-2]# &quot;常州大学西太湖&quot;	也可以按照从后往前的索引号
+text[4:]  # &quot;西太湖校区&quot;	省略第二个索引号，直接截取剩余全部
+text[:-1] # &quot;常州大学西太湖校&quot;	省略第一个索引号，从第一个字符开始截取
+text[:]   # &quot;常州大学西太湖校区&quot;	两个索引号都省略，截取全部字符串
+
+#注意事项：1.索引号是从0开始计数的	2.前取后不取
+</code></pre>
+<h3 id="循环输出字符串"><a href="#循环输出字符串" class="headerlink" title="循环输出字符串"></a>循环输出字符串</h3><p>将字符串中的单个字符循环输出，两种方式，一种是通过字符索引+<code>while</code>循环，另一种是通过<code>for</code>循环，比如：</p>
+<pre><code class="python">data = &quot;123456&quot;
+for item in data:
+    print(item)
+# 1	 2	3	4	5	6
+# item并不是关键字，而是一个普通变量名，可替换
+</code></pre>
+<h3 id="包含"><a href="#包含" class="headerlink" title="包含"></a>包含</h3><p>使用<code>in</code>判断字符串中是否包含某个字符串，比如：</p>
+<pre><code class="python">text = &quot;常州大学西太湖校区&quot;
+if &quot;常州大学&quot; in text:	# True
+    pass
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-15</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/python/'>
+                            python
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+                
+                    / <a href="/contact/"> 联系 </a>
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>去码头搞点薯条</span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>

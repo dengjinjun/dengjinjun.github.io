@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="函数-自定义函数" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            函数-自定义函数
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%87%BD%E6%95%B0-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="post-toc-text">函数-自定义函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%87%BD%E6%95%B0%E5%90%8D%E4%B9%9F%E5%8F%AF%E4%BB%A5%E7%90%86%E8%A7%A3%E4%B8%BA%E4%B8%80%E4%B8%AA%E5%8F%98%E9%87%8F%E5%90%8D"><span class="post-toc-text">函数名也可以理解为一个变量名</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%88%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%EF%BC%89"><span class="post-toc-text">lambda表达式（匿名函数）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%87%BD%E6%95%B0%E5%90%8D%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0"><span class="post-toc-text">函数名作为参数</span></a></li></ol></li></ol>
+        
+        <h1 id="函数-自定义函数"><a href="#函数-自定义函数" class="headerlink" title="函数-自定义函数"></a>函数-自定义函数</h1><h2 id="函数名也可以理解为一个变量名"><a href="#函数名也可以理解为一个变量名" class="headerlink" title="函数名也可以理解为一个变量名"></a>函数名也可以理解为一个变量名</h2><p>函数名代指这个函数，函数名后加()，会执行函数。</p>
+<pre><code class="python">def func():
+    pass
+v1 = func
+func()
+v1()	# func()
+</code></pre>
+<p>函数名和函数都可以放到列表中，比如：</p>
+<pre><code class="python">def func():
+    return 123
+data_list = [1, 2, 3, &quot;常州大学&quot;, func, func()]
+print(data_list)	# [1, 2, 3, &#39;常州大学&#39;, &lt;function func at 0x0000028952ADF040&gt;, 123]
+data_list[-2]()		# func(),执行这个函数
+</code></pre>
+<p>函数名还可以放到列表中，当作字典中的值，比如：</p>
+<pre><code class="python">def func():
+    pass
+
+func_dict = &#123;&quot;11&quot;:func,&quot;22&quot;:func,&quot;33&quot;:func&#125;
+# 获取函数并执行，方法1
+func_dict[&quot;11&quot;]()	# func()
+# 这种方式如果键名不存在，会报错
+
+# 获取函数并执行，方法2
+func_object = func_dict.get(&quot;11&quot;)
+if func_object == None:
+    print(&quot;函数不存在&quot;)
+else:
+    func_object()
+# 这种方式当键名不存在时，会返回空值，不会报错
+</code></pre>
+<h2 id="lambda表达式（匿名函数）"><a href="#lambda表达式（匿名函数）" class="headerlink" title="lambda表达式（匿名函数）"></a>lambda表达式（匿名函数）</h2><p>使用<code>lambda</code>表达式，可以用一行代码实现简单的函数，比如：</p>
+<pre><code class="python">def func():
+    return 123
+# 这种定义方式可以用lambda表达式实现
+func = lambda :123
+</code></pre>
+<pre><code class="python">def func(a1,a2):
+    return a1+a2
+# 这种定义方式可以用lambda表达式实现
+func = lambda a1,a2 :a1+a2
+</code></pre>
+<pre><code class="python">def func(data_list):
+    return data_list[0]
+# 这种定义方式可以用lambda表达式实现
+func = lambda data_list : data_list[0]
+</code></pre>
+<h2 id="函数名作为参数"><a href="#函数名作为参数" class="headerlink" title="函数名作为参数"></a>函数名作为参数</h2><p>一个函数的函数名可以作为参数传入另一个函数中，比如：</p>
+<pre><code class="python">def do():
+    return 11
+def func(a1,a2):
+    print(a1+a2())
+func(22,do)		# 33
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-15</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/python/'>
+                            python
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+                
+                    / <a href="/contact/"> 联系 </a>
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>去码头搞点薯条</span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>

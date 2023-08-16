@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="数据类型-其他" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            数据类型-其他
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E9%9B%86%E5%90%88%E3%80%81None%E3%80%81%E5%B8%83%E5%B0%94%E5%9E%8B%E3%80%81%E6%B5%AE%E7%82%B9%E5%9E%8B%E3%80%81%E5%AD%97%E8%8A%82%E7%B1%BB%E5%9E%8B"><span class="post-toc-text">数据类型-集合、None、布尔型、浮点型、字节类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%9B%86%E5%90%88%EF%BC%88set%EF%BC%89"><span class="post-toc-text">集合（set）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%9B%86%E5%90%88%E7%9A%84%E7%8B%AC%E6%9C%89%E5%8A%9F%E8%83%BD"><span class="post-toc-text">集合的独有功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="post-toc-text">添加元素</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="post-toc-text">删除元素</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%BA%A4%E9%9B%86"><span class="post-toc-text">交集</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%B9%B6%E9%9B%86"><span class="post-toc-text">并集</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%B7%AE%E9%9B%86"><span class="post-toc-text">差集</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%9B%86%E5%90%88%E7%9A%84%E5%85%AC%E5%85%B1%E5%8A%9F%E8%83%BD"><span class="post-toc-text">集合的公共功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E9%95%BF%E5%BA%A6"><span class="post-toc-text">获取长度</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%BE%AA%E7%8E%AF"><span class="post-toc-text">循环</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%8C%85%E5%90%AB"><span class="post-toc-text">包含</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%BB%84%E3%80%81%E9%9B%86%E5%90%88%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2"><span class="post-toc-text">列表、元组、集合的相互转换</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#None%E7%B1%BB%E5%9E%8B"><span class="post-toc-text">None类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%EF%BC%88bool%EF%BC%89"><span class="post-toc-text">布尔类型（bool）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B%EF%BC%88float%EF%BC%89"><span class="post-toc-text">浮点型（float）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E8%8A%82%E7%B1%BB%E5%9E%8B%EF%BC%88bytes%EF%BC%89"><span class="post-toc-text">字节类型（bytes）</span></a></li></ol></li></ol></li></ol>
+        
+        <h1 id="数据类型-集合、None、布尔型、浮点型、字节类型"><a href="#数据类型-集合、None、布尔型、浮点型、字节类型" class="headerlink" title="数据类型-集合、None、布尔型、浮点型、字节类型"></a>数据类型-集合、None、布尔型、浮点型、字节类型</h1><h2 id="集合（set）"><a href="#集合（set）" class="headerlink" title="集合（set）"></a>集合（set）</h2><p>集合是一个无序、可变、元素必须可哈希且元素不重复的容器。</p>
+<p>集合的定义</p>
+<pre><code class="python"># 定义一个空列表、元组或字典有两种方法
+l1 = []
+l1 = list()	# 定义一个空列表
+t1 = ()
+t1 = tuple()# 定义一个空元组
+d1 = &#123;&#125;
+d1 = dict()	# 定义一个空字典
+# 与列表、元组、字典不同，定义一个空集合只有一种方法
+s1 = set()	# 定义一个空集合
+</code></pre>
+<h3 id="集合的独有功能"><a href="#集合的独有功能" class="headerlink" title="集合的独有功能"></a>集合的独有功能</h3><h4 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h4><p>通过<code>set()</code>向集合中添加一个元素，比如：</p>
+<pre><code class="python">s1 = &#123;11,22&#125;
+s1.add(33)	# s1 = &#123;11,22,33&#125;
+</code></pre>
+<h4 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h4><p>通过<code>discard()</code>从集合中删除一个元素，比如：</p>
+<pre><code class="python">s1 = &#123;11,22&#125;
+s1.discard(22)	# s1 = &#123;11&#125;
+s1.discard(44)	# 如果要删除的元素不存在，不会报错
+</code></pre>
+<h4 id="交集"><a href="#交集" class="headerlink" title="交集"></a>交集</h4><p>获取两个集合的交集有两种方式，一种是使用<code>&amp;</code>符号，另一种是通过<code>intersection()</code>获取交集，比如：</p>
+<pre><code class="python">v1 = &#123;1,2,3&#125;
+v2 = &#123;3,4,5&#125;
+# 方式1
+res = v1 &amp; v2	# res = &#123;3&#125;
+# 方式2
+res = v1.intersection(v2)	# res = &#123;3&#125;
+</code></pre>
+<h4 id="并集"><a href="#并集" class="headerlink" title="并集"></a>并集</h4><p>获取两个集合的并集有两种方式，一种是使用<code>|</code>符号，另一种是通过<code>union()</code>获取交集，比如：</p>
+<pre><code class="python">v1 = &#123;1,2,3&#125;
+v2 = &#123;3,4,5&#125;
+# 方式1
+res = v1 | v2	# res = &#123;1,2,3,4,5&#125;
+# 方式2
+res = v1.union(v2)	# res = &#123;1,2,3,4,5&#125;
+</code></pre>
+<h4 id="差集"><a href="#差集" class="headerlink" title="差集"></a>差集</h4><p>获取两个集合的差集有两种方式，一种是使用<code>-</code>符号，另一种是通过<code>difference()</code>获取交集，比如：</p>
+<pre><code class="python">v1 = &#123;1,2,3&#125;
+v2 = &#123;3,4,5&#125;
+# 方式1
+res = v1-v2		# res = &#123;1,2&#125;,v1中有而v2中没有的
+res = v2-v1		# res = &#123;4,5&#125;,v2中有而v1中没有的
+# 方式2
+res = v1.difference(v2)		# res = &#123;1,2&#125;,v1中有而v2中没有的
+res = v2.difference(v1)		# res = &#123;4,5&#125;,v2中有而v1中没有的
+</code></pre>
+<h3 id="集合的公共功能"><a href="#集合的公共功能" class="headerlink" title="集合的公共功能"></a>集合的公共功能</h3><h4 id="获取长度"><a href="#获取长度" class="headerlink" title="获取长度"></a>获取长度</h4><p>通过<code>len()</code>获取集合中元素的个数，比如：</p>
+<pre><code class="python">v1 = &#123;1,2,3&#125;
+len(v1)		# 3
+</code></pre>
+<h4 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h4><p>通过<code>for()</code>循环输出集合中的元素，比如：</p>
+<pre><code class="python">v1 = &#123;1,2,3&#125;
+for item in v1:
+    print(item)		# 无序输出
+</code></pre>
+<h4 id="包含"><a href="#包含" class="headerlink" title="包含"></a>包含</h4><p>通过<code>in</code>判断集合中时候包含某元素（集合中的元素必须是可哈希类型）</p>
+<h4 id="列表、元组、集合的相互转换"><a href="#列表、元组、集合的相互转换" class="headerlink" title="列表、元组、集合的相互转换"></a>列表、元组、集合的相互转换</h4><p>列表、元组或集合可以相互转换，比如：</p>
+<pre><code class="python">v1 = [1,2,3]	# 列表
+v2 = set(v1)	# v2 = &#123;1,2,3&#125; 集合
+# 当元组和列表转换为集合时，会自动去重
+</code></pre>
+<h2 id="None类型"><a href="#None类型" class="headerlink" title="None类型"></a>None类型</h2><p>None表示空值，相当于其他语言中的null</p>
+<h3 id="布尔类型（bool）"><a href="#布尔类型（bool）" class="headerlink" title="布尔类型（bool）"></a>布尔类型（bool）</h3><p>bool类型有两个值：</p>
+<pre><code class="python">True:真
+False:假
+</code></pre>
+<p>很多类型的值都可以转化为<code>bool</code>值，极个别转化为<code>False</code></p>
+<pre><code class="python">0,&quot;&quot;,[],(),&#123;&#125;,set(),None	-&gt; False
+#其他的值转化后都为True
+#所以当if或while后的条件是一个其他类型的值时，会自动转化为bool值
+</code></pre>
+<h2 id="浮点型（float）"><a href="#浮点型（float）" class="headerlink" title="浮点型（float）"></a>浮点型（float）</h2><p>浮点型，就是小数，比如：</p>
+<pre><code class="python">v1 = 9.23
+</code></pre>
+<p>由于计算机底层浮点型的存储原理，有时候获取的值可能不太准确。</p>
+<h3 id="字节类型（bytes）"><a href="#字节类型（bytes）" class="headerlink" title="字节类型（bytes）"></a>字节类型（bytes）</h3><p>字节类型是由字符串类型转化而来的，比如：</p>
+<pre><code class="python">n1 = &quot;常州大学&quot;
+v1 = n1.encode(&quot;utf-8&quot;)	
+# v1 = b&#39;\xe5\xb8\xb8\xe5\xb7\x9e\xe5\xa4\xa7\xe5\xad\xa6&#39;,v1是字节类型，底层是utf-8编码
+v2 = n1.encode(&quot;gbk&quot;)
+# v2 = b&#39;\xb3\xa3\xd6\xdd\xb4\xf3\xd1\xa7&#39;,v2是字节类型，底层是gbk编码
+</code></pre>
+<p>同样的，拿到了字节类型，也可以使用<code>decode()</code>转化为字符串类型，比如：</p>
+<pre><code class="python">v2 = b&#39;\xb3\xa3\xd6\xdd\xb4\xf3\xd1\xa7&#39;
+n1 = v2.decode(&quot;gbk&quot;)	# n1 = &quot;常州大学&quot;
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-15</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/python/'>
+                            python
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+                
+                    / <a href="/contact/"> 联系 </a>
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>去码头搞点薯条</span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>

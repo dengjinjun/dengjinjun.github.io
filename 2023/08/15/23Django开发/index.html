@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Django组件" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Django组件
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Django%E7%BB%84%E4%BB%B6"><span class="post-toc-text">Django组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Form%E7%BB%84%E4%BB%B6"><span class="post-toc-text">Form组件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ModelForm%E7%BB%84%E4%BB%B6"><span class="post-toc-text">ModelForm组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%B7%BB%E5%8A%A0%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="post-toc-text">获取表单数据，添加到数据库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AE%9E%E7%8E%B0%E6%A3%80%E9%AA%8C%E8%A7%84%E5%88%99"><span class="post-toc-text">用正则表达式实现检验规则</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%B3%E4%BA%8E%E6%9F%A5%E8%AF%A2%E8%A7%84%E5%88%99"><span class="post-toc-text">关于查询规则</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%87%E8%83%BD%E7%9A%84"><span class="post-toc-text">万能的__</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%97%B6%E9%97%B4%E6%8E%A7%E4%BB%B6datetimepicker"><span class="post-toc-text">时间控件datetimepicker</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%99%BB%E5%BD%95"><span class="post-toc-text">登录</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Ajax%E8%AF%B7%E6%B1%82"><span class="post-toc-text">Ajax请求</span></a></li></ol></li></ol></li></ol>
+        
+        <h1 id="Django组件"><a href="#Django组件" class="headerlink" title="Django组件"></a>Django组件</h1><p>Django组件包括Form组件和ModelForm组件</p>
+<p>原始方式</p>
+<pre><code>-页面代码冗余
+-获取关联数据操作繁琐
+-用户数据没有校验
+-缺少错误提示
+</code></pre>
+<h2 id="Form组件"><a href="#Form组件" class="headerlink" title="Form组件"></a>Form组件</h2><p>需要在<code>views.py</code> 和  <code>HTML</code>文件中进行操作</p>
+<ul>
+<li><p>views.py</p>
+<pre><code class="python"># 定义一个类，类里面写上字段
+class MyForm(Form):		# 括号里的Form是固定的
+    user = forms.CharField(widget=forms.input)
+    upwd = forms.CharField(widget=forms.input)
+    email = forms.CharField(widget=forms.input)
+
+# 在函数中会用到
+def user_add(request):
+    if request.method == &#39;GET&#39;:
+        form = MyForm()		# 此处用到了上文中的类
+        return render(request, &#39;user_add.html&#39;, &#123;&#39;form&#39;:form&#125;)	# 将form传到HTML文件
+</code></pre>
+</li>
+<li><p>user_add.html</p>
+<pre><code class="html">&lt;form method=&#39;post&#39;&gt;
+    &#123;% for field in form %&#125;		<!--也可以不循环，输入单个字段的input框-->
+      	&#123;&#123; field &#125;&#125;
+      &#123;% endfor %&#125;
+&lt;/form&gt;				&lt;!--这里就将这些字段的input框直接传入了HTML文件--&gt;
+</code></pre>
+</li>
+</ul>
+<h2 id="ModelForm组件"><a href="#ModelForm组件" class="headerlink" title="ModelForm组件"></a>ModelForm组件</h2><p>ModelForm组件比Form组件更加方便</p>
+<ul>
+<li>views.py</li>
+</ul>
+<pre><code class="python"># 这里可以直接将models.py文件中的类继承过来
+class MyForm(forms.ModelForm):	# 括号里的ModelForm是固定的
+    xx = forms.CharField(
+        label=&quot;确认密码&quot;
+        widget=forms.PasswordInput)	# 可以自由添加字段
+    class Meta:
+        model = models.UserInfo	# model = models.py中的类名，即用户表的名字
+        fields = [&quot;name&quot;, &quot;age&quot;, &quot;password&quot;, &quot;xx&quot;]	# 里面是字段名
+        
+# 后面跟Form组件的操作是一样的
+def user_add(request):
+    if request.method == &#39;GET&#39;:
+        form = MyForm()		# 此处用到了上文中的类
+        return render(request, &#39;user_add.html&#39;, &#123;&#39;form&#39;:form&#125;)	# 将form传到HTML文件
+</code></pre>
+<pre><code class="python"># 关于fields,当数据表内字段较多时，可以直接写全部字段
+fields = &quot;__all__&quot;
+# 若是需要获取某个字段之外的其他字段，可以写
+exclude = [&quot;字段名&quot;]
+</code></pre>
+<ul>
+<li>user_add.html</li>
+</ul>
+<pre><code class="html">&lt;form method=&#39;post&#39;&gt;
+    &#123;% for field in form %&#125;		<!--也可以不循环，输入单个字段的input框-->
+    	&#123;&#123; field &#125;&#125;			<!-- 也可以加上字段解释：&#123;&#123;field.label&#125;&#125; ,获取的是verbose-name -->
+    &#123;% endfor %&#125;
+&lt;/form&gt;				&lt;!--这里就将这些字段的input框直接传入了HTML文件--&gt;
+
+&lt;!--输入单个字段的input框--&gt;
+&lt;form method=&#39;post&#39;&gt;		
+    &#123;&#123;form.name.label&#125;&#125;:&#123;&#123;form.name&#125;&#125;
+    &#123;&#123;form.age.label&#125;&#125;:&#123;&#123;form.age&#125;&#125;
+&lt;/form&gt;
+</code></pre>
+<blockquote>
+<p>当获取到的是一个对象时，可以在models.py的类里面定义一个函数，使其返回字符串, 比如：</p>
+<pre><code class="python">def __str__(self):
+   return self.字段名
+</code></pre>
+</blockquote>
+<blockquote>
+<p>给字段输入框加上样式：views.py文件函数后添加</p>
+<pre><code class="python">def __init__(self, *args, **kwargs):
+   super().__init__(*args, **kwargs)
+   for name,field in self.fields.items():
+       field.widget.attrs = &#123;&quot;class&quot;:&quot;form-control&quot;, &quot;placeholder&quot;:field.label&#125;
+</code></pre>
+</blockquote>
+<h3 id="获取表单数据，添加到数据库"><a href="#获取表单数据，添加到数据库" class="headerlink" title="获取表单数据，添加到数据库"></a>获取表单数据，添加到数据库</h3><pre><code class="python">form = MyForm(data=request.POST)
+if form.is_valid():					# 数据校验，成功后放在了字典form.cleaned_data里面
+    form.save()
+    return redirect(&#39;xx/xx/&#39;)
+return render(request, &#39;xx.html&#39;, &#123;&quot;form&quot;:form&#125;)   #失败后，每个错误信息保存在数组field.errors
+</code></pre>
+<pre><code class="python"># 关于form.save,默认保存form中的字段值，即用户输入的字段值，如果想要添加额外的值，可以在前面加上
+form.instance.字段名 = 值
+</code></pre>
+<h3 id="用正则表达式实现检验规则"><a href="#用正则表达式实现检验规则" class="headerlink" title="用正则表达式实现检验规则"></a>用正则表达式实现检验规则</h3><p>首先导入包，才能使用正则表达式</p>
+<pre><code class="python">from django.core.validators import RegexValidator
+</code></pre>
+<p>在ModelForm类中加上</p>
+<pre><code class="python"># 比如手机号字段mobile
+    mobile = forms.CharField(
+        label=&quot;手机号&quot;,
+        validators=[RegexValidator(r&#39;1[3-9]\d&#123;9&#125;$&#39;, &#39;手机号格式错误&#39;)]
+</code></pre>
+<h2 id="关于查询规则"><a href="#关于查询规则" class="headerlink" title="关于查询规则"></a>关于查询规则</h2><pre><code class="python"># filter也支持字典查询，引入字典前要加上两个**
+dict = [&#39;name&#39;:&#39;张三&#39;, &#39;age&#39;:18]
+表名.objects.filter(**dict)
+</code></pre>
+<pre><code class="python"># 除了filter，还可以加上排除条件exclude
+row_obj = 表名.objects.filter(条件).exclude(条件)
+</code></pre>
+<h3 id="万能的"><a href="#万能的" class="headerlink" title="万能的__"></a>万能的<code>__</code></h3><ul>
+<li>数字</li>
+</ul>
+<pre><code class="python">表名.objects.filter(id=12)			# 查询id=12的条目
+表名.objects.filter(id__gt=12)		# 大于12
+表名.objects.filter(id__gte=12)		# 大于等于12
+表名.objects.filter(id__lt=12)		# 小于12
+表名.objects.filter(id__lte=12)		# 小于等于12
+</code></pre>
+<ul>
+<li>字符串</li>
+</ul>
+<pre><code class="python">表名.objects.filter(text=&quot;xx&quot;)				# 查询字段text的值等于xx的条目
+表名.objects.filter(text__startwith=&quot;xx&quot;)		# 以xx开头
+表名.objects.filter(text__endwith=&quot;xx&quot;)		# 以xx结尾
+表名.objects.filter(text__contains=&quot;xx&quot;)		# 包含xx
+</code></pre>
+<h3 id="时间控件datetimepicker"><a href="#时间控件datetimepicker" class="headerlink" title="时间控件datetimepicker"></a>时间控件datetimepicker</h3><p>一些设置</p>
+<pre><code class="javascript">&lt;script type=&quot;text/javascript&quot;&gt;				//年月日时分
+    $(&#39;.form_datetime&#39;).datetimepicker(&#123;		
+        //language:  &#39;fr&#39;,
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    &#125;);
+    $(&#39;.form_date&#39;).datetimepicker(&#123;		//年月日
+        language:  &#39;fr&#39;,
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    &#125;);
+    $(&#39;.form_time&#39;).datetimepicker(&#123;		//时分
+        language:  &#39;fr&#39;,
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 1,
+        minView: 0,
+        maxView: 1,
+        forceParse: 0
+    &#125;);
+&lt;/script&gt;
+</code></pre>
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><p><img src="/assets/image-20230308142715954.png" alt="image-20230308142715954"></p>
+<h3 id="Ajax请求"><a href="#Ajax请求" class="headerlink" title="Ajax请求"></a>Ajax请求</h3><p>浏览器向网站发送请求时，有URL和表单两种形式，分别为Get和Post请求，特点是页面会刷新。</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-15</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/python/'>
+                            python
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+                
+                    / <a href="/contact/"> 联系 </a>
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>去码头搞点薯条</span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
