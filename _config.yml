@@ -103,5 +103,5 @@ theme: A4
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: 'git'
-  repository: https://github.com/dengjinjun/dengjinjun.github.io.git
+  repository: git@github.com:dengjinjun/dengjinjun.github.io.git
   branch: main
