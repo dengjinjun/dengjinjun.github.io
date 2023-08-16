@@ -54,6 +54,6 @@ jobs:
         with:
           token: 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
           repository-name: dengjinjun/dengjinjun.github.io
-          branch: main
+          branch: gh-pages
           folder: public
           commit-message: "${{ github.event.head_commit.message }} Updated By Github Actions"
