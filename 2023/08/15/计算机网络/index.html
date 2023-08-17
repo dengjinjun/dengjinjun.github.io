@@ -155,7 +155,7 @@
 2、发真正的数据
     计算机1的mac地址  网关的mac地址 192.168.10.11/24 202.10.11.13/24 数据部分
 </code></pre>
-<p>​	<img src="/2023/08/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/Users\dengp\AppData\Roaming\Typora\typora-user-images\image-20230804010452994.png" alt="image-20230804010452994">		</p>
+<p>​	<img src="C:\Users\dengp\AppData\Roaming\Typora\typora-user-images\image-20230804010452994.png" alt="image-20230804010452994">		</p>
 <h1 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h1><p>TCP连接经过三次握手，断开经过四次挥手。初始阶段服务器处于<code>LISTEN</code>状态(监听状态)。</p>
 <h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><ul>
 <li><p>第一次握手</p>
@@ -182,7 +182,7 @@
 <p>客户端收到服务器的最后的确认断开请求之后，处于<code>TIME_WAIT</code>状态，向服务器发送数据包：<code>ack=1</code>，表示确认断开。服务器收到数据包之后，正式断开连接。</p>
 </li>
 </ul>
-<p><img src="/2023/08/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20230805233826613.png" alt="image-20230805233826613"></p>
+<p><img src="/index/index/image-20230805233826613.png"></p>
 <h4 id="backlog半连接池"><a href="#backlog半连接池" class="headerlink" title="backlog半连接池"></a>backlog半连接池</h4><p>半连接池是存在与服务端的一个缓存空间，所有来自客户端的建立连接的初次请求都会存放到半连接池中，服务端从半连接池中获取客户端的请求，然后发送确认连接的数据包。半连接池的空间大小很重要，更大的空间能够抵御洪水SYN攻击，洪水SYN攻击即是第三方模拟大量的客户端发送请求的场景，从而撑满服务端的半连接池，服务端向这些模拟客户端发送确认请求的数据包，模拟客户端并不会给予回应。导致正常的客户端请求无法进入半连接池，显示无法访问。</p>
 <h4 id="TCP协议会为什么称为可靠的协议"><a href="#TCP协议会为什么称为可靠的协议" class="headerlink" title="TCP协议会为什么称为可靠的协议"></a>TCP协议会为什么称为可靠的协议</h4><ul>
 <li><p>序列号和确认机制</p>
