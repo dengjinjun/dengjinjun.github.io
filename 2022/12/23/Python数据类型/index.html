@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Python数据类型" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Python数据类型
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%88str%EF%BC%89"><span class="post-toc-text">数据类型-字符串（str）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%B8%80%E8%8A%82-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E7%8B%AC%E6%9C%89%E5%8A%9F%E8%83%BD"><span class="post-toc-text">第一节 字符串的独有功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%A4%A7%E5%B0%8F%E5%86%99%E5%8A%9F%E8%83%BD"><span class="post-toc-text">大小写功能</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E8%BD%AC%E5%8C%96%E4%B8%BA%E6%95%B4%E5%9E%8B"><span class="post-toc-text">判断字符串是否可以转化为整型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%98%AF%E5%90%A6%E4%BB%A5%E2%80%9Dxx%E2%80%9C%E5%BC%80%E5%A4%B4%E6%88%96%E2%80%9Dxx%E2%80%9C%E7%BB%93%E5%B0%BE"><span class="post-toc-text">判断字符串是否以”xx“开头或”xx“结尾</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8E%BB%E9%99%A4%E7%A9%BA%E7%99%BD"><span class="post-toc-text">去除空白</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9B%BF%E6%8D%A2%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E9%83%A8%E5%88%86%E5%86%85%E5%AE%B9"><span class="post-toc-text">替换字符串中的部分内容</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%87%E5%89%B2%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="post-toc-text">切割字符串</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="post-toc-text">字符串拼接的三种方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E5%AD%97%E8%8A%82%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%BD%AC%E5%8C%96"><span class="post-toc-text">字符串和字节类型的转化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%95%BF%E5%BA%A6%E7%9A%84%E8%A1%A5%E8%B6%B3"><span class="post-toc-text">字符串长度的补足</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B7%A6%E8%BE%B9%E8%A1%A50"><span class="post-toc-text">字符串左边补0</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%BA%8C%E8%8A%82-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%85%AC%E5%85%B1%E5%8A%9F%E8%83%BD"><span class="post-toc-text">第二节 字符串的公共功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E9%95%BF%E5%BA%A6"><span class="post-toc-text">获取长度</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E7%B4%A2%E5%BC%95"><span class="post-toc-text">字符串的索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%B0%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%87%E7%89%87"><span class="post-toc-text">将字符串切片</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BE%AA%E7%8E%AF%E8%BE%93%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="post-toc-text">循环输出字符串</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8C%85%E5%90%AB"><span class="post-toc-text">包含</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E5%88%97%E8%A1%A8-list"><span class="post-toc-text">数据类型-列表(list)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%B8%80%E8%8A%82-%E5%88%97%E8%A1%A8%E7%9A%84%E7%8B%AC%E6%9C%89%E5%8A%9F%E8%83%BD"><span class="post-toc-text">第一节 列表的独有功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%BF%BD%E5%8A%A0"><span class="post-toc-text">追加</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%8F%92%E5%85%A5"><span class="post-toc-text">插入</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%A0%E9%99%A4"><span class="post-toc-text">删除</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%87%BA%E5%88%97"><span class="post-toc-text">出列</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B8%85%E7%A9%BA%E5%88%97%E8%A1%A8"><span class="post-toc-text">清空列表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%8E%92%E5%BA%8F"><span class="post-toc-text">排序</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%BA%8C%E8%8A%82-%E5%88%97%E8%A1%A8%E7%9A%84%E5%85%AC%E5%85%B1%E5%8A%9F%E8%83%BD"><span class="post-toc-text">第二节 列表的公共功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E9%95%BF%E5%BA%A6-1"><span class="post-toc-text">获取长度</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%97%E8%A1%A8%E7%9A%84%E7%B4%A2%E5%BC%95"><span class="post-toc-text">列表的索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%87%E7%89%87"><span class="post-toc-text">切片</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BE%AA%E7%8E%AF%E8%BE%93%E5%87%BA%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0"><span class="post-toc-text">循环输出列表元素</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8C%85%E5%90%AB-1"><span class="post-toc-text">包含</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F"><span class="post-toc-text">列表推导式</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E5%85%83%E7%BB%84%EF%BC%88tuple%EF%BC%89"><span class="post-toc-text">数据类型-元组（tuple）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%B8%80%E8%8A%82-%E5%85%83%E7%BB%84%E7%9A%84%E7%8B%AC%E6%9C%89%E5%8A%9F%E8%83%BD"><span class="post-toc-text">第一节 元组的独有功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%BA%8C%E8%8A%82-%E5%85%83%E7%BB%84%E7%9A%84%E5%85%AC%E5%85%B1%E5%8A%9F%E8%83%BD"><span class="post-toc-text">第二节 元组的公共功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E5%85%83%E7%BB%84%E9%95%BF%E5%BA%A6"><span class="post-toc-text">获取元组长度</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%B4%A2%E5%BC%95"><span class="post-toc-text">索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%87%E7%89%87-1"><span class="post-toc-text">切片</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BE%AA%E7%8E%AF"><span class="post-toc-text">循环</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8C%85%E5%90%AB-2"><span class="post-toc-text">包含</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E5%AD%97%E5%85%B8%EF%BC%88dict"><span class="post-toc-text">数据类型-字典（dict)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%B8%80%E8%8A%82-%E5%AD%97%E5%85%B8%E7%9A%84%E7%8B%AC%E6%9C%89%E5%8A%9F%E8%83%BD"><span class="post-toc-text">第一节 字典的独有功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%80%9A%E8%BF%87%E9%94%AE%E5%90%8D%E8%8E%B7%E5%8F%96%E5%80%BC"><span class="post-toc-text">通过键名获取值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E9%94%AE"><span class="post-toc-text">获取所有键</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%80%BC"><span class="post-toc-text">获取所有值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E9%94%AE%E5%80%BC%E5%AF%B9"><span class="post-toc-text">获取所有键值对</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%BA%8C%E8%8A%82-%E5%AD%97%E5%85%B8%E7%9A%84%E5%85%AC%E5%85%B1%E5%8A%9F%E8%83%BD"><span class="post-toc-text">第二节 字典的公共功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E9%95%BF%E5%BA%A6-2"><span class="post-toc-text">获取长度</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%B4%A2%E5%BC%95-1"><span class="post-toc-text">索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BE%AA%E7%8E%AF-1"><span class="post-toc-text">循环</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8C%85%E5%90%AB-3"><span class="post-toc-text">包含</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AD%97%E5%85%B8%E6%8E%A8%E5%AF%BC%E5%BC%8F"><span class="post-toc-text">字典推导式</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E5%85%B6%E4%BB%96"><span class="post-toc-text">数据类型-其他</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%9B%86%E5%90%88%EF%BC%88set%EF%BC%89"><span class="post-toc-text">集合（set）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%9B%86%E5%90%88%E7%9A%84%E7%8B%AC%E6%9C%89%E5%8A%9F%E8%83%BD"><span class="post-toc-text">集合的独有功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="post-toc-text">添加元素</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="post-toc-text">删除元素</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%BA%A4%E9%9B%86"><span class="post-toc-text">交集</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%B9%B6%E9%9B%86"><span class="post-toc-text">并集</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%B7%AE%E9%9B%86"><span class="post-toc-text">差集</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%9B%86%E5%90%88%E7%9A%84%E5%85%AC%E5%85%B1%E5%8A%9F%E8%83%BD"><span class="post-toc-text">集合的公共功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E9%95%BF%E5%BA%A6-3"><span class="post-toc-text">获取长度</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%BE%AA%E7%8E%AF-2"><span class="post-toc-text">循环</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%8C%85%E5%90%AB-4"><span class="post-toc-text">包含</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%BB%84%E3%80%81%E9%9B%86%E5%90%88%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2"><span class="post-toc-text">列表、元组、集合的相互转换</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#None%E7%B1%BB%E5%9E%8B"><span class="post-toc-text">None类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%EF%BC%88bool%EF%BC%89"><span class="post-toc-text">布尔类型（bool）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B%EF%BC%88float%EF%BC%89"><span class="post-toc-text">浮点型（float）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E8%8A%82%E7%B1%BB%E5%9E%8B%EF%BC%88bytes%EF%BC%89"><span class="post-toc-text">字节类型（bytes）</span></a></li></ol></li></ol></li></ol>
+        
+        <h1 id="数据类型-字符串（str）"><a href="#数据类型-字符串（str）" class="headerlink" title="数据类型-字符串（str）"></a>数据类型-字符串（str）</h1><p>字符串是一个不可变类型。</p>
+<p>字符串用一对双引号或一对单引号作为开头和结尾，只能表示单行的字符串,之所以可以用单引号或双引号是为了当字符串里面出现单引号或双引号时出现歧义，用三对双引号或三对单引号表示多行的字符串。</p>
+<pre><code class="python">单行文本
+&#39;字符串&#39;
+&quot;字符串&quot;
+多行文本
+&quot;&quot;&quot;字符串&quot;&quot;&quot;
+&#39;&#39;&#39;
+字
+符
+串
+&#39;&#39;&#39;
+</code></pre>
+<p>字符串乘以数字，表示让字符串重复多少次</p>
+<pre><code class="python">print(&#39;6&#39;*3)	#666
+</code></pre>
+<p>部分整型和字符串可以相互转换，比如</p>
+<pre><code class="python">str(19)			把整型数据类型19转换成字符串类型
+int(&#39;19&#39;)		把字符串类型的19转换成整型
+int(&#39;字符串&#39;)		这样的无法转换
+</code></pre>
+<h2 id="第一节-字符串的独有功能"><a href="#第一节-字符串的独有功能" class="headerlink" title="第一节 字符串的独有功能"></a>第一节 字符串的独有功能</h2><p>字符串类型具有独有的功能，使用方法有两种,比如字符串<code>n1 = &quot;root&quot;</code>，①<code>n1.功能名()</code>	②<code>&quot;root&quot;.功能名()</code></p>
+<h3 id="大小写功能"><a href="#大小写功能" class="headerlink" title="大小写功能"></a>大小写功能</h3><p>  英文字符串可以使用<code>upper()</code>可以使之转化为大写，使用<code>lower()</code>使之转化为小写，比如：</p>
+<pre><code class="python">n1 = root
+n2 = WHERE
+n3 = n1.upper()	 # n3是一个新的字符串，n3 = UPPER
+n4 = n2.lower()	 # n4是一个新的字符串，n4 = where
+</code></pre>
+<h3 id="判断字符串是否可以转化为整型"><a href="#判断字符串是否可以转化为整型" class="headerlink" title="判断字符串是否可以转化为整型"></a>判断字符串是否可以转化为整型</h3><p>​	使用<code>isdecimal()</code>可以判断一个字符串是否可以转化为整型，结果会得到一个布尔值，比如：</p>
+<pre><code class="python">n1 = &quot;123&quot;
+n2 = &quot;张三&quot;
+b1 = n1.isdecimal()	#b1 = True
+b2 = n2.isdecimal()	#b2 = False
+</code></pre>
+<h3 id="判断字符串是否以”xx“开头或”xx“结尾"><a href="#判断字符串是否以”xx“开头或”xx“结尾" class="headerlink" title="判断字符串是否以”xx“开头或”xx“结尾"></a>判断字符串是否以”xx“开头或”xx“结尾</h3><p>​	使用<code>startswith()</code>判断是否以某字符串开头，使用<code>endwith()</code>判断是否以某字符串结尾</p>
+<pre><code class="python">n1 = &quot;中华人民共和国&quot;
+b1 = n1.startswith(&quot;中华&quot;)	#b1 = True
+b2 = n1.endswith(&quot;中华&quot;)	#b2 = False
+</code></pre>
+<h3 id="去除空白"><a href="#去除空白" class="headerlink" title="去除空白"></a>去除空白</h3><p>​	空白是指空格、回车、制表符，使用<code>strip()</code>去除左右两边的空白，使用<code>lstrip()</code>和<code>rstrip()</code>分别去除左边和右边的空白，上述三种方法并不能去除字符串中间的空白。</p>
+<pre><code class="python">n1 = &quot; 台湾省 &quot;
+v1 = n1.strip()		#v1 = &quot;台湾省&quot;
+v2 = n1.lstrip()	#v2 = &quot;台湾省 &quot;
+v3 = n1.rstrip()	#v3 = &quot; 台湾省&quot;
+</code></pre>
+<h3 id="替换字符串中的部分内容"><a href="#替换字符串中的部分内容" class="headerlink" title="替换字符串中的部分内容"></a>替换字符串中的部分内容</h3><p>​	使用<code>replace()</code>将字符串中的部分内容替换为另一部分内容</p>
+<pre><code class="python">n1 = &quot;常州大学西太湖校区&quot;
+n2 = n1.replace(&quot;西太湖&quot;,&quot;武进&quot;)		#n2 = &quot;常州大学武进校区&quot;
+</code></pre>
+<h3 id="切割字符串"><a href="#切割字符串" class="headerlink" title="切割字符串"></a>切割字符串</h3><p>​	使用<code>split()</code>将字符串切割为几个部分,切割后得到的是一个列表，通过索引来获取各个切割后的各个部分</p>
+<pre><code class="python">campu_name = &quot;常州大学-西太湖校区&quot;
+name_list = campu_list.split(&quot;-&quot;)	#name_list = [ &quot;常州大学&quot; , &quot;西太湖校区&quot; ]
+name_list[0]						#&quot;常州大学&quot;
+name_list[1]						#&quot;西太湖校区&quot;
+</code></pre>
+<h3 id="字符串拼接的三种方法"><a href="#字符串拼接的三种方法" class="headerlink" title="字符串拼接的三种方法"></a>字符串拼接的三种方法</h3><p>将多个字符串拼接起来有三种方法：①通过<code>&quot;+&quot;</code>	②字符串格式化	③通过<code>join()</code></p>
+<ul>
+<li>通过<code>&quot;+&quot;</code></li>
+</ul>
+<pre><code class="python">n1 = &quot;常州大学西太湖校区&quot;
+n2 = &quot;常州大学&quot;+&quot;西太湖校区&quot;		#n2 = &quot;常州大学西太湖校区&quot;
+</code></pre>
+<ul>
+<li><p>字符串格式化</p>
+<ul>
+<li><p>使用<code>format()</code>（推荐）</p>
+<p>在一个字符串中使用{}代表了一个占位符，在字符串后面加上<code>.format()</code>可以传入其他字符串到占位符里，比如</p>
+<pre><code class="python">text=&quot;我是&#123;0&#125;，今年&#123;1&#125;岁&quot;.format(&quot;邓金俊&quot;,22)
+#text=我是邓金俊，今年22岁
+</code></pre>
+<p>也可以不使用0，1的序号，那么<code>format()</code>里面的字符串将会按顺序传入占位符里，比如</p>
+<pre><code class="python">text=&quot;我是&#123;0&#125;，今年&#123;1&#125;岁&quot;.format(&quot;邓金俊&quot;,22)
+#text=我是邓金俊，今年22岁
+</code></pre>
+<p>可以不使用0，1的序号，而是在<code>format()</code>里面给进行替换的字符串命名，使用变量名来指代字符	串，比如</p>
+<pre><code class="python">text=&quot;我是&#123;name&#125;，今年&#123;age&#125;岁&quot;.format(name=&quot;邓金俊&quot;,age=22)
+#text=我是邓金俊，今年22岁
+</code></pre>
+<p>字符串可以重用，比如</p>
+<pre><code class="python">text = &quot;我是&#123;0&#125;，今年&#123;1&#125;岁&quot;
+text1 = text.format(&quot;张三&quot;, 13)	#text1=我是张三，今年13岁
+text2 = text.format(&quot;李四&quot;, 14)	#text2=我是李四，今年14岁
+</code></pre>
+</li>
+<li><p>使用<code>%</code></p>
+<p>在一个字符串中使用<code>%</code>代表占位符，在字符串后面使用空格加上一个<code>%</code>可以传入其他字符串到占位符里。<code>%s</code>、<code>%d</code>分别代表一个字符串和一个整型的占位符，与C语言中相似，比如：</p>
+<pre><code class="python">text=&quot;我是%s，今年%d岁&quot; %(&quot;邓金俊&quot;,22)
+#text=我是邓金俊，今年22岁
+</code></pre>
+<p>字符串按顺序传入，与<code>format()</code>的用法相似，也可以进行字符串的重用</p>
+</li>
+<li><p>使用<code>f-string</code></p>
+<p>预先给字符串命名，需要传入字符串时再使用{}传入，字符串前要加上<code>f</code>。<code>f-string</code>是Python3.6版本后才出现的用法,比如:</p>
+<pre><code class="python">name=&quot;邓金俊&quot;
+age=22
+text=f&quot;我是&#123;name&#125;，今年&#123;age&#125;岁&quot;
+#text=我是邓金俊，今年22岁
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>通过<code>join()</code>将列表中的字符串拼接起来</p>
+<p>列表中必须全部都是字符串，通过任意符号将所有字符串按顺序连接，比如：</p>
+<pre><code class="python">name_list = [ &quot;张三&quot; , &quot;李四&quot; , &quot;王五&quot; ]
+n1 = &quot;和&quot;.join(name_list)	# n1 = &quot;张三和李四和王五&quot;
+n2 = &quot;&quot;.join(name_list)		# n2 = &quot;张三李四王五&quot; 
+</code></pre>
+</li>
+</ul>
+<h3 id="字符串和字节类型的转化"><a href="#字符串和字节类型的转化" class="headerlink" title="字符串和字节类型的转化"></a>字符串和字节类型的转化</h3><p>​	python中默认使用的是unicode方式编码的字符串类型，可以使用<code>encode()</code>将字符串类型转化为字节类型，使用<code>decode()</code>将字节类型转化为字符串类型，比如：</p>
+<pre><code class="python">n1 = &quot;常州大学&quot;
+v1 = n1.encode(&quot;utf-8&quot;)	# 此时v1是字节类型，v1 = b&#39;\xe5\xb8\……\xa6&#39;,b&#39;表示是字节类型
+n2 = v1.decode(&quot;utf-8&quot;)	# 此时v2是字符串类型，v2 = &quot;常州大学&quot;
+</code></pre>
+<h3 id="字符串长度的补足"><a href="#字符串长度的补足" class="headerlink" title="字符串长度的补足"></a>字符串长度的补足</h3><p>​	当需要将字符串的长度未达到预设的长度时，可以使用<code>center()</code>、<code>ljust()</code>、<code>rjust()</code>对字符串长度进行补足，括号里放预设的长度和任意的填充符，<code>center()</code>是将字符串放到填充符的中间，<code>ljust()</code>和<code>rjust()</code>是将字符串放到填充符的左边和右边，比如：</p>
+<pre><code class="python">n1 = &quot;常州大学&quot;
+v1 = n1.center(13,&quot;-&quot;)	# v1 = -----常州大学----
+v2 = n1.ljust(13,&quot;*&quot;)	# v2 = 常州大学*********
+v3 = n1.rjust(13,&quot; &quot;)	# v3 =          常州大学
+</code></pre>
+<h3 id="字符串左边补0"><a href="#字符串左边补0" class="headerlink" title="字符串左边补0"></a>字符串左边补0</h3><p>​	使用<code>zfill()</code>在字符串的左边进行补0，直到达到预设长度，是<code>ljust()</code>的子集用法，常用于二进制字符串</p>
+<pre><code class="python">data = &quot;01101&quot;
+v1 = data.zfill(8)	# v1 = &quot;00001101&quot;
+</code></pre>
+<h2 id="第二节-字符串的公共功能"><a href="#第二节-字符串的公共功能" class="headerlink" title="第二节 字符串的公共功能"></a>第二节 字符串的公共功能</h2><h3 id="获取长度"><a href="#获取长度" class="headerlink" title="获取长度"></a>获取长度</h3><p>​	使用<code>len()</code>获取字符串长度，比如：</p>
+<pre><code class="python">name = &quot;百里守约&quot;
+l1 = len(name)	# l1= 4
+text = &quot;紫霞仙子yyds&quot;
+l2 = len(text) # l2 = 8
+</code></pre>
+<h3 id="字符串的索引"><a href="#字符串的索引" class="headerlink" title="字符串的索引"></a>字符串的索引</h3><p>字符串的每个字符都有索引，通过字符串名称+[]获取，比如：</p>
+<pre><code class="python">
+text = &quot;常州大学西太湖校区&quot;
+#       0 1 23 4 56 7 8	一共9个字符
+# 也可以从后往前      -2-1
+text[0] # &quot;常&quot;
+text[4] # &quot;西&quot;
+text[-1]# &quot;区&quot;
+text[9] # 报错
+</code></pre>
+<h3 id="将字符串切片"><a href="#将字符串切片" class="headerlink" title="将字符串切片"></a>将字符串切片</h3><p>通过字符串每个字符的索引，可以截取一部分字符串，通过text[索引号:索引号]获取，比如：</p>
+<pre><code class="python">text = &quot;常州大学西太湖校区&quot;
+#       0 1 23 4 56 7 8	一共9个字符
+# 也可以从后往前      -2-1
+text[0:7] # &quot;常州大学西太湖&quot; 从第一个索引号开始，取到第二个索引号的前一位
+text[4:7] # &quot;西太湖&quot;
+text[0:-2]# &quot;常州大学西太湖&quot;	也可以按照从后往前的索引号
+text[4:]  # &quot;西太湖校区&quot;	省略第二个索引号，直接截取剩余全部
+text[:-1] # &quot;常州大学西太湖校&quot;	省略第一个索引号，从第一个字符开始截取
+text[:]   # &quot;常州大学西太湖校区&quot;	两个索引号都省略，截取全部字符串
+
+#注意事项：1.索引号是从0开始计数的	2.前取后不取
+</code></pre>
+<h3 id="循环输出字符串"><a href="#循环输出字符串" class="headerlink" title="循环输出字符串"></a>循环输出字符串</h3><p>将字符串中的单个字符循环输出，两种方式，一种是通过字符索引+<code>while</code>循环，另一种是通过<code>for</code>循环，比如：</p>
+<pre><code class="python">data = &quot;123456&quot;
+for item in data:
+    print(item)
+# 1	 2	3	4	5	6
+# item并不是关键字，而是一个普通变量名，可替换
+</code></pre>
+<h3 id="包含"><a href="#包含" class="headerlink" title="包含"></a>包含</h3><p>使用<code>in</code>判断字符串中是否包含某个字符串，比如：</p>
+<pre><code class="python">text = &quot;常州大学西太湖校区&quot;
+if &quot;常州大学&quot; in text:	# True
+    pass
+</code></pre>
+<h1 id="数据类型-列表-list"><a href="#数据类型-列表-list" class="headerlink" title="数据类型-列表(list)"></a>数据类型-列表(list)</h1><p>列表是一个有序且可变的容器，里面的元素可以是不同的数据类型。</p>
+<p>与字符串不同的是，列表是可变类型，绝大部分的功能都是对原列表进行操作。</p>
+<h2 id="第一节-列表的独有功能"><a href="#第一节-列表的独有功能" class="headerlink" title="第一节 列表的独有功能"></a>第一节 列表的独有功能</h2><h3 id="追加"><a href="#追加" class="headerlink" title="追加"></a>追加</h3><p>通过<code>append()</code>在列表末尾追加一个元素，括号中是要追加的元素或者变量名，比如：</p>
+<pre><code class="python">list1 = [1,2,3]
+list2 = list1.append(55)	#list2 = [1,2,3,55]
+</code></pre>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>通过<code>insert()</code>在列表中任意位置插入一个元素，括号中是索引值和要追加的元素，比如：</p>
+<pre><code class="python">list1 = [&quot;张三&quot;,&quot;李四&quot;,3,True]
+list1.insert(2,&quot;常州大学&quot;)	# list1:[&quot;张三&quot;,&quot;李四&quot;,&quot;常州大学&quot;,3,True]
+#要插入的位置如果已经存在元素，则向后顺延
+</code></pre>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>删除有两种方式，一种是<code>remove()</code>通过元素值在列表中删除一个元素，比如：</p>
+<pre><code class="python">list1 = [&quot;张三&quot;,&quot;李四&quot;,3,True]
+list1.remove(&quot;3&quot;)	# list1:[&quot;张三&quot;,&quot;李四&quot;,True]
+#如果列表中存在多个相同元素，则只会删除索引值从小到大起的第一个
+#如果列表中不存在括号中的元素，则会报错
+</code></pre>
+<p>另一种是<code>del</code>，通过索引值在列表中删除一个元素，比如：</p>
+<pre><code class="python">list1 = [&quot;张三&quot;,&quot;李四&quot;,3,True]
+del list1[2]	# list1:[&quot;张三&quot;,&quot;李四&quot;,True]
+</code></pre>
+<h3 id="出列"><a href="#出列" class="headerlink" title="出列"></a>出列</h3><p>通过<code>pop()</code>在列表中获取到一个元素，该元素在列表中移出，括号中是索引值，比如：</p>
+<pre><code class="python">list1 = [&quot;张三&quot;,&quot;李四&quot;,3,True]
+data = list1.pop(2)	# data = 3	list1:[&quot;张三&quot;,&quot;李四&quot;,True]
+</code></pre>
+<h3 id="清空列表"><a href="#清空列表" class="headerlink" title="清空列表"></a>清空列表</h3><p>通过<code>clear()</code>清空列表中的所有元素，比如：</p>
+<pre><code class="python">list1 = [&quot;张三&quot;,&quot;李四&quot;,3,True]
+list1.clear()	# list1:[]
+</code></pre>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>通过<code>sort()</code>将列表中的元素进行排序，比如：</p>
+<pre><code class="python">list1 = [&quot;3&quot;,&quot;1&quot;,&quot;8&quot;]
+list1.sort()			# [&quot;1&quot;,&quot;3&quot;,&quot;8&quot;] sort默认是从小到大排序
+list.sort(reverse=True)	# [&quot;8&quot;,&quot;3&quot;,&quot;1&quot;] 括号中填入reverse=True，会逆序排序
+# 只能对列表进行排序，且是在原列表的基础上排序
+# 当列表中的元素是字符串时，会按照首个字符的Unicode编码顺序排列
+</code></pre>
+<h2 id="第二节-列表的公共功能"><a href="#第二节-列表的公共功能" class="headerlink" title="第二节 列表的公共功能"></a>第二节 列表的公共功能</h2><h3 id="获取长度-1"><a href="#获取长度-1" class="headerlink" title="获取长度"></a>获取长度</h3><p>通过<code>len()</code>获取列表的长度，即列表中元素的个数，比如：</p>
+<pre><code class="python">list1 = [&quot;3&quot;,&quot;1&quot;,&quot;8&quot;]
+len(list1)	#3
+</code></pre>
+<h3 id="列表的索引"><a href="#列表的索引" class="headerlink" title="列表的索引"></a>列表的索引</h3><p>列表中的元素同样对应索引值，从<code>0</code>开始，也可以从后往前取，从<code>-1</code>开始。</p>
+<p>通过索引值可以对列表中的元素进行获取，修改和删除。</p>
+<p>列表可以嵌套，即列表中的元素可以是一个列表，子列表中的每一个元素同样具有独立的索引值</p>
+<h3 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h3><p>与字符串中的切片功能类似，通过两个索引值，截取列表中的部分元素，比如：</p>
+<pre><code class="python">list1 = [&quot;张三&quot;,&quot;李四&quot;,3,True]
+list1[1:3]	#[&quot;李四&quot;,3] 前取后不取
+list1[1:-1] #[&quot;李四&quot;,3] 也可以根据负数索引值
+list1[:]	#[&quot;张三&quot;,&quot;李四&quot;,3,True] 省略两个索引值，截取全部字符串
+list1[1:]	#[&quot;李四&quot;,3,True] 省略第二个索引值，截取剩余的全部元素
+list1[:2]	#[&quot;张三&quot;,&quot;李四&quot;,] 省略第一个索引值，从第一个元素开始截取
+</code></pre>
+<p>对拿到的切片列表可以进行修改，比如：</p>
+<pre><code class="python">list1 = [&quot;张三&quot;,&quot;李四&quot;,3]
+list1[0:2] = [1,2]
+print(list1)	# [1, 2, 3]
+</code></pre>
+<p>也可以对拿到的切片列表进行删除，比如：</p>
+<pre><code class="python">list1 = [&quot;张三&quot;,&quot;李四&quot;,3]
+del list1[0:2]
+print(list1)	# [3]
+</code></pre>
+<h3 id="循环输出列表元素"><a href="#循环输出列表元素" class="headerlink" title="循环输出列表元素"></a>循环输出列表元素</h3><p>使用<code>for</code>可以循环输出列表元素，具有与字符串同样的操作：</p>
+<pre><code class="python">data_list = [11,22,33,44]
+for item in data:
+    print(item)
+# 11   22	33	44
+</code></pre>
+<h3 id="包含-1"><a href="#包含-1" class="headerlink" title="包含"></a>包含</h3><p>使用<code>in</code>判断列表中是否包含某个元素。</p>
+<h2 id="列表推导式"><a href="#列表推导式" class="headerlink" title="列表推导式"></a>列表推导式</h2><p>python中提供了简便的语法，用一行代码生成列表、字典中的多个元素。</p>
+<p>这是一个完整的推导式，括号内有三个部分，第一个部分是每次要生成的元素，第二个部分是生成元素的次数，第三个部分是元素需要满足的条件</p>
+<pre><code class="python">data_list = [i for i in range(101) if i &gt; 10]	# 大于10的100以内的整数
+# [11,12,13,……,100]
+</code></pre>
+<pre><code class="python">data_list = [i for i in range(101)]	# 100以内的整数
+# [1,2,3,……,100]
+</code></pre>
+<pre><code class="python">data_list = [3 for i in range(101)]	# 第一部分可以是任意数据类型
+# [3,3,3,……,3] 循环100次，100个3
+</code></pre>
+<pre><code class="python">data_list = [[1,2] for i in range(101)]	# 第一部分可以是任意数据类型
+# [[1,2],[1,2],[1,2],……[1,2]] 循环100次，100个[1,2]
+</code></pre>
+<pre><code class="python">data_list = [&quot;位序为&#123;&#125;&quot;。format(i) for i in range(101)]	# 第一部分也可以是表达式
+# [&quot;位序为1&quot;，&quot;位序为2&quot;，&quot;位序为3&quot;,……,&quot;位序为100&quot;]
+</code></pre>
+<pre><code class="python">data_list = [11,&quot;cczu&quot;,&#123;1,2,&#125;,34,True]
+result = [item,for item in data_list if type(item)==int]	# [11, 34]
+</code></pre>
+<h1 id="数据类型-元组（tuple）"><a href="#数据类型-元组（tuple）" class="headerlink" title="数据类型-元组（tuple）"></a>数据类型-元组（tuple）</h1><p>元组是一个有序且不可变的容器，元素可以是不同的数据类型。</p>
+<p>元组可以嵌套，但元组定义之后，元组的个数不能修改，元组中的元素也不能修改。比如：</p>
+<pre><code class="python">v1 = (1,&quot;python&quot;,True,(1,2),[1])
+</code></pre>
+<p>但是，元组中的元素中的元素可以修改，比如元组中的列表中的元素可以修改，比如：</p>
+<pre><code class="python">v1 = (1,&quot;python&quot;,True,(1,2),[1])
+v1[-1][0]=11	# v1 = v1 = (1,&quot;python&quot;,True,(1,2),[11]) 
+# 可以理解为，元组中的元素的内存地址不能改变，但该元素自身可以发生改变
+</code></pre>
+<p>注意事项：如果括号中只有一个元素，且尾部没有逗号，则它不是元组，而是去除括号之后的值。比如：</p>
+<pre><code class="python">v1 = (666,)	#是元组
+v2 = (666)	#不是元组，v2 = 666
+</code></pre>
+<h2 id="第一节-元组的独有功能"><a href="#第一节-元组的独有功能" class="headerlink" title="第一节 元组的独有功能"></a>第一节 元组的独有功能</h2><p>无</p>
+<h2 id="第二节-元组的公共功能"><a href="#第二节-元组的公共功能" class="headerlink" title="第二节 元组的公共功能"></a>第二节 元组的公共功能</h2><h3 id="获取元组长度"><a href="#获取元组长度" class="headerlink" title="获取元组长度"></a>获取元组长度</h3><p>通过<code>len()</code>获取元组中元素的个数。比如：</p>
+<pre><code class="python">v1 = (1,&quot;python&quot;,True,(1,2),[1])
+len(v1)	# 5
+</code></pre>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p>元组中的元素同样具有索引值，但是不能删除和修改，只能读取。比如：</p>
+<pre><code class="python">v1 = (1,&quot;python&quot;,True,(1,2),[1])
+v2 = v1[1]	# v2 = &quot;python&quot;
+</code></pre>
+<h3 id="切片-1"><a href="#切片-1" class="headerlink" title="切片"></a>切片</h3><p>通过索引值，可以获取元组中的部分元素。比如：</p>
+<pre><code class="python">v1 = (1,&quot;python&quot;,True,(1,2),[1])
+v2 = v1[1:3]	# v2 = (&quot;python&quot;,True)
+# 索引从0开始，前取后不取
+</code></pre>
+<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><p>通过<code>for()</code>循环输出元组内的元素，比如：</p>
+<pre><code class="python">v1 = (1,&quot;python&quot;,True,(1,2),[1])
+for item in v1:
+    print(item)
+</code></pre>
+<h3 id="包含-2"><a href="#包含-2" class="headerlink" title="包含"></a>包含</h3><p>使用<code>in</code>判断元组中是否包含某个元素。</p>
+<h1 id="数据类型-字典（dict"><a href="#数据类型-字典（dict" class="headerlink" title="数据类型-字典（dict)"></a>数据类型-字典（dict)</h1><p>字典是一个元素只能是键值对且键不重复的可变的容器。（<code>python3.6</code>之前字典中的元素是无序的）比如：</p>
+<pre><code class="python">info = &#123;&quot;k1&quot;:123,&quot;k2&quot;:456&#125;	# 里面的元素称为键值对
+# 如果键重复，数据将会覆盖
+</code></pre>
+<p>键必须是可哈希类型：</p>
+<pre><code class="python">int bool str tuple	# 可哈希类型
+list dict			# 不可哈希类型，即字典和列表不可作为键名
+</code></pre>
+<h2 id="第一节-字典的独有功能"><a href="#第一节-字典的独有功能" class="headerlink" title="第一节 字典的独有功能"></a>第一节 字典的独有功能</h2><h3 id="通过键名获取值"><a href="#通过键名获取值" class="headerlink" title="通过键名获取值"></a>通过键名获取值</h3><p>字典通过<code>get()</code>来获取值，括号中是键名。比如：</p>
+<pre><code class="python">v1 = &#123;&quot;name&quot;:&quot;邓胖胖&quot;,&quot;age&quot;:23,&quot;hobby&quot;:&quot;学习&quot;&#125;
+v2 = v1.get(&quot;name&quot;)			# v2 = &quot;邓胖胖&quot;
+v3 = v1.get(&quot;email&quot;)		# v3 = None 如果键名不存在，则返回None
+v4 = v1.get(&quot;hobby&quot;,&quot;xxx&quot;)   # v4 = &quot;学习&quot; 如果键名存在，则返回键值，如果不存在，则返回&quot;xxx&quot;
+</code></pre>
+<h3 id="获取所有键"><a href="#获取所有键" class="headerlink" title="获取所有键"></a>获取所有键</h3><p>字典可以通过<code>key()</code>来获取字典中的所有键名，比如：</p>
+<pre><code class="python">v1 = &#123;&quot;name&quot;:&quot;邓胖胖&quot;,&quot;age&quot;:23,&quot;hobby&quot;:&quot;学习&quot;&#125;
+v2 = v1.keys()	# v2 = dict_keys([&#39;name&#39;, &#39;age&#39;, &#39;hobby&#39;])
+# 此时的v2是一个类似于列表的对象,可以进行for循环
+v3 = list(v2)	# v3 = [&#39;name&#39;, &#39;age&#39;, &#39;hobby&#39;],这是一个真正的列表
+</code></pre>
+<h3 id="获取所有值"><a href="#获取所有值" class="headerlink" title="获取所有值"></a>获取所有值</h3><p>字典可以通过<code>values()</code>来获取字典中的所有值，比如：</p>
+<pre><code class="python">v1 = &#123;&quot;name&quot;:&quot;邓胖胖&quot;,&quot;age&quot;:23,&quot;hobby&quot;:&quot;学习&quot;&#125;
+v2 = v1.values()	# v2 = dict_values([&#39;邓胖胖&#39;, 23, &#39;学习&#39;])
+# 此时的v2也是一个类似于列表的对象,可以进行for循环
+v3 = list(v2)		# v3 = [&#39;邓胖胖&#39;, 23, &#39;学习&#39;],这是一个真正的列表
+</code></pre>
+<h3 id="获取所有键值对"><a href="#获取所有键值对" class="headerlink" title="获取所有键值对"></a>获取所有键值对</h3><p>字典可以通过<code>items()</code>来获取字典中的所有键值对，比如：</p>
+<pre><code class="python">v1 = &#123;&quot;name&quot;:&quot;邓胖胖&quot;,&quot;age&quot;:23,&quot;hobby&quot;:&quot;学习&quot;&#125;
+v2 = v1.items()	# v2 = dict_items([(&#39;name&#39;, &#39;邓胖胖&#39;), (&#39;age&#39;, 23), (&#39;hobby&#39;, &#39;学习&#39;)])
+# 此时的v2也是一个类似于列表的对象,里面的每个元素都是一个元组，可以通过for循环输出每个键值对，也可以通过解包获取到单个的键和值
+for key,value in v2:
+    print(key,value)	
+# 两个变量名是随意的    
+v3 = list(v2)	# v3 = [(&#39;name&#39;, &#39;邓胖胖&#39;), (&#39;age&#39;, 23), (&#39;hobby&#39;, &#39;学习&#39;)]这是一个真正的列表
+</code></pre>
+<h2 id="第二节-字典的公共功能"><a href="#第二节-字典的公共功能" class="headerlink" title="第二节 字典的公共功能"></a>第二节 字典的公共功能</h2><h3 id="获取长度-2"><a href="#获取长度-2" class="headerlink" title="获取长度"></a>获取长度</h3><p>通过<code>len()</code>获取字典中键值对的个数，比如：</p>
+<pre><code class="python">v1 = &#123;&quot;name&quot;:&quot;邓胖胖&quot;,&quot;age&quot;:23,&quot;hobby&quot;:&quot;学习&quot;&#125;
+len(v1)		# 3
+</code></pre>
+<h3 id="索引-1"><a href="#索引-1" class="headerlink" title="索引"></a>索引</h3><p>与字符串、列表和元组中的索引不同，字典中的索引是指键名，比如：</p>
+<pre><code class="python">v1 = &#123;&quot;name&quot;:&quot;邓胖胖&quot;,&quot;age&quot;:23,&quot;hobby&quot;:&quot;学习&quot;&#125;
+data = v1[&quot;name&quot;]	# &quot;邓胖胖&quot;
+# 一般推荐使用v1.get(&quot;name&quot;)的方式来获取键值，因为通过索引取值，若键名不存在会报错
+v1[&quot;age&quot;] = &quot;24&quot;	# 通过索引来修改键值对
+v1[&quot;email&quot;] = &quot;xx@xxxx&quot;	# 若键名不存在，则会新增一个键值对
+del v1[&quot;hobby&quot;]		# 通过索引来删除一个键值对，若键名不存在，则会报错，可以先进行判断
+# if &quot;hobby&quot; in v1:
+#     del v1[&quot;hobby&quot;]
+</code></pre>
+<h3 id="循环-1"><a href="#循环-1" class="headerlink" title="循环"></a>循环</h3><p>通过<code>for()</code>循环输出字典中的所有键名或键值或键值对，独有功能中已经描述。</p>
+<h3 id="包含-3"><a href="#包含-3" class="headerlink" title="包含"></a>包含</h3><p>使用<code>in</code>判断字典中是否包含某个键。比如：</p>
+<pre><code class="python">if &quot;hobby&quot; in v1:
+    del v1[&quot;hobby&quot;]
+</code></pre>
+<h2 id="字典推导式"><a href="#字典推导式" class="headerlink" title="字典推导式"></a>字典推导式</h2><p>字典推导式的方法与列表推导式基本相同，第一部分是键值对的形式，键和值都可以自定义</p>
+<pre><code class="python">data_dict = &#123;i:pow(i,2) for i in range(11) if i&gt;5&#125;	# 需要注意键必须是可哈希类型
+# &#123;6: 36, 7: 49, 8: 64, 9: 81, 10: 100&#125;
+</code></pre>
+<h1 id="数据类型-其他"><a href="#数据类型-其他" class="headerlink" title="数据类型-其他"></a>数据类型-其他</h1><h2 id="集合（set）"><a href="#集合（set）" class="headerlink" title="集合（set）"></a>集合（set）</h2><p>集合是一个无序、可变、元素必须可哈希且元素不重复的容器。</p>
+<p>集合的定义</p>
+<pre><code class="python"># 定义一个空列表、元组或字典有两种方法
+l1 = []
+l1 = list()	# 定义一个空列表
+t1 = ()
+t1 = tuple()# 定义一个空元组
+d1 = &#123;&#125;
+d1 = dict()	# 定义一个空字典
+# 与列表、元组、字典不同，定义一个空集合只有一种方法
+s1 = set()	# 定义一个空集合
+</code></pre>
+<h3 id="集合的独有功能"><a href="#集合的独有功能" class="headerlink" title="集合的独有功能"></a>集合的独有功能</h3><h4 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h4><p>通过<code>set()</code>向集合中添加一个元素，比如：</p>
+<pre><code class="python">s1 = &#123;11,22&#125;
+s1.add(33)	# s1 = &#123;11,22,33&#125;
+</code></pre>
+<h4 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h4><p>通过<code>discard()</code>从集合中删除一个元素，比如：</p>
+<pre><code class="python">s1 = &#123;11,22&#125;
+s1.discard(22)	# s1 = &#123;11&#125;
+s1.discard(44)	# 如果要删除的元素不存在，不会报错
+</code></pre>
+<h4 id="交集"><a href="#交集" class="headerlink" title="交集"></a>交集</h4><p>获取两个集合的交集有两种方式，一种是使用<code>&amp;</code>符号，另一种是通过<code>intersection()</code>获取交集，比如：</p>
+<pre><code class="python">v1 = &#123;1,2,3&#125;
+v2 = &#123;3,4,5&#125;
+# 方式1
+res = v1 &amp; v2	# res = &#123;3&#125;
+# 方式2
+res = v1.intersection(v2)	# res = &#123;3&#125;
+</code></pre>
+<h4 id="并集"><a href="#并集" class="headerlink" title="并集"></a>并集</h4><p>获取两个集合的并集有两种方式，一种是使用<code>|</code>符号，另一种是通过<code>union()</code>获取交集，比如：</p>
+<pre><code class="python">v1 = &#123;1,2,3&#125;
+v2 = &#123;3,4,5&#125;
+# 方式1
+res = v1 | v2	# res = &#123;1,2,3,4,5&#125;
+# 方式2
+res = v1.union(v2)	# res = &#123;1,2,3,4,5&#125;
+</code></pre>
+<h4 id="差集"><a href="#差集" class="headerlink" title="差集"></a>差集</h4><p>获取两个集合的差集有两种方式，一种是使用<code>-</code>符号，另一种是通过<code>difference()</code>获取交集，比如：</p>
+<pre><code class="python">v1 = &#123;1,2,3&#125;
+v2 = &#123;3,4,5&#125;
+# 方式1
+res = v1-v2		# res = &#123;1,2&#125;,v1中有而v2中没有的
+res = v2-v1		# res = &#123;4,5&#125;,v2中有而v1中没有的
+# 方式2
+res = v1.difference(v2)		# res = &#123;1,2&#125;,v1中有而v2中没有的
+res = v2.difference(v1)		# res = &#123;4,5&#125;,v2中有而v1中没有的
+</code></pre>
+<h3 id="集合的公共功能"><a href="#集合的公共功能" class="headerlink" title="集合的公共功能"></a>集合的公共功能</h3><h4 id="获取长度-3"><a href="#获取长度-3" class="headerlink" title="获取长度"></a>获取长度</h4><p>通过<code>len()</code>获取集合中元素的个数，比如：</p>
+<pre><code class="python">v1 = &#123;1,2,3&#125;
+len(v1)		# 3
+</code></pre>
+<h4 id="循环-2"><a href="#循环-2" class="headerlink" title="循环"></a>循环</h4><p>通过<code>for()</code>循环输出集合中的元素，比如：</p>
+<pre><code class="python">v1 = &#123;1,2,3&#125;
+for item in v1:
+    print(item)		# 无序输出
+</code></pre>
+<h4 id="包含-4"><a href="#包含-4" class="headerlink" title="包含"></a>包含</h4><p>通过<code>in</code>判断集合中时候包含某元素（集合中的元素必须是可哈希类型）</p>
+<h4 id="列表、元组、集合的相互转换"><a href="#列表、元组、集合的相互转换" class="headerlink" title="列表、元组、集合的相互转换"></a>列表、元组、集合的相互转换</h4><p>列表、元组或集合可以相互转换，比如：</p>
+<pre><code class="python">v1 = [1,2,3]	# 列表
+v2 = set(v1)	# v2 = &#123;1,2,3&#125; 集合
+# 当元组和列表转换为集合时，会自动去重
+</code></pre>
+<h2 id="None类型"><a href="#None类型" class="headerlink" title="None类型"></a>None类型</h2><p>None表示空值，相当于其他语言中的null</p>
+<h3 id="布尔类型（bool）"><a href="#布尔类型（bool）" class="headerlink" title="布尔类型（bool）"></a>布尔类型（bool）</h3><p>bool类型有两个值：</p>
+<pre><code class="python">True:真
+False:假
+</code></pre>
+<p>很多类型的值都可以转化为<code>bool</code>值，极个别转化为<code>False</code></p>
+<pre><code class="python">0,&quot;&quot;,[],(),&#123;&#125;,set(),None	-&gt; False
+#其他的值转化后都为True
+#所以当if或while后的条件是一个其他类型的值时，会自动转化为bool值
+</code></pre>
+<h2 id="浮点型（float）"><a href="#浮点型（float）" class="headerlink" title="浮点型（float）"></a>浮点型（float）</h2><p>浮点型，就是小数，比如：</p>
+<pre><code class="python">v1 = 9.23
+</code></pre>
+<p>由于计算机底层浮点型的存储原理，有时候获取的值可能不太准确。</p>
+<h3 id="字节类型（bytes）"><a href="#字节类型（bytes）" class="headerlink" title="字节类型（bytes）"></a>字节类型（bytes）</h3><p>字节类型是由字符串类型转化而来的，比如：</p>
+<pre><code class="python">n1 = &quot;常州大学&quot;
+v1 = n1.encode(&quot;utf-8&quot;)	
+# v1 = b&#39;\xe5\xb8\xb8\xe5\xb7\x9e\xe5\xa4\xa7\xe5\xad\xa6&#39;,v1是字节类型，底层是utf-8编码
+v2 = n1.encode(&quot;gbk&quot;)
+# v2 = b&#39;\xb3\xa3\xd6\xdd\xb4\xf3\xd1\xa7&#39;,v2是字节类型，底层是gbk编码
+</code></pre>
+<p>同样的，拿到了字节类型，也可以使用<code>decode()</code>转化为字符串类型，比如：</p>
+<pre><code class="python">v2 = b&#39;\xb3\xa3\xd6\xdd\xb4\xf3\xd1\xa7&#39;
+n1 = v2.decode(&quot;gbk&quot;)	# n1 = &quot;常州大学&quot;
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2022-12-23</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Python/'>
+                            Python
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>

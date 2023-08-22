@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Linux文件管理" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Linux文件管理
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0"><span class="post-toc-text">文件系统概述</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE-find"><span class="post-toc-text">文件查找: find</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD"><span class="post-toc-text">文件的上传下载</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="post-toc-text">下载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%8A%E4%BC%A0"><span class="post-toc-text">上传</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%BE%93%E5%87%BA%E4%B8%8E%E9%87%8D%E5%AE%9A%E5%90%91"><span class="post-toc-text">输出与重定向</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%BE%93%E5%87%BA"><span class="post-toc-text">输出</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%BE%93%E5%85%A5"><span class="post-toc-text">输入</span></a></li></ol></li></ol>
+        
+        <h1 id="文件系统概述"><a href="#文件系统概述" class="headerlink" title="文件系统概述"></a>文件系统概述</h1><p>文件系统是操作系统中的负责控制硬盘的一个软件。文件系统的运行主要与三部分有关：<code>inode区</code>、<code>block区</code>、和<code>superblock</code></p>
+<ul>
+<li>superblock：记录此 filesystem 的整体信息，包括inode&#x2F;block的总量、使用量、剩余量， 以及文件系统的格式与相关信息等；</li>
+<li>inode区：以数组的形式存放<code>inode</code>,<code>inode</code>是一种数据结构，记录文件的属性，一个文件占用一个<code>inode</code>，指向存放文件数据的<code>block</code></li>
+<li>block区：实际记录文件的内容，若文件太大时，会占用多个 block</li>
+</ul>
+<p>在实际的操作系统中，单一的文件系统区块并不容易管理，所以一个文件系统包含了很多个区块，每个区块包含单独的<code>inode</code>和<code>block</code>以及对照表，形成一个<code>block group</code>。</p>
+<p>文件和目录的数据都是存放在block块中的，文件的block块存放的是文件数据，目录的block块存放的是<code>文件名/目录名</code> 和<code>文件名/目录名</code>所在的<code>inode</code>编号</p>
+<p>文件系统读取一个文件数据的流程：</p>
+<pre><code>先通过挂载点的信息找到根目录的inode编号，然后访问inode, 链接到根目录的block块,访问block得知下一层目录的inode编号，访问inode，链接到再下一层目录的block块,直到链接到的block是存放的文件数据。
+</code></pre>
+<h1 id="文件查找-find"><a href="#文件查找-find" class="headerlink" title="文件查找: find"></a>文件查找: find</h1><p>具体用法：</p>
+<pre><code>find [路径] [-options] &#39;表达式&#39;
+</code></pre>
+<ul>
+<li><p>按照文件名：<code>-name</code></p>
+<pre><code>find /etc -name &quot;ifcfg-ens33&quot;		# 在 /etc 目录下寻找文件名为 ifcfg-ens33 的文件
+find /etc -iname &quot;ifcfg-ens33&quot;		# -iname 表示忽略大小写
+find /etc -iname &quot;ifcfg-*&quot;			# * 代表通配符 
+</code></pre>
+</li>
+<li><p>按照文件大小<code>-size</code>：</p>
+<pre><code>find /etc -size +3M					# 在/etc目录下寻找文件大小大于3M的文件
+find /etc -size 3M					# 在/etc目录下寻找文件大小刚好等于3M的文件
+find /etc -size -3M					# 在/etc目录下寻找文件大小小于3M的文件
+find /etc -size 4b					# 在/etc目录下寻找文件大小占据4个block块的文件
+find /etc -size 4b -ls				# 后面加上-ls，表示找到文件之后列出详细文件信息
+</code></pre>
+</li>
+<li><p>指定查找的目录深度：<code>-maxdepth</code></p>
+<pre><code>find / -maxdepth 3 -name &quot;ifcfg-ens33&quot;		# 在根目录下寻找文件名为 ifcfg-ens33 的文件，最多寻找三层
+</code></pre>
+</li>
+<li><p>按照时间查找：<code>-mtime，-ctime，-atime</code></p>
+<pre><code>find /etc -mtime +3			# 修改时间超过三天
+find /etc -mtime -3			# 修改时间小于3天
+find /etc -mtime 3			# 修改时间等于三天
+</code></pre>
+</li>
+<li><p>按文件的属主、属组找：<code>-user，-group</code></p>
+<pre><code>find /etc -user dengpangpang					# 属主是dengpangpang的文件
+find /etc -group root							# 属组是root的文件
+find /etc -nouser								# 用户还存在，在user/passwd文件中删除了记录
+find /etc -nouser								# 群组还存在，在/etc/group中删除了记录
+find /etc -nouser -o -nogroup -ok rm -rf &#123;&#125; \;	# 找到文件并删除，-ok表示显示确认提示，可替换为-exec不显示提示
+</code></pre>
+</li>
+<li><p>按文件类型找：<code>-type</code></p>
+<pre><code>find /etc -type f			# 普通文件
+find /etc -type d			# 目录文件
+find /etc -type l			# 链接文件
+find /etc -type b			# 块设备
+find /etc -type c			# 字符设备
+find /etc -type s			# 套接字
+find /etc -type p			# 管道文件
+</code></pre>
+</li>
+<li><p>多条件的”和”与”或”：<code>-a</code>和<code>-o</code></p>
+<pre><code>并列的多个条件时，-a表示逻辑与，-o表示逻辑或，没有这两个选项，默认是-a
+</code></pre>
+</li>
+<li><p><code>find</code>命令结合<code>xargs</code></p>
+<pre><code>find /etc -nouser -o -nogroup | xargs rm -rf	# 利用管道符找到文件并删除, rm-rf 原生并不支持管道符，需要加 xargs
+find /etc -name &quot;ifcfg-ens33&quot; | xargs -I &#123;&#125; cp -rv &#123;&#125; /test			# 找到文件并复制到另一文件夹
+find /etc -name &quot;ifcfg-ens33&quot; | xargs -I &#123;&#125; mv &#123;&#125; /test				# 找到文件并移动到另一文件夹
+find /etc -nouser -o -nogroup | xargs -I &#123;&#125; chown root.root &#123;&#125;		# 找到文件并改变文件所有者和所属群组
+</code></pre>
+</li>
+</ul>
+<h1 id="文件的上传下载"><a href="#文件的上传下载" class="headerlink" title="文件的上传下载"></a>文件的上传下载</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><ul>
+<li><p>下载文件到本地：<code>wget</code></p>
+<pre><code>wget -O [路径] URL
+</code></pre>
+</li>
+<li><p>测试能否下载：<code>curl</code></p>
+<pre><code>curl -o [路径] URL
+</code></pre>
+</li>
+<li><p>把Linux设备上的文件传输到Windows设备：<code>sz</code></p>
+<pre><code>sz [路径]			# 需要事先安装lszrz包，receive zmodem，zmodem是一种传输协议
+</code></pre>
+</li>
+</ul>
+<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><ul>
+<li><p>把Windows设备上的文件传输到Linux设备上：<code>rz</code></p>
+<pre><code>rz [路径]			# send zmodem
+</code></pre>
+</li>
+</ul>
+<h1 id="输出与重定向"><a href="#输出与重定向" class="headerlink" title="输出与重定向"></a>输出与重定向</h1><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><ul>
+<li><p>覆盖输出：<code>内容 &gt; 文件</code></p>
+<pre><code>把产生的内容覆盖到文件中
+比如：ifconfig &gt; /a.txt
+</code></pre>
+</li>
+<li><p>追加输出：<code>内容 &gt;&gt; 文件</code></p>
+<pre><code>把产生的内容追加到文件中
+比如：ifconfig &gt;&gt; /a.txt
+</code></pre>
+</li>
+<li><p>区分内容是否正确：<code>0:标准输出；1: 标准正确输出；2：标准错误输出</code></p>
+<pre><code>1和2可以把正确和错误的内容分别输出到不同的文件中
+比如：ifconfig ensxx 1&gt;a.txt 2&gt;b.txt		# 正确的内容输出到a.txt中，错误的结果输出到b.txt中。注意：数字和&gt;之间不能有空格
+</code></pre>
+</li>
+<li><p>不区分内容是否正确：<code>&amp;</code></p>
+<pre><code>ifconfig ensxx &amp;&gt; a,txt						# 不区分内容是否正确，全都输出到a.txt中
+</code></pre>
+</li>
+</ul>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><ul>
+<li><p>从文件输入：<code>&lt;</code></p>
+<pre><code>cat &gt; a.txt &lt; /etc/hostname			# 把文件的内容输入到a.txt中
+</code></pre>
+</li>
+<li><p>从键盘输入：<code>&lt;&lt;</code></p>
+<pre><code>cat &gt; a.txt &lt;&lt; EOF					# 把键盘的内容输入到a.txt中
+</code></pre>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-20</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
