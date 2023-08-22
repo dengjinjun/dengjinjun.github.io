@@ -96,7 +96,7 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0"><span class="post-toc-text">文件系统概述</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE-find"><span class="post-toc-text">文件查找: find</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD"><span class="post-toc-text">文件的上传下载</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="post-toc-text">下载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%8A%E4%BC%A0"><span class="post-toc-text">上传</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%BE%93%E5%87%BA%E4%B8%8E%E9%87%8D%E5%AE%9A%E5%90%91"><span class="post-toc-text">输出与重定向</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%BE%93%E5%87%BA"><span class="post-toc-text">输出</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%BE%93%E5%85%A5"><span class="post-toc-text">输入</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0"><span class="post-toc-text">文件系统概述</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE-find"><span class="post-toc-text">文件查找: find</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD"><span class="post-toc-text">文件的上传下载</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="post-toc-text">下载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%8A%E4%BC%A0"><span class="post-toc-text">上传</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%BE%93%E5%87%BA%E4%B8%8E%E9%87%8D%E5%AE%9A%E5%90%91"><span class="post-toc-text">输出与重定向</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%BE%93%E5%87%BA"><span class="post-toc-text">输出</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%BE%93%E5%85%A5"><span class="post-toc-text">输入</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C"><span class="post-toc-text">字符串操作</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%89%93%E5%8C%85%E5%8E%8B%E7%BC%A9"><span class="post-toc-text">打包压缩</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80"><span class="post-toc-text">方式一</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C"><span class="post-toc-text">方式二</span></a></li></ol></li></ol>
         
         <h1 id="文件系统概述"><a href="#文件系统概述" class="headerlink" title="文件系统概述"></a>文件系统概述</h1><p>文件系统是操作系统中的负责控制硬盘的一个软件。文件系统的运行主要与三部分有关：<code>inode区</code>、<code>block区</code>、和<code>superblock</code></p>
 <ul>
@@ -104,11 +104,13 @@
 <li>inode区：以数组的形式存放<code>inode</code>,<code>inode</code>是一种数据结构，记录文件的属性，一个文件占用一个<code>inode</code>，指向存放文件数据的<code>block</code></li>
 <li>block区：实际记录文件的内容，若文件太大时，会占用多个 block</li>
 </ul>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/ext%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%89%AF%E6%9C%AC.png" alt="ext文件系统"></p>
 <p>在实际的操作系统中，单一的文件系统区块并不容易管理，所以一个文件系统包含了很多个区块，每个区块包含单独的<code>inode</code>和<code>block</code>以及对照表，形成一个<code>block group</code>。</p>
-<p>文件和目录的数据都是存放在block块中的，文件的block块存放的是文件数据，目录的block块存放的是<code>文件名/目录名</code> 和<code>文件名/目录名</code>所在的<code>inode</code>编号</p>
+<p>文件和目录的数据都是存放在block块中的，文件的block块存放的是文件数据，目录的block块存放的是<code>文件名/目录名</code> 和<code>文件名/目录名</code>所在的<code>inode</code>编号。</p>
 <p>文件系统读取一个文件数据的流程：</p>
-<pre><code>先通过挂载点的信息找到根目录的inode编号，然后访问inode, 链接到根目录的block块,访问block得知下一层目录的inode编号，访问inode，链接到再下一层目录的block块,直到链接到的block是存放的文件数据。
+<pre><code>先通过挂载点的信息找到根目录的inode编号，然后访问inode, 链接到根目录的block块,访问block得知下一层目录的inode编号，访问inode，链接到再下一层目录的block块,在此block块中找到再下一层目录的inode编号，然后访问inode，再链接到下一层目录的block块…… 直到链接到的block是文件的block块。
 </code></pre>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F2.png" alt="寻找文件/etc/passwd的流程"></p>
 <h1 id="文件查找-find"><a href="#文件查找-find" class="headerlink" title="文件查找: find"></a>文件查找: find</h1><p>具体用法：</p>
 <pre><code>find [路径] [-options] &#39;表达式&#39;
 </code></pre>
@@ -215,6 +217,87 @@ find /etc -nouser -o -nogroup | xargs -I &#123;&#125; chown root.root &#123;&#12
 </li>
 <li><p>从键盘输入：<code>&lt;&lt;</code></p>
 <pre><code>cat &gt; a.txt &lt;&lt; EOF					# 把键盘的内容输入到a.txt中
+</code></pre>
+</li>
+</ul>
+<h1 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h1><ul>
+<li><p>排序 ：<code>sort</code></p>
+<pre><code>sort [文件]					# 按照文本文件的每行首字母的ASCII顺序升序排序
+</code></pre>
+<pre><code>sort -t &quot;:&quot; -k2 [文件]		# -t &quot;:&quot; 表示将文本文件的每行内容按照 : 分段，-k2 代表按照第二段的首字母排序
+</code></pre>
+<pre><code>sort -t &quot;:&quot; -k2 -n [文件]		# -n 表示将每行的第二段看作一个整数，按照整数的自然数大小排序升序排序
+</code></pre>
+<pre><code>sort -t &quot;:&quot; -k2 -n -r [文件]		# -n 表示将每行的第二段看作一个整数，-r 表示按照整数的自然数大小排序降序排序
+</code></pre>
+</li>
+<li><p>去重：<code>uniq</code></p>
+<pre><code>uniq [文件]				# 将文本文件中重复的行删除，即去重
+</code></pre>
+<pre><code>uniq -c [文件]			# -c 表示在每行的行首，将每行重复的次数显示出来
+</code></pre>
+<pre><code>uniq -d [文件]			# -d 表示只显示重复的行
+</code></pre>
+<pre><code>uniq -u [文件]			# -u 表示只显示不重复的行
+</code></pre>
+<pre><code>uniq通常与sort联用，排序后去重
+比如：sort [文件] | uniq 
+</code></pre>
+</li>
+<li><p>分割文件：<code>cut</code></p>
+<pre><code>cut -d &quot;:&quot; -f1 [文件]						# -d &quot;:&quot; 表示以 : 为分隔符，-f1 表示显示第一段
+head -10 [文件] | cut -d &quot;:&quot; -f1-3		# cut支持管道符，-f1-3表示显示前三段，-f1,3表示显示第一段和第三段
+</code></pre>
+</li>
+<li><p>替换：<code>tr</code></p>
+<pre><code>tr [文件] &quot;xxx&quot; &quot;yyy&quot;							# 把文件中的 xxx 替换为 yyy
+</code></pre>
+<pre><code>tr 支持管道符
+比如： echo &quot;123&quot; | tr &quot;123&quot; &quot;456&quot;				# 需要注意的是，tr 并不是整体替换，而是将对应字符分别替换		
+比如： head -5 /etc/passwd | tr -d &quot;root&quot;		# -d 表示直接删除
+</code></pre>
+</li>
+<li><p>统计：<code>wc</code></p>
+<pre><code>wc -c [文件]			# 统计文件的字符数
+wc -l [文件]			# 统计文件的行数
+wc -w [文件]			# 统计文件的单词数，默认以空格为分隔符
+</code></pre>
+<pre><code>wc 支持管道符
+比如：ps aux | wc -l	# 统计系统中运行的进程数
+</code></pre>
+</li>
+</ul>
+<h1 id="打包压缩"><a href="#打包压缩" class="headerlink" title="打包压缩"></a>打包压缩</h1><h2 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h2><ul>
+<li><p>打包：<code>tar c</code></p>
+<pre><code>tar cvf [文件名] 文件1 文件2 文件3			# cvf都是选项，c表示新建一个打包文件，v表示显示打包细节，f表示给打包文件命名
+</code></pre>
+</li>
+<li><p>解包：<code>tar x</code></p>
+<pre><code>tar xvf [包名] -C [目录]					# 可以解包，也可以解压，默认解压到当前目录，-C 表示解压到指定目录
+</code></pre>
+<p>了解：<code>tar x</code>的解包分为解压和拆包两个动作，解压的过程会调用<code>gunzip</code>和<code>bunzip2</code>两种解压工具，前者针对<code>gzip</code>压缩包，后者针对<code>bzip2</code>压缩包。</p>
+</li>
+<li><p>压缩：<code>gzip</code>和<code>bzip2</code></p>
+<pre><code>gizp [文件]								# 生成一个压缩文件，后缀名为gz
+打包和压缩可以合并为一个命令：
+tar cvzf [文件名] 文件1 文件2 文件3			# gzip 变为 tar 命令的一个选项 z，与其他选项合并为cvzf	
+</code></pre>
+<pre><code>bzip2 [文件]								# 与 gzip 的用法相同，生成一个后缀名为bz2的压缩文件
+与tar合并为一个命令：
+tar cvjf [文件名] 文件1 文件2 文件3			# bzip2 变为 tar 命令的一个选项 j，与其他选项合并为cvzf
+</code></pre>
+<p>补充：以当前时间命名压缩包文件名，完成文件打包：</p>
+<pre><code>tar cvzf `date &quot;+%Y_%m_%d_%H_%M_%S&quot;`_etc_bak.tar.gz  /etc/		# ` ` 表示取其内部的命令结果
+</code></pre>
+</li>
+</ul>
+<h2 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h2><ul>
+<li><p>压缩：<code>zip</code></p>
+<pre><code>zip [文件名] 文件1 文件2 文件3				# 一般指定 .zip 结尾
+</code></pre>
+</li>
+<li><p>解压：<code>unzip</code></p>
+<pre><code>unzip [包名] -d [路径]						# -d 表示指定解压后的路径
 </code></pre>
 </li>
 </ul>
