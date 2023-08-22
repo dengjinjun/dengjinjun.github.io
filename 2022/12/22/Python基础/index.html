@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Python基础" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Python基础
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%B8%80%E8%8A%82-%E7%BC%96%E7%A0%81"><span class="post-toc-text">第一节 编码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-3-1-ascii%E7%BC%96%E7%A0%81"><span class="post-toc-text">1.3.1 ascii编码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-3-2-GB-2312%E5%92%8CGBK"><span class="post-toc-text">1.3.2 GB-2312和GBK</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-3-3-unicode%EF%BC%88%E4%B8%87%E5%9B%BD%E7%A0%81%EF%BC%89"><span class="post-toc-text">1.3.3 unicode（万国码）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-3-4-utf-8"><span class="post-toc-text">1.3.4 utf-8</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-3-5-python%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F"><span class="post-toc-text">1.3.5 python中的编码方式</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%BA%8C%E8%8A%82-%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA"><span class="post-toc-text">第二节 输入和输出</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%B8%89%E8%8A%82-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="post-toc-text">第三节 数据类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-1-%E6%95%B4%E5%9E%8B-int"><span class="post-toc-text">3.1 整型(int)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-2-%E5%AD%97%E7%AC%A6%E4%B8%B2-str"><span class="post-toc-text">3.2 字符串(str)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-3-%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%EF%BC%88bool%EF%BC%89"><span class="post-toc-text">3.3 布尔类型（bool）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-4-%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%BB%84%E3%80%81%E5%AD%97%E5%85%B8"><span class="post-toc-text">3.4 列表、元组、字典</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E5%9B%9B%E8%8A%82-%E5%8F%98%E9%87%8F"><span class="post-toc-text">第四节 变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%BA%94%E8%8A%82-%E6%B3%A8%E9%87%8A"><span class="post-toc-text">第五节 注释</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E5%85%AD%E8%8A%82-%E8%BF%9B%E5%88%B6%E5%92%8C%E5%8D%95%E4%BD%8D"><span class="post-toc-text">第六节  进制和单位</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-1-%E8%BF%9B%E5%88%B6"><span class="post-toc-text">6.1 进制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-2-%E5%8D%95%E4%BD%8D"><span class="post-toc-text">6.2 单位</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%B8%83%E8%8A%82-%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5"><span class="post-toc-text">第七节 条件语句</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-1-%E5%9F%BA%E6%9C%AC%E6%9D%A1%E4%BB%B6"><span class="post-toc-text">7.1 基本条件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-2-%E5%A4%9A%E6%9D%A1%E4%BB%B6"><span class="post-toc-text">7.2 多条件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-3-%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%B5%8C%E5%A5%97"><span class="post-toc-text">7.3 条件的嵌套</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E5%85%AB%E8%8A%82-while%E5%BE%AA%E7%8E%AF"><span class="post-toc-text">第八节 while循环</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8-1-%E5%BE%AA%E7%8E%AF%E5%9F%BA%E6%9C%AC%E8%AF%AD%E5%8F%A5"><span class="post-toc-text">8.1 循环基本语句</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8-2-break"><span class="post-toc-text">8.2 break</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8-3-continue"><span class="post-toc-text">8.3 continue</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E4%B9%9D%E8%8A%82-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="post-toc-text">第九节 字符串格式化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-1-%E4%BD%BF%E7%94%A8format%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="post-toc-text">9.1 使用format（推荐）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-2-%E4%BD%BF%E7%94%A8"><span class="post-toc-text">9.2 使用%</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-3-%E4%BD%BF%E7%94%A8f-string"><span class="post-toc-text">9.3 使用f-string</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AC%AC%E5%8D%81%E8%8A%82-%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="post-toc-text">第十节 运算符</span></a></li></ol>
+        
+        <h2 id="第一节-编码"><a href="#第一节-编码" class="headerlink" title="第一节 编码"></a>第一节 编码</h2><p>IDE的编码方式要与解释器的编码方式保持一致</p>
+<p>编码、文字与二进制的对照表</p>
+<h4 id="1-3-1-ascii编码"><a href="#1-3-1-ascii编码" class="headerlink" title="1.3.1 ascii编码"></a>1.3.1 ascii编码</h4><p>ascii编码表中共有256个对应关系，每个对应关系用8个二进制位表示，是最开始的编码，只照顾了美国。</p>
+<h4 id="1-3-2-GB-2312和GBK"><a href="#1-3-2-GB-2312和GBK" class="headerlink" title="1.3.2 GB-2312和GBK"></a>1.3.2 GB-2312和GBK</h4><ul>
+<li><p>GB-2312编码是1980年国家信息委员会创建的，建立了汉字与二进制的编码对应关系。</p>
+</li>
+<li><p>GBK编码是GB-2312的扩展，1995年创建，建立了包含中日韩等文字与二进制的编码对应关系。</p>
+</li>
+</ul>
+<h4 id="1-3-3-unicode（万国码）"><a href="#1-3-3-unicode（万国码）" class="headerlink" title="1.3.3 unicode（万国码）"></a>1.3.3 unicode（万国码）</h4><ul>
+<li><p>ucs2,用固定的两个字节表示文字与二进制的编码对应关系</p>
+</li>
+<li><p>ucs4,用固定的四个字节表示文字与二进制的编码对应关系,缺点是浪费空间和流量</p>
+</li>
+</ul>
+<h4 id="1-3-4-utf-8"><a href="#1-3-4-utf-8" class="headerlink" title="1.3.4 utf-8"></a>1.3.4 utf-8</h4><p>对Unicode进行压缩，用尽可能少的字节表示数据</p>
+<p>注意事项：</p>
+<ul>
+<li><p>在utf-8编码中，一个汉字用3个字节表示</p>
+</li>
+<li><p>在开发中尽量使用utf-8编码</p>
+</li>
+</ul>
+<h4 id="1-3-5-python中的编码方式"><a href="#1-3-5-python中的编码方式" class="headerlink" title="1.3.5 python中的编码方式"></a>1.3.5 python中的编码方式</h4><p>python中默认是用unicode编码方式存储的（ucs4），字符串类型。可以转化为utf-8形式的字节类型</p>
+<pre><code class="python">name = &quot;张三&quot;
+data = name.encode(&#39;utf-8&#39;)
+print(name)
+print(data)
+</code></pre>
+<p><img src="/assets/image-20230108115609835.png" alt="image-20230108115609835"></p>
+<p>在python的开发中，使用文件存储或网络传输时，不能直接用字符串，需要将字符串压缩为utf-8形式的字节类型后再进行存储和传输。</p>
+<h2 id="第二节-输入和输出"><a href="#第二节-输入和输出" class="headerlink" title="第二节 输入和输出"></a>第二节 输入和输出</h2><ul>
+<li>输入</li>
+</ul>
+<pre><code class="python">name=input(&quot;请输入姓名：&quot;)
+</code></pre>
+<p>用户输入的永远是字符串类型</p>
+<ul>
+<li>输出</li>
+</ul>
+<pre><code class="python">print(&quot;这是要输出的内容&quot;)
+print(&quot;两句print会自动加回车，要想不加空行，可以在后面添加东西，比如这句&quot;, end=&quot;&quot;)
+print(&quot;这样就不会加回车，出现连续的一行内容&quot;)
+</code></pre>
+<p><img src="/assets/image-20230105195812785.png" alt="image-20230105195812785"></p>
+<h2 id="第三节-数据类型"><a href="#第三节-数据类型" class="headerlink" title="第三节 数据类型"></a>第三节 数据类型</h2><h3 id="3-1-整型-int"><a href="#3-1-整型-int" class="headerlink" title="3.1 整型(int)"></a>3.1 整型(int)</h3><p>表示整数：0，1，2……</p>
+<p>可以输出整型的加减乘除取余的结果，也是整型</p>
+<p>+-*&#x2F;%</p>
+<pre><code class="python">print(13+14)
+print(14-11)
+print(2*3)
+print(3/2)
+print(98%10)
+</code></pre>
+<h3 id="3-2-字符串-str"><a href="#3-2-字符串-str" class="headerlink" title="3.2 字符串(str)"></a>3.2 字符串(str)</h3><p>字符串用一对双引号或一对单引号作为开头和结尾，只能表示单行的字符串,之所以可以用单引号或双引号是为了当字符串里面出现单引号或双引号时出现歧义</p>
+<p>用三对双引号或三对单引号表示多行的字符串</p>
+<pre><code class="python">单行文本
+&#39;字符串&#39;
+&quot;字符串&quot;
+多行文本
+&quot;&quot;&quot;字符串&quot;&quot;&quot;
+&#39;&#39;&#39;
+字
+符
+串
+&#39;&#39;&#39;
+</code></pre>
+<pre><code class="python">字符串可以拼接
+&#39;字符&#39;+&#39;串&#39;
+&#39;字符串&#39;
+表示的结果是一样的
+</code></pre>
+<pre><code class="python">字符串乘以数字，表示让字符串重复多少次
+print(&#39;6&#39;*3)
+</code></pre>
+<p>部分整型和字符串可以相互转换，比如</p>
+<pre><code class="python">str(19)			把整型数据类型19转换成字符串类型
+int(&#39;19&#39;)		把字符串类型的19转换成整型
+int(&#39;字符串&#39;)		这样的无法转换
+</code></pre>
+<p>英文字符串比如<code>n1 = root</code>,适用<code>upper()</code>可以使之转化为大写：<code>n2 = n1.upper()	#n2 = UPPER</code></p>
+<h3 id="3-3-布尔类型（bool）"><a href="#3-3-布尔类型（bool）" class="headerlink" title="3.3 布尔类型（bool）"></a>3.3 布尔类型（bool）</h3><p>真True和假False，一般通过判断得到</p>
+<p>整型和字符串可以转换为布尔类型，比如<code>bool(0)</code>和<code>bool(&#39;字符串&#39;)</code></p>
+<ul>
+<li>对于整型，只有0可以转换为False，其他值都为True</li>
+<li>对于字符串，只有空字符串可以转换为False，其他值都为True</li>
+</ul>
+<h3 id="3-4-列表、元组、字典"><a href="#3-4-列表、元组、字典" class="headerlink" title="3.4 列表、元组、字典"></a>3.4 列表、元组、字典</h3><pre><code class="python">列表(List):[11,22,33]	[&quot;张三&quot;,&quot;李四&quot;，11，22，True]
+元组(tuple):(11,22,33) (&quot;张三&quot;,&quot;李四&quot;，11，22，True)
+字典(dict):&#123;&quot;k1&quot;:123,&quot;k2&quot;:456&#125;	&#123;&quot;n1&quot;:1,&quot;N2&quot;:True&#125;	#里面的元素称为键值
+</code></pre>
+<h2 id="第四节-变量"><a href="#第四节-变量" class="headerlink" title="第四节 变量"></a>第四节 变量</h2><p>给某个值取个名称，格式：变量名&#x3D;值</p>
+<pre><code class="python">age=23
+name=&#39;邓金俊&#39;
+addr=&#39;河南省鹿邑县&#39;
+</code></pre>
+<p>变量名命名的规范</p>
+<ul>
+<li>变量名只能包含字母、数字和下划线</li>
+<li>变量名不能以数字开头</li>
+<li>变量名不能是python内置的关键字</li>
+</ul>
+<p>变量名命名的建议</p>
+<ul>
+<li>见名知意</li>
+<li>不要写拼音</li>
+<li>单词用小写，多个单词用下划线连接</li>
+</ul>
+<h2 id="第五节-注释"><a href="#第五节-注释" class="headerlink" title="第五节 注释"></a>第五节 注释</h2><p>单行注释：#</p>
+<p>批量注释：CTRL+？</p>
+<p>多行注释：三对双引号</p>
+<h2 id="第六节-进制和单位"><a href="#第六节-进制和单位" class="headerlink" title="第六节  进制和单位"></a>第六节  进制和单位</h2><h3 id="6-1-进制"><a href="#6-1-进制" class="headerlink" title="6.1 进制"></a>6.1 进制</h3><p>二进制以<code>0b</code>开头、八进制以<code>0o</code>开头、十六进制以<code>0x</code>开头，都是字符串形式</p>
+<p>二进制、八进制、十进制和十六进制可以相互转换，比如：</p>
+<ul>
+<li><p>十进制数123转换为其他进制：</p>
+<ul>
+<li>十进制转化为二进制：<code>bin(123)</code></li>
+<li>十进制转换为八进制：<code>oct(123)</code></li>
+<li>十进制转化为十六进制：<code>hex(123)</code></li>
+</ul>
+</li>
+<li><p>其他进制转换为十进制数：</p>
+<ul>
+<li>二进制转化为十进制：<code>int(&quot;ob010110&quot;,base=2)</code></li>
+<li>八进制转化为十进制：<code>int(&quot;0o234573&quot;,base=8)</code></li>
+<li>十六进制转化为十进制：<code>int(&quot;0x237ed3&quot;,base=16)</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="6-2-单位"><a href="#6-2-单位" class="headerlink" title="6.2 单位"></a>6.2 单位</h3><ul>
+<li>位 b(<code>bit</code>)</li>
+<li>字节B(<code>byte</code>)    <code>1B=8b</code></li>
+<li>千字节KB(<code>kilobyte</code>)    <code>1KB=1024B</code></li>
+<li>兆MB(<code>Megabyte</code>)    <code>1MB=1024KB</code></li>
+<li>千兆GB(<code>Gigabyte</code>)    <code>1GB=1024MB</code></li>
+<li>万亿字节TB(<code>Terabyte</code>)    <code>1TB=1024GB</code></li>
+</ul>
+<h2 id="第七节-条件语句"><a href="#第七节-条件语句" class="headerlink" title="第七节 条件语句"></a>第七节 条件语句</h2><h3 id="7-1-基本条件"><a href="#7-1-基本条件" class="headerlink" title="7.1 基本条件"></a>7.1 基本条件</h3><pre><code class="python">if 条件/真假 :
+    语句1
+    语句2
+else:
+    语句3
+    语句4
+# 注意冒号和缩进
+</code></pre>
+<h3 id="7-2-多条件"><a href="#7-2-多条件" class="headerlink" title="7.2 多条件"></a>7.2 多条件</h3><pre><code class="python">if 条件A :
+    条件A成立，执行此条语句
+    ···
+elif 条件B :
+    条件A不成立，条件B成立，执行此条语句
+    ···
+elif 条件C :
+    条件A不成立，条件B不成立，条件C成立，执行此条语句
+    ···
+else :
+    上述都不成立，执行此条语句
+    ···
+# else是可以省略的，代表此部分条件不执行
+</code></pre>
+<h3 id="7-3-条件的嵌套"><a href="#7-3-条件的嵌套" class="headerlink" title="7.3 条件的嵌套"></a>7.3 条件的嵌套</h3><pre><code class="python">if 条件A :
+    if 条件B :
+        if 条件C :
+            语句1
+        else :
+            语句2
+    else :
+        语句3
+elif 条件D :
+    语句4
+</code></pre>
+<h2 id="第八节-while循环"><a href="#第八节-while循环" class="headerlink" title="第八节 while循环"></a>第八节 while循环</h2><h3 id="8-1-循环基本语句"><a href="#8-1-循环基本语句" class="headerlink" title="8.1 循环基本语句"></a>8.1 循环基本语句</h3><pre><code class="python">语句
+while 条件 :
+    语句1
+    语句2
+语句
+</code></pre>
+<h3 id="8-2-break"><a href="#8-2-break" class="headerlink" title="8.2 break"></a>8.2 break</h3><p>break语句可以终止循环，用于循环内部</p>
+<h3 id="8-3-continue"><a href="#8-3-continue" class="headerlink" title="8.3 continue"></a>8.3 continue</h3><p>continue语句可以跳出本次循环，进入下一次循环的判断</p>
+<h2 id="第九节-字符串格式化"><a href="#第九节-字符串格式化" class="headerlink" title="第九节 字符串格式化"></a>第九节 字符串格式化</h2><h3 id="9-1-使用format（推荐）"><a href="#9-1-使用format（推荐）" class="headerlink" title="9.1 使用format（推荐）"></a>9.1 使用format（推荐）</h3><p>在一个字符串中使用{}代表了一个占位符，在字符串后面加上<code>.format()</code>可以传入其他字符串到占位符里，比如</p>
+<pre><code class="python">text=&quot;我是&#123;0&#125;，今年&#123;1&#125;岁&quot;.format(&quot;邓金俊&quot;,22)
+#text=我是邓金俊，今年22岁
+</code></pre>
+<p>可以不适用0，1的序号，而是在<code>format()</code>里面给进行替换的字符串命名，使用变量名来指代字符串，比如</p>
+<pre><code class="python">text=&quot;我是&#123;name&#125;，今年&#123;age&#125;岁&quot;.format(name=&quot;邓金俊&quot;,age=22)
+#text=我是邓金俊，今年22岁
+</code></pre>
+<p>也可以不使用0，1的序号，那么<code>format()</code>里面的字符串将会按顺序传入占位符里，比如</p>
+<pre><code class="python">text=&quot;我是&#123;0&#125;，今年&#123;1&#125;岁&quot;.format(&quot;邓金俊&quot;,22)
+#text=我是邓金俊，今年22岁
+</code></pre>
+<p>字符串的重用：</p>
+<pre><code class="python">text = &quot;我是&#123;0&#125;，今年&#123;1&#125;岁&quot;
+text1 = text.format(&quot;张三&quot;, 13)	#text1=我是张三，今年13岁
+text2 = text.format(&quot;李四&quot;, 14)	#text2=我是李四，今年14岁
+</code></pre>
+<h3 id="9-2-使用"><a href="#9-2-使用" class="headerlink" title="9.2 使用%"></a>9.2 使用%</h3><p>在一个字符串中使用%代表占位符，在字符串后面使用空格加上一个%可以传入其他字符串到占位符里</p>
+<p>%s、%d分别代表一个字符串和一个整型的占位符，与C语言中相似，比如</p>
+<pre><code class="python">text=&quot;我是%s，今年%d岁&quot; %(&quot;邓金俊&quot;,22)
+#text=我是邓金俊，今年22岁
+</code></pre>
+<p>字符串按顺序传入，与format的用法相似，也可以进行字符串的重用</p>
+<h3 id="9-3-使用f-string"><a href="#9-3-使用f-string" class="headerlink" title="9.3 使用f-string"></a>9.3 使用f-string</h3><p>预先给字符串命名，需要传入字符串时再使用{}传入，字符串前要加上f</p>
+<p>f-string是Python3.6版本后才出现的用法,比如</p>
+<pre><code class="python">name=&quot;邓金俊&quot;
+age=22
+text=f&quot;我是&#123;name&#125;，今年&#123;age&#125;岁&quot;
+#text=我是邓金俊，今年22岁
+</code></pre>
+<h2 id="第十节-运算符"><a href="#第十节-运算符" class="headerlink" title="第十节 运算符"></a>第十节 运算符</h2><ul>
+<li><p>算术运算符：加<code>+</code>	减<code>-</code>	乘<code>*</code>	除<code>/</code>	取余<code>%</code></p>
+</li>
+<li><p>比较运算符：大于<code>&gt;</code>    小于<code>&lt;</code>    大于等于<code>&gt;=</code>    小于等于<code>&lt;=</code>    等于<code>=</code>    不等于<code>!=</code></p>
+</li>
+<li><p>赋值运算符：等于<code>=</code>    算数运算符和等号<code>=</code>可以简写，比如<code>num+=1</code>、<code>num*=2</code>等</p>
+</li>
+<li><p>成员运算：<code>in</code>用来判断一个字符串中是否含有一个子串，相反地，用<code>not in</code>来判断一个字符串中是否不含有一个子串，判断结果是一个布尔值，比如</p>
+<pre><code class="python">commet=&quot;好多人都阳性了&quot;
+flag=&quot;阳&quot;in commet	#flag=True
+#常用于条件语句中
+</code></pre>
+</li>
+<li><p>逻辑运算：逻辑与<code>and</code>    逻辑或<code>or</code>，一般用于多个条件之间。</p>
+<ul>
+<li>一般用法：用<code>and</code>连接的条件都为真时结果才为真，用<code>or</code>连接的条件只要有一个为真，结果就为真。</li>
+<li>高级用法：值<code>and</code>&#x2F;<code>or</code>值时，需要分析结果取决于第几个值，<code>6 and 9    #9</code>    <code>6 or 9    #6</code>    <code>0 and 1    #0</code>    <code>0 or 1    #1</code>     <code>88 and 0    #0</code>    <code>&quot;&quot; and 3    #&quot;&quot;</code>    <code>&quot;张三&quot; and &quot;李四&quot;   #李四</code>    当表达式中含有多个<code>and</code>和<code>or</code>时，先分析<code>and</code>再分析<code>or</code></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2022-12-22</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Python/'>
+                            Python
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
