@@ -127,15 +127,23 @@
 </blockquote>
 <ul>
 <li><p>Windows</p>
-<pre><code>update feature_code set code = (select new from plu where plu.old =feature_code.code)
+<pre><code>update feature_code 
+set code = (select new from plu where plu.old =feature_code.code)
+where feature_code.code in (select old from plu)
 </code></pre>
 </li>
 <li><p>Android</p>
 <pre><code class="sqlite">update EExportProductSelfLearn
 set  productId = (select new from plu where plu.old =EExportProductSelfLearn.productId)
+where EExportProductSelfLearn.productId in (select old from plu)
 </code></pre>
 </li>
 </ul>
+<blockquote>
+<ol start="6">
+<li>删掉数据表plu，保存数据库</li>
+</ol>
+</blockquote>
 
     </div>
 
