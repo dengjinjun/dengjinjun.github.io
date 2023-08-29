@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Linux权限管理" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Linux权限管理
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%AE%A1%E7%90%86"><span class="post-toc-text">管理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="post-toc-text">权限管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户和组管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">组管理</span></a></li></ol></li></ol></li></ol>
+        
+        <h1 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h1><h1 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h1><p>Linux把权限分为了三类：</p>
+<ol>
+<li>属主对应的权限</li>
+<li>属组对应的权限</li>
+<li>其他人对应的权限</li>
+</ol>
+<h2 id="用户和组管理"><a href="#用户和组管理" class="headerlink" title="用户和组管理"></a>用户和组管理</h2><h3 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h3><ul>
+<li><p>查看用户信息：<code>id</code></p>
+<pre><code>id [用户名]		# 查看用户的uid, 主组的gid, 所在组信息
+id					# 查看当前本人用户信息
+</code></pre>
+<p>关于uid：在CentOS 7中，uid&#x3D;0代表超级管理员；uid在1-999代表虚拟系统用户，其中1-200用于运行系统自带的进程，201-999用于运行安装的程序；uid在1000+，代表普通用户，可以正常登录系统，能进行的操作有限。</p>
+</li>
+<li><p>查看当前登陆人：<code>who</code></p>
+<pre><code>whoami			# 显示当前本人的用户名
+who				# 显示当前登陆系统的所有人的用户名
+</code></pre>
+</li>
+<li><p>创建用户：<code>useradd</code></p>
+<pre><code>useradd [用户名]		# 每创建一个用户，都会创建一个该用户的主组，以该用户名命名组名，组文件在：/etc/group,组密码文件在：/etc/gshadow
+</code></pre>
+<p>新建用户后会把用户信息写入<code>/etc/passwd</code>文件中，这是保存用户信息的文件，具体结构如下：</p>
+<p>​																用户名 ：密码占位符 ：uid ：gid ：所在组 ：用户家目录 ：提供给用户的终端</p>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828224334713.png" alt="image-20230828224334713"></p>
+</li>
+<li><p>给用户创建密码：<code>passwd</code></p>
+<pre><code>passwd [用户名]
+</code></pre>
+<p>创建密码之后会把用户的密码写入<code>/etc/shadow</code>文件中，这是保存用户密码的文件，具体结构如下：</p>
+<p>​                   用户名 ： 密码密文 ：距离上一次变更过去的天数：更改密码的最少天数 ：更改密码的最长天数 ：过期提醒天数：预警天数：失效日期：</p>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828225507166.png" alt="image-20230828225507166"></p>
+</li>
+<li><p>用户的家目录</p>
+<p>每个用户都有自己的家目录：<code>/home/用户名</code></p>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828231904711.png" alt="image-20230828231904711"></p>
+<p>除了当前目录<code>.</code>和上级目录<code>..</code>之外，其他文件均是创建用户时附带的文件，来自于家目录模板：<code>/etc/skel</code></p>
+</li>
+<li><p>用户的邮箱文件</p>
+<p>每个用户都有自己的邮箱文件：<code>/var/spool/mail/用户名</code>，用于收发邮件</p>
+</li>
+</ul>
+<h3 id="组管理"><a href="#组管理" class="headerlink" title="组管理"></a>组管理</h3><ul>
+<li><p>创建组</p>
+</li>
+<li><p>给组创建密码</p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-28</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
