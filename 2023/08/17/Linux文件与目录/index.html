@@ -96,61 +96,9 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90"><span class="post-toc-text">文件与目录权限</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Linux%E7%9B%AE%E5%BD%95%E8%AF%A6%E8%A7%A3"><span class="post-toc-text">Linux目录详解</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E5%91%BD%E4%BB%A4"><span class="post-toc-text">文件与目录命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF"><span class="post-toc-text">查看文件信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E5%8F%8A%E7%9B%AE%E5%BD%95%E7%9A%84%E5%88%9B%E5%BB%BA%E3%80%81%E5%88%A0%E9%99%A4%E5%92%8C%E7%A7%BB%E5%8A%A8"><span class="post-toc-text">文件及目录的创建、删除和移动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E5%B1%9E%E6%80%A7%E4%B8%8E%E6%9D%83%E9%99%90"><span class="post-toc-text">文件的属性与权限</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Linux%E7%9B%AE%E5%BD%95%E8%AF%A6%E8%A7%A3"><span class="post-toc-text">Linux目录详解</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E5%91%BD%E4%BB%A4"><span class="post-toc-text">文件与目录命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF"><span class="post-toc-text">查看文件信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E5%8F%8A%E7%9B%AE%E5%BD%95%E7%9A%84%E5%88%9B%E5%BB%BA%E3%80%81%E5%88%A0%E9%99%A4%E5%92%8C%E7%A7%BB%E5%8A%A8"><span class="post-toc-text">文件及目录的创建、删除和移动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E5%B1%9E%E6%80%A7%E4%B8%8E%E6%9D%83%E9%99%90"><span class="post-toc-text">文件的属性与权限</span></a></li></ol></li></ol>
         
-        <h1 id="文件与目录权限"><a href="#文件与目录权限" class="headerlink" title="文件与目录权限"></a>文件与目录权限</h1><p>使用<code>ls -al</code>查看所有文件的详细信息</p>
-<p>下图是文件或目录的详细信息各部分的解释：</p>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/0b53cb8ae1932466ae2e8a1f5f361047.gif" alt="文件属性的示意图"></p>
-<ul>
-<li><p>档案类型权限的解释</p>
-<p>例如：<code>-rw-r--r--</code></p>
-<ul>
-<li><p>第一个字符代表文件类型，</p>
-<p>Linux系统不是以后缀名区分文件类型的，在详细信息中，各种不同的文件类型如下：</p>
-<pre><code>当为[ d ]则是目录，例如上表文件名为“.config”的那一行；
-当为[ - ]则是文本文件，例如上表文件名为“initial-setup-ks.cfg”那一行；
-若是[ l ]则表示为链接文件（link file）；
-若是[ b ]则表示为设备文件里面的可供储存的周边设备（可随机存取设备）；
-若是[ c ]则表示为设备文件里面的序列埠设备，例如键盘、鼠标（一次性读取设备）。
-</code></pre>
-</li>
-<li><p>后面九个字符分为三组，分别代表<code>文件拥有者</code>，<code>群组</code>，<code>其他人</code>所拥有的权限</p>
-<pre><code>r代表读权限，w代表修改权限，x代表执行权限
-</code></pre>
-<p>而对于文件类型和目录类型，这三种权限又有不同，详细如下：</p>
-<table>
-<thead>
-<tr>
-<th align="left">元件</th>
-<th align="left">内容</th>
-<th align="left">叠代物件</th>
-<th align="left">r</th>
-<th align="left">w</th>
-<th align="left">x</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">文件</td>
-<td align="left">详细数据data</td>
-<td align="left">文件数据夹</td>
-<td align="left">读到文件内容</td>
-<td align="left">修改文件内容</td>
-<td align="left">执行文件内容</td>
-</tr>
-<tr>
-<td align="left">目录</td>
-<td align="left">文件名</td>
-<td align="left">可分类抽屉</td>
-<td align="left">读到文件名</td>
-<td align="left">修改文件名</td>
-<td align="left">进入该目录的权限（key）</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="Linux目录详解"><a href="#Linux目录详解" class="headerlink" title="Linux目录详解"></a>Linux目录详解</h1><table>
+        <h1 id="Linux目录详解"><a href="#Linux目录详解" class="headerlink" title="Linux目录详解"></a>Linux目录详解</h1><table>
 <thead>
 <tr>
 <th>&#x2F;</th>

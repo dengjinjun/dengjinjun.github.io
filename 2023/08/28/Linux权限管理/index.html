@@ -96,9 +96,9 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%AE%A1%E7%90%86"><span class="post-toc-text">管理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="post-toc-text">权限管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户和组管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">组管理</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="post-toc-text">权限管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户和组管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">组管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90"><span class="post-toc-text">文件与目录权限</span></a></li></ol></li></ol>
         
-        <h1 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h1><h1 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h1><p>Linux把权限分为了三类：</p>
+        <h1 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h1><p>Linux把权限分为了三类：</p>
 <ol>
 <li>属主对应的权限</li>
 <li>属组对应的权限</li>
@@ -119,9 +119,25 @@ who				# 显示当前登陆系统的所有人的用户名
 <li><p>创建用户：<code>useradd</code></p>
 <pre><code>useradd [用户名]		# 每创建一个用户，都会创建一个该用户的主组，以该用户名命名组名，组文件在：/etc/group,组密码文件在：/etc/gshadow
 </code></pre>
+<p><code>useradd</code>的选项</p>
+<pre><code>-u		# 指定用户的uid
+-g		# 指定用户的主群组id
+-G		# 指定用户所属的附加组
+-d		# 指定用户的家目录
+-e		# 指定过期时间
+</code></pre>
 <p>新建用户后会把用户信息写入<code>/etc/passwd</code>文件中，这是保存用户信息的文件，具体结构如下：</p>
 <p>​																用户名 ：密码占位符 ：uid ：gid ：所在组 ：用户家目录 ：提供给用户的终端</p>
 <p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828224334713.png" alt="image-20230828224334713"></p>
+</li>
+<li><p>修改用户信息：<code>usermod</code></p>
+<pre><code>usermod [用户名]					# 修改用户的相关信息，必须是已存在的用户，相关选项与useradd的选项相同
+usermod -g [组号] [用户名]		# 给用户指定主组
+usermod -a -G [组1,组2，组3] [用户名]	# 给用户添加附加组，-a是添加(append)的意思，如果不加-a则会覆盖附加组
+usermod -l [新登录名] [旧登录名]	# 修改用户的登录名
+usermod -L [用户名]				# 锁定用户，不可登录
+usermod -U [用户名]				# 解锁用户
+</code></pre>
 </li>
 <li><p>给用户创建密码：<code>passwd</code></p>
 <pre><code>passwd [用户名]
@@ -138,11 +154,118 @@ who				# 显示当前登陆系统的所有人的用户名
 <li><p>用户的邮箱文件</p>
 <p>每个用户都有自己的邮箱文件：<code>/var/spool/mail/用户名</code>，用于收发邮件</p>
 </li>
+<li><p>删除用户：<code>userdel</code></p>
+<pre><code>userdel [用户名]			# 会删掉用户的账号和密码以及主组，但是会保留用户的家目录以及邮箱文件
+</code></pre>
+<pre><code>userdel -r [用户名]		
+# 彻底清除与该用户相关的文件，包括/etc/passwd,/etc/shadow,/etc/group,/etc/gshadow,/home/用户名,/var/spool/mail/用户名
+</code></pre>
+</li>
 </ul>
 <h3 id="组管理"><a href="#组管理" class="headerlink" title="组管理"></a>组管理</h3><ul>
-<li><p>创建组</p>
+<li><p>创建组：<code>groupadd</code></p>
+<pre><code>groupadd [组名]				# 创建一个组
+groupadd  -g [组号] [组名]		# 创建一个组，指定组号(gid)
+</code></pre>
 </li>
-<li><p>给组创建密码</p>
+<li><p>修改组：<code>groupmod</code></p>
+<pre><code>groupmod -g [组号] [组名]		# 修改组号
+groupmod -n [组新名] [组名]		# 修改组名
+</code></pre>
+</li>
+<li><p>给组创建密码和修改组成员：<code>gpasswd</code></p>
+<pre><code>gpasswd [组名]							# 给组创建密码
+gpasswd -a [用户名] [组名]					# 将某个用户添加进组中，与 usermod -a -G [组名] [用户名] 效果相同
+gpasswd -d [用户名] [组名]					# 将某个用户从组中删除
+gpasswd -M [用户1,用户2,用户3] [组名]		# 将多个用户添加进组中
+gpasswd -A [用户名] [组名]					# 指定某用户为组长
+</code></pre>
+</li>
+<li><p>用户临时进组：<code>newgrp</code></p>
+<pre><code>newgrp [组名]			# 当前登录用户，临时获取该组的权限，临时进组需要密码
+</code></pre>
+</li>
+<li><p>删除组：<code>groupdel</code></p>
+<pre><code>groupdel [组号/组名]			# 删除一个组，但是这个组不能是某个用户的主组
+</code></pre>
+</li>
+</ul>
+<h2 id="文件与目录权限"><a href="#文件与目录权限" class="headerlink" title="文件与目录权限"></a>文件与目录权限</h2><p>使用<code>ls -al</code>查看所有文件的详细信息</p>
+<p>下图是文件或目录的详细信息各部分的解释：</p>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/0b53cb8ae1932466ae2e8a1f5f361047.gif" alt="文件属性的示意图"></p>
+<ul>
+<li><p>档案类型权限的解释</p>
+<p>例如：<code>-rw-r--r--</code></p>
+<ul>
+<li><p>第一个字符代表文件类型，</p>
+<p>Linux系统不是以后缀名区分文件类型的，在详细信息中，各种不同的文件类型如下：</p>
+<pre><code>当为[ d ]则是目录，例如上表文件名为“.config”的那一行；
+当为[ - ]则是文本文件，例如上表文件名为“initial-setup-ks.cfg”那一行；
+若是[ l ]则表示为链接文件（link file）；
+若是[ b ]则表示为设备文件里面的可供储存的周边设备（可随机存取设备）；
+若是[ c ]则表示为设备文件里面的序列埠设备，例如键盘、鼠标（一次性读取设备）。
+</code></pre>
+</li>
+<li><p>后面九个字符分为三组，分别代表<code>文件拥有者</code>，<code>群组</code>，<code>其他人</code>所拥有的权限</p>
+<pre><code>r代表读权限，w代表修改权限，x代表执行权限
+</code></pre>
+<p>而对于文件类型和目录类型，这三种权限又有不同，详细如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">元件</th>
+<th align="left">内容</th>
+<th align="left">叠代物件</th>
+<th align="left">r</th>
+<th align="left">w</th>
+<th align="left">x</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">文件</td>
+<td align="left">详细数据data</td>
+<td align="left">文件数据夹</td>
+<td align="left">读到文件内容</td>
+<td align="left">修改文件内容</td>
+<td align="left">执行文件内容</td>
+</tr>
+<tr>
+<td align="left">目录</td>
+<td align="left">文件名</td>
+<td align="left">可分类抽屉</td>
+<td align="left">读到文件名</td>
+<td align="left">创建、删除、移动文件，修改文件名</td>
+<td align="left">进入该目录的权限（key）</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li><p>改变文件拥有者</p>
+<pre><code>chown [账号名称] [文件或目录]				# change owner
+</code></pre>
+<pre><code>chown -R [账号名称：群组名称] [文件或目录]	# 同时改变文件拥有者和群组， -R表示递归修改，用于目录的修改。
+</code></pre>
+</li>
+<li><p>改变文件所属群组</p>
+<pre><code>chgrp [-R] [群组名] [文件或目录]					# change group ,-R表示递归，用于目录
+</code></pre>
+</li>
+<li><p>改变文件权限</p>
+<pre><code>chmod				# change mode
+</code></pre>
+<ul>
+<li><p>数字形式改变文件权限</p>
+<pre><code>chmod [-R] xyz [文件或目录]		# xyz分别代表文件拥有者，群组和其他人的权限
+</code></pre>
+</li>
+<li><p>字母方式改变文件权限</p>
+<pre><code>chmod [-R] u=rwx,go=rx [文件或目录]	# u指user，g指代group，o指代others
+</code></pre>
+<pre><code>chmod [-R] a-x [文件或目录]			# a代表三种身份，a-x表示三种身份都拿掉执行权限	
+</code></pre>
+</li>
+</ul>
 </li>
 </ul>
 
