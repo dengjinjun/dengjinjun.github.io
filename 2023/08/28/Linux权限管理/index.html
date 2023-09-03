@@ -96,9 +96,9 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="post-toc-text">权限管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户和组管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">组管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90"><span class="post-toc-text">文件与目录权限</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="post-toc-text">权限管理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="post-toc-text">基本权限管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户和组管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">组管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90"><span class="post-toc-text">文件与目录权限</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%89%B9%E6%AE%8A%E6%9D%83%E9%99%90"><span class="post-toc-text">特殊权限</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%AB%98%E7%BA%A7%E6%9D%83%E9%99%90"><span class="post-toc-text">高级权限</span></a></li></ol>
         
-        <h1 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h1><p>Linux把权限分为了三类：</p>
+        <h1 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h1><h1 id="基本权限管理"><a href="#基本权限管理" class="headerlink" title="基本权限管理"></a>基本权限管理</h1><p>Linux把权限分为了三类：</p>
 <ol>
 <li>属主对应的权限</li>
 <li>属组对应的权限</li>
@@ -238,13 +238,15 @@ gpasswd -A [用户名] [组名]					# 指定某用户为组长
 <td align="left">进入该目录的权限（key）</td>
 </tr>
 </tbody></table>
+<p>操作某个文件夹下的文件内容，当前用户首先需要具有沿途所有文件夹的执行权限，如果是想要读目标文件，需要具有读权限，如果想要创建、删除、移动目标文件，需要具有写权限。</p>
+<p>如果要执行一个二进制的文本文件，只需要执行权限，如果文本文件是shell命令，则还需要读权限，读取shell命令后编译成二进制文件再执行。</p>
 </li>
 </ul>
 </li>
 <li><p>改变文件拥有者</p>
-<pre><code>chown [账号名称] [文件或目录]				# change owner
+<pre><code>chown [账号名称] [文件或目录]					# change owner
 </code></pre>
-<pre><code>chown -R [账号名称：群组名称] [文件或目录]	# 同时改变文件拥有者和群组， -R表示递归修改，用于目录的修改。
+<pre><code>chown -R [账号名称：群组名称] [文件或目录]		# 同时改变文件拥有者和群组， -R表示递归修改，用于目录的修改。
 </code></pre>
 </li>
 <li><p>改变文件所属群组</p>
@@ -268,7 +270,34 @@ gpasswd -A [用户名] [组名]					# 指定某用户为组长
 </ul>
 </li>
 </ul>
-
+<h1 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h1><ul>
+<li><p>SUID：Set User ID</p>
+<p>给可执行文件的拥有者增加一个<code>SUID</code>权限，那么当前用户都将以文件拥有者身份操作该可执行文件（前提是需要具有x权限）</p>
+<pre><code>chmod u+s [文件名]					# 给可执行文件的拥有者增加SUID权限
+</code></pre>
+<p>注意：SUID权限仅对可执行文件有效，且仅在执行该文件时有效</p>
+</li>
+<li><p>SGID：Set Group ID</p>
+<p>给文件&#x2F;目录的群组增加一个<code>SGID</code>权限，那么当前用户都将以文件属组成员身份操作该文件&#x2F;目录</p>
+<pre><code>chmod g+s [文件名/目录名]			# 给文件/目录的属组增加SGID权限
+</code></pre>
+</li>
+<li><p>SBIT： Sticky Bit(防删除)</p>
+<p>给目录的其他人角色增加一个<code>SBIT</code>权限，那么当前用户在此目录下，将只能针对自己创建的文件进行删除、重命名等操作，而无法删除其他人的文件</p>
+<pre><code>chmod o+t [目录]					# 给目录的其他人角色增加SBIT权限
+</code></pre>
+</li>
+<li><p>umask：权限掩码</p>
+<p>umask 命令用来控制权限掩码，为新建的文件或目录设置一个初始权限。文件&#x2F;目录创建时的初始权限 &#x3D; 默认权限 - 权限掩码</p>
+<pre><code>umask			# 以数字的形式展示权限掩码
+</code></pre>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230903023129866.png" alt="image-20230903023129866"></p>
+<p><code>0022</code>中的后三位<code>022</code>分别表示属主、属组和其他人的权限掩码，假设默认权限为<code>777</code>，则创建新文件&#x2F;目录时的初始权限为<code>755</code>，即<code>rwxr-xr-x</code></p>
+<p>临时设置权限掩码需要使用命令<code>umask [022]</code>即可，永久设置权限掩码需要修改配置文件<code>/etc/bashrc</code></p>
+<p>第一位的<code>0</code>表示的是特殊权限，SUID&#x3D;4，SGID&#x3D;2，SBIT&#x3D;1，与后三位不同，第一位的数字表示的就是需要设置的权限，<code>0</code>就是不加任何特殊权限。</p>
+</li>
+</ul>
+<h1 id="高级权限"><a href="#高级权限" class="headerlink" title="高级权限"></a>高级权限</h1>
     </div>
 
     <div class="post-meta">

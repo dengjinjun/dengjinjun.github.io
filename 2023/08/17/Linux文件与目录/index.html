@@ -468,11 +468,8 @@ mv -u  ：若目标文件已经存在，且 source 比较新，才会更新 （u
 </li>
 </ul>
 <h2 id="文件的属性与权限"><a href="#文件的属性与权限" class="headerlink" title="文件的属性与权限"></a>文件的属性与权限</h2><ul>
-<li><p>查看默认(创建)文件权限</p>
-<pre><code>umask		# 以数字方式查看权限
-umask -S	# 以字母的方式查看权限
-</code></pre>
-<pre><code>umask 022	# 修改默认权限，数字表示移除的权限，此处022表示移除群组和其他人的写权限
+<li><p>查看创建文件&#x2F;目录时的默认权限</p>
+<pre><code>umask -S	
 </code></pre>
 </li>
 <li><p>改变文件拥有者</p>
