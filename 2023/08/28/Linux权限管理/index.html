@@ -96,9 +96,9 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="post-toc-text">权限管理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="post-toc-text">基本权限管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户和组管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">组管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90"><span class="post-toc-text">文件与目录权限</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%89%B9%E6%AE%8A%E6%9D%83%E9%99%90"><span class="post-toc-text">特殊权限</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%AB%98%E7%BA%A7%E6%9D%83%E9%99%90"><span class="post-toc-text">高级权限</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="post-toc-text">基本权限管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户和组管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">组管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90"><span class="post-toc-text">文件与目录权限</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%89%B9%E6%AE%8A%E6%9D%83%E9%99%90"><span class="post-toc-text">特殊权限</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%AB%98%E7%BA%A7%E6%9D%83%E9%99%90%EF%BC%9AACL"><span class="post-toc-text">高级权限：ACL</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#su%E7%94%A8%E6%88%B7%E5%88%87%E6%8D%A2%E5%92%8Csudo%E6%8F%90%E6%9D%83"><span class="post-toc-text">su用户切换和sudo提权</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#su%E7%94%A8%E6%88%B7%E5%88%87%E6%8D%A2"><span class="post-toc-text">su用户切换</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sudo%E6%8F%90%E6%9D%83"><span class="post-toc-text">sudo提权</span></a></li></ol></li></ol>
         
-        <h1 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h1><h1 id="基本权限管理"><a href="#基本权限管理" class="headerlink" title="基本权限管理"></a>基本权限管理</h1><p>Linux把权限分为了三类：</p>
+        <h1 id="基本权限管理"><a href="#基本权限管理" class="headerlink" title="基本权限管理"></a>基本权限管理</h1><p>Linux把权限分为了三类：</p>
 <ol>
 <li>属主对应的权限</li>
 <li>属组对应的权限</li>
@@ -297,7 +297,82 @@ gpasswd -A [用户名] [组名]					# 指定某用户为组长
 <p>第一位的<code>0</code>表示的是特殊权限，SUID&#x3D;4，SGID&#x3D;2，SBIT&#x3D;1，与后三位不同，第一位的数字表示的就是需要设置的权限，<code>0</code>就是不加任何特殊权限。</p>
 </li>
 </ul>
-<h1 id="高级权限"><a href="#高级权限" class="headerlink" title="高级权限"></a>高级权限</h1>
+<h1 id="高级权限：ACL"><a href="#高级权限：ACL" class="headerlink" title="高级权限：ACL"></a>高级权限：ACL</h1><p>ACL的全称是 Access Control List (访问控制列表) ，一个针对文件&#x2F;目录的访问控制列表。它在UGO权限（属主，属组，其他人）管理的基础上为文件系统提供一个额外的、更灵活的权限管理机制。它被设计为UNIX文件权限管理的一个补充。ACL允许你给任何的用户或用户组设置任何文件&#x2F;目录的访问权限。</p>
+<ul>
+<li><p>查看文件&#x2F;目录的角色权限信息</p>
+<pre><code>getfcal [文件/目录]
+</code></pre>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230903204230830.png" alt="image-20230903204230830"></p>
+<pre><code>展示了文件名、属主、属组以及各个角色的权限，还包括给其他用户dengpangpang设置的额外权限：rwx, 以及mask值。
+mask值表示特殊角色对这个文件不能超出的最高权限，如果mask值为---，那么特殊角色没有任何额外权限。
+</code></pre>
+<p>注意：一旦设置了ACL权限，那么再查看文件权限信息的时候，不必使用<code>ll</code>命令了，使用<code>getfacl</code>才能查看到准确的权限。</p>
+<p>权限的查找顺序：先查找额外权限，再查找基础权限。</p>
+</li>
+<li><p>设置mask值</p>
+<pre><code>setfacl -m m:[具体权限] [文件]			# 给某个文件设置mask值
+</code></pre>
+<pre><code>setfacl -m m:r-x a.txt			# 给用户dengpangpang设置对文件a.txt的读和执行权限
+</code></pre>
+</li>
+<li><p>给某个用户设置额外权限</p>
+<pre><code>setfacl -m u:[用户名]:[具体权限] [文件名]		
+</code></pre>
+</li>
+<li><p>给某个组设置额外权限</p>
+<pre><code>setfacl -m g:[组名]:[具体权限] [文件名]	
+</code></pre>
+</li>
+<li><p>设置基本角色的权限</p>
+<p>设置了ACL权限之后，不建议再使用<code>chmod</code>去改变基本角色的权限，避免引起权限混乱。应该使用<code>setfacl</code>设置</p>
+<pre><code>setfacl -m u::[具体权限] [文件名]				# 设置属主的权限，即相对于其他用户，省略了用户名
+setfacl -m g::[具体权限] [文件名]				# 设置属组的权限，即相对于其他组，省略了组名
+setfacl -m o::[具体权限] [文件名]				# 设置其他人的权限
+</code></pre>
+</li>
+<li><p>清理ACL权限</p>
+<pre><code>setfacl -b [文件名]					# 清理掉文件的所有ACL权限
+</code></pre>
+<pre><code>setfacl -x u:[用户名] [文件名]			# 清理掉某个用户额外权限
+setfacl -x g:[组名] [文件名]				# 清理掉某个组的额外权限
+</code></pre>
+</li>
+<li><p>ACL的继承</p>
+<p>以上命令均是针对文件进行说明的，针对目录的操作与文件相同，但是又有补充，即目录内的文件，可以继承目录的ACL权限。比如：</p>
+<pre><code>setfacl -m d:m:[具体权限] [目录]					# 给某个目录设置mask值
+setfacl -m d:u:[用户名]:[具体权限] [目录]			# 针对目录设置某个用户的额外权限
+setfacl -m d:g:[组名]:[具体权限] [目录]				# 针对目录设置某个组的额外权限
+</code></pre>
+</li>
+</ul>
+<h1 id="su用户切换和sudo提权"><a href="#su用户切换和sudo提权" class="headerlink" title="su用户切换和sudo提权"></a>su用户切换和sudo提权</h1><h2 id="su用户切换"><a href="#su用户切换" class="headerlink" title="su用户切换"></a>su用户切换</h2><p>su：<code>set user</code>	用于切换用户身份，从一个用户切换到另一个用户，有两种方式</p>
+<ol>
+<li><p>登陆级别shell</p>
+<pre><code>su -用户名				# 直接以该用户身份登录，进入该用户主文件夹。root用户切换到其他用户下无需输入密码，反之需要
+su -用户名 -c &quot;命令&quot;		# 切换身份并执行命令
+</code></pre>
+<p>需要加载的文件：</p>
+<blockquote>
+<p>&#x2F;etc&#x2F;profile  —&gt;  &#x2F;etc&#x2F;profile.d&#x2F;*.sh  —&gt;  ~&#x2F;.bash_profile  —&gt;  ~&#x2F;.bashrc  —&gt;  &#x2F;etc&#x2F;bashrc</p>
+</blockquote>
+</li>
+<li><p>非登录级别shell</p>
+<pre><code>su 用户名				# 不进入该用户主文件夹，仍停留在原文件夹内
+</code></pre>
+<p>需要加载的文件：</p>
+<blockquote>
+<p>~&#x2F;.bashrc  —&gt;  &#x2F;etc&#x2F;bashrc  —&gt;  &#x2F;etc&#x2F;profile.d&#x2F;*.sh</p>
+</blockquote>
+</li>
+</ol>
+<p>如果想针对所有用户以及登录非登录的shell设置统一的配置，就把配置命令写到  <code>/etc/bashrc</code> 文件中</p>
+<h2 id="sudo提权"><a href="#sudo提权" class="headerlink" title="sudo提权"></a>sudo提权</h2><p>su指令的优点是简单粗暴，但是缺点是容易造成root密码泄露，普通用户获得所有管理权限风险也比较大</p>
+<p>sudo指令可以实现普通用户在当前身份下获得部分管理权限，且不需要输入root密码，缺点是相对复杂。</p>
+<blockquote>
+<p>如何配置权限？</p>
+</blockquote>
+<p>在管理员下使用<code>cisudo</code>命令或者vim编辑器来修改配置文件<code>/etc/sudoers</code>来分配权限。配置之后可以使用<code>visudo -c</code>命令来检查语法，确保配置正确。</p>
+
     </div>
 
     <div class="post-meta">
