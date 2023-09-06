@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Linux软件包管理" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Linux软件包管理
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86"><span class="post-toc-text">软件包管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RPM%E5%8C%85%E7%AE%A1%E7%90%86"><span class="post-toc-text">RPM包管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%80%9A%E8%BF%87RPM%E5%91%BD%E4%BB%A4%E7%AE%A1%E7%90%86RPM%E5%8C%85"><span class="post-toc-text">通过RPM命令管理RPM包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%80%9A%E8%BF%87yum%E5%91%BD%E4%BB%A4%E7%AE%A1%E7%90%86RPM%E5%8C%85"><span class="post-toc-text">通过yum命令管理RPM包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AEyum%E6%BA%90"><span class="post-toc-text">配置yum源</span></a></li></ol></li></ol></li></ol>
+        
+        <h1 id="软件包管理"><a href="#软件包管理" class="headerlink" title="软件包管理"></a>软件包管理</h1><p>与Windows系统类似，Linux系统上也可以安装各种应用程序，称为软件包。Linux中软件包分为三类：</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>安装</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rpm包</td>
+<td>预先编译打包，安装简单</td>
+<td>通常软件的稳定版本会被官方做成rpm包，所以软件版本偏低</td>
+</tr>
+<tr>
+<td>源码包</td>
+<td>手动编译打包，安装繁琐</td>
+<td>软件版本丰富，可选择性强</td>
+</tr>
+<tr>
+<td>二进制包</td>
+<td>解压即可使用</td>
+<td>不能修改原代码</td>
+</tr>
+</tbody></table>
+<p>对于源码，如果是解释性语言（shell,python等）编写的源码包，需要：</p>
+<ol>
+<li>下载解释器：bash，python解释器等</li>
+<li>在自己的Linux主机上安装对应版本的解释器以及依赖包。</li>
+<li>在解释器的基础上运行：python a.py</li>
+</ol>
+<p>如果是编译型语言（c,go等）编写的源码包，需要：</p>
+<pre><code>1. 下载源码包
+1. 在自己的Linux主机上安装好编译器
+1. 用编译器把源码包编译成可执行的命令
+</code></pre>
+<h2 id="RPM包管理"><a href="#RPM包管理" class="headerlink" title="RPM包管理"></a>RPM包管理</h2><blockquote>
+<p>RPM包介绍</p>
+</blockquote>
+<p>RPM 是Red-Hat Package Manager（RPM软件包管理器）的缩写，起源于RedHa，但其原始设计理念是开放式的，适用于 redhat &#x2F; centos &#x2F; redora &#x2F; suse 。</p>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/rpm.png" alt="rpm包格式"></p>
+<blockquote>
+<p>RPM包的获取方式</p>
+</blockquote>
+<ol>
+<li>本地的ISO镜像光盘</li>
+<li>自行网络下载</li>
+<li>联网从yum仓库中获取rpm包</li>
+</ol>
+<h3 id="通过RPM命令管理RPM包"><a href="#通过RPM命令管理RPM包" class="headerlink" title="通过RPM命令管理RPM包"></a>通过RPM命令管理RPM包</h3><ul>
+<li><p>安装</p>
+<pre><code>rpm -ivh [RPM包名全称]
+</code></pre>
+</li>
+<li><p>升级</p>
+<pre><code>rpm -Uvh [RPM包名]
+</code></pre>
+</li>
+<li><p>卸载</p>
+<pre><code>rpm -e [RPM包名]
+</code></pre>
+</li>
+<li><p>查询</p>
+<pre><code>rpm -q [包名]				# 查询某个RPM包是否已安装
+rpm -qa					# 查询系统中安装过的所有RPM包
+rpm -qa | grep xxx		# 利用管道符筛选
+rpm -qc [RPM包名]			# 查询指定RPM包的配置文件
+</code></pre>
+<pre><code>rpm -qi [RPM包名]			# 查询指定RPM包的描述信息
+rpm -ql [RPM包名]			# 查询指定RPM包里所包含的文件
+rpm -qf [文件路径]			# 查询系统中指定文件所属的软件包
+rpm -qd [RPM包名]				# 查询指定RPM包的帮助文档
+</code></pre>
+<pre><code>在上述命令中加上 -p 选项，能够查看未安装RPM软件包的信息
+</code></pre>
+</li>
+</ul>
+<h3 id="通过yum命令管理RPM包"><a href="#通过yum命令管理RPM包" class="headerlink" title="通过yum命令管理RPM包"></a>通过yum命令管理RPM包</h3><p>yum是一个存放了所有相关RPM软件包的文件夹，称为yum仓库。</p>
+<ol>
+<li>文件下涵盖了所有相关的软件</li>
+<li>文件夹下有一个文件记录了本文件夹所包含软件包的依赖关系</li>
+</ol>
+<ul>
+<li><p>查询</p>
+<pre><code>yum repolist				# 查看可用仓库
+</code></pre>
+<pre><code>yum repolist all			# 查看所有仓库状态，包括启用和禁用状态的仓库
+</code></pre>
+<pre><code>yum list					# 查看可用仓库中的所有软件包
+</code></pre>
+<pre><code>yum grouplist				# 查看可用仓库中的所有软件包组
+</code></pre>
+<pre><code>yum provides [路径/命令名]			# 查看命令所属的软件包
+</code></pre>
+</li>
+<li><p>安装</p>
+<pre><code>yum install [包名]				# 安装软件包
+yum install [包名] -y				# 非交互式安装软件包
+</code></pre>
+<pre><code>yum groupinstall [软件组名]	-y		# 非交互式安装软件包组
+</code></pre>
+</li>
+<li><p>重装</p>
+<pre><code>yum reinstall [包名]				# 重装软件包，通常在配置文件损坏时重装，谨慎操作
+</code></pre>
+</li>
+<li><p>更新</p>
+<pre><code>yum check-update				# 检查软件包是否有更新
+</code></pre>
+<pre><code>yum update -y						# 更新所有已安装软件包，通常刚装完系统之后更新。
+yum update [包名] -y					# 更新指定软件包
+</code></pre>
+</li>
+<li><p>缓存</p>
+<pre><code>yum makecache					# 制作元数据缓存
+yum clean all					# 清理元数据缓存
+</code></pre>
+<p>yum的一个配置文件<code>/etc/yum.conf</code>，在文件中设置keepcache&#x3D;1，即开启了软件包缓存，缓存目录为cachedir指定的目录。</p>
+</li>
+<li><p>卸载</p>
+<pre><code>yum remove [包名] -y				# 非交互式卸载软件包
+</code></pre>
+<pre><code>yum groupremove [软件组名] -y		# 非交互式卸载软件包组
+</code></pre>
+</li>
+<li><p>历史记录</p>
+<pre><code>yum history					# 显示历史yum操作记录，会记录每条yum操作的id号、时间、具体操作、执行人和变更文件数
+</code></pre>
+<pre><code>yum history info [id]		# 查看某条操作的详细信息
+yum history undo [id]		# 撤销执行某条操作
+</code></pre>
+</li>
+</ul>
+<h3 id="配置yum源"><a href="#配置yum源" class="headerlink" title="配置yum源"></a>配置yum源</h3><p>yum源有两种：</p>
+<ol>
+<li><p>本地源：把本地的一个文件夹做成了yum源</p>
+<p>创建本地源方式1：</p>
+<ol>
+<li><p>自己采集一系列软件包放在一个本地目录下</p>
+</li>
+<li><p>在此目录下创建仓库</p>
+<pre><code>yum install createrepo			# 安装createrepo命令
+</code></pre>
+</li>
+</ol>
+<p>创建本地源方式2：</p>
+<ol>
+<li><p>挂载</p>
+<pre><code>mount /dev/sr0 /opt				# 把一个含有rpm包的镜像文件或光驱挂载到一个目录下，此处镜像文件是/dev/sr0，挂载到了/opt目录下
+</code></pre>
+</li>
+<li><p>进入本地目录<code>/etc/yum.repos.d</code>，再次目录下创建文件<code>local.repo</code></p>
+<pre><code>cd /etc/yum.repos.d
+vim local.repo
+</code></pre>
+</li>
+<li><p>添加内容</p>
+<pre><code>[local]							# 本地yum源的名字
+name=&quot;this is local repo&quot;		# 说明信息
+baseurl=file:///opt				# yum仓库所在目录，file://是固定格式，代表本地源，后面跟目录，此目录必定是repodata文件夹的父级目录
+enabled=1						# 是否开启yum仓库
+gpgcheck=0						# 是否开启校验
+</code></pre>
+</li>
+</ol>
+</li>
+<li><p>网络源：</p>
+<ol>
+<li><p>base基础源</p>
+</li>
+<li><p>epel扩展源</p>
+</li>
+<li><p>某一个软件包官网提供的源</p>
+<p>创建网络源</p>
+<p>网上下载一个配置文件即可,比如：</p>
+<pre><code>wget -0 /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+</code></pre>
+</li>
+</ol>
+</li>
+</ol>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-09-05</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
