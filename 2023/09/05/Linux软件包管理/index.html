@@ -96,7 +96,7 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86"><span class="post-toc-text">软件包管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RPM%E5%8C%85%E7%AE%A1%E7%90%86"><span class="post-toc-text">RPM包管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%80%9A%E8%BF%87RPM%E5%91%BD%E4%BB%A4%E7%AE%A1%E7%90%86RPM%E5%8C%85"><span class="post-toc-text">通过RPM命令管理RPM包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%80%9A%E8%BF%87yum%E5%91%BD%E4%BB%A4%E7%AE%A1%E7%90%86RPM%E5%8C%85"><span class="post-toc-text">通过yum命令管理RPM包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AEyum%E6%BA%90"><span class="post-toc-text">配置yum源</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86"><span class="post-toc-text">软件包管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RPM%E5%8C%85%E7%AE%A1%E7%90%86"><span class="post-toc-text">RPM包管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%80%9A%E8%BF%87RPM%E5%91%BD%E4%BB%A4%E7%AE%A1%E7%90%86RPM%E5%8C%85"><span class="post-toc-text">通过RPM命令管理RPM包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%80%9A%E8%BF%87yum%E5%91%BD%E4%BB%A4%E7%AE%A1%E7%90%86RPM%E5%8C%85"><span class="post-toc-text">通过yum命令管理RPM包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AEyum%E6%BA%90"><span class="post-toc-text">配置yum源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0%E6%BA%90"><span class="post-toc-text">配置本地源</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E7%BD%91%E7%BB%9C%E6%BA%90"><span class="post-toc-text">创建网络源</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%BA%90%E7%A0%81%E5%8C%85%E7%AE%A1%E7%90%86"><span class="post-toc-text">源码包管理</span></a></li></ol></li></ol>
         
         <h1 id="软件包管理"><a href="#软件包管理" class="headerlink" title="软件包管理"></a>软件包管理</h1><p>与Windows系统类似，Linux系统上也可以安装各种应用程序，称为软件包。Linux中软件包分为三类：</p>
 <table>
@@ -137,7 +137,7 @@
 <h2 id="RPM包管理"><a href="#RPM包管理" class="headerlink" title="RPM包管理"></a>RPM包管理</h2><blockquote>
 <p>RPM包介绍</p>
 </blockquote>
-<p>RPM 是Red-Hat Package Manager（RPM软件包管理器）的缩写，起源于RedHa，但其原始设计理念是开放式的，适用于 redhat &#x2F; centos &#x2F; redora &#x2F; suse 。</p>
+<p>RPM 是Red-Hat Package Manager（RPM软件包管理器）的缩写，起源于RedHat，但其原始设计理念是开放式的，适用于 redhat &#x2F; centos &#x2F; redora &#x2F; suse 。</p>
 <p><img src="http://rz7v85ras.hd-bkt.clouddn.com/rpm.png" alt="rpm包格式"></p>
 <blockquote>
 <p>RPM包的获取方式</p>
@@ -234,7 +234,16 @@ yum history undo [id]		# 撤销执行某条操作
 <h3 id="配置yum源"><a href="#配置yum源" class="headerlink" title="配置yum源"></a>配置yum源</h3><p>yum源有两种：</p>
 <ol>
 <li><p>本地源：把本地的一个文件夹做成了yum源</p>
-<p>创建本地源方式1：</p>
+</li>
+<li><p>网络源：</p>
+<ol>
+<li>base基础源</li>
+<li>epel扩展源</li>
+<li>某一个软件包官网提供的源</li>
+</ol>
+</li>
+</ol>
+<h4 id="配置本地源"><a href="#配置本地源" class="headerlink" title="配置本地源"></a>配置本地源</h4><p>创建本地源方式1：</p>
 <ol>
 <li><p>自己采集一系列软件包放在一个本地目录下</p>
 </li>
@@ -263,20 +272,33 @@ gpgcheck=0						# 是否开启校验
 </code></pre>
 </li>
 </ol>
-</li>
-<li><p>网络源：</p>
-<ol>
-<li><p>base基础源</p>
-</li>
-<li><p>epel扩展源</p>
-</li>
-<li><p>某一个软件包官网提供的源</p>
-<p>创建网络源</p>
-<p>网上下载一个配置文件即可,比如：</p>
+<h4 id="创建网络源"><a href="#创建网络源" class="headerlink" title="创建网络源"></a>创建网络源</h4><p>网上下载一个配置文件即可,比如：</p>
 <pre><code>wget -0 /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 </code></pre>
+<h2 id="源码包管理"><a href="#源码包管理" class="headerlink" title="源码包管理"></a>源码包管理</h2><ol>
+<li><p>下载源码并解压</p>
+<pre><code>wget [下载地址]
+tar xvf
+</code></pre>
 </li>
-</ol>
+<li><p>预先安装编译器，安装依赖库</p>
+<pre><code>yum -y install gcc gcc-c++ autoconf automake make      
+yum -y install zlib zlib-devel openssl openssl-devel pcre pcre-devel
+或者
+LANG=C yum -y groupinstall &quot;Development tools&quot;
+</code></pre>
+</li>
+<li><p>生成配置文件</p>
+<pre><code>cd [源码包目录]
+./configure --prefix=[自定义安装路径]			# 指定安装路径
+</code></pre>
+<p>此过程中如果报错，需要执行<code>make clean all</code>,清理出错文件，然后再安装好提示的依赖库，然后重新执行生成配置文件的步骤</p>
+</li>
+<li><p>编译安装</p>
+<pre><code>make &amp;&amp; make install
+</code></pre>
+</li>
+<li><p>清理安装包</p>
 </li>
 </ol>
 

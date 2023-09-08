@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Linux进程管理" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Linux进程管理
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="post-toc-text">进程管理</span></a></li></ol>
+        
+        <h1 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h1><ul>
+<li><p>查看系统所有进程：<code>ps</code></p>
+<pre><code>ps aux			# 观察固定时刻下的进程状态，process status
+</code></pre>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230908012926895.png" alt="image-20230908012926895"></p>
+<p>各字段介绍</p>
+<pre><code>USER:    运行进程的用户
+ 
+PID：    进程ID
+ 
+%CPU:    CPU占用率
+ 
+%MEM:    内存占用率
+ 
+VSZ：    占用虚拟内存，单位：kb（killobytes）
+         VSZ是指已分配的线性空间大小，这个大小通常并不等于程序实际用到的内存大小，产生这个的可能性很多 
+         比如内存映射，共享的动态库，或者向系统申请了更多的堆，都会扩展线性空间大小。
+ 
+RSS:    占用实际内存，单位：kb（killobytes）
+        RSZ是Resident Set Size，常驻内存大小，即进程实际占用的物理内存大小
+ 
+TTY：    进程运行的终端
+ 
+STAT：   进程状态     man ps (/STATE)            
+      R     运行
+      S     可中断睡眠 Sleep，即在睡眠的过程中可以接收信号唤醒=》执行的IO操作可以得到硬件设备的响应
+      D     不可中断睡眠，即在睡眠的过程中不可以接收信号唤醒=》执行的IO操作得不到硬件设备的响应
+      T     停止的进程 
+      Z     僵尸进程
+      X     死掉的进程(几乎看不见，因为死了就立即回收了)
+ 
+      &lt;  标注了&lt;小于号代表优先级较高的进程
+      N     N代表优先级较低的进程
+ 
+      s     包含子进程
+ 
+      +     +表示是前台的进程组
+ 
+      l     小写字母l，代表以线程的方式运行，即多线程
+      |     管道符号代表多进程
+ 
+START:    进程的启动时间
+TIME：    进程占用CPU的总时间
+ 
+COMMAND： 进程文件，进程名
+          带[]号的代表内核态进程
+          不带[]号的代表用户态进程
+</code></pre>
+</li>
+<li><p>查看进程树</p>
+<pre><code>pstree [进程id]
+</code></pre>
+</li>
+<li><p>查看父进程</p>
+<pre><code>ps -elf			# 列出进程相关信息，以及pid和ppid(parent pid)
+</code></pre>
+</li>
+<li><p>动态查看进程：<code>top</code></p>
+<pre><code>top											# 动态查看进程信息
+top -d 1									# 每一秒钟刷新一次
+top -d 1 -p [pid]							# 通过pid指定查看进程
+top -d 1 -p `pgrep nginx | head -1`			# 通过管道符筛选查看指定进程
+top -d 1 -p `pgrep sshd | head -1`,33		# 筛选条件叠加，查看sshd以及pid为33的进程
+top -d 1 -u root							# 查看指定用户的进程
+top -b -n 2 &gt; top.txt						# 将两次top的信息写入文件中
+</code></pre>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230908102348422.png" alt="image-20230908102348422"></p>
+<p>展示信息解释：</p>
+<pre><code>第一行：系统整体统计信息
+up左边的代表当前的时间，up右边代表运行了多长时间
+load average: 0.86, 0.56, 0.78    CPU 1分钟，5分钟，15分钟平均负载
+</code></pre>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-09-08</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
