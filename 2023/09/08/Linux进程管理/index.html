@@ -96,9 +96,9 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="post-toc-text">进程管理</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="post-toc-text">进程管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ps%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B"><span class="post-toc-text">ps查看进程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#top%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B"><span class="post-toc-text">top查看进程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AE%A1%E7%90%86%E8%BF%9B%E7%A8%8B"><span class="post-toc-text">管理进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AE%BE%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7%E5%92%8C%E5%8F%91%E9%80%81%E4%BF%A1%E5%8F%B7"><span class="post-toc-text">设置优先级和发送信号</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B3%E4%BA%8EHUP%E4%BF%A1%E5%8F%B7"><span class="post-toc-text">关于HUP信号</span></a></li></ol></li></ol></li></ol>
         
-        <h1 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h1><ul>
+        <h1 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h1><h2 id="ps查看进程"><a href="#ps查看进程" class="headerlink" title="ps查看进程"></a>ps查看进程</h2><ul>
 <li><p>查看系统所有进程：<code>ps</code></p>
 <pre><code>ps aux			# 观察固定时刻下的进程状态，process status
 </code></pre>
@@ -155,7 +155,9 @@ COMMAND： 进程文件，进程名
 <pre><code>ps -elf			# 列出进程相关信息，以及pid和ppid(parent pid)
 </code></pre>
 </li>
-<li><p>动态查看进程：<code>top</code></p>
+</ul>
+<h2 id="top查看进程"><a href="#top查看进程" class="headerlink" title="top查看进程"></a>top查看进程</h2><ul>
+<li><p>top命令基础用法</p>
 <pre><code>top											# 动态查看进程信息
 top -d 1									# 每一秒钟刷新一次
 top -d 1 -p [pid]							# 通过pid指定查看进程
@@ -164,14 +166,97 @@ top -d 1 -p `pgrep sshd | head -1`,33		# 筛选条件叠加，查看sshd以及pi
 top -d 1 -u root							# 查看指定用户的进程
 top -b -n 2 &gt; top.txt						# 将两次top的信息写入文件中
 </code></pre>
+</li>
+</ul>
 <p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230908102348422.png" alt="image-20230908102348422"></p>
-<p>展示信息解释：</p>
+<ul>
+<li><p>展示信息解释：</p>
 <pre><code>第一行：系统整体统计信息
 up左边的代表当前的时间，up右边代表运行了多长时间
+user: 当前登录的用户数量
 load average: 0.86, 0.56, 0.78    CPU 1分钟，5分钟，15分钟平均负载
+
+假设现在在4，2，1核的CPU上，平均负载为2
+------------------------------------------------
+核心数      平均负载        含义
+4             2         有一半(50%)的CPU是空闲状态
+2             2         CPU刚好完全被占用
+1             2         至少一半的进程是抢不到CPU
+-------------------------------------------------
+ 
+三个值相当于三个样本，我们应该统筹地看
+1、如果1分钟，5分钟，15分钟的负载数值相差不大，代表系统的负载很&#39;稳定&#39;
+2、如果1分钟的值，远小于15分钟的值，那么证明系统的平均负载逐渐降低，即我们的系统刚刚经历过大风浪，但目前已逐渐趋于平均。至于15分钟区间内，系统负载上升的原因，还需要我们认真查明
+3、如果15分钟的值，远小于1分钟的值，那么证明系统的平均负载逐渐升高，有可能是临时的也有可能持续上升，需要观察
+4、一旦1分钟的平均负载接近或超过了CPU的个数，就意味着，系统正在发生过载的问题，这时候就得分析问题了， 并且要想办法优化。
+</code></pre>
+<pre><code>第二行：任务情况
+进程总个数、正在运行的进程个数、睡眠中的进程个数、停止的进程个数、僵尸进程个数
+</code></pre>
+<pre><code>第三行：CPU占用
+    us User，用户态进程占用cpu时间的百分比，不包括低优先级进程的用户态时间（nice值1-19）
+    sys System，内核态进程占用cpu时间的百分比
+    ni Nice，nice值1-19的进程用户态占cpu时间的百分比
+    id Idle，系统空闲cpu的百分比
+    wa Iowait，系统等待I/O的cpu时间占比，该时间不计入进程的CPU时间
+    hi Hardware irq，处理硬件中断所占用CPU的时间，该时间同样不计入进程的CPU时间
+    si Softtirq，处理软件中断的时间，该时间不计入进程的CPU时间
+    st Steal，表示同一宿主机上的其他虚拟机抢走的CPU时间
+</code></pre>
+<pre><code>第四行：物理内存的使用情况
+</code></pre>
+<pre><code>第五行：虚拟内存的使用情况
+</code></pre>
+</li>
+<li><p>top界面命令</p>
+<pre><code>M   按内存的使用排序
+P   按CPU使用排序
+N   以PID的大小排序
+R   对排序进行反转
+f   自定义显示字段
+1   显示所有CPU的负载
+s   改变画面更新频率
+&lt;    向前
+&gt;   向后
+z   彩色
+
+h|?帮助
+</code></pre>
+<pre><code>r 调整进程的优先级（Nice Level） 
+优先级的数值为-20~19，其中数值越小优先级越高，数值越大优先级越低，-20的优先级最高，19的优先级最低。
+需要注意的是普通用户只能在0～19之间调整应用程序的优先权值，只有超级用户有权调整更高的优先权值（从-20～19）。
+</code></pre>
+<pre><code>k 给进程发送信号 1,2(^C),9,15,18,19(^Z)
 </code></pre>
 </li>
 </ul>
+<h2 id="管理进程"><a href="#管理进程" class="headerlink" title="管理进程"></a>管理进程</h2><h3 id="设置优先级和发送信号"><a href="#设置优先级和发送信号" class="headerlink" title="设置优先级和发送信号"></a>设置优先级和发送信号</h3><ul>
+<li><p>设置优先级：<code>nice</code></p>
+<pre><code>命令启动时设置该命令的优先级
+nice -n [优先级] [命令]			# 优先级是一个数字，在-20到20之间，数字越大优先级越低。
+</code></pre>
+<pre><code>命令启动后设置新的优先级
+renice [优先级] [进程id]			# 进程id可以通过top命令查看
+</code></pre>
+</li>
+<li><p>给进程发送信号：<code>kill</code></p>
+<pre><code>kill [-信号] [进程id]			# 给进程发送信号
+</code></pre>
+<pre><code>kill -l							# 列出所有可以发送给进程的信号
+</code></pre>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230910023038845.png" alt="image-20230910023038845"></p>
+<p>重点关注：</p>
+<p>1	HUP:  1、挂起信号 2、往往可以让进程重新加载配置</p>
+<p>9	KILL：强制杀死进程。效果等同于<code>pkill -9 [进程名字]</code>	</p>
+<p>19	STOP：暂停进程</p>
+<p>18	CONT：恢复进程</p>
+</li>
+</ul>
+<h3 id="关于HUP信号"><a href="#关于HUP信号" class="headerlink" title="关于HUP信号"></a>关于HUP信号</h3><p>让进程脱离当前会话窗口而独立运行的方法：</p>
+<p>nohup</p>
+<p>setsid</p>
+<p>在子shell中启动进程</p>
+<p>screen</p>
 
     </div>
 
