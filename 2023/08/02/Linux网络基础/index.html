@@ -96,7 +96,7 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#OSI%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">OSI模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ARP%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">ARP协议</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#TCP%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">TCP协议</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="post-toc-text">三次握手</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="post-toc-text">四次挥手</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#backlog%E5%8D%8A%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="post-toc-text">backlog半连接池</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#TCP%E5%8D%8F%E8%AE%AE%E4%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%B0%E4%B8%BA%E5%8F%AF%E9%9D%A0%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">TCP协议会为什么称为可靠的协议</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DHCP"><span class="post-toc-text">DHCP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DNS"><span class="post-toc-text">DNS</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#OSI%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">OSI模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ARP%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">ARP协议</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#TCP%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">TCP协议</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="post-toc-text">三次握手</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="post-toc-text">四次挥手</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#backlog%E5%8D%8A%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="post-toc-text">backlog半连接池</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#TCP%E5%8D%8F%E8%AE%AE%E4%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%B0%E4%B8%BA%E5%8F%AF%E9%9D%A0%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">TCP协议会为什么称为可靠的协议</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DHCP"><span class="post-toc-text">DHCP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DNS"><span class="post-toc-text">DNS</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E7%8A%B6%E6%80%81"><span class="post-toc-text">查看网络状态</span></a></li></ol>
         
         <h1 id="OSI模型"><a href="#OSI模型" class="headerlink" title="OSI模型"></a>OSI模型</h1><blockquote>
 <p><strong>应用层</strong></p>
@@ -261,6 +261,18 @@
 <pre><code>浏览器缓存-》操作系统缓存-》本地hosts文件-》本地dns服务-》递归or迭代查询
 </code></pre>
 <p>Linux的hosts文件位置：<code>/etc/hosts</code></p>
+<h1 id="查看网络状态"><a href="#查看网络状态" class="headerlink" title="查看网络状态"></a>查看网络状态</h1><pre><code>netstat -tunalp				# 显示当前系统上所有活动的网络连接、监听端口以及与之相关的进程信息
+-t：显示TCP连接。
+-u：显示UDP连接。
+-n：以数值形式显示IP地址和端口号。
+-a：显示所有的连接和监听端口。
+-l：仅显示监听端口。
+-p：显示与进程相关的信息。
+</code></pre>
+<pre><code>lsof -i ：[端口号]			# 查看指定端口的占用情况
+</code></pre>
+<pre><code>route -n					# 查看网关信息
+</code></pre>
 
     </div>
 

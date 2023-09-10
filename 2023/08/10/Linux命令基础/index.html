@@ -274,6 +274,21 @@ uname -r					# 查看操作系统内核
 uname -a					# 查看操作系统所有信息
 </code></pre>
 </li>
+<li><p>查看内存信息</p>
+<pre><code>free			# 查看物理内存和虚拟内存的相关信息，信息来自 /proc/meminfo 文件
+free -m 		# 以 MB 为单位查看
+</code></pre>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230910224207431.png" alt="image-20230910224207431"></p>
+<p>buffer&#x2F;cache 共称为缓存区</p>
+<p>cache：读缓存，一部分内存在CPU和磁盘之间充当读缓存，提高CPU读取磁盘内容的速度。</p>
+<p>buffers：写缓存，一部分内存在CPU和硬盘之间充当写缓存，提高写入的效率。立即写入：<code>sync</code></p>
+<p>清理缓存区：<code>echo 3 &gt; /proc/sys/vm/drop_caches</code></p>
+</li>
+<li><p>查看CPU信息</p>
+<pre><code>grep &quot;processor&quot; /proc/cpuinfo			# cpu信息在 /proc/cpuinfo 文件
+lscpu									# 查看cpu详细信息
+</code></pre>
+</li>
 <li><p>系统默认启动级别</p>
 <pre><code>systemctl get-default		# 查看系统默认启动级别
 </code></pre>
@@ -293,15 +308,12 @@ logout
 </code></pre>
 </li>
 <li><p>查看终端</p>
-</li>
-</ul>
 <pre><code>tty						# 查看当前终端
 who						# 查看目前主机上有哪些终端
 ctrl + alt + [f1~f7]	# 切换终端
 </code></pre>
-<ul>
-<li>时间与日期</li>
-</ul>
+</li>
+<li><p>时间与日期</p>
 <pre><code class="shell">date								# 查看当前系统时间
 date &quot;+%Y-%m-%d %H:%M:%S %p&quot;		# 指定格式查看时间: 2023-08-23 01:36:23 上午
 hwclock								# 查看当前硬件时间
@@ -312,11 +324,11 @@ hwclock -s				# 将硬件时间写入系统时间
 </code></pre>
 <pre><code class="shell">ntpdate ntpl.aliyun.com		# 自动同步网络时间（采用aliyun服务器）
 </code></pre>
-<p>  注意：外网ping不通，可能的原因：CentOS系统上，目前有NetworkManager和network两种网络管理工具。如果两种都配置会引起冲突，而且NetworkManager在网络断开的时候，会清理路由，如果一些自定义的路由，没有加入到NetworkManager的配置文件中，路由就被清理掉，网络连接后需要自定义添加上去。</p>
-<p>  解决方法：只保留network服务，将NetworkManager关闭，并禁止开机启动。</p>
-<p>  <code>systemctl stop NetworkManager</code></p>
-<p>  <code>systemctl disable NetworkManager</code></p>
-<ul>
+<p>注意：外网ping不通，可能的原因：CentOS系统上，目前有NetworkManager和network两种网络管理工具。如果两种都配置会引起冲突，而且NetworkManager在网络断开的时候，会清理路由，如果一些自定义的路由，没有加入到NetworkManager的配置文件中，路由就被清理掉，网络连接后需要自定义添加上去。</p>
+<p>解决方法：只保留network服务，将NetworkManager关闭，并禁止开机启动。</p>
+<p><code>systemctl stop NetworkManager</code></p>
+<p><code>systemctl disable NetworkManager</code></p>
+</li>
 <li><p>显示日历</p>
 <pre><code>cal
 </code></pre>
