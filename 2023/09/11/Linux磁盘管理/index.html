@@ -96,9 +96,478 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86"><span class="post-toc-text">磁盘管理</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E5%8C%BA"><span class="post-toc-text">创建分区</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MBR%E6%96%B9%E5%BC%8F%E5%88%86%E5%8C%BA"><span class="post-toc-text">MBR方式分区</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GPT%E5%88%86%E5%8C%BA%E6%96%B9%E5%BC%8F"><span class="post-toc-text">GPT分区方式</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%88%B6%E4%BD%9C%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E6%8C%82%E8%BD%BD"><span class="post-toc-text">制作文件系统和挂载</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BAswap"><span class="post-toc-text">交换分区swap</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8%E7%A3%81%E7%9B%98%E5%88%9B%E5%BB%BAswap%E5%88%86%E5%8C%BA"><span class="post-toc-text">使用磁盘创建swap分区</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%87%E4%BB%B6%E5%88%9B%E5%BB%BAswap%E5%88%86%E5%8C%BA"><span class="post-toc-text">使用文件创建swap分区</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B3%E9%97%ADswap%E5%88%86%E5%8C%BA"><span class="post-toc-text">关闭swap分区</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#RAID"><span class="post-toc-text">RAID</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8"><span class="post-toc-text">文件系统安全</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#XFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="post-toc-text">XFS文件系统的备份与恢复</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%8D%9F%E5%9D%8F%E7%9A%84%E4%BF%AE%E5%A4%8D%E6%96%B9%E6%A1%88"><span class="post-toc-text">文件系统损坏的修复方案</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#LVM"><span class="post-toc-text">LVM</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LVM%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">LVM介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LVM%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="post-toc-text">LVM操作流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA"><span class="post-toc-text">创建磁盘分区</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#PV%E6%93%8D%E4%BD%9C"><span class="post-toc-text">PV操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#VG%E6%93%8D%E4%BD%9C"><span class="post-toc-text">VG操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#LV%E6%93%8D%E4%BD%9C"><span class="post-toc-text">LV操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E6%8C%82%E8%BD%BD"><span class="post-toc-text">创建文件系统和挂载</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BF%AB%E7%85%A7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D"><span class="post-toc-text">快照与数据恢复</span></a></li></ol></li></ol></li></ol>
         
-        <h1 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h1>
+        <h1 id="创建分区"><a href="#创建分区" class="headerlink" title="创建分区"></a>创建分区</h1><blockquote>
+<p>三种硬盘分区: 主分区、扩展分区、 逻辑分区。</p>
+</blockquote>
+<p>一个硬盘主分区至少有1个，最多4个，扩展分区可以没有，最多1个。且 主分区+扩展分区总共不能超过4个。 逻辑分区可以有若干个。</p>
+<p>在windows下激活的主分区是硬盘的启动分区，他是独立的，也是硬盘的第一个分区，正常分的话就是C区。 在linux下主分区和逻辑分区都可以用来放系统，引导os开机，grub会兼容windows系统开机启动。</p>
+<p>分出 主分区后，其余的部分可以分成扩展分区，一般是剩下的部分全部分成扩展分区，也可以不全分，那剩的部分就浪费了。但扩展分区是不能直接用的，他是以 逻辑分区的方式来使用的，所以说扩展分区可分成若干逻辑分区。他们的关系是包含的关系，所有的 逻辑分区都是扩展分区的一部分。</p>
+<p>在linux中第一块 硬盘分区为hda分区， 主分区编号为hda1-4， 逻辑分区从5开始。</p>
+<p>硬盘的容量&#x3D; 主分区的容量+扩展分区的容量</p>
+<p>扩展分区的容量&#x3D;各个 逻辑分区的容量之和</p>
+<p>主分区也可成为“ 引导分区”，会被 操作系统和主板认定为这个 硬盘的第一个分区。所以C盘永远都是排在所有 磁盘分区的第一的位置上。</p>
+<blockquote>
+<p>两种分区格式：MRB、GPT</p>
+</blockquote>
+<p>MBR：最多存放4个主分区，最多一个扩展分区，扩展分区能可以分若干个逻辑分区，通常用于小于2T的硬盘空间。分区工具用<code>fdisk</code></p>
+<p>GPT：最多能存放128个主分区，通常用于超过2T的硬盘空间。分区工具用<code>gdisk</code></p>
+<h2 id="MBR方式分区"><a href="#MBR方式分区" class="headerlink" title="MBR方式分区"></a>MBR方式分区</h2><p>适用于磁盘小于2TB的磁盘，分区类型MBR，主分区4或主分区3+扩展分区（逻辑分区+…），分区后需要保存后才能生效</p>
+<p><code>fdisk</code>，交互式工具详细步骤：</p>
+<pre><code>[root@egon ~]# fdisk /dev/sdb
+Command (m for help): m			 		#列出常用的命令
+ 
+Command action
+ 
+b edit bsd disklabel     				#编辑sdb磁盘标签
+ 
+d delete a partition    				#删除分区
+ 
+l list known partition types     		#显示分区类型
+ 
+n add a new partition     				#新建分区
+ 
+p print the partition table     		#显示分区表的信息
+ 
+q quit without saving changes     		#不保存退出
+ 
+t change a partitions system id         #修改分区ID,可以通过l查看id
+
+u change display/entry units     		#修改容量单位,磁柱或扇区
+ 
+w write table to disk and exit    	 	#保存退出
+</code></pre>
+<p><code>fdisk</code>创建分区</p>
+<pre><code class="python">[root@egon ~]# fdisk /dev/sdb 
+ 
+命令(输入 m 获取帮助)：n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+分区号 (1-4，默认 1)：
+起始 扇区 (2048-41943039，默认为 2048)：
+将使用默认值 2048
+Last 扇区, +扇区 or +size&#123;K,M,G&#125; (2048-41943039，默认为 41943039)：+1G
+分区 1 已设置为 Linux 类型，大小设为 1 GiB
+ 
+命令(输入 m 获取帮助)：p
+ 
+磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区
+Units = 扇区 of 1 * 512 = 512 bytes
+扇区大小(逻辑/物理)：512 字节 / 512 字节
+I/O 大小(最小/最佳)：512 字节 / 512 字节
+磁盘标签类型：dos
+磁盘标识符：0x12c57921
+ 
+   设备 Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048     2099199     1048576   83  Linux
+</code></pre>
+<p>重复上述步骤，创建四个1G的主分区</p>
+<pre><code class="python">命令(输入 m 获取帮助)：p
+ 
+磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区
+Units = 扇区 of 1 * 512 = 512 bytes
+扇区大小(逻辑/物理)：512 字节 / 512 字节
+I/O 大小(最小/最佳)：512 字节 / 512 字节
+磁盘标签类型：dos
+磁盘标识符：0x12c57921
+ 
+   设备 Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048     2099199     1048576   83  Linux
+/dev/sdb2         2099200     4196351     1048576   83  Linux
+/dev/sdb3         4196352     6293503     1048576   83  Linux
+/dev/sdb4         6293504     8390655     1048576   83  Linux
+</code></pre>
+<p>此时虽然空间够用，但已经无法继续创建新的了</p>
+<pre><code class="python">命令(输入 m 获取帮助)：n
+If you want to create more than four partitions, you must replace a
+primary partition with an extended partition first.
+</code></pre>
+<p>删除主分区4，然后新建一个扩展分区，剩余空间都给他</p>
+<pre><code class="python">命令(输入 m 获取帮助)：d  # 删除主分区4
+分区号 (1-4，默认 4)：4
+分区 4 已删除
+ 
+命令(输入 m 获取帮助)：p  # 查看
+ 
+磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区
+Units = 扇区 of 1 * 512 = 512 bytes
+扇区大小(逻辑/物理)：512 字节 / 512 字节
+I/O 大小(最小/最佳)：512 字节 / 512 字节
+磁盘标签类型：dos
+磁盘标识符：0x12c57921
+ 
+   设备 Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048     2099199     1048576   83  Linux
+/dev/sdb2         2099200     4196351     1048576   83  Linux
+/dev/sdb3         4196352     6293503     1048576   83  Linux
+ 
+命令(输入 m 获取帮助)：n  # 新建扩展分区
+Partition type:
+   p   primary (3 primary, 0 extended, 1 free)
+   e   extended
+Select (default e): e  # 选择创建扩展分区
+已选择分区 4
+起始 扇区 (6293504-41943039，默认为 6293504)：
+将使用默认值 6293504
+Last 扇区, +扇区 or +size&#123;K,M,G&#125; (6293504-41943039，默认为 41943039)： # 直接回车，剩余空间都给它
+将使用默认值 41943039
+分区 4 已设置为 Extended 类型，大小设为 17 GiB
+ 
+命令(输入 m 获取帮助)：p # 查看
+ 
+磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区
+Units = 扇区 of 1 * 512 = 512 bytes
+扇区大小(逻辑/物理)：512 字节 / 512 字节
+I/O 大小(最小/最佳)：512 字节 / 512 字节
+磁盘标签类型：dos
+磁盘标识符：0x12c57921
+ 
+   设备 Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048     2099199     1048576   83  Linux
+/dev/sdb2         2099200     4196351     1048576   83  Linux
+/dev/sdb3         4196352     6293503     1048576   83  Linux
+/dev/sdb4         6293504    41943039    17824768    5  Extended
+ 
+命令(输入 m 获取帮助)： w  # 保存
+</code></pre>
+<p>可以查看一下</p>
+<pre><code class="python">[root@egon ~]# lsblk /dev/sdb
+</code></pre>
+<h2 id="GPT分区方式"><a href="#GPT分区方式" class="headerlink" title="GPT分区方式"></a>GPT分区方式</h2><p>适合2T以上的磁盘空间，可以创建最多128个主分区，与<code>fdisk</code>命令相似，但不用考虑拓展分区和逻辑分区，全部建立主分区即可</p>
+<p><code>gdisk</code>，交互式工具详细步骤：</p>
+<pre><code class="python">[root@egon ~]# yum install gdisk -y						# 需要安装命令
+ 
+[root@egon ~]# gdisk /dev/sdc
+......
+Command (? for help): m
+ 
+c    change a partition&#39;s name                            #更改分区的名称
+ 
+d    delete a partition                                    #删除分区
+ 
+i    show detailed information on a partition            #显示分区的详细信息
+ 
+l    list known partition types                            #列出已知的分区类型
+ 
+n    add a new partition                                    #添加一个新的分区
+ 
+p    print the partition table                            #打印分区表
+ 
+q    quit without saving changes                            #没有保存更改就退出
+ 
+w    write table to disk and exit                        #将表写入磁盘并退出
+</code></pre>
+<p><code>gdisk</code>创建分区</p>
+<pre><code class="python">Command (? for help): n  # 新建
+Partition number (1-128, default 1):  # 直接回车，默认分区号为1
+First sector (34-5242879966, default = 2048) or &#123;+-&#125;size&#123;KMGTP&#125;: #直接回车，使用默认的起始位置
+Last sector (2048-5242879966, default = 5242879966) or &#123;+-&#125;size&#123;KMGTP&#125;: +1G # 设定1G的空间
+Current type is &#39;Linux filesystem&#39;
+Hex code or GUID (L to show codes, Enter = 8300): L  # 列出所有文件系统
+......会看到一系列文件系统信息，默认的8300编号代表Linux filesystem，用它就好
+Hex code or GUID (L to show codes, Enter = 8300):  # 直接回车用默认8300就好
+Changed type of partition to &#39;Linux filesystem&#39;
+ 
+Command (? for help): p  # 打印查看
+......
+Number  Start (sector)    End (sector)  Size       Code  Name
+   1            2048         2099199   1024.0 MiB  8300  Linux filesystem
+ 
+Command (? for help): w  # 保存
+Final checks complete. About to write GPT data. THIS WILL OVERWRITE EXISTING
+PARTITIONS!!
+ 
+Do you want to proceed? (Y/N): y  # 输入y保存
+OK; writing new GUID partition table (GPT) to /dev/sdc.
+The operation has completed successfully.
+</code></pre>
+<h1 id="制作文件系统和挂载"><a href="#制作文件系统和挂载" class="headerlink" title="制作文件系统和挂载"></a>制作文件系统和挂载</h1><ul>
+<li><p>制作文件系统</p>
+<pre><code>mkfs.[文件系统类型] [设备目录]			# 比如：mkfs.xfs /dev/sdb1，每一个主分区和逻辑分区都可以制作一个文件系统
+</code></pre>
+<p>注意：其实不分区也可以制作文件系统，比如：<code>mkfs.xfs /dev/sdb</code>，整个磁盘相当于一个分区</p>
+</li>
+<li><p>挂载和卸载</p>
+<pre><code>mount [设备目录] [文件目录]				# 挂载（临时挂载）
+</code></pre>
+<pre><code>umount [文件目录]						# 卸载，也可以是umount [设备目录]，二者效果相同
+umount -l [文件目录]					# 强制卸载，也可以是umount -l [设备目录]，二者效果相同
+</code></pre>
+</li>
+<li><p>设置开机自动挂载</p>
+<p>方式1：编辑<code>/etc/fstab</code>文件</p>
+<pre><code>vim /etc/fstab				# 编辑/etc/fstab文件
+mount -a					# 重新挂载`/etc/fatab`中的所有设备
+</code></pre>
+<p><code>/etc/fstab</code>配置文件编写格式</p>
+<table>
+<thead>
+<tr>
+<th>要挂载的设备&#x2F;UUID</th>
+<th>挂载点（入口）</th>
+<th>文件系统类型</th>
+<th>挂载参数</th>
+<th>是否备份</th>
+<th>是否检查</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>&#x2F;dev&#x2F;sdb1</strong></td>
+<td><strong>&#x2F;data</strong></td>
+<td><strong>xfs</strong></td>
+<td><strong>defaults</strong></td>
+<td><strong>0</strong></td>
+<td><strong>0</strong></td>
+</tr>
+</tbody></table>
+<p>第一列：device:指定要挂载的文件系统的设备名称，也可以使用UUID、LABEL来指定分区，UUID可以通过<code>blkid</code>命令查看。</p>
+<p>第二列：dir:指定挂载点的路径;</p>
+<p>第三列：type:指定文件系统的类型,如ext3,ext4,xfs等;</p>
+<p>第四列：options:指定挂载的参数,默认为defaults;</p>
+<p>第五列：dump:表示该挂载后的文件系统能否被dump备份命令作用;</p>
+<p>第六列：pass:这里用来指定如何使用fsck来检查硬盘。</p>
+<p>方式2：编辑<code>/etc/rc.local</code>文件</p>
+<p><code>etc/rc.local</code>是系统启动时自动执行的脚本文件，把挂载命令写到此文件中，即可完成开机自动挂载。</p>
+</li>
+</ul>
+<h1 id="交换分区swap"><a href="#交换分区swap" class="headerlink" title="交换分区swap"></a>交换分区swap</h1><p>查看内存使用情况：<code>free -m</code>，包括物理内存和虚拟内存</p>
+<h3 id="使用磁盘创建swap分区"><a href="#使用磁盘创建swap分区" class="headerlink" title="使用磁盘创建swap分区"></a>使用磁盘创建swap分区</h3><ul>
+<li><p>使用<code>fdisk</code>命令创建出一个分区</p>
+<pre><code>fdisk /dev/sdb			# 与制作磁盘分区的交互式步骤相同
+</code></pre>
+</li>
+<li><p>格式化分区</p>
+<pre><code>mkswap [设备目录]		# 将一块设备格式化为swap格式，比如：mkswap /dev/sdb1
+</code></pre>
+</li>
+<li><p>启用分区</p>
+<pre><code>swapon [设备目录]		# 开启虚拟内存，比如：swapon /dev/sdb1
+</code></pre>
+</li>
+<li><p>设置开机自动挂载</p>
+<pre><code>vim /etc/fstab
+</code></pre>
+</li>
+</ul>
+<h3 id="使用文件创建swap分区"><a href="#使用文件创建swap分区" class="headerlink" title="使用文件创建swap分区"></a>使用文件创建swap分区</h3><ul>
+<li><p>创建文件</p>
+<pre><code>dd if=/dev/zero of=/swap_file bs=1M count=200
+</code></pre>
+</li>
+<li><p>格式化文件</p>
+<pre><code>mkswap -f /swap_file
+</code></pre>
+</li>
+<li><p>启用文件</p>
+<pre><code>swapon /swap_file
+</code></pre>
+</li>
+<li><p>设置开机自动挂载</p>
+<pre><code>vim /etc/fstab
+</code></pre>
+</li>
+</ul>
+<h3 id="关闭swap分区"><a href="#关闭swap分区" class="headerlink" title="关闭swap分区"></a>关闭swap分区</h3><ul>
+<li><p>查看交换空间信息</p>
+<pre><code>swapon -s				# 显示系统启用的交换空间信息,包括已启用交换空间的设备、文件和分区，并显示它们的大小和使用情况。
+</code></pre>
+</li>
+<li><p>关闭swap分区</p>
+<pre><code>swapoff [设备目录]		# 关闭某一块交换空间，比如：swapoff /dev/sdb1
+swapoff -a				# 关闭所有交换空间，如果要调整交换空间大小，需要先关闭所有交换空间
+</code></pre>
+</li>
+</ul>
+<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><p>RAID中文是“独立磁盘冗余阵列”, 简称磁盘阵列（Disk Array）。是一种把多块独立的硬盘（物理硬盘）按不同的方式组合起来形成一个硬盘组（逻辑硬盘），从而提供比单个硬盘更高的存储性能和提供数据备份技术。</p>
+<p>常用的几种RAID形式:<code> RAID 0</code>、<code>RAID 1</code>、<code>RAID 5</code>、<code>RAID 10</code></p>
+<blockquote>
+<p>RAID0：性能最佳，容错最低</p>
+</blockquote>
+<p>RAID 0技术把多块物理硬盘设备（至少两块）通过硬件或软件的方式串联在一起，组成一个大的卷组，并将数据一次写入到各个物理硬盘中。这样硬盘设备的读写性能会提升数倍，但是若任意一块硬盘发生故障将导致整个系统的数据都受到破坏。</p>
+<p>最低要求：两块硬盘。做条带</p>
+<blockquote>
+<p>RAID1：性能最低，容错最好</p>
+</blockquote>
+<p>RAID1是将一个两块硬盘所构成RAID磁盘阵列，其容量仅等于一块硬盘的容量，因为另一块只是当作数据“镜像”</p>
+<p>最低要求：两块硬盘。做镜像</p>
+<blockquote>
+<p>RAID5：均衡性能和容错以及成本</p>
+</blockquote>
+<p>RAID 5技术把多块硬盘设备（至少三块）的数据奇偶校验信息保存到其他硬盘设备中。RAID 5磁盘阵列组中数据的奇偶校验信息并不是单独保存到某一块硬盘设备中，而是存储到除自身以外的其他每一块硬盘设备上，这样的好处是其中任何一设备损坏后不至于出现致命缺陷。</p>
+<p>最低要求：三块硬盘。把数据和相对应的奇偶校验信息存储到组成RAID5的各个磁盘上，最多容忍一块硬盘损坏</p>
+<blockquote>
+<p>RAID10：相较于RAID5有所提升，成本也对应增加</p>
+</blockquote>
+<p>RAID 10技术是RAID1+RAID0技术的一个组合体。如下图，RAID 10技术需要至少四块硬盘来组建，其中先分别两两制作成RAID 1磁盘阵列，以保证数据的安全性；然后再对两个RAID 1磁盘阵列实施RAID 0技术，进一步提高硬盘设备的读写速度。这样子从理论上讲，只要坏的不是同一组中的所有硬盘，那么最多可以损坏50%的硬盘设备而不丢失数据。RAID 10技术继承了RAID 0的高读写速度和RAID 1的数据安全性。</p>
+<p>最低要求：四块硬盘。先做镜像，再做条带。</p>
+<h1 id="文件系统安全"><a href="#文件系统安全" class="headerlink" title="文件系统安全"></a>文件系统安全</h1><h2 id="XFS文件系统的备份与恢复"><a href="#XFS文件系统的备份与恢复" class="headerlink" title="XFS文件系统的备份与恢复"></a>XFS文件系统的备份与恢复</h2><p>xfs文件系统的备份与恢复功能需要使用<code>xfsdump</code>命令，首先需要安装软件包<code>rpm -ivh xfsdump</code>和<code>rpm -ivh xfsrestore</code></p>
+<blockquote>
+<p>xfs的备份级别</p>
+</blockquote>
+<pre><code>0				# 完全备份
+1 ~ 9			# 增量备份
+</code></pre>
+<blockquote>
+<p>数据备份</p>
+</blockquote>
+<pre><code>xfsdump -l [备份级别] -L [标签] -M [描述信息] -f [保存路径] [源路径]			
+# 进行全量备份,-level 指定等级，-Label 指定标签，-Message 指定描述信息，-file 指定文件路径，源路径后不加左斜杠/，比如：
+xfsdump -l 0 -L sdb1_bak -M [初次全量备份] -f /etc/bak/0801_all /home			# 进行全量备份
+xfsdump -l 1 -L sdb1_bak -M [第一次增量备份] -f /etc/bak/0802_add /home		# 进行增量备份
+</code></pre>
+<blockquote>
+<p>数据恢复</p>
+</blockquote>
+<pre><code>xfsrestore -f [全量备份文件的路径] [恢复到的源路径]							# 全量恢复
+xfsrestore -f [增量备份文件的路径] [恢复到的源路径]							# 增量恢复一定是按照备份顺序恢复的，不能跳过某次备份
+</code></pre>
+<h2 id="文件系统损坏的修复方案"><a href="#文件系统损坏的修复方案" class="headerlink" title="文件系统损坏的修复方案"></a>文件系统损坏的修复方案</h2><p>当服务器突然断电，或者文件系统发生读写错误时，会造成文件系统错误：“emergency mode”，无法挂载，或有损坏的超级块等报错。</p>
+<blockquote>
+<p>先尝试命令<code> xfs_repair [设备目录]</code>，表示修复xfs文件系统</p>
+</blockquote>
+<blockquote>
+<p>上个方法无效，再尝试命令<code>xfs_repair -L [设备目录]</code>，表示以清除日志的方式强制修复xfs文件系统，会造成数据丢失。</p>
+</blockquote>
+<blockquote>
+<p>如果是ext文件系统，可以使用命令<code>fsck -f -y [设备目录]</code>，<code>-f</code>表示强制检查，<code>-y</code>表示非交互式</p>
+</blockquote>
+<h1 id="LVM"><a href="#LVM" class="headerlink" title="LVM"></a>LVM</h1><h3 id="LVM介绍"><a href="#LVM介绍" class="headerlink" title="LVM介绍"></a>LVM介绍</h3><p>LVM（logical volume manage）逻辑卷管理，可以理解为在硬盘和文件系统之间的软件系统，可以实现磁盘分区动态扩容和缩容</p>
+<p>LVM由三部分组成：<code>PV</code>、<code>VG</code>、<code>LV</code></p>
+<blockquote>
+<p>PV(physical volume)：物理卷。很多块物理分区，不同磁盘的不同物理分区。每块物理分区包含多个PE（物理拓展块），PE可以认为是block，是LVM的最小存储块。</p>
+</blockquote>
+<blockquote>
+<p>VG(volume group)：卷组。由若干个PV组成的，也就是我们把上面那些硬盘分区集中到一块，可以堪称一整块虚拟磁盘，做成卷组，方便之后再进行划分。</p>
+</blockquote>
+<blockquote>
+<p>LV(logical volume)：逻辑卷。LV就是从VG里划分出来的卷，它可以在你所用的卷不够用的情况下动态划分其容量。</p>
+</blockquote>
+<h3 id="LVM操作流程"><a href="#LVM操作流程" class="headerlink" title="LVM操作流程"></a>LVM操作流程</h3><h4 id="创建磁盘分区"><a href="#创建磁盘分区" class="headerlink" title="创建磁盘分区"></a>创建磁盘分区</h4><pre><code>gdisk /dev/sdb				# 不再赘述
+</code></pre>
+<h4 id="PV操作"><a href="#PV操作" class="headerlink" title="PV操作"></a>PV操作</h4><ul>
+<li><p>查询</p>
+<pre><code>pvs							# 搜寻查看具有PV属性的磁盘分区
+pvscan						# 查看系统中所有PV分区的状态
+pvdisplay [设备目录]		# 查看某一具体PV分区的详细信息
+</code></pre>
+</li>
+<li><p>创建</p>
+<pre><code>pvcreate [设备目录]				# 创建一个pv(给某块磁盘分区加上pv属性),比如：
+pvcreate /dev/sdb&#123;1,2,3&#125;		# 可以同时创建多个pv
+</code></pre>
+</li>
+<li><p>删除</p>
+<pre><code>pvremove [设备目录]				# 删除一个pv(移除某块磁盘分区的pv属性)，只能删掉不属于任何VG的PV
+</code></pre>
+</li>
+</ul>
+<h4 id="VG操作"><a href="#VG操作" class="headerlink" title="VG操作"></a>VG操作</h4><ul>
+<li><p>查询</p>
+<pre><code>vgs
+vgscan
+vgdisplay [VG名称]				
+</code></pre>
+</li>
+<li><p>创建</p>
+<pre><code>vgcreate [VG名称] [PV设备]						# 创建一个VG，比如：
+vgcreate vg1 /dev/sdb&#123;1,2,3&#125;
+</code></pre>
+<pre><code>vgcreate -s [PE块大小] [VG名称] [PV设备]			# PE块的大小可以是以M，G，T为单位，默认是4M
+</code></pre>
+</li>
+<li><p>拓展</p>
+<pre><code>vgextend [VG名称] [PV设备]					# 在原有VG上增加一块PV设备，实现VG的空间拓展，比如：
+vgextend vg1 /dev/sdb5
+</code></pre>
+</li>
+<li><p>删除</p>
+<pre><code>pvremove [VG名称]							# 删除一个VG
+</code></pre>
+</li>
+</ul>
+<h4 id="LV操作"><a href="#LV操作" class="headerlink" title="LV操作"></a>LV操作</h4><ul>
+<li><p>查询</p>
+<pre><code>lvs
+lvscan
+lvdisplay [LV名称]	
+</code></pre>
+</li>
+<li><p>创建</p>
+<pre><code>lvcreate -L [容量大小] -n [LV名称] [VG名称]					# 在一个VG中创建一个LV，-L指定LV的容量大小，单位可以为M，G，T，比如：
+lvcreate -L 2G -n vg1_lv1 vg1							# 在vg1中创建一个大小为2G的lv,名称为vg1_lv1
+</code></pre>
+<pre><code>lvcreate -l [PE块数量] -n [LV名称] [VG名称]				# 也可以用 -l 指定PE块的数量，总容量大小=PE块大小*PE块数量，需要自己计算
+</code></pre>
+</li>
+<li><p>扩容和缩容</p>
+<ul>
+<li><p>扩容</p>
+<pre><code>lvextend -L size [LV路径]					# 将LV扩充到指定容量，LV路径不能只写名称，要写完整路径，比如：
+lvextend -L 5G /dev/vg1/vg1_lv1			 # 将lv1的容量扩充到5G大小
+</code></pre>
+<pre><code>lvextend -L +size [LV路径]				# 给LV增加指定容量，比如：
+lvextend -L +3G /dev/vg1/vg1_lv1			# 给lv1增加3个G容量
+</code></pre>
+</li>
+<li><p>缩容</p>
+<pre><code>lvreduce -L -size [LV路径]				# 给LV减少指定容量。xfswen&#39;jain&#39;xi&#39;t
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>重新指定大小</p>
+<pre><code>lvresize -L size [LV路径]					# 重新指定LV的容量大小，一般使用lvextend
+</code></pre>
+</li>
+<li><p>更新文件系统</p>
+<pre><code>xfs_growfs [lv路径]					# 改变LV大小之后需要更新xfs文件系统
+</code></pre>
+</li>
+<li><p>删除</p>
+<pre><code>lvremove [LV路径]					# 删除一个LV,删除之前需要先卸载掉挂载点
+</code></pre>
+</li>
+</ul>
+<h4 id="创建文件系统和挂载"><a href="#创建文件系统和挂载" class="headerlink" title="创建文件系统和挂载"></a>创建文件系统和挂载</h4><pre><code>mkfs.xfs [LV路径]				# 创建文件系统
+mount [LV路径] [文件目录]		# 挂载到文件目录
+</code></pre>
+<h3 id="快照与数据恢复"><a href="#快照与数据恢复" class="headerlink" title="快照与数据恢复"></a>快照与数据恢复</h3><p>与创建操作系统的快照不同，LVM的快照本质上是创建了一个LV， 采用写时复制技术，当 LVM 快照创建的时候，仅创建到实际数据的 inode 的硬链接(hark-link)而已。只要实际的数据没有改变，快照就只包含指向数据的 inode 的指针，而非数据本身。快照会跟踪原始卷中块的改变，一旦你更改了快照对应的文件或目录，这个时候原始卷上将要改变的数据会在改变之前拷贝到快照预留的空间。快照原理如下图：</p>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/snap.png" alt="img"></p>
+<blockquote>
+<p>创建快照</p>
+</blockquote>
+<pre><code>lvcreate -L [容量大小] -s -n [快照名称] [目标LV路径]				# 本质上是在当前VG创建了一个LV，作为一个LV的快照，-s 表示创建的是快照
+</code></pre>
+<blockquote>
+<p>还原快照</p>
+</blockquote>
+<ul>
+<li><p>方式1：把快照挂载到一个文件目录中，然后将部分文件复制到目标文件目录中。适用于更改的文件数量比较少的情况。</p>
+<pre><code># 先将快照挂载到一个文件目录，快照与其要备份的LV具有相同的UUID，所以不使用UUID挂载
+mount -o nouuid [快照路径] [文件目录]	
+
+# 然后从快照所在的目录中把文件复制到目标文件目录中
+cp [文件] [快照所在目录的某个文件] [目标目录相对应的文件]
+</code></pre>
+</li>
+<li><p>方式2：整体恢复，使用LVM的快照恢复命令</p>
+<pre><code># 先把目标文件目录的LV给卸载掉
+umount [目标LV挂载的文件目录]				# 先卸载目标LV，等同于 umount [目标LV路径]
+
+# 合并快照
+lvconvert --mergesnapshot [快照路径]		# 将目标文件目录中的数据还原回快照中的数据
+
+# 重新挂载
+mount [目标LV原本挂载的文件目录]				# 数据恢复之后需要重新挂载，等同于 mount [目标LV路径]
+
+# 注意：快照是一次性的，合并一次快照之后，快照会消失
+</code></pre>
+</li>
+</ul>
+
     </div>
 
     <div class="post-meta">
