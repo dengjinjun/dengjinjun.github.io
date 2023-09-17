@@ -273,6 +273,12 @@
 </code></pre>
 <pre><code>route -n					# 查看网关信息
 </code></pre>
+<pre><code>ping [目标IP地址]  					# ctrl+c结束 测试是否两台主机网络是否通
+ping -c [次数] [目标IP地址]			# 设置ping的次数
+ 
+# 在自己的机器上执行，则禁用别人ping自己
+echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all 
+</code></pre>
 
     </div>
 
