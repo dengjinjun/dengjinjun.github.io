@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="更改虚拟机磁盘分配方式从预分配改为自增" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            更改虚拟机磁盘分配方式从预分配改为自增
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+        
+        <p><strong>需求：</strong>因为要做网络实验，需要复制几台虚拟机出来，但是原虚拟机是采用预分配方式分配的50G磁盘，有点太费空间了，并且虚拟机的文件本身也不多，所以想把预分配磁盘改为自增的磁盘分配方式。我的VMware版本是VMware Workstation Pro 16.0，虚拟机镜像是CentOS 7.6</p>
+<p><strong>方法：</strong></p>
+<ul>
+<li><p>运行命令</p>
+<p>在VMware的安装目录打开powershell，运行命令：</p>
+<pre><code>.\vmware-vdiskmanager -r &quot;路径1&quot; -t 0 &quot;路径2&quot;	
+</code></pre>
+<p>路径1是指原虚拟磁盘文件地址，在虚拟机文件目录下，大小大概是1k，路径2是新生成的虚拟磁盘文件地址，这个也放在虚拟机文件目录下，文件名可以自己指定。我的是虚拟机文件目录是在 F:\CentOS 7.6\，原虚拟磁盘文件名是CentOS 7.6.vmdk，指定生成的文件名是CentOS 7.6-flat_1.vmdk，命令如下：</p>
+<pre><code>.\vmware-vdiskmanager -r &quot;F:\CentOS 7.6\CentOS 7.6.vmdk&quot; -t 0 &quot;F:\CentOS 7.6\CentOS 7.6-flat_1.vmdk&quot;
+</code></pre>
+<p>如果出现”Diskname or some other argument is missing.”错误提示，可能是文件地址错误，建议使用绝对地址。</p>
+<p>如果出现”VixDiskLib: Failed to initialize PhoneHome library.”错误提示，可能是原虚拟磁盘文件的文件名错误。</p>
+<p>正确输出如下：</p>
+<pre><code>VixDiskLib: Failed to initialize PhoneHome library.
+Creating disk &#39;F:\CentOS 7.6\CentOS 7.6-flat_1.vmdk&#39;
+  Convert: 100% done.
+Virtual disk conversion successful.
+</code></pre>
+</li>
+<li><p>修改配置文件</p>
+<p>生成了新的虚拟磁盘文件之后，可以明显发现新文件的大小比之前的文件小了很多，此时重启虚拟机还是报错：”vmware提示指定的文件不是虚拟磁盘”.</p>
+<p>因为还要更改一下VMware虚拟机配置文件，我的是”CentOS 7.6.vmx”，使用记事本打开，修改”scsi0:0.fileName &#x3D; 磁盘名称”里面的磁盘名称，为刚刚生成的文件名，就可以了。</p>
+<p>确认没问题之后，删掉原来的预分配空间大小的虚拟磁盘文件。</p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-09-18</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/VMware/'>
+                            VMware
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/Troubleshooting/'>
+                            Troubleshooting
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
