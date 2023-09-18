@@ -96,7 +96,7 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86"><span class="post-toc-text">网络管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BD%91%E5%8D%A1%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">网卡配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9B%B4%E6%94%B9%E7%BD%91%E5%8D%A1%E5%90%8D%E7%A7%B0"><span class="post-toc-text">更改网卡名称</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%92%8C%E9%85%8D%E7%BD%AE%E7%BD%91%E5%8D%A1%EF%BC%9Aifconfig%E5%91%BD%E4%BB%A4"><span class="post-toc-text">查看和配置网卡：ifconfig命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="post-toc-text">基本网络配置</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86"><span class="post-toc-text">网络管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BD%91%E5%8D%A1%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">网卡配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9B%B4%E6%94%B9%E7%BD%91%E5%8D%A1%E5%90%8D%E7%A7%B0"><span class="post-toc-text">更改网卡名称</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%92%8C%E9%85%8D%E7%BD%AE%E7%BD%91%E5%8D%A1%EF%BC%9Aifconfig%E5%91%BD%E4%BB%A4"><span class="post-toc-text">查看和配置网卡：ifconfig命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="post-toc-text">基本网络配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%A2%E5%8C%85%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%EF%BC%9Aethtool%E5%91%BD%E4%BB%A4"><span class="post-toc-text">丢包问题解决：ethtool命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%B7%AF%E7%94%B1%E7%AE%A1%E7%90%86"><span class="post-toc-text">路由管理</span></a></li></ol></li></ol>
         
         <h1 id="网络管理"><a href="#网络管理" class="headerlink" title="网络管理"></a>网络管理</h1><h2 id="网卡配置文件"><a href="#网卡配置文件" class="headerlink" title="网卡配置文件"></a>网卡配置文件</h2><p>网卡配置文件：<code>/etc/sysconfig/network-scripts/ifconfig-eth0</code></p>
 <pre><code>TYPE=&quot;Ethernet&quot;						# 网卡类型：以太网卡
@@ -219,64 +219,92 @@ systemctl restart network			# 重启网络服务
 <li><p>永久配置IP地址</p>
 <pre><code class="python">cd /etc/sysconfig/network-scripts/			# 进入网卡配置文件的目录
 cp ifcfg-eth0 ifcfg-eth1					# 把已存在的网卡配置文件复制一份，改名
+vim ifcfg-eth1								# 编辑配置文件，更改网卡名称，IP获取方式，删掉UUID等
+</code></pre>
+</li>
+<li><p>配置DNS</p>
+<p>DNS检索优先级：浏览器DNS缓存-&gt;本地系统DNS缓存-&gt;本地计算机HOSTS文件-&gt;ISP DNS缓存-&gt;递归or迭代搜索</p>
+<pre><code>本地HOST文件
+cat /etc/hosts
+</code></pre>
+<pre><code>DNS配置文件
+cat /etc/resolv.conf
+</code></pre>
+</li>
+<li><p>修改主机名</p>
+<pre><code>hostname									# 查看主机名
+hostnamectl set-hostname [主机名]				# 通过命令设置主机名
+vim /etc/hostname							# 通过配置文件修改主机名
+</code></pre>
+</li>
+<li><p>查看服务对应的端口</p>
+<pre><code>cat /etc/services
+</code></pre>
+<pre><code>常用服务的端口号：
+dhcp:67
+dns:53
+mysql:3306
+ssh:22
+http:80
+http监听端口:8080
+https:443
+https监听端口:8004
+opensvn:1194
+redis:6379
+zabbix server:10050
+zabbix agent:10051
 </code></pre>
 </li>
 </ul>
-<p>vim ifcfg-eth1								# 编辑配置文件，更改网卡名称，IP获取方式，删掉UUID等</p>
-<pre><code>
-- 配置DNS
+<h2 id="丢包问题解决：ethtool命令"><a href="#丢包问题解决：ethtool命令" class="headerlink" title="丢包问题解决：ethtool命令"></a>丢包问题解决：ethtool命令</h2><blockquote>
+<p>网卡工作原理</p>
+</blockquote>
+<pre><code>网卡发包：
+    1、ip包+14个字节的mac头变成数据帧frame
+    2、frame拷贝到网卡芯片内部的缓冲区，由网卡处理
+    3、网卡芯片为frame添加头部同步信息和CRC校验，此时才是真正可以发送的packet，然后发送该packet
+网卡收包：
+    1、网络包packet到达网卡，网卡先检查包packet的CRC校验，保证其完整性和正确性，然后去掉它的头得到frame
+    2、网卡将frame拷贝到网卡内部的FIFO缓冲区
+    3、网卡驱动程序产生硬件中断，把frame从网卡拷贝到内存中，接下来就交给内核处理
+网卡丢包：
+    内核通常需要快速拷贝网络数据包到系统内存,然而网卡上接收网络数据包的缓存大小固定，而且相比系统内存也要小得多。所以上述拷贝动作一旦被延迟，必然造成网卡FIFO缓存溢出 - 进入的数据包占满了网卡的缓存，后续的包只能被丢弃，这也应该就是ifconfig里的overrun的来源。
+</code></pre>
+<blockquote>
+<p>丢包问题定位</p>
+</blockquote>
+<pre><code>1.排查硬件，查看网卡工作模式是否正常。网卡工作在数据链路层，数据在链路层会做一些校验，封装成帧。我们可以查看传输是否存在问题，校验是否出错。然后从软件层面，是否因为缓冲区太小丢包。
 
-DNS检索优先级：浏览器DNS缓存-&gt;本地系统DNS缓存-&gt;本地计算机HOSTS文件-&gt;ISP DNS缓存-&gt;递归or迭代搜索
-</code></pre>
-<p>  本地HOST文件<br>  cat &#x2F;etc&#x2F;hosts</p>
-<pre><code>
-</code></pre>
-<p>  DNS配置文件<br>  cat &#x2F;etc&#x2F;resolv.conf</p>
-<pre><code>
-- 修改主机名
-</code></pre>
-<p>  hostname									# 查看主机名<br>  hostnamectl set-hostname [主机名]				# 通过命令设置主机名<br>  vim &#x2F;etc&#x2F;hostname							# 通过配置文件修改主机名</p>
-<pre><code>
-- 查看服务对应的端口
-</code></pre>
-<p>  cat &#x2F;etc&#x2F;services</p>
-<pre><code>
-</code></pre>
-<p>  常用服务的端口号：<br>  dhcp:67<br>  dns:53<br>  mysql:3306<br>  ssh:22<br>  http:80<br>  http监听端口:8080<br>  https:443<br>  https监听端口:8004<br>  opensvn:1194<br>  redis:6379<br>  zabbix server:10050<br>  zabbix agent:10051</p>
-<pre><code>
+#查看mtu是否正常
+ifconfig [网卡名称]									# 查看mtu是否正常
 
+#查看Speed是否和mtu匹配
+ethtool [网卡名称] | grep &#39;Speed|Duplex&#39;			# 筛选有用信息，Speed查看网卡速度，Duplex查看是全双工还是半双工
 
+#查看crc错误值
+ethtool -S [网卡名称] | grep crc					# -S 表示统计收发包信息，crc代表统计校验错误的数量，crc的值比较大可能是网络质量问题
+</code></pre>
+<pre><code>2.通过 ifconfig 查看 overruns 是否一直增大，即数据包是否在网卡缓冲区中溢出
 
-## 丢包问题解决：ethtool命令
+for i in `seq 1 100`; do ifconfig ens33 | grep RX | grep overruns; sleep 1; done
+</code></pre>
+<blockquote>
+<p>问题解决</p>
+</blockquote>
+<pre><code>1. 一般硬件较少出现故障，如果出现可以采用设置mtu,排查网络质量问题等方法
+</code></pre>
+<pre><code>2. 如果是网卡缓冲区过小可以调整网卡缓冲区
 
-&gt;网卡工作原理
+ethtool -g [网卡名称]			# 查看网卡缓冲区
+ethtool -G [网卡名称] rx [缓冲区数值]		# 调整接收缓冲区数值
+ethtool -G [网卡名称] tx [缓冲区数值]		# 调整发送缓冲区数值
 </code></pre>
-<p>网卡发包：<br>    1、ip包+14个字节的mac头变成数据帧frame<br>    2、frame拷贝到网卡芯片内部的缓冲区，由网卡处理<br>    3、网卡芯片为frame添加头部同步信息和CRC校验，此时才是真正可以发送的packet，然后发送该packet<br>网卡收包：<br>    1、网络包packet到达网卡，网卡先检查包packet的CRC校验，保证其完整性和正确性，然后去掉它的头得到frame<br>    2、网卡将frame拷贝到网卡内部的FIFO缓冲区<br>    3、网卡驱动程序产生硬件中断，把frame从网卡拷贝到内存中，接下来就交给内核处理<br>网卡丢包：<br>    内核通常需要快速拷贝网络数据包到系统内存,然而网卡上接收网络数据包的缓存大小固定，而且相比系统内存也要小得多。所以上述拷贝动作一旦被延迟，必然造成网卡FIFO缓存溢出 - 进入的数据包占满了网卡的缓存，后续的包只能被丢弃，这也应该就是ifconfig里的overrun的来源。</p>
-<pre><code>
-&gt;丢包问题定位
-</code></pre>
-<p>1.排查硬件，查看网卡工作模式是否正常。网卡工作在数据链路层，数据在链路层会做一些校验，封装成帧。我们可以查看传输是否存在问题，校验是否出错。然后从软件层面，是否因为缓冲区太小丢包。</p>
-<p>#查看mtu是否正常<br>ifconfig [网卡名称]									# 查看mtu是否正常</p>
-<p>#查看Speed是否和mtu匹配<br>ethtool [网卡名称] | grep ‘Speed|Duplex’			# 筛选有用信息，Speed查看网卡速度，Duplex查看是全双工还是半双工</p>
-<p>#查看crc错误值<br>ethtool -S [网卡名称] | grep crc					# -S 表示统计收发包信息，crc代表统计校验错误的数量，crc的值比较大可能是网络质量问题</p>
-<pre><code>
-</code></pre>
-<p>2.通过 ifconfig 查看 overruns 是否一直增大，即数据包是否在网卡缓冲区中溢出</p>
-<p>for i in <code>seq 1 100</code>; do ifconfig ens33 | grep RX | grep overruns; sleep 1; done</p>
-<pre><code>
-&gt;问题解决
-</code></pre>
+<h2 id="路由管理"><a href="#路由管理" class="headerlink" title="路由管理"></a>路由管理</h2><p>一台Linux主机能够被当成路由器的三大前提：</p>
 <ol>
-<li>一般硬件较少出现故障，如果出现可以采用设置mtu,排查网络质量问题等方法</li>
+<li>至少有两块网卡分别连接两个不同的网段</li>
+<li>开启路由转发功能：<code>echo 1 &gt; /proc/sys/net/ipv4/ip_forward</code></li>
+<li>在该Linux主机上添加正确的路由规则&#x2F;策略：通过<code>route</code>命令配置</li>
 </ol>
-<pre><code>
-</code></pre>
-<ol start="2">
-<li>如果是网卡缓冲区过小可以调整网卡缓冲区</li>
-</ol>
-<p>ethtool -g [网卡名称]			# 查看网卡缓冲区<br>ethtool -G [网卡名称] rx [缓冲区数值]		# 调整接收缓冲区数值<br>ethtool -G [网卡名称] tx [缓冲区数值]		# 调整发送缓冲区数值</p>
-<pre><code>
-</code></pre>
 
     </div>
 

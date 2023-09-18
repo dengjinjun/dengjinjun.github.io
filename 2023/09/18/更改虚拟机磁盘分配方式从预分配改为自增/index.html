@@ -123,6 +123,35 @@ Virtual disk conversion successful.
 <p>确认没问题之后，删掉原来的预分配空间大小的虚拟磁盘文件。</p>
 </li>
 </ul>
+<p><strong>缺陷：</strong></p>
+<p>更改了磁盘分配方式之后，原本磁盘的描述文件会不可用，比如我的原本的磁盘描述文件是”CentOS 7.6.vmdk”，这样在克隆的时候，无论是克隆本机还是克隆快照，都会报错：”vmware提示指定的文件不是虚拟磁盘”，这是因为磁盘描述文件引导的那个虚拟磁盘文件已经不存在了（被我删了），而我更改磁盘分配方式的初衷就是为了克隆虚拟机，搜索了各种方法，最后在官方文档中找到了一点解决思路，需要重新生成磁盘描述文件，但是官方文档给的是通过ESXI系统来操作的，我一顿操作无果之后，选择删掉原本无用的磁盘描述文件，这样在克隆的时候果然出现了新的报错：”找不到文件: CentOS 7.6.vmdk，克隆此虚拟机时需要用到该文件。如果该文件被移走，请提供其新位置”。找不到文件是正常的，因为我刚刚删掉它了，所幸给出了VMware给出了浏览选项，我选择了另一个描述文件：”CentOS 7.6-0.vmdk”，然后成功创建。从这个文件的修改时间来看，他并不是新生成的，但是却能用，详细原因不知，等以后详细了解之后再补充。</p>
+<p>这是虚拟机的配置文件”CentOS 7.6-0.vmdk”的内容：</p>
+<pre><code># Disk DescriptorFile
+version=1
+encoding=&quot;GBK&quot;
+CID=57ed9e50
+parentCID=ffffffff
+createType=&quot;twoGbMaxExtentSparse&quot;
+
+# Extent description
+RW 8323072 SPARSE &quot;CentOS 7.6-0-s001.vmdk&quot;
+RW 8323072 SPARSE &quot;CentOS 7.6-0-s002.vmdk&quot;
+RW 8323072 SPARSE &quot;CentOS 7.6-0-s003.vmdk&quot;
+RW 8323072 SPARSE &quot;CentOS 7.6-0-s004.vmdk&quot;
+RW 8323072 SPARSE &quot;CentOS 7.6-0-s005.vmdk&quot;
+RW 327680 SPARSE &quot;CentOS 7.6-0-s006.vmdk&quot;
+
+# The Disk Data Base 
+#DDB
+
+ddb.adapterType = &quot;lsilogic&quot;
+ddb.geometry.cylinders = &quot;2610&quot;
+ddb.geometry.heads = &quot;255&quot;
+ddb.geometry.sectors = &quot;63&quot;
+ddb.longContentID = &quot;3285d9097fbe55d150e1775c57ed9e50&quot;
+ddb.uuid = &quot;60 00 C2 95 66 47 78 49-d9 98 e1 ce cc 6c a4 2e&quot;
+ddb.virtualHWVersion = &quot;18&quot;
+</code></pre>
 
     </div>
 
