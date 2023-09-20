@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="Shell基础" />
+    <meta name="description" content="Shell编程" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang | </title>
@@ -89,7 +89,7 @@
 
     
         <div class="post-main-title">
-            Shell基础
+            Shell编程
         </div>
       
     
@@ -98,9 +98,9 @@
         
             <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Shell%E7%BC%96%E7%A8%8B%E6%A6%82%E5%BF%B5"><span class="post-toc-text">Shell编程概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Shell%E7%AE%80%E4%BB%8B"><span class="post-toc-text">Shell简介</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Shell%E8%84%9A%E6%9C%AC"><span class="post-toc-text">Shell脚本</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Shell%E5%8F%98%E9%87%8F"><span class="post-toc-text">Shell变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E5%92%8C%E8%B5%8B%E5%80%BC"><span class="post-toc-text">变量定义和赋值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8F%98%E9%87%8F%E5%BC%95%E7%94%A8%E4%B8%8E%E6%8B%93%E5%B1%95"><span class="post-toc-text">变量引用与拓展</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="post-toc-text">字符串</span></a></li></ol></li></ol>
         
-        <h2 id="Shell编程概念"><a href="#Shell编程概念" class="headerlink" title="Shell编程概念"></a>Shell编程概念</h2><h3 id="Shell简介"><a href="#Shell简介" class="headerlink" title="Shell简介"></a><strong>Shell简介</strong></h3><p>Shell是一种命令行解释器，是在计算机操作系统中提供用户与操作系统交互的一种方式。通常Shell是指命令行界面，用户通过Shell界面可以输入命令并获得相应的操作结果。Shell负责解释和执行用户输入的命令，从而实现管理和控制进程、操作文件、进行系统管理等操作。</p>
+        <h2 id="Shell编程概念"><a href="#Shell编程概念" class="headerlink" title="Shell编程概念"></a>Shell编程概念</h2><h3 id="Shell简介"><a href="#Shell简介" class="headerlink" title="Shell简介"></a>Shell简介</h3><p>Shell是一种命令行解释器，是在计算机操作系统中提供用户与操作系统交互的一种方式。通常Shell是指命令行界面，用户通过Shell界面可以输入命令并获得相应的操作结果。Shell负责解释和执行用户输入的命令，从而实现管理和控制进程、操作文件、进行系统管理等操作。</p>
 <p>常见的Shell类型包括Bourne shell（&#x2F;bin&#x2F;sh）、Bash shell（&#x2F;bin&#x2F;bash）等。其中，Bash shell是Linux系统中应用最广泛的Shell类型，也是默认的Shell类型。</p>
-<h3 id="Shell脚本"><a href="#Shell脚本" class="headerlink" title="Shell脚本"></a><strong>Shell脚本</strong></h3><p>一般情况下，Shell脚本以文本文件的形式存在。Shell脚本由若干条命令和控制结构组成，可以在命令行中直接执行，也可以在脚本中进行批量处理。</p>
+<h3 id="Shell脚本"><a href="#Shell脚本" class="headerlink" title="Shell脚本"></a>Shell脚本</h3><p>一般情况下，Shell脚本以文本文件的形式存在。Shell脚本由若干条命令和控制结构组成，可以在命令行中直接执行，也可以在脚本中进行批量处理。</p>
 <blockquote>
 <p>Shebang解释器声明</p>
 </blockquote>
@@ -180,9 +180,10 @@ echo $greet						# 输出结果：hello, dengpangpang !
 </code></pre>
 </li>
 </ul>
-<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><ul>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>注意：hexo无法解析 $ { # 这三个符号的组合，不加空格拼在一起会导致后面的内容全部消失，后面出现此类组合可以看到空格，其实不应该有空格</p>
+<ul>
 <li><p>获取字符串长度</p>
-<pre><code class="bash">string=&quot;abcd&quot;
+<pre><code class="bash">string=&quot;abcd&quot;			
 echo $
 </code></pre>
 </li>
@@ -193,7 +194,7 @@ echo $
     <div class="post-meta">
         <i>
         
-            <span>2023-09-19</span>
+            <span>2023-09-20</span>
             
                 <span>该篇文章被 邓胖胖</span>
             
