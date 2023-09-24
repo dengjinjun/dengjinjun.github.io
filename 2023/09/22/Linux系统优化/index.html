@@ -100,7 +100,7 @@
         
         <h2 id="系统优化"><a href="#系统优化" class="headerlink" title="系统优化"></a>系统优化</h2><h3 id="yum源处理与常用软件包安装"><a href="#yum源处理与常用软件包安装" class="headerlink" title="yum源处理与常用软件包安装"></a>yum源处理与常用软件包安装</h3><pre><code class="bash">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup			# 备份系统yum源
 
-curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/CentO-7.repo	# 下载阿里云的yum源
+curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo	# 下载阿里云的yum源
 curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo			# 添加epel源
 
 yum update -y				# 升级yum工具，刚装完系统执行，之后就不要更新了
