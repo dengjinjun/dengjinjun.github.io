@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="HTTPS" />
+    <meta name="description" content="HTTPS篇" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang | </title>
@@ -89,14 +89,14 @@
 
     
         <div class="post-main-title">
-            HTTPS
+            HTTPS篇
         </div>
       
     
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFHTTPS"><span class="post-toc-text">什么是HTTPS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTPS%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="post-toc-text">HTTPS加密过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTPS%E8%AF%81%E4%B9%A6"><span class="post-toc-text">HTTPS证书</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AF%81%E4%B9%A6%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">证书介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B4%AD%E4%B9%B0%E8%AF%81%E4%B9%A6%EF%BC%88%E9%98%BF%E9%87%8C%E4%BA%91%E9%83%A8%E7%BD%B2https%EF%BC%89"><span class="post-toc-text">购买证书（阿里云部署https）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%BB%BA%E8%AF%81%E4%B9%A6%EF%BC%88openssl%E9%83%A8%E7%BD%B2%E8%87%AA%E5%BB%BAnginx%E8%AF%81%E4%B9%A6%EF%BC%89"><span class="post-toc-text">自建证书（openssl部署自建nginx证书）</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFHTTPS"><span class="post-toc-text">什么是HTTPS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTPS%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="post-toc-text">HTTPS加密过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTPS%E8%AF%81%E4%B9%A6"><span class="post-toc-text">HTTPS证书</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AF%81%E4%B9%A6%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">证书介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B4%AD%E4%B9%B0%E8%AF%81%E4%B9%A6%EF%BC%88%E9%98%BF%E9%87%8C%E4%BA%91%E9%83%A8%E7%BD%B2https%EF%BC%89"><span class="post-toc-text">购买证书（阿里云部署https）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%BB%BA%E8%AF%81%E4%B9%A6"><span class="post-toc-text">自建证书</span></a></li></ol></li></ol>
         
         <h2 id="什么是HTTPS"><a href="#什么是HTTPS" class="headerlink" title="什么是HTTPS"></a>什么是HTTPS</h2><p>HTTPS是HTTP通信之间的一个安全通道。https不是一个单独的协议，而是基于http通信之间的一个安全通道。</p>
 <pre><code>https =   http +  ssl（旧版）	Secure Sockets Layer  安全套接字层
@@ -230,7 +230,7 @@ https://yundun.console.aliyun.com/?p=cas#/certExtend/buy
 提交到认证公司，保持电话畅通，并及时查阅邮箱中来自认证公司的电子邮件。
 收到提供的一对证书文件，下载之后就可以部署到nginx上了。
 </code></pre>
-<h3 id="自建证书（openssl部署自建nginx证书）"><a href="#自建证书（openssl部署自建nginx证书）" class="headerlink" title="自建证书（openssl部署自建nginx证书）"></a>自建证书（openssl部署自建nginx证书）</h3><p>一部分业务，是纯内网环境的，需要自建https证书。</p>
+<h3 id="自建证书"><a href="#自建证书" class="headerlink" title="自建证书"></a>自建证书</h3><p>一部分业务，是纯内网环境的，需要自建https证书。</p>
 <p>通过公司内部的dns系统，提供的域名，绑定https证书</p>
 <blockquote>
 <p>安装nginx和openssl</p>
