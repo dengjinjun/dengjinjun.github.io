@@ -146,10 +146,9 @@ DNS客户端将IP地址返回给操作系统和浏览器。
 <blockquote>
 <p>查看DNS域名查找路径</p>
 </blockquote>
-<pre><code>dig +trace  www.dengjinjun.site			# 展示一个简单的从域名到ip的查找过程
+<pre><code>dig +trace  www.dengjinjun.site			# 展示一个简单的从域名到ip的查找过程，dig命令用来查看域名解析关系，很重要
 </code></pre>
-<h2 id="实践添加腾讯云A记录三级域名"><a href="#实践添加腾讯云A记录三级域名" class="headerlink" title="实践添加腾讯云A记录三级域名"></a>实践添加腾讯云A记录三级域名</h2><h3 id="域名记录类型"><a href="#域名记录类型" class="headerlink" title="域名记录类型"></a>域名记录类型</h3><p><img src="/pic/image-20220513153801020.png" alt="image-20220513153801020"></p>
-<pre><code>记录类型		使用目的
+<h2 id="实践添加腾讯云A记录三级域名"><a href="#实践添加腾讯云A记录三级域名" class="headerlink" title="实践添加腾讯云A记录三级域名"></a>实践添加腾讯云A记录三级域名</h2><h3 id="域名记录类型"><a href="#域名记录类型" class="headerlink" title="域名记录类型"></a>域名记录类型</h3><pre><code>记录类型		使用目的
 A 记录		将域名指向一个 IP 地址（外网地址）。A记录类型是用的最频繁的，因为他是直接指向了一个ip地址
 CNAME 记录	将域名指向另一个域名，再由另一个域名提供 IP 地址（外网地址）。将当前要访问的域名，转发给另一个域名，用在CDN部署上
 MX 记录		设置邮箱，让邮箱能收到邮件。
