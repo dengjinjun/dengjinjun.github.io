@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="DHCP" />
+    <meta name="description" content="DHCP篇" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang | </title>
@@ -89,7 +89,7 @@
 
     
         <div class="post-main-title">
-            DHCP
+            DHCP篇
         </div>
       
     
@@ -98,7 +98,8 @@
         
             <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DHCP%E9%83%A8%E7%BD%B2"><span class="post-toc-text">DHCP部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DHCP%E9%83%A8%E7%BD%B2%E5%91%BD%E4%BB%A4"><span class="post-toc-text">DHCP部署命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#dhcp%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3"><span class="post-toc-text">dhcp配置文件详解</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%A1%88%E4%BE%8B%EF%BC%9A%E4%B8%A4%E5%8F%B0%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2DHCP"><span class="post-toc-text">案例：两台虚拟机部署DHCP</span></a></li></ol></li></ol>
         
-        <h2 id="DHCP部署"><a href="#DHCP部署" class="headerlink" title="DHCP部署"></a>DHCP部署</h2><h3 id="DHCP部署命令"><a href="#DHCP部署命令" class="headerlink" title="DHCP部署命令"></a>DHCP部署命令</h3><pre><code>yum install dhcp -y							# 安装dhcp软件包
+        <h2 id="DHCP部署"><a href="#DHCP部署" class="headerlink" title="DHCP部署"></a>DHCP部署</h2><p>DHCP（Dynamic Host Configuration Protocol）：动态主机配置协议。DHCP是一个很重要的局域网的网络协议，使用UDP协议工作，主要作用是为内部网络或网络服务供应商自动分配IP地址。</p>
+<h3 id="DHCP部署命令"><a href="#DHCP部署命令" class="headerlink" title="DHCP部署命令"></a>DHCP部署命令</h3><pre><code>yum install dhcp -y							# 安装dhcp软件包
 /usr/share/doc/dhcp*/dhcpd.conf.example		# dhcp配置的demo文件
 /ect/dhcp/dhcpd.conf						# dhcp配置文件，需要从demo文件中迁移过来
 cp /usr/share/doc/dhcp*/dhcpd.conf.exampl /ect/dhcp/dhcpd.conf		# 迁移配置文件
