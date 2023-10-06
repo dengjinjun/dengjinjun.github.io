@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="公司局域网部署samba" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            公司局域网部署samba
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="post-toc-text">服务端</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="post-toc-text">客户端</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Windows"><span class="post-toc-text">Windows</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Linux"><span class="post-toc-text">Linux</span></a></li></ol></li></ol>
+        
+        <h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><blockquote>
+<p>首先，安装Samba</p>
+</blockquote>
+<pre><code class="shell">yum install samba samba-client -y			# samba是服务端，samba-client提供了smbclient命令
+
+systemctl enable nmb smb					# 设置开机启动
+</code></pre>
+<blockquote>
+<p>提前把需要共享的文件放进一个文件夹里，然后命名为samba，然后在配置文件中添加要共享的文件夹samba</p>
+</blockquote>
+<pre><code class="shell">vim /etc/samba/smb.conf
+
+[samba]											
+    comment = test
+    path = /samba
+    browseable = yes
+    host allow = 192.168.110.0/24
+    valid users = samba_user						# 此处的用户需要是Samba用户
+</code></pre>
+<blockquote>
+<p>服务端还需要添加上这个Samba用户</p>
+</blockquote>
+<pre><code class="shell"># 创建系统用户
+useradd samba_user
+passwd xxxx
+
+# 添加Samba用户
+smbpassed -a samba_user
+</code></pre>
+<blockquote>
+<p>启动samba</p>
+</blockquote>
+<pre><code class="shell">systemctl start nmb smb						# 开启服务
+</code></pre>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><blockquote>
+<p>临时挂载</p>
+</blockquote>
+<p>win + R 运行 <code>\\服务端IP</code>或者<code>\\域名</code></p>
+<blockquote>
+<p>永久挂载</p>
+</blockquote>
+<p>文件资源管理器中，右击网络选择映射网络驱动器，</p>
+<p><img src="D:\Pictures\Screenshots\屏幕截图(8).png" alt="屏幕截图(8)"></p>
+<p>在文件夹中填入 <code>\\服务端IP</code>或者<code>\\域名</code>，点击完成即可。</p>
+<p><img src="C:\Users\dengp\AppData\Roaming\Typora\typora-user-images\image-20231006165928581.png" alt="image-20231006165928581"></p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><blockquote>
+<p>临时挂载</p>
+</blockquote>
+<p><code>smbclient  //IP/文件夹 -U 用户名%密码</code>，比如：</p>
+<pre><code class="shell">smbclient  //192.168.3.65/samba -U dengpangpnag%xxxx
+</code></pre>
+<blockquote>
+<p>永久挂载</p>
+</blockquote>
+<p><code>mount -o username=用户名,password=密码 -t cifs //IP/文件夹 挂载文件夹</code>，比如：</p>
+<pre><code>mkdir /opt/test				# 创建文件夹
+mount -o username=dengpangpang,password=xxxx -t cifs //192.168.3.65/samba /opt/test	# 挂载
+
+vim /etc/fstab			# 编辑挂载文件，添加以下挂载信息，即可永久挂载
+
+////192.168.3.65/samba /opt/test cifs rw,username=dengpangpang,password=xxxx 0 0
+</code></pre>
+<p>注意：<code>cifs</code>：Common Internet File System，通用网络文件服务器</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-14</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>

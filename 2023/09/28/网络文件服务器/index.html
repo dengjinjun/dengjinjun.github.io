@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="网络文件服务器" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            网络文件服务器
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="post-toc-text">网络文件服务器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#FTP"><span class="post-toc-text">FTP</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FTP%E7%9A%84%E4%B8%BB%E5%8A%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E8%A2%AB%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">FTP的主动模式和被动模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="post-toc-text">安装部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6"><span class="post-toc-text">相关文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FTP%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="post-toc-text">FTP客户端常用命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%99%9A%E6%8B%9F%E7%94%A8%E6%88%B7"><span class="post-toc-text">虚拟用户</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Samba"><span class="post-toc-text">Samba</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Samba%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Samba部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Samba%E7%94%A8%E6%88%B7"><span class="post-toc-text">Samba用户</span></a></li></ol></li></ol></li></ol>
+        
+        <h1 id="网络文件服务器"><a href="#网络文件服务器" class="headerlink" title="网络文件服务器"></a>网络文件服务器</h1><p>网络文件服务器是通过网络共享文件或文件夹，实现数据共享。</p>
+<p>NAS(Network Attached Storage)：网络附属存储，共享的是文件或者文件夹。</p>
+<p>常见的网络存储服务有三种：</p>
+<ol>
+<li>FTP：文件服务器，适合单纯的文件上传下载</li>
+<li>samba：不同系统间的文件夹或设备共享，适合系统集成间的共享</li>
+<li>NFS：网络文件系统，适合作为网络存储服务器</li>
+</ol>
+<h2 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h2><p>FTP(File Transfer Protocol)：文件传输协议，是一个TCP协议。FTP是一个C&#x2F;S类型的软件，FTP监听TCP端口号是21，数据端口为20。</p>
+<p>FTP的功能是在客户端与服务端之间进行文件的传输，即实现两台计算机之间文件的上传和下载。最初的FTP协议使用明文传输，现今使用较多是更为安全的 VSFTP (Very Secure File Transfer Protocol)。</p>
+<h3 id="FTP的主动模式和被动模式"><a href="#FTP的主动模式和被动模式" class="headerlink" title="FTP的主动模式和被动模式"></a>FTP的主动模式和被动模式</h3><blockquote>
+<p>PORT（主动模式）</p>
+</blockquote>
+<p>在主动模式下，FTP客户端随机开启一个大于1024的端口N向服务器的21号端口发起连接，发送FTP用户名和密码，然后开放N+1号端口进行监听，并向服务器发出PORT N+1命令，告诉服务端客户端采用主动模式并开放了端口。FTP服务器接收到PORT命令后，会用其本地的FTP数据端口（通常是20）来连接客户端指定的端口N+1，进行数据传输。</p>
+<blockquote>
+<p>PASV（被动模式）</p>
+</blockquote>
+<p>在被动模式下，FTP客户端随机开启一个大于1024的端口N向服务器的21号端口发起连接，发送用户名和密码进行登陆，同时会开启N+1端口。然后向服务器发送PASV命令，通知服务器自己处于被动模式。服务器收到命令后，会开放一个大于1024的端口P（端口P的范围是可以设置的，后面会说到这个是很重要的）进行监听，然后用PORT P命令通知客户端，自己的数据端口是P。客户端收到命令后，会通过N+1号端口连接服务器的端口P，然后在两个端口之间进行数据传输。</p>
+<blockquote>
+<p>区别和比较</p>
+</blockquote>
+<p>绝大部分互联网应用都是被动模式，因为大部分客户端都是在路由器后面，没有独立的公网IP地址，服务器想要主动连接客户端，难度太大，在现在真实的互联网环境里面几乎是不可能完成的任务。在 FTP服务器部署的时候，其默认采用的是主动操作模式。如果企业FTP服务器的用户都是在内部网络中的，即不用像外部网络的用户提供FTP连接的需求，那么采用这个默认操作方式就可以了。但是如果一些出差在外的员工或者员工在家庭办公时也需要访问企业内部的FTP服务器，而此时出于安全的考虑或者公网IP地址数量的限制，企业往往会把FTP服务器部署在防火墙或者NAT服务器的后面，此时这个主动操作模式就不行了。</p>
+<h3 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h3><pre><code class="shell">yum install vsftpd -y				# 安装
+
+systemctl enable vsftpd				# 设置开机启动
+
+systemctl start vsftpd				# 启动服务
+
+lsof -i :21							# 验证启动
+</code></pre>
+<h3 id="相关文件"><a href="#相关文件" class="headerlink" title="相关文件"></a>相关文件</h3><blockquote>
+<p>配置文件</p>
+</blockquote>
+<pre><code class="shell">/etc/vsftpd/vsftpd.conf
+</code></pre>
+<pre><code class="shell"># Example config file /etc/vsftpd/vsftpd.conf
+#
+# The default compiled in settings are fairly paranoid. This sample file
+# loosens things up a bit, to make the ftp daemon more usable.
+# Please see vsftpd.conf.5 for all compiled in defaults.
+#
+# READ THIS: This example file is NOT an exhaustive list of vsftpd options.
+# Please read the vsftpd.conf.5 manual page to get a full idea of vsftpd&#39;s
+# capabilities.
+#
+#匿名用户访问,YES是允许，NO是拒绝
+# Allow anonymous FTP? (Beware - allowed by default if you comment this out).
+anonymous_enable=NO
+#
+# Uncomment this to allow local users to log in.
+# 本地用户登录,YES是允许，NO是拒绝.默认访问的是本地用户家目录，如果你开启了selinux
+# 请设置开启布尔值ftp_home_dir为ON
+# When SELinux is enforcing check for SE bool ftp_home_dir
+local_enable=YES
+#
+#允许本地用户上传
+# Uncomment this to enable any form of FTP write command.
+write_enable=YES
+#
+# Default umask for local users is 077. You may wish to change this to 022,
+# 上传的权限是022，使用的是umask权限。对应的目录是755，文件是644
+# if your users expect that (022 is used by most other ftpd&#39;s)
+local_umask=022
+
+#
+# Uncomment this to allow the anonymous FTP user to upload files. This only
+# has an effect if the above global write enable is activated. Also, you will
+# obviously need to create a directory writable by the FTP user.
+# When SELinux is enforcing check for SE bool allow_ftpd_anon_write, allow_ftpd_full_access
+# 开启匿名用户上传功能，默认是拒绝的
+#anon_upload_enable=YES
+#
+# Uncomment this if you want the anonymous FTP user to be able to create
+# new directories.
+# 开启匿名用户创建文件或文件夹权限
+#anon_mkdir_write_enable=YES
+#
+# Activate directory messages - messages given to remote users when they
+# go into a certain directory.
+# 开启目录欢迎消息，一般对命令行登陆有效
+dirmessage_enable=YES
+#
+# Activate logging of uploads/downloads.
+# 开启上传和下载日志记录功能
+xferlog_enable=YES
+#
+#使用标准模式
+# Make sure PORT transfer connections originate from port 20 (ftp-data).
+connect_from_port_20=YES
+#
+# If you want, you can arrange for uploaded anonymous files to be owned by
+# a different user. Note! Using &quot;root&quot; for uploaded files is not
+# recommended!
+# 声明匿名用户上传文件的所有者
+# 允许更改匿名用户上传文件的所有者
+#chown_uploads=YES
+#所有者为whoever
+#chown_username=whoever
+#
+# You may override where the log file goes if you like. The default is shown
+# below.
+# 日志文件路径
+#xferlog_file=/var/log/xferlog
+#
+# If you want, you can have your log file in standard ftpd xferlog format.
+# Note that the default log file location is /var/log/xferlog in this case.
+# 日志文件采用标准格斯
+xferlog_std_format=YES
+#
+# You may change the default value for timing out an idle session.
+# 会话超时时间
+#idle_session_timeout=600
+#
+# You may change the default value for timing out a data connection.
+# 数据传输超时时间
+#data_connection_timeout=120
+#
+# It is recommended that you define on your system a unique user which the
+# ftp server can use as a totally isolated and unprivileged user.
+# FTP子进程管理用户
+#nopriv_user=ftpsecure
+#
+# Enable this and the server will recognise asynchronous ABOR requests. Not
+# recommended for security (the code is non-trivial). Not enabling it,
+# however, may confuse older FTP clients.
+# 是否允许客户端发起“async ABOR”请求，该操作是不安全的默认禁止。
+#async_abor_enable=YES
+#
+# By default the server will pretend to allow ASCII mode but in fact ignore
+# the request. Turn on the below options to have the server actually do ASCII
+# mangling on files when in ASCII mode. The vsftpd.conf(5) man page explains
+# the behaviour when these options are disabled.
+# Beware that on some FTP servers, ASCII support allows a denial of service
+# attack (DoS) via the command &quot;SIZE /big/file&quot; in ASCII mode. vsftpd
+# predicted this attack and has always been safe, reporting the size of the
+# raw file.
+# ASCII mangling is a horrible feature of the protocol.
+# 该选项用于指定是否允许上传时以ASCII模式传输数据
+#ascii_upload_enable=YES
+#该选项用于指定是否允许下载时以ASCII模式传输数据
+#ascii_download_enable=YES
+#
+# You may fully customise the login banner string:
+# FTP文本界面登陆欢迎词
+#ftpd_banner=Welcome to blah FTP service.
+#
+# You may specify a file of disallowed anonymous e-mail addresses. Apparently
+# useful for combatting certain DoS attacks.
+# 是否开启拒绝的Email功能
+#deny_email_enable=YES
+# (default follows)
+# 指定保存被拒接的Email地址的文件
+#banned_email_file=/etc/vsftpd/banned_emails
+#
+# You may specify an explicit list of local users to chroot() to their home
+# directory. If chroot_local_user is YES, then this list becomes a list of
+# users to NOT chroot().
+# (Warning! chroot&#39;ing can be very dangerous. If using chroot, make sure that
+# the user does not have write access to the top level directory within the
+# chroot)
+# 是否开启对本地用户chroot的限制，YES为默认所有用户都不能切出家目录，NO代表默认用户都可以切出家目录
+# 设置方法类似于：YES拒绝所有，允许个别    NO  允许所有拒绝个别
+#chroot_local_user=YES
+#开启特例列表
+#chroot_list_enable=YES
+# (default follows)
+# 如果chroot_local_user的值是YES则该文件中的用户是可以切出家目录，如果是NO，该文件中的用户则不能切出家目录
+# 一行一个用户。
+#chroot_list_file=/etc/vsftpd/chroot_list
+# 允许具有写权限的家目录
+#allow_writeable_chroot=YES
+#
+# You may activate the &quot;-R&quot; option to the builtin ls. This is disabled by
+# default to avoid remote users being able to cause excessive I/O on large
+# sites. However, some broken FTP clients such as &quot;ncftp&quot; and &quot;mirror&quot; assume
+# the presence of the &quot;-R&quot; option, so there is a strong case for enabling it.
+# 是否开启ls 递归查询功能 ls -R
+#ls_recurse_enable=YES
+#
+# When &quot;listen&quot; directive is enabled, vsftpd runs in standalone mode and
+# listens on IPv4 sockets. This directive cannot be used in conjunction
+# with the listen_ipv6 directive.
+# 是否开启ftp独立模式在IPV4
+listen=NO
+#
+# This directive enables listening on IPv6 sockets. By default, listening
+# on the IPv6 &quot;any&quot; address (::) will accept connections from both IPv6
+# and IPv4 clients. It is not necessary to listen on *both* IPv4 and IPv6
+# sockets. If you want that (perhaps because you want to listen on specific
+# addresses) then you must run two copies of vsftpd with two configuration
+# files.
+# Make sure, that one of the listen options is commented !!
+# 是否开启ftp独立模式在ipv6
+listen_ipv6=YES
+
+
+#启用pam模块验证，对本地用户登录做验证用的,pam验证的配置文件在/etc/pam.d/vsftpd
+pam_service_name=vsftpd
+
+#是否启用用户列表功能
+userlist_enable=YES
+userlist_file=/etc/vsftpd/user_list
+userlist_deny=YES		# 设置为YES，代表此列表中的用户都不能访问；设置为NO，代表仅允许该列表中的用户访问。
+</code></pre>
+<blockquote>
+<p>共享文件目录</p>
+</blockquote>
+<pre><code class="shell">/var/ftp				# 匿名用户的下载目录，本地用户的下载目录在本地用户的家目录
+</code></pre>
+<blockquote>
+<p>FTP日志</p>
+</blockquote>
+<pre><code class="shell">/var/log/xferlog
+</code></pre>
+<h3 id="FTP客户端常用命令"><a href="#FTP客户端常用命令" class="headerlink" title="FTP客户端常用命令"></a>FTP客户端常用命令</h3><p>FTP是一个C&#x2F;S类型的软件,连接服务端需要FTP客户端才能完成，常见的FTP客户端有以下几种:</p>
+<ol>
+<li><p>浏览器：可以通过浏览器中输入 <a href="ftp://ip或者ftp//%E5%9F%9F%E5%90%8D%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9D%A5%E8%AE%BF%E9%97%AEFTP">ftp://ip或者ftp://域名的方式来访问FTP</a></p>
+</li>
+<li><p>自带客户端：命令行下可以使用ftp命令去连接</p>
+</li>
+<li><p>三方客户端：FileZilla、8uftp 图形软件或者文本界面的lftp等</p>
+</li>
+</ol>
+<p>三种方式中，命令行下无法鼠标流，所以需要使用到一些命令。</p>
+<pre><code class="shell">ftp [IP或域名]				# 访问FTP服务端，有本地系统用户访问、guest访问和匿名访问三种
+
+help					# 打印帮助菜单
+!+Linux命令				# 执行Linux命令
+lcd	[目录]					# 切换Linux系统中的当前目录
+put/mput				# 上传/批量上传
+get/mget				# 下载/批量下载
+ls/dir					# 列出目录内容
+mkdir/cd/delete/rmdir	# 创建目录/进入目录/删除文件/删除目录
+pwd						# 显示FTP当前目录
+open/close/bye			# 开启/关闭/退出FTP连接
+</code></pre>
+<h3 id="虚拟用户"><a href="#虚拟用户" class="headerlink" title="虚拟用户"></a>虚拟用户</h3><p>在FTP中不论是匿名用户还是实名用户都是系统中真实存在的用户，或多或少都会有一些安全方面的风险，为了避免这个风险，开发者在ftp中加入了一个虚拟用户的概念，所有虚拟用户都会被统一映射为一个系统账号，免去了管理过多账户的麻烦。</p>
+<h2 id="Samba"><a href="#Samba" class="headerlink" title="Samba"></a>Samba</h2><p>Samba是在Linux系统中实现SMB（Server Message Block）协议，即信息服务块协议的软件，由服务器&#x2F;客户端软件组成，为局域网内的不同计算机之间提供文件及打印机等资源的共享服务。</p>
+<h3 id="Samba部署"><a href="#Samba部署" class="headerlink" title="Samba部署"></a>Samba部署</h3><pre><code class="shell"># 安装软件包
+yum install samba samba-client -y			# samba是服务端，samba-client提供了smbclient命令
+
+systemctl enable nmb smb					# 设置开机启动
+
+systemctl start nmb smb						# 开启服务
+</code></pre>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><pre><code>/etc/samba/smb.conf
+</code></pre>
+<pre><code class="shell"># See smb.conf.example for a more detailed config file or
+# read the smb.conf manpage.
+# Run &#39;testparm&#39; to verify the config is correct after
+# you modified it.
+
+[global]										# 全局设置，具体设置项可以在smb.conf.example文件中浏览
+        workgroup = SAMBA						# 工作组
+        security = user							# 安全级别，有share，user，server，domain四种，一般为user即可
+        netbios name = samba					# Samba服务器的NetBios主机名。设置以后局域网内Windows才能通过网络邻居发现Samba服务器。
+        passdb backend = tdbsam
+
+        printing = cups
+        printcap name = cups
+        load printers = yes
+        cups options = raw
+        
+        interfaces = lo ens33						# 网卡接口
+        host allow = 127. 192.168.110. 192.168.3.	# 允许访问共享资源的网络。一般设置为服务器和客户机所在的网段即可
+
+[homes]											# 对用户家目录的共享
+        comment = Home Directories					# 自定义段的注释说明
+        public = No									# 是否开放访问，类似于guest ok
+        valid users = %S, %D%w%S					# 允许访问的用户，不能与public同时使用，否则public设置会失效。
+        browseable = No								# 是否可见，即是否在共享名列表显示该段。
+        read only = No								# 是否只读访问
+        read list = @组名 用户名						# 上一项设置为No，则这一项允许一部分用户和组读取
+        inherit acls = Yes
+        writable = Yes								# 是否允许向共享目录内写入
+        write list = @组名 用户名					# 上一项设置为No，则这一项允许一部分用户和组写入
+[printers]										# 打印机的共享
+        comment = All Printers
+        path = /var/tmp								# 共享资源所在目录
+        printable = Yes
+        create mask = 0600
+        browseable = No
+
+[print$]
+        comment = Printer Drivers
+        path = /var/lib/samba/drivers
+        write list = @printadmin root
+        force group = @printadmin
+        create mask = 0664
+
+[samba]											# 如果想共享一个目录，可以像这样添加一个共享块
+    comment = test
+    path = /samba
+    browseable = yes
+    host allow = 192.168.110.0/24 192.168.3.0/24
+    valid users = samba_user						# 此处的用户需要是Samba用户
+</code></pre>
+<h3 id="Samba用户"><a href="#Samba用户" class="headerlink" title="Samba用户"></a>Samba用户</h3><p>由于系统本地用户无法直接登录Samba，必须是Samba用户才可以登录，所有需要创建Samba用户：</p>
+<ol>
+<li>创建系统用户</li>
+<li>将系统用户转为Samba用户</li>
+</ol>
+<pre><code># 创建系统用户
+useradd [用户名]
+passwd [用户名]
+
+# 创建Samba用户的指令
+smbpassed -a [用户名]			# 添加用户
+smbpassed -x [用户名]			# 删除用户
+smbpassed -d [用户名]			# 禁用用户
+smbpassed -e [用户名]			# 取消禁用
+smbpassed -n [用户名]			# 清除密码
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-09-28</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
