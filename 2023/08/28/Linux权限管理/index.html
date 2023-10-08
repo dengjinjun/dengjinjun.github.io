@@ -371,7 +371,11 @@ su -用户名 -c &quot;命令&quot;		# 切换身份并执行命令
 <blockquote>
 <p>如何配置权限？</p>
 </blockquote>
-<p>在管理员下使用<code>cisudo</code>命令或者vim编辑器来修改配置文件<code>/etc/sudoers</code>来分配权限。配置之后可以使用<code>visudo -c</code>命令来检查语法，确保配置正确。</p>
+<p>将普通用户添加为管理员可以使用vim编辑器来修改配置文件<code>/etc/sudoers</code>来分配权限。配置之后可以使用<code>visudo -c</code>命令来检查语法，确保配置正确。</p>
+<p>也可以将用户添加进<code>wheel</code>组即可:</p>
+<pre><code>usermod -a -G wheel [用户名]
+gpasswd -a [用户名] wheel
+</code></pre>
 
     </div>
 

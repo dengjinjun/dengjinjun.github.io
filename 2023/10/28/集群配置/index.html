@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="公司局域网部署Samba" />
+    <meta name="description" content="集群配置" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang | </title>
@@ -89,85 +89,33 @@
 
     
         <div class="post-main-title">
-            公司局域网部署Samba
+            集群配置
         </div>
       
     
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="post-toc-text">服务端</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="post-toc-text">客户端</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Windows"><span class="post-toc-text">Windows</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Linux"><span class="post-toc-text">Linux</span></a></li></ol></li></ol>
+            
         
-        <h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><blockquote>
-<p>首先，安装Samba</p>
-</blockquote>
-<pre><code class="shell">yum install samba samba-client -y			# samba是服务端，samba-client提供了smbclient命令
-
-systemctl enable nmb smb					# 设置开机启动
-</code></pre>
-<blockquote>
-<p>提前把需要共享的文件放进一个文件夹里，然后命名为samba，然后在配置文件中添加要共享的文件夹samba</p>
-</blockquote>
-<pre><code class="shell">vim /etc/samba/smb.conf
-
-[samba]											
-    comment = test
-    path = /samba
-    browseable = yes
-    host allow = 192.168.110.0/24
-    valid users = samba_user						# 此处的用户需要是Samba用户
-</code></pre>
-<blockquote>
-<p>服务端还需要添加上这个Samba用户</p>
-</blockquote>
-<pre><code class="shell"># 创建系统用户
-useradd samba_user
-passwd xxxx
-
-# 添加Samba用户
-smbpassed -a samba_user
-</code></pre>
-<blockquote>
-<p>启动samba</p>
-</blockquote>
-<pre><code class="shell">systemctl start nmb smb						# 开启服务
-</code></pre>
-<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><blockquote>
-<p>临时挂载</p>
-</blockquote>
-<p>win + R 运行 <code>\\服务端IP</code>或者<code>\\域名</code></p>
-<blockquote>
-<p>永久挂载</p>
-</blockquote>
-<p>文件资源管理器中，右击网络选择映射网络驱动器，</p>
-<p><img src="/../pic/image-20231006172527870.png" alt="image-20231006172527870"></p>
-<p>在文件夹中填入 <code>\\服务端IP\目录</code>或者<code>\\域名\目录</code>，点击完成即可。</p>
-<p><img src="/../pic/image-20231006172533193.png" alt="image-20231006172533193"></p>
-<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><blockquote>
-<p>临时挂载</p>
-</blockquote>
-<p><code>smbclient  //IP/文件夹 -U 用户名%密码</code>，比如：</p>
-<pre><code class="shell">smbclient  //192.168.3.65/samba -U dengpangpnag%xxxx
-</code></pre>
-<blockquote>
-<p>永久挂载</p>
-</blockquote>
-<p><code>mount -o username=用户名,password=密码 -t cifs //IP/文件夹 挂载文件夹</code>，比如：</p>
-<pre><code>mkdir /opt/test				# 创建文件夹
-mount -o username=dengpangpang,password=xxxx -t cifs //192.168.3.65/samba /opt/test	# 挂载
-
-vim /etc/fstab			# 编辑挂载文件，添加以下挂载信息，即可永久挂载
-
-////192.168.3.65/samba /opt/test cifs rw,username=dengpangpang,password=xxxx 0 0
-</code></pre>
-<p>注意：<code>cifs</code>：Common Internet File System，通用网络文件服务器</p>
+        <p>1</p>
+<p>负载服务器1	lb01	192.168.110.135</p>
+<p>负载服务器2	lb02	192.168.110.136</p>
+<p>web服务器1	web01	192.168.110.137</p>
+<p>web服务器2	web02	192.168.110.138</p>
+<p>sweb服务器1	sweb01	192.168.110.139</p>
+<p>sweb服务器2	sweb02	192.168.110.140</p>
+<p>NFS存储服务器	nfs	192.168.110.141</p>
+<p>rsync备份服务器	backup	192.168.110.142</p>
+<p>MySQL数据库服务器	db01	192.168.110.143</p>
+<p>X-管理服务器	m01	192.168.110.128</p>
 
     </div>
 
     <div class="post-meta">
         <i>
         
-            <span>2023-10-14</span>
+            <span>2023-10-28</span>
             
                 <span>该篇文章被 邓胖胖</span>
             
@@ -185,8 +133,8 @@ vim /etc/fstab			# 编辑挂载文件，添加以下挂载信息，即可永久�
                 <span>归为分类:
                     
                     
-                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
-                            工作笔记
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
                         </a>
                     
                 </span>
