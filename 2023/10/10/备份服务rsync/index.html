@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="备份服务rsync" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            备份服务rsync
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rsync"><span class="post-toc-text">rsync</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">rsync三种工作模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E9%80%89%E9%A1%B9%E8%AF%B4%E6%98%8E"><span class="post-toc-text">rsync选项说明</span></a></li></ol></li></ol>
+        
+        <h2 id="rsync"><a href="#rsync" class="headerlink" title="rsync"></a>rsync</h2><p>Rsync（Remote Synchronize）：远程同步。是开源的、高速的，可实现本地以及远程，全量以及增量的数据复制工具。</p>
+<p>官方资料：<a target="_blank" rel="noopener" href="http://www.samba.org/ftp/rsync/rsync.html">http://www.samba.org/ftp/rsync/rsync.html</a></p>
+<blockquote>
+<p>为什么要使用rsync</p>
+</blockquote>
+<ol>
+<li><p>工作中需要定时&#x2F;实时进行数据备份</p>
+</li>
+<li><p>本地服务器目录、不同机器、不同机房之间的数据备份</p>
+</li>
+</ol>
+<blockquote>
+<p>rsync功能特性</p>
+</blockquote>
+<ol>
+<li>支持拷贝普通文件和特殊文件，比如链接文件、设备文件等。</li>
+<li>支持排除指定文件或目录进行同步。</li>
+<li>可以做到保持原文件或目录的权限、时间、软硬链接、属主、属组均不改变。</li>
+<li>可以实现增量复制（全量拷贝：完整地拷贝所有文件；增量拷贝：只拷贝变化的部分）。</li>
+<li>可以使用rcp，rsh，ssh等方式来配合进行隧道加密传输文件（rsync本身不对文件进行加密）。</li>
+<li>可以通过socket（进程方式）来传输文件和数据（客户端和服务端）。</li>
+<li>支持匿名或无需系统用户认证的方式进行传输，安全地进行数据备份以及镜像。</li>
+</ol>
+<blockquote>
+<p>rsync增量复制原理</p>
+</blockquote>
+<p>使用 quick check 算法，只对增量的部分进行复制，该算法查找<strong>文件大小</strong>或者<strong>上次修改时间</strong>已经变化的文件，进行增量复制。</p>
+<h3 id="rsync三种工作模式"><a href="#rsync三种工作模式" class="headerlink" title="rsync三种工作模式"></a>rsync三种工作模式</h3><blockquote>
+<p>本地模式</p>
+</blockquote>
+<pre><code class="shell">rsync [options] [source] [destination]
+</code></pre>
+<blockquote>
+<p>远程shell模式</p>
+</blockquote>
+<pre><code class="shell"># 远程shell模式分为采用隧道和不采用隧道，隧道模式适用于没有搭建服务端的场景，或者需要传输重要数据的场景，需要加上-e选项
+# user@host 使用的是所连接主机的系统用户和密码
+# 关于 source 和 destination ,如果目录后加 / ，表示只是目录下的内容；如果不加 / ，表示包含目录本身以及目录下的内容
+
+# pull:从远程拉取到本地
+rsync [options] [user@host:source] [destination]		# 不采用隧道
+rsync [options] -e &quot;ssh -p 22&quot; [user@host:source] [destination]		# 采用隧道,使用ssh方式加密，端口号为22
+
+# push:从本地推送到远程
+rsync [options] [source] [user@host:destination]		# 不采用隧道
+rsync [options] -e &quot;ssh -p 22&quot; [source] [user@host:destination]		# 采用隧道,使用ssh方式加密，端口号为22
+</code></pre>
+<blockquote>
+<p>客户端服务端方式</p>
+</blockquote>
+<pre><code class="shell"># 所有拉取和推送操作操作均在客户端进行，服务端需要提前配置并开启进程
+
+# pull:从服务端拉取到客户端
+rsync [options] [user@host::source] [destination]
+rsync [options] rsync://[user@host:port/source] [destination]
+
+# push:从客户端推送到服务端
+rsync [options] [source] [user@host::destination]
+rsync [options] [source] rsync://[user@host:port/destination]
+</code></pre>
+<h3 id="rsync选项说明"><a href="#rsync选项说明" class="headerlink" title="rsync选项说明"></a>rsync选项说明</h3><p>rsync选项非常多，但最常用的选项组合是”avz”，即压缩和显示部分信息，并以归档模式传输。</p>
+<pre><code class="shell">-v 显示rsync过程中详细信息。可以使用&quot;-vvvv&quot;获取更详细信息。
+-P 显示文件传输的进度信息。(实际上&quot;-P&quot;=&quot;–partial --progress&quot;，其中的&quot;–progress&quot;才是显示进度信息的)。
+-n --dry-run 仅测试传输，而不实际传输。常和&quot;-vvvv&quot;配合使用来查看rsync是如何工作的。
+-a --archive 归档模式，表示递归传输并保持文件属性。等同于&quot;-rtopgDl&quot;。
+-r --recursive 递归到目录中去。
+-t --times 保持mtime属性。强烈建议任何时候都加上&quot;-t&quot;，否则目标文件mtime会设置为系统时间，导致下次更新检查出mtime不同从而导致增量传输无效。
+-o --owner 保持owner属性(属主)。
+-g --group 保持group属性(属组)。
+-p --perms 保持perms属性(权限，不包括特殊权限)。
+-D 是&quot;–device --specials&quot;选项的组合，即也拷贝设备文件和特殊文件。
+-l --links如果文件是软链接文件，则拷贝软链接本身而非软链接所指向的对象。
+-z 传输时进行压缩提高效率。
+-e, --rsh=COMMAND 指定使用rsh、ssh方式进行数据同步
+-R --relative：使用相对路径。意味着将命令行中指定的全路径而非路径最尾部的文件名发送给服务端，包括它们的属性。
+--rsync-path=PATH 指定远程服务器上的rsync命令所在路径信息 
+-C, --cvs-exclude 使用和CVS一样的方法自动忽略文件，用来排除那些不希望传输的文件  
+--existing 仅仅更新那些已经存在于DST的文件，而不备份那些新创建的文件  
+--delete 删除那些DST中SRC没有的文件 
+--delete-excluded 同样删除接收端那些被该选项指定排除的文件 
+--delete-after 传输结束以后再删除 
+--ignore-errors 及时出现IO错误也进行删除 
+--max-delete=NUM 最多删除NUM个文件 
+--partial 保留那些因故没有完全传输的文件，以是加快随后的再次传输 
+--force 强制删除目录，即使不为空 
+--numeric-ids 不将数字的用户和组ID匹配为用户名和组名 
+--timeout=TIME IP超时时间，单位为秒 
+-I, --ignore-times 不跳过那些有同样的时间和长度的文件 
+--size-only 当决定是否要备份文件时，仅仅察看文件大小而不考虑文件时间 
+--modify-window=NUM 决定文件是否时间相同时使用的时间戳窗口，默认为0 
+--temp-dir=DIR 在DIR中创建临时文件 
+--compare-dest=DIR 同样比较DIR中的文件来决定是否需要备份 
+-P 等同于 --partial 
+--progress 显示备份过程 
+-z, --compress 对备份的文件在传输时进行压缩处理 
+--exclude=PATTERN 指定排除不需要传输的文件模式 
+--include=PATTERN 指定不排除而需要传输的文件模式 
+--exclude-from=FILE 排除FILE中指定模式的文件 
+--include-from=FILE 不排除FILE指定模式匹配的文件 
+--version 打印版本信息 
+--address 绑定到特定的地址 
+--config=FILE 指定其他的配置文件，不使用默认的rsyncd.conf文件 
+--port=PORT 指定其他的rsync服务端口 
+--blocking-io 对远程shell使用阻塞IO 
+-stats 给出某些文件的传输状态 
+--progress 在传输时现实传输过程 
+--log-format=formAT 指定日志文件格式 
+--password-file=FILE 从FILE中得到密码 
+--bwlimit=KBPS 限制I/O带宽，KBytes per second 
+-h, --help 显示帮助信息
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-10</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
