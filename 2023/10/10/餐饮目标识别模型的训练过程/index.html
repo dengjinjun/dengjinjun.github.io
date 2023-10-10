@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="餐饮目标识别模型的训练过程" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            餐饮目标识别模型的训练过程
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%A4%90%E9%A5%AE%E7%9B%AE%E6%A0%87%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B"><span class="post-toc-text">餐饮目标识别模型的训练过程</span></a></li></ol>
+        
+        <h1 id="餐饮目标识别模型的训练过程"><a href="#餐饮目标识别模型的训练过程" class="headerlink" title="餐饮目标识别模型的训练过程"></a>餐饮目标识别模型的训练过程</h1><p>收集餐饮客户需要训练的图（目标识别中，无法框出的图），放到images文件夹中，打包成zip压缩包。</p>
+<p>wmdigit用户登录双显卡机器。</p>
+<p>总体的流程是</p>
+<ol>
+<li>在yolo5的测试集的最新的原有模型中，跑一遍图片，得到标签集。</li>
+<li>使用labeling软件，调整和添加画框，可以得到手动更新的标签集。</li>
+<li>在yolo5的训练集的最新的原有模型中，训练一遍原图和标签集，得到新的模型。</li>
+</ol>
+<blockquote>
+<p>获取标签集</p>
+</blockquote>
+<p>在双显卡机器中操作</p>
+<pre><code class="shell">sudo -i						# 提权
+cd /home/wmdigit/Projects/pytorch/experiment/study/yolov5-food-320			# 进入yolo5的路径
+rz 							# 拿到images.zip
+unzip images.zip			# 解压到当前目录下
+vim test.sh					# 编辑脚本文件test.sh，检查--source的目录是否是图片所在目录，将--weights的路径中的exp文件改为最新的
+source activate				# 激活python虚拟环境
+./test.sh					# 运行测试脚本，生成的结果在./runs/detect目录下最新的exp文件
+cd ./runs/detect			# 进入目录
+zip -rq exp61.zip exp61		# 假设生成的最新exp文件是exp61，里面的labels文件夹就是标签集，是每张图片的画框坐标文件，打包压缩。
+sz exp61.zip				# 发送到Windows设备进行处理
+</code></pre>
+<blockquote>
+<p>更新标签集</p>
+</blockquote>
+<p>在本机操作</p>
+<p>打开拿到的exp文件，将labels文件夹中的所有坐标文件，移动到images文件夹中，然后在images文件夹中，创建一个classes.txt文件，内容是<code>1</code>和<code>2</code>.分两行。打开labeling软件，打开images文件夹，逐张图片查看。如果画框不准确的，则调整已有的框的大小，保存；如果没有识别的，则手动画框，保存。</p>
+<p>将classes.txt文件删掉，在images文件夹中运行以下脚本文件（自动筛选出更改过的画框坐标文件，放入labels文件夹中）。</p>
+<pre><code class="python">import os
+import shutil
+
+# 获取当前目录
+current_dir = os.getcwd()
+
+# 创建一个子文件夹
+sub_dir = os.path.join(current_dir, &quot;labels&quot;)
+os.makedirs(sub_dir, exist_ok=True)
+
+# 获取文件夹中所有以txt为后缀名的文件列表
+txt_files = [file for file in os.listdir(current_dir) if file.endswith(&quot;.txt&quot;)]
+
+# 遍历文件列表，将每个文件复制到子文件夹中
+for file in txt_files:
+    file_path = os.path.join(current_dir, file)
+    shutil.copy(file_path, sub_dir)
+</code></pre>
+<p>打包labels文件夹，得到labels.zip压缩包。</p>
+<blockquote>
+<p>训练模型</p>
+</blockquote>
+<p>在双显卡机器中操作</p>
+<pre><code class="shell">cd /home/wmdigit/Projects/pytorch/experiment/study/yolov5-food-320		# 进入yolo路径	
+rz							# 拿到labels.zip压缩包
+unzip -j images.zip /home/wmdigit/Data/foodTrainDataset/images			# 将原图放到yolo5的训练集图片文件夹中
+unzip -j labels.zip /home/wmdigit/Data/foodTrainDataset/labels			# 将标签放到yolo5的训练集标签文件夹中
+vim train.sh				# 编辑脚本文件train.sh，将--weights的路径中的exp文件改为最新的
+./train.sh					# 运行训练脚本，生成的结果在./runs/train目录下最新的exp文件
+ls ./runs/train/			# 查看该目录下最新的exp文件，假设为exp37
+zip -rq exp37.zip exp37		# 打包
+sz exp37.zip				# 发送到Windows设备进行处理
+</code></pre>
+<blockquote>
+<p>模型转换（可选非必须）</p>
+</blockquote>
+<pre><code class="shell">vim ./onnx.sh				# 编辑脚本文件onnx.sh,将--weights的路径中的exp文件改为最新的
+./onnx.sh					# 运行脚本文件，观察输出
+</code></pre>
+<blockquote>
+<p>收尾</p>
+</blockquote>
+<pre><code class="shell"># 把exp文件中的pt文件交给开发去集成到dll中，再把训练之后产生的多余的文件删一下
+rm -rf images/ images.zip labels.zip				# 可直接复制
+rm runs/detect/exp61.zip runs/train/exp37.zip		# 需要根据生成的exp文件修改命令
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-10</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>

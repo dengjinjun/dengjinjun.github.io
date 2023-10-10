@@ -96,9 +96,9 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rsync"><span class="post-toc-text">rsync</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">rsync三种工作模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E9%80%89%E9%A1%B9%E8%AF%B4%E6%98%8E"><span class="post-toc-text">rsync选项说明</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rsync%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">rsync介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">rsync三种工作模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E9%80%89%E9%A1%B9%E8%AF%B4%E6%98%8E"><span class="post-toc-text">rsync选项说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">客户端服务器端模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="post-toc-text">服务器端</span></a></li></ol></li></ol>
         
-        <h2 id="rsync"><a href="#rsync" class="headerlink" title="rsync"></a>rsync</h2><p>Rsync（Remote Synchronize）：远程同步。是开源的、高速的，可实现本地以及远程，全量以及增量的数据复制工具。</p>
+        <h2 id="rsync介绍"><a href="#rsync介绍" class="headerlink" title="rsync介绍"></a>rsync介绍</h2><p>Rsync（Remote Synchronize）：远程同步。是开源的、高速的，可实现本地以及远程，全量以及增量的数据复制工具。</p>
 <p>官方资料：<a target="_blank" rel="noopener" href="http://www.samba.org/ftp/rsync/rsync.html">http://www.samba.org/ftp/rsync/rsync.html</a></p>
 <blockquote>
 <p>为什么要使用rsync</p>
@@ -118,7 +118,7 @@
 <li>可以做到保持原文件或目录的权限、时间、软硬链接、属主、属组均不改变。</li>
 <li>可以实现增量复制（全量拷贝：完整地拷贝所有文件；增量拷贝：只拷贝变化的部分）。</li>
 <li>可以使用rcp，rsh，ssh等方式来配合进行隧道加密传输文件（rsync本身不对文件进行加密）。</li>
-<li>可以通过socket（进程方式）来传输文件和数据（客户端和服务端）。</li>
+<li>可以通过socket（守护进程方式）来传输文件和数据（客户端和服务端）。</li>
 <li>支持匿名或无需系统用户认证的方式进行传输，安全地进行数据备份以及镜像。</li>
 </ol>
 <blockquote>
@@ -208,6 +208,69 @@ rsync [options] [source] rsync://[user@host:port/destination]
 --password-file=FILE 从FILE中得到密码 
 --bwlimit=KBPS 限制I/O带宽，KBytes per second 
 -h, --help 显示帮助信息
+</code></pre>
+<h2 id="客户端服务器端模式"><a href="#客户端服务器端模式" class="headerlink" title="客户端服务器端模式"></a>客户端服务器端模式</h2><h3 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h3><p>rsync守护进程模式应用实践</p>
+<p><img src="/../pic/b7dbe2edb3532dc6e9bb286caa4cdd2.png"></p>
+<blockquote>
+<p>安装rsync</p>
+</blockquote>
+<pre><code class="shell">yum install rsync -y			# 安装
+rsync --version					# 检验安装
+</code></pre>
+<blockquote>
+<p>配置文件</p>
+</blockquote>
+<pre><code class="shell">vim /etc/rsyncd.conf		# 编辑配置文件
+
+# /etc/rsyncd: configuration file for rsync daemon mode
+
+# See rsyncd.conf man page for more options.
+
+# configuration example:
+
+uid = nobody						# rsync访问本地数据目录的一个用户
+gid = nobody						# 用户组
+use chroot = no						# 是否使用chroot选项
+max connections = 200				# 并发最大连接数
+pid file = /var/run/rsyncd.pid		# 进程启动后，将进程pid写入这个文件
+exclude = lost+found/				# 排除的文件或目录，此处为相对路径
+# transfer logging = yes
+timeout = 900						# 超时时间
+# ignore nonreadable = yes
+# dont compress   = *.gz *.tgz *.zip *.z *.Z *.rpm *.deb *.bz2
+
+[backup]									# 此处为一个模块，用[模块名]表示，下面是此模块的配置
+       path = /home/backup					# 此模块的文件路径
+       comment = backup export area			# 备注
+       secrets file = /etc/rsyncd.password	# 指定虚拟用户的密码存放的文件，格式为，用户名:密码
+       lock file = /var/run/rsyncd.lock		# 锁文件，用来支持max connections参数，此处为默认值
+</code></pre>
+<blockquote>
+<p>创建目录和用户</p>
+</blockquote>
+<pre><code class="shell">mkdir /back -p			# 创建目录
+
+useradd -s /sbin/nologin -M rsync		# 创建一个rsync用户
+chown -R rsync.rsync /backup			# 授权rsync用户管理此目录
+</code></pre>
+<blockquote>
+<p>创建密码文件</p>
+</blockquote>
+<pre><code class="shell">vim /etc/rsyncd.password					# 指定虚拟用户的密码存放的文件，格式为，用户名:密码
+
+rsync:123456
+
+chmod 600 /etc/rsyncd.password				# 修改密码文件的权限
+</code></pre>
+<blockquote>
+<p>启动服务</p>
+</blockquote>
+<pre><code>systemctl enable rsyncd			# 设置开机自启
+systemctl start rsyncd			# 启动服务
+systemctl status rsyncd			# 查看状态
+ps -ef | grep sync | grep -v grep	# 查看进程
+netstat -tunlp | grep rsync			# 检查端口
+lsof -i :873						# 查看默认端口873
 </code></pre>
 
     </div>
