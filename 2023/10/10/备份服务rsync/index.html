@@ -96,7 +96,7 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rsync%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">rsync介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">rsync三种工作模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E9%80%89%E9%A1%B9%E8%AF%B4%E6%98%8E"><span class="post-toc-text">rsync选项说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">客户端服务器端模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="post-toc-text">服务器端</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rsync%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">rsync介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">rsync三种工作模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E9%80%89%E9%A1%B9%E8%AF%B4%E6%98%8E"><span class="post-toc-text">rsync选项说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">客户端服务器端模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="post-toc-text">服务器端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="post-toc-text">客户端</span></a></li></ol></li></ol>
         
         <h2 id="rsync介绍"><a href="#rsync介绍" class="headerlink" title="rsync介绍"></a>rsync介绍</h2><p>Rsync（Remote Synchronize）：远程同步。是开源的、高速的，可实现本地以及远程，全量以及增量的数据复制工具。</p>
 <p>官方资料：<a target="_blank" rel="noopener" href="http://www.samba.org/ftp/rsync/rsync.html">http://www.samba.org/ftp/rsync/rsync.html</a></p>
@@ -151,12 +151,12 @@ rsync [options] -e &quot;ssh -p 22&quot; [source] [user@host:destination]		# 采
 <pre><code class="shell"># 所有拉取和推送操作操作均在客户端进行，服务端需要提前配置并开启进程
 
 # pull:从服务端拉取到客户端
-rsync [options] [user@host::source] [destination]
-rsync [options] rsync://[user@host:port/source] [destination]
+rsync [options] [user@host::模块名] [本地路径]
+rsync [options] rsync://[user@host:port/模块名] [本地路径]
 
 # push:从客户端推送到服务端
-rsync [options] [source] [user@host::destination]
-rsync [options] [source] rsync://[user@host:port/destination]
+rsync [options] [本地路径] [user@host::模块名]
+rsync [options] [本地路径] rsync://[user@host:port/模块名]
 </code></pre>
 <h3 id="rsync选项说明"><a href="#rsync选项说明" class="headerlink" title="rsync选项说明"></a>rsync选项说明</h3><p>rsync选项非常多，但最常用的选项组合是”avz”，即压缩和显示部分信息，并以归档模式传输。</p>
 <pre><code class="shell">-v 显示rsync过程中详细信息。可以使用&quot;-vvvv&quot;获取更详细信息。
@@ -228,12 +228,19 @@ rsync --version					# 检验安装
 
 # configuration example:
 
-uid = nobody						# rsync访问本地数据目录的一个用户
-gid = nobody						# 用户组
+uid = rsync						# rsync访问本地数据目录的一个用户，下一步要创建的用户。有坑，默认是nobody
+gid = rsync						# 用户组
+read only = false				# 要写上这一句，要不然无法推送。有坑
+fake super = yes				# 如果出现操作不被允许等提示，可以添加这一句，允许不在root用户下复制文件属性
 use chroot = no						# 是否使用chroot选项
 max connections = 200				# 并发最大连接数
 pid file = /var/run/rsyncd.pid		# 进程启动后，将进程pid写入这个文件
 exclude = lost+found/				# 排除的文件或目录，此处为相对路径
+log file = /var/log/rsyncd.log		# 指定日志文件存放路径
+secrets file = /etc/rsyncd.password	# 指定虚拟用户的密码存放的文件，格式为，用户名:密码
+lock file = /var/run/rsyncd.lock	# 锁文件，用来支持max connections参数，此处为默认值
+list = true
+auth users = rsync					# 允许认证的用户，有坑。
 # transfer logging = yes
 timeout = 900						# 超时时间
 # ignore nonreadable = yes
@@ -242,16 +249,14 @@ timeout = 900						# 超时时间
 [backup]									# 此处为一个模块，用[模块名]表示，下面是此模块的配置
        path = /home/backup					# 此模块的文件路径
        comment = backup export area			# 备注
-       secrets file = /etc/rsyncd.password	# 指定虚拟用户的密码存放的文件，格式为，用户名:密码
-       lock file = /var/run/rsyncd.lock		# 锁文件，用来支持max connections参数，此处为默认值
 </code></pre>
 <blockquote>
 <p>创建目录和用户</p>
 </blockquote>
-<pre><code class="shell">mkdir /back -p			# 创建目录
+<pre><code class="shell">mkdir /home/backup -p			# 创建目录
 
-useradd -s /sbin/nologin -M rsync		# 创建一个rsync用户
-chown -R rsync.rsync /backup			# 授权rsync用户管理此目录
+useradd -s /sbin/nologin -M rsync		# 创建一个rsync用户，-s指定shell,-M不创建家目录
+chown -R rsync.rsync /home/backup			# 授权rsync用户管理此目录
 </code></pre>
 <blockquote>
 <p>创建密码文件</p>
@@ -265,12 +270,30 @@ chmod 600 /etc/rsyncd.password				# 修改密码文件的权限
 <blockquote>
 <p>启动服务</p>
 </blockquote>
-<pre><code>systemctl enable rsyncd			# 设置开机自启
+<pre><code class="shell">systemctl enable rsyncd			# 设置开机自启
 systemctl start rsyncd			# 启动服务
 systemctl status rsyncd			# 查看状态
 ps -ef | grep sync | grep -v grep	# 查看进程
 netstat -tunlp | grep rsync			# 检查端口
 lsof -i :873						# 查看默认端口873
+</code></pre>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><blockquote>
+<p>认证密码文件</p>
+</blockquote>
+<p>客户端的配置相对简单，只需要创建一个密码文件，不需要指定用户，只保存密码即可。</p>
+<pre><code class="shell">echo &quot;123456&quot; &gt; /etc/rsyncd.password		# 客户端的密码文件要与服务端相同
+chmod 600 /etc/rsyncd.password				# 修改密码文件的权限
+</code></pre>
+<blockquote>
+<p>测试</p>
+</blockquote>
+<pre><code class="shell"># 拉取实践
+rsync -avz rsync@192.168.110.142::backup ./ --password-file=/etc/rsyncd.password
+rsync -avz rsync://rsync@192.168.110.142/backup ./ --password-file=/etc/rsyncd.password
+
+# 推送实践
+rsync -avz ./test  rsync@192.168.110.142::backup --password-file=/etc/rsyncd.password
+rsync -avz ./test rsync://192.168.110.142/backup --password-file=/etc/rsyncd.password
 </code></pre>
 
     </div>
