@@ -96,7 +96,7 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rsync%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">rsync介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">rsync三种工作模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="post-toc-text">rsync工具的优缺点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E9%80%89%E9%A1%B9%E8%AF%B4%E6%98%8E"><span class="post-toc-text">rsync选项说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">客户端服务器端模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="post-toc-text">服务器端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="post-toc-text">客户端</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rsync%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">rsync介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">rsync三种工作模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="post-toc-text">rsync工具的优缺点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E9%80%89%E9%A1%B9%E8%AF%B4%E6%98%8E"><span class="post-toc-text">rsync选项说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">客户端服务器端模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="post-toc-text">服务器端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="post-toc-text">客户端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7%E6%A0%A1%E9%AA%8C"><span class="post-toc-text">数据完整性校验</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%80%E5%90%AF%E9%82%AE%E4%BB%B6"><span class="post-toc-text">开启邮件</span></a></li></ol></li></ol>
         
         <h2 id="rsync介绍"><a href="#rsync介绍" class="headerlink" title="rsync介绍"></a>rsync介绍</h2><p>Rsync（Remote Synchronize）：远程同步。是开源的、高速的，可实现本地以及远程，全量以及增量的数据复制工具。</p>
 <p>官方资料：<a target="_blank" rel="noopener" href="http://www.samba.org/ftp/rsync/rsync.html">http://www.samba.org/ftp/rsync/rsync.html</a></p>
@@ -297,6 +297,34 @@ rsync -avz --exclude=&#123;1..3&#125;.txt rsync@192.168.110.142::backup ./ --pas
 # 在命令中指定一个本地文件，将需要排除的目录或文件写在本地文件中
 rsync -avz --exclude-from=/opt/exclude.txt rsync@192.168.110.142::backup ./ --password-file=/etc/rsyncd.password
 echo &#123;1..3&#125;.txt | xargs -n 1 &gt; a.txt			# 在本地文件中写入想要排除的文件
+</code></pre>
+<h3 id="数据完整性校验"><a href="#数据完整性校验" class="headerlink" title="数据完整性校验"></a>数据完整性校验</h3><p>可以利用md5sum命令对文件做数据完整性校验，具体原理如下：</p>
+<ol>
+<li>在文件打包之后，传输之前获取指纹。</li>
+<li>在传到服务器之后，重新对文件获取指纹。</li>
+<li>对比文件传输前后的指纹，如果没有发生变化，则说明数据完整。</li>
+</ol>
+<pre><code class="shell">md5sum a.txt				# 使用md5sum对文件a.txt做数据完整性校验
+342sdf89s7d9svs9879sdasa7fs9fsd89   a.txt			# 生成一个指纹，后跟该文件名
+md5sum a.txt &gt; fingerprint.log			# 把输出结果写到指纹文件中
+md5sum -c fingerprint		# 校验指纹
+a.txt:确定					# 输出结果
+</code></pre>
+<h3 id="开启邮件"><a href="#开启邮件" class="headerlink" title="开启邮件"></a>开启邮件</h3><p>CentOS 7默认使用postfix邮件服务，开启方式 <code>systemctl start postfix</code>。本机作为邮件服务器的配置比较麻烦。</p>
+<p>可以通过修改配置文件<code>/etc/mail.rc</code>，把Linux设备当作邮件服务的客户端来使用，使用外部SMTP服务发送邮件。</p>
+<pre><code class="shell">vim /etc/mail.rc		# 编辑配置文件，最后一行加入以下内容
+
+set from=dengjinjun0805@126.com.com smtp=smtp.126.com smtp-auth-user=邓胖胖 smtp-auth-password=xxxx amtp-auth=login
+
+# from 是发送方的邮件地址
+# smtp 是发送邮件的外部smtp服务器的地址
+# smtp-auth-user 是外部的smtp服务器认证的用户名
+# smtp-auth-password 是外部smtp服务器认证的用户密码（授权码）
+# smtp-auth 是邮件认证的方式
+
+
+# 测试
+mail -s &quot;测试&quot; dengjinjun0805@126.com 498790885@qq.com 
 </code></pre>
 
     </div>

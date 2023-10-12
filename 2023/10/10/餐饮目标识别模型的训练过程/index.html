@@ -96,17 +96,16 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%A4%90%E9%A5%AE%E7%9B%AE%E6%A0%87%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B"><span class="post-toc-text">餐饮目标识别模型的训练过程</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%A4%90%E9%A5%AE%E7%9B%AE%E6%A0%87%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B"><span class="post-toc-text">餐饮目标识别模型的训练过程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%80%BB%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="post-toc-text">总体流程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AF%A6%E7%BB%86%E6%B5%81%E7%A8%8B"><span class="post-toc-text">详细流程</span></a></li></ol></li></ol></li></ol>
         
         <h1 id="餐饮目标识别模型的训练过程"><a href="#餐饮目标识别模型的训练过程" class="headerlink" title="餐饮目标识别模型的训练过程"></a>餐饮目标识别模型的训练过程</h1><p>收集餐饮客户需要训练的图（目标识别中，无法框出的图），放到images文件夹中，打包成zip压缩包。</p>
 <p>wmdigit用户登录双显卡机器。</p>
-<p>总体的流程是</p>
-<ol>
+<h3 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h3><ol>
 <li>在yolo5的测试集的最新的原有模型中，跑一遍图片，得到标签集。</li>
 <li>使用labeling软件，调整和添加画框，可以得到手动更新的标签集。</li>
 <li>在yolo5的训练集的最新的原有模型中，训练一遍原图和标签集，得到新的模型。</li>
 </ol>
-<blockquote>
+<h3 id="详细流程"><a href="#详细流程" class="headerlink" title="详细流程"></a>详细流程</h3><blockquote>
 <p>获取标签集</p>
 </blockquote>
 <p>在双显卡机器中操作</p>
