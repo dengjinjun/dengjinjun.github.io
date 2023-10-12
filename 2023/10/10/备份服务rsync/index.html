@@ -96,7 +96,7 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rsync%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">rsync介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">rsync三种工作模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E9%80%89%E9%A1%B9%E8%AF%B4%E6%98%8E"><span class="post-toc-text">rsync选项说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">客户端服务器端模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="post-toc-text">服务器端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="post-toc-text">客户端</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rsync%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">rsync介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">rsync三种工作模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="post-toc-text">rsync工具的优缺点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E9%80%89%E9%A1%B9%E8%AF%B4%E6%98%8E"><span class="post-toc-text">rsync选项说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">客户端服务器端模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="post-toc-text">服务器端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="post-toc-text">客户端</span></a></li></ol></li></ol>
         
         <h2 id="rsync介绍"><a href="#rsync介绍" class="headerlink" title="rsync介绍"></a>rsync介绍</h2><p>Rsync（Remote Synchronize）：远程同步。是开源的、高速的，可实现本地以及远程，全量以及增量的数据复制工具。</p>
 <p>官方资料：<a target="_blank" rel="noopener" href="http://www.samba.org/ftp/rsync/rsync.html">http://www.samba.org/ftp/rsync/rsync.html</a></p>
@@ -128,7 +128,7 @@
 <h3 id="rsync三种工作模式"><a href="#rsync三种工作模式" class="headerlink" title="rsync三种工作模式"></a>rsync三种工作模式</h3><blockquote>
 <p>本地模式</p>
 </blockquote>
-<pre><code class="shell">rsync [options] [source] [destination]
+<pre><code class="shell">rsync [options] [source] [destination]			# 相当于将source中的文件，备份到destination目录中
 </code></pre>
 <blockquote>
 <p>远程shell模式</p>
@@ -158,11 +158,26 @@ rsync [options] rsync://[user@host:port/模块名] [本地路径]
 rsync [options] [本地路径] [user@host::模块名]
 rsync [options] [本地路径] rsync://[user@host:port/模块名]
 </code></pre>
+<h3 id="rsync工具的优缺点"><a href="#rsync工具的优缺点" class="headerlink" title="rsync工具的优缺点"></a>rsync工具的优缺点</h3><blockquote>
+<p>优点</p>
+</blockquote>
+<ol>
+<li>增量备份，支持C&#x2F;S模式和推拉模式。</li>
+<li>远程shell模式可实现加密传输（ssh）。</li>
+<li>若C&#x2F;S模式需要加密传输，可以利用vpn服务或ipsec服务。</li>
+</ol>
+<blockquote>
+<p>缺点</p>
+</blockquote>
+<ol>
+<li>大量小文件复制的时候，rsync进程可能或效率不高或者僵死。</li>
+<li>一次新远程拷贝可以使用scp，如果大量小文件可以打包压缩之后再拷贝。</li>
+</ol>
 <h3 id="rsync选项说明"><a href="#rsync选项说明" class="headerlink" title="rsync选项说明"></a>rsync选项说明</h3><p>rsync选项非常多，但最常用的选项组合是”avz”，即压缩和显示部分信息，并以归档模式传输。</p>
-<pre><code class="shell">-v 显示rsync过程中详细信息。可以使用&quot;-vvvv&quot;获取更详细信息。
--P 显示文件传输的进度信息。(实际上&quot;-P&quot;=&quot;–partial --progress&quot;，其中的&quot;–progress&quot;才是显示进度信息的)。
--n --dry-run 仅测试传输，而不实际传输。常和&quot;-vvvv&quot;配合使用来查看rsync是如何工作的。
--a --archive 归档模式，表示递归传输并保持文件属性。等同于&quot;-rtopgDl&quot;。
+<pre><code class="shell">-a --archive 归档模式，表示递归传输并保持文件属性。等同于&quot;-rtopgDl&quot;。 
+-v 显示rsync过程中详细信息。可以使用&quot;-vvvv&quot;获取更详细信息。
+-z 传输时进行压缩提高效率。
+
 -r --recursive 递归到目录中去。
 -t --times 保持mtime属性。强烈建议任何时候都加上&quot;-t&quot;，否则目标文件mtime会设置为系统时间，导致下次更新检查出mtime不同从而导致增量传输无效。
 -o --owner 保持owner属性(属主)。
@@ -170,43 +185,26 @@ rsync [options] [本地路径] rsync://[user@host:port/模块名]
 -p --perms 保持perms属性(权限，不包括特殊权限)。
 -D 是&quot;–device --specials&quot;选项的组合，即也拷贝设备文件和特殊文件。
 -l --links如果文件是软链接文件，则拷贝软链接本身而非软链接所指向的对象。
--z 传输时进行压缩提高效率。
--e, --rsh=COMMAND 指定使用rsh、ssh方式进行数据同步
--R --relative：使用相对路径。意味着将命令行中指定的全路径而非路径最尾部的文件名发送给服务端，包括它们的属性。
---rsync-path=PATH 指定远程服务器上的rsync命令所在路径信息 
--C, --cvs-exclude 使用和CVS一样的方法自动忽略文件，用来排除那些不希望传输的文件  
+
+-e, --rsh=COMMAND 指定使用rsh、ssh方式进行数据同步  
 --existing 仅仅更新那些已经存在于DST的文件，而不备份那些新创建的文件  
---delete 删除那些DST中SRC没有的文件 
+--delete 删除那些DST中SRC没有的文件，有数据丢失的风险！ 
 --delete-excluded 同样删除接收端那些被该选项指定排除的文件 
 --delete-after 传输结束以后再删除 
 --ignore-errors 及时出现IO错误也进行删除 
 --max-delete=NUM 最多删除NUM个文件 
---partial 保留那些因故没有完全传输的文件，以是加快随后的再次传输 
+--partial 保留那些因故没有完全传输的文件，也是加快随后的再次传输 
 --force 强制删除目录，即使不为空 
---numeric-ids 不将数字的用户和组ID匹配为用户名和组名 
---timeout=TIME IP超时时间，单位为秒 
--I, --ignore-times 不跳过那些有同样的时间和长度的文件 
---size-only 当决定是否要备份文件时，仅仅察看文件大小而不考虑文件时间 
---modify-window=NUM 决定文件是否时间相同时使用的时间戳窗口，默认为0 
---temp-dir=DIR 在DIR中创建临时文件 
---compare-dest=DIR 同样比较DIR中的文件来决定是否需要备份 
--P 等同于 --partial 
+--timeout=TIME IP超时时间，单位为秒  
 --progress 显示备份过程 
--z, --compress 对备份的文件在传输时进行压缩处理 
 --exclude=PATTERN 指定排除不需要传输的文件模式 
 --include=PATTERN 指定不排除而需要传输的文件模式 
 --exclude-from=FILE 排除FILE中指定模式的文件 
 --include-from=FILE 不排除FILE指定模式匹配的文件 
 --version 打印版本信息 
---address 绑定到特定的地址 
---config=FILE 指定其他的配置文件，不使用默认的rsyncd.conf文件 
 --port=PORT 指定其他的rsync服务端口 
---blocking-io 对远程shell使用阻塞IO 
--stats 给出某些文件的传输状态 
---progress 在传输时现实传输过程 
---log-format=formAT 指定日志文件格式 
---password-file=FILE 从FILE中得到密码 
---bwlimit=KBPS 限制I/O带宽，KBytes per second 
+--password-file=FILE 从FILE中得到密码
+-n, --dry-run 仅测试传输，而不实际传输。常和&quot;-vvvv&quot;配合使用来查看rsync是如何工作的。
 -h, --help 显示帮助信息
 </code></pre>
 <h2 id="客户端服务器端模式"><a href="#客户端服务器端模式" class="headerlink" title="客户端服务器端模式"></a>客户端服务器端模式</h2><h3 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h3><p>rsync守护进程模式应用实践</p>
@@ -223,9 +221,7 @@ rsync --version					# 检验安装
 <pre><code class="shell">vim /etc/rsyncd.conf		# 编辑配置文件
 
 # /etc/rsyncd: configuration file for rsync daemon mode
-
 # See rsyncd.conf man page for more options.
-
 # configuration example:
 
 uid = rsync						# rsync访问本地数据目录的一个用户，下一步要创建的用户。有坑，默认是nobody
@@ -239,12 +235,11 @@ exclude = lost+found/				# 排除的文件或目录，此处为相对路径
 log file = /var/log/rsyncd.log		# 指定日志文件存放路径
 secrets file = /etc/rsyncd.password	# 指定虚拟用户的密码存放的文件，格式为，用户名:密码
 lock file = /var/run/rsyncd.lock	# 锁文件，用来支持max connections参数，此处为默认值
-list = true
 auth users = rsync					# 允许认证的用户，有坑。
-# transfer logging = yes
 timeout = 900						# 超时时间
-# ignore nonreadable = yes
-# dont compress   = *.gz *.tgz *.zip *.z *.Z *.rpm *.deb *.bz2
+hosts only = 192.168.110.0/24		# 白名单，此处表示仅允许该局域网内访问
+# hosts deny = 0.0.0.0/32			# 黑名单，此处表示不拒绝。0.0.0.0/32是一个无效IP地址，
+# 通常hosts only和hosts deny只需要选择一个进行配置，否则可能造成配置混乱，都配置的时候默认白名单优先级最高。
 
 [backup]									# 此处为一个模块，用[模块名]表示，下面是此模块的配置
        path = /home/backup					# 此模块的文件路径
@@ -294,6 +289,14 @@ rsync -avz rsync://rsync@192.168.110.142/backup ./ --password-file=/etc/rsyncd.p
 # 推送实践
 rsync -avz ./test  rsync@192.168.110.142::backup --password-file=/etc/rsyncd.password
 rsync -avz ./test rsync://192.168.110.142/backup --password-file=/etc/rsyncd.password
+
+# 排除指定文件
+
+# 在命令中写出排除指定文件，文件路径是相对于模块所在目录
+rsync -avz --exclude=&#123;1..3&#125;.txt rsync@192.168.110.142::backup ./ --password-file=/etc/rsyncd.password
+# 在命令中指定一个本地文件，将需要排除的目录或文件写在本地文件中
+rsync -avz --exclude-from=/opt/exclude.txt rsync@192.168.110.142::backup ./ --password-file=/etc/rsyncd.password
+echo &#123;1..3&#125;.txt | xargs -n 1 &gt; a.txt			# 在本地文件中写入想要排除的文件
 </code></pre>
 
     </div>
