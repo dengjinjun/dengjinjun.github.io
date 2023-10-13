@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="rsync备份web服务器和NFS服务器" />
+    <meta name="description" content="rsync定时同步（web/nfs/backup）" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang | </title>
@@ -89,7 +89,7 @@
 
     
         <div class="post-main-title">
-            rsync备份web服务器和NFS服务器
+            rsync定时同步（web/nfs/backup）
         </div>
       
     
@@ -278,7 +278,7 @@ find $backup/ -type f -name &quot;*.tar.gz&quot; -mtime +7 -o -name &quot;*.log&
 00 00 * * * /bin/sh /server/scripts/bak.sh &amp;&gt;/dev/null
 </code></pre>
 <h4 id="搭建nfs服务器"><a href="#搭建nfs服务器" class="headerlink" title="搭建nfs服务器"></a>搭建nfs服务器</h4><p>参考web01服务器搭建步骤</p>
-<h4 id="备份服务器校验、删除和报警"><a href="#备份服务器校验、删除和报警" class="headerlink" title="备份服务器校验、删除和报警"></a>备份服务器校验、删除和报警</h4><pre><code>vim /server/scripts/check.sh				# 添加校验脚本，添加以下内容
+<h4 id="备份服务器校验、删除和报警"><a href="#备份服务器校验、删除和报警" class="headerlink" title="备份服务器校验、删除和报警"></a>备份服务器校验、删除和报警</h4><pre><code class="shell">vim /server/scripts/check.sh				# 添加校验脚本，添加以下内容
 
 #!/bin/bash
 
@@ -297,7 +297,7 @@ mail -s &quot;$(date +%F -d -1day)_backup_result_notice&quot; dengjinjun0805@126
 # 定时执行脚本
 00 05 * * * /bin/sh /server/scripts/check.sh &amp;&gt;/dev/null
 # 删除7天前的备份文件，但是保留周一的备份文件
-find /backup -type f ! -name &quot;*week1*&quot; -mtime +7 | xargs rm -f $&gt;/dev/null
+00 05 * * * /bin/sh find /backup -type f ! -name &quot;*week1*&quot; -mtime +7 | xargs rm -f $&gt;/dev/null
 </code></pre>
 
     </div>

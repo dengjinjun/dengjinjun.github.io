@@ -314,7 +314,7 @@ a.txt:确定					# 输出结果
 <p>可以通过修改配置文件<code>/etc/mail.rc</code>，把Linux设备当作邮件服务的客户端来使用，使用外部SMTP服务发送邮件。</p>
 <pre><code class="shell">vim /etc/mail.rc		# 编辑配置文件，最后一行加入以下内容
 
-set from=dengjinjun0805@126.com.com smtp=smtp.126.com smtp-auth-user=邓胖胖 smtp-auth-password=xxxx amtp-auth=login
+set from=dengjinjun0805@126.com smtp=smtp.126.com smtp-auth-user=dengjinjun0805@126.com smtp-auth-password=xxxx amtp-auth=login
 
 # from 是发送方的邮件地址
 # smtp 是发送邮件的外部smtp服务器的地址
@@ -324,7 +324,7 @@ set from=dengjinjun0805@126.com.com smtp=smtp.126.com smtp-auth-user=邓胖胖 s
 
 
 # 测试
-mail -s &quot;测试&quot; dengjinjun0805@126.com 498790885@qq.com 
+echo &quot;hello&quot; | mail -s &quot;测试&quot; dengjinjun0805@126.com 498790885@qq.com 
 </code></pre>
 
     </div>
