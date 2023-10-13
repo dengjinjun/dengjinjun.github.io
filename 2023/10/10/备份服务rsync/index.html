@@ -96,7 +96,7 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rsync%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">rsync介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">rsync三种工作模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="post-toc-text">rsync工具的优缺点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E9%80%89%E9%A1%B9%E8%AF%B4%E6%98%8E"><span class="post-toc-text">rsync选项说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">客户端服务器端模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="post-toc-text">服务器端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="post-toc-text">客户端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7%E6%A0%A1%E9%AA%8C"><span class="post-toc-text">数据完整性校验</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%80%E5%90%AF%E9%82%AE%E4%BB%B6"><span class="post-toc-text">开启邮件</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rsync%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">rsync介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">rsync三种工作模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="post-toc-text">rsync工具的优缺点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E9%80%89%E9%A1%B9%E8%AF%B4%E6%98%8E"><span class="post-toc-text">rsync选项说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">客户端服务器端模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="post-toc-text">服务器端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="post-toc-text">客户端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7%E6%A0%A1%E9%AA%8C"><span class="post-toc-text">数据完整性校验</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%80%E5%90%AF%E9%82%AE%E4%BB%B6"><span class="post-toc-text">开启邮件</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%B6%E4%BB%96%E4%BC%81%E4%B8%9A%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88"><span class="post-toc-text">其他企业运维场景数据同步方案</span></a></li></ol>
         
         <h2 id="rsync介绍"><a href="#rsync介绍" class="headerlink" title="rsync介绍"></a>rsync介绍</h2><p>Rsync（Remote Synchronize）：远程同步。是开源的、高速的，可实现本地以及远程，全量以及增量的数据复制工具。</p>
 <p>官方资料：<a target="_blank" rel="noopener" href="http://www.samba.org/ftp/rsync/rsync.html">http://www.samba.org/ftp/rsync/rsync.html</a></p>
@@ -326,6 +326,22 @@ set from=dengjinjun0805@126.com smtp=smtp.126.com smtp-auth-user=dengjinjun0805@
 # 测试
 echo &quot;hello&quot; | mail -s &quot;测试&quot; dengjinjun0805@126.com 498790885@qq.com 
 </code></pre>
+<h2 id="其他企业运维场景数据同步方案"><a href="#其他企业运维场景数据同步方案" class="headerlink" title="其他企业运维场景数据同步方案"></a>其他企业运维场景数据同步方案</h2><ol>
+<li><p>文件级别数据同步方案</p>
+<p>scp</p>
+<p>NFS</p>
+<p>sftp</p>
+<p>http</p>
+<p>samba</p>
+</li>
+<li><p>文件系统级别同步方案</p>
+<p>drbd(基于文件系统同步网络RAID1)，复制block</p>
+</li>
+<li><p>数据库同步方案</p>
+<p>mysql replication</p>
+<p>oracle dataguard(物理的&#x2F;逻辑的)</p>
+</li>
+</ol>
 
     </div>
 
