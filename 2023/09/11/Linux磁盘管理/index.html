@@ -332,6 +332,11 @@ mount -a					# 重新挂载`/etc/fatab`中的所有设备
 <p>方式2：编辑<code>/etc/rc.local</code>文件</p>
 <p><code>etc/rc.local</code>是系统启动时自动执行的脚本文件，把挂载命令写到此文件中，即可完成开机自动挂载。</p>
 </li>
+<li><p>查看挂载</p>
+<pre><code class="shell">df -Th					# 查看磁盘文件系统的挂载情况
+cat /proc/mounts		# 查看挂载细节参数,更多挂载参数可以自行谷歌 mount -o 的参数 
+</code></pre>
+</li>
 </ul>
 <h1 id="交换分区swap"><a href="#交换分区swap" class="headerlink" title="交换分区swap"></a>交换分区swap</h1><p>查看内存使用情况：<code>free -m</code>，包括物理内存和虚拟内存</p>
 <h3 id="使用磁盘创建swap分区"><a href="#使用磁盘创建swap分区" class="headerlink" title="使用磁盘创建swap分区"></a>使用磁盘创建swap分区</h3><ul>

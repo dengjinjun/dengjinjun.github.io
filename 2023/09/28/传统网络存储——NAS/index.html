@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="网络文件服务器" />
+    <meta name="description" content="传统网络存储——NAS" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang | </title>
@@ -89,18 +89,61 @@
 
     
         <div class="post-main-title">
-            网络文件服务器
+            传统网络存储——NAS
         </div>
       
     
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="post-toc-text">网络文件服务器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#FTP"><span class="post-toc-text">FTP</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FTP%E7%9A%84%E4%B8%BB%E5%8A%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E8%A2%AB%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">FTP的主动模式和被动模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="post-toc-text">安装部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6"><span class="post-toc-text">相关文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FTP%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="post-toc-text">FTP客户端常用命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%99%9A%E6%8B%9F%E7%94%A8%E6%88%B7"><span class="post-toc-text">虚拟用户</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Samba"><span class="post-toc-text">Samba</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Samba%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Samba部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Samba%E7%94%A8%E6%88%B7"><span class="post-toc-text">Samba用户</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NFS"><span class="post-toc-text">NFS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NFS%E9%83%A8%E7%BD%B2"><span class="post-toc-text">NFS部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-1"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8C%82%E8%BD%BD"><span class="post-toc-text">客户端挂载</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AD%98%E5%82%A8%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="post-toc-text">存储基本概念</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#FTP"><span class="post-toc-text">FTP</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FTP%E7%9A%84%E4%B8%BB%E5%8A%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E8%A2%AB%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">FTP的主动模式和被动模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="post-toc-text">安装部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6"><span class="post-toc-text">相关文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FTP%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="post-toc-text">FTP客户端常用命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%99%9A%E6%8B%9F%E7%94%A8%E6%88%B7"><span class="post-toc-text">虚拟用户</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Samba"><span class="post-toc-text">Samba</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Samba%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Samba部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Samba%E7%94%A8%E6%88%B7"><span class="post-toc-text">Samba用户</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NFS"><span class="post-toc-text">NFS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NFS%E9%83%A8%E7%BD%B2"><span class="post-toc-text">NFS部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-1"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8C%82%E8%BD%BD"><span class="post-toc-text">客户端挂载</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%93%8D%E4%BD%9C"><span class="post-toc-text">客户端操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%9F%A5%E7%9C%8B%E6%8C%82%E8%BD%BD"><span class="post-toc-text">服务端查看挂载</span></a></li></ol></li></ol></li></ol>
         
-        <h1 id="网络文件服务器"><a href="#网络文件服务器" class="headerlink" title="网络文件服务器"></a>网络文件服务器</h1><p>网络文件服务器是通过网络共享文件或文件夹，实现数据共享。</p>
-<p>NAS(Network Attached Storage)：网络附属存储，共享的是文件或者文件夹。</p>
-<p>常见的网络存储服务有三种：</p>
+        <h2 id="存储基本概念"><a href="#存储基本概念" class="headerlink" title="存储基本概念"></a>存储基本概念</h2><p>在介绍传统网络存储之前，需要先介绍网络存储的几种不同的系统以及不同的存储方式。</p>
+<blockquote>
+<p>存储方式</p>
+</blockquote>
+<p>基本概念：扇区→物理块→逻辑块→文件系统</p>
+<ol>
+<li><p>块级存储</p>
+<p>块级是指以扇区为基础，一个或几个连续的扇区组成一个块，也叫物理块。它在块设备（例如：磁盘驱动器）与文件系统之间。</p>
+<p>块级备份是指物理块复制，效率高，实时性强，备份时间短，且增量备份时，只备份修改过的物理块。</p>
+<p>DAS、SAN等</p>
+</li>
+<li><p>文件级存储</p>
+<p>文件级是指文件系统，单个文件可能由于一个或多个逻辑块组成，且逻辑块之间是不连续分布。</p>
+<p>文件级备份是指在指定某些文件进行备份时，首先会查找每个文件逻辑块，其次物理块，由于逻辑块是分散在物理块上，而物理块也是分散在不同扇区上。需要一层一 层往下查找，最后才完成整个文件复制。文件级备份时比较费时间，效率不高，实时性不强，备份时间长，且增量备份时，单文件某一小部份修改，不会只备份修改部份，而整个文件都备份。</p>
+<p>FTP、NFS服务器，SamBa等。</p>
+</li>
+<li><p>对象存储</p>
+<p>对象存储也就是通常意义的键值存储，它将数据组织为对象而不是传统的文件层次结构。在对象存储中，每个对象都具包含了数据本身以及与该对象相关的元数据。</p>
+<p>它适用于存储海量数据、进行数据备份和恢复，以及支持分布式应用程序的数据存储需求。</p>
+</li>
+</ol>
+<blockquote>
+<p>存储架构</p>
+</blockquote>
+<ol>
+<li><p>传统网络存储系统</p>
+<p>传统网络存储系统采用单点存储服务器存放所有数据，当数据量和并发量比较大时，存储服务器就会成为系统性能的瓶颈，但是在小型架构和局域网内仍然有很多应用。传统网络存储系统支持块级的存储和文件级的存储。</p>
+<p>常见的传统网络存储系统有NAS、DAS、SAN等。</p>
+</li>
+<li><p>分布式存储系统</p>
+<p>分布式存储系统是将数据存储在多台独立设备上，采用可扩展的系统结构，利用堕胎存储服务器分担存储负荷，提高存储系统的可靠性和存取效率。支持块级存储、文件级存储和对象存储。</p>
+<p>常见的分布式存储系统有：MFS、FastDFS、Ceph等。</p>
+</li>
+<li><p>对象存储系统</p>
+<p>对象存储系统和基于对象存储是两个概念，前者是服务，后者是底层原理。对象存储系统的底层原理是键值存储，其接口是简单的Get、PUT、DEL和其他扩展，不受时间、地点和文件类型的限制。代表主要有Swift、S3、Gluster等。</p>
+<p>常见的提供对象存储（OSS）的厂商有阿里云、七牛云等。</p>
+</li>
+</ol>
+<blockquote>
+<p>传统网络存储分类</p>
+</blockquote>
+<p>常见的传统网络存储系统有三种：</p>
+<p>直连式存储：DAS（Direct Attached Storage），基于物理块存储</p>
+<p>网络附加存储：NAS（Network Attached Storage），基于文件存储</p>
+<p>存储区域网：SAN（Storage Area Network），基于物理块存储</p>
+<p>以下是三种常见的基于文件方式进行存储的网络存储服务（NAS类型）：</p>
 <ol>
 <li>FTP：文件服务器，适合单纯的文件上传下载</li>
 <li>samba：不同系统间的文件夹或设备共享，适合系统集成间的共享</li>
@@ -134,116 +177,59 @@ lsof -i :21							# 验证启动
 <pre><code class="shell">/etc/vsftpd/vsftpd.conf
 </code></pre>
 <pre><code class="shell"># Example config file /etc/vsftpd/vsftpd.conf
-#
-# The default compiled in settings are fairly paranoid. This sample file
-# loosens things up a bit, to make the ftp daemon more usable.
-# Please see vsftpd.conf.5 for all compiled in defaults.
-#
-# READ THIS: This example file is NOT an exhaustive list of vsftpd options.
-# Please read the vsftpd.conf.5 manual page to get a full idea of vsftpd&#39;s
-# capabilities.
-#
+
 #匿名用户访问,YES是允许，NO是拒绝
-# Allow anonymous FTP? (Beware - allowed by default if you comment this out).
 anonymous_enable=NO
-#
-# Uncomment this to allow local users to log in.
+
 # 本地用户登录,YES是允许，NO是拒绝.默认访问的是本地用户家目录，如果你开启了selinux
-# 请设置开启布尔值ftp_home_dir为ON
-# When SELinux is enforcing check for SE bool ftp_home_dir
+# 如果selinux是开启状态，那么请设置开启ftp_home_dir为ON
 local_enable=YES
-#
+
 #允许本地用户上传
 # Uncomment this to enable any form of FTP write command.
 write_enable=YES
-#
-# Default umask for local users is 077. You may wish to change this to 022,
-# 上传的权限是022，使用的是umask权限。对应的目录是755，文件是644
-# if your users expect that (022 is used by most other ftpd&#39;s)
+
+# 设置本地用户上传的umask权限是022。对应的目录是755，文件是644
 local_umask=022
 
-#
-# Uncomment this to allow the anonymous FTP user to upload files. This only
-# has an effect if the above global write enable is activated. Also, you will
-# obviously need to create a directory writable by the FTP user.
-# When SELinux is enforcing check for SE bool allow_ftpd_anon_write, allow_ftpd_full_access
 # 开启匿名用户上传功能，默认是拒绝的
 #anon_upload_enable=YES
-#
-# Uncomment this if you want the anonymous FTP user to be able to create
-# new directories.
-# 开启匿名用户创建文件或文件夹权限
+
+# 开启匿名用户创建文件或文件夹权限，默认是拒绝的
 #anon_mkdir_write_enable=YES
-#
-# Activate directory messages - messages given to remote users when they
-# go into a certain directory.
-# 开启目录欢迎消息，一般对命令行登陆有效
-dirmessage_enable=YES
-#
-# Activate logging of uploads/downloads.
+
 # 开启上传和下载日志记录功能
 xferlog_enable=YES
-#
-#使用标准模式
+
+#使用标准端口模式
 # Make sure PORT transfer connections originate from port 20 (ftp-data).
 connect_from_port_20=YES
-#
-# If you want, you can arrange for uploaded anonymous files to be owned by
-# a different user. Note! Using &quot;root&quot; for uploaded files is not
-# recommended!
-# 声明匿名用户上传文件的所有者
+
 # 允许更改匿名用户上传文件的所有者
 #chown_uploads=YES
-#所有者为whoever
+# 如果允许匿名用户上传，更改匿名用户上传文件的所有者，但是所有者不能是root
 #chown_username=whoever
-#
-# You may override where the log file goes if you like. The default is shown
-# below.
-# 日志文件路径
+
+# 日志文件路径，不修改就是默认下面的路径
 #xferlog_file=/var/log/xferlog
-#
-# If you want, you can have your log file in standard ftpd xferlog format.
-# Note that the default log file location is /var/log/xferlog in this case.
-# 日志文件采用标准格斯
+
+# 日志文件采用标准格式
 xferlog_std_format=YES
-#
-# You may change the default value for timing out an idle session.
-# 会话超时时间
+
+# 设置会话超时时间
 #idle_session_timeout=600
-#
-# You may change the default value for timing out a data connection.
-# 数据传输超时时间
+
+# 设置数据传输超时时间
 #data_connection_timeout=120
-#
-# It is recommended that you define on your system a unique user which the
-# ftp server can use as a totally isolated and unprivileged user.
-# FTP子进程管理用户
-#nopriv_user=ftpsecure
-#
-# Enable this and the server will recognise asynchronous ABOR requests. Not
-# recommended for security (the code is non-trivial). Not enabling it,
-# however, may confuse older FTP clients.
+
 # 是否允许客户端发起“async ABOR”请求，该操作是不安全的默认禁止。
 #async_abor_enable=YES
-#
-# By default the server will pretend to allow ASCII mode but in fact ignore
-# the request. Turn on the below options to have the server actually do ASCII
-# mangling on files when in ASCII mode. The vsftpd.conf(5) man page explains
-# the behaviour when these options are disabled.
-# Beware that on some FTP servers, ASCII support allows a denial of service
-# attack (DoS) via the command &quot;SIZE /big/file&quot; in ASCII mode. vsftpd
-# predicted this attack and has always been safe, reporting the size of the
-# raw file.
-# ASCII mangling is a horrible feature of the protocol.
+
 # 该选项用于指定是否允许上传时以ASCII模式传输数据
 #ascii_upload_enable=YES
 #该选项用于指定是否允许下载时以ASCII模式传输数据
 #ascii_download_enable=YES
-#
-# You may fully customise the login banner string:
-# FTP文本界面登陆欢迎词
-#ftpd_banner=Welcome to blah FTP service.
-#
+
 # You may specify a file of disallowed anonymous e-mail addresses. Apparently
 # useful for combatting certain DoS attacks.
 # 是否开启拒绝的Email功能
@@ -251,48 +237,25 @@ xferlog_std_format=YES
 # (default follows)
 # 指定保存被拒接的Email地址的文件
 #banned_email_file=/etc/vsftpd/banned_emails
-#
-# You may specify an explicit list of local users to chroot() to their home
-# directory. If chroot_local_user is YES, then this list becomes a list of
-# users to NOT chroot().
-# (Warning! chroot&#39;ing can be very dangerous. If using chroot, make sure that
-# the user does not have write access to the top level directory within the
-# chroot)
+
 # 是否开启对本地用户chroot的限制，YES为默认所有用户都不能切出家目录，NO代表默认用户都可以切出家目录
-# 设置方法类似于：YES拒绝所有，允许个别    NO  允许所有拒绝个别
+# 设置方法类似于：YES 拒绝所有，允许个别    NO 允许所有拒绝个别
 #chroot_local_user=YES
-#开启特例列表
+#开启特例列表，如果chroot_local_user的值是YES则该文件中的用户是可以切出家目录，如果是NO，该文件中的用户则不能切出家目录
 #chroot_list_enable=YES
-# (default follows)
-# 如果chroot_local_user的值是YES则该文件中的用户是可以切出家目录，如果是NO，该文件中的用户则不能切出家目录
-# 一行一个用户。
+# 特例列表的文件路径，一行一个用户。
 #chroot_list_file=/etc/vsftpd/chroot_list
 # 允许具有写权限的家目录
 #allow_writeable_chroot=YES
-#
-# You may activate the &quot;-R&quot; option to the builtin ls. This is disabled by
-# default to avoid remote users being able to cause excessive I/O on large
-# sites. However, some broken FTP clients such as &quot;ncftp&quot; and &quot;mirror&quot; assume
-# the presence of the &quot;-R&quot; option, so there is a strong case for enabling it.
+
 # 是否开启ls 递归查询功能 ls -R
 #ls_recurse_enable=YES
-#
-# When &quot;listen&quot; directive is enabled, vsftpd runs in standalone mode and
-# listens on IPv4 sockets. This directive cannot be used in conjunction
-# with the listen_ipv6 directive.
-# 是否开启ftp独立模式在IPV4
-listen=NO
-#
-# This directive enables listening on IPv6 sockets. By default, listening
-# on the IPv6 &quot;any&quot; address (::) will accept connections from both IPv6
-# and IPv4 clients. It is not necessary to listen on *both* IPv4 and IPv6
-# sockets. If you want that (perhaps because you want to listen on specific
-# addresses) then you must run two copies of vsftpd with two configuration
-# files.
-# Make sure, that one of the listen options is commented !!
-# 是否开启ftp独立模式在ipv6
-listen_ipv6=YES
 
+# 是否开启ftp独立模式在IPV4，开了之后只能在ipv4模式运行
+listen=NO
+
+# 是否开启ftp在ipv6模式运行，开了之后可以同时监听ipv4和ipv6
+listen_ipv6=YES
 
 #启用pam模块验证，对本地用户登录做验证用的,pam验证的配置文件在/etc/pam.d/vsftpd
 pam_service_name=vsftpd
@@ -423,31 +386,43 @@ smbpassed -n [用户名]			# 清除密码
 <li>家目录漫游：域用户家目录服务器</li>
 <li>文件服务器：内容文件存储服务器</li>
 </ol>
-<h3 id="NFS部署"><a href="#NFS部署" class="headerlink" title="NFS部署"></a>NFS部署</h3><pre><code class="shell">yum install nfs-utils -y			# 安装软件包
+<p><img src="/../pic/image-20231014230600796.png" alt="image-20231014230600796"></p>
+<h3 id="NFS部署"><a href="#NFS部署" class="headerlink" title="NFS部署"></a>NFS部署</h3><pre><code class="shell"># nfs-utils 是NFS服务的主程序，包括 rpc.nfsd 和 rpc.mountd 这两个daemons以及相关文档、执行命令文件等
+# npcbind 是CentOS 6/7中RPC的主程序，负责NFS服务的端口映射工作。NFS可以视为一个RPC程序，所以必须先启动RPC服务。
+yum install nfs-utils rpcbind -y			# 安装软件包
 
 systemctl enable nfs-server			# 设置开机自启
 
 systemctl is-active rpcbind			# 启动NFS之前要确保rpcbind服务启动
 systemctl start nfs					# 启动NFS
 systemctl is-active nfs				# 验证启动
+rpcinfo -p 127.0.0.1				# 查询rpcbind的端口，查看nfs是否启动
 </code></pre>
 <h3 id="配置文件-1"><a href="#配置文件-1" class="headerlink" title="配置文件"></a>配置文件</h3><pre><code class="shell">/etc/exports			# 此文件中指定需要共享出去的目录，共享格式为：[绝对路径] 授权访问的IP或网段(权限1,权限2),比如:
 
 vim /etc/exports		# 编辑配置文件，添加以下内容
 /test 192.168.110.0/24(ro)		# 将/test文件夹共享出去，允许192.168.110.网段访问，权限为只读
+/projects 182.168.10.135(rw) 182.168.10/24(ro)	# 将/projects文件夹共享出去，允许192.168.10.网段只读访问，182.168.10.135可读写
+
+cat /var/lib/nfs/etab	# 在此文件可以查看其他默认的权限参数
 </code></pre>
 <blockquote>
 <p>权限说明</p>
 </blockquote>
-<pre><code>ro		只读
-rw		读写
-sync	所有数据在请求时写入共享
-......
+<pre><code>ro				read only 只读模式，用户无法修改文件或目录
+rw				read write 读写模式，用户可以修改文件或目录，写入时默认是写到远程缓冲区。
+sync			客户端请求写入时，数据写入到服务端的内存和磁盘中，优点是数据安全，缺点是性能降低。
+async			客户端请求写入时，数据暂存于服务端的内存中。提升了工作效率，但是数据可能会丢失。
+no_root_squash	客户端的root用户访问NFS时，它对该共享目录同样具有root权限！（避免使用，这是为无盘客户端准备的）
+root_squash		客户端的root用户访问NFS时，权限被压缩成匿名用户，默认是nfsnobody账号身份
+all_squash		客户端的任何用户访问NFS时，权限都被压缩成匿名用户，	默认是nfsnobody账号身份
+anonuid			如果不想使用nfsnobody账号作为匿名用户，可以自己指定用户uid。
+anongid			如果不想使用nfsnobody组作为匿名组，可以自己指定用户gid。
 </code></pre>
 <blockquote>
 <p>相关指令</p>
 </blockquote>
-<p>NFS服务中，主要通过<code>expertfs</code>命令来设置，以下是<code>exportfs</code>命令的相关选项</p>
+<p>NFS服务中，主要通过<code>exportfs</code>命令来设置，以下是<code>exportfs</code>命令的相关选项</p>
 <pre><code>-a		打开或取消所有目录共享
 -i		忽略/etc/exports文件，只是用默认的和命令行指定的选项
 -u		取消一个或多个目录的共享
@@ -455,12 +430,54 @@ sync	所有数据在请求时写入共享
 -v		输出详细信息
 </code></pre>
 <p>补充</p>
-<pre><code>showmount -e 本机IP			# 查看本机共享出去的目录
+<pre><code class="shell">showmount -e 本机IP			# 查看本机共享出去的目录
 </code></pre>
-<h3 id="客户端挂载"><a href="#客户端挂载" class="headerlink" title="客户端挂载"></a>客户端挂载</h3><pre><code class="shell">mount -t nfs 服务端IP:共享目录 本地挂载目录		# 比如
+<blockquote>
+<p>创建目录</p>
+</blockquote>
+<pre><code class="shell">mkdir -p /test 			# 创建配置文件中指定的要共享出去的目录
+chown -R nfsnobody.nfsnobody /test		# 客户端会使用nfsnobody用户访问，因此需要将共享目录更改属主和属组
+# 如果不更改共享目录的属主和属组，那么客户端会以其他人的身份访问共享目录，那么如果想要拥有读写权限，服务端中的共享目录需要设置757的权限，如果是只读的话，需要设置755的权限。
+
+systemctl reload nfs	# 平滑重启
+</code></pre>
+<h3 id="客户端挂载"><a href="#客户端挂载" class="headerlink" title="客户端挂载"></a>客户端挂载</h3><p>服务端查看挂载</p>
+<pre><code class="shell">showmount -e nfs服务器IP			# 查看nfs服务器共享出去的目录
+ls /var/lib/nfs/rpc_pipefs/nfsd4_cb/		# 查看有几个客户机已经挂载了本机的共享目录
+</code></pre>
+<h4 id="客户端操作"><a href="#客户端操作" class="headerlink" title="客户端操作"></a>客户端操作</h4><blockquote>
+<p>临时挂载</p>
+</blockquote>
+<pre><code class="shell">mount -t nfs 服务端IP:共享目录 本地挂载目录					# 比如
 mount -t nfs 192.168.110.135:/test /mnt/nfs_test		# 将服务端的共享目录/test，挂载到本地的/mnt/nfs_test目录
 </code></pre>
-<p>注意：客户端访问NFS的共享目录，是使用<code>nfsnobody</code>用户来访问的，因此，如果想要拥有读写权限，服务端中的共享目录需要设置757的权限，如果是只读的话，需要设置755的权限。</p>
+<blockquote>
+<p>永久挂载</p>
+</blockquote>
+<ul>
+<li><p>编辑&#x2F;etc&#x2F;rc.local</p>
+<pre><code class="shell">chmod +x /etc/rc.d/rc.local			# 给所有用户增加执行权限
+echo &quot;/bin/mount -t nfs 192.168.110.135:/test /mnt/nfs_test&quot; &gt;&gt; /etc/rc.local		# 添加挂载信息
+</code></pre>
+</li>
+<li><p>编辑&#x2F;etc&#x2F;fstab</p>
+<p>此处有坑，nfs是网络文件系统，若把nfs的挂载信息写入Linux的设备挂载文件&#x2F;etc&#x2F;fstab中，每次开机后并不会自动挂载。</p>
+<p>原因是系统的启动流程中，加载&#x2F;etc&#x2F;fstab的顺序在加载网卡之前，所以此时网络不通无法挂载网络文件系统。</p>
+<pre><code class="shell"># 解决方法1：设置开机自启remote-fs.target服务，CentOS 6中是netfs
+systemctl enable remote-fs.target 
+vim /etc/fstab			# 编辑挂载文件，写入以下内容
+IP:[服务端共享目录] [本地挂载目录] nfs default 0 0 
+</code></pre>
+<pre><code class="shell"># 解决方法2：在挂载时写入_netdev参数，可以实现延迟挂载，跟remote-fs.target服务同样效果
+vim /etc/fstab			# 编辑挂载文件，写入以下内容
+IP:[服务端共享目录] [本地挂载目录] nfs default,_netdev 0 0 
+</code></pre>
+</li>
+</ul>
+<p><img src="/../pic/image-20231014222859193.png" alt="image-20231014222859193"></p>
+<h4 id="服务端查看挂载"><a href="#服务端查看挂载" class="headerlink" title="服务端查看挂载"></a>服务端查看挂载</h4><pre><code class="shell">showmount -e nfs服务器IP					# 查看nfs服务器共享出去的目录
+ls /var/lib/nfs/rpc_pipefs/nfsd4_cb/		# 查看有几个客户机已经挂载了本机的共享目录
+</code></pre>
 
     </div>
 
