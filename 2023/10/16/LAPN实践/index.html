@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="categories" />
+    <meta name="description" content="LAPN实践" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang | </title>
@@ -67,11 +67,7 @@
             
         
             
-                <li><i>
-                    
-                        <a style="color: #4e7dde;" href="/categories/">分类</a>
-                    
-                </i></li>
+                <li><a href="/categories/">分类</a></li>
             
         
             
@@ -83,65 +79,107 @@
         
                     
                     
-                            <br>
-<span>🔖<i>categories</i></span>
-<ul class="" >
-  
-
-  
-
-  
-
-  
-  
-  
-  
-      
-        <li class="">
-            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">学习笔记</a>
-            <span><i>40</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0">工作笔记</a>
-            <span><i>12</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95">生活记录</a>
-            <span><i>1</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E6%96%87%E6%91%98">文摘</a>
-            <span><i>3</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E6%8B%93%E5%B1%95%E8%A7%86%E9%87%8E">拓展视野</a>
-            <span><i>1</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7">奇技淫巧</a>
-            <span><i>1</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/Troubleshooting">Troubleshooting</a>
-            <span><i>2</i></span>
-        </li>
-    
-    
-
-    
-</ul>
-                    
 
                     
                     
                     
                     <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            LAPN实践
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+        
+        <p>1</p>
+<p>Linux+Apache+PHP+NFS，网盘集群实践</p>
+<p>搭建web服务</p>
+<pre><code class="shell"># 创建用户和组
+groupadd -g 1001 www
+useradd -u 1001 -g 1001 www
+
+# 安装软件
+yum install httpd php php-mbstring php-gd -y
+
+# 修改httpd.conf的配置，将进程运行的用户修改为www
+sed -i &#39;/^User/c User www&#39; /etc/httpd/conf/httpd.conf
+sed -i &#39;/^Group/c Group www&#39; /etc/httpd/conf/httpd.conf
+
+# 启动httpd的进程并验证
+systemctl start httpd
+systemctl enable httpd
+ps aux | grep httpd
+lsof -i :80
+
+# 下载网盘软件的代码并解压
+cd /var/www/html				# httpd的进程目录
+chown -R www.www /var/www/html
+wget http://static.kodcloud.com/update/download/kodexplorer4.40.zip
+unzip kodexplorer4.40.zip
+
+# 在Windows设备访问一下服务端IP可以在网盘上传文件了，然后在服务端可以找到文件
+cd /var/www/html/data/User/admin/home/			# 可能是在这，把这个路径作为NFS共享目录的挂载点
+</code></pre>
+<p>配置NFS服务</p>
+<pre><code>创建一个网盘项目的共享目录，在NFS配置文件中配置一下，共享出去，重启NFS服务
+</code></pre>
+<p>客户端挂载</p>
+<pre><code># 检查服务端是否有共享目录
+showmount -e nfs
+# 挂载之前先将原本的数据迁移到nfs的共享目录中
+rsync -avz /var/www/html/data/User/admin/home/ nfs:/data/
+# 挂载到本地
+mount -t nfs nfs:/data/ /var/www/html/data/User/admin/home/
+# 测试，要以无痕模式访问
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-16</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
                     
                     
                     <div class="footer">
