@@ -105,10 +105,10 @@
 groupadd -g 1001 www
 useradd -u 1001 -g 1001 www
 
-# 安装软件
+# 安装软件，apache的软件名是httpd
 yum install httpd php php-mbstring php-gd -y
 
-# 修改httpd.conf的配置，将进程运行的用户修改为www
+# 修改httpd.conf的配置，将进程运行的用户和组修改为www（默认是apache）
 sed -i &#39;/^User/c User www&#39; /etc/httpd/conf/httpd.conf
 sed -i &#39;/^Group/c Group www&#39; /etc/httpd/conf/httpd.conf
 
@@ -116,12 +116,12 @@ sed -i &#39;/^Group/c Group www&#39; /etc/httpd/conf/httpd.conf
 systemctl start httpd
 systemctl enable httpd
 ps aux | grep httpd
-lsof -i :80
+lsof -i :80					# apache的标准端口号
 
 # 下载网盘软件的代码并解压
 cd /var/www/html				# httpd的进程目录
 chown -R www.www /var/www/html
-wget http://static.kodcloud.com/update/download/kodexplorer4.40.zip
+curl -O http://static.kodcloud.com/update/download/kodexplorer4.40.zip
 unzip kodexplorer4.40.zip
 
 # 在Windows设备访问一下服务端IP可以在网盘上传文件了，然后在服务端可以找到文件
