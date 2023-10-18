@@ -96,12 +96,10 @@
 
     <div class="post-md">
         
-            
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%90%AD%E5%BB%BAweb%E6%9C%8D%E5%8A%A1"><span class="post-toc-text">搭建web服务</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AENFS%E6%9C%8D%E5%8A%A1"><span class="post-toc-text">配置NFS服务</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8C%82%E8%BD%BD"><span class="post-toc-text">客户端挂载</span></a></li></ol>
         
-        <p>1</p>
-<p>Linux+Apache+PHP+NFS，网盘集群实践</p>
-<p>搭建web服务</p>
-<pre><code class="shell"># 创建用户和组
+        <p>Linux+Apache+PHP+NFS，网盘集群实践</p>
+<h3 id="搭建web服务"><a href="#搭建web服务" class="headerlink" title="搭建web服务"></a>搭建web服务</h3><pre><code class="shell"># 创建用户和组
 groupadd -g 1001 www
 useradd -u 1001 -g 1001 www
 
@@ -127,11 +125,9 @@ unzip kodexplorer4.40.zip
 # 在Windows设备访问一下服务端IP可以在网盘上传文件了，然后在服务端可以找到文件
 cd /var/www/html/data/User/admin/home/			# 可能是在这，把这个路径作为NFS共享目录的挂载点
 </code></pre>
-<p>配置NFS服务</p>
-<pre><code>创建一个网盘项目的共享目录，在NFS配置文件中配置一下，共享出去，重启NFS服务
+<h3 id="配置NFS服务"><a href="#配置NFS服务" class="headerlink" title="配置NFS服务"></a>配置NFS服务</h3><pre><code>创建一个网盘项目的共享目录，在NFS配置文件中配置一下，共享出去，重启NFS服务
 </code></pre>
-<p>客户端挂载</p>
-<pre><code># 检查服务端是否有共享目录
+<h3 id="客户端挂载"><a href="#客户端挂载" class="headerlink" title="客户端挂载"></a>客户端挂载</h3><pre><code># 检查服务端是否有共享目录
 showmount -e nfs
 # 挂载之前先将原本的数据迁移到nfs的共享目录中
 rsync -avz /var/www/html/data/User/admin/home/ nfs:/data/
