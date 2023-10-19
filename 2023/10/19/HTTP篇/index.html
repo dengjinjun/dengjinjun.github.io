@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="HTTP篇" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            HTTP篇
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HTTP%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95"><span class="post-toc-text">HTTP请求方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HTTP%E7%8A%B6%E6%80%81%E7%A0%81"><span class="post-toc-text">HTTP状态码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HTTP%E6%8A%A5%E6%96%87"><span class="post-toc-text">HTTP报文</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%A4%B4%E9%83%A8%E5%AD%97%E6%AE%B5%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">头部字段详细介绍</span></a></li></ol>
+        
+        <p>HTTP：全称 Hyper Text Transfer Protocol，超文本传输协议。位于OSI模型第七层，HTTP协议最初的目的就是提供一种发布和接收HTML（超文本标记语言）页面的方法。默认端口为80。</p>
+<p>HTTP的重要应用之一的WWW服务，WWW全称为 World Wide Web，即万维网，用于web浏览器和web服务器之间的通信，即WWW应用或web应用。另外，一种加密的HTTP协议称为HTTPS协议，端口是443。当今，WWW服务、HTTP服务、HTTPS服务的概念经常混淆，通常都认为是一般的网站服务。</p>
+<h3 id="HTTP请求方法"><a href="#HTTP请求方法" class="headerlink" title="HTTP请求方法"></a>HTTP请求方法</h3><p>请求方法是指，用户在请求web服务器时，告诉服务器要执行具体的什么动作。</p>
+<table>
+<thead>
+<tr>
+<th>HTTP方法</th>
+<th>动作描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GET</td>
+<td>客户端请求指定资源信息，服务器返回指定资源</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>将客户端的数据提交到服务器，例如：注册表单</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>从客户端向服务器传送数据，取代指定的文档内容</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>只请求响应报文中的HTTP首部</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>请求服务器删除Request-URI所标识的资源</td>
+</tr>
+<tr>
+<td>MOVE</td>
+<td>请求服务器将指定的页面移至另一个网络地址</td>
+</tr>
+</tbody></table>
+<h3 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h3><p>HTTP状态码是web服务器用来响应HTTP请求状态的数字码</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>详细说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200 — OK</td>
+<td>成功的HTTP请求返回的标准状态码，代表服务器成功返回网页</td>
+</tr>
+<tr>
+<td>301 — Moved Permanently</td>
+<td>永久跳转，代表所请求的网页将永久跳转到被设定的新的位置</td>
+</tr>
+<tr>
+<td>403 — Forbidden</td>
+<td>禁止访问，代表请求是合法的，但是服务端因为预先设置的规则拒绝响应客户端的请求。<br />一般是服务权限配置不当</td>
+</tr>
+<tr>
+<td>404 — Not Found</td>
+<td>服务端找不到客户端请求的资源</td>
+</tr>
+<tr>
+<td>500 — Internal Server Error</td>
+<td>内部服务器错误，一般为服务器的设置错误或服务端程序问题导致，比如SElinux等。</td>
+</tr>
+<tr>
+<td>502 — Bad Gateway</td>
+<td>网关错误，一般是代理服务器请求后端服务时，后端服务不可用。<br />一般是反向代理服务器下面的节点出问题</td>
+</tr>
+<tr>
+<td>503 — Service Unavailable</td>
+<td>服务不可用，可能是服务器超载或停机维护，或是反向代理服务器后没有可以提供服务的节点</td>
+</tr>
+<tr>
+<td>504 — Gateway Timeout</td>
+<td>网关超时，一般是代理服务器请求后端服务时，后端服务没有在特定时间内完成响应。<br />一般是服务器过载导致没有在指定时间内返回数据给前端代理服务器</td>
+</tr>
+</tbody></table>
+<p>一般HTTP状态码会在响应头的第一行给出，Linux中可以通过以下命令查看：</p>
+<pre><code class="sh">curl -I www.baidu.com 2&gt;/dev/null | head -1		# -I 是查看响应头，此处需要将多余信息丢弃
+curl -s -I www.baidu.com | head -1				# -s 是沉默输出，默认丢弃多余信息		
+</code></pre>
+<h3 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h3><p>HTTP报文分为请求报文和响应报文。</p>
+<p>请求报文：HTTP客户端向服务端发送的报文；</p>
+<p>响应报文：HTTP服务端向客户端发送的报文。</p>
+<blockquote>
+<p>HTTP请求报文</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>报文格式</th>
+<th>报文信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>请求行</td>
+<td>请求方法    URL    协议版本</td>
+</tr>
+<tr>
+<td>请求头</td>
+<td>字段名1：值1<br />字段名2：值2<br />……</td>
+</tr>
+<tr>
+<td>空行</td>
+<td>空白无内容</td>
+</tr>
+<tr>
+<td>请求报文主体</td>
+<td>GET方法没有请求报文主体，POST方法才有</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>响应报文</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>报文格式</th>
+<th>报文信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>起始行</td>
+<td>协议及版本号    数字状态码    状态信息</td>
+</tr>
+<tr>
+<td>响应头部</td>
+<td>字段名1：值1<br />字段名2：值2<br />……</td>
+</tr>
+<tr>
+<td>空行</td>
+<td>空白无内容</td>
+</tr>
+<tr>
+<td>响应报文主体</td>
+<td>HTML网页</td>
+</tr>
+</tbody></table>
+<h3 id="头部字段详细介绍"><a href="#头部字段详细介绍" class="headerlink" title="头部字段详细介绍"></a>头部字段详细介绍</h3><p>查看请求报文和响应报文的方法</p>
+<pre><code>curl -v 域名
+wget --debug 域名
+Windows浏览器—F12开发者工具
+</code></pre>
+<blockquote>
+<p>请求报文头部</p>
+</blockquote>
+<pre><code class="sh">:authority:s2.51cto.com		# 域名
+:method:GET			# 请求方法
+:path:/images/100/blog/topicbg/topicbg1.png		# 请求路径
+:scheme:https		# https协议的请求
+Accept:image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8		# 请求资源类型
+Accept-Encoding:gzip, deflate, br		# 是否压缩，这是web服务优化的核心*****
+Accept-Language:zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6			# 语言，服务端可以根据语言发送想要的页面
+Cache-Control:no-cache		# 是否缓存控制。也是web优化的核心*****
+Cookie:__gads=ID=b5b3f3171981a84a-226046aa57	# 客户端会话，session是服务端会话。核心*****
+Pragma:no-cache		# 缓存控制相关
+Referer:https://blog.51cto.com/		# 引用者地址，作用：1.防盗链 2.统计付费广告价值
+Sec-Ch-Ua:&quot;Chromium&quot;;v=&quot;118&quot;, &quot;Microsoft Edge&quot;;v=&quot;118&quot;, &quot;Not=A?Brand&quot;;v=&quot;99&quot;
+Sec-Ch-Ua-Mobile:?0
+Sec-Ch-Ua-Platform:&quot;Windows&quot;
+Sec-Fetch-Dest:image
+Sec-Fetch-Mode:no-cors
+Sec-Fetch-Site:same-site
+User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.46		# 客户机资源信息，判断客户端设备类型，分发不同服务类型。web优化核心*****
+Host:www.blog.51cto.com		# 主机头，主机头携带域名，用于分配主机，如果没有携带主机头，会把第一个虚拟主机的内容返回给客户端*****
+Connection:Keep-Alive		# 长链接
+</code></pre>
+<blockquote>
+<p>响应报文头部</p>
+</blockquote>
+<pre><code class="sh">HTTP/1.1 200 OK		# 协议、状态码、状态信息
+Server: nginx		# web服务信息（把版本信息取消了，防止攻击）
+Date: Thu, 19 Oct 2023 17:54:52 GMT		# 时间
+Content-Type: application/javascript	# 资源类型
+Content-Length: 28309					# 资源长度
+Connection: keep-alive					# 长链接
+Last-Modified: Fri, 05 May 2023 06:50:35 GMT	# 上次修改时间
+Vary: Accept-Encoding			# 告诉代理服务器缓存两种版本的资源：压缩和非压缩
+ETag: W/&quot;6454a73b-1806f&quot;
+Expires: Fri, 20 Oct 2023 08:56:53 GMT	# 缓存时间
+Cache-Control: max-age=172800			# 缓存相关
+Content-Encoding: gzip
+Age: 118679
+Via: http/1.1 ORI-CLOUD-HUZ-MIX-15 (jcs [cRs f ]), http/1.1 JS-UNI-2-MIX-229 (jcs [cRs f ])
+Access-Control-Allow-Origin: *
+Timing-Allow-Origin: *
+X-Trace: 304-1697713466721-0-0-0-1-1;200-1697738092829-0-0-0-1-1
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-19</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>

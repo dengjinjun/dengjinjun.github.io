@@ -121,9 +121,11 @@
 <p>假设我们要查找网址<code>www.example.com</code>的IP地址，那么域名查找的示例如下：</p>
 <pre><code>用户在浏览器中输入网址www.example.com。
 
-操作系统的DNS客户端将该查询发送给本地域名服务器。
+优先查找本机hosts文件和本地DNS解析器，hosts文件以及本地DNS缓存中不存在此条记录
 
-本地域名服务器检查缓存/etc/host文件，没有找到对应的解析结果。
+操作系统的客户端将该查询发送给本地域名服务器。
+
+本地域名服务器检查缓存文件，没有找到对应的解析结果。
 
 本地域名服务器发送一个迭代查询给根域名服务器，询问.com域的顶级域名服务器的地址。
 
@@ -143,6 +145,7 @@ DNS客户端将IP地址返回给操作系统和浏览器。
 
 浏览器通过IP地址连接到服务器www.example.com。
 </code></pre>
+<p><img src="/../pic/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAc2t5ZV9mbHk=,size_20,color_FFFFFF,t_70,g_se,x_16.png" alt="img"></p>
 <blockquote>
 <p>查看DNS域名查找路径</p>
 </blockquote>

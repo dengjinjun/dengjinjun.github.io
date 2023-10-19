@@ -238,20 +238,21 @@ done
 </blockquote>
 <pre><code class="sh">#!/bin/bash
 . /etc/init.d/functions
-if [ $# -ne 2]
+
+if [ $# -ne 2 ]
 then
     echo &quot;usage:sh $0 localfile remotedir&quot;
     exit 1
 fi
 
-for n in `/tmp/ip.conf`
+for n in $(cat /tmp/ip.conf)
 do
-    scp -P 22 -rp $1 root@192.168.110.13$n:$2 &amp;&gt;/dev/null
+    scp -P 22 -rp &quot;$1&quot; &quot;root@192.168.110.13$n:$2&quot; &amp;&gt;/dev/null
     if [ $? -eq 0 ]
     then
-        action &quot;192.168.110.13$n successful&quot; /bin/true
+        action &quot;192.168.110.13$n&quot; /bin/true
     else
-        action &quot;192.168.110.13$n failure&quot; /bin/false
+        action &quot;192.168.110.13$n&quot; /bin/false
     fi
 done
 </code></pre>
