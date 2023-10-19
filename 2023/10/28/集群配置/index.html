@@ -98,17 +98,77 @@
         
             
         
-        <p>1</p>
-<p>负载服务器1	lb01	192.168.110.135</p>
-<p>负载服务器2	lb02	192.168.110.136</p>
-<p>web服务器1	web01	192.168.110.137</p>
-<p>web服务器2	web02	192.168.110.138</p>
-<p>sweb服务器1	sweb01	192.168.110.139</p>
-<p>sweb服务器2	sweb02	192.168.110.140</p>
-<p>NFS存储服务器	nfs	192.168.110.141</p>
-<p>rsync备份服务器	backup	192.168.110.142</p>
-<p>MySQL数据库服务器	db01	192.168.110.143</p>
-<p>X-管理服务器	m01	192.168.110.128</p>
+        <p>​		</p>
+<table>
+<thead>
+<tr>
+<th>服务器类型</th>
+<th>服务器名称</th>
+<th>IP</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>负载服务器1</td>
+<td>lb01</td>
+<td>192.168.110.135</td>
+<td></td>
+</tr>
+<tr>
+<td>负载服务器2</td>
+<td>lb02</td>
+<td>192.168.110.136</td>
+<td></td>
+</tr>
+<tr>
+<td>web服务器1</td>
+<td>web01</td>
+<td>192.168.110.137</td>
+<td></td>
+</tr>
+<tr>
+<td>web服务器2</td>
+<td>web02</td>
+<td>192.168.110.138</td>
+<td></td>
+</tr>
+<tr>
+<td>sweb服务器1</td>
+<td>sweb01</td>
+<td>192.168.110.139</td>
+<td></td>
+</tr>
+<tr>
+<td>sweb服务器2</td>
+<td>sweb02</td>
+<td>192.168.110.140</td>
+<td></td>
+</tr>
+<tr>
+<td>NFS存储服务器</td>
+<td>nfs</td>
+<td>192.168.110.141</td>
+<td>1. NFS，存储web服务器的静态数据，实现服务器之间数据同步和共享。<br />2. inotify&#x2F;sersync+rsync，实时同步到备份服务器</td>
+</tr>
+<tr>
+<td>rsync备份服务器</td>
+<td>backup</td>
+<td>192.168.110.142</td>
+<td>备份服务器，所有web服务器的备份数据、NFS服务器的备份数据。</td>
+</tr>
+<tr>
+<td>MySQL数据库服务器</td>
+<td>db01</td>
+<td>192.168.110.143</td>
+<td></td>
+</tr>
+<tr>
+<td>X-管理服务器</td>
+<td>m01</td>
+<td>192.168.110.128</td>
+<td>1. 批量管理（ssh以及ansible），分发软件、安装服务、运行命令和脚本<br />2. 跳板机（jumpserver），登录跳板机才能管理其他服务器<br />3. 日志审计（jumpserver）<br />4. VPN服务，只有连接上VPN才能使用管理机。PPTP<br />5. 无人值守安装（批量装1000台），kickstart，cobbler<br />6. zabbix监控服务，代码发布（git+jenkins）</td>
+</tr>
+</tbody></table>
 
     </div>
 
