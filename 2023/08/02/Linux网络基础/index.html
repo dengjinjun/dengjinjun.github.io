@@ -96,24 +96,30 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#OSI%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">OSI模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ARP%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">ARP协议</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#TCP%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">TCP协议</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="post-toc-text">三次握手</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="post-toc-text">四次挥手</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#backlog%E5%8D%8A%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="post-toc-text">backlog半连接池</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#TCP%E5%8D%8F%E8%AE%AE%E4%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%B0%E4%B8%BA%E5%8F%AF%E9%9D%A0%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">TCP协议会为什么称为可靠的协议</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DHCP"><span class="post-toc-text">DHCP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DNS"><span class="post-toc-text">DNS</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E7%8A%B6%E6%80%81"><span class="post-toc-text">查看网络状态</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#OSI%E6%A8%A1%E5%9E%8B%E5%92%8CTCP-IP%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">OSI模型和TCP&#x2F;IP模型</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%90%84%E5%B1%82%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">各层协议</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ARP%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">ARP协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TCP%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">TCP协议</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="post-toc-text">三次握手</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="post-toc-text">四次挥手</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#backlog%E5%8D%8A%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="post-toc-text">backlog半连接池</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#TCP%E5%8D%8F%E8%AE%AE%E4%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%B0%E4%B8%BA%E5%8F%AF%E9%9D%A0%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">TCP协议会为什么称为可靠的协议</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DHCP"><span class="post-toc-text">DHCP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DNS"><span class="post-toc-text">DNS</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E7%8A%B6%E6%80%81"><span class="post-toc-text">查看网络状态</span></a></li></ol></li></ol>
         
-        <h1 id="OSI模型"><a href="#OSI模型" class="headerlink" title="OSI模型"></a>OSI模型</h1><blockquote>
-<p><strong>应用层</strong></p>
-<p><strong>表示层</strong>						 </p>
-<p><strong>会话层</strong>						<strong>应用层：</strong>	http协议，ftp协议等，应用程序自定义的协议</p>
+        <h1 id="OSI模型和TCP-IP模型"><a href="#OSI模型和TCP-IP模型" class="headerlink" title="OSI模型和TCP&#x2F;IP模型"></a>OSI模型和TCP&#x2F;IP模型</h1><p>OSI模型为七层：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。</p>
+<p>TCP&#x2F;IP模型根据业务场景将其分为五层或者四层：物理层和数据链路层合并为网络接口层，网络层、传输层、顶端三层合并为应用层。</p>
+<p>下面主要以TCP&#x2F;IP模型来介绍：</p>
+<blockquote>
+<p><strong>应用层：</strong>应用程序自定义的协议，比如http协议，ftp协议等，</p>
 </blockquote>
 <blockquote>
-<p><strong>传输层</strong>						<strong>传输层：</strong>	TCP&#x2F;UDP协议，封装为数据段，段头包含源端口和目标端口，端口在本机唯一即可，用来区分一台机器上的不同服务</p>
+<p><strong>传输层：</strong>TCP&#x2F;UDP协议，封装为数据段，段头包含源端口和目标端口，端口在本机唯一即可，用来区分一台机器上的不同服务</p>
 </blockquote>
 <blockquote>
-<p><strong>网络层</strong>						<strong>网络层：</strong>	IP协议，再次封装为数据包，包头放源IP地址和目标IP地址。规定通过IP地址(网络地址+主机地址)和子网掩码划分局域网。不													   在同一局域网内的主机必须通过IP地址找到目标主机，在局域网内则通过mac地址找到目标主机。</p>
+<p><strong>网络层：</strong>IP协议，再次封装为数据包，包头放源IP地址和目标IP地址。规定通过IP地址(网络地址+主机地址)和子网掩码划分局域网。不在同一局域网内的主机必须通过IP地址找到目标主机，在局域网内则通过mac地址找到目标主机。</p>
 </blockquote>
 <blockquote>
-<p><strong>数据链路层</strong>				<strong>数据链路层：</strong>	ethernet(以太网)协议，要求有网卡，规定一组电信号构成一个数据包，叫做”帧”。一帧包含head（18字节）和data两															  部分。head部分包含发送者mac地址、接收者mac地址，数据类型三部分。</p>
-<p><strong>物理层</strong>						<strong>物理层：</strong>	把二进制数据转换为电信号(比特位)</p>
+<p><strong>数据链路层：</strong>Ethernet(以太网)协议，要求有网卡，规定一组电信号构成一个数据包，叫做”帧”。一帧包含head（18字节）和data两部分。head部分包含发送者mac地址、接收者mac地址，数据类型三部分。</p>
 </blockquote>
-<h4 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h4><p>ARP协议在网络层工作，用于在一个局域网内通过ip地址获取目标mac。</p>
+<blockquote>
+<p><strong>物理层：</strong>	把二进制数据转换为电信号(比特位)</p>
+</blockquote>
+<p>​						</p>
+<p><img src="/../pic/u=1631000585,2783979957&fm=253&fmt=auto&app=138&f=JPEG.jpeg" alt="img"></p>
+<h1 id="各层协议"><a href="#各层协议" class="headerlink" title="各层协议"></a>各层协议</h1><p><img src="/../pic/u=1568539936,3419826034&fm=253&fmt=auto&app=138&f=JPEG.jpeg" alt="img"></p>
+<h2 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h2><p>ARP协议在网络层工作，用于在一个局域网内通过ip地址获取目标mac。</p>
 <p>在局域网内是通过mac地址进行通信的，所以在局域网内发送数据包之前，必须先获取目标主机的mac地址。然后是数据链路层通过mac地址通信。</p>
 <p>ARP协议的原理是在局域网内广播一个数据包，局域网内的所有主机都可以收到数据包，通过验证数据包中携带的IP地址，来判断自己是不是接收者，若是，则回复自己的mac地址。	</p>
 <pre><code>情况一：同一局域网内的两台主机通信
@@ -157,7 +163,7 @@
 </code></pre>
 <p><img src="/rz7v85ras.hd-bkt.clouddn.com/image-20230805233826613.png"></p>
 <p>​		</p>
-<h1 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h1><p>TCP连接经过三次握手，断开经过四次挥手。初始阶段服务器处于<code>LISTEN</code>状态(监听状态)。</p>
+<h2 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h2><p>TCP连接经过三次握手，断开经过四次挥手。初始阶段服务器处于<code>LISTEN</code>状态(监听状态)。</p>
 <h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><ul>
 <li><p>第一次握手</p>
 <p>客户端向服务器发送连接请求，数据包内容：<code>syn=1</code>，<code>seq=x</code>。<code>x</code>代表一个序列。客户端进入<code>SYN_SENT</code>状态。</p>
@@ -183,7 +189,7 @@
 <p>客户端收到服务器的最后的确认断开请求之后，处于<code>TIME_WAIT</code>状态，向服务器发送数据包：<code>ack=1</code>，表示确认断开。服务器收到数据包之后，正式断开连接。</p>
 </li>
 </ul>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230805233826613.png"></p>
+<p><img src="/../pic/tcp_open_close.jpg" alt="img"></p>
 <h4 id="backlog半连接池"><a href="#backlog半连接池" class="headerlink" title="backlog半连接池"></a>backlog半连接池</h4><p>半连接池是存在与服务端的一个缓存空间，所有来自客户端的建立连接的初次请求都会存放到半连接池中，服务端从半连接池中获取客户端的请求，然后发送确认连接的数据包。半连接池的空间大小很重要，更大的空间能够抵御洪水SYN攻击，洪水SYN攻击即是第三方模拟大量的客户端发送请求的场景，从而撑满服务端的半连接池，服务端向这些模拟客户端发送确认请求的数据包，模拟客户端并不会给予回应。导致正常的客户端请求无法进入半连接池，显示无法访问。</p>
 <h4 id="TCP协议会为什么称为可靠的协议"><a href="#TCP协议会为什么称为可靠的协议" class="headerlink" title="TCP协议会为什么称为可靠的协议"></a>TCP协议会为什么称为可靠的协议</h4><ul>
 <li><p>序列号和确认机制</p>
@@ -261,7 +267,7 @@
 <pre><code>浏览器缓存-》操作系统缓存-》本地hosts文件-》本地dns服务-》递归or迭代查询
 </code></pre>
 <p>Linux的hosts文件位置：<code>/etc/hosts</code></p>
-<h1 id="查看网络状态"><a href="#查看网络状态" class="headerlink" title="查看网络状态"></a>查看网络状态</h1><pre><code>netstat -tunalp				# 显示当前系统上所有活动的网络连接、监听端口以及与之相关的进程信息
+<h2 id="查看网络状态"><a href="#查看网络状态" class="headerlink" title="查看网络状态"></a>查看网络状态</h2><pre><code>netstat -tunalp				# 显示当前系统上所有活动的网络连接、监听端口以及与之相关的进程信息
 -t：显示TCP连接。
 -u：显示UDP连接。
 -n：以数值形式显示IP地址和端口号。
