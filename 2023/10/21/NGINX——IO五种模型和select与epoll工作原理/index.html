@@ -96,57 +96,73 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E9%80%9F%E5%BA%A6%E4%BD%93%E9%AA%8C%E7%9A%841-3-10%E5%8E%9F%E5%88%99"><span class="post-toc-text">用户速度体验的1-3-10原则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%80%A7%E8%83%BD%E5%BD%B1%E5%93%8D"><span class="post-toc-text">性能影响</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BD%B1%E5%93%8D%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9B%A0%E7%B4%A0"><span class="post-toc-text">影响用户体验的几个因素</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Httpd-MPM"><span class="post-toc-text">Httpd MPM</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%A4%84%E7%90%86%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B"><span class="post-toc-text">服务端处理网络请求过程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%A4%84%E7%90%86%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B-1"><span class="post-toc-text">服务端处理网络请求过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#I-O%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">I&#x2F;O介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#I-O%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">I&#x2F;O模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%90%8C%E6%AD%A5%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">同步阻塞IO模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%90%8C%E6%AD%A5%E9%9D%9E%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">同步非阻塞IO模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">IO多路复用模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8IO%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">信号驱动IO模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BC%82%E6%AD%A5IO%EF%BC%88%E9%9D%9E%E9%98%BB%E5%A1%9E%EF%BC%89%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">异步IO（非阻塞）模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%94%E7%A7%8DI-O%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%AF%94"><span class="post-toc-text">五种I&#x2F;O模型对比</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#I-O%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">I&#x2F;O模型的具体实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9E%8B%E6%B1%87%E6%80%BB"><span class="post-toc-text">常用模型汇总</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%AF%94"><span class="post-toc-text">常用模型对比</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MMAP%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">MMAP介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%9B%B6%E6%8B%B7%E8%B4%9D"><span class="post-toc-text">零拷贝</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E6%8B%B7%E8%B4%9D%E6%93%8D%E4%BD%9C"><span class="post-toc-text">原始数据拷贝操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MMAP%EF%BC%9AMemory-Mapping"><span class="post-toc-text">MMAP：Memory Mapping</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SENDFILE"><span class="post-toc-text">SENDFILE</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DMA-%E8%BE%85%E5%8A%A9%E7%9A%84-SENDFILE"><span class="post-toc-text">DMA 辅助的 SENDFILE</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E4%B8%8E%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C"><span class="post-toc-text">网站性能与用户体验</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E9%80%9F%E5%BA%A6%E4%BD%93%E9%AA%8C%E7%9A%841-3-10%E5%8E%9F%E5%88%99"><span class="post-toc-text">用户速度体验的1-3-10原则</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%80%A7%E8%83%BD%E5%BD%B1%E5%93%8D"><span class="post-toc-text">性能影响</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BD%B1%E5%93%8D%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9B%A0%E7%B4%A0"><span class="post-toc-text">影响用户体验的几个因素</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%A4%84%E7%90%86%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B"><span class="post-toc-text">服务端处理网络请求过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#I-O%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">I&#x2F;O模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%90%8C%E6%AD%A5%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">同步阻塞IO模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%90%8C%E6%AD%A5%E9%9D%9E%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">同步非阻塞IO模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">IO多路复用模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8IO%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">信号驱动IO模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%82%E6%AD%A5IO%EF%BC%88%E9%9D%9E%E9%98%BB%E5%A1%9E%EF%BC%89%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">异步IO（非阻塞）模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BA%94%E7%A7%8DI-O%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%AF%94"><span class="post-toc-text">五种I&#x2F;O模型对比</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#I-O%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">I&#x2F;O模型的具体实现</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#select%E3%80%81poll%E3%80%81epoll%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%AF%94"><span class="post-toc-text">select、poll、epoll模型对比</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Select%EF%BC%9A"><span class="post-toc-text">Select：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#poll%EF%BC%9A"><span class="post-toc-text">poll：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#epoll"><span class="post-toc-text">epoll</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MMAP%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">MMAP介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%9B%B6%E6%8B%B7%E8%B4%9D"><span class="post-toc-text">零拷贝</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E6%8B%B7%E8%B4%9D%E6%93%8D%E4%BD%9C"><span class="post-toc-text">原始数据拷贝操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MMAP%EF%BC%9AMemory-Mapping"><span class="post-toc-text">MMAP：Memory Mapping</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SENDFILE"><span class="post-toc-text">SENDFILE</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DMA-%E8%BE%85%E5%8A%A9%E7%9A%84-SENDFILE"><span class="post-toc-text">DMA 辅助的 SENDFILE</span></a></li></ol></li></ol>
         
         <p>引自 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/struggle-1216/p/12021779.html">https://www.cnblogs.com/struggle-1216/p/12021779.html</a></p>
-<h2 id="用户速度体验的1-3-10原则"><a href="#用户速度体验的1-3-10原则" class="headerlink" title="用户速度体验的1-3-10原则"></a>用户速度体验的1-3-10原则</h2><p><img src="/../pic/1769223-20191211094756154-763998320.png" alt="img"></p>
-<h2 id="性能影响"><a href="#性能影响" class="headerlink" title="性能影响"></a>性能影响</h2><pre><code>有很多研究都表明，性能对用户的行为有很大的影响：``79%的用户表示不太可能再次打开一个缓慢的网站``47%的用户期望网页能在2秒钟以内加载``40%的用户表示如果加载时间超过三秒钟，就会放弃这个网站``页面加载时间延迟一秒可能导致转换损失7%，页面浏览量减少11%``8秒定律：用户访问一个网站时，如果等待网页打开的时间超过8秒，会有超过30%的用户放弃等待
+<h2 id="网站性能与用户体验"><a href="#网站性能与用户体验" class="headerlink" title="网站性能与用户体验"></a>网站性能与用户体验</h2><h3 id="用户速度体验的1-3-10原则"><a href="#用户速度体验的1-3-10原则" class="headerlink" title="用户速度体验的1-3-10原则"></a>用户速度体验的1-3-10原则</h3><p><img src="/../pic/1769223-20191211094756154-763998320.png" alt="img"></p>
+<h3 id="性能影响"><a href="#性能影响" class="headerlink" title="性能影响"></a>性能影响</h3><pre><code>有很多研究都表明，性能对用户的行为有很大的影响：
+79%的用户表示不太可能再次打开一个缓慢的网站
+47%的用户期望网页能在2秒钟以内加载
+40%的用户表示如果加载时间超过三秒钟，就会放弃这个网站
+页面加载时间延迟一秒可能导致转换损失7%，页面浏览量减少11%
+8秒定律：用户访问一个网站时，如果等待网页打开的时间超过8秒，会有超过30%的用户放弃等待
 </code></pre>
-<h2 id="影响用户体验的几个因素"><a href="#影响用户体验的几个因素" class="headerlink" title="影响用户体验的几个因素"></a>影响用户体验的几个因素</h2><pre><code>客户端硬件配置``客户端网络速率``客户端与服务端距离``服务端网络速率``服务端硬件配置``服务端架构设计``服务端应用程序工作模式``服务端并发数量``服务端响应文件大小及数量``服务端I``/O``压力
+<h3 id="影响用户体验的几个因素"><a href="#影响用户体验的几个因素" class="headerlink" title="影响用户体验的几个因素"></a>影响用户体验的几个因素</h3><pre><code>客户端硬件配置
+客户端网络速率
+客户端与服务端距离
+服务端网络速率
+服务端硬件配置
+服务端架构设计
+服务端应用程序工作模式
+服务端并发数量
+服务端响应文件大小及数量
+服务端I/O压力
 </code></pre>
-<h2 id="Httpd-MPM"><a href="#Httpd-MPM" class="headerlink" title="Httpd MPM"></a>Httpd MPM</h2><pre><code>httpd MPM：``prefork：进程模型，两级结构，主进程master负责生成子进程，每个子进程负责响应一个请求``worker：线程模型，三级结构，主进程master负责生成子进程，每个子进程负责生成多个线程，每个线程响应一个请求``event：线程模型，三级结构,主进程master负责生成子进程，每个子进程响应多个请求
-</code></pre>
-<p><strong>top命令可以查看当前机器的开机时间时长，负载情况：load average：每1&#x2F;5&#x2F;15分钟负载情况。</strong></p>
-<p><img src="/../pic/1769223-20191211095656082-1116123909.png" alt="img"></p>
-<h2 id="服务端处理网络请求过程"><a href="#服务端处理网络请求过程" class="headerlink" title="服务端处理网络请求过程"></a>服务端处理网络请求过程</h2><p>1、I&#x2F;O在计算机中指Input&#x2F;Output， IOPS (Input&#x2F;Output Per Second)即每秒的输入输出量(或读写次数)，是衡量磁盘性能的主要指标之一。IOPS是指单位时间内系统能处理的I&#x2F;O请求数量，一般以每秒处理的I&#x2F;O请求数量为单位，I&#x2F;O请求通常为读或写数据操作请求。</p>
+<h3 id="服务端处理网络请求过程"><a href="#服务端处理网络请求过程" class="headerlink" title="服务端处理网络请求过程"></a>服务端处理网络请求过程</h3><p>1、I&#x2F;O在计算机中指Input&#x2F;Output， IOPS (Input&#x2F;Output Per Second)即每秒的输入输出量(或读写次数)，是衡量磁盘性能的主要指标之一。IOPS是指单位时间内系统能处理的I&#x2F;O请求数量，一般以每秒处理的I&#x2F;O请求数量为单位，I&#x2F;O请求通常为读或写数据操作请求。</p>
 <p>2、一次完整的I&#x2F;O是用户空间的进程数据与内核空间的内核数据的报文的完整交换，但是由于内核空间与用户空间是严格隔离的，所以其数据交换过程中不能由用户空间的进程直接调用内核空间的内存数据，而是需要经历一次从内核空间中的内存数据copy到用户空间的进程内存当中，所以简单说I&#x2F;O就是把数据从内核空间中的内存数据复制到用户空间中进程的内存当中。</p>
 <p>而网络通信就是网络协议栈到用户空间进程的IO就是网络IO</p>
 <p><img src="/../pic/1769223-20191211101626615-1523303931.png" alt="img"></p>
 <p>3、磁盘I&#x2F;O是进程向内核发起系统调用，请求磁盘上的某个资源比如是文件或者是图片，然后内核通过相应的驱动程序将目标图片加载到内核的内存空间，加载完成之后把数据从内核内存再复制给进程内存，如果是比较大的数据也需要等待时间。</p>
 <p> PIO：程序的输入输出模型。</p>
-<h3 id="服务端处理网络请求过程-1"><a href="#服务端处理网络请求过程-1" class="headerlink" title="服务端处理网络请求过程"></a>服务端处理网络请求过程</h3><pre><code> ``获取请求数据，客户端与服务器建立连接发出请求，服务器接受请求（1-3）``构建响应，当服务器接收完请求，并在用户空间处理客户端的请求，直到构建响应完成（4）``返回数据，服务器将已构建好的响应再通过内核空间的网络 I``/O` `发还给客户端（5-7）
+<pre><code>获取请求数据，客户端与服务器建立连接发出请求，服务器接受请求（1-3）
+构建响应，当服务器接收完请求，并在用户空间处理客户端的请求，直到构建响应完成（4）
+返回数据，服务器将已构建好的响应再通过内核空间的网络 I/O发还给客户端（5-7）
 </code></pre>
-<h2 id="I-O介绍"><a href="#I-O介绍" class="headerlink" title="I&#x2F;O介绍"></a><strong>I&#x2F;O介绍</strong></h2><p>网络IO：本质是socket文件读取</p>
-<p>磁盘IO：</p>
-<p>每次IO，都要经由两个阶段：</p>
-<pre><code>第一步：将数据从文件先加载至内核内存空间（缓冲区），等待数据准备完成，时间较长``第二步：将数据从内核缓冲区复制到用户空间的进程的内存中，时间较短
+<h2 id="I-O模型"><a href="#I-O模型" class="headerlink" title="I&#x2F;O模型"></a><strong>I&#x2F;O模型</strong></h2><p>I&#x2F;O分为网络I&#x2F;O和磁盘I&#x2F;O两部分：网络IO（本质是socket文件读取）和磁盘IO</p>
+<p>每次IO，都要经由两个阶段：</p>
+<pre><code>第一步：将数据从文件先加载至内核内存空间（缓冲区），等待数据准备完成，时间较长
+第二步：将数据从内核缓冲区复制到用户空间的进程的内存中，时间较短
 </code></pre>
-<h2 id="I-O模型"><a href="#I-O模型" class="headerlink" title="I&#x2F;O模型"></a>I&#x2F;O模型</h2><p>同步&#x2F;异步：关注的是消息通信机制</p>
-<pre><code>同步：synchronous，调用者等待被调用者返回消息，才能继续执行``异步：asynchronous，被调用者通过状态、通知或回调机制主动通知调用者被调用者的运行状态
+<p>I&#x2F;O有以下几种方式：</p>
+<p>同步&#x2F;异步：关注的是消息通信机制</p>
+<pre><code>同步：synchronous，调用者等待被调用者返回消息，才能继续执行
+异步：asynchronous，被调用者通过状态、通知或回调机制主动通知调用者被调用者的运行状态
 </code></pre>
 <p>阻塞&#x2F;非阻塞：关注调用者在等待结果返回之前所处的状态</p>
-<pre><code>阻塞：blocking，指IO操作需要彻底完成后才返回到用户空间，调用结果返回之前，调用者被挂起``非阻塞：nonblocking，指IO操作被调用后立即返回给用户一个状态值，无需等到IO操作彻底完成，最终的调用结果返回之前，调用者不会被挂起
+<pre><code>阻塞：blocking，指IO操作需要彻底完成后才返回到用户空间，调用结果返回之前，调用者被挂起
+非阻塞：nonblocking，指IO操作被调用后立即返回给用户一个状态值，无需等到IO操作彻底完成，最终的调用结果返回之前，调用者不会被挂起
 </code></pre>
 <p>I&#x2F;O模型：</p>
 <pre><code>阻塞型、非阻塞型、复用型、信号驱动型、异步
 </code></pre>
-<h2 id="同步阻塞IO模型"><a href="#同步阻塞IO模型" class="headerlink" title="同步阻塞IO模型"></a>同步阻塞IO模型</h2><p>  <strong>阻塞原理：</strong></p>
+<h3 id="同步阻塞IO模型"><a href="#同步阻塞IO模型" class="headerlink" title="同步阻塞IO模型"></a>同步阻塞IO模型</h3><p>  <strong>阻塞原理：</strong></p>
 <p>  1、阻塞IO模型是最简单的IO模型，用户线程在内核进行IO操作时被阻塞。</p>
 <p>  2、用户线程通过系统调用read发起IO读操作，由用户空间转到内核空间。内核等到数据包到达后，然后将接收的数据拷贝到用户空间，完成read操作。</p>
-<p>3、用户需要等待read将数据读取到buffer后，才继续处理接收的数据。整个IO请求的过程中，用户线程是被阻塞的，这导致用户在发起IO请求时，不能做任何事情，对CPU的资源利用率不够。</p>
+<p>  3、用户需要等待read将数据读取到buffer后，才继续处理接收的数据。整个IO请求的过程中，用户线程是被阻塞的，这导致用户在发起IO请求时，不能做任何事情，对CPU的资源利用率不够。</p>
 <p>  <strong>优缺点：</strong></p>
-<pre><code>优点：程序简单，在阻塞等待数据期间进程/线程挂起，基本不会占用 CPU 资源。``缺点：每个连接需要独立的进程/线程单独处理，当并发请求量大时为了维护程序，内存、线程切换开销较大，这种模型在实际生产中很少使用，apache 的preforck使用的是这种模式。
+<pre><code>优点：程序简单，在阻塞等待数据期间进程/线程挂起，基本不会占用 CPU 资源。
+缺点：每个连接需要独立的进程/线程单独处理，当并发请求量大时为了维护程序，内存、线程切换开销较大，这种模型在实际生产中很少使用，apache 的preforck使用的是这种模式。
 </code></pre>
 <p> <strong>同步阻塞：</strong></p>
 <p>   程序向内核发送IO请求后一直等待内核响应，如果内核处理请求的IO操作不能立即返回,则进程将一直等待并不再接受新的请求，并由进程轮训查看IO是否完成，完成后进程将IO结果返回给Client，</p>
 <p>   在IO没有返回期间进程不能接受其他客户的请求，而且是有进程自己去查看IO是否完成，这种方式简单，但是比较慢，用的比较少。</p>
 <p><img src="/../pic/1769223-20191211103750767-1435861527.png" alt="img"></p>
-<h2 id="同步非阻塞IO模型"><a href="#同步非阻塞IO模型" class="headerlink" title="同步非阻塞IO模型"></a>同步非阻塞IO模型</h2><p><strong>非阻塞原理：</strong></p>
-<p>  用户线程发起IO请求时立即返回。但并未读取到任何数据，用户线程需要不断地发起IO请求，直到数据到达后，才真正读取到数据，继续执行。即 “轮询”机制存在两个问题：如果有大量文件描述符都要等，那么就得一个一个的read。这会带来大量的ContextSwitch（read是系统调用，每调用一次就得在用户态和核心态切换一次）。轮询的时间不好把握。这里是要猜多久之后数据才能到。等待时间设的太长，程序响应延迟就过大；设的太短，就会造成过于频繁的重试，干耗CPU而已，是比较浪费CPU的方式，一般很少直接使用这种模型，而是在其他IO模型中使用非阻塞IO这一特性。</p>
+<h3 id="同步非阻塞IO模型"><a href="#同步非阻塞IO模型" class="headerlink" title="同步非阻塞IO模型"></a>同步非阻塞IO模型</h3><p><strong>非阻塞原理：</strong></p>
+<p>  用户线程发起IO请求时立即返回。但并未读取到任何数据，用户线程需要不断地发起IO请求，直到数据到达后，才真正读取到数据，继续执行。即 “轮询”机制。存在两个问题：如果有大量文件描述符都要等，那么就得一个一个的read。这会带来大量的ContextSwitch（read是系统调用，每调用一次就得在用户态和核心态切换一次）。轮询的时间不好把握。这里是要猜多久之后数据才能到。等待时间设的太长，程序响应延迟就过大；设的太短，就会造成过于频繁的重试，干耗CPU而已，是比较浪费CPU的方式，一般很少直接使用这种模型，而是在其他IO模型中使用非阻塞IO这一特性。</p>
 <p><strong>同步非阻塞：</strong></p>
 <p>程序向内核发送请IO求后一直等待内核响应，如果内核处理请求的IO操作不能立即返回IO结果，进程将不再等待，而且继续处理其他请求，但是仍然需要进程隔一段时间就要查看内核IO是否完成。</p>
 <p> <img src="/../pic/1769223-20191211113918312-1144752211.png" alt="img"></p>
-<h2 id="IO多路复用模型"><a href="#IO多路复用模型" class="headerlink" title="IO多路复用模型"></a>IO多路复用模型</h2><p>  <strong>IO多路复用原理：</strong></p>
+<h3 id="IO多路复用模型"><a href="#IO多路复用模型" class="headerlink" title="IO多路复用模型"></a>IO多路复用模型</h3><p>  <strong>IO多路复用原理：</strong></p>
 <p> 1、IO多路复用（IO Multiplexing) ：是一种机制，程序注册一组socket文件描述符给操作系统，表示“我要监视这些fd是否有IO事件发生，有了就告诉程序处理”。</p>
 <p> 2、IO多路复用是要和NIO一起使用的。NIO和IO多路复用是相对独立的。NIO仅仅是指IO API总是能立刻返回，不会被Blocking；而IO多路复用仅仅是操作系统提供的一种便利的通知机制。操作系统并不会强制这俩必须得一起用，可以只用IO多路复用 + BIO，这时还是当前线程被卡住。IO多路复用和NIO是要配合一起使用才有实际意义。</p>
 <p> 3、IO多路复用是指内核一旦发现进程指定的一个或者多个IO条件准备读取，就通知该进程。</p>
@@ -157,7 +173,7 @@
 <p> 1、从流程上来看，使用select函数进行IO请求和同步阻塞模型没有太大的区别，甚至还多了添加监视IO，以及调用select函数的额外操作，效率更差。并且阻塞了两次，但是第一次阻塞在select上时，select可以监控多个IO上是否已有IO操作准备就绪，即可达到在同一个线程内同时处理多个IO请求的目的。而不像阻塞IO那种，一次只能监控一个IO。</p>
 <p> 2、虽然上述方式允许单线程内处理多个IO请求，但是每个IO请求的过程还是阻塞的（在select函数上阻塞），平均时间甚至比同步阻塞IO模型还要长。如果用户线程只是注册自己需要的IO请求，然后去做自己的事情，等到数据到来时再进行处理，则可以提高CPU的利用率。</p>
 <p> 3、IO多路复用是最常使用的IO模型，但是其异步程度还不够“彻底”，因它使用了会阻塞线程的select系统调用。因此IO多路复用只能称为异步阻塞IO模型，而非真正的异步IO</p>
-<h2 id="信号驱动IO模型"><a href="#信号驱动IO模型" class="headerlink" title="信号驱动IO模型"></a>信号驱动IO模型</h2><p> <strong>信号驱动IO模型原理：</strong></p>
+<h3 id="信号驱动IO模型"><a href="#信号驱动IO模型" class="headerlink" title="信号驱动IO模型"></a>信号驱动IO模型</h3><p> <strong>信号驱动IO模型原理：</strong></p>
 <p>  <strong>信号驱动IO：signal-driven I&#x2F;O</strong></p>
 <p>1、用户进程可以通过sigaction系统调用注册一个信号处理程序，然后主程序可以继续向下执行，当有IO操作准备就绪时，由内核通知触发一个SIGIO信号处理程序执行，然后将用户进程所需要的数据从内核空间拷贝到用户空间。</p>
 <p>2、此模型的优势在于等待数据报到达期间进程不被阻塞。用户主程序可以继续执行，只要等待来自信号处理函数的通知。</p>
@@ -165,35 +181,51 @@
 <p><strong>优点：线程并没有在等待数据时被阻塞，可以提高资源的利用率。</strong><br><strong>缺点：信号 I&#x2F;O 在大量 IO 操作时可能会因为信号队列溢出导致没法通知。</strong></p>
 <p><strong>异步阻塞：</strong>程序进程向内核发送IO调用后，不用等待内核响应，可以继续接受其他请求，内核收到进程请求后进行的IO如果不能立即返回，就由内核等待结果，直到IO完成后内核再通知进程，apache event是此模式。</p>
 <p><img src="/../pic/1769223-20191211114945550-1266110764.png" alt="img"></p>
-<h2 id="异步IO（非阻塞）模型"><a href="#异步IO（非阻塞）模型" class="headerlink" title="异步IO（非阻塞）模型"></a>异步IO（非阻塞）模型</h2><p><strong>原理：</strong></p>
+<h3 id="异步IO（非阻塞）模型"><a href="#异步IO（非阻塞）模型" class="headerlink" title="异步IO（非阻塞）模型"></a>异步IO（非阻塞）模型</h3><p><strong>原理：</strong></p>
 <p>  1、异步IO与信号驱动IO最主要的区别是信号驱动IO是由内核通知应用程序何时可以进行IO操作，而异步IO则是由内核告诉用户线程IO操作何时完成。信号驱动IO当内核通知触发信号处理程序时，信号处理程序还需要阻塞在从内核空间缓冲区拷贝数据到用户空间缓冲区这个阶段，而异步IO直接是在第二个阶段完成后，内核直接通知用户线程可以进行后续操作了。</p>
 <p>2、由 POSIX 规范定义，应用程序告知内核启动某个操作，并让内核在整个操作（包括将数据从内核拷贝到应用程序的缓冲区）完成后通知应用程序。</p>
 <p><strong>优缺点：</strong></p>
 <p>优点：异步 I&#x2F;O 能够充分利用 DMA 特性，让 I&#x2F;O 操作与计算重叠。<br>缺点：要实现真正的异步 I&#x2F;O，操作系统需要做大量的工作。目前 Windows 下通过 IOCP 实现了真正的异步 I&#x2F;O，在 Linux 系统下，Linux 2.6才引入，目前 AIO 并不完善，因此在 Linux 下实现高并发网络编程时以 IO 复用模型模式+多线程任务的架构基本可以满足需求。</p>
 <p><strong>异步非阻塞：</strong>程序进程向内核发送IO调用后，不用等待内核响应，可以继续接受其他请求，内核调用的IO如果不能立即返回，内核会继续处理其他事物，直到IO完成后将结果通知给内核，内核在将IO完成的结果返回给进程，期间进程可以接受新的请求，内核也可以处理新的事物，因此相互不影响，可以实现较大的同时并实现较高的IO复用，因此异步非阻塞使用最多的一种通信方式。</p>
 <p><img src="/../pic/1769223-20191211115358157-1218161282.png" alt="img"></p>
-<h2 id="五种I-O模型对比"><a href="#五种I-O模型对比" class="headerlink" title="五种I&#x2F;O模型对比"></a>五种I&#x2F;O模型对比</h2><p>这五种 I&#x2F;O 模型中，越往后，阻塞越少，理论上效率也是最优前四种属于同步 I&#x2F;O，因为其中真正的 I&#x2F;O 操作(recvfrom)将阻塞进程&#x2F;线程，只有异步 I&#x2F;O 模型才与 POSIX 定义的异步 I&#x2F;O 相匹配。</p>
+<h3 id="五种I-O模型对比"><a href="#五种I-O模型对比" class="headerlink" title="五种I&#x2F;O模型对比"></a>五种I&#x2F;O模型对比</h3><p>这五种 I&#x2F;O 模型中，越往后，阻塞越少，理论上效率也是最优前四种属于同步 I&#x2F;O，因为其中真正的 I&#x2F;O 操作(recvfrom)将阻塞进程&#x2F;线程，只有异步 I&#x2F;O 模型才与 POSIX 定义的异步 I&#x2F;O 相匹配。</p>
 <p><img src="/../pic/1769223-20191211120111107-1807511050.png" alt="img"></p>
-<h2 id="I-O模型的具体实现"><a href="#I-O模型的具体实现" class="headerlink" title="I&#x2F;O模型的具体实现"></a>I&#x2F;O模型的具体实现</h2><p>   Nginx支持在多种不同的操作系统实现不同的事件驱动模型，但是其在不同的操作系统甚至是不同的系统版本上面<br>的实现方式不尽相同，主要有以下实现方式：</p>
-<pre><code>1、``select``：``select``库是在linux和windows平台都基本支持的 事件驱动模型库，并且在接口的定义也基本相同，只是部分``参数的含义略有差异，最大并发限制1024，是最早期的事件驱动模型。``2、poll：``在Linux 的基本驱动模型，windows不支持此驱动模型，是``select``的升级版，取消了最大的并发限制，在编译``nginx的时候可以使用--with-poll_module和--without-poll_module这两个指定是否编译``select``库。``3、epoll：``epoll是库是Nginx服务器支持的最高性能的事件驱动库之一，是公认的非常优秀的事件驱动模型，它和``select``和poll有很大的区别，epoll是poll的升级版，但是与poll的效率有很大的区别.``epoll的处理方式是创建一个待处理的事件列表，然后把这个列表发给内核，返回的时候在去轮训检查这个表，``以判断事件是否发生，epoll支持一个进程打开的最大事件描述符的上限是系统可以打开的文件的最大数，同时``epoll库的IO效率不随描述符数目增加而线性下降，因为它只会对内核上报的“活跃”的描述符进行操作。``4、rtsig：``不是一个常用事件驱动，最大队列1024，不是很常用``5、kqueue：``用于支持BSD系列平台的高校事件驱动模型，主要用在FreeBSD 4.1及以上版本、OpenBSD 2.0级以上版本，``NetBSD级以上版本及Mac OS X 平台上，该模型也是poll库的变种，因此和epoll没有本质上的区别，都是通``过避免轮训操作提供效率。``6、``/dev/poll``:``用于支持unix衍生平台的高效事件驱动模型，主要在Solaris 平台、HP``/UX``，该模型是sun公司在开发``Solaris系列平台的时候提出的用于完成事件驱动机制的方案，它使用了虚拟的``/dev/poll``设备，开发人员将要``见识的文件描述符加入这个设备，然后通过ioctl()调用来获取事件通知，因此运行在以上系列平台的时候请使``用``/dev/poll``事件驱动机制。``7、eventport：``该方案也是sun公司在开发Solaris的时候提出的事件驱动库，只是Solaris 10以上的版本，该驱动库看防止``内核崩溃等情况的发生。``8、Iocp：``Windows系统上的实现方式，对应第5种（异步I``/O``）模型。
-</code></pre>
-<h2 id="常用模型汇总"><a href="#常用模型汇总" class="headerlink" title="常用模型汇总"></a>常用模型汇总</h2><p><img src="/../pic/1769223-20191211120343064-275857692.png" alt="img"></p>
-<h2 id="常用模型对比"><a href="#常用模型对比" class="headerlink" title="常用模型对比"></a>常用模型对比</h2><p><img src="/../pic/1769223-20191211120459285-694727827.png" alt="img"></p>
+<h3 id="I-O模型的具体实现"><a href="#I-O模型的具体实现" class="headerlink" title="I&#x2F;O模型的具体实现"></a>I&#x2F;O模型的具体实现</h3><p>   Nginx支持在多种不同的操作系统实现不同的事件驱动模型，但是其在不同的操作系统甚至是不同的系统版本上面的实现方式不尽相同，主要有以下实现方式：</p>
+<p>1、<code>select</code>：<code>select</code>库是在linux和windows平台都基本支持的 事件驱动模型库，并且在接口的定义也基本相同，只是部分参数的含义略有差异，最大并发限制1024，是最早期的事件驱动模型。</p>
+<p>2、poll：在Linux 的基本驱动模型，windows不支持此驱动模型，是select的升级版，取消了最大的并发限制，在编译nginx的时候可以使用–with-poll_module和–without-poll_module这两个指定是否编译<code>select</code>库。</p>
+<p><code>3、epoll：</code>epoll是库是Nginx服务器支持的最高性能的事件驱动库之一，是公认的非常优秀的事件驱动模型，它和<code>select</code>和poll有很大的区别，epoll是poll的升级版，但是与poll的效率有很大的区别。<strong>epoll的处理方式是创建一个待处理的事件列表，然后把这个列表发给内核，返回的时候在去轮训检查这个表，以判断事件是否发生，epoll支持一个进程打开的最大事件描述符的上限是系统可以打开的文件的最大数，同时epoll库的IO效率不随描述符数目增加而线性下降，因为它只会对内核上报的“活跃”的描述符进行操作。</strong></p>
+<p>4、rtsig：不是一个常用事件驱动，最大队列1024，不是很常用</p>
+<p>5、kqueue：用于支持BSD系列平台的高校事件驱动模型，主要用在FreeBSD 4.1及以上版本、OpenBSD 2.0级以上版本，NetBSD级以上版本及Mac OS X 平台上，该模型也是poll库的变种，因此和epoll没有本质上的区别，都是通过避免轮训操作提供效率。</p>
+<p>6、&#x2F;dev&#x2F;poll：用于支持unix衍生平台的高效事件驱动模型，主要在Solaris 平台、HP&#x2F;UX，该模型是sun公司在开发Solaris系列平台的时候提出的用于完成事件驱动机制的方案，它使用了虚拟的<code>/dev/poll</code>设备，开发人员将要见识的文件描述符加入这个设备，然后通过ioctl()调用来获取事件通知，因此运行在以上系列平台的时候请使用<code>/dev/poll</code>事件驱动机制。</p>
+<p>7、eventport：该方案也是sun公司在开发Solaris的时候提出的事件驱动库，只是Solaris 10以上的版本，该驱动库看防止内核崩溃等情况的发生。</p>
+<p>8、Iocp：Windows系统上的实现方式，对应第5种（异步I&#x2F;O&#96;&#96;）模型。</p>
+<h2 id="select、poll、epoll模型对比"><a href="#select、poll、epoll模型对比" class="headerlink" title="select、poll、epoll模型对比"></a>select、poll、epoll模型对比</h2><p><img src="/../pic/1769223-20191211120343064-275857692.png" alt="img"></p>
+<p><img src="/../pic/1769223-20191211120459285-694727827.png" alt="img"></p>
 <p><strong>水平触发–单次通知</strong></p>
 <p><strong>边缘触发–多次通知</strong></p>
-<p>  <strong>对比：</strong></p>
-<p>Select：POSIX所规定，目前几乎在所有的平台上支持，其良好跨平台支持也是它的一个优点，本质上是通过设置或者检查存放fd标志位的数据结构来进行下一步处理。</p>
+<h4 id="Select："><a href="#Select：" class="headerlink" title="Select："></a><strong>Select：</strong></h4><p><strong>优点</strong></p>
+<pre><code>POSIX所规定，目前几乎在所有的平台上支持，其良好跨平台支持也是它的一个优点，本质上是通过设置或者检查存放fd标志位的数据结构来进行下一步处理。
+</code></pre>
 <p><strong>缺点</strong></p>
-<pre><code>1、单个进程能够监视的文件描述符的数量存在最大限制，在Linux上一般为1024，可以通过修改宏定义FD_SETSIZE，再重新编译内核实现，但是这样也会造成效率的降低``2、单个进程可监视的fd数量被限制，默认是1024，修改此值需要重新编译内核``3、对socket是线性扫描，即采用轮询的方法，效率较低``4、``select` `采取了内存拷贝方法来实现内核将 FD 消息通知给用户空间，这样一个用来存放大量fd的数据结构，这样会使得用户空间和内核空间在传递该结构时复制开销大
+<pre><code>1、单个进程能够监视的文件描述符的数量存在最大限制，在Linux上一般为1024，可以通过修改宏定义FD_SETSIZE，再重新编译内核实现，但是这样也会造成效率的降低
+2、单个进程可监视的fd数量被限制，默认是1024，修改此值需要重新编译内核
+3、对socket是线性扫描，即采用轮询的方法，效率较低
+4、select采取了内存拷贝方法来实现内核将 FD 消息通知给用户空间，这样一个用来存放大量fd的数据结构，这样会使得用户空间和内核空间在传递该结构时复制开销大
+5、select是水平触发即只通知一次
 </code></pre>
-<p> <strong>poll：</strong></p>
-<pre><code>1、本质上和``select``没有区别，它将用户传入的数组拷贝到内核空间，然后查询每个fd对应的设备状态``2、其没有最大连接数的限制，原因是它是基于链表来存储的``3、大量的fd的数组被整体复制于用户态和内核地址空间之间，而不管这样的复制是不是有意义``4、poll特点是“水平触发”，如果报告了fd后，没有被处理，那么下次poll时会再次报告该fd``5、``select``是边缘触发即只通知一次
+<h4 id="poll："><a href="#poll：" class="headerlink" title="poll："></a><strong>poll：</strong></h4><pre><code>1、本质上和select没有区别，它将用户传入的数组拷贝到内核空间，然后查询每个fd对应的设备状态
+2、其没有最大连接数的限制，原因是它是基于链表来存储的
+3、大量的fd的数组被整体复制于用户态和内核地址空间之间，而不管这样的复制是不是有意义
+4、poll特点是“水平触发”，如果报告了fd后，没有被处理，那么下次poll时会再次报告该fd
 </code></pre>
-<p><strong>epoll：在Linux 2.6内核中提出的select和poll的增强版本</strong></p>
-<pre><code>1、支持水平触发LT和边缘触发ET，最大的特点在于边缘触发，它只告诉进程哪些fd刚刚变为就需态，并且只会通知一次``2、使用“事件”的就绪通知方式，通过epoll_ctl注册fd，一旦该fd就绪，内核就会采用类似callback的回调机制来激活该fd，epoll_wait便可以收到通知
+<h4 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a><strong>epoll</strong></h4><p><strong>在Linux 2.6内核中提出的select和poll的增强版本</strong></p>
+<pre><code>1、支持水平触发LT和边缘触发ET，最大的特点在于边缘触发，它只告诉进程哪些fd刚刚变为就需态，并且只会通知一次
+2、使用“事件”的就绪通知方式，通过epoll_ctl注册fd，一旦该fd就绪，内核就会采用类似callback的回调机制来激活该fd，epoll_wait便可以收到通知
 </code></pre>
-<p><strong>优点:</strong></p>
-<pre><code>1、没有最大并发连接的限制：能打开的FD的上限远大于1024(1G的内存能监听约10万个端口)，具体查看``/proc/sys/fs/file-max``，此值和系统内存大小相关``2、效率提升：非轮询的方式，不会随着FD数目的增加而效率下降；只有活跃可用的FD才会调用callback函数，即epoll最大的优点就在于它只管理“活跃”的连接，而跟连接总数无关``3、内存拷贝，利用mmap(Memory Mapping)加速与内核空间的消息传递；即epoll使用mmap减少复制开销
+<p><strong>优点:</strong></p>
+<pre><code>1、没有最大并发连接的限制：能打开的FD的上限远大于1024(1G的内存能监听约10万个端口)，具体查看/proc/sys/fs/file-max，此值和系统内存大小相关
+2、效率提升：非轮询的方式，不会随着FD数目的增加而效率下降；只有活跃可用的FD才会调用callback函数，即epoll最大的优点就在于它只管理“活跃”的连接，而跟连接总数无关
+3、内存拷贝，利用mmap(Memory Mapping)加速与内核空间的消息传递；即epoll使用mmap减少复制开销
 </code></pre>
 <h2 id="MMAP介绍"><a href="#MMAP介绍" class="headerlink" title="MMAP介绍"></a>MMAP介绍</h2><p>mmap()系统调用使得进程之间通过映射同一个普通文件实现共享内存。普通文件被映射到进程地址空间后，进程可以向访问普通内存一样对文件进行访问。</p>
 <h3 id="零拷贝"><a href="#零拷贝" class="headerlink" title="零拷贝"></a>零拷贝</h3><p>1、传统Linux中 I&#x2F;O 的问题</p>
