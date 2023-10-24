@@ -96,11 +96,11 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AF%AD%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">语法介绍</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="post-toc-text">正则表达式</span></a></li></ol>
         
-        <p>正则表达式，又称规则表达式：Regular Expression，在代码中常简写为regex、regexp或RE。</p>
+        <h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>正则表达式，又称规则表达式：Regular Expression，在代码中常简写为regex、regexp或RE。</p>
 <p>正则表达式是对字符串（包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为“元字符”））操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。正则表达式是一种文本模式，该模式描述在搜索文本时要匹配的一个或多个字符串。</p>
-<h2 id="语法介绍"><a href="#语法介绍" class="headerlink" title="语法介绍"></a>语法介绍</h2><p><strong>1、常用的元字符</strong></p>
+<p><strong>1、常用的元字符</strong></p>
 <table>
 <thead>
 <tr>
@@ -137,6 +137,21 @@
 <td>匹配字符串的结束</td>
 </tr>
 </tbody></table>
+<p>其他：</p>
+<ul>
+<li>[:alnum:] 或 [0-9a-zA-Z]</li>
+<li>[:alpha:] 或 [a-zA-Z]</li>
+<li>[:upper:] 或 [A-Z]</li>
+<li>[:lower:] 或 [a-z]</li>
+<li>[:blank:] 空白字符（空格和制表符）</li>
+<li>[:space:] 水平和垂直的空白字符（比[:blank:]包含的范围广）</li>
+<li>[:cntrl:] 不可打印的控制字符（退格、删除、警铃…）</li>
+<li>[:digit:] 十进制数字 或[0-9]</li>
+<li>[:xdigit:]十六进制数字</li>
+<li>[:graph:] 可打印的非空白字符</li>
+<li>[:print:] 可打印字符</li>
+<li>[:punct:] 标点符号</li>
+</ul>
 <p><strong>2、常用的限定符</strong></p>
 <table>
 <thead>
@@ -150,26 +165,31 @@
 <td>重复零次或更多次</td>
 </tr>
 <tr>
-<td>+</td>
+<td>.*</td>
+<td>任意字符的一次或多次</td>
+</tr>
+<tr>
+<td>\+</td>
 <td>重复一次或更多次</td>
 </tr>
 <tr>
-<td>?</td>
+<td>\?</td>
 <td>重复零次或一次</td>
 </tr>
 <tr>
-<td>{n}</td>
+<td>\{n\}</td>
 <td>重复n次</td>
 </tr>
 <tr>
-<td>{n,}</td>
+<td>\{n,\}</td>
 <td>重复n次或更多次</td>
 </tr>
 <tr>
-<td>{n,m}</td>
+<td>\{n,m\}</td>
 <td>重复n到m次</td>
 </tr>
 </tbody></table>
+<p>注意：***** 默认是量词而不是元字符，所以一般不需要加转义符号</p>
 <p><strong>3、常用的反义代码</strong></p>
 <table>
 <thead>
@@ -199,7 +219,20 @@
 <td>匹配除了aeiou这几个字母以外的任意字符</td>
 </tr>
 </tbody></table>
-<p><strong>4、分组语法</strong></p>
+<p><strong>4、分组和后向引用</strong></p>
+<p>分组：</p>
+<p>\(\) 将一个或多个字符捆绑在一起，当作一个整体进行处理</p>
+<p>　　分组括号中的模式匹配到的内容会被正则表达式引擎记录于内部的变量中，这些变量的命名方式为: \1, \2, \3, …</p>
+<p>后向引用：</p>
+<p>引用前面的分组括号中的模式所匹配字符，而非模式本身</p>
+<p>\1 表示从左侧起第一个左括号以及与之匹配右括号之间的模式所匹配到的字符</p>
+<p>\2 表示从左侧起第2个左括号以及与之匹配右括号之间的模式所匹配到的字符，以此类推</p>
+<p>&amp; 表示前面的分组中所有字符</p>
+<p>流程分析如下：</p>
+<p><img src="/../pic/1216496-20190213090906435-1889784692.png" alt="img"></p>
+<p>示例：</p>
+<p><img src="/../pic/1216496-20190213090916442-579082373.png" alt="img"></p>
+<p><strong>4、锚定</strong></p>
 <table>
 <thead>
 <tr>
@@ -209,6 +242,16 @@
 </tr>
 </thead>
 <tbody><tr>
+<td>单词模式</td>
+<td>\&lt;或者\b</td>
+<td>词首锚定，用于单词模式的左侧</td>
+</tr>
+<tr>
+<td></td>
+<td>\&gt;或者\b</td>
+<td>词尾锚定，用于单词模式的右侧</td>
+</tr>
+<tr>
 <td>捕获</td>
 <td>(exp)</td>
 <td>匹配exp,并捕获文本到自动命名的组里</td>
