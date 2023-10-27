@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Nginx模块功能" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Nginx模块功能
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx%E7%AB%99%E7%82%B9%E7%9B%AE%E5%BD%95%E6%B5%8F%E8%A7%88%E5%8A%9F%E8%83%BD"><span class="post-toc-text">Nginx站点目录浏览功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%8A%9F%E8%83%BD"><span class="post-toc-text">Nginx访问控制功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%9D%A5%E6%BA%90IP%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="post-toc-text">基于来源IP访问控制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E5%90%8D%E5%AF%86%E7%A0%81%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="post-toc-text">基于用户名密码身份认证</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx%E8%AF%B7%E6%B1%82%E6%95%B0%E3%80%81%E5%B9%B6%E5%8F%91%E8%BF%9E%E6%8E%A5%E4%BB%A5%E5%8F%8A%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E9%99%90%E5%88%B6"><span class="post-toc-text">Nginx请求数、并发连接以及下载速度限制</span></a></li></ol>
+        
+        <p>1</p>
+<h2 id="Nginx站点目录浏览功能"><a href="#Nginx站点目录浏览功能" class="headerlink" title="Nginx站点目录浏览功能"></a>Nginx站点目录浏览功能</h2><p>实现Nginx站点目录浏览功能的模块：</p>
+<ul>
+<li><code>ngx_http_autoindex_module</code>模块</li>
+</ul>
+<p>Nginx默认是不允许列出整个目录的，如需客户端能够访问整个站点目录，可以打开要启用的站点目录的虚拟主机的配置文件，在server或者location区段中添加<code>autoindex on;</code>，这样就可以启用目录浏览功能。</p>
+<p>这样当Nginx找不到默认索引文件（index.html）的时候，就会将请求传递给 <code>ngx_http_autoindex_module</code>模块，来处理<strong>以斜杠（”&#x2F;“）结尾</strong>的请求，生成目录列表。</p>
+<pre><code class="sh">    # autoindex on;			# 也可以在http区段配置，表示所有虚拟主机站点都采用此配置
+    server &#123;
+    listen	     80;
+    server_name  mirrors;
+    charset utf-8;
+    # autoindex on;				# 开启目录浏览功能
+    # autoindex_exact_size on		# 显示确切的文件大小（off 是以KB显示）
+    # autoindex_localtime  on		# 显示本地时间（off 是UTC时间）
+    location / &#123;
+        root    /mirrors;
+    &#125;
+    location / &#123;
+        root    /mirrors/share;
+        # autoindex on;			# 也可以在lacation区段配置，表示仅在站点目录某个子目录开启目录浏览功能
+    &#125;
+    &#125;
+</code></pre>
+<h2 id="Nginx访问控制功能"><a href="#Nginx访问控制功能" class="headerlink" title="Nginx访问控制功能"></a>Nginx访问控制功能</h2><p>实现Nginx主要有两个模块：</p>
+<ul>
+<li>基于来源IP访问控制，即<code>ngx_http_access_module</code>模块</li>
+<li>基于使用用户密码登录，即<code>ngx_http_auth_basic_module</code>模块</li>
+</ul>
+<h3 id="基于来源IP访问控制"><a href="#基于来源IP访问控制" class="headerlink" title="基于来源IP访问控制"></a>基于来源IP访问控制</h3><pre><code class="sh">    # allow 192.168.110.0/24;	# 也可以在http区段配置，表示所有虚拟主机站点都采用此配置
+    server &#123;
+    listen	     80;
+    server_name  mirrors;
+    charset utf-8;
+    # allow 192.168.110.0/24;		# 设置允许访问的单个IP或者网段
+    # deny all;						# 拒绝所有
+    location / &#123;
+        root    /mirrors;
+    &#125;
+    location / &#123;
+        root    /mirrors/share;
+        # allow 192.168.110.0/24;	# 也可以在lacation区段配置，表示仅在站点目录某个子目录开启访问控制
+    &#125;
+    &#125;
+</code></pre>
+<p>基于来源IP的访问控制有一个缺陷，就是当使用了网站中间代理的时候，Nginx获取到的是中间代理的IP地址，那么就无法对来源IP进行访问控制。</p>
+<p>解决办法：采用http头信息控制访问，比如：<code>x_forwarded_for</code> 字段，同时获取源IP和代理IP</p>
+<p><img src="/../pic/x-forwarded.jpg" alt="Nginx 访问控制模块| W&#39;s Notes"></p>
+<h3 id="基于用户名密码身份认证"><a href="#基于用户名密码身份认证" class="headerlink" title="基于用户名密码身份认证"></a>基于用户名密码身份认证</h3><pre><code class="sh">    # 可以在http区段配置，表示所有虚拟主机站点都采用此配置
+    server &#123;
+    listen	     80;
+    server_name  mirrors;
+    charset utf-8;
+    # auth_basic &quot;请登录&quot;;		# 此字段设置验证提示信息
+    # auth_basic_user_file /etc/nginx/auth_pass;	# 指定一个认证文件的地址
+    location / &#123;
+        root    /mirrors;
+    &#125;
+    location / &#123;
+        root    /mirrors/share;
+        # 也可以在lacation区段配置
+    &#125;
+    &#125;
+</code></pre>
+<blockquote>
+<p>关于认证文件的生成</p>
+</blockquote>
+<pre><code class="sh">yum install httpd-tools -y			# 安装生成认证文件的工具
+rpm -ql httpd-tools			# 查看主要命令
+/usr/bin/ab				# 用于压力测试
+/usr/bin/htpasswd		# 用于生成认证文件
+
+# 生成认证文件，指定用户名和密码
+htpasswd -b -c /etc/nginx/auth_pass dengpangpang 123456		# -b 非交互模式； -c 指定文件路径
+</code></pre>
+<p>基于用户名密码身份认证的局限性是</p>
+<ol>
+<li>用户信息依赖文件</li>
+<li>操作管理机械、效率低</li>
+</ol>
+<p>解决方式：</p>
+<ol>
+<li>nginx结合lua实现高效验证</li>
+<li>nginx配合LDAP打通，利用nginx-auth-ldap模块</li>
+</ol>
+<h2 id="Nginx请求数、并发连接以及下载速度限制"><a href="#Nginx请求数、并发连接以及下载速度限制" class="headerlink" title="Nginx请求数、并发连接以及下载速度限制"></a>Nginx请求数、并发连接以及下载速度限制</h2><p>限制某客户端在单位时间内同时访问的http请求数</p>
+<ul>
+<li><code>ngx_http_limit_req_module</code>模块实现</li>
+</ul>
+<p>限制同一时间的并发连接数</p>
+<ul>
+<li><code>ngx_http_limit_conn_module</code>模块实现</li>
+</ul>
+<p>限制客户端下载资源的速度</p>
+<ul>
+<li><code>ngx_http_core_module</code>模块实现</li>
+</ul>
+<p>这里的具体配置参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/hukey/p/10498544.html">Nginx - 限制并发、限制访问速率、限制流量 - hukey - 博客园 (cnblogs.com)</a></p>
+<p>明天研究</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-26</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>

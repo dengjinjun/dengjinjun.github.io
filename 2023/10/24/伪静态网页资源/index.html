@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="伪静态网页资源" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            伪静态网页资源
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%9D%99%E6%80%81%E5%92%8C%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E8%B5%84%E6%BA%90"><span class="post-toc-text">静态和动态网页资源</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BC%AA%E9%9D%99%E6%80%81%E7%BD%91%E9%A1%B5"><span class="post-toc-text">伪静态网页</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A4%A7%E8%A7%84%E6%A8%A1%E9%97%A8%E6%88%B7%E7%BD%91%E7%AB%99%E9%9B%86%E7%BE%A4%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E9%9D%99%E6%80%81%E5%8C%96%E6%9E%B6%E6%9E%84%E6%A1%88%E4%BE%8B"><span class="post-toc-text">大规模门户网站集群实现异步静态化架构案例</span></a></li></ol>
+        
+        <h2 id="静态和动态网页资源"><a href="#静态和动态网页资源" class="headerlink" title="静态和动态网页资源"></a>静态和动态网页资源</h2><p>在网站设计中，纯粹HTML格式的网页（可以包含图片、视频、JS、CSS等）被称为静态网页。静态网页是相对于动态网页而言的，是指没有后台数据库、不含动态程序（如php，jsp）和可交互的网页。</p>
+<p>所谓的动态网页一般以.asp、.aspx、.php、.js、.cgi等形式作为后缀，且在动态网页的网址中会有标志性的符号——“?”、”&amp;” ，此外，在大多数情况下后端有需要有数据库支持。</p>
+<blockquote>
+<p>静态网页资源的特点</p>
+</blockquote>
+<p>每个页面都有一一个固定的URL地址，并且URL一般以.html、.htm等常见形式为后缀，不含有 ？或 &amp; 等特殊符号</p>
+<p>网页内容一经发布到服务器上，无论是否有用户访问，每个网页的内容都是保存在网站服务器的文件系统上的，都是独立的文件。</p>
+<p>网页内容是固定不变的，因此容易被百度等搜索引擎收录。</p>
+<p><strong>没有数据库的支持</strong>，网站制作和维护方面工作量较大，因此当网站信息量较大时完全依靠静态网页比较困难。</p>
+<p><strong>网页的交互性比较差，在程序实现功能方面有比较大的限制。</strong></p>
+<p><strong>网站程序在用户浏览器端解析，并且不需要读取数据库，因此服务端可以接收更多的并发访问。客户端请求数据时，直接把数据从服务端磁盘文件系统中返回，在浏览器端解析展现出来。</strong></p>
+<blockquote>
+<p>动态网页资源特点</p>
+</blockquote>
+<p>网页后缀名一般为.asp、.aspx、.php、.js、.cgi等形式。</p>
+<p>动态网页并不独立存在于服务器上的网页文件，当用户请求服务器上的动态程序时，服务器解析这些程序并读取数据库返回完整的网页内容。</p>
+<p>动态网页中的”?”在搜索引擎的收录方面有一定的问题，因此企业通过搜索引擎进行推广时，一般做一定的技术处理（伪静态技术）</p>
+<p>网页一般以数据库技术为基础，大大降低了网站维护的工作量。</p>
+<p>采用动态网页技术可以实现更多的功能，比如用户注册、用户登录、在线调查、投票、订单管理等。</p>
+<p>程序在服务端进行解析，会消耗大量的CPU、内存、I&#x2F;O等资源，访问效率远不如静态网页。</p>
+<blockquote>
+<p>有关动态网页的架构思想</p>
+</blockquote>
+<p>一般来说，静态网页的性能效率时动态网页的10~30倍。且动态网站效率很差，并发能力也很低，在高并发场景中，应尽量转换成静态网页提供服务，动态转静态几乎是所有高并发网站必备的架构方案思路，也是高级架构师职责所在。</p>
+<p>此外，动态转静态也需要很具业务需求设计，对于频繁更新的望着那如果设计的不好有可能产生数据不一致的情况，即用户看到的数据不是网站最新的内容，而是静态的内容。</p>
+<h2 id="伪静态网页"><a href="#伪静态网页" class="headerlink" title="伪静态网页"></a>伪静态网页</h2><p>伪静态就是通过某些技术（如rewrite）把动态网页的URL伪装成静态网页的URL地址。伪静态网页实质上用户访问的还是动态网页，只不过给用户看起来的URL地址时符合静态网页地址特征的，因此，用户和搜索引擎会误以为是静态网页。</p>
+<blockquote>
+<p>伪静态网页的特点</p>
+</blockquote>
+<p>从网站的URL地址来看，伪静态表面上看起来是静态内容（如地址后缀是html）,这是通过rewrite规则实现的URL地址重写实质上访问的还是动态网页。</p>
+<p>从性能上来说，伪静态功能不但没有提升网站性能，反而会降低网站的性能；要提高性能，应当尽可能将动态网页转为真正的静态页面。</p>
+<p>但是从用户体验角度来看，改写后的URL地址规范美观，有利于搜索引擎抓取以及提升用户访问体验。</p>
+<p>伪静态网页的实现过程，一般是SEO运行产品提出需求，由开发和运维共同实现。</p>
+<h2 id="大规模门户网站集群实现异步静态化架构案例"><a href="#大规模门户网站集群实现异步静态化架构案例" class="headerlink" title="大规模门户网站集群实现异步静态化架构案例"></a>大规模门户网站集群实现异步静态化架构案例</h2><p><img src="/../pic/image-20231026010043236.png" alt="image-20231026010043236"></p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-24</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
