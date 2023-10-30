@@ -108,8 +108,9 @@
 <pre><code class="sql">create database if not exists 数据库名;
 </code></pre>
 </li>
-<li><p>创建数据库并指定字符集</p>
+<li><p>创建数据库并指定字符集和排序方式</p>
 <pre><code class="sql">create database 数据库名 character set 字符集;
+create database 数据库名 character set utf8mb4 collate utf8mb4_unicode_ci		# 最常用的utf-8
 </code></pre>
 </li>
 <li><p>补充：查看所有字符集</p>
