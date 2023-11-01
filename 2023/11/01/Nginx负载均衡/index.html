@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Nginx负载均衡之会话保持" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Nginx负载均衡之会话保持
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="post-toc-text">相关概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">负载均衡</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="post-toc-text">调度算法</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%83%A8%E7%BD%B2%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">部署负载均衡</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%98%E7%BD%91%E6%90%AD%E5%BB%BA%E7%A4%BA%E4%BE%8B"><span class="post-toc-text">官网搭建示例</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%AC%E6%9C%BA%E5%AE%9E%E8%B7%B5"><span class="post-toc-text">本机实践</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3"><span class="post-toc-text">参数详解</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E4%BC%9A%E8%AF%9D%E4%BF%9D%E6%8C%81"><span class="post-toc-text">负载均衡的会话保持</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BC%9A%E8%AF%9D%E3%80%81cookie%E5%92%8Csession"><span class="post-toc-text">什么是会话、cookie和session</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#session%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="post-toc-text">session实现原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BC%9A%E8%AF%9D%E4%BF%9D%E6%8C%81"><span class="post-toc-text">会话保持</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%8E%9F%E5%9C%B0%E5%9D%80%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="post-toc-text">基于原地址实现：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%9F%BA%E4%BA%8E%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="post-toc-text">基于连接超时实现：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%A9%E7%94%A8session%E5%A4%8D%E5%88%B6%EF%BC%9A"><span class="post-toc-text">利用session复制：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%8A%8Asession%E5%85%B1%E4%BA%AB%EF%BC%88%E9%87%8D%E8%A6%81%E6%99%AE%E9%81%8D%EF%BC%89%EF%BC%9A"><span class="post-toc-text">把session共享（重要普遍）：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#cookie%E6%8F%92%E5%85%A5%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">cookie插入方式实现</span></a></li></ol></li></ol></li></ol>
+        
+        <p>Nginx负载均衡是指将客户端请求分发到多个目标服务器上，以实现服务器的高可用性和性能优化。当某个服务器宕机或无法响应请求时，Nginx可以自动将请求转发到其他可用的服务器上，从而保证服务的可用性。</p>
+<h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>客户端发送的、nginx反向代理服务器接收到的请求数量，就是我们说的负载量。</p>
+<p>请求数量按照一定的规则进行分发到不同的服务器处理的规则，就是一种均衡规则。</p>
+<p>所以将服务器接收到的请求按照规则分发的过程，称为负载均衡。</p>
+<p>负载均衡在实际项目操作过程中，有硬件负载均衡和软件负载均衡两种，硬件负载均衡也称为硬负载，如F5负载均衡，相对造价昂贵成本较高，但是数据的稳定性安全性等等有非常好的保障，如中国移动中国联通这样的公司才会选择硬负载进行操作；更多的公司考虑到成本原因，会选择使用软件负载均衡，软件负载均衡是利用现有的技术结合主机硬件实现的一种消息队列分发机制。</p>
+<blockquote>
+<p>负载均衡集群（Load Balancing Custers），简称LB或LBC</p>
+</blockquote>
+<p>负载均衡的作用是分发访问请求以及用户流量，常应用于web业务以及数据库从库等服务器的业务。</p>
+<blockquote>
+<p>高可用集群（High-Availiability Cluster），简称HA或HAC</p>
+</blockquote>
+<p>高可用集群的作用为：当一台机器宕机时，另一台机器接管宕机的机器的IP资源以及服务资源，提供服务，常用于不易实现负载均衡的应用，比如负载均衡器、主数据库之间。</p>
+<p>有能力自建机房的企业会选择使用硬件来实现负载均衡和高可用，其中F5或者Haproxy，可以实现四层和七层的负载均衡。</p>
+<p>一般使用云主机的企业，可以选择服务商提供的负载均衡服务，比如阿里云的SLB，没什么钱的企业可以使用开源的集群软件：nginx+keepalived</p>
+<p>L4负载均衡和L7负载均衡的区别</p>
+<p>LVS、Nginx、Haproxy的区别</p>
+<p>一致性哈希算法</p>
+<h3 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h3><p>nginx支持的负载均衡调度算法方式如下：</p>
+<blockquote>
+<p>轮询算法（rr）</p>
+</blockquote>
+<p>根据请求，均匀分配到资源池的各个节点。特点是平均分配，用于配置相同的服务器。</p>
+<blockquote>
+<p>加权轮询（wrr）</p>
+</blockquote>
+<p>接收到的请求按照顺序逐一分配到不同的后端服务器，即使在使用过程中，某一台后端服务器宕机，nginx会自动将该服务器剔除出队列，请求受理情况不会受到任何影响。 这种方式下，可以给不同的后端服务器设置一个权重值（weight），用于调整不同的服务器上请求的分配率；权重数据越大，被分配到请求的几率越大；该权重值，主要是针对实际工作环境中不同的后端服务器硬件配置进行调整的。</p>
+<blockquote>
+<p>IP地址哈希（ip_hash）</p>
+</blockquote>
+<p>每个请求按照发起客户端的ip的hash结果进行匹配，这样的算法下一个固定ip地址的客户端总会访问到同一个后端服务器，这也在一定程度上解决了集群部署环境下会话保持的问题。弊端是可能会导致某一个节点压力过大，而其他节点没有流量。</p>
+<p><strong>如果既想使用轮询负载算法，又不想某个节点压力过大，同时解决会话保持的问题，可以使用redis缓存，存储所有节点的session会话信息。</strong></p>
+<blockquote>
+<p>智能调整调度算法（fair）</p>
+</blockquote>
+<p>智能调整调度算法，动态的根据后端服务器的请求处理到响应的时间进行均衡分配，响应时间短处理效率高的服务器分配到请求的概率高，响应时间长处理效率低的服务器分配到的请求少；结合了前两者的优点的一种调度算法。但是需要注意的是nginx默认不支持fair算法，如果要使用这种调度算法，请安装upstream_fair模块</p>
+<blockquote>
+<p>URL哈希（url_hash）</p>
+</blockquote>
+<p>按照访问的url的hash结果分配请求，每个请求的url会指向后端固定的某个服务器，可以在nginx作为静态服务器的情况下提高缓存效率。同样要注意nginx默认不支持这种调度算法，要使用的话需要安装nginx的hash软件包。URL哈希主要用于缓存服务器集群，缺点是当节点宕机或增加节点时容易出现缓存数据大面积动荡。解决方式是<strong>一致性哈希算法</strong>（Nginx默认不支持一致性哈希算法，淘宝的tengine支持）。</p>
+<h2 id="部署负载均衡"><a href="#部署负载均衡" class="headerlink" title="部署负载均衡"></a>部署负载均衡</h2><p>Nginx官网提供了部署负载均衡的操作文档：</p>
+<p>offical document of upstream : <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_upstream_module.html">Module ngx_http_upstream_module (nginx.org)</a></p>
+<p>由<code>ngx_http_upstream_module</code>模块实现：The <code>ngx_http_upstream_module</code> module is used to define groups of servers that can be referenced by the <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass">proxy_pass</a>, <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_pass">fastcgi_pass</a>, <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_uwsgi_module.html#uwsgi_pass">uwsgi_pass</a>, <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_scgi_module.html#scgi_pass">scgi_pass</a>, <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_memcached_module.html#memcached_pass">memcached_pass</a>, and <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_grpc_module.html#grpc_pass">grpc_pass</a> directives.</p>
+<h3 id="官网搭建示例"><a href="#官网搭建示例" class="headerlink" title="官网搭建示例"></a>官网搭建示例</h3><p>Example Configuration : </p>
+<blockquote>
+<pre><code class="sh">upstream backend &#123;						# upstream固定字段，代表负载均衡，backend是自定义区段名
+    server backend1.example.com       weight=5;		# 配置一个服务器节点，默认端口80，权重为5
+    server backend2.example.com:8080;
+    server unix:/tmp/backend3;
+
+    server backup1.example.com:8080   backup;		# backup是热备节点
+    server backup2.example.com:8080   backup;
+&#125;
+
+server &#123;
+    location / &#123;
+        proxy_pass http://backend;
+    &#125;
+&#125;
+</code></pre>
+</blockquote>
+<h3 id="本机实践"><a href="#本机实践" class="headerlink" title="本机实践"></a>本机实践</h3><pre><code>upstream backend &#123;
+    server 192.168.110.137	weight=1;		# 配置web01，默认端口80，权重为1
+    server 192.168.110.138	weight=1;		# 配置web02，默认端口80，权重为1
+&#125;
+
+server &#123;
+    location / &#123;
+        proxy_pass http://backend;
+        proxy_set_header Host      $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="参数详解"><a href="#参数详解" class="headerlink" title="参数详解"></a>参数详解</h3><p>upstream模块的内容应该放置在nignx.conf配置的http区段内，默认调度算法是权重轮询wrr(Weighted Round-Robin)</p>
+<pre><code>server			# 承担负载均衡的节点，后面可以是IP地址或者域名，可以指定端口，默认是80端口。IP换成域名可以通过DNS做负载均衡
+weight=1		# 代表服务器权重，默认值是1，权重数字越大代表接受请求比例越大。用于节点硬件比例不一致的情况。
+backup			# 热备节点。当前面的负载均衡服务器全部宕机后，会自动启动热备节点。
+down			# 标志着服务器永远不可用。可以基于url_hash做缓存服务，宕机的节点标记为down
+max_fails=1		# 尝试连接后端服务器失败的次数达到这个值之后，将踢出分发池。企业场景建议2~3次。次数越少，用户体验越好，但服务端压力更大。
+fail_timeout=10s	# 踢出分发池之后，距离下一次健康检查的时间
+maxcoon			# 指定可并发到该服务器的最大并发连接数。
+</code></pre>
+<h2 id="负载均衡的会话保持"><a href="#负载均衡的会话保持" class="headerlink" title="负载均衡的会话保持"></a>负载均衡的会话保持</h2><h3 id="什么是会话、cookie和session"><a href="#什么是会话、cookie和session" class="headerlink" title="什么是会话、cookie和session"></a>什么是会话、cookie和session</h3><blockquote>
+<p>会话</p>
+</blockquote>
+<p>Http协议是无状态的协议，在网络传输中的每次连接断开后，需要重新再去连接，因此服务器端是无法判断此次连接的客户端是谁。如果每次数据传输都需要进行连接和断开，那造成的开销是很巨大的。并且网站有会员和非会员区别，同时，有浏览网站和登录账户购物等需求，因此就需要一种方法区别不同访问的用户是谁，于是会话就应运而生。会话实现有cookie和session。</p>
+<blockquote>
+<p>cookie</p>
+</blockquote>
+<p>为了解决网络访问的用户是谁的问题，因此cookie应运而生，当用户登陆成功后，服务器会在返回响应数据的同时也携带着cookie信息给到客户端浏览器，之后客户端每次发起请求只要携带着这个cookie信息，服务端就会验证这个cookie信息，进而判断用户是谁，用户则会处于登录的状态，无需再登录，同时也改善了网络传输效率。</p>
+<p>但是由于cookie是保存在客户端浏览器的数据，因此也很容易被获取，存在安全方面隐患。</p>
+<blockquote>
+<p>session</p>
+</blockquote>
+<p>session本质是通过以cookie的方式向客户端发送随机字符串，每次客户端发起请求时只要携带</p>
+<p>该随机字符串便可被服务端获取进而验证用户登录的身份。session的实现依赖于cookie。</p>
+<p>session信息是保存在服务端的数据。</p>
+<blockquote>
+<p>session和cookie的区别</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>cookie</th>
+<th>session</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存放位置</td>
+<td>客户端</td>
+<td>服务端</td>
+</tr>
+<tr>
+<td>作用</td>
+<td>存放服务端下发的信息，sessionid等。</td>
+<td>存放用户登录信息，用户名、密码、sessionid、购物车信息等</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>不安全，容易被伪造</td>
+<td>安全</td>
+</tr>
+<tr>
+<td>生产应用</td>
+<td>其他信息可存放在cookie中</td>
+<td>登录信息等重要信息放在session中</td>
+</tr>
+</tbody></table>
+<h3 id="session实现原理"><a href="#session实现原理" class="headerlink" title="session实现原理"></a>session实现原理</h3><ol>
+<li>用户发出登录请求。</li>
+<li>服务端判断用户账户密码是否正确</li>
+<li>如正确，则返回数据并在cookie中写随机字符串（session ID），并且在服务端以{随机字符串：{‘k’:’v’}}的形式存储用户相关数据。</li>
+<li>客户端接收服务端在cookie中写随机字符串（session ID），并且保留在浏览器本地。</li>
+<li>下次同一个客户发送请求，携带cookie（包含session ID）信息在请求报文里。</li>
+<li>服务端会判断客户端提交的cookie信息是否包含session ID，如有再去服务器中查询该session ID 是否有对应的session数据，如果有则说明是登录过的用户，返回请求的数据。</li>
+</ol>
+<p><img src="/../pic/koyvmr7bdujv2_41ee359cbd4e4cbe8a2c5b8cd3a8467c.png" alt="img"></p>
+<h3 id="会话保持"><a href="#会话保持" class="headerlink" title="会话保持"></a>会话保持</h3><p>负载均衡集群后面有多个节点，如果一个用户的多次请求被分配到多个不同节点，就会导致用户登录了网站后（假如分配到A节点），然后在点击进入其它页面后，就会出现未登录状态的问题，这显然是不行的。会话保持就是运行负载均衡集群时需要的一种机制，在负载均衡的同时还保证一系列相关连的访问请求都会分配到同一台机器上。一句话说明就是<strong>在一次会话过程中发起的多个请求都会落到同一台机器上</strong>。</p>
+<h4 id="基于原地址实现："><a href="#基于原地址实现：" class="headerlink" title="基于原地址实现："></a>基于原地址实现：</h4><p>即使用nginx ip_hash的调度算法，将同一用户的请求始终分配至同一服务器上。</p>
+<p>优点：实现简单。缺点：导致负载失衡（特别是NAT上网的情况下）。</p>
+<h4 id="基于连接超时实现："><a href="#基于连接超时实现：" class="headerlink" title="基于连接超时实现："></a>基于连接超时实现：</h4><p>负载均衡器会为每一个处于保持状态中的会话设定一个时间值。若一个会话从上一次完成到下次再来之间的间隔时间小于超时值时，负载均衡器将会将新的连接进行会话保持；但如果这个间隔大于该超时值，负载均衡器会将新来的连接认为是新的会话然后进行负载平衡。<strong>lvs -p功能</strong>。</p>
+<p>优点：实现简单。缺点：也会导致负载有一定的失衡，仅LVS等少数软件支持。</p>
+<h4 id="利用session复制："><a href="#利用session复制：" class="headerlink" title="利用session复制："></a>利用session复制：</h4><p>即采用复制的方法，当产生session时，同步复制到所有集群节点，tomcat集群功能。</p>
+<h4 id="把session共享（重要普遍）："><a href="#把session共享（重要普遍）：" class="headerlink" title="把session共享（重要普遍）："></a>把session共享（重要普遍）：</h4><p>即采用将session集中存储到某一固定地点：</p>
+<p>a.文件中存放（PHP服务默认）。b.数据库中存放即采用将session存储至MySQL数据库中（例如：discuz论坛）c.内存数据库（memcache,redis）中存放（推荐）</p>
+<p>即采用统一一的内存数据库存储方式，将session存储到redis,memcached中。中小企业推荐使用内存数据库实现。</p>
+<p>优点：速度快。缺点：需要配置内存数据库，并且要配置动态服务配置文件。</p>
+<h4 id="cookie插入方式实现"><a href="#cookie插入方式实现" class="headerlink" title="cookie插入方式实现"></a>cookie插入方式实现</h4><p>在基于cookie模式下负载均衡器负责插入cookie，后端服务器无需作出任何修改。当客户端进行第一次请求时，客户端的HTTP request（不带cookie）进入负载均衡器， CLB根据负载平衡算法策略选择后端一台服务器，并将请求发送至该服务器；后端服务器的HTTP response（不带cookie）被发回给负载均衡器。接下来负载均衡器将向该会话插入cookie并将HTTP response返回到客户端。</p>
+<p>当客户请求再次发生时，客户HTTP request（带有上次负载均衡器插入的cookie）进入CLB，然后CLB读出cookie里的会话保持数值，将HTTP request（带有与上面同样的cookie）发到指定的服务器，然后后端服务器进行请求回复；由于服务器并不写入cookie，HTTP response将不带cookie，该HTTP response再次经过进入CLB时，CLB将写入更新后的会话保持cookie。腾讯云CLB的7层会话保持能力，就是基于这样的cookie插入的方式实现的。Haproxy也支持cookie插入的方式，但是Nginx默认不支持此种方式。</p>
+<p>优点：不需要后端服务和程序支持，只在负载均衡器配置即可（需要负载均衡器支持）。缺点：消耗负载均衡资源</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-01</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>

@@ -96,7 +96,7 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#download-urls-py"><span class="post-toc-text">download_urls.py</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%8D%E5%88%86%E7%B1%BB%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87-py"><span class="post-toc-text">不分类下载图片.py</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%86%E7%B1%BB%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87-py"><span class="post-toc-text">分类下载图片.py</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#download-urls-py"><span class="post-toc-text">download_urls.py</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%86%E7%B1%BB%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87-py"><span class="post-toc-text">分类下载图片.py</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%8D%E5%88%86%E7%B1%BB%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87-py"><span class="post-toc-text">不分类下载图片.py</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%96%B0%E7%9A%84%E9%9C%80%E6%B1%82"><span class="post-toc-text">新的需求</span></a></li></ol>
         
         <p>防损项目经常要采集图片用于训练。</p>
 <p>利用脚本可便捷完成从数据库中下载图片，只需要提供sql语句，可以直接运行脚本将图片下载到本地，或者按照商品code分类下载到不同文件夹。</p>
@@ -188,89 +188,38 @@ def main():
 if __name__ == &#39;__main__&#39;:
     main()
 </code></pre>
-<h3 id="不分类下载图片-py"><a href="#不分类下载图片-py" class="headerlink" title="不分类下载图片.py"></a>不分类下载图片.py</h3><pre><code class="python">import os
-import asyncio
-import aiohttp
-import time
-import download_urls
-
-start = time.time()
-
-# 存放图片url的txt文件命名为url.txt，放在python脚本的同级目录下
-url_file = download_urls.url_file
-
-
-# 定义异步协程函数，用于下载单张图片并保存到本地
-async def download_image(session, line):
-    try:
-        async with session.get(line) as resp:
-            if line:
-                url, code = line.strip().split(&#39;\t&#39;)  # 获取url和商品代码
-                if not os.path.exists(code):
-                    os.makedirs(code)  # 创建商品代码命名的文件夹
-                filename = url.split(&#39;/&#39;)[-1]  # 取url最后一段作为图片名
-                download_path = os.path.join(code, filename)  # 保存路径
-                with open(download_path, &#39;wb&#39;) as image_file:  # 下载
-                    while True:
-                        chunk = await resp.content.read(1024 * 1024)
-                        if not chunk:
-                            break
-                        image_file.write(chunk)
-        print(f&#39;&#123;line&#125; 下载完成！&#39;)
-    except Exception as e:
-        print(f&#39;&#123;line&#125; 下载失败！异常信息：&#123;str(e)&#125;&#39;)
-
-
-# 定义入口函数，启动异步事件循环，并逐个下载所有图片
-async def main():
-    async with aiohttp.ClientSession() as session:
-        with open(url_file, &#39;r&#39;) as f:
-            lines = f.readlines()
-        tasks = [download_image(session, line) for line in lines]
-        await asyncio.gather(*tasks)
-
-# 显式调用，下载商品url和code到文件中
-download_urls.main()
-
-# 启动异步事件循环，并等待所有任务完成
-asyncio.run(main())
-
-print(&#39;所有图片下载完成!&#39;)
-
-end = time.time()
-
-print(&quot;总耗时：&quot;, end - start)
-
-time.sleep(30)
-</code></pre>
 <h3 id="分类下载图片-py"><a href="#分类下载图片-py" class="headerlink" title="分类下载图片.py"></a>分类下载图片.py</h3><pre><code class="python">import os
 import asyncio
 import aiohttp
 import time
 import download_urls
+
 start = time.time()
 
 # 存放图片url的txt文件命名为url.txt，放在python脚本的同级目录下
 url_file = download_urls.url_file
+
+# 创建存放图片的文件夹
 save_dir = &#39;./images/&#39;
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 
 
 # 定义异步协程函数，用于下载单张图片并保存到本地
-async def download_image(session, url):
+async def download_image(session, url, code):
     try:
-        dir_path, dir_name = os.path.split(url)
-        parent_dir, current_dir = os.path.split(dir_path)
-        save_path = os.path.join(save_dir + current_dir + dir_name)  # 后两级目录作为文件名
         async with session.get(url) as resp:
-            with open(save_path, &#39;wb&#39;) as f:
+            if not os.path.exists(save_dir+code):  # 创建商品代码命名的文件夹
+                os.makedirs(save_dir+code)
+            dir_path, filename = os.path.split(url)     # 获取文件名
+            download_path = os.path.join(&#39;images&#39;, code, filename)  # 保存路径
+            with open(download_path, &#39;wb&#39;) as f:  # 下载
                 while True:
                     chunk = await resp.content.read(1024 * 1024)
                     if not chunk:
                         break
                     f.write(chunk)
-        print(f&#39;&#123;url&#125; 下载完成！&#39;)
+            print(f&#39;&#123;url&#125; 下载完成！&#39;)
     except Exception as e:
         print(f&#39;&#123;url&#125; 下载失败！异常信息：&#123;str(e)&#125;&#39;)
 
@@ -280,8 +229,64 @@ async def main():
     async with aiohttp.ClientSession() as session:
         with open(url_file, &#39;r&#39;) as f:
             lines = f.readlines()
-        tasks = [download_image(session, line.strip().split(&quot;\t&quot;)[0]) for line in lines]
+        tasks = [download_image(session, line.strip().split(&quot;\t&quot;)[0], line.strip().split(&quot;\t&quot;)[1]) for line in lines]
         await asyncio.gather(*tasks)
+
+# 显式调用，下载商品url和code到文件
+download_urls.main()
+
+# 启动异步事件循环，并等待所有任务完成
+asyncio.run(main())
+
+# 执行结束，输出信息
+print(&#39;脚本执行结束，总耗时：&#123;&#125;秒，请退出！&#39;.format(time.time() - start))
+time.sleep(30)
+</code></pre>
+<h3 id="不分类下载图片-py"><a href="#不分类下载图片-py" class="headerlink" title="不分类下载图片.py"></a>不分类下载图片.py</h3><pre><code class="python">import asyncio
+import os
+import time
+
+import aiohttp
+
+import download_urls
+
+start = time.time()
+
+# 存放图片url的txt文件命名为url.txt，放在python脚本的同级目录下
+url_file = download_urls.url_file
+
+# 创建存放图片的文件夹
+save_dir = &#39;./images/&#39;
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
+
+
+# 定义异步协程函数，用于下载单张图片并保存到本地
+async def download_image(session, url):
+    try:
+        async with session.get(url) as resp:  # 异步下载
+            dir_path, dir_name = os.path.split(url)  # URL资源目录和图片文件名
+            save_path = os.path.join(save_dir + dir_name)  # 图片保存路径
+            with open(save_path, &#39;wb&#39;) as f:
+                while True:
+                    chunk = await resp.content.read(1024 * 1024)
+                    if not chunk:
+                        break
+                    f.write(chunk)
+            print(f&#39;&#123;url&#125; 下载完成！&#39;)
+
+    except Exception as e:
+        print(f&#39;&#123;url&#125; 下载失败！异常信息：&#123;str(e)&#125;&#39;)
+
+
+# 定义入口函数，启动异步事件循环，并逐个下载所有图片
+async def main():
+    async with aiohttp.ClientSession() as session:
+        with open(url_file, &#39;r&#39;) as f:
+            lines = f.readlines()
+        tasks = [download_image(session, line.strip().split(&quot;\t&quot;)[0]) for line in lines]  # 此处只传递了url
+        await asyncio.gather(*tasks)
+
 
 # 显式调用，下载商品url和code到文件中
 download_urls.main()
@@ -289,12 +294,69 @@ download_urls.main()
 # 启动异步事件循环，并等待所有任务完成
 asyncio.run(main())
 
-print(&#39;所有图片下载完成!&#39;)
+# 执行结束，输出信息
+print(&#39;脚本执行结束，总耗时：&#123;&#125;秒，请退出！&#39;.format(time.time() - start))
+time.sleep(30)
+</code></pre>
+<h3 id="新的需求"><a href="#新的需求" class="headerlink" title="新的需求"></a>新的需求</h3><p>不分类下载图片，但是每张图片都有一个对应的json，需要将每张图片的json写到一个txt文件中，并且json文本的文件名需要与图片相同。</p>
+<pre><code class="python">import os
+import asyncio
+import aiohttp
+import time
+import download_urls
 
-end = time.time()
+start = time.time()
 
-print(&quot;总耗时：&quot;, end - start)
+# 存放图片url的txt文件命名为url.txt，放在python脚本的同级目录下
+url_file = download_urls.url_file
 
+# 创建存放图片的文件夹
+save_dir = &#39;./images/&#39;
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
+
+# 创建存放json的文件夹
+if not os.path.exists(&#39;./labels/&#39;):
+    os.makedirs(&#39;./labels/&#39;)
+
+    
+# 定义异步协程函数，用于下载单张图片并保存到本地
+async def download_image(session, url, json):
+    try:
+        async with session.get(url) as resp:
+            dir_path, file_name = os.path.split(url)  # URL资源目录和图片文件名
+            save_path = os.path.join(save_dir + file_name)  # 图片保存路径
+            with open(&quot;./labels/&#123;&#125;.txt&quot;.format(file_name), &quot;w&quot;) as file:		# 写入json文件
+                file.write(json)
+            print(&quot;json已成功写入文件&quot;)
+            with open(save_path, &#39;wb&#39;) as f:			# 下载图片
+                while True:
+                    chunk = await resp.content.read(1024 * 1024)
+                    if not chunk:
+                        break
+                    f.write(chunk)
+            print(&#39;图片下载完成&#39;)
+    except Exception as e:
+        print(f&#39;&#123;url&#125; 下载失败！异常信息：&#123;str(e)&#125;&#39;)
+
+
+# 定义入口函数，启动异步事件循环，并逐个下载所有图片
+async def main():
+    async with aiohttp.ClientSession() as session:
+        with open(url_file, &#39;r&#39;) as f:
+            lines = f.readlines()
+        tasks = [download_image(session, line.strip().split(&quot;\t&quot;)[0], line.strip().split(&quot;\t&quot;)[1]) for line in lines]
+        await asyncio.gather(*tasks)
+
+
+# 显式调用，下载商品url和code到文件中
+download_urls.main()
+
+# 启动异步事件循环，并等待所有任务完成
+asyncio.run(main())
+
+# 执行结束，输出信息
+print(&#39;脚本执行结束，总耗时：&#123;&#125;秒，请退出！&#39;.format(time.time() - start))
 time.sleep(30)
 </code></pre>
 

@@ -512,9 +512,8 @@ useradd blog &amp;&amp; passwd blog
 <p><strong>一个server区段的作用场景：解决恶意域名解析</strong></p>
 <p>若是有人将没有备案的域名解析到本公司的服务器IP上，当有客户端通过这个域名访问时，我们的服务器查不到客户端访问所请求的域名信息，就会默认把第一个虚拟主机分配给客户端进行访问，所以为了解决这个问题，可以将nginx第一个虚拟主机设置为</p>
 <pre><code class="sh">server&#123;
-    listen		80;
-    server_name	&quot;&quot;;
-    return		404;
+    listen 80 default;
+    return 404;
 &#125;
 </code></pre>
 
