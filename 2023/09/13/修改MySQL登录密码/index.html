@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="修改MySQL登录密码" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            修改MySQL登录密码
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AE%B0%E5%BE%97root%E5%AF%86%E7%A0%81%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B"><span class="post-toc-text">记得root密码的情况下</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B"><span class="post-toc-text">忘记root密码的情况下</span></a></li></ol>
+        
+        <h2 id="记得root密码的情况下"><a href="#记得root密码的情况下" class="headerlink" title="记得root密码的情况下"></a>记得root密码的情况下</h2><p>登录MySQL</p>
+<pre><code class="bash">mysql -uroot -p								# 登录MySQL
+Enter password: 【输入原来的密码】
+mysql&gt; use mysql;							# 数据库中的mysql库，用来存储MySQL的登录用户和信息
+mysql&gt; update user set password=password(&quot;123456&quot;) where user=&#39;root&#39;;		# 修改语句
+mysql&gt; flush privileges;					# 刷新
+mysql&gt; exit;								# 退出
+</code></pre>
+<p><strong>注意：如果MySql版本5.7及以上的话修改语句为</strong></p>
+<pre><code class="bash">mysql&gt; update user set authentication_string=password(&quot;123456&quot;) where user=&#39;root&#39;;
+</code></pre>
+<h2 id="忘记root密码的情况下"><a href="#忘记root密码的情况下" class="headerlink" title="忘记root密码的情况下"></a>忘记root密码的情况下</h2><p>首先拿到操作系统的root权限，然后kill掉MySQL服务或者手动stop掉、例如手动</p>
+<pre><code class="bash">service mysql stop
+</code></pre>
+<p>然后找到my.cnf文件，添加一句<code>skip-grant-tables</code>，以跳过密码的方式登录MySQL</p>
+<pre><code class="bash">mysqld_safe --skip-grant-tables &amp;			# &amp; 表示在后台运行，不在后台运行的话，就再打开一个终端
+</code></pre>
+<p>接着无密码登录MySQL修改密码</p>
+<pre><code class="bash">mysql&gt; use mysql;
+mysql&gt; UPDATE user SET password=password(&quot;123456&quot;) WHERE user=&#39;root&#39;;
+mysql&gt; flush privileges;
+mysql&gt; exit;
+</code></pre>
+<p><strong>注意：如果MySql版本5.7及以上的话修改语句为</strong></p>
+<pre><code class="bash">mysql&gt; update user set authentication_string=passworD(&quot;123456&quot;) where user=&#39;root&#39;;
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-09-13</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/MySQL/'>
+                            MySQL
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/TroubleShooting/'>
+                            TroubleShooting
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
