@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="categories" />
+    <meta name="description" content="错误的网站代理导致Git无法连接" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang | </title>
@@ -67,11 +67,7 @@
             
         
             
-                <li><i>
-                    
-                        <a style="color: #4e7dde;" href="/categories/">分类</a>
-                    
-                </i></li>
+                <li><a href="/categories/">分类</a></li>
             
         
             
@@ -83,65 +79,77 @@
         
                     
                     
-                            <br>
-<span>🔖<i>categories</i></span>
-<ul class="" >
-  
-
-  
-
-  
-
-  
-  
-  
-  
-      
-        <li class="">
-            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">学习笔记</a>
-            <span><i>49</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E6%8B%93%E5%B1%95%E8%A7%86%E9%87%8E">拓展视野</a>
-            <span><i>4</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0">工作笔记</a>
-            <span><i>13</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7">奇技淫巧</a>
-            <span><i>1</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/TroubleShooting">TroubleShooting</a>
-            <span><i>3</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E6%96%87%E6%91%98">文摘</a>
-            <span><i>3</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95">生活记录</a>
-            <span><i>1</i></span>
-        </li>
-    
-    
-
-    
-</ul>
-                    
 
                     
                     
                     
                     <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            错误的网站代理导致Git无法连接
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+        
+        <p>最近我天朝的墙好像又高了一点，之前能用的代理服务器经常全都超时，谷歌用不了，Git连不上，根本学习不了。于是换了一个新的VPN客户端，希望能够交替使用，提高可用率。本来一切正常，但是当我上传hexo文件到Git仓库时却报错了。</p>
+<p>报错信息的意思大概是<code>127.0.0.1    7890    无法连接服务</code></p>
+<p>很明显这是代理的问题，我打开代理的设置页面，发现这个页面的设置对Git是无效的，因为无论是关闭代理设置，还是更改代理的端口号，报错信息都是<code>127.0.0.1    7890    无法连接服务</code>，而其他应用比如浏览器和微信都是正常使用网络的，由此可见，这是Git的配置问题。</p>
+<p><img src="/../pic/image-20231102140641306.png" alt="image-20231102140641306"></p>
+<p>把Git安装路径下的文本文件翻了个底朝天，没有找到代理配置。</p>
+<p>最终在C盘的这个目录下找到了</p>
+<p><img src="/../pic/image-20231102141935495.png" alt="image-20231102141935495"></p>
+<p>打开之后，把<code>http</code>和<code>https</code>的设置项改成了正确的代理端口。</p>
+<p>正常连接Git。</p>
+<p><strong>补充：怎么判断是代理端口的问题，怎么确认是正确的代理端口</strong></p>
+<p>这个代理端口应该是科学上网的遗留问题，科学上网软件会自动更改系统代理设置（但是我不太清楚怎么把这个代理写到git的配置文件里去了）。之前用的clash，使用的代理端口是7890，之后换的VPN客户端，使用的代理端口是10808，这些在系统设置里面可以看到。</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-02</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Git/'>
+                            Git
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/TroubleShooting/'>
+                            TroubleShooting
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
                     
                     
                     <div class="footer">
