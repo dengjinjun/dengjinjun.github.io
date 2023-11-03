@@ -345,7 +345,7 @@ X-Trace: 304-1697713466721-0-0-0-1-1;200-1697738092829-0-0-0-1-1
 </blockquote>
 <p>统计每个状态的总量</p>
 <blockquote>
-<pre><code class="sh">grep &#39;^tcp&#39; netstat.log | awk &#39;&#123;++S[$NF]&#125;END&#123;for(k in S)print S[k],k&#125;&#39; | sort -rn
+<pre><code class="sh">grep &#39;^tcp&#39; netstat.log | awk &#39;&#123;++S[$NF]&#125;END&#123;for(k in S)print S[k],k&#125;&#39; | sort -rnd
 </code></pre>
 </blockquote>
 
