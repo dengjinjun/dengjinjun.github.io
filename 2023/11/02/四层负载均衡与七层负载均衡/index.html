@@ -31,6 +31,126 @@
 
 <meta name="generator" content="Hexo 6.3.0"></head>
     
+    <style>
+        :root {
+            --waline-theme-color: #fec591; 
+            --waline-color: #fec591; 
+            --waline-border-color: #fec591; 
+            --waline-white: #fec591; 
+            --waline-bgcolor-light: #005454;  
+        }
+        body {
+            color: #fec591;
+            background: #005454;
+        }
+        .post-md code {
+            background: #005454;
+            color: #fec591; 
+        }
+        .year-font-color {
+            color: #fec591 !important;
+        }
+        .wl-card span.wl-nick {
+            color: #fec591; 
+        }
+        .wl-card .wl-badge {
+            border: 1px solid #fec591;
+            color: #fec591; 
+        }
+        .wl-btn {
+            border: 1px solid #fec591; 
+            color:  #fec591;  
+        }
+        .wl-btn.primary {
+            color: #005454; 
+        }
+        .wl-header label {
+            color: #fec591;
+        }
+        a {
+            color: #fec591;
+        }
+
+        .post-md a {
+            color: #fec591;
+        }
+
+        .nav li a {
+            color: #fec591;
+        }
+
+        .archive-main a:link {
+            color: #fec591;
+        }
+        .archive-main a:visited {
+            color: #D2691E; 
+        }
+
+        .archive li span {
+            color: #fec591;
+        }
+
+        .post-main-title {
+            color: #fec591;
+        }
+
+        .post-md h1,
+        .post-md h2,
+        .post-md h3,
+        .post-md h4,
+        .post-md h5,
+        .post-md h6 {
+            color: #fec591;
+        }
+
+        [data-waline] p {
+            color: #fec591;
+        }
+        [data-waline] a {
+            color: #fec591;
+        } 
+        .wl-sort li.active {
+            color: #fec591;
+        }
+
+        .wl-card .wl-meta>span {
+            background: #005454;
+        }
+
+        .paper {
+            background: #005454;
+        }
+
+        .index-main {
+            background: #005454;
+        }
+
+        .paper-main {
+            background: #005454;
+        }
+
+        .wl-panel {
+            background: #005454;
+        }
+
+        .archive li:nth-child(odd) {
+            background: #005454;
+            ;
+        }
+
+        .archive li:nth-child(even) {
+            background: #005454;
+        }
+
+        .post-md>table tr:nth-child(odd) td {
+            background: #005454;
+        }
+
+        .post-md>table tr:nth-child(even) td {
+            background: #005454;
+        }
+    </style>
+
     <body>
         <div class="paper">
             
@@ -96,7 +216,7 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="post-toc-text">简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%9B%9B%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">四层负载均衡</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%B8%83%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">七层负载均衡</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8C%BA%E5%88%AB"><span class="post-toc-text">区别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E4%B8%8A"><span class="post-toc-text">技术原理上</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="post-toc-text">应用场景</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="post-toc-text">简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%9B%9B%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">四层负载均衡</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%B8%83%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">七层负载均衡</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%81%94%E7%B3%BB"><span class="post-toc-text">联系</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8C%BA%E5%88%AB"><span class="post-toc-text">区别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E4%B8%8A"><span class="post-toc-text">技术原理上</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="post-toc-text">应用场景</span></a></li></ol></li></ol>
         
         <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>​	<strong>所谓的四到七层负载均衡，就是在对后台的服务器进行负载均衡时，依据四层的信息或七层的信息来决定怎么样转发流量</strong>。比如四层的负载均衡，就是通过发布三层的IP地址（VIP），然后加四层的端口号，来决定哪些流量需要做负载均衡，对需要处理的流量进行NAT处理，转发至后台服务器，并记录下这个TCP或者UDP的流量是由哪台服务器处理的，后续这个连接的所有流量都同样转发到同一台服务器处理。七层的负载均衡，就是在四层的基础上（<strong>没有四层是绝对不可能有七层的</strong>），再考虑应用层的特征，比如同一个Web服务器的负载均衡，除了根据VIP加80端口辨别是否需要处理的流量，还可根据七层的URL、浏览器类别、语言来决定是否要进行负载均衡。举个例子，如果你的Web服务器分成两组，一组是中文语言的，一组是英文语言的，那么七层负载均衡就可以当用户来访问你的域名时，自动辨别用户语言，然后选择对应的语言服务器组进行负载均衡处理。</p>
 <p>​	同理，还有基于MAC地址的二层负载均衡和基于IP地址的三层负载均衡。 换句换说，二层负载均衡会通过一个虚拟MAC地址接收请求，然后再分配到真实的MAC地址；三层负载均衡会通过一个虚拟IP地址接收请求，然后再分配到真实的IP地址；</p>
@@ -112,6 +232,11 @@
 <li>根据会话信息分配给保存响应会话的服务器，用户就可以不必重新登录</li>
 <li>充当SSL端点（Termination），LB 背后的服务器就不必每一个都去搭建相同的 SSL 环境了。</li>
 </ul>
+<h3 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h3><p>nginx 单台物理机可支持QPS达到3W～5W个并发请求，所以当用户访问的并发量增多，单台Nginx已经无法支撑，必须要部署Nginx集群。而四层负载均衡就可以实现基于IP和端口将用户请求分发到不同的Nginx服务器，做nginx集群的转发。这些下一级的Nginx服务器，做的是七层的负载均衡，根据应用层业务的不同，分发到不同的服务器。</p>
+<p><img src="/../pic/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RvbW9ycm93X19uaWNl,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述"></p>
+<p>只用四层负载均衡的情况，主要是后端TCP&#x2F;IP业务的负载，比如MySQL集群、Redis、k8s集群等。</p>
+<p>只用七层负载均衡的情况，主要是中小型站点的web服务，并发量比较小。</p>
+<p>总的来说，基于IP+端口的四层负载均衡更快，尤其是LVS，在内核空间处理，不走用户空间。适合用于大型站点，放在网站接入层的最前端，专注做数据转发，后面结合七层负载均衡，用来处理更负载的业务。</p>
 <h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><h4 id="技术原理上"><a href="#技术原理上" class="headerlink" title="技术原理上"></a>技术原理上</h4><blockquote>
 <p>四层负载均衡，主要通过报文中的目标地址和端口，再加上负载均衡设备设置的服务器选择方式，决定最终选择的内部服务器。</p>
 </blockquote>
