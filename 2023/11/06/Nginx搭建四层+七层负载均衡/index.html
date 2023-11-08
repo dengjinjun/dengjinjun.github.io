@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Nginx搭建四层+七层负载均衡" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang | </title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Nginx搭建四层+七层负载均衡
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%90%AD%E5%BB%BA%E8%AF%B4%E6%98%8E"><span class="post-toc-text">搭建说明</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9B%9B%E5%B1%82-MySQL%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">四层+MySQL服务器负载均衡</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9B%9B%E5%B1%82-7%E5%B1%82-web%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">四层+7层+web服务器负载均衡</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A4%9A%E5%B1%82%E8%B4%9F%E8%BD%BD%E6%9E%B6%E6%9E%84%E4%B8%8B%E8%8E%B7%E5%8F%96%E7%9C%9F%E5%AE%9E%E5%AE%A2%E6%88%B7%E7%AB%AFIP"><span class="post-toc-text">多层负载架构下获取真实客户端IP</span></a></li></ol>
+        
+        <h2 id="搭建说明"><a href="#搭建说明" class="headerlink" title="搭建说明"></a>搭建说明</h2><p>四层负载均衡，只是基于IP+端口的转发，工作在网络层，并不接触到应用层，因此跟以往的七层负载均衡不太相同。</p>
+<p>以往的负载均衡都是工作在应用层，由<code>ngx_http_upstream_module</code>模块实现，实现四层负载均衡的模块是：<code>ngx_stream_core_module</code> 模块，很明显，它工作在http模块之外，所以才能称为四层负载均衡。</p>
+<p>官网说明：<a target="_blank" rel="noopener" href="https://nginx.org/en/docs/stream/ngx_stream_core_module.html">https://nginx.org/en/docs/stream/ngx_stream_core_module.html</a></p>
+<p>本次实践搭建：</p>
+<ol>
+<li>四层+MySQL服务器负载均衡。</li>
+<li>四层+7层+web服务器负载均衡</li>
+</ol>
+<h2 id="四层-MySQL服务器负载均衡"><a href="#四层-MySQL服务器负载均衡" class="headerlink" title="四层+MySQL服务器负载均衡"></a>四层+MySQL服务器负载均衡</h2><p><img src="/../pic/image-20231109012017760.png" alt="image-20231109012017760"></p>
+<blockquote>
+<p><strong>环境准备</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>主机</strong></th>
+<th><strong>IP</strong></th>
+<th><strong>角色</strong></th>
+<th><strong>备注</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lb4_01</td>
+<td>192.168.110.144</td>
+<td>四层负载均衡服务器</td>
+<td>在此服务器中搭建</td>
+</tr>
+<tr>
+<td>db01</td>
+<td>192.168.110.137</td>
+<td>数据库服务器1</td>
+<td>配置好数据库</td>
+</tr>
+<tr>
+<td>db02</td>
+<td>192.168.110.143</td>
+<td>数据库服务器2</td>
+<td>配置好数据库</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>在Nginx主配置文件中，添加以下内容：</strong></p>
+</blockquote>
+<pre><code class="sh">vim /etc/nginx/nginx.conf
+
+# 注意：必须要在http区段以外添加
+# nginx.conf文件中不能有多个stream标签，所以通过这个定义在外部嵌入
+stream &#123;
+        include /etc/nginx/stream_conf.d/*.conf;
+&#125;
+</code></pre>
+<blockquote>
+<p><strong>创建stream配置文件</strong></p>
+</blockquote>
+<pre><code>mkdir -p /etc/nginx/stream_conf.d
+cd /etc/nginx/stream_conf.d
+vim lb4_db.conf
+
+upstream mysql&#123;
+    server 192.168.110.137:3306;
+    server 192.168.110.143:3306;
+&#125;
+server &#123;
+    listen 3306;
+    proxy_pass mysql;	# 与七层负载均衡不同，此处不加http://
+&#125;
+</code></pre>
+<h2 id="四层-7层-web服务器负载均衡"><a href="#四层-7层-web服务器负载均衡" class="headerlink" title="四层+7层+web服务器负载均衡"></a>四层+7层+web服务器负载均衡</h2><p><img src="/../pic/image-20231109012034703.png" alt="image-20231109012034703"></p>
+<blockquote>
+<p>环境准备</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>主机</strong></th>
+<th><strong>IP</strong></th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lb4_01</td>
+<td>192.168.110.144</td>
+<td>四层负载均衡服务器</td>
+</tr>
+<tr>
+<td>lb7_01</td>
+<td>192.168.110.135</td>
+<td>七层负载均衡服务器</td>
+</tr>
+<tr>
+<td>lb7_02</td>
+<td>192.168.110.136</td>
+<td>七层负载均衡服务器</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>lb4_01</strong></p>
+</blockquote>
+<pre><code>cd /etc/nginx/stream_conf.d
+vim lb4_web.conf
+
+upstream proxy_7 &#123;
+    server 192.168.110.135:80;
+    server 192.168.110.136:80;
+&#125;
+server &#123;
+    listen 80;			# 注意：当Nginx中配置了多个监听事项时，不要造成端口冲突。
+    proxy_pass proxy_7;
+&#125;
+</code></pre>
+<blockquote>
+<p><strong>lb7_01&#x2F;lb7_02</strong></p>
+</blockquote>
+<pre><code>upstream static&#123;
+    server sweb01 weight=1;
+    server sweb02 weight=1;
+&#125;
+upstream default&#123;
+    server web01 weight=1;
+&#125;
+upstream dynamic&#123;
+    server web02 weight=1;
+&#125;
+
+server&#123;
+    listen 80;
+    server_name blog;
+    location /&#123;
+        proxy_pass http://default;
+        proxy_set_header Host $http_host;
+    &#125;
+    location /static/&#123;
+        proxy_pass http://static;
+        proxy_set_header Host $http_host;
+    &#125;
+    location /dynamic/&#123;
+        proxy_pass http://dynamic;
+        proxy_set_header Host $http_host;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="多层负载架构下获取真实客户端IP"><a href="#多层负载架构下获取真实客户端IP" class="headerlink" title="多层负载架构下获取真实客户端IP"></a>多层负载架构下获取真实客户端IP</h2><blockquote>
+<p><strong>lb4_01</strong></p>
+</blockquote>
+<p>开启proxy_protocol协议。</p>
+<p>proxy protocol是HAProxy的作者Willy Tarreau于2010年开发和设计的一个Internet协议，通过为tcp添加一个很小的头信息，来方便的传递客户端信息（协议栈、源IP、目的IP、源端口、目的端口等)，在网络情况复杂又需要获取用户真实IP时非常有用。其本质是在三次握手结束后由代理在连接中插入了一个携带了原始连接四元组信息的数据包。</p>
+<pre><code class="sh">upstream proxy_7 &#123;
+    server 192.168.110.135:80;
+    server 192.168.110.136:80;
+&#125;
+server &#123;
+    listen 80;
+    proxy_pass proxy_7;
+    proxy_protocol on;  		# 开启proxy_protocol协议
+&#125;
+</code></pre>
+<blockquote>
+<p><strong>lb7_01&#x2F;lb7_02</strong></p>
+</blockquote>
+<pre><code class="sh">upstream www &#123;
+    server 172.16.1.7:80;
+    server 172.16.1.8:80;
+&#125;
+server &#123;
+    # #需要同时监听proxy_protocol，才能获取到代理协议的信息
+    listen 80 proxy_protocol;        	
+    server_name blog;
+    # 指定Nginx从特定的地址范围获取真实的客户端IP地址
+    set_real_ip_from 192.168.110.0/24; 
+    # 指定Nginx应该从 proxy_protocol 中读取代理协议的信息
+    real_ip_header proxy_protocol;  	，
+    location / &#123;
+    proxy_pass http://www;
+    # 主机头赋值
+    proxy_set_header Host $http_host;
+    
+    # $proxy_protocol_server_addr是四层负载均衡器的IP，将其赋值给X-Forwarded-For
+    proxy_set_header X-Forwarded-For $proxy_protocol_server_addr;
+    
+    # $proxy_protocol_addr就是真实客户端IP，将其追加到
+    proxy_set_header X-Forwarded-For $proxy_protocol_addr;
+    
+    # $proxy_add_x_forwarded_for是X-Forwarded-For变量后面追加remote_addr，再将其追加到原本的X-Forwarded-For后面
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;	
+    &#125;
+&#125;   
+    # 上述指令多次将值传递给X-Forwarded-For变量，第一次是赋值，后面的都是追加（多次实践得出的结论，暂未找到官方理论依据）。
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-06</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
