@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="" />
+    <meta name="description" content="Ansible剧本" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang | </title>
@@ -63,11 +63,7 @@
             
         
             
-                <li><i>
-                    
-                        <a style="color: #4e7dde;" href="/tags/">标签</a>
-                    
-                </i></li>
+                <li><a href="/tags/">标签</a></li>
             
         
             
@@ -85,44 +81,82 @@
                     
 
                     
-                            <div class="archive-list">
-  <ul class="archive">
-
-    
-    <span>📌<i>Ansible</i></span>
-      
-      
-      
-    
-    
-    
-  
-    
-        <li>
-        <span class="archive-date">2023-11-19</span>
-        <div class="archive-main">
-            <a class="archive-title" href="/2023/11/19/Ansible%E5%89%A7%E6%9C%AC/">Ansible剧本</a>
-        </div>
-        </li>
-    
-  
-    
-        <li>
-        <span class="archive-date">2023-11-14</span>
-        <div class="archive-main">
-            <a class="archive-title" href="/2023/11/14/Ansible%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">Ansible基础架构</a>
-        </div>
-        </li>
-    
-  
-  </ul>
-</div>
-
- 
-                    
                     
                     
                     <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Ansible剧本
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#playbook"><span class="post-toc-text">playbook</span></a></li></ol>
+        
+        <p>1</p>
+<h2 id="playbook"><a href="#playbook" class="headerlink" title="playbook"></a>playbook</h2><p>Ansible的任务配置文件被称为playbook，我们可以称之为“剧本”，每一个剧本都包含一系列的任务，就像剧本的每一场分剧场，一个剧本，有很多分剧场组成。Playbook采用yaml语法编写，该语言被开发的时候，它的意思是：yet another markup language（仍是一种标记语言）。</p>
+<blockquote>
+<p><strong>Yaml语言特性</strong></p>
+</blockquote>
+<p>（1）具有很好的可读性，易于实现</p>
+<p>（2）表达能力强，扩展性好</p>
+<p>（3）和脚本语言的交互性好</p>
+<p>（4）有一个一致的信息模型</p>
+<p>（5）可以基于流程来处理</p>
+<blockquote>
+<p><strong>Playbooks组件</strong></p>
+</blockquote>
+<pre><code>Target：		定义playbook的远程主机组
+Variable：	定义playbook使用的变量
+Task：		定义远程主机上的执行的任务列表
+Handler：	定义task执行完成以后需要调用的任务，例如配置文件被改动，则启动handler任务重启相关联的服务
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-19</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Ansible/'>
+                            Ansible
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
                     
                     
                     <div class="footer">
