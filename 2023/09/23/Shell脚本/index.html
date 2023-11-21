@@ -6,7 +6,7 @@
     <meta name="description" content="Shell脚本" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
-    <title>Dengpangpang | </title>
+    <title>Dengpangpang</title>
 
     
         
@@ -29,9 +29,25 @@
     
 <link rel="stylesheet" href="/css/style.css">
 
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
 <meta name="generator" content="Hexo 6.3.0"></head>
     
     <body>
+        
+            <nav id="toc" class="bs-docs-sidebar"></nav>
+        
         <div class="paper">
             
             
@@ -96,7 +112,9 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83"><span class="post-toc-text">Shell脚本编码规范</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E4%B8%8E%E8%B0%83%E8%AF%95"><span class="post-toc-text">错误处理与调试</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="post-toc-text">错误处理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%94%99%E8%AF%AF%E8%B0%83%E8%AF%95"><span class="post-toc-text">错误调试</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="post-toc-text">实战案例与总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2Web%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%9C%AC"><span class="post-toc-text">自动化部署Web项目脚本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2Docker%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%9C%AC"><span class="post-toc-text">自动化部署Docker项目脚本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E4%B8%8E%E6%8A%A5%E8%AD%A6"><span class="post-toc-text">系统监控与报警</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell%E5%86%99%E4%B8%80%E4%B8%AALinux%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="post-toc-text">shell写一个Linux管理系统</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell%E5%86%99%E4%B8%80%E4%B8%AADocker%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="post-toc-text">shell写一个Docker管理系统</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell%E5%86%99%E4%B8%80%E4%B8%AA%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9E%84%E5%BB%BADocker%E9%95%9C%E5%83%8F%E8%84%9A%E6%9C%AC"><span class="post-toc-text">shell写一个自动化构建Docker镜像脚本</span></a></li></ol></li></ol>
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83"><span class="post-toc-text">Shell脚本编码规范</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E4%B8%8E%E8%B0%83%E8%AF%95"><span class="post-toc-text">错误处理与调试</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="post-toc-text">错误处理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%94%99%E8%AF%AF%E8%B0%83%E8%AF%95"><span class="post-toc-text">错误调试</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="post-toc-text">实战案例与总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2Web%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%9C%AC"><span class="post-toc-text">自动化部署Web项目脚本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2Docker%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%9C%AC"><span class="post-toc-text">自动化部署Docker项目脚本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E4%B8%8E%E6%8A%A5%E8%AD%A6"><span class="post-toc-text">系统监控与报警</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell%E5%86%99%E4%B8%80%E4%B8%AALinux%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="post-toc-text">shell写一个Linux管理系统</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell%E5%86%99%E4%B8%80%E4%B8%AADocker%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="post-toc-text">shell写一个Docker管理系统</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell%E5%86%99%E4%B8%80%E4%B8%AA%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9E%84%E5%BB%BADocker%E9%95%9C%E5%83%8F%E8%84%9A%E6%9C%AC"><span class="post-toc-text">shell写一个自动化构建Docker镜像脚本</span></a></li></ol></li></ol>
+            
         
         <p>一般情况下，Shell脚本以文本文件的形式存在。Shell脚本由若干条命令和控制结构组成，可以在命令行中直接执行，也可以在脚本中进行批量处理。</p>
 <blockquote>
@@ -1009,6 +1027,7 @@ if [ $
 
 
 
+                                      
                     
                     
                     <div class="footer">
@@ -1049,7 +1068,58 @@ if [ $
     hljs.initHighlightingOnLoad();
     hljs.initLineNumbersOnLoad();
 </script>
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
                 </div>
             
     </body>
+
+
+    <!--暗黑模式-->
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+    <script>
+        function addDarkmodeWidget() {
+        const options = {
+            bottom: '48px', // default: '32px'
+            right: 'unset', // default: '32px'
+            left: '50px', // default: 'unset'
+            time: '0.3s', // default: '0.3s'
+            mixColor: '#fff', // default: '#fff'
+            backgroundColor: ' #e4e4e4 ',  // default: '#fff'
+            buttonColorDark: '#100f2c',  // default: '#100f2c'
+            buttonColorLight: '#fff', // default: '#fff'
+            saveInCookies: true, // default: true,
+            label: '🌓', // default: ''
+            autoMatchOsTheme: true // default: true
+        }
+    
+        const darkmode = new Darkmode(options);
+        darkmode.showWidget();
+        
+        }
+        window.addEventListener('load', addDarkmodeWidget);
+    </script>
+  
 </html>

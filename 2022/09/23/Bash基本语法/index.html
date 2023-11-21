@@ -6,7 +6,7 @@
     <meta name="description" content="Bash基本语法" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
-    <title>Dengpangpang | </title>
+    <title>Dengpangpang</title>
 
     
         
@@ -29,9 +29,25 @@
     
 <link rel="stylesheet" href="/css/style.css">
 
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
 <meta name="generator" content="Hexo 6.3.0"></head>
     
     <body>
+        
+            <nav id="toc" class="bs-docs-sidebar"></nav>
+        
         <div class="paper">
             
             
@@ -96,7 +112,9 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#echo-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">echo 命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#n%E5%8F%82%E6%95%B0"><span class="post-toc-text">-n参数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#e%E5%8F%82%E6%95%B0"><span class="post-toc-text">-e参数</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%91%BD%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="post-toc-text">命令格式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%A9%BA%E6%A0%BC"><span class="post-toc-text">空格</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%86%E5%8F%B7"><span class="post-toc-text">分号</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%91%BD%E4%BB%A4%E7%9A%84%E7%BB%84%E5%90%88%E7%AC%A6-%E5%92%8C"><span class="post-toc-text">命令的组合符&amp;&amp;和||</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#type-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">type 命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="post-toc-text">快捷键</span></a></li></ol>
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#echo-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">echo 命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#n%E5%8F%82%E6%95%B0"><span class="post-toc-text">-n参数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#e%E5%8F%82%E6%95%B0"><span class="post-toc-text">-e参数</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%91%BD%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="post-toc-text">命令格式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%A9%BA%E6%A0%BC"><span class="post-toc-text">空格</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%86%E5%8F%B7"><span class="post-toc-text">分号</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%91%BD%E4%BB%A4%E7%9A%84%E7%BB%84%E5%90%88%E7%AC%A6-%E5%92%8C"><span class="post-toc-text">命令的组合符&amp;&amp;和||</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#type-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">type 命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="post-toc-text">快捷键</span></a></li></ol>
+            
         
         <p>本章介绍 Bash 的最基本语法。</p>
 <h2 id="echo-命令"><a href="#echo-命令" class="headerlink" title="echo 命令"></a>echo 命令</h2><p>由于后面的例子会大量用到<code>echo</code>命令，这里先介绍这个命令。</p>
@@ -278,6 +296,7 @@ keyword
 
 
 
+                                      
                     
                     
                     <div class="footer">
@@ -318,7 +337,58 @@ keyword
     hljs.initHighlightingOnLoad();
     hljs.initLineNumbersOnLoad();
 </script>
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
                 </div>
             
     </body>
+
+
+    <!--暗黑模式-->
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+    <script>
+        function addDarkmodeWidget() {
+        const options = {
+            bottom: '48px', // default: '32px'
+            right: 'unset', // default: '32px'
+            left: '50px', // default: 'unset'
+            time: '0.3s', // default: '0.3s'
+            mixColor: '#fff', // default: '#fff'
+            backgroundColor: ' #e4e4e4 ',  // default: '#fff'
+            buttonColorDark: '#100f2c',  // default: '#100f2c'
+            buttonColorLight: '#fff', // default: '#fff'
+            saveInCookies: true, // default: true,
+            label: '🌓', // default: ''
+            autoMatchOsTheme: true // default: true
+        }
+    
+        const darkmode = new Darkmode(options);
+        darkmode.showWidget();
+        
+        }
+        window.addEventListener('load', addDarkmodeWidget);
+    </script>
+  
 </html>
