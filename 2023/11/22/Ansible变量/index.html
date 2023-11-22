@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Ansible变量" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        
+            <nav id="toc" class="bs-docs-sidebar"></nav>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Ansible变量
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="post-toc-text">用户自定义变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%94%BE%E5%9C%A8%E5%89%A7%E6%9C%AC%E4%B8%AD"><span class="post-toc-text">放在剧本中</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%94%BE%E5%9C%A8%E6%96%87%E4%BB%B6%E4%B8%AD"><span class="post-toc-text">放在文件中</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%A0%B9%E6%8D%AE%E4%B8%BB%E6%9C%BA%E7%BB%84%E5%88%9B%E5%BB%BA%E5%8F%98%E9%87%8F%E6%96%87%E4%BB%B6"><span class="post-toc-text">根据主机组创建变量文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B3%A8%E5%86%8C%E5%8F%98%E9%87%8F"><span class="post-toc-text">注册变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#facts%E5%8F%98%E9%87%8F"><span class="post-toc-text">facts变量</span></a></li></ol>
+            
+        
+        <p>Ansible中的变量分为三种：  </p>
+<ul>
+<li>用户自定义变量（剧本中，存放在指定的文件中）</li>
+<li>register(寄存器)变量 类似于 $?  $() </li>
+<li>facts变量（ansible内置变量）</li>
+</ul>
+<p>权威指南：<a target="_blank" rel="noopener" href="https://ansible-tran.readthedocs.io/en/latest/docs/playbooks_variables.html#valid-variable-names">Ansible变量</a></p>
+<h2 id="用户自定义变量"><a href="#用户自定义变量" class="headerlink" title="用户自定义变量"></a>用户自定义变量</h2><h3 id="放在剧本中"><a href="#放在剧本中" class="headerlink" title="放在剧本中"></a>放在剧本中</h3><p>ansible支持在剧本中直接书写变量</p>
+<blockquote>
+<p>剧本文件</p>
+</blockquote>
+<pre><code class="yml">- hosts: all
+  vars:				# 指定变量，以列表的形式
+    - name1: nc 	# 键值对
+    - name2: nmap 
+  tasks:
+    - name: install  soft 
+      yum: 
+        name:
+          - &quot;&#123;&#123; name1 &#125;&#125;&quot;
+          - &quot;&#123;&#123; name2 &#125;&#125;&quot;
+        state: installed
+</code></pre>
+<h3 id="放在文件中"><a href="#放在文件中" class="headerlink" title="放在文件中"></a>放在文件中</h3><p>ansible支持在剧本中指定一个存放变量的文件</p>
+<blockquote>
+<p>剧本文件</p>
+</blockquote>
+<pre><code class="yml">- hosts: all
+  vars_files: vars.yml
+  tasks:
+    - name: install  soft 
+      yum: 
+        name:
+          - &quot;&#123;&#123; name1 &#125;&#125;&quot;
+          - &quot;&#123;&#123; name2 &#125;&#125;&quot;
+        state: installed
+</code></pre>
+<blockquote>
+<p>变量文件可自定义名称：vars.yml</p>
+</blockquote>
+<pre><code class="yml">name1: nc 
+name2: nmap
+</code></pre>
+<h3 id="根据主机组创建变量文件"><a href="#根据主机组创建变量文件" class="headerlink" title="根据主机组创建变量文件"></a>根据主机组创建变量文件</h3><p>ansible支持根据主机组使用不同变量文件，只需要根据主机组创建不同的变量所在目录，在剧本中会自动根据主机组使用变量。</p>
+<p>注意：可以在inventory文件所在目录创建变量目录（在inventory部分已经讲解），也可以在剧本所在目录进行创建，但是不要重复创建。</p>
+<blockquote>
+<p>配置文件（部分）</p>
+</blockquote>
+<pre><code class="sh">tree -F group_vars/		# 这是在剧本所在目录中创建的group_vars目录
+
+group_vars/					# 固定目录名
+├── all/						# 所有主机都适用的变量
+│   └── vars.yml					# 变量文件可自定义名称
+├── backup/						# backup主机组适用的变量
+│   └── vars.yml
+└── web/						# web主机组适用的变量
+    └── vars.yml
+</code></pre>
+<blockquote>
+<p>剧本文件</p>
+</blockquote>
+<pre><code>- hosts: all
+  tasks:
+    - name: touch file
+      file: 
+        path: /tmp/&#123;&#123; name &#125;&#125;
+        state: touch
+</code></pre>
+<blockquote>
+<p>变量文件</p>
+</blockquote>
+<pre><code class="yml">name: 1.txt
+</code></pre>
+<p><strong>注意：在ansible剧本中使用变量时，如果变量位于表达式开头的位置，则整个表达式都要使用双引号。</strong></p>
+<h2 id="注册变量"><a href="#注册变量" class="headerlink" title="注册变量"></a>注册变量</h2><p>register关键字可以将某个task任务的执行结果存储至一个变量中，最后使用debug输出变量内容，可以用于后续排障。</p>
+<p>也可以用于与<code>when</code>语句一起使用实现判断功能。</p>
+<blockquote>
+<p>应用案例：显示ip地址并排错</p>
+</blockquote>
+<pre><code class="shell">- hosts: all
+  tasks:
+    - name: print ip addr 
+      shell:  hostname -I  |awk &#39;&#123;print $NF&#125;&#39; 
+      register: ip_addr			# 将结果存储在一个名为ip_addr的变量中（通过register关键字）
+    - name: debug 				
+      debug: 
+        msg:  this is you ip addr  &#123;&#123; ip_addr &#125;&#125;	# 使用debug模块输出一条消息，注册变量默认输出的是json格式的数据 
+</code></pre>
+<blockquote>
+<p>结果分析</p>
+</blockquote>
+<pre><code class="sh"># 这是ip_addr变量的内容
+&#123;
+    &#39;stderr_lines&#39;: [],									# 标准错误输出的文本行
+    u&#39;changed&#39;: True,									# 指示任务是否对系统状态进行了更改
+    u&#39;end&#39;: u&#39;2021-08-19 09:56:21.545851&#39;,				# 任务结束时的时间戳
+    &#39;failed&#39;: False,									# 指示任务是否执行失败
+    u&#39;stdout&#39;: u&#39;172.16.1.31&#39;,                          # 标准输出的文本内容
+    u&#39;cmd&#39;: u\&quot;hostname -I  |awk &#39;&#123;print $NF&#125;&#39;\&quot;,		# 执行的命令
+    u&#39;rc&#39;: 0,                   						# 返回值 return code，0通常表示执行成功
+    u&#39;start&#39;: u&#39;2021-08-19 09:56:21.514319&#39;,			# 任务开始时的时间戳
+    u&#39;stderr&#39;: u&#39;&#39;,                                     # strerr 标准错误输出的文本内容 
+    u&#39;delta&#39;: u&#39;0:00:00.031532&#39;,						# 执行任务所花费的时间
+    &#39;stdout_lines&#39;: [u&#39;172.16.1.31&#39;]                    # stdout_lines 标准输出的文本行
+ &#125;		
+
+# 要获取更清晰的结果，常用 【变量.键名】来获取
+ip_addr.stdout_lines  
+ip_addr.rc            
+ip_addr.stdout         
+ip_addr.stderr
+</code></pre>
+<h2 id="facts变量"><a href="#facts变量" class="headerlink" title="facts变量"></a>facts变量</h2><p>facts变量是在被管理主机上通过ansible自动采集发现的变量。<br>facts变量中包含每台特定的主机信息。比如:被控端主机的主机名、IP地址、系统版本、CPU数量、内存状态、磁盘状态等等。</p>
+<p>facts使用场景(利用fact获取指标进行配置)</p>
+<ol>
+<li>通过facts检查CPU，来生成对应的Nginx配置文件         （收集每台机器的cpu核心数）</li>
+<li>通过facts检查主机名信息，来生成不同的Zabbix配置文件（收集每台机器的主机名）</li>
+<li>通过fact检索的内存情况来自定义mysql的配置文件      （收集每台机器的内存）</li>
+<li>通过facts收集内存大小,设置tomcat最多可以用多少内存   （收集每台机器的内存）</li>
+</ol>
+<p><strong><code>ansible  backup -m setup</code> 可以显示远程主机所有的facts变量</strong></p>
+<pre><code class="shell">#常用必备的facts 
+
+ansible_default_ipv4.address 	# 默认的网卡ip eth0
+ansible_distribution            # 系统发行版本名字 CentOS  Ubuntu  Debian ...
+ansible_memtotal_mb          	# 内存大小
+ansible_processor_vcpus      	# cpu数量 
+ansible_processor_cores      	# cpu 核心数
+ansible_date_time.date   		# 时间
+</code></pre>
+<blockquote>
+<p>分发nginx配置文件剧本</p>
+</blockquote>
+<pre><code class="yml">-host: web
+  tasks:
+    -name: send nginx conf
+    template:							# template模块可以解析带有ansible变量的文件，然后分发
+      src: nginx-conf-muban.j2
+      dest: /etc/nginx/nginx.conf
+      backup: yes
+    -name: restart nginx
+    systemd: 
+      name: nginx
+      state: restarted      
+</code></pre>
+<blockquote>
+<p>nignx模板文件（部分）</p>
+</blockquote>
+<pre><code class="shell">cat nginx-conf-muban.j2 
+
+user  www;
+worker_processes &quot;&#123;&#123;  ansible_processor_cores*2  &#125;&#125;&quot;;		# 进程数设置为CPU数量的两倍
+
+error_log  /var/log/nginx/error.log notice;
+pid        /var/run/nginx.pid;
+
+......
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-22</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Ansible/'>
+                            Ansible
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>

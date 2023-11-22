@@ -10,15 +10,17 @@
 
     
         
-<link rel="stylesheet" href="/css/reset.css">
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
 
-        
-<link rel="stylesheet" href="/css/markdown.css">
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
 
-        
-<link rel="stylesheet" href="/css/fonts.css">
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
  
-         <!--注意：首页既不是post也不是page-->
+            <!--注意：首页既不是post也不是page-->
+            
         
     
     
@@ -111,10 +113,10 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Ansible%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">Ansible介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Ansible%E7%89%B9%E7%82%B9"><span class="post-toc-text">Ansible特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Ansible%E6%9E%B6%E6%9E%84"><span class="post-toc-text">Ansible架构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ansible%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="post-toc-text">ansible工作原理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Ansible%E9%85%8D%E7%BD%AE"><span class="post-toc-text">Ansible配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85Ansible"><span class="post-toc-text">安装Ansible</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#inventory%E9%85%8D%E7%BD%AE"><span class="post-toc-text">inventory配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Ansible%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C"><span class="post-toc-text">Ansible任务执行</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Ansible%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Ansible模块</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Command-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Command 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Shell-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Shell 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Script-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Script 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Copy-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Copy 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Fetch-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Fetch 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#File-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">File 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#unarchive-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">unarchive 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Archive-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Archive 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Hostname%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Hostname模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Cron-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Cron 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Yum-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Yum 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#yum-repository%E6%A8%A1%E5%9D%97"><span class="post-toc-text">yum_repository模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Service-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Service 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#User-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">User 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Group-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Group 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Setup-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Setup 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#mount%E6%A8%A1%E5%9D%97"><span class="post-toc-text">mount模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#iptables%E6%A8%A1%E5%9D%97"><span class="post-toc-text">iptables模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="post-toc-text">注意</span></a></li></ol></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Ansible%E7%89%B9%E7%82%B9"><span class="post-toc-text">Ansible特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Ansible%E6%9E%B6%E6%9E%84"><span class="post-toc-text">Ansible架构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ansible%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="post-toc-text">ansible工作原理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Ansible%E9%85%8D%E7%BD%AE"><span class="post-toc-text">Ansible配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85Ansible"><span class="post-toc-text">安装Ansible</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">配置文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#inventory"><span class="post-toc-text">inventory</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Ansible%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C"><span class="post-toc-text">Ansible任务执行</span></a>
             
         
-        <h2 id="Ansible介绍"><a href="#Ansible介绍" class="headerlink" title="Ansible介绍"></a>Ansible介绍</h2><p>ansible是一个自动化运维工具，基于Python开发，实现了批量系统配置、批量程序部署、批量运行命令等功能。</p>
+        <p>ansible是一个自动化运维工具，基于Python开发，实现了批量系统配置、批量程序部署、批量运行命令等功能。</p>
 <p>Ansible中文文档：<a target="_blank" rel="noopener" href="https://ansible-tran.readthedocs.io/en/latest/docs/intro.html#">https://ansible-tran.readthedocs.io/en/latest/docs/intro.html#</a></p>
 <h3 id="Ansible特点"><a href="#Ansible特点" class="headerlink" title="Ansible特点"></a>Ansible特点</h3><ol>
 <li>部署简单，只需在主控端部署Ansible环境，被控端无需做任何操作；</li>
@@ -181,7 +183,7 @@ vim /etc/ansible/ansible.cfg
 # 建议优化项
 host_key_checking = False               # 检查对应服务器的host_key，建议取消注释
 log_path=/var/log/ansible.log           # 日志文件,建议取消注释
-module_name   = command                 # 默认模块
+module_name = command                	# 默认模块
 </code></pre>
 <p>Ansible中的参数可以通过Ansible的Playbook或环境变量来重新赋值，比如：<code>export ANSIBLE_SUDO_USER=root</code>，参数名称必须是大写字母。</p>
 <p>在运⾏Ansible命令时，命令将会按照以下顺序查找配置⽂件。</p>
@@ -190,7 +192,7 @@ module_name   = command                 # 默认模块
 ~/.ansible.cfg ：再次，将会检查当前⽤户home⽬录下的.ansible.cf g配置⽂件。
 /etc/ansible/ansible.cfg ：最后，将会检查在⽤软件包管理⼯具安装Ansible时⾃动产⽣的配置⽂件。
 </code></pre>
-<h3 id="inventory配置"><a href="#inventory配置" class="headerlink" title="inventory配置"></a>inventory配置</h3><blockquote>
+<h2 id="inventory"><a href="#inventory" class="headerlink" title="inventory"></a>inventory</h2><blockquote>
 <p><strong>inventory主文件</strong></p>
 </blockquote>
 <p>inventory文件⽤于定义ansible要管理的主机列表，可以定义单个主机和主机组。默认在<code>/etc/ansible/hosts</code>目录下。</p>
@@ -258,338 +260,6 @@ ansible_python_interpreter: 目标主机的Python路径.适用于系统中有多
 <p><strong>playbooks模式</strong></p>
 </blockquote>
 <p>是Ansible主要管理方式，也是Ansible功能强大的关键所在。<strong>playbook通过多个task集合完成一类功能</strong>，如Web服务的安装部署、数据库服务器的批量备份等。可以简单地把playbook理解为通过组合多条ad-hoc操作的配置文件。后续会详细介绍。</p>
-<h2 id="Ansible模块"><a href="#Ansible模块" class="headerlink" title="Ansible模块"></a>Ansible模块</h2><h3 id="Command-模块"><a href="#Command-模块" class="headerlink" title="Command 模块"></a>Command 模块</h3><p>在远程主机执行命令，此为默认模块，可忽略-m选项</p>
-<p>注意：此命令不支持 <code>$VARNAME  &lt;  &gt;  |  ;  &amp; </code>  等符号，可以用shell模块实现。</p>
-<p>格式：<code>ansible 主机名 -m command -a &quot;cmd&quot;</code>，<code>-m command </code>默认可以不加。</p>
-<pre><code class="sh"># 直接运行命令
-ansible all -a &#39;hostname&#39;
-
-# chdir参数，切换目录
-ansible websrvs -a &#39;chdir=/opt touch b.txt&#39;  #先切换目录再创建文件。不指定目录会创建到家目录下
-
-
-# createss参数，创建文件
-ansible websrvs -a &#39;creates=/etc/fstab rm -f /opt/b.txt&#39;	# 这个文件存在，所以不执行后面的rm操作
-
-# removes参数，移除文件
-ansible websrvs -a &#39;removes=/etc/fstab rm -f /opt/b.txt&#39;	# 文件存在，所以执行后面的rm操作
-</code></pre>
-<h3 id="Shell-模块"><a href="#Shell-模块" class="headerlink" title="Shell 模块"></a>Shell 模块</h3><p>和command相似，用shell执行命令</p>
-<pre><code class="sh"># 直接运行命令，支持 $VARNAME &lt;  &gt;  |  ;  &amp;  等符号
-ansible websrvs -m shell -a &quot;echo $HOSTNAME&quot;
-ansible websrvs -m shell -a &quot;echo hello &gt;/opt/hello.txt&quot;
-</code></pre>
-<h3 id="Script-模块"><a href="#Script-模块" class="headerlink" title="Script 模块"></a>Script 模块</h3><p>在远程主机上运行ansible服务器上的脚本（无需执行权限）</p>
-<pre><code class="sh">ll /data/test.sh			# 查看本机脚本信息，无执行权限
--rw-r--r-- 1 root root 22 Jul 15 14:17 /data/test.sh	
-
-# 远程执行
-ansible websrvs -m script -a &#39;/data/test.sh&#39;
-</code></pre>
-<h3 id="Copy-模块"><a href="#Copy-模块" class="headerlink" title="Copy 模块"></a>Copy 模块</h3><p>从ansible服务器主控端复制文件到远程主机</p>
-<pre><code class="sh"># 如目标存在，默认覆盖，此处指定先备份，要有owner用户，否则报错
-# 再次复制，由于test1.sh内容不变，所以根据ansible的幂等性，不会生成备份文件，显示是success而非changed
-# 修改test1.sh文件后，再次复制，会生成备份文件，文件名为test2.sh.备份序号.时间戳
-ansible websrvs -m copy -a &quot;src=/root/test1.sh dest=/tmp/test2.sh owner=wang mode=600 backup=yes&quot;
-
-
-#指定内容，直接生成目标文件；如果目标文件存在，会覆盖其内容
-ansible websrvs -m copy -a &quot;content=&#39;test line1\ntest line2&#39; dest=/opt/test1.sh&quot;
-
-
-#复制/etc/sysconfig目录自身，注意/etc/sysconfig后面没有/
-ansible websrvs -m copy -a &quot;src=/etc/sysconfig dest=/opt/&quot;
-
-
-#复制/etc/sysconfig下的文件，不包括/etc/sysconfig目录自身，注意/sysconfig后面有/
-ansible websrvs -m copy -a &quot;src=/etc/sysconfig/ dest=/opt&quot;
-</code></pre>
-<h3 id="Fetch-模块"><a href="#Fetch-模块" class="headerlink" title="Fetch 模块"></a>Fetch 模块</h3><p>从远程主机提取文件至ansible的主控端，与copy相反。Fetch目前不支持目录</p>
-<pre><code class="sh"># 提取所有远程主机的文件到当前主控端的/data/os目录下，并按远程主机的ip地址创建各自的目录存放
-ansible db01 -m fetch -a &quot;src=/opt/22.txt dest=/root/os&quot;
-
-# 会创建/data/os目录，并在其目录下创建主机名命名的目录存放文件
-|root@m01 ~|$ tree /root
-/root
-├── anaconda-ks.cfg
-└── os
-    └── db01
-        └── opt
-            └── 22.txt
-</code></pre>
-<h3 id="File-模块"><a href="#File-模块" class="headerlink" title="File 模块"></a>File 模块</h3><p>文件或目录相关</p>
-<pre><code class="sh"># 创建空白文件
-ansible websrvs -m file -a &quot;path=/opt/test.sh state=touch&quot;	
-
-# 修改文件权限，没有指定用户会失败,修改目录权限时，可以指定 recurse=yes 表示递归修改
-ansible websrvs -m file -a &quot;path=/opt/test.sh owner=wang mode=755&quot;
-
-# 创建目录
-ansible all -m file -a &quot;path=/data/mysql state=directory owner=mysql group=mysql&quot;
-
-# 如果使用mkdir等Linux命令创建文件或目录，重复创建会报错。使用file命令则不会
-ansible websrvs -a &quot;mkdir /data/dir2&quot; 
-
-#删除文件或目录，使用state=absent
-ansible websrvs -m file -a &quot;path=/data/dir2 state=absent&quot;  
-
-#创建软链接，原文件是在目标主机指定的目录中，否则失败
-ansible all -m file -a &#39;src=/data/testfile dest=/data/testfile-link state=link&#39;
-</code></pre>
-<h3 id="unarchive-模块"><a href="#unarchive-模块" class="headerlink" title="unarchive 模块"></a>unarchive 模块</h3><p>解包解压缩</p>
-<blockquote>
-<p>两种用法</p>
-</blockquote>
-<p>1、将ansible主机上的压缩包传到远程主机后解压缩至特定目录，设置copy&#x3D;yes</p>
-<p>2、将远程主机上的某个压缩包解压缩到指定路径下，设置copy&#x3D;no</p>
-<blockquote>
-<p>常见参数：</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>copy</td>
-<td>默认为yes，当copy&#x3D;yes，拷贝的文件是从ansible主机复制到远程主机上，如果设置为copy&#x3D;no，会在远程主机上或第三方主机上寻找src源文件</td>
-</tr>
-<tr>
-<td>remote_src</td>
-<td>和copy功能一样且互斥，yes表示在远程主机，不在ansible主机，no表示文件在ansible主机上</td>
-</tr>
-<tr>
-<td>src</td>
-<td>源路径，可以是ansible主机上的路径，也可以是远程主机（被管理端或者第三方地址）上的路径，如果是远程主机上的路径，则需要设置copy&#x3D;no</td>
-</tr>
-<tr>
-<td>dest</td>
-<td>远程主机上的目标路径</td>
-</tr>
-<tr>
-<td>mode</td>
-<td>设置解压缩后的文件权限</td>
-</tr>
-</tbody></table>
-<pre><code class="sh"># 默认copy=yes,将管理端的压缩包复制到远程主机上后，解压到指定目录，并设置属主和属组。
-ansible websrvs -m unarchive -a &#39;src=sys.tar.gz dest=/opt owner=haha group=bin&#39;
-
-# 设置copy=no,将远程主机上的某个压缩包解压缩到指定路径下，
-ansible websrvs -m unarchive -a &#39;src=/opt/sys.tar.gz dest=/tmp copy=no mode=0777&#39;
-
-# 也可以设置第三方地址
-ansible all -m unarchive -a &#39;src=https://example.com/example.zip dest=/data copy=no&#39;
-</code></pre>
-<h3 id="Archive-模块"><a href="#Archive-模块" class="headerlink" title="Archive 模块"></a>Archive 模块</h3><p>将远程主机的目标文件或目录打包压缩</p>
-<pre><code class="sh"># 将目标主机的/etc/sysconfig文件打包压缩，保存为/opt/sys.tar.bz2
-ansible websrvs -m archive -a &#39;path=/etc/sysconfig dest=/opt/sys.tar.bz2 format=bz2 owner=haha mode=0600&#39;
-</code></pre>
-<h3 id="Hostname模块"><a href="#Hostname模块" class="headerlink" title="Hostname模块"></a>Hostname模块</h3><p>管理远程主机的主机名</p>
-<pre><code class="sh"># 更改192.168.20.22的主机名为nginx01,/etc/hostname文件内容也被修改
-ansible 192.168.20.22 -m hostname -a &#39;name=nginx01&#39;
-</code></pre>
-<h3 id="Cron-模块"><a href="#Cron-模块" class="headerlink" title="Cron 模块"></a>Cron 模块</h3><p>计划任务</p>
-<p>支持时间：minute，hour，day，month，weekday</p>
-<pre><code class="sh"># 创建计划任务，周一到周五的两点半执行/opt/mysql_backup.sh脚本，计划任务的名称是backup mysql
-ansible dbsrvs -m cron -a &quot;hour=2 minute=30 weekday=1-5 name=&#39;backup mysql&#39; job=/opt/mysql_backup.sh&quot;
-
-
-#再创建一个时间同步的计划任务
-ansible dbsrvs -m cron -a &#39;minute=*/5 name=Synctime job=&quot;/usr/sbin/ntpdate ntp.aliyun.com &amp;&gt;/dev/null&quot; &#39;
-
-
-#删除任务
-ansible dbsrvs -m cron -a &#39;name=&quot;backup mysql&quot; state=absent&#39;
-
-
-#禁用计划任务,必须加上job参数
-ansible dbsrvs -m cron -a &#39;minute=*/5 job=&quot;/usr/sbin/ntpdate ntp.aliyun.com &amp;&gt;/dev/null&quot; name=Synctime disabled=yes&#39;
-
-#启用计划任务
-ansible dbsrvs -m cron -a &#39;minute=*/5 job=&quot;/usr/sbin/ntpdate ntp.aliyun.com &amp;&gt;/dev/null&quot; name=Synctime disabled=no&#39;
-</code></pre>
-<h3 id="Yum-模块"><a href="#Yum-模块" class="headerlink" title="Yum 模块"></a>Yum 模块</h3><p>管理软件包，只支持RHEL，CentOS，fedora，不支持Ubuntu其它版本</p>
-<pre><code class="sh"># 安装软件包，安装多个用逗号隔开，present可以省略
-ansible websrvs -m yum -a &#39;name=iotop,telnet state=present&#39; 
-
-# 删除
-ansible websrvs -m yum -a &#39;name=iotop state=absent&#39; 
-
-# 更新
-ansible websrvs -m yum -a &#39;name=iotop state=latest&#39; 
-</code></pre>
-<h3 id="yum-repository模块"><a href="#yum-repository模块" class="headerlink" title="yum_repository模块"></a>yum_repository模块</h3><p>管理yum源</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>file</td>
-<td>yum源文件名， &#x2F;etc&#x2F;yum.repos.d&#x2F;xxxx.repo</td>
-</tr>
-<tr>
-<td>name</td>
-<td>yum源名称</td>
-</tr>
-<tr>
-<td>description</td>
-<td>yum源描述</td>
-</tr>
-<tr>
-<td>baseurl</td>
-<td>yum源下载地址</td>
-</tr>
-<tr>
-<td>enabled</td>
-<td>是否启用此yum源，yes&#x2F;no</td>
-</tr>
-<tr>
-<td>gpgcheck</td>
-<td>是否启动gpg校验，yes&#x2F;no</td>
-</tr>
-<tr>
-<td>gpgkey</td>
-<td>gpg密钥</td>
-</tr>
-<tr>
-<td>state</td>
-<td>状态，present&#x2F;absent</td>
-</tr>
-</tbody></table>
-<h3 id="Service-模块"><a href="#Service-模块" class="headerlink" title="Service 模块"></a>Service 模块</h3><p>管理服务</p>
-<pre><code class="sh"># 启动服务，设置自启
-ansible all -m service -a &#39;name=httpd state=started enabled=yes&#39;
-# 停止服务
-ansible all -m service -a &#39;name=httpd state=stopped&#39;
-# 重载
-ansible all -m service -a &#39;name=httpd state=reloaded&#39;
-# 重启
-ansible all -m service -a &#39;name=httpd state=restarted&#39;
-</code></pre>
-<h3 id="User-模块"><a href="#User-模块" class="headerlink" title="User 模块"></a>User 模块</h3><p>管理用户</p>
-<pre><code class="sh"># 创建用户,指定用户名、描述、uid、家目录、所属组
-ansible all -m user -a &#39;name=user1 comment=&quot;test user&quot; uid=2048 home=/app/user1 group=root&#39;
-
-# 用户名 描述 uid 所属组 从属组 shell类型 是否系统账户 是否创建家目录 家目录路径 uid是否唯一
-ansible all -m user -a &#39;name=nginx comment=nginx uid=88 group=nginx groups=&quot;root,daemon&quot; shell=/sbin/nologin system=yes create_home=no home=/data/nginx non_unique=yes&#39;
-
-# 删除用户，remove=yes表示删除用户及家目录等数据，默认remove=no
-ansible all -m user -a &#39;name=nginx state=absent remove=yes&#39;
-</code></pre>
-<h3 id="Group-模块"><a href="#Group-模块" class="headerlink" title="Group 模块"></a>Group 模块</h3><p>管理组</p>
-<pre><code class="sh"># 创建组
-ansible websrvs -m group -a &#39;name=nginx gid=88 system=yes&#39;
-
-# 删除组
-ansible websrvs -m group -a &#39;name=nginx state=absent&#39;
-</code></pre>
-<h3 id="Setup-模块"><a href="#Setup-模块" class="headerlink" title="Setup 模块"></a>Setup 模块</h3><p> setup 模块来收集主机的系统信息，这些 facts 信息可以直接以变量的形式使用，但是如果主机较多，会影响执行速度，可以使用gather_facts: no 来禁止 Ansible 收集 facts 信息</p>
-<pre><code class="sh">ansible all -m setup		#收集服务器详细信息
-ansible all -m setup -a &quot;filter=ansible_nodename&quot;		#主机全名
-ansible all -m setup -a &quot;filter=ansible_hostname&quot;		#主机名（部分名称）
-ansible all -m setup -a &quot;filter=ansible_os_family&quot;		#操作系统家族
-ansible all -m setup -a &quot;filter=ansible_domain&quot;			#域名
-ansible all -m setup -a &quot;filter=ansible_memtotal_mb&quot;		#内存总大小
-ansible all -m setup -a &quot;filter=ansible_memory_mb&quot;		#内存，包含交换分区等
-ansible all -m setup -a &quot;filter=ansible_memfree_mb&quot;		#剩余内存
-
-ansible all -m setup -a &quot;filter=ansible_distribution_major_version&quot;	#操作系统版本号
-ansible all -m setup -a &quot;filter=ansible_distribution_version&quot;		#小版本号
-ansible websrvs -m setup -a &quot;filter=ansible_distribution&quot;		#操作系统版本
-
-ansible all -m setup -a &quot;filter=ansible_processor_vcpus&quot;		#cpu个数
-ansible all -m setup -a &quot;filter=ansible_all_ipv4_addresses&quot;		#多块网卡的所有ip地址
-ansible all -m setup -a &quot;filter=ansible_default_ipv4&quot;			#默认ip地址		
-</code></pre>
-<h3 id="mount模块"><a href="#mount模块" class="headerlink" title="mount模块"></a>mount模块</h3><p>磁盘挂载相关 </p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>fstype</td>
-<td>指定文件系统类型，如nfs，xfs，ext4等</td>
-</tr>
-<tr>
-<td>src</td>
-<td>挂载源，如src&#x3D;172.16.1.31:&#x2F;data&#x2F;zh</td>
-</tr>
-<tr>
-<td>path</td>
-<td>在目标主机的挂载路径，如path&#x3D;&#x2F;mnt&#x2F;new-lidao-mount</td>
-</tr>
-<tr>
-<td>state</td>
-<td>状态<br />present ：仅修改配置，开机挂载，仅将挂载配置写入&#x2F;etc&#x2F;fstab<br/>mounted：挂载+修改配置，挂载设备，并将配置写入&#x2F;etc&#x2F;fstab<br/>unmounted：卸载设备，不会清除&#x2F;etc&#x2F;fstab写入的配置<br/>absent： 卸载设备，会清理&#x2F;etc&#x2F;fstab写入的配置<br/>remounted：重新挂载</td>
-</tr>
-</tbody></table>
-<pre><code class="sh"># 挂载nfs，如果要挂载点目录不存在，则会自动创建目录
-ansible all -m mount -a &#39;fstype=nfs src=172.16.1.31:/data/zh  path=/mnt/   state=mounted&#39;
-</code></pre>
-<h3 id="iptables模块"><a href="#iptables模块" class="headerlink" title="iptables模块"></a>iptables模块</h3><p>设置防火墙</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>table</td>
-<td>指定表，比如table&#x3D;filter</td>
-</tr>
-<tr>
-<td>action</td>
-<td>指定追加或者插入，action&#x3D;append（默认）或insert</td>
-</tr>
-<tr>
-<td>chain</td>
-<td>指定链，比如chain&#x3D;INPUT</td>
-</tr>
-<tr>
-<td>source</td>
-<td>源IP，比如source&#x3D;10.0.0.0&#x2F;24</td>
-</tr>
-<tr>
-<td>destination</td>
-<td>目标IP，比如destination&#x3D;192.168.110.18</td>
-</tr>
-<tr>
-<td>protocol</td>
-<td>协议，比如protocol&#x3D;tcp</td>
-</tr>
-<tr>
-<td>destination_port</td>
-<td>目标端口，比如destination_port&#x3D;3306</td>
-</tr>
-<tr>
-<td>jump</td>
-<td>策略，比如jump&#x3D;DROP</td>
-</tr>
-<tr>
-<td>state</td>
-<td>状态：state&#x3D;absent&#x2F;present(默认)</td>
-</tr>
-</tbody></table>
-<pre><code class="sh"># 新增一条防火墙策略
-ansible web -m iptables -a &#39;table=filter action=insert chain=INPUT source=10.0.0.0/24 protocol=tcp  destination_port=80 jump=DROP state=present&#39;
-</code></pre>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>除了以上模块以外，还有其他的常用模块不再赘述。更多模块介绍详见官方文档：<a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/index.html#plugins-in-ansible-builtin"> 模块参考 </a></p>
-<p>这些模块功能有些使用shell模块直接运行命令也可以实现，但是并不推荐，因为使用ansible模块具有</p>
-<ol>
-<li>Idempotency（幂等性）：即无论运行多少次，都会确保所需的状态被应用。相反，使用shell模块执行命令时，需要手动编写逻辑来确保这种状态的达成。</li>
-<li>可读性和维护性：使用专门的模块可以使Playbook更易于阅读和维护。mount模块和iptables模块提供了清晰的抽象，可以让操作更易于理解，并且减少了对特定命令语法的依赖。</li>
-<li>安全性：使用专门的模块可以提高安全性，因为它们通常会提供内置的错误检查和安全性措施，以确保正确的参数和配置。</li>
-</ol>
-<p>总的来说，首选应该是使用Ansible提供的专门模块，尤其是对于常见的系统管理任务，因为这样更易于编写、理解和维护。</p>
 
     </div>
 
@@ -656,14 +326,16 @@ ansible web -m iptables -a &#39;table=filter action=insert chain=INPUT source=10
 
 
     
-<link rel="stylesheet" href="/css/a11y-dark.min.css">
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
 
     
-<script src="/js/highlight.min.js"></script>
-
-    
-<script src="/js/highlightjs-line-numbers.js"></script>
-
 
 
 <script>
