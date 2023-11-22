@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="函数" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        
+            <nav id="toc" class="bs-docs-sidebar"></nav>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            函数
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%82%E6%95%B0%E5%8F%98%E9%87%8F"><span class="post-toc-text">参数变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#return-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">return 命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%EF%BC%8Clocal-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">全局变量和局部变量，local 命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="post-toc-text">参考链接</span></a></li></ol>
+            
+        
+        <p>本章介绍 Bash 函数的用法。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>函数（function）是可以重复使用的代码片段，有利于代码的复用。它与别名（alias）的区别是，别名只适合封装简单的单个命令，函数则可以封装复杂的多行命令。</p>
+<p>函数总是在当前 Shell 执行，这是跟脚本的一个重大区别，Bash 会新建一个子 Shell 执行脚本。如果函数与脚本同名，函数会优先执行。但是，函数的优先级不如别名，即如果函数与别名同名，那么别名优先执行。</p>
+<p>Bash 函数定义的语法有两种。</p>
+<pre><code class="bash"># 第一种
+fn() &#123;
+  # codes
+&#125;
+
+# 第二种
+function fn() &#123;
+  # codes
+&#125;
+</code></pre>
+<p>上面代码中，<code>fn</code>是自定义的函数名，函数代码就写在大括号之中。这两种写法是等价的。</p>
+<p>下面是一个简单函数的例子。</p>
+<pre><code class="bash">hello() &#123;
+  echo &quot;Hello $1&quot;
+&#125;
+</code></pre>
+<p>上面代码中，函数体里面的<code>$1</code>表示函数调用时的第一个参数。</p>
+<p>调用时，就直接写函数名，参数跟在函数名后面。</p>
+<pre><code class="bash">$ hello world
+Hello world
+</code></pre>
+<p>下面是一个多行函数的例子，显示当前日期时间。</p>
+<pre><code class="bash">today() &#123;
+  echo -n &quot;Today&#39;s date is: &quot;
+  date +&quot;%A, %B %-d, %Y&quot;
+&#125;
+</code></pre>
+<p>删除一个函数，可以使用<code>unset</code>命令。</p>
+<pre><code class="bash">unset -f functionName
+</code></pre>
+<p>查看当前 Shell 已经定义的所有函数，可以使用<code>declare</code>命令。</p>
+<pre><code class="bash">$ declare -f
+</code></pre>
+<p>上面的<code>declare</code>命令不仅会输出函数名，还会输出所有定义。输出顺序是按照函数名的字母表顺序。由于会输出很多内容，最好通过管道命令配合<code>more</code>或<code>less</code>使用。</p>
+<p><code>declare</code>命令还支持查看单个函数的定义。</p>
+<pre><code class="bash">$ declare -f functionName
+</code></pre>
+<p><code>declare -F</code>可以输出所有已经定义的函数名，不含函数体。</p>
+<pre><code class="bash">$ declare -F
+</code></pre>
+<h2 id="参数变量"><a href="#参数变量" class="headerlink" title="参数变量"></a>参数变量</h2><p>函数体内可以使用参数变量，获取函数参数。函数的参数变量，与脚本参数变量是一致的。</p>
+<ul>
+<li><code>$1</code>~&#96;$9&#96;：函数的第一个到第9个的参数。</li>
+<li><code>$0</code>：函数所在的脚本名。</li>
+<li><code>$#</code>：函数的参数总数。</li>
+<li><code>$@</code>：函数的全部参数，参数之间使用空格分隔。</li>
+<li><code>$*</code>：函数的全部参数，参数之间使用变量<code>$IFS</code>值的第一个字符分隔，默认为空格，但是可以自定义。</li>
+</ul>
+<p>如果函数的参数多于9个，那么第10个参数可以用<code>$&#123;10&#125;</code>的形式引用，以此类推。</p>
+<p>下面是一个示例脚本<code>test.sh</code>。</p>
+<pre><code class="bash">#!/bin/bash
+# test.sh
+
+function alice &#123;
+  echo &quot;alice: $@&quot;
+  echo &quot;$0: $1 $2 $3 $4&quot;
+  echo &quot;$# arguments&quot;
+
+&#125;
+
+alice in wonderland
+</code></pre>
+<p>运行该脚本，结果如下。</p>
+<pre><code class="bash">$ bash test.sh
+alice: in wonderland
+test.sh: in wonderland
+2 arguments
+</code></pre>
+<p>上面例子中，由于函数<code>alice</code>只有第一个和第二个参数，所以第三个和第四个参数为空。</p>
+<p>下面是一个日志函数的例子。</p>
+<pre><code class="bash">function log_msg &#123;
+  echo &quot;[`date &#39;+ %F %T&#39;` ]: $@&quot;
+&#125;
+</code></pre>
+<p>使用方法如下。</p>
+<pre><code class="bash">$ log_msg &quot;This is sample log message&quot;
+[ 2018-08-16 19:56:34 ]: This is sample log message
+</code></pre>
+<h2 id="return-命令"><a href="#return-命令" class="headerlink" title="return 命令"></a>return 命令</h2><p><code>return</code>命令用于从函数返回一个值。函数执行到这条命令，就不再往下执行了，直接返回了。</p>
+<pre><code class="bash">function func_return_value &#123;
+  return 10
+&#125;
+</code></pre>
+<p>函数将返回值返回给调用者。如果命令行直接执行函数，下一个命令可以用<code>$?</code>拿到返回值。</p>
+<pre><code class="bash">$ func_return_value
+$ echo &quot;Value returned by function is: $?&quot;
+Value returned by function is: 10
+</code></pre>
+<p><code>return</code>后面不跟参数，只用于返回也是可以的。</p>
+<pre><code class="bash">function name &#123;
+  commands
+  return
+&#125;
+</code></pre>
+<h2 id="全局变量和局部变量，local-命令"><a href="#全局变量和局部变量，local-命令" class="headerlink" title="全局变量和局部变量，local 命令"></a>全局变量和局部变量，local 命令</h2><p>Bash 函数体内直接声明的变量，属于全局变量，整个脚本都可以读取。这一点需要特别小心。</p>
+<pre><code class="bash"># 脚本 test.sh
+fn () &#123;
+  foo=1
+  echo &quot;fn: foo = $foo&quot;
+&#125;
+
+fn
+echo &quot;global: foo = $foo&quot;
+</code></pre>
+<p>上面脚本的运行结果如下。</p>
+<pre><code class="bash">$ bash test.sh
+fn: foo = 1
+global: foo = 1
+</code></pre>
+<p>上面例子中，变量<code>$foo</code>是在函数<code>fn</code>内部声明的，函数体外也可以读取。</p>
+<p>函数体内不仅可以声明全局变量，还可以修改全局变量。</p>
+<pre><code class="bash">#! /bin/bash
+foo=1
+
+fn () &#123;
+  foo=2
+&#125;
+
+fn
+
+echo $foo
+</code></pre>
+<p>上面代码执行后，输出的变量<code>$foo</code>值为2。</p>
+<p>函数里面可以用<code>local</code>命令声明局部变量。</p>
+<pre><code class="bash">#! /bin/bash
+# 脚本 test.sh
+fn () &#123;
+  local foo
+  foo=1
+  echo &quot;fn: foo = $foo&quot;
+&#125;
+
+fn
+echo &quot;global: foo = $foo&quot;
+</code></pre>
+<p>上面脚本的运行结果如下。</p>
+<pre><code class="bash">$ bash test.sh
+fn: foo = 1
+global: foo =
+</code></pre>
+<p>上面例子中，<code>local</code>命令声明的<code>$foo</code>变量，只在函数体内有效，函数体外没有定义。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.linuxtechi.com/define-use-functions-linux-shell-script/">How to define and use functions in Linux Shell Script</a>, by Pradeep Kumar</li>
+</ul>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2022-11-24</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Bash/'>
+                            Bash
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<link rel="stylesheet" href="/css/a11y-dark.min.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>

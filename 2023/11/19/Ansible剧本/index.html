@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Ansible剧本" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        
+            <nav id="toc" class="bs-docs-sidebar"></nav>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Ansible剧本
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#playbook"><span class="post-toc-text">playbook</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B"><span class="post-toc-text">自动部署案例</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#nfs%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B"><span class="post-toc-text">nfs部署案例</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#lnp%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B"><span class="post-toc-text">lnp部署案例</span></a></li></ol></li></ol>
+            
+        
+        <p>1</p>
+<h2 id="playbook"><a href="#playbook" class="headerlink" title="playbook"></a>playbook</h2><p>Ansible的任务配置文件被称为playbook，我们可以称之为“剧本”，每一个剧本都包含一系列的任务，就像剧本的每一场分剧场，一个剧本，有很多分剧场组成。Playbook采用yaml语法编写，该语言被开发的时候，它的意思是：yet another markup language（仍是一种标记语言）。</p>
+<blockquote>
+<p><strong>Yaml语言特性</strong></p>
+</blockquote>
+<p>（1）具有很好的可读性，易于实现</p>
+<p>（2）表达能力强，扩展性好</p>
+<p>（3）和脚本语言的交互性好</p>
+<p>（4）有一个一致的信息模型</p>
+<p>（5）可以基于流程来处理</p>
+<blockquote>
+<p><strong>Playbooks组件</strong></p>
+</blockquote>
+<pre><code>Target：		定义playbook的远程主机组
+Variable：	定义playbook使用的变量
+Task：		定义远程主机上的执行的任务列表
+Handler：	定义task执行完成以后需要调用的任务，例如配置文件被改动，则启动handler任务重启相关联的服务
+</code></pre>
+<h2 id="自动部署案例"><a href="#自动部署案例" class="headerlink" title="自动部署案例"></a>自动部署案例</h2><h3 id="nfs部署案例"><a href="#nfs部署案例" class="headerlink" title="nfs部署案例"></a>nfs部署案例</h3><p>在目标主机上部署nfs服务，并且挂载到本机目录中</p>
+<pre><code class="sh">vim /scripts/playbook/nfs.yml			# 编辑剧本任务文件
+</code></pre>
+<pre><code class="yaml">- hosts: backup
+  tasks:
+    - name: install nfs rpcbind
+      yum:  name=nfs-utils state=installed
+
+    - name: configure nfs exports file
+      copy: dest=/etc/exports   content=&quot;/playbook-backup/  172.16.1.0/24(rw,sync,all_squash)&quot;
+
+    - name: mkdir chown
+      file: path=/playbook-backup  state=directory owner=nfsnobody  group=nfsnobody
+
+    - name: start &amp;&amp; enable  rpc
+      systemd:  name=rpcbind enabled=yes state=started
+    - name: start &amp;&amp; enable  nfs
+      systemd:  name=nfs  enabled=yes state=started
+
+    - name: mount test
+      mount: fstype=nfs src=172.16.1.41:/playbook-backup   path=/mnt  state=mounted
+</code></pre>
+<h3 id="lnp部署案例"><a href="#lnp部署案例" class="headerlink" title="lnp部署案例"></a>lnp部署案例</h3><pre><code class="sh">vim /scripts/playbook/lnp.yml		# 编辑剧本任务文件
+</code></pre>
+<pre><code class="yaml">- hosts: backup
+  tasks:
+    - name: add nginx repo 		# 添加nginx源
+      yum_repository:  
+        file: nginx
+        name: nginx  
+        description: &quot;ngx repo&quot;  
+        baseurl: &quot;http://nginx.org/packages/centos/$releasever/$basearch/&quot;  
+        enabled: yes 
+        gpgcheck: no
+        state: present
+    - name: add php repo 		# 添加php源
+      yum_repository:
+        file: php
+        name: php 
+        description: &quot;php repo&quot; 
+        baseurl: &quot;http://us-east.repo.webtatic.com/yum/el7/x86_64/&quot;      
+        enabled: no 			# 默认关闭，因为这个源只在安装php时使用 
+        gpgcheck: no
+        state: present
+
+    - name: install nginx &amp;&amp; php pack 	# 安装nginx和php
+      yum:
+        name: nginx,php71w,php71w-cli,php71w-common,php71w-devel,php71w-embedded,php71w-gd,php71w-mcrypt,php71w-mbstring,php71w-pdo,php71w-xml,php71w-fpm,php71w-mysqlnd,php71w-opcache,php71w-pecl-memcached,php71w-pecl-redis,php71w-pecl-mongodb
+        enablerepo: php			# 这里需要打开
+        state: installed
+
+
+    - name: copy nginx conf 			# 把nginx配置文件复制过去
+      copy: 
+        src: nginx-php-www.conf
+        dest: /etc/nginx/conf.d/www.conf
+        backup: yes 
+
+    - name: copy php conf 				# 把php配置文件复制过去
+      copy: 
+        src: php-www.conf
+        dest: /etc/php-fpm.d/www.conf
+        backup: yes       
+    
+    - name: create code  dir 			# 创建nginx的网站目录
+      file:
+        path: /data/www-play/ 
+        owner: nginx 
+        group: nginx 
+        state: directory 
+       
+    - name: copy code  					# 把网站首页文件复制过去
+      copy: 
+        src: web-index.php
+        dest: /data/www-play/index.php
+        owner: nginx 
+        group: nginx 
+        backup: yes
+        
+    - name: start nginx 				# 启动nginx
+      systemd: 
+        name: nginx 
+        enabled: yes 
+        state: restarted
+        
+    - name: start php  					# 启动php
+      systemd: 
+        name: php-fpm  
+        enabled: yes 
+        state: restarted      
+</code></pre>
+<pre><code class="sh"># 本机的nginx配置文件
+server  &#123;
+   listen 80 default_server;
+   server_name www.etiantian.org;
+   root /data/www-play;
+   location  /  &#123;
+   index index.php  index.html;
+   &#125;
+
+   location  ~*  \.php$  &#123;
+   fastcgi_pass 127.0.0.1:9000;
+   fastcgi_index index.php;
+   fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+   include fastcgi_params;	
+   &#125;
+&#125;
+</code></pre>
+<pre><code class="sh"># 本机的php配置文件
+[www]
+user = nginx
+group = nginx 
+listen = 127.0.0.1:9000
+listen.allowed_clients = 127.0.0.1
+pm = dynamic
+pm.max_children = 50
+pm.start_servers = 5
+pm.min_spare_servers = 5
+pm.max_spare_servers = 35
+slowlog = /var/log/php-fpm/www-slow.log
+php_admin_value[error_log] = /var/log/php-fpm/www-error.log
+php_admin_flag[log_errors] = on
+php_value[soap.wsdl_cache_dir]  = /var/lib/php/wsdlcache
+</code></pre>
+<pre><code class="php"># 网站首页文件
+&lt;?php
+phpinfo();
+?&gt;
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-19</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Ansible/'>
+                            Ansible
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<link rel="stylesheet" href="/css/a11y-dark.min.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>

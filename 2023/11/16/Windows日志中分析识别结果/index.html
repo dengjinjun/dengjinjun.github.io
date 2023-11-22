@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Windows日志中分析识别结果" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        
+            <nav id="toc" class="bs-docs-sidebar"></nav>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Windows日志中分析识别结果
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                
+            
+        
+        <p>商品的推荐算法要做优化，我需要针对日志中的商品编码和相似度，模拟新算法的推荐数量和准确率。所以此次脚本的核心就是从复杂的日志信息中获取每一次商品识别结果的商品编码和相似度，然后用新算法处理。</p>
+<blockquote>
+<p><strong>这是一部分日志，截取了一次识别</strong></p>
+</blockquote>
+<pre><code>[2023-11-07 08:29:13.662] [daily_logger] [info] now mode is WM_MODE_50
+[2023-11-07 08:29:13.721] [daily_logger] [info] camera load elapsed 58ms
+
+[2023-11-07 08:29:13.722] [daily_logger] [info] check img elapsed 0ms
+
+[2023-11-07 08:29:13.724] [daily_logger] [info] camera all elapsed 62ms
+
+[2023-11-07 08:29:13.724] [daily_logger] [info] 进入图像加速库
+[2023-11-07 08:29:13.892] [daily_logger] [info] 图形加速库耗时：167ms
+
+[2023-11-07 08:29:13.892] [daily_logger] [info] category elapsed 168ms
+
+[2023-11-07 08:29:13.899] [daily_logger] [info] res[0]=1064 20.089664 normal
+
+[2023-11-07 08:29:13.900] [daily_logger] [info] id:1065,code:10080230,table:normal,sim:0.9524129
+[2023-11-07 08:29:13.900] [daily_logger] [info] res[1]=961 25.035732 normal
+
+[2023-11-07 08:29:13.901] [daily_logger] [info] id:962,code:10080230,table:normal,sim:0.9388329
+[2023-11-07 08:29:13.901] [daily_logger] [info] res[2]=1492 32.777805 normal
+
+[2023-11-07 08:29:13.902] [daily_logger] [info] id:1493,code:10080230,table:normal,sim:0.91854596
+[2023-11-07 08:29:13.902] [daily_logger] [info] res[3]=1038 39.11579 normal
+
+[2023-11-07 08:29:13.903] [daily_logger] [info] id:1039,code:10080230,table:normal,sim:0.90450937
+[2023-11-07 08:29:13.903] [daily_logger] [info] res[4]=338 44.66648 normal
+
+[2023-11-07 08:29:13.904] [daily_logger] [info] id:339,code:10080230,table:normal,sim:0.8938664
+[2023-11-07 08:29:13.904] [daily_logger] [info] res[5]=3703 44.845665 normal
+
+[2023-11-07 08:29:13.904] [daily_logger] [info] id:3704,code:10080230,table:normal,sim:0.8988863
+[2023-11-07 08:29:13.905] [daily_logger] [info] index time : elapsed 10ms
+
+[2023-11-07 08:29:13.905] [daily_logger] [info] return productcodes:10080230,,sessionId:73625842023117162913843498924
+[2023-11-07 08:29:13.919] [daily_logger] [info] save record elapsed 14ms
+
+[2023-11-07 08:29:13.919] [daily_logger] [info] all time elapsed -257ms
+
+[2023-11-07 08:29:14.730] [daily_logger] [info] code is 10080230 sessionId is 73625842023117162913843498924 hit is true productName(utf-8) is ?????????
+[2023-11-07 08:29:14.730] [daily_logger] [info] start feed back
+[2023-11-07 08:29:14.742] [daily_logger] [info] sessionId is 73625842023117162913843498924,hit top 1,real hit top is 1
+[2023-11-07 08:29:14.743] [daily_logger] [info] upload url is se.wmdigit.com/lsym/newretail/api/dfs/upload3,imagePath is C:\jpos\device\aiscale\WmAceKg\WMphoto\2023117162913.jpg
+[2023-11-07 08:29:15.109] [daily_logger] [info] url2:se.wmdigit.com/lsym/newretail/api/search/product/saveImageIdentify
+[2023-11-07 08:29:15.264] [daily_logger] [info] response2:&#123;&quot;code&quot;:0,&quot;message&quot;:&quot;操作成功&quot;,&quot;timestamp&quot;:&quot;1699316955338&quot;,&quot;id&quot;:&quot;1721686213229813762&quot;,&quot;data&quot;:&quot;1721686213292732418&quot;&#125;
+[2023-11-07 08:29:15.265] [daily_logger] [info] end feed back
+[2023-11-07 08:29:15.265] [daily_logger] [info] setfeedback time is 535ms
+</code></pre>
+<blockquote>
+<p><strong>脚本</strong></p>
+</blockquote>
+<pre><code class="python">import re
+import openpyxl
+
+
+log = &quot;3.txt&quot;
+filename = &quot;tmp.txt&quot;
+
+
+# 清除无用日志信息
+def process_log():
+    # 打开文件并读取数据
+    with open(log, &#39;r&#39;, encoding=&#39;GBK&#39;) as file:
+        lines = file.readlines()
+
+    # 保留满足特定条件的行
+    required_lines = [line for line in lines if &#39;sim&#39; in line or &#39;return productcodes&#39; in line or &#39;hit&#39; in line or &#39;start&#39; in line]
+
+    # 将结果写回文件
+    with open(&#39;tmp.txt&#39;, &#39;w&#39;, encoding=&#39;GBK&#39;) as file:
+        file.writelines(required_lines)
+    print(&quot;日志预处理完成&quot;)
+
+# 传入一行内容，返回一个字典
+def get_dict_from_line(line):
+    match = re.search(r&#39;code:(\d+),.*sim:(\d+(\.\d+)?)&#39;, line)
+    return &#123;match.group(1): match.group(2)&#125; if match else None
+
+
+# 分析单次识别，得到命中序号和一个列表
+def get_list_from_per_identify(lines,start_position):
+    # 记录单次识别结果的列表
+    processed_list = []
+    # 将原方案推荐的商品数量放入列表第一个位置
+    num = len(lines[start_position - 2].split(&quot;,&quot;)) - 2
+    processed_list.append(num)
+    # 将正确的商品编码放入列表第二个位置
+    code = lines[start_position - 1].split(&quot; &quot;)[6]
+    processed_list.append(code)
+    # 原方案命中的序号
+    hit = lines[start_position + 1].split(&quot;,&quot;)[1][-2:].strip()
+    # 将六个键值对放在列表后面的位置
+    for i in range(start_position - 3, start_position - 9, -1):
+        if i &gt;= 0:
+            new_dict = get_dict_from_line(lines[i])
+            if new_dict:
+                processed_list.append(new_dict)
+    return hit, processed_list
+
+
+# 第二种算法(推荐最高置信值0.03范围内的结果)
+def recommend_product_2(data):
+    # 获取置信值最高的商品编码和置信值
+    # max_confidence_item = max(data, key=lambda x: float(list(x.values())[0]))
+    # max_confidence_code = list(max_confidence_item.keys())[0]
+    # max_confidence = float(list(max_confidence_item.values())[0])
+    max_confidence = float(list(data[0].values())[0])
+    # 根据规则推荐商品编码
+    recommended_codes = [list(item.keys())[0] for item in data if
+                         max_confidence - 0.03 &lt;= float(list(item.values())[0]) &lt;= max_confidence + 0.03]
+    # 去除重复的商品编码
+    recommended_codes = list(set(recommended_codes))
+    return recommended_codes
+
+
+# 第三种算法(0.96, 0.88, 0.8)
+def recommend_product_3(data):
+    max_confidence = float(list(data[0].values())[0])
+    max_confidence_code = list(data[0].keys())[0]
+    # 一，最大置信值&gt;=0.96
+    if max_confidence &gt;= 0.96:
+        result = [max_confidence_code]
+    # 二，0.96 &gt; 最大的置信值&gt;=0.88,返回两个
+    elif max_confidence &gt;= 0.88:
+        if float(list(data[1].values())[0]) &gt;= 0.88:
+            result = [max_confidence_code, list(data[1].keys())[0]]
+        else:
+            result = [max_confidence_code]
+    # 三，最大的置信值&gt;=0.8
+    elif max_confidence &gt;= 0.8:
+        if float(list(data[2].values())[0]) &gt;= 0.8:
+            result = [max_confidence_code, list(data[1].keys())[0], list(data[2].keys())[0]]
+        elif float(list(data[1].values())[0]) &gt;= 0.8:
+            result =[max_confidence_code, list(data[1].keys())[0]]
+        else:
+            result = [max_confidence_code]
+    else:
+        print(&quot;未推荐出商品&quot;, data)
+        return []
+    return list(set(result))
+
+
+def handle_file(filename):
+    with open(filename, &#39;r&#39;, encoding=&quot;GBK&quot;) as file:
+        lines = file.readlines()
+        # 打开Excel文件
+        workbook = openpyxl.load_workbook(&quot;aa.xlsx&quot;)
+        # 选择要写入的工作表（这里选择第一个工作表，索引从0开始）
+        worksheet = workbook.worksheets[2]
+        count = 1
+        # 找到 &#39;start feed back&#39; 所在的行，并记录它们在原始列表中的索引位置。
+        start_positions = [idx for idx, line in enumerate(lines) if &#39;start feed back&#39; in line]
+        for start_position in start_positions:
+            # count = count + 1
+            # 单次识别结果的列表
+            hit, identify_list = get_list_from_per_identify(lines, start_position)
+            if len(identify_list) == 8:
+                count = count + 1
+                print(count)
+                num_0 = identify_list[0]
+                if hit != &quot;-1&quot;:
+                    result_0 = 1
+                else:
+                    result_0 = 0
+                # 只包含字典的列表
+                # result_list = identify_list[2:]
+                result_list = sorted(identify_list[2:], key=lambda x: list(x.values())[0], reverse=True)
+
+                # 得到算法2的推荐数量和结果
+                code_list_2 = recommend_product_2(result_list)
+                num_2 = len(code_list_2)
+                if identify_list[1] in code_list_2:
+                    result_2 = 1
+                else:
+                    result_2 = 0
+
+                # 得到算法3的推荐数量和结果
+                code_list_3 = recommend_product_3(result_list)
+                num_3 = len(code_list_3)
+                if identify_list[1] in code_list_3:
+                    result_3 = 1
+                else:
+                    result_3 = 0
+
+                # 在指定单元格写入数据
+                worksheet[&quot;A&#123;&#125;&quot;.format(count)] = str(identify_list[0:2]+result_list)
+                worksheet[&quot;B&#123;&#125;&quot;.format(count)] = num_0
+                worksheet[&quot;C&#123;&#125;&quot;.format(count)] = result_0
+                worksheet[&quot;D&#123;&#125;&quot;.format(count)] = num_2
+                worksheet[&quot;E&#123;&#125;&quot;.format(count)] = result_2
+                worksheet[&quot;F&#123;&#125;&quot;.format(count)] = num_3
+                worksheet[&quot;G&#123;&#125;&quot;.format(count)] = result_3
+        # 统计平均值
+        for i in [&#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;, &#39;F&#39;, &#39;G&#39;]:
+            worksheet[&quot;&#123;&#125;&#123;&#125;&quot;.format(i, (count + 1),)] = &quot;=AVERAGE(&#123;&#125;2:&#123;&#125;&#123;&#125;)&quot;.format(i, i, count)
+        workbook.save(&quot;aa.xlsx&quot;)
+        print(&quot;OK&quot;)
+
+process_log()
+handle_file(filename)
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-16</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/python%E8%84%9A%E6%9C%AC/'>
+                            python脚本
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<link rel="stylesheet" href="/css/a11y-dark.min.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>

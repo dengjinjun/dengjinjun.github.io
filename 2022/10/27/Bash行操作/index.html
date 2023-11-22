@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Bash行操作" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        
+            <nav id="toc" class="bs-docs-sidebar"></nav>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Bash行操作
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%89%E6%A0%87%E7%A7%BB%E5%8A%A8"><span class="post-toc-text">光标移动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B8%85%E9%99%A4%E5%B1%8F%E5%B9%95"><span class="post-toc-text">清除屏幕</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BC%96%E8%BE%91%E6%93%8D%E4%BD%9C"><span class="post-toc-text">编辑操作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8"><span class="post-toc-text">自动补全</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%93%8D%E4%BD%9C%E5%8E%86%E5%8F%B2"><span class="post-toc-text">操作历史</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="post-toc-text">基本用法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#history-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">history 命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="post-toc-text">相关快捷键</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%B6%E4%BB%96%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="post-toc-text">其他快捷键</span></a></li></ol>
+            
+        
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Bash 内置了 Readline 库，具有这个库提供的很多“行操作”功能，比如命令的自动补全，可以大大加快操作速度。</p>
+<p>这个库默认采用 Emacs 快捷键，也可以改成 Vi 快捷键。</p>
+<pre><code class="bash">$ set -o vi
+</code></pre>
+<p>下面的命令可以改回 Emacs 快捷键。</p>
+<pre><code class="bash">$ set -o emacs
+</code></pre>
+<p>如果想永久性更改编辑模式（Emacs &#x2F; Vi），可以将命令写在<code>~/.inputrc</code>文件，这个文件是 Readline 的配置文件。</p>
+<pre><code class="bash">set editing-mode vi
+</code></pre>
+<p>本章介绍的快捷键都属于 Emacs 模式。Vi 模式的快捷键，读者可以参考 Vi 编辑器的教程。</p>
+<p>Bash 默认开启这个库，但是允许关闭。</p>
+<pre><code class="bash">$ bash --noediting
+</code></pre>
+<p>上面命令中，<code>--noediting</code>参数关闭了 Readline 库，启动的 Bash 就不带有行操作功能。</p>
+<h2 id="光标移动"><a href="#光标移动" class="headerlink" title="光标移动"></a>光标移动</h2><p>Readline 提供快速移动光标的快捷键。</p>
+<ul>
+<li><code>Ctrl + a</code>：移到行首。</li>
+<li><code>Ctrl + b</code>：向行首移动一个字符，与左箭头作用相同。</li>
+<li><code>Ctrl + e</code>：移到行尾。</li>
+<li><code>Ctrl + f</code>：向行尾移动一个字符，与右箭头作用相同。</li>
+<li><code>Alt + f</code>：移动到当前单词的词尾。</li>
+<li><code>Alt + b</code>：移动到当前单词的词首。</li>
+</ul>
+<p>上面快捷键的 Alt 键，也可以用 ESC 键代替。</p>
+<h2 id="清除屏幕"><a href="#清除屏幕" class="headerlink" title="清除屏幕"></a>清除屏幕</h2><p><code>Ctrl + l</code>快捷键可以清除屏幕，即将当前行移到屏幕的第一行，与<code>clear</code>命令作用相同。</p>
+<h2 id="编辑操作"><a href="#编辑操作" class="headerlink" title="编辑操作"></a>编辑操作</h2><p>下面的快捷键可以编辑命令行内容。</p>
+<ul>
+<li><code>Ctrl + d</code>：删除光标位置的字符（delete）。</li>
+<li><code>Ctrl + w</code>：删除光标前面的单词。</li>
+<li><code>Ctrl + t</code>：光标位置的字符与它前面一位的字符交换位置（transpose）。</li>
+<li><code>Alt + t</code>：光标位置的词与它前面一位的词交换位置（transpose）。</li>
+<li><code>Alt + l</code>：将光标位置至词尾转为小写（lowercase）。</li>
+<li><code>Alt + u</code>：将光标位置至词尾转为大写（uppercase）。</li>
+</ul>
+<p>使用<code>Ctrl + d</code>的时候，如果当前行没有任何字符，会导致退出当前 Shell，所以要小心。</p>
+<p>剪切和粘贴快捷键如下。</p>
+<ul>
+<li><code>Ctrl + k</code>：剪切光标位置到行尾的文本。</li>
+<li><code>Ctrl + u</code>：剪切光标位置到行首的文本。</li>
+<li><code>Alt + d</code>：剪切光标位置到词尾的文本。</li>
+<li><code>Alt + Backspace</code>：剪切光标位置到词首的文本。</li>
+<li><code>Ctrl + y</code>：在光标位置粘贴文本。</li>
+</ul>
+<p>同样地，Alt 键可以用 Esc 键代替。</p>
+<h2 id="自动补全"><a href="#自动补全" class="headerlink" title="自动补全"></a>自动补全</h2><p>命令输入到一半的时候，可以按一下 Tab 键，Readline 会自动补全命令或路径。比如，输入<code>cle</code>，再按下 Tab 键，Bash 会自动将这个命令补全为<code>clear</code>。</p>
+<p>如果符合条件的命令或路径有多个，就需要连续按两次 Tab 键，Bash 会提示所有符合条件的命令或路径。</p>
+<p>除了命令或路径，Tab 还可以补全其他值。如果一个值以<code>$</code>开头，则按下 Tab 键会补全变量；如果以<code>~</code>开头，则补全用户名；如果以<code>@</code>开头，则补全主机名（hostname），主机名以列在<code>/etc/hosts</code>文件里面的主机为准。</p>
+<p>自动补全相关的快捷键如下。</p>
+<ul>
+<li>Tab：完成自动补全。</li>
+<li><code>Alt + ?</code>：列出可能的补全，与连按两次 Tab 键作用相同。</li>
+<li><code>Alt + /</code>：尝试文件路径补全。</li>
+<li><code>Ctrl + x /</code>：先按<code>Ctrl + x</code>，再按<code>/</code>，等同于<code>Alt + ?</code>，列出可能的文件路径补全。</li>
+<li><code>Alt + !</code>：命令补全。</li>
+<li><code>Ctrl + x !</code>：先按<code>Ctrl + x</code>，再按<code>!</code>，等同于<code>Alt + !</code>，命令补全。</li>
+<li><code>Alt + ~</code>：用户名补全。</li>
+<li><code>Ctrl + x ~</code>：先按<code>Ctrl + x</code>，再按<code>~</code>，等同于<code>Alt + ~</code>，用户名补全。</li>
+<li><code>Alt + $</code>：变量名补全。</li>
+<li><code>Ctrl + x $</code>：先按<code>Ctrl + x</code>，再按<code>$</code>，等同于<code>Alt + $</code>，变量名补全。</li>
+<li><code>Alt + @</code>：主机名补全。</li>
+<li><code>Ctrl + x @</code>：先按<code>Ctrl + x</code>，再按<code>@</code>，等同于<code>Alt + @</code>，主机名补全。</li>
+<li><code>Alt + *</code>：在命令行一次性插入所有可能的补全。</li>
+<li><code>Alt + Tab</code>：尝试用<code>.bash_history</code>里面以前执行命令，进行补全。</li>
+</ul>
+<p>上面的<code>Alt</code>键也可以用 ESC 键代替。</p>
+<h2 id="操作历史"><a href="#操作历史" class="headerlink" title="操作历史"></a>操作历史</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>Bash 会保留用户的操作历史，即用户输入的每一条命令都会记录。有了操作历史以后，就可以使用方向键的<code>↑</code>和<code>↓</code>，快速浏览上一条和下一条命令。</p>
+<p>退出当前 Shell 的时候，Bash 会将用户在当前 Shell 的操作历史写入<code>~/.bash_history</code>文件，该文件默认储存500个操作。</p>
+<p>环境变量<code>HISTFILE</code>总是指向这个文件。</p>
+<pre><code class="bash">$ echo $HISTFILE
+/home/me/.bash_history
+</code></pre>
+<p><code>history</code>命令会输出这个文件的全部内容。用户可以看到最近执行过的所有命令，每条命令之前都有行号。越近的命令，排在越后面。</p>
+<pre><code class="bash">$ history
+...
+498 echo Goodbye
+499 ls ~
+500 cd
+</code></pre>
+<p>输入命令时，按下<code>Ctrl + r</code>快捷键，就可以搜索操作历史，选择以前执行过的命令。这时键入命令的开头部分，Shell 就会自动在历史文件中，查询并显示最近一条匹配的结果，这时按下回车键，就会执行那条命令。</p>
+<p>下面的方法可以快速执行以前执行过的命令。</p>
+<pre><code class="bash">$ echo Hello World
+Hello World
+
+$ echo Goodbye
+Goodbye
+
+$ !e
+echo Goodbye
+Goodbye
+</code></pre>
+<p>上面例子中，<code>!e</code>表示找出操作历史之中，最近的那一条以<code>e</code>开头的命令并执行。Bash 会先输出那一条命令<code>echo Goodbye</code>，然后直接执行。</p>
+<p>同理，<code>!echo</code>也会执行最近一条以<code>echo</code>开头的命令。</p>
+<pre><code class="bash">$ !echo
+echo Goodbye
+Goodbye
+
+$ !echo H
+echo Goodbye H
+Goodbye H
+
+$ !echo H G
+echo Goodbye H G
+Goodbye H G
+</code></pre>
+<p>注意，<code>!string</code>语法只会匹配命令，不会匹配参数。所以<code>!echo H</code>不会执行<code>echo Hello World</code>，而是会执行<code>echo Goodbye</code>，并把参数<code>H</code>附加在这条命令之后。同理，<code>!echo H G</code>也是等同于<code>echo Goodbye</code>命令之后附加<code>H G</code>。</p>
+<p>由于<code>!string</code>语法会扩展成以前执行过的命令，所以含有<code>!</code>的字符串放在双引号里面，必须非常小心，如果它后面有非空格的字符，就很有可能报错。</p>
+<pre><code class="bash">$ echo &quot;I say:\&quot;hello!\&quot;&quot;
+bash: !\: event not found
+</code></pre>
+<p>上面的命令会报错，原因是感叹号后面是一个反斜杠，Bash 会尝试寻找，以前是否执行过反斜杠开头的命令，一旦找不到就会报错。解决方法就是在感叹号前面，也加上反斜杠。</p>
+<pre><code class="bash">$ echo &quot;I say:\&quot;hello\!\&quot;&quot;
+I say:&quot;hello\!&quot;
+</code></pre>
+<h3 id="history-命令"><a href="#history-命令" class="headerlink" title="history 命令"></a>history 命令</h3><p>前面说过，<code>history</code>命令能显示操作历史，即<code>.bash_history</code>文件的内容。</p>
+<pre><code class="bash">$ history
+</code></pre>
+<p>使用该命令，而不是直接读取<code>.bash_history</code>文件的好处是，它会在所有的操作前加上行号，最近的操作在最后面，行号最大。</p>
+<p>通过定制环境变量<code>HISTTIMEFORMAT</code>，可以显示每个操作的时间。</p>
+<pre><code class="bash">$ export HISTTIMEFORMAT=&#39;%F %T  &#39;
+$ history
+1  2013-06-09 10:40:12   cat /etc/issue
+2  2013-06-09 10:40:12   clear
+</code></pre>
+<p>上面代码中，<code>%F</code>相当于<code>%Y - %m - %d</code>，<code>%T</code>相当于<code> %H : %M : %S</code>。</p>
+<p>只要设置<code>HISTTIMEFORMAT</code>这个环境变量，就会在<code>.bash_history</code>文件保存命令的执行时间戳。如果不设置，就不会保存时间戳。</p>
+<p>环境变量<code>HISTSIZE</code>设置保存历史操作的数量。</p>
+<pre><code class="bash">$ export HISTSIZE=10000
+</code></pre>
+<p>上面命令设置保存过去10000条操作历史。</p>
+<p>如果不希望保存本次操作的历史，可以设置<code>HISTSIZE</code>等于0。</p>
+<pre><code class="bash">export HISTSIZE=0
+</code></pre>
+<p>如果<code>HISTSIZE=0</code>写入用户主目录的<code>~/.bashrc</code>文件，那么就不会保留该用户的操作历史。如果写入<code>/etc/profile</code>，整个系统都不会保留操作历史。</p>
+<p>环境变量<code>HISTIGNORE</code>可以设置哪些命令不写入操作历史。</p>
+<pre><code class="bash">export HISTIGNORE=&#39;pwd:ls:exit&#39;
+</code></pre>
+<p>上面示例设置，<code>pwd</code>、<code>ls</code>、<code>exit</code>这三个命令不写入操作历史。</p>
+<p>如果想搜索某个以前执行的命令，可以配合<code>grep</code>命令搜索操作历史。</p>
+<pre><code class="bash">$ history | grep /usr/bin
+</code></pre>
+<p>上面命令返回<code>.bash_history</code>文件里面，那些包含<code>/usr/bin</code>的命令。</p>
+<p>操作历史的每一条记录都有编号。知道了命令的编号以后，可以用<code>感叹号 + 编号</code>执行该命令。如果想要执行<code>.bash_history</code>里面的第8条命令，可以像下面这样操作。</p>
+<pre><code class="bash">$ !8
+</code></pre>
+<p><code>history</code>命令的<code>-c</code>参数可以清除操作历史。</p>
+<pre><code class="bash">$ history -c
+</code></pre>
+<h3 id="相关快捷键"><a href="#相关快捷键" class="headerlink" title="相关快捷键"></a>相关快捷键</h3><p>下面是一些与操作历史相关的快捷键。</p>
+<ul>
+<li><code>Ctrl + p</code>：显示上一个命令，与向上箭头效果相同（previous）。</li>
+<li><code>Ctrl + n</code>：显示下一个命令，与向下箭头效果相同（next）。</li>
+<li><code>Alt + &lt;</code>：显示第一个命令。</li>
+<li><code>Alt + &gt;</code>：显示最后一个命令，即当前的命令。</li>
+<li><code>Ctrl + o</code>：执行历史文件里面的当前条目，并自动显示下一条命令。这对重复执行某个序列的命令很有帮助。</li>
+</ul>
+<p>感叹号<code>!</code>的快捷键如下。</p>
+<ul>
+<li><code>!!</code>：执行上一个命令。</li>
+<li><code>!n</code>：<code>n</code>为数字，执行历史文件里面行号为<code>n</code>的命令。</li>
+<li><code>!-n</code>：执行当前命令之前<code>n</code>条的命令。</li>
+<li><code>!string</code>：执行最近一个以指定字符串<code>string</code>开头的命令。</li>
+<li><code>!?string</code>：执行最近一条包含字符串<code>string</code>的命令。</li>
+<li><code>!$</code>：代表上一个命令的最后一个参数。</li>
+<li><code>!*</code>：代表上一个命令的所有参数，即除了命令以外的所有部分。</li>
+<li><code>^string1^string2</code>：执行最近一条包含<code>string1</code>的命令，将其替换成<code>string2</code>。</li>
+</ul>
+<p>下面是<code>!$</code>和<code>!*</code>的例子。</p>
+<pre><code class="bash">$ cp a.txt b.txt
+$ echo !$
+b.txt
+
+$ cp a.txt b.txt
+$ echo !*
+a.txt b.txt
+</code></pre>
+<p>上面示例中，<code>!$</code>代表上一个命令的最后一个参数（<code>b.txt</code>），<code>!*</code>代表上一个命令的所有参数（<code>a.txt b.txt</code>）。</p>
+<p>下面是<code>^string1^string2</code>的例子。</p>
+<pre><code class="bash">$ rm /var/log/httpd/error.log
+$ ^error^access
+rm /var/log/httpd/access.log
+</code></pre>
+<p>上面示例中，<code>^error^access</code>将最近一条含有<code>error</code>的命令里面的<code>error</code>，替换成<code>access</code>。</p>
+<p>如果希望确定是什么命令，然后再执行，可以打开<code>histverify</code>选项。这样的话，使用<code>!</code>快捷键所产生的命令，会先打印出来，等到用户按下回车键后再执行。</p>
+<pre><code class="bash">$ shopt -s histverify
+</code></pre>
+<h2 id="其他快捷键"><a href="#其他快捷键" class="headerlink" title="其他快捷键"></a>其他快捷键</h2><ul>
+<li><code>Ctrl + j</code>：等同于回车键（LINEFEED）。</li>
+<li><code>Ctrl + m</code>：等同于回车键（CARRIAGE RETURN）。</li>
+<li><code>Ctrl + o</code>：等同于回车键，并展示操作历史的下一个命令。 </li>
+<li><code>Ctrl + v</code>：将下一个输入的特殊字符变成字面量，比如回车变成<code>^M</code>。</li>
+<li><code>Ctrl + [</code>：等同于 ESC。 </li>
+<li><code>Alt + .</code>：插入上一个命令的最后一个词。</li>
+<li><code>Alt + _</code>：等同于<code>Alt + .</code>。</li>
+</ul>
+<p>上面的<code>Alt + .</code>快捷键，对于很长的文件路径，有时会非常方便。因为 Unix 命令的最后一个参数通常是文件路径。</p>
+<pre><code class="bash">$ mkdir foo_bar
+$ cd #按下 Alt + .
+</code></pre>
+<p>上面例子中，在<code>cd</code>命令后按下<code>Alt + .</code>，就会自动插入<code>foo_bar</code>。</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2022-10-27</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Bash/'>
+                            Bash
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<link rel="stylesheet" href="/css/a11y-dark.min.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>

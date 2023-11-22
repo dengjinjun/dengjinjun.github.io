@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="LNMP实践" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        
+            <nav id="toc" class="bs-docs-sidebar"></nav>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            LNMP实践
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="post-toc-text">安装软件包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8D%95%E6%9C%BA%E9%83%A8%E7%BD%B2WordPress"><span class="post-toc-text">单机部署WordPress</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%8B%AC%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="post-toc-text">独立数据库服务器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%89%A9%E5%B1%95%E5%A4%9A%E5%8F%B0web%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="post-toc-text">扩展多台web服务器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%8B%86%E5%88%86%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%88%B0%E7%8B%AC%E7%AB%8B%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="post-toc-text">拆分静态资源到独立服务器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%9B%86%E6%88%90%E5%A4%87%E4%BB%BD%E6%9C%8D%E5%8A%A1"><span class="post-toc-text">集成备份服务</span></a></li></ol>
+            
+        
+        <p>图解<strong>Linux&#x2F;Nginx&#x2F;MySQL&#x2F;PHP</strong>架构流程</p>
+<p><img src="/../pic/1694653-20190918163700371-396967787.png" alt="Nginx流行架构LNMP"></p>
+<h2 id="安装软件包"><a href="#安装软件包" class="headerlink" title="安装软件包"></a>安装软件包</h2><p>版本信息：</p>
+<p>Linux：CentOS 7.6</p>
+<p>Nginx：nginx&#x2F;1.24.0</p>
+<p>PHP：PHP 7.1.33</p>
+<p>MariaDB： 5.5.68-MariaDB</p>
+<blockquote>
+<p>安装Nginx</p>
+</blockquote>
+<p>参考 <code>学习笔记——Nginx部署篇</code>，确保不同机器的Linux版本号一致，安装的Nginx版本一致。</p>
+<blockquote>
+<p>安装PHP</p>
+</blockquote>
+<ul>
+<li><p>安装PHP的组件yum源</p>
+<pre><code class="sh">wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm				# 下载epel源
+rpm -Uvh epel-release-latest-7.noarch.rpm												# 安装epel源
+wget https://mirror.webtatic.com/yum/el7/webtatic-release.rpm --no-check-certificate	# 下载组件库源
+rpm -Uvh webtatic-release.rpm															# 安装组件库源
+</code></pre>
+</li>
+<li><p>安装PHP服务</p>
+<pre><code class="sh">rpm -e $(rpm -qa | grep php)		# 卸载旧版本的PHP包
+
+# 安装PHP以及所有开发调试需要的组件
+yum install php71w php71w-cli php71w-common php71w-devel php71w-embedded php71w-gd -y
+yum install php71w-mcrypt php71w-mbstring php71w-pdo php71w-xml php71w-fpm php71w-mysqlnd -y
+yum install php71w-opcache php71w-pecl-memcached php71w-pecl-redis php71w-pecl-mongodb -y
+
+# 更改PHP的用户为www，找到配置文件 /etc/php-fpm.d/www.conf
+egrep &#39;^user|^group&#39; www.conf				# 查看用户名和组名
+sed -i &#39;/^user/c user = www&#39; www.conf		# 更改用户名
+sed -i &#39;/^group/c group = www&#39; www.conf 	# 更改组名
+egrep &#39;^user|^group&#39; www.conf				# 查看用户名和组名
+
+systemctl start php-fpm
+systemctl enable php-fpm
+lsof -i:9000
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>安装mariadb</p>
+</blockquote>
+<pre><code>yum install mariadb-server mariadb -y
+</code></pre>
+<blockquote>
+<p>nginx配置php虚拟主机</p>
+</blockquote>
+<pre><code class="sh">server &#123;
+    listen       80;
+    server_name  blog;
+    root /data/blog;
+    location / &#123;
+        index  index.php default.html;
+    &#125;
+    location ~ \.php$ &#123;
+        # 将请求后抛给9000端口的php服务去解析
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        # 告诉php服务，我们需要被解析的文件在哪个目录，是哪个文件
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    &#125;
+    
+mkdir -p /data/blog
+cd /data/blog
+chown -R www.www /data/blog
+</code></pre>
+<blockquote>
+<p>测试</p>
+</blockquote>
+<pre><code class="sh">vim test_mysql.php			# 添加一个测试mysql连接的脚本,添加以下内容
+</code></pre>
+<pre><code class="php">&lt;?php
+        $servername = &quot;localhost&quot;;
+        $username = &quot;root&quot;;
+        $password = &quot;123456&quot;;
+        
+        //创建连接
+        $conn = mysqli_connect($servername, $username, $password);
+        //检测连接
+        if (!$conn)&#123;
+            die(&quot;Connection failed: &quot; . mysqli_connect_error());
+        &#125;
+        echo &quot;数据库连接成功&quot;;
+?&gt;
+</code></pre>
+<p>浏览器访问：<code>http://blog/test_mysql.php</code></p>
+<h2 id="单机部署WordPress"><a href="#单机部署WordPress" class="headerlink" title="单机部署WordPress"></a>单机部署WordPress</h2><pre><code class="sh"># 安装WordPress软件包
+cd /server/tools
+wget https://cn.wordpress.org/latest-zh_CN.tar.gz	# 下载压缩包
+tar xf latest-zh_CN.tar.gz -C /data/blog/			# 解压
+mv /data/blog/wordpress/* /data/blog/				# 把子文件提取到blog文件夹下
+chown -R www.www /data/blog							# 工作中这样很危险，其实只需要将允许上传的文件夹更改属主和数组即可
+
+# 创建WordPress的用户和数据库
+create database blog character set utf8mb4 collate utf8mb4_unicode_ci;			# 创建blog数据库
+show create database blog;							# 查看创建信息
+grant all privileges on blog.* to &#39;blog&#39;@&#39;192.168.110.%&#39; identified by &#39;123456&#39;;		# 创建用户密码并授权，危险
+# 企业生产环境不能给所有权限，只能有增删改查的权限,可以换用下面这句
+# grant select,insert,update,delete on blog.* to &#39;blog&#39;@&#39;192.168.110.%&#39; identified by &#39;123456&#39;;
+flush privileges;									# 刷新
+</code></pre>
+<pre><code class="sh"># 浏览器访问测试
+</code></pre>
+<h2 id="独立数据库服务器"><a href="#独立数据库服务器" class="headerlink" title="独立数据库服务器"></a>独立数据库服务器</h2><p>数据库的瓶颈主要来源于CPU、磁盘I&#x2F;O和内存，将数据库部署到独立的服务器，具有以下优点：</p>
+<ol>
+<li>缓解web网站的压力</li>
+<li>增强数据库的读写性能</li>
+<li>提高用户访问速度</li>
+</ol>
+<pre><code class="sh"># web01备份数据库
+mysqldump -uroot -p123456 -B -A | gzip &gt; /tmp/bak.sql.gz	# -B 导出所有数据库，-A 导出数据库中所有表
+scp /tmp/bak.sql.gz root@192.168.110.143:/tmp/
+
+# db01安装数据库
+yum install mariadb-server mariadb -y
+systemctl start mariadb
+systemctl enable mariadb
+# db01导入数据库
+cd /tmp
+gzip -d bak.sql.gz			# 解压
+mysql &lt; /tmp/bak.sql		# 导入
+</code></pre>
+<pre><code class="sh"># 更改WordPress的配置文件（主要是域名），调试访问
+</code></pre>
+<h2 id="扩展多台web服务器"><a href="#扩展多台web服务器" class="headerlink" title="扩展多台web服务器"></a>扩展多台web服务器</h2><p>按照之前的步骤，安装Nginx和PHP</p>
+<pre><code class="sh"># web02机器
+scp -rp root@web01:/etc/nginx /etc/			# 拉取一下web01的配置文件
+scp -rp root@web01:/data/blog /data/		# 拉取一下web01的产品文件
+
+systemctl restart nginx
+systemctl restart php-fpm
+</code></pre>
+<pre><code class="sh"># 浏览器访问测试
+</code></pre>
+<h2 id="拆分静态资源到独立服务器"><a href="#拆分静态资源到独立服务器" class="headerlink" title="拆分静态资源到独立服务器"></a>拆分静态资源到独立服务器</h2><p>NFS的搭建流程参考 <code>传统网络存储——NAS</code>篇</p>
+<p>WordPress的静态资源存放在<code>/data/blog/wp-content/uploads</code>目录下</p>
+<pre><code class="sh">scp -rp /data/blog/wp-content/* root@nfs:/data/blog/		# web01服务器上的静态资源迁移到NFS服务器上
+mount -t nfs nfs:/data/blog /data/blog/wp-content/uploads/			# 临时挂载
+df -Th		# 查看挂载
+</code></pre>
+<pre><code class="sh"># 同样的操作放到web02服务器上操作
+# 浏览器访问测试
+</code></pre>
+<h2 id="集成备份服务"><a href="#集成备份服务" class="headerlink" title="集成备份服务"></a>集成备份服务</h2><p>在web01服务器上编写脚本，定时备份到backup服务器上（因为web01和web02内容相同，所以备份一台即可）</p>
+<pre><code class="sh">#!/bin/bash
+
+# 本机备份路径
+backup=&quot;/backup&quot;
+# 以主机IP地址命名的文件夹
+path=&quot;/backup/$(hostname -i)&quot;
+# 如果不存在此文件夹则创建文件夹
+[ -f $path ] || mkdir -p $path
+# 判断是不是周一
+if [ $(date +%w -eq 2)];then
+    date=&quot;$(date +%F -d -1day)_week1&quot;
+else
+    date=&quot;$(date +%F -d -1day)&quot;
+fi
+# 进入此文件夹
+cd $path
+# 将配置文件和脚本打包进一个压缩包
+tar -cvhf conf_$&#123;date&#125;.tar.gz /var/spool/cron/root /server/scripts /etc 2&gt;/dev/null
+# 将站点目录打包进一个压缩包
+tar -cvf  www_$&#123;date&#125;.tar.gz /data --exclude=/data/blog/wp-content  2&gt;/dev/null
+# 将app日志打包进一个压缩包
+tar -cvf logs_$&#123;date&#125;.tar.gz /var/log/nginx 2&gt;/dev/null
+# 获取所有打包文件的原始指纹
+find $path -type f -name &quot;*_$&#123;date&#125;.tar.gz&quot; | xargs md5sum &gt; $path/$(hostname -i)_fingerprint_$&#123;date&#125;.log
+# 推送
+rsync -avz $backup/ rsync@backup::backup --password-file=/etc/rsyncd.password
+# 删除7天前的备份
+find $backup/ -type f -name &quot;*.tar.gz&quot; -mtime +7 -o -name &quot;*.log&quot; -mtime +7 | xargs rm -f
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-29</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<link rel="stylesheet" href="/css/a11y-dark.min.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>
