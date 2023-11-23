@@ -118,6 +118,14 @@
         
         <p>1</p>
 <p>给出一张预设的图片，通过turtle画框，利用贝塞尔算法由点到线到面生成图画。</p>
+<p>1</p>
+<p>根据一张预设的图片，通过turtle画框，利用贝塞尔算法由点到线到面生成图画。</p>
+<p>注意：</p>
+<ol>
+<li>speed是画画的速度，不能太快，不然会有落笔不见像素的情况出现，画完存在白点。</li>
+<li>图片大小不能太大也不能太小，太大无法处理，如果300K以下会出现涂抹现象。我将图片压缩到100K左右还是出现涂抹。</li>
+<li>K&#x3D;32是颜色数，颜色数越多画的越慢，性能耗费越高。K&#x3D;40的情况下，电脑嗡嗡了三个小时，最好在30左右。</li>
+</ol>
 <pre><code class="python">import re
 import os
 import cv2
@@ -309,8 +317,7 @@ def drawBit(img_bit, K=32):
 
 
 if __name__ == &#39;__main__&#39;:
-    # img_path = &#39;./wh.jpg&#39;
-    img_path = input(&quot;&quot;)
+    img_path = &#39;./wh.jpg&#39;
     img_bit = cv2.imread(img_path)
     # 画图时的颜色数
     K = 32
