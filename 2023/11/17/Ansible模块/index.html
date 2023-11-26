@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="Ansible模块" />
+    <meta name="description" content="Ansible核心模块（上）" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang</title>
@@ -107,7 +107,7 @@
 
     
         <div class="post-main-title">
-            Ansible模块
+            Ansible核心模块（上）
         </div>
       
     
@@ -115,11 +115,41 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Command-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Command 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Shell-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Shell 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Script-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Script 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Copy-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Copy 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#template%E6%A8%A1%E5%9D%97"><span class="post-toc-text">template模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Fetch-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Fetch 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#File-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">File 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#unarchive-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">unarchive 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Archive-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Archive 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Hostname%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Hostname模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Cron-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Cron 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Yum-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Yum 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#yum-repository%E6%A8%A1%E5%9D%97"><span class="post-toc-text">yum_repository模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Service-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Service 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#User-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">User 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Group-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Group 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Setup-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Setup 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#mount%E6%A8%A1%E5%9D%97"><span class="post-toc-text">mount模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#iptables%E6%A8%A1%E5%9D%97"><span class="post-toc-text">iptables模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="post-toc-text">注意</span></a></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#command-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">command 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">shell 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#script-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">script 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#hostname%E6%A8%A1%E5%9D%97"><span class="post-toc-text">hostname模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#copy-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">copy 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#template%E6%A8%A1%E5%9D%97"><span class="post-toc-text">template模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#fetch-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">fetch 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#file-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">file 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#archive-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">archive 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#unarchive-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">unarchive 模块</span></a></li></ol>
             
         
-        <h3 id="Command-模块"><a href="#Command-模块" class="headerlink" title="Command 模块"></a>Command 模块</h3><p>在远程主机执行命令，此为默认模块，可忽略-m选项</p>
+        <h3 id="command-模块"><a href="#command-模块" class="headerlink" title="command 模块"></a>command 模块</h3><p>在远程主机执行命令，此为默认模块，可忽略-m选项</p>
 <p>注意：此命令不支持 <code>$VARNAME  &lt;  &gt;  |  ;  &amp; </code>  等符号，可以用shell模块实现。</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>chdir</strong> path</td>
+<td>Change into this directory before running the command.</td>
+</tr>
+<tr>
+<td><strong>removes</strong> path</td>
+<td>A filename or (since 2.0) glob pattern. If a matching file exists, this step <strong>will</strong> be run.</td>
+</tr>
+<tr>
+<td><strong>creates</strong> path</td>
+<td>A filename or glob pattern. If a matching file already exists, this step <strong>will not</strong> be run.This is checked before <code>[removes]</code></td>
+</tr>
+<tr>
+<td><strong>cmd</strong> string</td>
+<td>The command to run.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
 <p>格式：<code>ansible 主机名 -m command -a &quot;cmd&quot;</code>，<code>-m command </code>默认可以不加。</p>
 <pre><code class="sh"># 直接运行命令
 ansible all -a &#39;hostname&#39;
@@ -127,44 +157,196 @@ ansible all -a &#39;hostname&#39;
 # chdir参数，切换目录
 ansible websrvs -a &#39;chdir=/opt touch b.txt&#39;  #先切换目录再创建文件。不指定目录会创建到家目录下
 
-
-# createss参数，创建文件
+# creates参数，创建文件
 ansible websrvs -a &#39;creates=/etc/fstab rm -f /opt/b.txt&#39;	# 这个文件存在，所以不执行后面的rm操作
 
 # removes参数，移除文件
 ansible websrvs -a &#39;removes=/etc/fstab rm -f /opt/b.txt&#39;	# 文件存在，所以执行后面的rm操作
 </code></pre>
-<h3 id="Shell-模块"><a href="#Shell-模块" class="headerlink" title="Shell 模块"></a>Shell 模块</h3><p>和command相似，用shell执行命令</p>
+<h3 id="shell-模块"><a href="#shell-模块" class="headerlink" title="shell 模块"></a>shell 模块</h3><p>和command相似，用shell执行命令</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>executable</strong> path</td>
+<td>Change the shell used to execute the command.This expects an absolute path to the executable.</td>
+</tr>
+<tr>
+<td><strong>chdir</strong> path</td>
+<td>Change into this directory before running the command.</td>
+</tr>
+<tr>
+<td><strong>creates</strong> path</td>
+<td>A filename, when it already exists, this step will <strong>not</strong> be run.</td>
+</tr>
+<tr>
+<td><strong>removes</strong> path</td>
+<td>A filename, when it does not exist, this step will <strong>not</strong> be run.</td>
+</tr>
+<tr>
+<td><strong>cmd</strong> string</td>
+<td>The command to run followed by optional arguments.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m shell -a &quot;cmd&quot;</code></p>
 <pre><code class="sh"># 直接运行命令，支持 $VARNAME &lt;  &gt;  |  ;  &amp;  等符号
 ansible websrvs -m shell -a &quot;echo $HOSTNAME&quot;
 ansible websrvs -m shell -a &quot;echo hello &gt;/opt/hello.txt&quot;
 </code></pre>
-<h3 id="Script-模块"><a href="#Script-模块" class="headerlink" title="Script 模块"></a>Script 模块</h3><p>在远程主机上运行ansible服务器上的脚本（无需执行权限）</p>
+<h3 id="script-模块"><a href="#script-模块" class="headerlink" title="script 模块"></a>script 模块</h3><p>在远程主机上运行ansible服务器上的shell脚本或python脚本（无需执行权限）</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>executable</strong> string</td>
+<td>Name or path of an executable to invoke the script with.</td>
+</tr>
+<tr>
+<td><strong>chdir</strong> string</td>
+<td>Change into this directory on the remote node before running the script.</td>
+</tr>
+<tr>
+<td><strong>creates</strong> string</td>
+<td>A filename on the remote node, when it already exists, this step will <strong>not</strong> be run.</td>
+</tr>
+<tr>
+<td><strong>removes</strong> string</td>
+<td>A filename on the remote node, when it does not exist, this step will <strong>not</strong> be run.</td>
+</tr>
+<tr>
+<td><strong>cmd</strong> string</td>
+<td>Path to the local script to run followed by optional arguments.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m script -a &quot;cmd&quot;</code></p>
 <pre><code class="sh">ll /data/test.sh			# 查看本机脚本信息，无执行权限
 -rw-r--r-- 1 root root 22 Jul 15 14:17 /data/test.sh	
 
 # 远程执行
 ansible websrvs -m script -a &#39;/data/test.sh&#39;
 </code></pre>
-<h3 id="Copy-模块"><a href="#Copy-模块" class="headerlink" title="Copy 模块"></a>Copy 模块</h3><p>从ansible服务器主控端复制文件到远程主机</p>
-<pre><code class="sh"># 如目标存在，默认覆盖，此处指定先备份，要有owner用户，否则报错，如果目标目录不存在，也会报错
+<h3 id="hostname模块"><a href="#hostname模块" class="headerlink" title="hostname模块"></a>hostname模块</h3><p>管理远程主机的主机名</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>name</strong> string &#x2F; （required）</td>
+<td>Name of the host.If the value is a fully qualified domain name that does not resolve from the given host, this will cause the module to hang for a few seconds while waiting for the name resolution attempt to timeout.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m hostname -a &quot;cmd&quot;</code></p>
+<pre><code class="sh"># 更改192.168.20.22的主机名为nginx01,/etc/hostname文件内容也被修改
+ansible 192.168.20.22 -m hostname -a &#39;name=nginx01&#39;
+</code></pre>
+<h3 id="copy-模块"><a href="#copy-模块" class="headerlink" title="copy 模块"></a>copy 模块</h3><p>从ansible服务器主控端复制文件到远程主机</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>backup</strong> boolean</td>
+<td>Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly. Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>src</strong> path</td>
+<td>Local path to a file to copy to the remote server.This can be absolute or relative.<br />If path is a directory, it is copied recursively.<br /> In this case, if path ends with “&#x2F;”, only inside contents of that directory are copied to destination. <br />Otherwise, if it does not end with “&#x2F;”, the directory itself with all contents is copied. <br />This behavior is similar to the <code>rsync</code> command line tool.</td>
+</tr>
+<tr>
+<td><strong>remote_src</strong> boolean</td>
+<td>Influence whether <code>[src]</code> needs to be transferred or already is present remotely. Default choice is <code>false</code><br /> If <code>false</code>, it will search for <code>[src]</code> on the controller node.If <code>true</code> it will search for <code>[src]</code> on the managed (remote) node.<br /><code>[remote_src]</code> supports recursive copying as of version 2.8.<br /><code>[remote_src]</code> only works with <code>mode=preserve</code> as of version 2.6. <br />Autodecryption of files does not work when <code>remote_src=yes</code>.</td>
+</tr>
+<tr>
+<td><strong>dest</strong> path &#x2F; （<strong>required</strong>）</td>
+<td>Remote absolute path where the file should be copied to.<br />If <code>[src]</code> is a directory, this must be a directory too.<br />If <code>[dest]</code> is not exist and if either <code>[dest]</code> ends with <code>/</code> or <code>[src]</code> is a directory, <code>[dest]</code> is created.<br />If <code>[dest]</code> is a relative path, the starting directory is determined by the remote host.<br />If <code>[src]</code> and <code>[dest]</code> are files, the parent directory of <code>[dest]</code> is not created and the task fails if it does not already exist.</td>
+</tr>
+<tr>
+<td><strong>mode</strong> any</td>
+<td>The permissions of the destination file or directory. You must either add a leading zero so that Ansible’s YAML parser knows it is an octal number (like <code>0644</code> or <code>01777</code>) or quote it (like <code>&#39;644&#39;</code> or <code>&#39;1777&#39;</code>) so Ansible receives a string and can do its own conversion from string into number.</td>
+</tr>
+<tr>
+<td><strong>owner</strong> string</td>
+<td>Name of the user that should own the filesystem object, as would be fed to <em>chown</em>.When left unspecified, it uses the current user unless you are root, in which case it can preserve the previous ownership.Specifying a numeric username will be assumed to be a user ID and not a username. Avoid numeric usernames to avoid this confusion.</td>
+</tr>
+<tr>
+<td><strong>group</strong> string</td>
+<td>Name of the group that should own the filesystem object, as would be fed to <em>chown</em>.When left unspecified, it uses the current group of the current user unless you are root, in which case it can preserve the previous ownership.</td>
+</tr>
+<tr>
+<td><strong>directory_mode</strong> any</td>
+<td>Set the access permissions of newly created directories to the given mode. Permissions on existing directories do not change.See <code>[mode]</code> for the syntax of accepted values.The target system’s defaults determine permissions when this parameter is not set.</td>
+</tr>
+<tr>
+<td><strong>content</strong> string</td>
+<td>When used instead of <code>[src]</code>, sets the contents of a file directly to the specified value.<br />Works only when <code>[dest]</code> is a file.<br /> Creates the file if it does not exist.<br />For advanced formatting or if <code>[content]</code> contains a variable, use the <a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/template_module.html#ansible-collections-ansible-builtin-template-module">ansible.builtin.template</a> module.</td>
+</tr>
+<tr>
+<td><strong>follow</strong> boolean</td>
+<td>This flag indicates that filesystem links in the destination, if they exist, should be followed. Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>local_follow</strong> boolean</td>
+<td>This flag indicates that filesystem links in the source tree, if they exist, should be followed. Default choice is <code>true</code></td>
+</tr>
+<tr>
+<td><strong>force</strong> boolean</td>
+<td>Influence whether the remote file must always be replaced. Default choice is <code>true</code><br />If <code>true</code>, the remote file will be replaced when contents are different than the source.<br />If <code>false</code>, the file will only be transferred if the destination does not exist.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m copy -a &quot;cmd&quot;</code></p>
+<pre><code class="sh"># 如目标存在，默认覆盖，此处指定先备份，要有owner用户，否则报错，
 # 再次复制，由于test1.sh内容不变，所以根据ansible的幂等性，不会生成备份文件，显示是success而非changed
 # 修改test1.sh文件后，再次复制，会生成备份文件，文件名为test2.sh.备份序号.时间戳
 ansible websrvs -m copy -a &quot;src=/root/test1.sh dest=/tmp/test2.sh owner=wang mode=600 backup=yes&quot;
 
-
-#指定内容，直接生成目标文件；如果目标文件存在，会覆盖其内容
+#指定内容，直接生成目标文件；如果目标文件存在，会覆盖其内容；如果目标文件的父目录不存在，会报错
 ansible websrvs -m copy -a &quot;content=&#39;test line1\ntest line2&#39; dest=/opt/test1.sh&quot;
 
-
-#复制/etc/sysconfig目录自身，注意/etc/sysconfig后面没有/
-ansible websrvs -m copy -a &quot;src=/etc/sysconfig dest=/opt/&quot;
-
+#复制/etc/sysconfig目录。如果dest是一个不存在的路径且以“/”结尾，或者src是一个目录，则会创建dest目录。
+ansible websrvs -m copy -a &quot;src=/etc/sysconfig dest=/opt/test/&quot;
 
 #复制/etc/sysconfig下的文件，不包括/etc/sysconfig目录自身，注意/sysconfig后面有/
 ansible websrvs -m copy -a &quot;src=/etc/sysconfig/ dest=/opt&quot;
 </code></pre>
-<h3 id="template模块"><a href="#template模块" class="headerlink" title="template模块"></a>template模块</h3><p><code>template</code>模块使用了<a target="_blank" rel="noopener" href="http://jinja.pocoo.org/docs/"><code>Jinjia2</code>模版语言</a>，可以按需求修改配置文件内容来复制模板到被控主机上。</p>
+<h3 id="template模块"><a href="#template模块" class="headerlink" title="template模块"></a>template模块</h3><p><code>template</code>模块使用了<a target="_blank" rel="noopener" href="https://leohsiao.com/Python/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/%E5%BA%8F%E5%88%97%E5%8C%96/Jinja.html"><code>Jinjia2</code></a>模板语言，可以按需求修改配置文件内容来复制模板到被控主机上。</p>
 <p>template模块用法和copy模块用法基本一致，它主要用于复制配置文件，不同的是，template模块需要先建立一个使用<code>*.j2</code>为文件后缀的模板文件。</p>
 <p>模版中可以使用如下6个变量以及其他自定义的变量：</p>
 <ul>
@@ -175,71 +357,122 @@ ansible websrvs -m copy -a &quot;src=/etc/sysconfig/ dest=/opt&quot;
 <li><code>template_fullpath</code> - 模版的绝对路径</li>
 <li><code>template_run_date</code> - 模版呈现的时间</li>
 </ul>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
 <table>
 <thead>
 <tr>
-<th align="center">参数</th>
-<th align="left">默认值</th>
-<th align="left">作用</th>
+<th>Parameter</th>
+<th>Comments</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">backup</td>
-<td align="left">no</td>
-<td align="left">在覆盖之前将原文件备份，备份文件包含时间戳信息</td>
+<td><strong>backup</strong> boolean</td>
+<td>Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly. Default choice is <code>false</code></td>
 </tr>
 <tr>
-<td align="center">follow</td>
-<td align="left">no</td>
-<td align="left">是否遵循目的机器中的文件系统链接</td>
+<td><strong>block_start_string</strong> string</td>
+<td>The string marking the beginning of a block.<strong>Default:</strong> <code>&quot;&#123;%"` |
+| **block_end_string** string                      | The string marking the end of a block.**Default:** `"%&#125;&quot;</code></td>
 </tr>
 <tr>
-<td align="center">force</td>
-<td align="left">yes</td>
-<td align="left">是否强制执行</td>
+<td><strong>variable_start_string</strong> string</td>
+<td>The string marking the beginning of a print statement.<strong>Default:</strong> <code>&quot;&#123;&#123;"` |
+| **variable_end_string** string                   | The string marking the end of a print statement.**Default:** `"&#125;&#125;&quot;</code></td>
 </tr>
 <tr>
-<td align="center">group</td>
-<td align="left"></td>
-<td align="left">设置文件&#x2F;目录的所属组</td>
+<td><strong>comment_end_string</strong> string</td>
+<td>The string marking the end of a comment statement.  added in ansible-core 2.12</td>
 </tr>
 <tr>
-<td align="center">mode</td>
-<td align="left"></td>
-<td align="left">设置文件权限，模式实际上是八进制数字（如<code>0644</code>），少了前面的零可能会有意想不到的结果。从版本1.8开始，可以将模式指定为符号模式（例如<code>u+rwx</code>或<code>u=rw,g=r,o=r</code>）</td>
+<td><strong>comment_start_string</strong> string</td>
+<td>The string marking the beginning of a comment statement.  added in ansible-core 2.12</td>
 </tr>
 <tr>
-<td align="center">newline_sequence(2.4+)</td>
-<td align="left"><code>\n</code></td>
-<td align="left">指定要用于模板文件的换行符，可选<code>\n</code>,<code>\r</code>,<code>\r\n</code></td>
+<td><strong>lstrip_blocks</strong> boolean</td>
+<td>Determine when leading spaces and tabs should be stripped.When set to <code>yes</code> leading spaces and tabs are stripped from the start of a line to a block. Default choice is <code>false</code></td>
 </tr>
 <tr>
-<td align="center">owner</td>
-<td align="left"></td>
-<td align="left">设置文件&#x2F;目录的所属用户</td>
+<td><strong>trim_blocks</strong> boolean</td>
+<td>Determine when newlines should be removed from blocks.When set to <code>yes</code> the first newline after a block is removed (block, not variable tag!).  Default choice is <code>true</code></td>
 </tr>
 <tr>
-<td align="center">src</td>
-<td align="left"></td>
-<td align="left">Jinja2格式化模板的文件位置</td>
+<td><strong>newline_sequence</strong> string</td>
+<td>Specify the newline sequence to use for templating files.<strong>Choices:</strong><code>&quot;\n&quot;</code> ← (default) or <code>&quot;\r&quot;</code>，<code>&quot;\r\n&quot;</code></td>
 </tr>
 <tr>
-<td align="center">trim_blocks</td>
-<td align="left">no</td>
-<td align="left">设置为True，则块之后的第一个换行符被移除</td>
+<td><strong>output_encoding</strong> string<em>added in Ansible 2.7</em></td>
+<td>Overrides the encoding used to write the template file defined by <code>[dest]</code>. It defaults to <code>utf-8</code>, but any encoding supported by python can be used.The source template file must always be encoded using <code>utf-8</code>.</td>
 </tr>
 <tr>
-<td align="center">unsafe_writes</td>
-<td align="left"></td>
-<td align="left">是否以不安全的方式进行，可能导致数据损坏</td>
+<td><strong>dest</strong> path &#x2F; （required）</td>
+<td>Location to render the template to on the remote machine.</td>
 </tr>
 <tr>
-<td align="center">validate</td>
-<td align="left">None</td>
-<td align="left">复制前是否检验需要复制目的地的路径</td>
+<td><strong>src</strong> path &#x2F; required</td>
+<td>Path of a Jinja2 formatted template on the Ansible controller.This can be a relative or an absolute path.The file must be encoded with <code>utf-8</code> but <code>[output_encoding]</code> can be used to control the encoding of the output template.</td>
+</tr>
+<tr>
+<td><strong>mode</strong> any</td>
+<td>The permissions of the destination file or directory. You must either add a leading zero so that Ansible’s YAML parser knows it is an octal number (like <code>0644</code> or <code>01777</code>) or quote it (like <code>&#39;644&#39;</code> or <code>&#39;1777&#39;</code>) so Ansible receives a string and can do its own conversion from string into number.</td>
+</tr>
+<tr>
+<td><strong>owner</strong> string</td>
+<td>Name of the user that should own the filesystem object, as would be fed to <em>chown</em>.When left unspecified, it uses the current user unless you are root, in which case it can preserve the previous ownership.Specifying a numeric username will be assumed to be a user ID and not a username. Avoid numeric usernames to avoid this confusion.</td>
+</tr>
+<tr>
+<td><strong>group</strong> string</td>
+<td>Name of the group that should own the filesystem object, as would be fed to <em>chown</em>.When left unspecified, it uses the current group of the current user unless you are root, in which case it can preserve the previous ownership.</td>
+</tr>
+<tr>
+<td><strong>follow</strong> boolean</td>
+<td>This flag indicates that filesystem links in the destination, if they exist, should be followed. Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>force</strong> boolean</td>
+<td>Influence whether the remote file must always be replaced. Default choice is <code>true</code><br />If <code>true</code>, the remote file will be replaced when contents are different than the source.<br />If <code>false</code>, the file will only be transferred if the destination does not exist.</td>
 </tr>
 </tbody></table>
-<h3 id="Fetch-模块"><a href="#Fetch-模块" class="headerlink" title="Fetch 模块"></a>Fetch 模块</h3><p>从远程主机提取文件至ansible的主控端，与copy相反。Fetch目前不支持目录</p>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m template -a &quot;cmd&quot;</code></p>
+<pre><code class="sh"># 与copy模块大致相同
+ansible websrvs -m template -a &quot;src=/root/test1.txt.j2 dest=/tmp/test2.txt backup=yes&quot;
+</code></pre>
+<h3 id="fetch-模块"><a href="#fetch-模块" class="headerlink" title="fetch 模块"></a>fetch 模块</h3><p>从远程主机提取文件至ansible的主控端，与copy相反。Fetch目前不支持目录。</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>dest</strong> string &#x2F; (required)</td>
+<td>A directory to save the file into.For example, if the <code>[dest]</code> directory is <code>/backup</code>.  a <code>[src]</code> file named <code>/etc/profile</code> on host <code>host.example.com</code>, would be saved into <code>/backup/host.example.com/etc/profile</code>. The host name is based on the inventory name.</td>
+</tr>
+<tr>
+<td><strong>src</strong> string &#x2F; (required)</td>
+<td>The file on the remote system to fetch.This <em>must</em> be a file, not a directory.Recursive fetching may be supported in a later release.</td>
+</tr>
+<tr>
+<td><strong>fail_on_missing</strong> boolean</td>
+<td>When set to <code>true</code>, the task will fail if the remote file cannot be read for any reason.Prior to Ansible 2.5, setting this would only fail if the source file was missing.The default was changed to <code>true</code> in Ansible 2.5.<br />Default choice is <code>true</code></td>
+</tr>
+<tr>
+<td><strong>flat</strong> boolean</td>
+<td>Allows you to override the default behavior of appending hostname&#x2F;path&#x2F;to&#x2F;file to the destination.<br />If <code>[dest]</code> ends with ‘&#x2F;’, it will use the basename of the source file, similar to the copy module.<br />This can be useful if working with a single host, or if retrieving files that are uniquely named per host.If using multiple hosts with the same filename, the file will be overwritten for each host.<br />Default choice is <code>false</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m fetch -a &quot;cmd&quot;</code></p>
 <pre><code class="sh"># 提取所有远程主机的文件到当前主控端的/data/os目录下，并按远程主机的ip地址创建各自的目录存放
 ansible db01 -m fetch -a &quot;src=/opt/22.txt dest=/root/os&quot;
 
@@ -252,7 +485,58 @@ ansible db01 -m fetch -a &quot;src=/opt/22.txt dest=/root/os&quot;
         └── opt
             └── 22.txt
 </code></pre>
-<h3 id="File-模块"><a href="#File-模块" class="headerlink" title="File 模块"></a>File 模块</h3><p>文件或目录相关</p>
+<h3 id="file-模块"><a href="#file-模块" class="headerlink" title="file 模块"></a>file 模块</h3><p>文件或目录相关</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>follow</strong> boolean</td>
+<td>This flag indicates that filesystem links, if they exist, should be followed.<code>follow=yes</code> and <code>state=link</code> can modify <code>[src]</code> when combined with parameters such as <code>[mode]</code>.<br />Previous to Ansible 2.5, this was <code>false</code> by default. Default choice is <code>true</code></td>
+</tr>
+<tr>
+<td><strong>force</strong> boolean</td>
+<td>Force the creation of the symlinks in two cases: <br />the source file does not exist (but will appear later); <br />the destination exists and is a file (so, we need to unlink the <code>[path]</code> file and create symlink to the <code>[src]</code> file in place of it). <br />Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>owner</strong> string</td>
+<td>Name of the user that should own the filesystem object, as would be fed to <em>chown</em>.When left unspecified, it uses the current user unless you are root, in which case it can preserve the previous ownership.Specifying a numeric username will be assumed to be a user ID and not a username. Avoid numeric usernames to avoid this confusion.</td>
+</tr>
+<tr>
+<td><strong>group</strong> string</td>
+<td>Name of the group that should own the filesystem object, as would be fed to <em>chown</em>.When left unspecified, it uses the current group of the current user unless you are root, in which case it can preserve the previous ownership.</td>
+</tr>
+<tr>
+<td><strong>mode</strong> any</td>
+<td>The permissions of the destination file or directory. You must either add a leading zero so that Ansible’s YAML parser knows it is an octal number (like <code>0644</code> or <code>01777</code>) or quote it (like <code>&#39;644&#39;</code> or <code>&#39;1777&#39;</code>) so Ansible receives a string and can do its own conversion from string into number.</td>
+</tr>
+<tr>
+<td><strong>src</strong> path</td>
+<td>Path of the file to link to.This applies only to <code>state=link</code> and <code>state=hard</code>.<br />For <code>state=link</code>, this will also accept a non-existing path.<br />Relative paths are relative to the file being created (<code>[path]</code>) which is how the Unix command <code>ln -s SRC DEST</code> treats relative paths.</td>
+</tr>
+<tr>
+<td><strong>path</strong> aliases: dest, namepath &#x2F; required</td>
+<td>Path to the file being managed.</td>
+</tr>
+<tr>
+<td><strong>recurse</strong> boolean</td>
+<td>Recursively set the specified file attributes on directory contents.This applies only when <code>[state]</code> is set to <code>directory</code>.<br />Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>state</strong> string</td>
+<td>If <code>absent</code>, directories will be recursively deleted, and files or symlinks will be unlinked. <br />If <code>directory</code>, all intermediate subdirectories will be created if they do not exist. Since Ansible 1.7 they will be created with the supplied permissions.<br />If <code>file</code>, with no other options, returns the current state of <code>path</code>.<br />If <code>file</code>, even with other options (such as <code>[mode]</code>), the file will be modified if it exists but will NOT be created if it does not exist. <br />Set to <code>touch</code> or use the <a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html#ansible-collections-ansible-builtin-copy-module">ansible.builtin.copy</a> or <a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/template_module.html#ansible-collections-ansible-builtin-template-module">ansible.builtin.template</a> module if you want to create the file if it does not exist.<br />If <code>hard</code>, the hard link will be created or changed.<br />If <code>link</code>, the symbolic link will be created or changed.<br />If <code>touch</code> (new in 1.4), an empty file will be created if the file does not exist, while an existing file or directory will receive updated file access and modification times (similar to the way <code>touch</code> works from the command line).Default is the current state of the file if it exists, <code>directory</code> if <code>recurse=yes</code>, or <code>file</code> otherwise.<br /><strong>Choices:</strong><code>&quot;absent&quot;``&quot;directory&quot;``&quot;file&quot;``&quot;hard&quot;``&quot;link&quot;``&quot;touch&quot;</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m file -a &quot;cmd&quot;</code></p>
 <pre><code class="sh"># 创建空白文件
 ansible websrvs -m file -a &quot;path=/opt/test.sh state=touch&quot;	
 
@@ -271,43 +555,93 @@ ansible websrvs -m file -a &quot;path=/data/dir2 state=absent&quot;
 #创建软链接，原文件是在目标主机指定的目录中，否则失败
 ansible all -m file -a &#39;src=/data/testfile dest=/data/testfile-link state=link&#39;
 </code></pre>
-<h3 id="unarchive-模块"><a href="#unarchive-模块" class="headerlink" title="unarchive 模块"></a>unarchive 模块</h3><p>解包解压缩</p>
+<h3 id="archive-模块"><a href="#archive-模块" class="headerlink" title="archive 模块"></a>archive 模块</h3><p>将远程主机的目标文件或目录打包压缩</p>
 <blockquote>
-<p>两种用法</p>
-</blockquote>
-<p>1、将ansible主机上的压缩包传到远程主机后解压缩至特定目录，设置copy&#x3D;yes</p>
-<p>2、将远程主机上的某个压缩包解压缩到指定路径下，设置copy&#x3D;no</p>
-<blockquote>
-<p>常见参数：</p>
+<p><strong>参数</strong></p>
 </blockquote>
 <table>
 <thead>
 <tr>
 <th>参数</th>
-<th>作用</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>copy</td>
-<td>默认为yes，当copy&#x3D;yes，拷贝的文件是从ansible主机复制到远程主机上，如果设置为copy&#x3D;no，会在远程主机上或第三方主机上寻找src源文件</td>
-</tr>
-<tr>
-<td>remote_src</td>
-<td>和copy功能一样且互斥，yes表示在远程主机，不在ansible主机，no表示文件在ansible主机上</td>
-</tr>
-<tr>
-<td>src</td>
-<td>源路径，可以是ansible主机上的路径，也可以是远程主机（被管理端或者第三方地址）上的路径，如果是远程主机上的路径，则需要设置copy&#x3D;no</td>
+<td>path</td>
+<td>要压缩的文件或目录</td>
 </tr>
 <tr>
 <td>dest</td>
-<td>远程主机上的目标路径</td>
+<td>压缩后的文件</td>
 </tr>
 <tr>
-<td>mode</td>
-<td>设置解压缩后的文件权限</td>
+<td>format</td>
+<td>指定打包压缩的类型：bz2、gz、tar、xz、zip</td>
 </tr>
 </tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m unarchive -a &quot;cmd&quot;</code></p>
+<pre><code class="sh"># 将目标主机的/etc/sysconfig文件打包压缩，保存为/opt/sys.tar.bz2
+ansible websrvs -m archive -a &#39;path=/etc/sysconfig dest=/opt/sys.tar.bz2 format=bz2 owner=haha mode=0600&#39;
+</code></pre>
+<h3 id="unarchive-模块"><a href="#unarchive-模块" class="headerlink" title="unarchive 模块"></a>unarchive 模块</h3><p>解包解压缩</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th align="left">Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>copy</strong> boolean</td>
+<td align="left">If true, the file is copied from local controller to the managed (remote) node, otherwise, the plugin will look for src archive on the managed machine.<br />当copy&#x3D;yes，拷贝的文件是从ansible主机复制到远程主机上，如果设置为no，会在远程主机上寻找src源文件<br />This option has been deprecated in favor of <code>[remote_src]</code>. Exclusive with <code>[remote_src]</code>.<br />Default choice is <code>true</code></td>
+</tr>
+<tr>
+<td><strong>remote_src</strong> boolean</td>
+<td align="left">Set to <code>true</code> to indicate the archived file is already on the remote system and not local to the Ansible controller.<br />设置为 <code>true</code> 表示存档文件已经在远程系统上，而不是在 Ansible 控制器本地<br />Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>src</strong> path &#x2F; required</td>
+<td align="left">If <code>remote_src=no</code> (default), local path to archive file to copy to the target server; can be absolute or relative.<br /> If <code>remote_src=yes</code>, path on the target server to existing archive file to unpack.<br />If <code>remote_src=yes</code> and <code>[src]</code> contains <code>://</code>, the remote machine will download the file from the URL first. (version_added 2.0).</td>
+</tr>
+<tr>
+<td><strong>dest</strong> path &#x2F; （required）</td>
+<td align="left">Remote absolute path where the archive should be unpacked.<br />The given path must exist. Base directory is not created by this module.</td>
+</tr>
+<tr>
+<td><strong>creates</strong> path</td>
+<td align="left">If the specified absolute path (file or directory) already exists, this step will <strong>not</strong> be run.<br />The specified absolute path (file or directory) must be below the base path given with <code>[dest]</code>.</td>
+</tr>
+<tr>
+<td><strong>exclude</strong> list &#x2F; elements&#x3D;string</td>
+<td align="left">List the directory and file entries that you would like to exclude from the unarchive action.<br />Mutually exclusive with <code>[include]</code>.<strong>Default:</strong> <code>[]</code></td>
+</tr>
+<tr>
+<td><strong>include</strong> list &#x2F; elements&#x3D;string<em>added in ansible-core 2.11</em></td>
+<td align="left">List of directory and file entries that you would like to extract from the archive. <br />If <code>[include]</code> is not empty, only files listed here will be extracted. <strong>Default:</strong> <code>[]</code></td>
+</tr>
+<tr>
+<td><strong>owner</strong> string</td>
+<td align="left">Name of the user that should own the filesystem object, as would be fed to <em>chown</em>.When left unspecified, it uses the current user unless you are root, in which case it can preserve the previous ownership.Specifying a numeric username will be assumed to be a user ID and not a username. Avoid numeric usernames to avoid this confusion.</td>
+</tr>
+<tr>
+<td><strong>group</strong> string</td>
+<td align="left">Name of the group that should own the filesystem object, as would be fed to <em>chown</em>.When left unspecified, it uses the current group of the current user unless you are root, in which case it can preserve the previous ownership.</td>
+</tr>
+<tr>
+<td><strong>mode</strong> any</td>
+<td align="left">The permissions of the destination file or directory. You must either add a leading zero so that Ansible’s YAML parser knows it is an octal number (like <code>0644</code> or <code>01777</code>) or quote it (like <code>&#39;644&#39;</code> or <code>&#39;1777&#39;</code>) so Ansible receives a string and can do its own conversion from string into number.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m unarchive -a &quot;cmd&quot;</code></p>
 <pre><code class="sh"># 默认copy=yes,将管理端的压缩包复制到远程主机上后，解压到指定目录，并设置属主和属组。
 ansible websrvs -m unarchive -a &#39;src=sys.tar.gz dest=/opt owner=haha group=bin&#39;
 
@@ -317,214 +651,6 @@ ansible websrvs -m unarchive -a &#39;src=/opt/sys.tar.gz dest=/tmp copy=no mode=
 # 也可以设置第三方地址
 ansible all -m unarchive -a &#39;src=https://example.com/example.zip dest=/data copy=no&#39;
 </code></pre>
-<h3 id="Archive-模块"><a href="#Archive-模块" class="headerlink" title="Archive 模块"></a>Archive 模块</h3><p>将远程主机的目标文件或目录打包压缩</p>
-<pre><code class="sh"># 将目标主机的/etc/sysconfig文件打包压缩，保存为/opt/sys.tar.bz2
-ansible websrvs -m archive -a &#39;path=/etc/sysconfig dest=/opt/sys.tar.bz2 format=bz2 owner=haha mode=0600&#39;
-</code></pre>
-<h3 id="Hostname模块"><a href="#Hostname模块" class="headerlink" title="Hostname模块"></a>Hostname模块</h3><p>管理远程主机的主机名</p>
-<pre><code class="sh"># 更改192.168.20.22的主机名为nginx01,/etc/hostname文件内容也被修改
-ansible 192.168.20.22 -m hostname -a &#39;name=nginx01&#39;
-</code></pre>
-<h3 id="Cron-模块"><a href="#Cron-模块" class="headerlink" title="Cron 模块"></a>Cron 模块</h3><p>计划任务</p>
-<p>支持时间：minute，hour，day，month，weekday</p>
-<pre><code class="sh"># 创建计划任务，周一到周五的两点半执行/opt/mysql_backup.sh脚本，计划任务的名称是backup mysql
-ansible dbsrvs -m cron -a &quot;hour=2 minute=30 weekday=1-5 name=&#39;backup mysql&#39; job=/opt/mysql_backup.sh&quot;
-
-
-#再创建一个时间同步的计划任务
-ansible dbsrvs -m cron -a &#39;minute=*/5 name=Synctime job=&quot;/usr/sbin/ntpdate ntp.aliyun.com &amp;&gt;/dev/null&quot; &#39;
-
-
-#删除任务
-ansible dbsrvs -m cron -a &#39;name=&quot;backup mysql&quot; state=absent&#39;
-
-
-#禁用计划任务,必须加上job参数
-ansible dbsrvs -m cron -a &#39;minute=*/5 job=&quot;/usr/sbin/ntpdate ntp.aliyun.com &amp;&gt;/dev/null&quot; name=Synctime disabled=yes&#39;
-
-#启用计划任务
-ansible dbsrvs -m cron -a &#39;minute=*/5 job=&quot;/usr/sbin/ntpdate ntp.aliyun.com &amp;&gt;/dev/null&quot; name=Synctime disabled=no&#39;
-</code></pre>
-<h3 id="Yum-模块"><a href="#Yum-模块" class="headerlink" title="Yum 模块"></a>Yum 模块</h3><p>管理软件包，只支持RHEL，CentOS，fedora，不支持Ubuntu其它版本</p>
-<pre><code class="sh"># 安装软件包，安装多个用逗号隔开，present可以省略
-ansible websrvs -m yum -a &#39;name=iotop,telnet state=present&#39; 
-
-# 删除
-ansible websrvs -m yum -a &#39;name=iotop state=absent&#39; 
-
-# 更新
-ansible websrvs -m yum -a &#39;name=iotop state=latest&#39; 
-</code></pre>
-<h3 id="yum-repository模块"><a href="#yum-repository模块" class="headerlink" title="yum_repository模块"></a>yum_repository模块</h3><p>管理yum源</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>file</td>
-<td>yum源文件名， &#x2F;etc&#x2F;yum.repos.d&#x2F;xxxx.repo</td>
-</tr>
-<tr>
-<td>name</td>
-<td>yum源名称</td>
-</tr>
-<tr>
-<td>description</td>
-<td>yum源描述</td>
-</tr>
-<tr>
-<td>baseurl</td>
-<td>yum源下载地址</td>
-</tr>
-<tr>
-<td>enabled</td>
-<td>是否启用此yum源，yes&#x2F;no</td>
-</tr>
-<tr>
-<td>gpgcheck</td>
-<td>是否启动gpg校验，yes&#x2F;no</td>
-</tr>
-<tr>
-<td>gpgkey</td>
-<td>gpg密钥</td>
-</tr>
-<tr>
-<td>state</td>
-<td>状态，present&#x2F;absent</td>
-</tr>
-</tbody></table>
-<h3 id="Service-模块"><a href="#Service-模块" class="headerlink" title="Service 模块"></a>Service 模块</h3><p>管理服务</p>
-<pre><code class="sh"># 启动服务，设置自启
-ansible all -m service -a &#39;name=httpd state=started enabled=yes&#39;
-# 停止服务
-ansible all -m service -a &#39;name=httpd state=stopped&#39;
-# 重载
-ansible all -m service -a &#39;name=httpd state=reloaded&#39;
-# 重启
-ansible all -m service -a &#39;name=httpd state=restarted&#39;
-</code></pre>
-<h3 id="User-模块"><a href="#User-模块" class="headerlink" title="User 模块"></a>User 模块</h3><p>管理用户</p>
-<pre><code class="sh"># 创建用户,指定用户名、描述、uid、家目录、所属组
-ansible all -m user -a &#39;name=user1 comment=&quot;test user&quot; uid=2048 home=/app/user1 group=root&#39;
-
-# 用户名 描述 uid 所属组 从属组 shell类型 是否系统账户 是否创建家目录 家目录路径 uid是否唯一
-ansible all -m user -a &#39;name=nginx comment=nginx uid=88 group=nginx groups=&quot;root,daemon&quot; shell=/sbin/nologin system=yes create_home=no home=/data/nginx non_unique=yes&#39;
-
-# 删除用户，remove=yes表示删除用户及家目录等数据，默认remove=no
-ansible all -m user -a &#39;name=nginx state=absent remove=yes&#39;
-</code></pre>
-<h3 id="Group-模块"><a href="#Group-模块" class="headerlink" title="Group 模块"></a>Group 模块</h3><p>管理组</p>
-<pre><code class="sh"># 创建组
-ansible websrvs -m group -a &#39;name=nginx gid=88 system=yes&#39;
-
-# 删除组
-ansible websrvs -m group -a &#39;name=nginx state=absent&#39;
-</code></pre>
-<h3 id="Setup-模块"><a href="#Setup-模块" class="headerlink" title="Setup 模块"></a>Setup 模块</h3><p> setup 模块来收集主机的系统信息，这些 facts 信息可以直接以变量的形式使用，但是如果主机较多，会影响执行速度，可以使用gather_facts: no 来禁止 Ansible 收集 facts 信息</p>
-<pre><code class="sh">ansible all -m setup		#收集服务器详细信息
-ansible all -m setup -a &quot;filter=ansible_nodename&quot;		#主机全名
-ansible all -m setup -a &quot;filter=ansible_hostname&quot;		#主机名（部分名称）
-ansible all -m setup -a &quot;filter=ansible_os_family&quot;		#操作系统家族
-ansible all -m setup -a &quot;filter=ansible_domain&quot;			#域名
-ansible all -m setup -a &quot;filter=ansible_memtotal_mb&quot;		#内存总大小
-ansible all -m setup -a &quot;filter=ansible_memory_mb&quot;		#内存，包含交换分区等
-ansible all -m setup -a &quot;filter=ansible_memfree_mb&quot;		#剩余内存
-
-ansible all -m setup -a &quot;filter=ansible_distribution_major_version&quot;	#操作系统版本号
-ansible all -m setup -a &quot;filter=ansible_distribution_version&quot;		#小版本号
-ansible websrvs -m setup -a &quot;filter=ansible_distribution&quot;		#操作系统版本
-
-ansible all -m setup -a &quot;filter=ansible_processor_vcpus&quot;		#cpu个数
-ansible all -m setup -a &quot;filter=ansible_all_ipv4_addresses&quot;		#多块网卡的所有ip地址
-ansible all -m setup -a &quot;filter=ansible_default_ipv4&quot;			#默认ip地址		
-</code></pre>
-<h3 id="mount模块"><a href="#mount模块" class="headerlink" title="mount模块"></a>mount模块</h3><p>磁盘挂载相关 </p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>fstype</td>
-<td>指定文件系统类型，如nfs，xfs，ext4等</td>
-</tr>
-<tr>
-<td>src</td>
-<td>挂载源，如src&#x3D;172.16.1.31:&#x2F;data&#x2F;zh</td>
-</tr>
-<tr>
-<td>path</td>
-<td>在目标主机的挂载路径，如path&#x3D;&#x2F;mnt&#x2F;new-lidao-mount</td>
-</tr>
-<tr>
-<td>state</td>
-<td>状态<br />present ：仅修改配置，开机挂载，仅将挂载配置写入&#x2F;etc&#x2F;fstab<br/>mounted：挂载+修改配置，挂载设备，并将配置写入&#x2F;etc&#x2F;fstab<br/>unmounted：卸载设备，不会清除&#x2F;etc&#x2F;fstab写入的配置<br/>absent： 卸载设备，会清理&#x2F;etc&#x2F;fstab写入的配置<br/>remounted：重新挂载</td>
-</tr>
-</tbody></table>
-<pre><code class="sh"># 挂载nfs，如果要挂载点目录不存在，则会自动创建目录
-ansible all -m mount -a &#39;fstype=nfs src=172.16.1.31:/data/zh  path=/mnt/   state=mounted&#39;
-</code></pre>
-<h3 id="iptables模块"><a href="#iptables模块" class="headerlink" title="iptables模块"></a>iptables模块</h3><p>设置防火墙</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>table</td>
-<td>指定表，比如table&#x3D;filter</td>
-</tr>
-<tr>
-<td>action</td>
-<td>指定追加或者插入，action&#x3D;append（默认）或insert</td>
-</tr>
-<tr>
-<td>chain</td>
-<td>指定链，比如chain&#x3D;INPUT</td>
-</tr>
-<tr>
-<td>source</td>
-<td>源IP，比如source&#x3D;10.0.0.0&#x2F;24</td>
-</tr>
-<tr>
-<td>destination</td>
-<td>目标IP，比如destination&#x3D;192.168.110.18</td>
-</tr>
-<tr>
-<td>protocol</td>
-<td>协议，比如protocol&#x3D;tcp</td>
-</tr>
-<tr>
-<td>destination_port</td>
-<td>目标端口，比如destination_port&#x3D;3306</td>
-</tr>
-<tr>
-<td>jump</td>
-<td>策略，比如jump&#x3D;DROP</td>
-</tr>
-<tr>
-<td>state</td>
-<td>状态：state&#x3D;absent&#x2F;present(默认)</td>
-</tr>
-</tbody></table>
-<pre><code class="sh"># 新增一条防火墙策略
-ansible web -m iptables -a &#39;table=filter action=insert chain=INPUT source=10.0.0.0/24 protocol=tcp  destination_port=80 jump=DROP state=present&#39;
-</code></pre>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>除了以上模块以外，还有其他的常用模块不再赘述。更多模块介绍详见官方文档：<a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/index.html#plugins-in-ansible-builtin"> 模块参考 </a></p>
-<p>这些模块功能有些使用shell模块直接运行命令也可以实现，但是并不推荐，因为使用ansible模块具有</p>
-<ol>
-<li>Idempotency（幂等性）：即无论运行多少次，都会确保所需的状态被应用。相反，使用shell模块执行命令时，需要手动编写逻辑来确保这种状态的达成。</li>
-<li>可读性和维护性：使用专门的模块可以使Playbook更易于阅读和维护。mount模块和iptables模块提供了清晰的抽象，可以让操作更易于理解，并且减少了对特定命令语法的依赖。</li>
-<li>安全性：使用专门的模块可以提高安全性，因为它们通常会提供内置的错误检查和安全性措施，以确保正确的参数和配置。</li>
-</ol>
-<p>总的来说，首选应该是使用Ansible提供的专门模块，尤其是对于常见的系统管理任务，因为这样更易于编写、理解和维护。</p>
 
     </div>
 
