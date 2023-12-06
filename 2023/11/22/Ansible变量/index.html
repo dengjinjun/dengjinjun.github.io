@@ -193,8 +193,8 @@ group_vars/					# 固定目录名
 <pre><code class="yml">name: 1.txt
 </code></pre>
 <p><strong>注意：在ansible剧本中使用变量时，如果变量位于表达式开头的位置，则整个表达式都要使用双引号。</strong></p>
-<h2 id="注册变量"><a href="#注册变量" class="headerlink" title="注册变量"></a>注册变量</h2><p>register关键字可以将某个task任务的执行结果存储至一个变量中，最后使用debug输出变量内容，可以用于后续排障。</p>
-<p>也可以用于与<code>when</code>语句一起使用实现判断功能。</p>
+<h2 id="注册变量"><a href="#注册变量" class="headerlink" title="注册变量"></a>注册变量</h2><p>register关键字可以将某个task任务的执行结果存储至一个变量中，最后使用debug输出变量内容，可以用于后续排障。也可以用于与<code>when</code>语句一起使用实现判断功能。</p>
+<p>register变量的作用范围是整个playbook中的任务，register变量会保存任务执行的结果，在剧本中的任何后续任务中都可以引用这些register变量。</p>
 <blockquote>
 <p>应用案例：显示ip地址并排错</p>
 </blockquote>

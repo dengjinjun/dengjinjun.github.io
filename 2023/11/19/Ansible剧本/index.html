@@ -116,26 +116,374 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#playbook"><span class="post-toc-text">playbook</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B"><span class="post-toc-text">自动部署案例</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#nfs%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B"><span class="post-toc-text">nfs部署案例</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#lnp%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B"><span class="post-toc-text">lnp部署案例</span></a></li></ol></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Playbooks%E6%A0%B8%E5%BF%83%E5%85%83%E7%B4%A0"><span class="post-toc-text">Playbooks核心元素</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#hosts"><span class="post-toc-text">hosts</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#tasks"><span class="post-toc-text">tasks</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#variables"><span class="post-toc-text">variables</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#templates"><span class="post-toc-text">templates</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#handlers"><span class="post-toc-text">handlers</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Ansible-Roles"><span class="post-toc-text">Ansible Roles</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#include"><span class="post-toc-text">include</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#role"><span class="post-toc-text">role</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B"><span class="post-toc-text">自动部署案例</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#nfs%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B"><span class="post-toc-text">nfs部署案例</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#lnp%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B"><span class="post-toc-text">lnp部署案例</span></a></li></ol></li></ol>
             
         
-        <h2 id="playbook"><a href="#playbook" class="headerlink" title="playbook"></a>playbook</h2><p>Ansible的任务配置文件被称为playbook，我们可以称之为“剧本”，每一个剧本都包含一系列的任务，就像剧本的每一场分剧场，一个剧本，有很多分剧场组成。Playbook采用yaml语法编写，该语言被开发的时候，它的意思是：yet another markup language（仍是一种标记语言）。</p>
+        <p>使用ad-hoc命令可以执行一些简单的任务，但是有时一个任务过于复杂，需要大量的操作时候，执行的ad-hoc命令是不适合的，这时最好使用playbook。Ansible的任务配置文件被称为playbook，我们可以称之为“剧本”，也可以理解为批处理任务。</p>
 <blockquote>
-<p><strong>Yaml语言特性</strong></p>
+<p><strong>YAML语言</strong></p>
 </blockquote>
-<p>（1）具有很好的可读性，易于实现</p>
-<p>（2）表达能力强，扩展性好</p>
-<p>（3）和脚本语言的交互性好</p>
-<p>（4）有一个一致的信息模型</p>
-<p>（5）可以基于流程来处理</p>
-<blockquote>
-<p><strong>Playbooks组件</strong></p>
-</blockquote>
-<pre><code>Target：		定义playbook的远程主机组
-Variable：	定义playbook使用的变量
-Task：		定义远程主机上的执行的任务列表
-Handler：	定义task执行完成以后需要调用的任务，例如配置文件被改动，则启动handler任务重启相关联的服务
+<p>Playbook采用YAML语法编写，该语言被开发的时候，它的意思是：yet another markup language (仍是一种标记语言)。详见：<a target="_blank" rel="noopener" href="https://dengjinjun.site/2023/11/20/YAML%E8%AF%AD%E8%A8%80%E6%95%99%E7%A8%8B/">YAML语言教程</a></p>
+<p>YAML语言的优点：</p>
+<ul>
+<li><p>具有很好的可读性，易于实现</p>
+</li>
+<li><p>表达能力强，扩展性好</p>
+</li>
+<li><p>和脚本语言的交互性好</p>
+</li>
+<li><p>有一个一致的信息模型</p>
+</li>
+<li><p>可以基于流程来处理</p>
+</li>
+</ul>
+<h2 id="Playbooks核心元素"><a href="#Playbooks核心元素" class="headerlink" title="Playbooks核心元素"></a>Playbooks核心元素</h2><pre><code>hosts：主机组；
+tasks：任务列表；
+variables：变量，设置方式有四种；
+templates：包含了模板语法的文本文件；
+handlers：由特定条件触发的任务
 </code></pre>
+<h3 id="hosts"><a href="#hosts" class="headerlink" title="hosts"></a>hosts</h3><p>对于playbook中的每一个play，使用hosts选项可以定义inventory中要执行这些任务的主机或主机组，比如：</p>
+<pre><code class="yaml">---
+    - hosts: centos6,centos7,192.168.100.59			# hosts处可以使用&quot;,&quot;分隔主机或主机组
+      tasks: XXXXXX
+        - name: run a command
+          shell: /bin/date
+</code></pre>
+<p>其他指定主机和主机组的方式：</p>
+<ul>
+<li><code>all</code>或<code>*</code>：表示inventory中的所有主机。</li>
+<li><code>:</code>：取并集。例如<code>host1:host2:group1</code>表示2台主机加一个主机组。</li>
+<li><code>:&amp;</code>：取交集。例如<code>group1:&amp;group2</code>表示两个主机组中都有的主机。</li>
+<li><code>:!</code>：排除。例如<code>group1:!host1</code>表示group1中排除host1主机的剩余主机。</li>
+<li><code>通配符</code>：例如<code>web*.baidu.com</code>。</li>
+<li><code>数字范围</code>：例如<code>web[0-5].baidu.com</code>。</li>
+<li><code>字母范围</code>：例如<code>web[a-d].baidu.com</code>。</li>
+<li><code>正则表达式</code></li>
+</ul>
+<blockquote>
+<p><strong>remote_user</strong></p>
+</blockquote>
+<p>使用<code>remote_user</code>指定在远程主机上执行任务的用户，默认<code>remote_user</code>是ssh连接到被控主机上的用户。</p>
+<p>此外，还可以在某个task上单独定义执行该task的身份，这将覆盖全局的定义。比如：</p>
+<pre><code class="yaml">---
+    - hosts: centos6,centos7,192.168.100.59
+      remote_user: root
+      tasks: 
+        - name: run a command
+          shell: /bin/date
+        - name: copy a file to /tmp
+          copy: src=/etc/fstab dest=/tmp
+          remote_user: myuser
+</code></pre>
+<p><code>remote_user</code>实际上并不是执行任务的绝对身份，它只是ssh连接过去的身份，如果ssh连接的是普通用户，可以通过<code>become</code>来指定<code>root</code>，比如：</p>
+<pre><code class="yaml">---
+    - hosts: centos6,centos7,192.168.100.59
+      remote_user: yourname
+      tasks: 
+        - name: copy a file to /tmp
+          copy: src=/etc/fstab dest=/tmp
+          become: yes
+          become_method: sudo
+          become_user: root    # 此项默认值就是为root，可省略
+</code></pre>
+<h3 id="tasks"><a href="#tasks" class="headerlink" title="tasks"></a>tasks</h3><p>tasks下定义的是一系列task任务列表，比如调用各个模块。这些task按顺序一次执行一个，直到所有被筛选出来的主机都执行了这个task之后才会移动到下一个task上进行同样的操作。</p>
+<p>任务执行时，hosts选项所指定的那些主机都会收到相同的task指令，临时任务文件会通过sftp发送到所有的被控主机上，所有主机收到指令后，ansible主控端会筛选某些主机(如果进行了筛选)，并通过ssh在远程执行任务。对于某主机来说，某任务执行失败，后续的所有任务都不会再去执行。当然，这不会影响其他的主机执行任务(除非主机的任务之间有依赖关系)。</p>
+<p>最重要的是，ansible中的task是幂等性的，多次执行不会影响那些成功执行过的任务。另外幂等性还表现在执行失败后如果修正了playbook再次执行，将不会影响那些原本已经执行成功的任务，即使是不同主机也不会影响。仅这方面而言，ansible对于排错来说是极其友好的。当然，某些特殊的模块或者特殊定义的task并不一定总是幂等的，例如最简单的，执行一个command或者shell模块的命令，它会重复执行。但也有办法使其变得幂等，以command和shell模块为例，它们有两个选项：creates和removes，它们分别表示被控主机上指定的文件存在(不存在)时就不执行命令。</p>
+<p>task中有其要执行的一个或多个任务，大部分情况下 action 是作为一个列表来提供的。在playbook中，每调用的一个模块都称为一个action，其本质是加载并执行ansible对应的模块。</p>
+<blockquote>
+<p><strong>name</strong></p>
+</blockquote>
+<p>可以为每个task加上name项，也可以不加，比如：</p>
+<pre><code class="yaml"># 这个task有两个action，第一个action定义了name进行描述，调用了file模块；第二个action没有定义name，调用了shell模块
+tasks: 
+    - name: do something to initialize mariadb
+      file: path=/mydata/data state=directory owner=mysql group=mysql mode=0755
+    - shell: /usr/bin/mysql_install_db --datadir=/mydata/data --user=mysql creates=/mydata/data/ibdata1
+</code></pre>
+<p>实际上name只是一种描述性语句，它可以定义在任何地方。</p>
+<blockquote>
+<p><strong>action</strong></p>
+</blockquote>
+<p>action不需要显式地定义出来，这只是一个理解性地概念，表示调用了一个模块的动作，有以下三种方法可以传递模块参数：</p>
+<pre><code class="yaml"># 下面的task是要启动ssh服务
+
+# 方法一： 定义为key=value，直接传递参数给模块
+tasks: 
+  - service: name=sshd state=started     
+
+# 方法二： 定义为key: value方式
+tasks: 
+  - service:                            
+      name: sshd
+      state: started
+
+# 方法三： 使用args内置关键字，然后定义为key: value方式
+tasks: 
+  - service:                  
+    args: 
+      name: sshd
+      state: started
+</code></pre>
+<p><code>ping</code>模块、<code>command</code>和<code>shell</code>模块是不需要<code>key=value</code>格式的。</p>
+<ul>
+<li><p>对于ping命令，可以直接省略<code>key=value</code>。</p>
+<pre><code class="yaml">tasks: 
+    - name: ping host
+      ping:
+</code></pre>
+</li>
+<li><p>对于command和shell，只需要给定命令路径和要接上去的选项或参数即可，且无法使用上面的方法二。</p>
+<pre><code class="yaml">tasks: 
+    - name: execute command ntpdate
+      shell: /usr/sbin/ntpdate ntp1.aliyun.com
+      ignore_errors: true		# 表示忽略非0状态码继续执行任务，有时需要考虑
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p><strong>条件判断</strong></p>
+</blockquote>
+<p>在task中可以使用<code>when</code>语句进行条件判断，是否执行这条action。<code>when</code>语句符合Jinja语法。比如：</p>
+<pre><code class="yaml"># 配合facts变量根据centos版本号分发不同的配置文件
+tasks:
+- name: install conf file to centos7
+  template: src=files/nginx.conf.c7.j2
+  when: ansible_distribution_major_version == &quot;7&quot;
+- name: install conf file to centos6
+  template: src=files/nginx.conf.c6.j2
+  when: ansible_distribution_major_version == &quot;6&quot;
+  
+# 配合register变量根据上一步执行结果判断下一步是否执行
+tasks:
+- name: Get the list of installed packages
+  shell: rpm -qa
+  register: installed_packages
+
+- name: Install a package if it&#39;s not already installed
+  yum:
+    name: mypackage
+    state: present
+  when: &quot;&#39;mypackage&#39; not in installed_packages.stdout&quot;
+</code></pre>
+<blockquote>
+<p><strong>循环</strong></p>
+</blockquote>
+<p>对于需要重复执行的action，可以使用循环来实现。</p>
+<p>对循环项的引用，固定变量名为<code>item</code>，而后，要在task中使用<code>with_items</code>给定要循环的元素列表。比如：</p>
+<pre><code class="yaml"># 批量安装软件
+tasks:
+- name: unstall web packages
+  yum: name=&#123;&#123; item &#125;&#125; state=absent
+  with_items:
+  - httpd
+  - php
+  - php-mysql
+</code></pre>
+<p>如果要指定的内容较多，<code>with_items</code>中的列表项也支持字典的形式。比如：</p>
+<pre><code class="yaml">tasks:
+- name: add some users
+  user: name=&#123;&#123; item.name &#125;&#125; group=&#123;&#123; item.group &#125;&#125; state=present
+  with_items:
+    - &#123; name: &#39;user11&#39;, group: &#39;group11&#39; &#125;
+    - &#123; name: &#39;user12&#39;, group: &#39;group12&#39; &#125;
+    - &#123; name: &#39;user13&#39;, group: &#39;group13&#39; &#125;
+</code></pre>
+<blockquote>
+<p><strong>tag</strong></p>
+</blockquote>
+<p>可以为playbook中的每个action都打上标签，标签的主要作用是可以在ansible-playbook中设置只执行哪些被打上tag的任务或忽略被打上tag的任务。</p>
+<pre><code class="yaml"># 给启动apache的任务打上了apache标签，给启动mysql的任务打上了mysql标签
+tasks: 
+   - name: make sure apache is running
+     service: name=httpd state=started
+     tags: apache
+   - name: make sure mysql is running
+     service: name=mysqld state=started
+     tags: mysql
+</code></pre>
+<p>执行剧本时可以根据tag来选择执行的action，比如：</p>
+<pre><code>ansible-playbook -i hosts -t mysql test.yml 		# 只执行启动mysql的任务
+</code></pre>
+<p>其他tag相关的选项</p>
+<pre><code class="yaml">--list-tags           	# 显示剧本中所有已定义的标签
+-t TAGS, --tags=TAGS  	# 仅执行指定的标签
+--skip-tags=SKIP_TAGS 	# 跳过这个标签，执行其他所有任务
+</code></pre>
+<h3 id="variables"><a href="#variables" class="headerlink" title="variables"></a>variables</h3><p>变量的设置方式有四种</p>
+<blockquote>
+<p><strong>在剧本中书写变量</strong></p>
+</blockquote>
+<ul>
+<li><p>剧本中通过<code>vars</code>指定变量</p>
+<pre><code class="yaml">- hosts: all
+  vars:				# 指定变量，以列表的形式
+    - name1: nc 	# 变量1
+    - name2: nmap 	# 变量2
+</code></pre>
+</li>
+<li><p>剧本中通过<code>vars_files</code>指定变量文件</p>
+<pre><code class="yaml">- hosts: all
+  vars_files: vars.yml	# 指定一个变量文件，可自定义命名
+</code></pre>
+</li>
+<li><p>执行剧本时通过命令行传入</p>
+<p>通过<code>ansible-playbook</code>命令的命令行中的<code>-e</code>选项，后面跟<code>var=xxx</code>，这样就可以直接把自定义的变量传入。比如：</p>
+<pre><code class="sh">ansible-playbook nginx.yml -e rpmname=keepalived
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p><strong>在主机清单中定义</strong></p>
+</blockquote>
+<ul>
+<li><p>直接在<code>/etc/ansible/hosts</code>中写变量，不太推荐这种方式。</p>
+<pre><code class="ini">[webservers]
+www[01:50].example.com
+ 
+[webservers:vars]			# 定义组变量，用 [组名:vars] 表示
+ansible_ssh_pass=&#39;root&#39;
+</code></pre>
+</li>
+<li><p>在主机清单文件的同目录下创建变量的目录，比如：</p>
+<pre><code class="sh">|root@m01 ansible|$ tree -F
+
+.
+├── ansible.cfg
+├── group_vars/			# 组变量目录
+│   ├── db/					# db组变量目录
+│   │   └── vars.yml			# db组变量文件
+│   └── web/				# web组变量目录
+│       └── vars.yml/			# web组变量文件
+└── hosts				# 主机清单
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p><strong>直接调用facts变量</strong></p>
+</blockquote>
+<pre><code class="sh">#常用必备的facts 
+
+ansible_default_ipv4.address 	# 默认的网卡ip eth0
+ansible_distribution            # 系统发行版本名字 CentOS  Ubuntu  Debian ...
+ansible_memtotal_mb          	# 内存大小
+ansible_processor_vcpus      	# cpu数量 
+ansible_processor_cores      	# cpu 核心数
+ansible_date_time.date   		# 时间
+</code></pre>
+<blockquote>
+<p><strong>通过roles传递变量</strong></p>
+</blockquote>
+<p>本文后续详细讲解</p>
+<h3 id="templates"><a href="#templates" class="headerlink" title="templates"></a>templates</h3><p>Templates模板是一个嵌套有脚本的文本文件，使用<code>Jinja2</code>模板编程语言编写，常用于含有脚本或变量的配置文件的编写，以<code>.j2</code>结尾。<br>Jinja2是python的一种模板语言，以Django的模板语言为原本。详见 <a target="_blank" rel="noopener" href="https://dengjinjun.site/2023/12/02/Jinja%E8%AF%AD%E8%A8%80%E6%95%99%E7%A8%8B/">Jinja语言教程</a></p>
+<h3 id="handlers"><a href="#handlers" class="headerlink" title="handlers"></a>handlers</h3><p>Handler可以理解为触发器，需要notify来触发。Handler主要用于重启服务或者触发系统重启，除此之外很少使用Handler。</p>
+<p>ansible中几乎所有的模块都具有幂等性，这意味着被控主机的状态是否发生改变是能被捕捉的，即每个action的changed&#x3D;true或changed&#x3D;false。ansible在捕捉到changed&#x3D;true时，可以触发notify组件(如果定义了该组件)。</p>
+<p>需要在Handler中定义任务，然后可以在剧本中使用notify来触发handler中定义的action。notify是一个组件，其主要目的是调用handler。</p>
+<pre><code class="yaml"># 这表示当执行template模块的任务时，如果捕捉到changed=true，即nginx配置文件发生了变化，那么就会触发notify，执行handler中定义的start nginx 和 test web page两个action
+tasks: 
+  - name: copy template file to remote host
+    template: src=/etc/ansible/nginx.conf.j2 dest=/etc/nginx/nginx.conf
+    notify: 
+      - restart nginx
+      - test web page
+handlers: 		# handlers与tasks平级。定义了两个action：start nginx 和 test web page
+  - name: restart nginx						# action一定要带有name描述
+    service: name=nginx state=restarted
+  - name: test web page						# action一定要带有name描述
+    shell: curl -I http://192.168.100.10/index.html | grep 200 || /bin/false
+</code></pre>
+<h2 id="Ansible-Roles"><a href="#Ansible-Roles" class="headerlink" title="Ansible Roles"></a>Ansible Roles</h2><p>role是一种ansible剧本目录的编排方式，目的是分割庞大的playbook，以及复用某些细化的play甚至是task。</p>
+<p>介绍role之前，需要先了解<code>include</code></p>
+<h3 id="include"><a href="#include" class="headerlink" title="include"></a>include</h3><p>如果将所有的play都写在一个playbook中，很容易导致这个playbook文件变得臃肿庞大，且不易读。因此，可以将多个不同任务分别写在不同的playbook中，然后使用<code>include</code>将其包含进去即可。</p>
+<p>include可以在一个playbook中导入另一个playbook文件，也可以更细分地导入task文件。</p>
+<ul>
+<li><p>导入playbook</p>
+<p>在此处，<code>include</code>的动作是在playbook中加载一个或多个playbook，所以写在顶级列表的层次</p>
+<pre><code class="yaml">- name: this is a play at the top level of a file
+  hosts: all
+  tasks:
+  - name: say hi
+    shell: echo &quot;hi...&quot;
+
+- include: load_balancers.yml  sayhi=&quot;hello world&quot;
+- include: webservers.yml
+- include: dbservers.yml
+</code></pre>
+</li>
+<li><p>导入task</p>
+<p>先编写一个task文件<code>a.yml</code>，其实就是多个action的列表。</p>
+<pre><code class="yaml">- name: restart nginx
+  service: name=nginx state=restarted
+- name: test web page
+  shell: curl -I http://192.168.100.10/index.html | grep 200 || /bin/false
+</code></pre>
+<p>playbook中，在tasks指令的子选项处使用include包含。</p>
+<pre><code class="yaml">- hosts: centos7
+  tasks:
+    - include: a.yml		# 在同目录中才可以这样写相对路径
+      vars: 				# 如果a.yml中含有变量，可以在此处添加，也可以直接在include行中添加`var=xxx`
+           sayhi: &quot;hi&quot;
+</code></pre>
+<p>handlers中也可以使用include包含</p>
+<pre><code class="yaml">handlers:
+  - include: a.yml			# 在同目录中才可以这样写相对路径
+</code></pre>
+</li>
+</ul>
+<h3 id="role"><a href="#role" class="headerlink" title="role"></a>role</h3><p>通过<code>include</code>可以对臃肿的playbook实现分割，但是还很难实现灵活地调用。</p>
+<p>roles 用于层次性、结构化地组织playbook。roles 能够根据层次型结构自动装载变量文件、tasks以及handlers等。要使用roles只需要在playbook中使用include指令即可。简单来讲，roles就是通过分别将变量(vars)、文件(file)、任务(tasks)、模板(templates)及触发器(handlers)放置于单独的目录中，并可以便捷地include它们的一种机制。</p>
+<blockquote>
+<p><strong>roles要素</strong></p>
+</blockquote>
+<ul>
+<li><p>default&#x2F;：此目录中至少应该有一个名为main.yml的文件，用于设定默认变量；</p>
+</li>
+<li><p>files&#x2F;：存储由copy或script等模块调用的文件；</p>
+</li>
+<li><p>tasks&#x2F;：此目录中至少应该有一个名为main.yml的文件，用于定义各task；其它的文件需要由main.yml进行“包含”调用；</p>
+</li>
+<li><p>handlers&#x2F;：此目录中至少应该有一个名为main.yml的文件，用于定义各handler；其它的文件需要由main.yml进行“包含”调用；</p>
+</li>
+<li><p>vars&#x2F;：此目录中至少应该有一个名为main.yml的文件，用于定义各variable；其它的文件需要由main.yml进行“包含”调用；</p>
+</li>
+<li><p>templates&#x2F;：存储由template模块调用的模板文本；</p>
+</li>
+<li><p>meta&#x2F;：此目录中至少应该有一个名为main.yml的文件，定义当前角色的特殊设定及其依赖关系；其它的文件需要由main.yml进行“包含”调用；</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>目录结构</strong></p>
+</blockquote>
+<pre><code class="makefile">[root@server yaml]# tree
+.
+├── site.yml			# 入口文件，ansible执行的剧本文件
+├── roles					# roles目录，所有的role都放在这个目录中
+    ├── httpd					# 部署apache服务的role
+    │   ├── default
+    │   ├── files
+    │   ├── handlers
+    │   ├── meta
+    │   ├── tasks
+    │   ├── templates
+    │   └── vars
+    ├── mysql					# 部署mysql服务的role
+    │   ├── default
+    │   ├── files
+    │   ├── handlers
+    │   ├── meta
+    │   ├── tasks
+    │   ├── templates
+    │   └── vars
+    └── nginx					# 部署nginx服务的role
+        ├── default
+        ├── files
+        ├── handlers
+        ├── meta
+        ├── tasks
+        ├── templates
+        └── vars
+</code></pre>
+<p>Ansible有一个网站专门存放了一大堆的playbook，可以下载下来稍作修改就能使用：<a target="_blank" rel="noopener" href="https://galaxy.ansible.com/ui/">Ansible官方playbook仓库</a></p>
 <h2 id="自动部署案例"><a href="#自动部署案例" class="headerlink" title="自动部署案例"></a>自动部署案例</h2><h3 id="nfs部署案例"><a href="#nfs部署案例" class="headerlink" title="nfs部署案例"></a>nfs部署案例</h3><p>在目标主机上部署nfs服务，并且挂载到本机目录中</p>
 <pre><code class="sh">vim /scripts/playbook/nfs.yml			# 编辑剧本任务文件
 </code></pre>

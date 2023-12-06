@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Jinja语言教程" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    
+    <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Jinja语言教程
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="post-toc-text">语法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8F%98%E9%87%8F"><span class="post-toc-text">变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84"><span class="post-toc-text">控制结构</span></a></li></ol></li></ol>
+            
+        
+        <p>Jinja是一种基于 Python 的模板语言。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://jinja.palletsprojects.com/en/3.0.x/templates/">官方文档</a></li>
+<li>由 Flask 的作者开发，最初是模仿 Django 的 DTL 模板语言，处理 HTML 文件，后来推广到处理各种类型的文本文件。</li>
+</ul>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
+<li><p>三种定界符：</p>
+<pre><code class="jinja2">&#123;&#123; &#125;&#125;    # 用于读取变量的值，并嵌入模板文本中
+&#123;% %&#125;    # 用于执行指令
+    # 用于声明单行注释
+</code></pre>
+<p>渲染模板文件时会删除所有注释。</p>
+<p>声明多行注释的方法：</p>
+<pre><code class="sh">&#123;% comment %&#125;
+  This is a comment.
+  &#123;% endcomment %&#125;
+</code></pre>
+</li>
+</ul>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><ul>
+<li><p>简单变量（如果读取的变量不存在，则取值为空字符串。）</p>
+<pre><code class="sh">&#123;% set a='Hello' %&#125;   # 创建变量
+&#123;% set b=a %&#125;         # 将变量赋值给另一个变量
+&#123;&#123; b &#125;&#125;               # 读取变量的值
+</code></pre>
+</li>
+<li><p>变量可以是 Python 中任意类型的对象，可以调用该对象的属性、方法：</p>
+<pre><code class="sh">Explain&#123;&#123; name &#125;&#125;            # 读取变量
+&#123;&#123; name.__doc__ &#125;&#125;    # 调用属性
+&#123;&#123; name.encode() &#125;&#125;   # 调用方法
+&#123;&#123; dict1['A'] &#125;&#125;      # 读取字典
+&#123;&#123; list1[0] &#125;&#125;        # 读取列表
+</code></pre>
+</li>
+</ul>
+<h3 id="控制结构"><a href="#控制结构" class="headerlink" title="控制结构"></a>控制结构</h3><ul>
+<li><p>if 语句：</p>
+<pre><code class="sh">Explain&#123;% if a is defined %&#125;   # 判断变量是否已定义
+  AAA
+  &#123;% elif not b %&#125;
+  BBB
+  &#123;% else %&#125;
+  CCC
+  &#123;% endif %&#125;
+</code></pre>
+<pre><code class="sh">&#123;&#123; True if a else False &#125;&#125;
+&#123;&#123; a or 'Hello' &#125;&#125;      # 为变量设置默认值
+</code></pre>
+</li>
+<li><p>迭代列表：</p>
+<pre><code class="sh">Explain&lt;ul&gt;
+  &#123;% for i in list1 %&#125;
+    <li>&#123;&#123; i &#125;&#125;</li>
+    &#123;% endfor %&#125;
+&lt;/ul&gt;
+</code></pre>
+</li>
+<li><p>迭代字典：</p>
+<pre><code class="sh">Explain&lt;dl&gt;
+  &#123;% for k, v in dict1.items() %&#125;
+    <dt>&#123;&#123; k &#125;&#125;</dt>
+    <dd>&#123;&#123; v &#125;&#125;</dd>
+    &#123;% endfor %&#125;
+&lt;/dl&gt;
+</code></pre>
+</li>
+<li><p>继承：</p>
+<pre><code class="sh">Explain&#123;% extends "base.html" %&#125;   # 继承 base.html 的内容
+
+&#123;% block head %&#125;            # 定义一个 block 块，如果继承的父文件中存在同名的 block ，则会覆盖它
+      &#123;&#123; super() &#125;&#125;           # 插入父文件中同名的 block 的内容
+      <title>Hello</title>
+  &#123;% endblock %&#125;
+</code></pre>
+</li>
+</ul>
+<hr>
+<p>摘自：<a target="_blank" rel="noopener" href="https://leohsiao.com/Python/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/%E5%BA%8F%E5%88%97%E5%8C%96/Jinja.html">LeoHsiao’s Notes</a></p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-02</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E6%8B%93%E5%B1%95%E8%A7%86%E9%87%8E/'>
+                            拓展视野
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>
