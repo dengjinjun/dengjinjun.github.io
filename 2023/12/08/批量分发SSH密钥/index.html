@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="" />
+    <meta name="description" content="批量分发SSH密钥" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang</title>
@@ -82,11 +82,7 @@
             
         
             
-                <li><i>
-                    
-                        <a style="color: #4e7dde;" href="/tags/">标签</a>
-                    
-                </i></li>
+                <li><a href="/tags/">标签</a></li>
             
         
             
@@ -104,71 +100,131 @@
                     
 
                     
-                            <div class="archive-list">
-  <ul class="archive">
-
-    
-    <span>📌<i>Ansible</i></span>
-      
-      
-      
-    
-    
-    
-  
-    
-        <li>
-        <span class="archive-date">2023-11-27</span>
-        <div class="archive-main">
-            <a class="archive-title" href="/2023/11/27/Ansible%E5%89%A7%E6%9C%AC/">Ansible剧本</a>
-        </div>
-        </li>
-    
-  
-    
-        <li>
-        <span class="archive-date">2023-11-22</span>
-        <div class="archive-main">
-            <a class="archive-title" href="/2023/11/22/Ansible%E5%8F%98%E9%87%8F/">Ansible变量</a>
-        </div>
-        </li>
-    
-  
-    
-        <li>
-        <span class="archive-date">2023-11-18</span>
-        <div class="archive-main">
-            <a class="archive-title" href="/2023/11/18/Ansible%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97%EF%BC%88%E4%B8%8B%EF%BC%89/">Ansible核心模块（下）</a>
-        </div>
-        </li>
-    
-  
-    
-        <li>
-        <span class="archive-date">2023-11-17</span>
-        <div class="archive-main">
-            <a class="archive-title" href="/2023/11/17/Ansible%E6%A8%A1%E5%9D%97/">Ansible核心模块（上）</a>
-        </div>
-        </li>
-    
-  
-    
-        <li>
-        <span class="archive-date">2023-11-14</span>
-        <div class="archive-main">
-            <a class="archive-title" href="/2023/11/14/Ansible%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">Ansible基础架构</a>
-        </div>
-        </li>
-    
-  
-  </ul>
-</div>
-
-<!--  --> 
-                    
                     
                     
                     <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            批量分发SSH密钥
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                
+            
+        
+        <p>多台初始状态虚拟机，已分配IP地址。需要批量分发ssh公钥，使用管理机<code>m01</code>进行连接，且避免首次连接提示。</p>
+<p>首先本机的<code>/etc/hosts</code>文件</p>
+<pre><code>127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.110.144 lb401
+192.168.110.145 lb402
+192.168.110.135 lb01    
+192.168.110.136 lb02
+192.168.110.137 web01
+192.168.110.138 web02
+192.168.110.139 sweb01
+192.168.110.140 sweb02
+192.168.110.141 nfs
+192.168.110.142 backup
+192.168.110.143 db01
+192.168.110.128 m01
+</code></pre>
+<p>创建一个包含所有远程主机hostname的文件<code>/root/ip.txt</code></p>
+<pre><code>192.168.110.144 lb401
+192.168.110.145 lb402
+192.168.110.135 lb01    
+192.168.110.136 lb02
+192.168.110.137 web01
+192.168.110.138 web02
+192.168.110.139 sweb01
+192.168.110.140 sweb02
+192.168.110.141 nfs
+192.168.110.142 backup
+192.168.110.143 db01
+</code></pre>
+<p>本机编辑批量分发ssh公钥的脚本<code>/server/script/distribute_ssh_key.sh</code></p>
+<pre><code class="sh">#!/usr/bin/env bash
+# Author: Dengpangpang
+# Date: 2023-12-8
+# Description: distribute_ssh_id_rsa
+
+set -e
+[ -f /root/.ssh/id_rsa ] || ssh-keygen -t rsa -f /root/.ssh/id_rsa -P &quot;&quot; &amp;&gt;/dev/null
+ 
+[ -f /usr/bin/sshpass ] || yum -y install sshpass &amp;&gt; /dev/null
+ 
+while read line
+do
+    host=`echo $line | cut -d  &quot; &quot; -f2`
+echo &quot;=============host $ip  pub-key start distribute=============&quot;
+    sshpass -p &#39;123456&#39; ssh-copy-id -i /root/.ssh/id_rsa.pub dengpangpang@$&#123;host&#125; -o &quot;StrictHostKeyChecking=no&quot;  &amp;&gt; /dev/null
+    ssh-keyscan -H $&#123;host&#125; &gt;&gt; ~/.ssh/known_hosts
+echo &quot;host $host distribute success.&quot;
+echo &quot;=============host $host  pub-key distribute end=============&quot;
+echo &quot;&quot;
+done &lt; /root/ip.txt
+</code></pre>
+<pre><code class="sh"># sshpass 是一个使用键盘输入密码身份验证模式运行SSH ，以非交互方式运行的ssh工具，这句用于分发公钥
+#  -o &quot;StrictHostKeyChecking=no&quot;的含义是禁用SSH连接时的主机密钥检查，安全性低，权宜之计。
+sshpass -p &#39;123456&#39; ssh-copy-id -i /root/.ssh/id_rsa.pub dengpangpang@$&#123;host&#125; -o &quot;StrictHostKeyChecking=no&quot;  &amp;&gt; /dev/null
+</code></pre>
+<pre><code class="sh"># 这条命令用于将远程主机的公钥信息添加到管理机的known_hosts文件中，这样可以避免首次连接时出现确认提示
+ssh-keyscan -H $&#123;host&#125; &gt;&gt; ~/.ssh/known_hosts
+</code></pre>
+<p>执行这条脚本之后，所有的主机都添加了管理机的公钥，并且管理机的<code>known_hosts</code>文件保存了所有远程主机的公钥信息，这样连接时无需首次确认。</p>
+<p>测试：</p>
+<pre><code class="sh">ansible all -u dengpangpang -m ping
+</code></pre>
+<p>测试结果：全绿。</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-08</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/shell%E8%84%9A%E6%9C%AC/'>
+                            shell脚本
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
                     
                     
                     <div class="footer">
