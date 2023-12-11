@@ -392,6 +392,8 @@ handlers: 		# handlers与tasks平级。定义了两个action：start nginx 和 t
   - name: test web page						# action一定要带有name描述
     shell: curl -I http://192.168.100.10/index.html | grep 200 || /bin/false
 </code></pre>
+<p>当一个任务通过 <code>notify</code> 触发了一个handler，handler并不会立即执行，而是会在本次playbook的所有任务执行完成后，按照定义的顺序执行。这意味着当触发了多个handler时，它们会在当前剧本的所有任务执行完成后按照其在剧本中的定义顺序依次执行。</p>
+<p>这种行为确保了在一个剧本中所有任务执行完成后再执行一些共同的操作，从而允许对多个任务的结果进行整合或者基于这些任务的结果执行其他操作。</p>
 <h2 id="Ansible-Roles"><a href="#Ansible-Roles" class="headerlink" title="Ansible Roles"></a>Ansible Roles</h2><p>role是一种ansible剧本目录的编排方式，目的是分割庞大的playbook，以及复用某些细化的play甚至是task。</p>
 <p>介绍role之前，需要先了解<code>include</code></p>
 <h3 id="include"><a href="#include" class="headerlink" title="include"></a>include</h3><p>如果将所有的play都写在一个playbook中，很容易导致这个playbook文件变得臃肿庞大，且不易读。因此，可以将多个不同任务分别写在不同的playbook中，然后使用<code>include</code>将其包含进去即可。</p>
