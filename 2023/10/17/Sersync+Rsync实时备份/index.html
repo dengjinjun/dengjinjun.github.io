@@ -324,7 +324,9 @@ PrivateTmp=true
 [Install]
 WantedBy=multi-user.target
 </code></pre>
-<pre><code class="shell"># 此时已经能够通过systemctl来控制程序启动关闭以及开机自启
+<pre><code class="shell"># 重新加载系统服务
+systemctl daemon-reload
+# 此时已经能够通过systemctl来控制程序启动关闭以及开机自启
 systemctl start sersyncd
 systemctl restart sersyncd
 systemctl stop sersyncd

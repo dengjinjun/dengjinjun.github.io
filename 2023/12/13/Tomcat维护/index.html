@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Tomcat维护" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    
+    <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Tomcat维护
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tomcat%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">tomcat工作模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tomcat%E5%A4%9A%E5%AE%9E%E4%BE%8B"><span class="post-toc-text">tomcat多实例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%BF%90%E8%A1%8C%E4%BF%A1%E6%81%AF"><span class="post-toc-text">查看运行信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tomcat%E7%9B%91%E6%8E%A7"><span class="post-toc-text">tomcat监控</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tomcat%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5"><span class="post-toc-text">tomcat故障排查</span></a></li></ol>
+            
+        
+        <h2 id="tomcat工作模式"><a href="#tomcat工作模式" class="headerlink" title="tomcat工作模式"></a>tomcat工作模式</h2><p>bio nio1 nio2  apr</p>
+<h2 id="tomcat多实例"><a href="#tomcat多实例" class="headerlink" title="tomcat多实例"></a>tomcat多实例</h2><p>1</p>
+<h2 id="查看运行信息"><a href="#查看运行信息" class="headerlink" title="查看运行信息"></a>查看运行信息</h2><blockquote>
+<p><strong>查看tomcat进程信息</strong></p>
+</blockquote>
+<pre><code class="sh"># 系统命令查看tomcat进程信息 
+[root@web03 tomcat]$ ps -ef | grep java
+root       1492      1  0 01:04 pts/0    00:00:07 /app/jdk/bin/java -Djava.util.logging.config.file=/app/tomcat/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /app/tomcat/bin/bootstrap.jar:/app/tomcat/bin/tomcat-juli.jar -Dcatalina.base=/app/tomcat -Dcatalina.home=/app/tomcat -Djava.io.tmpdir=/app/tomcat/temp org.apache.catalina.startup.Bootstrap start
+
+# java命令查看tomcat进程信息,出现两个进程，第一个是tomcat进程，第二个是jps进程
+[root@web03 tomcat]$ jps -lvm
+1492 org.apache.catalina.startup.Bootstrap start -Djava.util.logging.config.file=/app/tomcat/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -Dcatalina.base=/app/tomcat -Dcatalina.home=/app/tomcat -Djava.io.tmpdir=/app/tomcat/temp
+1930 sun.tools.jps.Jps -lvm -Denv.class.path=.:/app/jdk/lib:/app/jdk/jre/lib:/app/jdk/lib/tools.jar -Dapplication.home=/app/jdk -Xms8m
+</code></pre>
+<blockquote>
+<p><strong>查看java运行的状态信息（内存，线程，请求等）</strong></p>
+</blockquote>
+<p>可以通过shell脚本根据下述信息获取详细数据，然后进行下一步处理，生成监控信息</p>
+<pre><code class="sh">jmap -heap [tomcat进程的pid]		# jmap是java的高级调试工具，-heap表示堆相关选项，tomcat进程pid通过上一步获取
+
+jstack		# 待详解
+
+jstat		# 待详解
+</code></pre>
+<blockquote>
+<p><strong>查看日志信息</strong></p>
+</blockquote>
+<p><code>conf</code>目录下会存储tomcat的日志信息</p>
+<p><code>catalina.out</code>会存储所有运行信息，并且切割后文件大小不会删减，是需要优化的内容。具体日期的日志可以查看其切割日志。</p>
+<p><code>localhost_access_log</code>会存储访问信息，具体日期的日志可以查看其切割日志。</p>
+<p>另外管理端的日志信息，也会存储在响应文件中。</p>
+<h2 id="tomcat监控"><a href="#tomcat监控" class="headerlink" title="tomcat监控"></a>tomcat监控</h2><p>命令</p>
+<p>脚本</p>
+<h2 id="tomcat故障排查"><a href="#tomcat故障排查" class="headerlink" title="tomcat故障排查"></a>tomcat故障排查</h2>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-13</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Tomcat/'>
+                            Tomcat
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>
