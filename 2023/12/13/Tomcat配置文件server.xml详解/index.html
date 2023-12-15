@@ -272,7 +272,7 @@
 </blockquote>
 <p>最典型的自动部署，就是当我们安装完Tomcat后，$TOMCAT_HOME&#x2F;webapps目录下有如下文件夹：</p>
 <p><img src="/../pic/1174710-20170804124947444-1841183869.png" alt="img"></p>
-<p>当我们启动Tomcat后，可以使用<a target="_blank" rel="noopener" href="http://localhost:8080/%E6%9D%A5%E8%AE%BF%E9%97%AETomcat%EF%BC%8C%E5%85%B6%E5%AE%9E%E8%AE%BF%E9%97%AE%E7%9A%84%E5%B0%B1%E6%98%AFROOT%E5%AF%B9%E5%BA%94%E7%9A%84Web%E5%BA%94%E7%94%A8%EF%BC%9B%E6%88%91%E4%BB%AC%E4%B9%9F%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87http://localhost:8080/docs%E6%9D%A5%E8%AE%BF%E9%97%AEdocs%E5%BA%94%E7%94%A8%EF%BC%8C%E5%90%8C%E7%90%86%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E8%AE%BF%E9%97%AEexamples/host-manager/manager%E8%BF%99%E5%87%A0%E4%B8%AAWeb%E5%BA%94%E7%94%A8%E3%80%82">http://localhost:8080/来访问Tomcat，其实访问的就是ROOT对应的Web应用；我们也可以通过http://localhost:8080/docs来访问docs应用，同理我们可以访问examples/host-manager/manager这几个Web应用。</a></p>
+<p>当我们启动Tomcat后，可以使用 <a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080/</a> 来访问Tomcat，其实访问的就是ROOT对应的Web应用；我们也可以通过 <a target="_blank" rel="noopener" href="http://localhost:8080/docs">http://localhost:8080/docs</a> 来访问docs应用，同理我们可以访问 examples&#x2F;host-manager&#x2F;manager 这几个Web应用。</p>
 <h4 id="静态部署下Context的配置"><a href="#静态部署下Context的配置" class="headerlink" title="静态部署下Context的配置"></a>静态部署下Context的配置</h4><p>除了自动部署，我们也可以在server.xml中通过context元素静态部署Web应用。静态部署与自动部署是可以共存的。在实际应用中，并不推荐使用静态部署，因为server.xml 是不可动态重加载的资源，服务器一旦启动了以后，要修改这个文件，就得重启服务器才能重新加载。而自动部署可以在Tomcat运行时通过定期的扫描来实现，不需要重启服务器。</p>
 <p>server.xml中使用Context元素配置Web应用，Context元素应该位于Host元素中。举例如下：</p>
 <pre><code>1 &lt;Context path=&quot;/&quot; docBase=&quot;D:\Program Files \app1.war&quot; reloadable=&quot;true&quot;/&gt;
@@ -296,7 +296,7 @@
 <blockquote>
 <p><strong>举例</strong></p>
 </blockquote>
-<p>以请求<a target="_blank" rel="noopener" href="http://localhost:8080/app1/index.html%E4%B8%BA%E4%BE%8B%EF%BC%8C%E9%A6%96%E5%85%88%E9%80%9A%E8%BF%87%E5%8D%8F%E8%AE%AE%E5%92%8C%E7%AB%AF%E5%8F%A3%E5%8F%B7%EF%BC%88http%E5%92%8C8080%EF%BC%89%E9%80%89%E5%AE%9AService%EF%BC%9B%E7%84%B6%E5%90%8E%E9%80%9A%E8%BF%87%E4%B8%BB%E6%9C%BA%E5%90%8D%EF%BC%88localhost%EF%BC%89%E9%80%89%E5%AE%9AHost%EF%BC%9B%E7%84%B6%E5%90%8E%E9%80%9A%E8%BF%87uri%EF%BC%88/app1/index.html%EF%BC%89%E9%80%89%E5%AE%9AWeb%E5%BA%94%E7%94%A8%E3%80%82">http://localhost:8080/app1/index.html为例，首先通过协议和端口号（http和8080）选定Service；然后通过主机名（localhost）选定Host；然后通过uri（/app1/index.html）选定Web应用。</a></p>
+<p>以请求 <a target="_blank" rel="noopener" href="http://localhost:8080/app1/index.html">http://localhost:8080/app1/index.html</a> 为例，首先通过协议和端口号（http和8080）选定Service；然后通过主机名（localhost）选定Host；然后通过uri（&#x2F;app1&#x2F;index.html）选定Web应用。</p>
 <h2 id="如何配置多个服务"><a href="#如何配置多个服务" class="headerlink" title="如何配置多个服务"></a>如何配置多个服务</h2><p>通过在Server中配置多个Service服务，可以实现通过不同的端口号来访问同一台机器上部署的不同Web应用。</p>
 <p>在server.xml中配置多服务的方法非常简单，分为以下几步：</p>
 <p>（1）复制<Service>元素，放在当前<Service>后面。</p>
