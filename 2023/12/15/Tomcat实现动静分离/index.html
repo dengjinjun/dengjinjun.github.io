@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="Tomcat实现动静分离" />
+    <meta name="description" content="Nginx+Tomcat实现动静分离" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang</title>
@@ -108,7 +108,7 @@
 
     
         <div class="post-main-title">
-            Tomcat实现动静分离
+            Nginx+Tomcat实现动静分离
         </div>
       
     
@@ -116,10 +116,56 @@
     <div class="post-md">
         
             
-                
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tomcat%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB%E7%AE%80%E4%BB%8B"><span class="post-toc-text">Tomcat动静分离简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tomcat%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">Tomcat动静分离实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%89%8D%E6%9C%9F%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="post-toc-text">前期环境准备</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Nginx%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">Nginx虚拟主机配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Nginx%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">Nginx主配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B5%8B%E8%AF%95%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="post-toc-text">测试动静分离</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">负载均衡</span></a></li></ol></li></ol>
             
         
-        <p>待记录</p>
+        <h2 id="Tomcat动静分离简介"><a href="#Tomcat动静分离简介" class="headerlink" title="Tomcat动静分离简介"></a>Tomcat动静分离简介</h2><p>Tomcat是一个比较全面的web容器，对静态网页的处理，还是比较费资源的，特别是每次都要从磁盘读取静态页面，然后返回，这中间会消耗Tomcat的资源，可能会使那些动态页面解析性能受到影响。将静态资源和动态资源隔离开、能够有效的减轻Tomcat服务器的压力，提升网站整体性能。Nginx + Tomcat 动静分离简单来说就是使用 Nginx 把动态和静态请求分开，可以理解成使用Nginx处理静态页面，Tomcat处理动态页面。</p>
+<p>动静分离从目前实现角度来讲大致分为两种，一种是纯粹的把静态文件放在独立的服务器上，独立出来用域名访问，也是目前主流推崇的方案；另外一种方法就是动态跟静态文件混合在一起部署，通过Nginx来分开。</p>
+<h2 id="Tomcat动静分离实现"><a href="#Tomcat动静分离实现" class="headerlink" title="Tomcat动静分离实现"></a>Tomcat动静分离实现</h2><h3 id="前期环境准备"><a href="#前期环境准备" class="headerlink" title="前期环境准备"></a>前期环境准备</h3><p><code>Nginx</code>和<code>Tomcat</code>的安装部署步骤省略。</p>
+<h3 id="Nginx虚拟主机配置文件"><a href="#Nginx虚拟主机配置文件" class="headerlink" title="Nginx虚拟主机配置文件"></a>Nginx虚拟主机配置文件</h3><p>通过在Nginx的配置文件中的server段代码配置不同的location实现动静分离：<code>vim /etc/nginx/conf.d/default.conf</code></p>
+<p><em>（如果想把新的配置单独写出来也是可以的，比如，新建一个文件<code> vim /etc/nginx/conf.d/tomcat</code>，将配置写入，在 <code>/etc/nginx/conf.d/default.conf </code> 中用include引入：<code>include /etc/nginx/conf.d/tomcat;</code>)</em></p>
+<p>写入以下配置</p>
+<pre><code class="shell"># 静态请求通过Nginx访问本地web应用目录中的静态资源
+location ~.*\.(html|htm|css|js|gif|jpg|jpeg|bmp|png|ico|txt|eot|svg|ttf|woff|woff2)$ &#123;
+    root   /usr/local/tomcat8-1/webapps/;
+    expires 30d;		# 定义浏览器缓存时间
+&#125;
+
+# 动态资源通过负载均衡转发给tomcat主机组，后面upstream&#123;&#125;模块处会有配置。
+location ~.*$ &#123;
+    proxy_pass http://tomcat;
+&#125;
+</code></pre>
+<h3 id="Nginx主配置文件"><a href="#Nginx主配置文件" class="headerlink" title="Nginx主配置文件"></a>Nginx主配置文件</h3><p>负载均衡功能是将接收到的请求分配到后端的多台服务器上，Nginx里需要 upstream{} 模块来配合使用</p>
+<p>打开Nginx主配置文件，<code>vim /etc/nginx/nginx.conf</code></p>
+<p>先修改nginx运行默认的用户：第一行 <code>user nginx</code> 改为 <code>user root</code></p>
+<p>再写入以下配置：</p>
+<pre><code class="sh">    upstream tomcat &#123;
+        ip_hash;	# 代表使用ip地址方式分配跳转后端服务器，可以解决session的问题，一般用于登录会话。
+        server 127.0.0.1:8080 weight=1;
+        server 127.0.0.1:8081 weight=1;
+    &#125;
+</code></pre>
+<p>配置完毕后，重启Nginx：<code>systemctl restart nginx</code></p>
+<h3 id="测试动静分离"><a href="#测试动静分离" class="headerlink" title="测试动静分离"></a>测试动静分离</h3><p>将打成war包的项目上传到tomcat的webapps目录下，启动Tomcat，在浏览器通过Nginx访问项目，Nginx的默认端口为80，Tomcat的默认端口为8080。</p>
+<p>Ctrl+F5刷新页面，查看Nginx和Tomcat的日志。查看Nginx的日志</p>
+<p><img src="/../pic/1404518-20191201230628355-476124343.png" alt="img"></p>
+<p>查看Tomcat的日志</p>
+<p><img src="/../pic/1404518-20191201230533577-263757351.png" alt="img"></p>
+<p>可以看到静态请求和动态请求成功分离了。</p>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>部署tomcat多实例：tomcat_1，tomcat_2，参考部署tomcat多实例部分。</p>
+<p><em>注意：这里为了验证负载均衡效果，需要注释掉 &#x2F;etc&#x2F;nginx&#x2F;nginx.conf 配置文件里的 ip_hash;</em></p>
+<p>重启Nginx和tomcat，在浏览器访问项目</p>
+<p>用tail命令查看Tomcat的日志，多次刷新页面，可以看到两个Tomcat都会响应请求 </p>
+<p><img src="/../pic/1404518-20191201210838958-406808779.png" alt="img"></p>
+<p><img src="/../pic/1404518-20191201210915862-374850995.png" alt="img"></p>
+<p>Nginx+Tomcat的负载功能就配置完成了，这只是简单设置了一下，生产环境中还有很多详细的调整，比如，反向代理，防盗链，压缩，缓存策略等等，后续再逐渐增加。</p>
+<p>本文参考自：</p>
+<p>（1）h<a target="_blank" rel="noopener" href="https://www.cnblogs.com/taiyonghai/p/6728707.html">ttps:&#x2F;&#x2F;www.cnblogs.com/taiyonghai/p/6728707.html</a></p>
+<p>（2）<a target="_blank" rel="noopener" href="https://www.cnblogs.com/taiyonghai/p/5610112.html">https://www.cnblogs.com/taiyonghai/p/5610112.html</a></p>
+<p>（3）<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiangyang/p/8485046.html">https://www.cnblogs.com/jiangyang/p/8485046.html</a></p>
+<hr>
+<p>本文引自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/opsprobe/p/11966919.html">https://www.cnblogs.com/opsprobe/p/11966919.html</a></p>
 
     </div>
 
