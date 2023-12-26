@@ -116,12 +116,159 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E9%95%BF%E5%BA%A6"><span class="post-toc-text">字符串的长度</span></a></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E9%95%BF%E5%BA%A6"><span class="post-toc-text">获取字符串的长度</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%8F%90%E5%8F%96%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="post-toc-text">提取子字符串</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%94%B9%E5%8F%98%E5%A4%A7%E5%B0%8F%E5%86%99"><span class="post-toc-text">改变大小写</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%90%9C%E7%B4%A2%E5%92%8C%E6%9B%BF%E6%8D%A2"><span class="post-toc-text">搜索和替换</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%B4%E9%83%A8%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D"><span class="post-toc-text">字符串头部的模式匹配</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B0%BE%E9%83%A8%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E3%80%82"><span class="post-toc-text">字符串尾部的模式匹配。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BB%BB%E6%84%8F%E4%BD%8D%E7%BD%AE%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E3%80%82"><span class="post-toc-text">任意位置的模式匹配。</span></a></li></ol></li></ol>
             
         
         <p>本章介绍 Bash 字符串操作的语法。</p>
-<h2 id="字符串的长度"><a href="#字符串的长度" class="headerlink" title="字符串的长度"></a>字符串的长度</h2><p>获取字符串长度的语法如下。</p>
-<pre><code class="bash">$
+<h2 id="获取字符串的长度"><a href="#获取字符串的长度" class="headerlink" title="获取字符串的长度"></a>获取字符串的长度</h2><p>获取字符串长度的语法如下。</p>
+<pre><code class="bash">$&#123; #varname&#125;		# 大括号内无空格，此处为了避免md语法解析失败
+</code></pre>
+<p>下面是一个例子。</p>
+<pre><code class="bash">$ myPath=/home/cam/book/long.file.name
+# 大括号`&#123;&#125;`是必需的，否则 Bash 会将`$#`理解成脚本的参数个数，将变量名理解成文本
+$ echo $&#123; #myPath&#125;		# 大括号内无空格，此处为了避免md语法解析失败
+29
+</code></pre>
+<h2 id="提取子字符串"><a href="#提取子字符串" class="headerlink" title="提取子字符串"></a>提取子字符串</h2><p>字符串提取子串的语法如下</p>
+<pre><code class="bash">$&#123;varname:index:length&#125;
+</code></pre>
+<p>上面语法的含义是返回变量<code>$varname</code>的子字符串，从位置<code>index</code>开始（从<code>0</code>开始计算），长度为<code>length</code>。</p>
+<pre><code class="bash">$ count=frogfootman
+
+# 这种语法不能直接操作字符串，比如：echo $&#123;&quot;frogfootman&quot;:4:4&#125;是错误的。只能通过读取变量来读取字符串，并且不会改变原始字符串。
+$ echo $&#123;count:4:4&#125;
+foot
+
+# 如果省略`length`，则从位置index开始，一直返回到字符串的结尾
+$ echo $&#123;count:4&#125;
+footman
+
+# index可以为负值，表示从字符串的末尾开始算起。负数前面必须有一个空格，防止与`$&#123;variable:-word&#125;`的变量的设置默认值语法混淆
+$ echo $&#123;count: -4:2&#125;
+tm
+
+# length也可以为负值，表示从位置index开始，到从末尾开始的length位置结束（不包括length）
+$ echo $&#123;count: -4:-2&#125;
+tm
+</code></pre>
+<p>注意：从前往后的索引是从<code>0</code>开始计数的，从后往前的索引是从<code>-1</code>开始计数的。</p>
+<h2 id="改变大小写"><a href="#改变大小写" class="headerlink" title="改变大小写"></a>改变大小写</h2><p>下面的语法可以改变变量的大小写。注意，不改变原变量的值，只是以大小写的形式输出。</p>
+<pre><code class="bash"># 转为大写
+$&#123;varname^^&#125;
+
+# 转为小写
+$&#123;varname,,&#125;
+</code></pre>
+<p>下面是一个例子。</p>
+<pre><code class="bash">$ foo=heLLo
+$ echo $&#123;foo^^&#125;
+HELLO
+$ echo $&#123;foo,,&#125;
+hello
+</code></pre>
+<h2 id="搜索和替换"><a href="#搜索和替换" class="headerlink" title="搜索和替换"></a>搜索和替换</h2><p>Bash 提供字符串搜索和替换的多种方法。</p>
+<p>贪婪匹配：尽可能长地匹配字符串，也称为最长匹配。</p>
+<p>非贪婪匹配：匹配最短的字符串，也称为最短匹配。</p>
+<h3 id="字符串头部的模式匹配"><a href="#字符串头部的模式匹配" class="headerlink" title="字符串头部的模式匹配"></a>字符串头部的模式匹配</h3><p>以下两种语法可以匹配字符串开头。如果匹配成功，就删除匹配的部分，返回剩下的部分。如果匹配不成功，则返回原始字符串。</p>
+<pre><code class="bash"># 如果 pattern 匹配变量 variable 的开头，则删除最短匹配的部分（将其替换为空），返回剩余部分
+$&#123;variable#pattern&#125;
+
+# 如果 pattern 匹配变量 variable 的开头，则删除最长匹配的部分（将其替换为空），返回剩余部分
+$&#123;variable##pattern&#125;
+</code></pre>
+<p>匹配模式<code>pattern</code>可以使用<code>*</code>、<code>?</code>、<code>[]</code>等通配符。</p>
+<p>下面是一个返回路径中的文件名的例子。</p>
+<pre><code class="bash">$ path=/home/cam/book/long.file.name
+$ echo $&#123;path##*/&#125;
+long.file.name
+</code></pre>
+<p>下面是返回号码中后几位的例子</p>
+<pre><code class="bash">$ phone=&quot;176-3355-4278&quot;
+$ echo $&#123;phone#*-&#125;
+3355-4278
+$ echo $&#123;phone##*-&#125;
+4278
+</code></pre>
+<p>如果要将头部匹配的部分，替换成其他内容，采用下面的写法。</p>
+<pre><code class="bash"># 模式必须出现在字符串的开头
+$&#123;variable/#pattern/string&#125;
+
+# 示例
+$ foo=JPG.JPG
+$ echo $&#123;foo/#JPG/jpg&#125;
+jpg.JPG
+</code></pre>
+<h3 id="字符串尾部的模式匹配。"><a href="#字符串尾部的模式匹配。" class="headerlink" title="字符串尾部的模式匹配。"></a>字符串尾部的模式匹配。</h3><p>以下两种语法可以匹配字符串的结尾。如果匹配成功，就删除匹配的部分，返回剩下的部分。如果匹配不成功，则返回原始字符串。</p>
+<pre><code class="bash"># 如果 pattern 匹配变量 variable 的结尾，则删除最短匹配的部分（将其替换为空），返回剩余部分
+$&#123;variable%pattern&#125;
+
+# 如果 pattern 匹配变量 variable 的结尾，则删除最长匹配的部分（将其替换为空），返回剩余部分
+$&#123;variable%%pattern&#125;
+</code></pre>
+<p>下面是一个返回路径中的目录部分的例子。</p>
+<pre><code class="bash">$ path=/home/cam/book/long.file.name
+$ echo $&#123;path%/*&#125;
+/home/cam/book
+</code></pre>
+<p>下面是返回号码中前几位的例子</p>
+<pre><code class="bash">$ phone=&quot;555-456-1414&quot;
+$ echo $&#123;phone%-*&#125;
+555-456
+$ echo $&#123;phone%%-*&#125;
+555
+</code></pre>
+<p>如果要将尾部匹配的部分，替换成其他内容，采用下面的写法。</p>
+<pre><code class="bash"># 模式必须出现在字符串的结尾
+$&#123;variable/%pattern/string&#125;
+
+# 示例
+$ foo=JPG.JPG
+$ echo $&#123;foo/%JPG/jpg&#125;
+JPG.jpg
+</code></pre>
+<h3 id="任意位置的模式匹配。"><a href="#任意位置的模式匹配。" class="headerlink" title="任意位置的模式匹配。"></a>任意位置的模式匹配。</h3><p>以下两种语法匹配字符串的任意位置。如果匹配成功，就删除匹配的部分，换成其他的字符串返回。如果匹配不成功，则返回原始字符串。</p>
+<pre><code class="bash"># 如果 pattern 匹配变量 variable 的一部分，最长匹配的那部分被 string 替换，但仅替换第一个匹配
+$&#123;variable/pattern/string&#125;
+
+# 如果 pattern 匹配变量 variable 的一部分，最长匹配的那部分被 string 替换，所有匹配都替换
+$&#123;variable//pattern/string&#125;
+</code></pre>
+<p>上面两种语法都是最长匹配（贪婪匹配）下的替换，区别是前一个语法仅仅替换第一个匹配，后一个语法替换所有匹配。如下：</p>
+<pre><code class="bash">$ path=/home/cam/foo/foo.name
+
+$ echo $&#123;path/foo/bar&#125;
+/home/cam/bar/foo.name
+
+$ echo $&#123;path//foo/bar&#125;
+/home/cam/bar/bar.name
+</code></pre>
+<p>下面的例子将分隔符从<code>:</code>换成换行符。</p>
+<pre><code class="bash"># `echo`命令的`-e`参数，表示将替换后的字符串的`\n`字符，解释为换行符
+$ echo -e $&#123;PATH//:/&#39;\n&#39;&#125;
+/usr/local/bin
+/usr/bin
+/bin
+...
+</code></pre>
+<p>模式部分可以使用通配符。</p>
+<pre><code class="bash">$ phone=&quot;555-456-1414&quot;
+
+# 将`5-4`替换成`-`
+$ echo $&#123;phone/5?4/-&#125;
+55-56-1414
+</code></pre>
+<p>如果省略了<code>string</code>部分，那么就相当于匹配的部分替换成空字符串，即删除匹配的部分。</p>
+<pre><code class="bash">$ path=/home/cam/foo/foo.name
+
+$ echo $&#123;path/.*/&#125;
+/home/cam/foo/foo
+</code></pre>
+<p>前面提到过，这个语法还有两种扩展形式。</p>
+<pre><code class="bash"># 模式必须出现在字符串的开头
+$&#123;variable/#pattern/string&#125;
+
+# 模式必须出现在字符串的结尾
+$&#123;variable/%pattern/string&#125;
 </code></pre>
 
     </div>
