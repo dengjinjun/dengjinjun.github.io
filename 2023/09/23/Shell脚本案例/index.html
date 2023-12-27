@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="Shell脚本" />
+    <meta name="description" content="Shell脚本案例" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang</title>
@@ -108,7 +108,7 @@
 
     
         <div class="post-main-title">
-            Shell脚本
+            Shell脚本案例
         </div>
       
     
@@ -116,73 +116,10 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83"><span class="post-toc-text">Shell脚本编码规范</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E4%B8%8E%E8%B0%83%E8%AF%95"><span class="post-toc-text">错误处理与调试</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="post-toc-text">错误处理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%94%99%E8%AF%AF%E8%B0%83%E8%AF%95"><span class="post-toc-text">错误调试</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="post-toc-text">实战案例与总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2Web%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%9C%AC"><span class="post-toc-text">自动化部署Web项目脚本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2Docker%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%9C%AC"><span class="post-toc-text">自动化部署Docker项目脚本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E4%B8%8E%E6%8A%A5%E8%AD%A6"><span class="post-toc-text">系统监控与报警</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell%E5%86%99%E4%B8%80%E4%B8%AALinux%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="post-toc-text">shell写一个Linux管理系统</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell%E5%86%99%E4%B8%80%E4%B8%AADocker%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="post-toc-text">shell写一个Docker管理系统</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell%E5%86%99%E4%B8%80%E4%B8%AA%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9E%84%E5%BB%BADocker%E9%95%9C%E5%83%8F%E8%84%9A%E6%9C%AC"><span class="post-toc-text">shell写一个自动化构建Docker镜像脚本</span></a></li></ol></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E4%B8%8E%E8%B0%83%E8%AF%95"><span class="post-toc-text">错误处理与调试</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="post-toc-text">错误处理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%94%99%E8%AF%AF%E8%B0%83%E8%AF%95"><span class="post-toc-text">错误调试</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="post-toc-text">实战案例与总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2Web%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%9C%AC"><span class="post-toc-text">自动化部署Web项目脚本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2Docker%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%9C%AC"><span class="post-toc-text">自动化部署Docker项目脚本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E4%B8%8E%E6%8A%A5%E8%AD%A6"><span class="post-toc-text">系统监控与报警</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell%E5%86%99%E4%B8%80%E4%B8%AALinux%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="post-toc-text">shell写一个Linux管理系统</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell%E5%86%99%E4%B8%80%E4%B8%AADocker%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="post-toc-text">shell写一个Docker管理系统</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell%E5%86%99%E4%B8%80%E4%B8%AA%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9E%84%E5%BB%BADocker%E9%95%9C%E5%83%8F%E8%84%9A%E6%9C%AC"><span class="post-toc-text">shell写一个自动化构建Docker镜像脚本</span></a></li></ol></li></ol>
             
         
-        <p>一般情况下，Shell脚本以文本文件的形式存在。Shell脚本由若干条命令和控制结构组成，可以在命令行中直接执行，也可以在脚本中进行批量处理。</p>
-<blockquote>
-<p>Shebang解释器声明</p>
-</blockquote>
-<p>在Linux系统中，Shebang语法通常用于指定脚本的解释器类型，如bash、sh、python等等。Shebang在Linux系统中位于脚本文件的第一行，以”#”和”!”两个字符组成的特殊语法。例如，#!&#x2F;bin&#x2F;bash就是一条Shebang语法，指示操作系统用bash解释器来执行后续的脚本命令。通俗地说，Shebang就是一种告诉操作系统如何解释执行脚本文件的语法。当操作系统执行一个脚本文件时，会首先读取文件的第一行，如果第一行以Shebang语法开头，就会根据指定的解释器来执行脚本文件中的命令。</p>
-<p>简短的讲，Shebang是指以”#!”开头的一行注释，它告诉系统使用哪个解释器来执行这个文件。在Linux中，常见的Shebang声明包括：</p>
-<pre><code class="bash">#!/bin/bash          # 使用Bash shell解释器
-#!/usr/bin/python3   # 使用Python 3解释器
-</code></pre>
-<blockquote>
-<p>注释和文档</p>
-</blockquote>
-<p>Shell脚本中使用#符号来表示注释，注释可以用于说明脚本的功能、参数含义等相关信息。另外，Shell脚本还可以通过”Here Document”结构来定义多行文档：</p>
-<pre><code class="bash">#!/bin/bash
-&lt;&lt;EOF							# 注释开始
-这是一个Shell脚本示例
-作者：张三
-日期：2023-04-26
-EOF								# 注释结束
-</code></pre>
-<blockquote>
-<p>可执行权限与执行方式</p>
-</blockquote>
-<p>为了让Shell脚本能够像普通命令那样执行，必须为其添加可执行权限。在终端中使用chmod命令来修改文件的权限：</p>
-<pre><code class="text">chmod +x script.sh						# 添加执行权限
-./script.sh								# 方式一。进入脚本所在目录，./ 表示在当前目录下寻找可执行文件
-sh script.sh							# 方式二。作为解释器的参数，这种方式直接指定了解释器，不需要Shebang语法来指定。
-</code></pre>
-<h2 id="Shell脚本编码规范"><a href="#Shell脚本编码规范" class="headerlink" title="Shell脚本编码规范"></a>Shell脚本编码规范</h2><blockquote>
-<p>Shell脚本第一行指定脚本解释器</p>
-</blockquote>
-<pre><code class="sh">#!/bin/bash
-或者
-#!/bin/sh
-</code></pre>
-<blockquote>
-<p>Shell脚本的开头添加作者、日期、用途等信息</p>
-</blockquote>
-<pre><code># Date: xxxx
-# Author: xxxx
-# Description: xxxx
-</code></pre>
-<blockquote>
-<p>尽量使用英文注释</p>
-</blockquote>
-<pre><code>如果一定要添加中文，可以对系统和脚本都设置字符集
-export LANG=&quot;zh_CN.UTF-8&quot;
-</code></pre>
-<blockquote>
-<p>Shell脚本应放在固定的路径中，并且以点 .sh 结尾</p>
-</blockquote>
-<pre><code>cd /server/scripts
-</code></pre>
-<blockquote>
-<p>保持良好的代码编写习惯</p>
-</blockquote>
-<pre><code class="sh"># 成对的符号，应当一次性写出来，再退格添加内容
-# 中括号两端都至少要有一个空格
-# 一次性完成流程控制语句的格式，然后添加内容
-# 添加合适的缩进让代码更易读
-# 变量的字符串定义加双引号，所见即所得的字符串引用加单引号，命令的引用加反引号
-# 等号两边不加空格
-</code></pre>
-<h2 id="错误处理与调试"><a href="#错误处理与调试" class="headerlink" title="错误处理与调试"></a>错误处理与调试</h2><h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>在Bash中，常见的错误包括语法错误、运行时错误和逻辑错误。下面分别介绍。</p>
+        <h2 id="错误处理与调试"><a href="#错误处理与调试" class="headerlink" title="错误处理与调试"></a>错误处理与调试</h2><h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>在Bash中，常见的错误包括语法错误、运行时错误和逻辑错误。下面分别介绍。</p>
 <blockquote>
 <p>语法错误</p>
 </blockquote>
