@@ -126,7 +126,7 @@
 <li>inode区：以数组的形式存放<code>inode</code>,<code>inode</code>是一种数据结构，记录文件的属性，一个文件占用一个<code>inode</code>，指向存放文件数据的<code>block</code></li>
 <li>block区：实际记录文件的内容，若文件太大时，会占用多个 block</li>
 </ul>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/ext%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%89%AF%E6%9C%AC.png" alt="ext文件系统"></p>
+<p><img src="http://qny.oss.dengjinjun.site/ext%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%89%AF%E6%9C%AC.png" alt="ext文件系统"></p>
 <p>在实际的操作系统中，单一的文件系统区块并不容易管理，所以一个文件系统包含了很多个区块，每个区块包含单独的<code>inode</code>和<code>block</code>以及对照表，形成一个<code>block group</code>。</p>
 <p>文件和目录的数据都是存放在block块中的，文件的block块存放的是文件数据，目录的block块存放的是<code>文件名/目录名</code> 和<code>文件名/目录名</code>所在的<code>inode</code>编号。</p>
 <h2 id="查看文件系统相关信息"><a href="#查看文件系统相关信息" class="headerlink" title="查看文件系统相关信息"></a>查看文件系统相关信息</h2><ul>
@@ -148,34 +148,34 @@ atime: 访问时会更新，比如cat,包括vim。
 <pre><code class="shell">while true; do df -i; sleep 0.5; clear; done;			# 动态查看inode块使用变化
 </code></pre>
 <p>磁盘满了有两种情况，一种是inode号用完了，另一种是磁盘空间用完了，可以通过这两个命令查看。</p>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230825180008073.png" alt="image-20230825180008073"></p>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230827225315205.png" alt="image-20230827225315205"></p>
+<p><img src="http://qny.oss.dengjinjun.site/image-20230825180008073.png" alt="image-20230825180008073"></p>
+<p><img src="http://qny.oss.dengjinjun.site/image-20230827225315205.png" alt="image-20230827225315205"></p>
 <ul>
 <li>查看磁盘及文件系统相关信息：<code>lsblk</code></li>
 </ul>
 <p>使用 <code>lsblk -a</code> 命令可以查看磁盘中目录信息，使用 <code>lsblk -f</code> m命令可以查看磁盘中文件系统相关信息。(<code>list-block</code>)</p>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230825102814028.png" alt="image-20230825102814028"></p>
+<p><img src="http://qny.oss.dengjinjun.site/image-20230825102814028.png" alt="image-20230825102814028"></p>
 <ul>
 <li><p>查看文件系统详细信息：<code>dumpe2fs</code></p>
 <p>使用 <code>dumpe2fs -h [路径] </code>命令可以查看文件系统的详细信息，包括超级块的信息，包括文件系统名称、已使用以及未使用的 inode 和 block 的数量、每个 block 和 inode 的大小，文件系统的挂载时间等。<code>-h</code>选项表示只显示超级块的信息。[路径]需要是文件系统的挂载点。</p>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230825103636036.png" alt="image-20230825103636036"></p>
+<p><img src="http://qny.oss.dengjinjun.site/image-20230825103636036.png" alt="image-20230825103636036"></p>
 </li>
 <li><p>查看xfs文件系统信息：<code>xfs_info</code></p>
 <p>使用 <code>xfs_info [路径]</code> 可以查看xfs文件系统的详细信息，[路径]需要是文件系统的挂载点。</p>
 </li>
 <li><p>查看设备的UUID：<code>blkid</code></p>
 <p>UUID 是全域单一识别码 （universally unique identifier）,使用<code> blkid</code>可以显示设备的 UUID和文件系统类型</p>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828152501045.png" alt="image-20230828152501045"></p>
+<p><img src="http://qny.oss.dengjinjun.site/image-20230828152501045.png" alt="image-20230828152501045"></p>
 </li>
 <li><p>查看磁盘分区类型及分区信息：<code>parted</code></p>
 <p>使用<code>parted [设备名] print</code> 可以查看磁盘的分区表类型以及分区信息。</p>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828152722067.png" alt="image-20230828152722067"></p>
+<p><img src="http://qny.oss.dengjinjun.site/image-20230828152722067.png" alt="image-20230828152722067"></p>
 </li>
 </ul>
 <h2 id="读取文件的流程"><a href="#读取文件的流程" class="headerlink" title="读取文件的流程"></a>读取文件的流程</h2><p>文件系统读取一个文件数据的流程：</p>
 <pre><code>先通过挂载点的信息找到根目录的inode编号，然后访问inode, 链接到根目录的block块,访问block得知下一层目录的inode编号，访问inode，链接到再下一层目录的block块,在此block块中找到再下一层目录的inode编号，然后访问inode，再链接到下一层目录的block块…… 直到链接到的block是文件的block块。
 </code></pre>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F2.png" alt="寻找文件/etc/passwd的流程"></p>
+<p><img src="http://qny.oss.dengjinjun.site/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F2.png" alt="寻找文件/etc/passwd的流程"></p>
 <h2 id="软硬链接"><a href="#软硬链接" class="headerlink" title="软硬链接"></a>软硬链接</h2><ul>
 <li><p>软链接</p>
 <pre><code>ln -s [源路径] [目标路径]
@@ -246,15 +246,15 @@ atime: 访问时会更新，比如cat,包括vim。
 <blockquote>
 <p>给虚拟机添加一块硬盘，使用<code>lsblk</code>命令可以查看到新添加磁盘的设备名,可以看到并没有挂载任何目录</p>
 </blockquote>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828155758248.png" alt="image-20230828155758248"></p>
+<p><img src="http://qny.oss.dengjinjun.site/image-20230828155758248.png" alt="image-20230828155758248"></p>
 <blockquote>
 <p>给新分区创建一个文件系统,使用<code>mkfs.文件系统类型 设备名</code>命令可以创建一个新文件系统，<code>. </code>之后接文件系统的类型，比如xfs，ext4等。可设置其他文件系统参数，参照 <code>mkfs</code>的命令手册。</p>
 </blockquote>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828160746732.png" alt="image-20230828160746732"></p>
+<p><img src="http://qny.oss.dengjinjun.site/image-20230828160746732.png" alt="image-20230828160746732"></p>
 <blockquote>
 <p>使用<code>mount 分区名 目录</code>命令挂载到一个目录上。使用<code>umount 分区名</code>可以解除一个分区的挂载。</p>
 </blockquote>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828161140422.png" alt="image-20230828161140422"></p>
+<p><img src="http://qny.oss.dengjinjun.site/image-20230828161140422.png" alt="image-20230828161140422"></p>
 <p>​		</p>
 <p>这种情况是给虚拟机添加了一个整体分区，分区表为loop类型，但是实际上很少使用。更加常用的磁盘分区将在后面章节介绍</p>
 <h1 id="文件查找-find"><a href="#文件查找-find" class="headerlink" title="文件查找: find"></a>文件查找: find</h1><p>具体用法：</p>

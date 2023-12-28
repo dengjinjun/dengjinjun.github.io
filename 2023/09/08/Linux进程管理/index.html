@@ -123,7 +123,7 @@
 <li><p>查看系统所有进程：<code>ps</code></p>
 <pre><code>ps aux			# 观察固定时刻下的进程状态，process status
 </code></pre>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230908012926895.png" alt="image-20230908012926895"></p>
+<p><img src="http://qny.oss.dengjinjun.site/image-20230908012926895.png" alt="image-20230908012926895"></p>
 <p>各字段介绍</p>
 <pre><code>USER:    运行进程的用户
  
@@ -189,7 +189,7 @@ top -b -n 2 &gt; top.txt						# 将两次top的信息写入文件中
 </code></pre>
 </li>
 </ul>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230908102348422.png" alt="image-20230908102348422"></p>
+<p><img src="http://qny.oss.dengjinjun.site/image-20230908102348422.png" alt="image-20230908102348422"></p>
 <ul>
 <li><p>展示信息解释：</p>
 <pre><code>第一行：系统整体统计信息，使用 `uptime` 命令也可以查看
@@ -265,7 +265,7 @@ renice [优先级] [进程id]			# 进程id可以通过top命令查看
 </code></pre>
 <pre><code>kill -l							# 列出所有可以发送给进程的信号
 </code></pre>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230910023038845.png" alt="image-20230910023038845"></p>
+<p><img src="http://qny.oss.dengjinjun.site/image-20230910023038845.png" alt="image-20230910023038845"></p>
 <p>重点关注：</p>
 <p>1	HUP:  1、挂起信号 2、往往可以让进程重新加载配置</p>
 <p>9	KILL：强制杀死进程。效果等同于<code>pkill -9 [进程名字]</code>	</p>
@@ -298,7 +298,7 @@ logout						# 等同于exit命令，两者运行一个即可。
 </ul>
 <h4 id="多条命令脱离会话窗口运行：screen"><a href="#多条命令脱离会话窗口运行：screen" class="headerlink" title="多条命令脱离会话窗口运行：screen"></a>多条命令脱离会话窗口运行：screen</h4><p>screen让进程脱离会话窗口运行的原理是：</p>
 <p>screen进程会创建一个窗口：SCREEN窗口，让所有进程在SCREEN窗口里来运行，即所有进程的父进程是SCREEN窗口，SCREEN窗口帮助我们管理进程。screen进程基于用户的bash进程在后台运行，当关闭会话窗口时，screen进程被杀掉，而SCREEN窗口的父进程自动变为 systemd，SCREEN窗口仍然在运行，仍然在管理着它的所有子进程在后台运行。从而实现多条命令脱离会话窗口运行。</p>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20230910200314.png"></p>
+<p><img src="http://qny.oss.dengjinjun.site/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20230910200314.png"></p>
 <ul>
 <li><p>安装软件包</p>
 <pre><code>yum install screen -y

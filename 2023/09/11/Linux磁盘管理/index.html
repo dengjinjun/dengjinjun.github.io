@@ -561,7 +561,7 @@ lvextend -L +3G /dev/vg1/vg1_lv1			# 给lv1增加3个G容量
 mount [LV路径] [文件目录]		# 挂载到文件目录
 </code></pre>
 <h3 id="快照与数据恢复"><a href="#快照与数据恢复" class="headerlink" title="快照与数据恢复"></a>快照与数据恢复</h3><p>与创建操作系统的快照不同，LVM的快照本质上是创建了一个LV， 采用写时复制技术，当 LVM 快照创建的时候，仅创建到实际数据的 inode 的硬链接(hark-link)而已。只要实际的数据没有改变，快照就只包含指向数据的 inode 的指针，而非数据本身。快照会跟踪原始卷中块的改变，一旦你更改了快照对应的文件或目录，这个时候原始卷上将要改变的数据会在改变之前拷贝到快照预留的空间。快照原理如下图：</p>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/snap.png" alt="img"></p>
+<p><img src="http://qny.oss.dengjinjun.site/snap.png" alt="img"></p>
 <blockquote>
 <p>创建快照</p>
 </blockquote>
