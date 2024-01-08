@@ -116,7 +116,7 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mktemp-%E5%91%BD%E4%BB%A4%E7%9A%84%E7%94%A8%E6%B3%95"><span class="post-toc-text">mktemp 命令的用法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mktemp-%E5%91%BD%E4%BB%A4%E7%9A%84%E5%8F%82%E6%95%B0"><span class="post-toc-text">mktemp 命令的参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#trap-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">trap 命令</span></a></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mktemp-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">mktemp 命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#trap-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">trap 命令</span></a></li></ol>
             
         
         <p>Shell脚本有时需要创建临时文件或临时目录。常见的做法是，在<code>/tmp</code>目录里面创建文件或目录，这样做有很多弊端</p>
@@ -134,26 +134,12 @@
 </ul>
 </blockquote>
 <p>使用<code>mktemp</code>命令来创建临时文件、<code>trap</code>命令来删除临时文件是最安全的做法。</p>
-<h2 id="mktemp-命令的用法"><a href="#mktemp-命令的用法" class="headerlink" title="mktemp 命令的用法"></a>mktemp 命令的用法</h2><p><code>mktemp</code>命令就是为安全创建临时文件而设计的。虽然在创建临时文件之前，它不会检查临时文件是否存在，但是它支持唯一文件名和清除机制，因此可以减轻安全攻击的风险。</p>
+<h2 id="mktemp-命令"><a href="#mktemp-命令" class="headerlink" title="mktemp 命令"></a>mktemp 命令</h2><p><code>mktemp</code>命令就是为安全创建临时文件而设计的。虽然在创建临时文件之前，它不会检查临时文件是否存在，但是它支持唯一文件名和清除机制，因此可以减轻安全攻击的风险。</p>
 <p>直接运行<code>mktemp</code>命令，就能生成一个临时文件。生成的临时文件名是随机的，而且权限是只有用户本人可读写。</p>
 <pre><code class="bash">$ mktemp
 /tmp/tmp.4GcsWSG4vj
 </code></pre>
-<p>Bash 脚本使用<code>mktemp</code>命令的用法如下。<code>mktemp</code>命令后面最好使用 OR 运算符（<code>||</code>），保证创建失败时退出脚本。</p>
-<pre><code class="bash">#!/bin/bash
-
-TMPFILE=$(mktemp) || exit 1
-echo &quot;Our temp file is $TMPFILE&quot;
-</code></pre>
-<p>为了保证脚本退出时临时文件被删除，可以使用<code>trap</code>命令指定退出时的清除操作。</p>
-<pre><code class="bash">#!/bin/bash
-
-trap &#39;rm -f &quot;$TMPFILE&quot;&#39; EXIT
-
-TMPFILE=$(mktemp) || exit 1
-echo &quot;Our temp file is $TMPFILE&quot;
-</code></pre>
-<h2 id="mktemp-命令的参数"><a href="#mktemp-命令的参数" class="headerlink" title="mktemp 命令的参数"></a>mktemp 命令的参数</h2><p><code>-d</code>参数可以创建一个临时目录。</p>
+<p><code>-d</code>参数可以创建一个临时目录。</p>
 <pre><code class="bash">$ mktemp -d
 /tmp/tmp.Wcau5UjmN6
 </code></pre>
@@ -164,6 +150,16 @@ echo &quot;Our temp file is $TMPFILE&quot;
 <p><code>-t</code>参数可以指定临时文件的文件名模板，模板的末尾必须至少包含三个连续的<code>X</code>字符表示随机字符。默认的文件名模板是<code>tmp.</code>后接十个随机字符。</p>
 <pre><code class="bash">$ mktemp -t mytemp.XXXXXXX
 /tmp/mytemp.yZ1HgZV
+</code></pre>
+<p>Bash 脚本使用<code>mktemp</code>命令的用法如下。</p>
+<pre><code class="bash">#!/bin/bash
+
+# 保证脚本退出时临时文件被删除
+trap &#39;rm -f &quot;$TMPFILE&quot;&#39; EXIT
+
+# mktemp命令后面最好使用 OR 运算符（`||`），保证创建失败时退出脚本
+TMPFILE=$(mktemp) || exit 1
+echo &quot;Our temp file is $TMPFILE&quot;
 </code></pre>
 <h2 id="trap-命令"><a href="#trap-命令" class="headerlink" title="trap 命令"></a>trap 命令</h2><p><code>trap</code>命令用来在 Bash 脚本中响应系统信号。</p>
 <p>最常见的系统信号就是 SIGINT（中断），即按 Ctrl + C 所产生的信号。<code>trap</code>命令的<code>-l</code>参数，可以列出所有的系统信号。</p>
@@ -228,7 +224,7 @@ trap egress EXIT
     <div class="post-meta">
         <i>
         
-            <span>2022-12-13</span>
+            <span>2022-12-03</span>
             
                 <span>该篇文章被 邓胖胖</span>
             
