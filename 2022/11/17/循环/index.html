@@ -116,156 +116,105 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#while-%E5%BE%AA%E7%8E%AF"><span class="post-toc-text">while 循环</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#until-%E5%BE%AA%E7%8E%AF"><span class="post-toc-text">until 循环</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#for%E2%80%A6in-%E5%BE%AA%E7%8E%AF"><span class="post-toc-text">for…in 循环</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#for-%E5%BE%AA%E7%8E%AF"><span class="post-toc-text">for 循环</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#break%EF%BC%8Ccontinue"><span class="post-toc-text">break，continue</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#select-%E7%BB%93%E6%9E%84"><span class="post-toc-text">select 结构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="post-toc-text">参考链接</span></a></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#while-%E5%BE%AA%E7%8E%AF"><span class="post-toc-text">while 循环</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#until-%E5%BE%AA%E7%8E%AF"><span class="post-toc-text">until 循环</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#for%E2%80%A6in-%E5%BE%AA%E7%8E%AF"><span class="post-toc-text">for…in 循环</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#for-%E5%BE%AA%E7%8E%AF"><span class="post-toc-text">for 循环</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#break%E5%92%8Ccontinue"><span class="post-toc-text">break和continue</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#select-%E7%BB%93%E6%9E%84"><span class="post-toc-text">select 结构</span></a></li></ol>
             
         
         <p>Bash 提供三种循环语法<code>for</code>、<code>while</code>和<code>until</code>。</p>
 <h2 id="while-循环"><a href="#while-循环" class="headerlink" title="while 循环"></a>while 循环</h2><p><code>while</code>循环有一个判断条件，只要符合条件，就不断循环执行指定的语句。</p>
-<pre><code class="bash">while condition; do
-  commands
-done
-</code></pre>
-<p>上面代码中，只要满足条件<code>condition</code>，就会执行命令<code>commands</code>。然后，再次判断是否满足条件<code>condition</code>，只要满足，就会一直执行下去。只有不满足条件，才会退出循环。</p>
-<p>循环条件<code>condition</code>可以使用<code>test</code>命令，跟<code>if</code>结构的判断条件写法一致。</p>
-<pre><code class="bash">#!/bin/bash
-
-number=0
-while [ &quot;$number&quot; -lt 10 ]; do
-  echo &quot;Number = $number&quot;
-  number=$((number + 1))
-done
-</code></pre>
-<p>上面例子中，只要变量<code>$number</code>小于10，就会不断加1，直到<code>$number</code>等于10，然后退出循环。</p>
-<p>关键字<code>do</code>可以跟<code>while</code>不在同一行，这时两者之间不需要使用分号分隔。</p>
-<pre><code class="bash">while true
+<pre><code class="bash">while condition
 do
-  echo &#39;Hi, while looping ...&#39;;
-done
-</code></pre>
-<p>上面的例子会无限循环，可以按下 Ctrl + c 停止。</p>
-<p><code>while</code>循环写成一行，也是可以的。</p>
-<pre><code class="bash">$ while true; do echo &#39;Hi, while looping ...&#39;; done
-</code></pre>
-<p><code>while</code>的条件部分也可以是执行一个命令。</p>
-<pre><code class="bash">$ while echo &#39;ECHO&#39;; do echo &#39;Hi, while looping ...&#39;; done
-</code></pre>
-<p>上面例子中，判断条件是<code>echo &#39;ECHO&#39;</code>。由于这个命令总是执行成功，所以上面命令会产生无限循环。</p>
-<p><code>while</code>的条件部分可以执行任意数量的命令，但是执行结果的真伪只看最后一个命令的执行结果。</p>
-<pre><code class="bash">$ while true; false; do echo &#39;Hi, looping ...&#39;; done
-</code></pre>
-<p>上面代码运行后，不会有任何输出，因为<code>while</code>的最后一个命令是<code>false</code>。</p>
-<h2 id="until-循环"><a href="#until-循环" class="headerlink" title="until 循环"></a>until 循环</h2><p><code>until</code>循环与<code>while</code>循环恰好相反，只要不符合判断条件（判断条件失败），就不断循环执行指定的语句。一旦符合判断条件，就退出循环。</p>
-<pre><code class="bash">until condition; do
   commands
 done
 </code></pre>
-<p>关键字<code>do</code>可以与<code>until</code>不写在同一行，这时两者之间不需要分号分隔。</p>
+<p>注意：</p>
+<ol>
+<li>关键字<code>do</code>和<code>while</code>写在同一行时，需要分号分隔。写成两行时不需要分号。</li>
+<li>除了多行的写法，<code>while</code>结构也可以写成单行：<code>while true; do echo &#39;Hi, while looping ...&#39;; done</code></li>
+<li><code>while</code>的条件部分可以是执行一个命令，根据命令的返回值作为判断条件。</li>
+<li><code>while</code>的条件部分也可以执行任意数量的命令，但是执行结果的真伪只看最后一个命令的执行结果。</li>
+<li>循环条件<code>condition</code>可以使用<code>test</code>命令，跟<code>if</code>结构的判断条件写法一致。</li>
+</ol>
+<h2 id="until-循环"><a href="#until-循环" class="headerlink" title="until 循环"></a>until 循环</h2><p><code>until</code>循环与<code>while</code>循环恰好相反，只要判断条件为失败，就循环执行指定的语句，直到条件成立（判断为真）。</p>
 <pre><code class="bash">until condition
 do
   commands
 done
 </code></pre>
-<p>下面是一个例子。</p>
-<pre><code class="bash">$ until false; do echo &#39;Hi, until looping ...&#39;; done
-Hi, until looping ...
-Hi, until looping ...
-Hi, until looping ...
-^C
-</code></pre>
-<p>上面代码中，<code>until</code>的部分一直为<code>false</code>，导致命令无限运行，必须按下 Ctrl + c 终止。</p>
-<pre><code class="bash">#!/bin/bash
-
-number=0
-until [ &quot;$number&quot; -ge 10 ]; do
-  echo &quot;Number = $number&quot;
-  number=$((number + 1))
+<p>注意：</p>
+<ol>
+<li>关键字<code>do</code>与<code>until</code>写在同一行时，需要分号分隔。写成两行时不需要分号。</li>
+<li><code>until</code>的条件部分也可以是一个命令，表示在这个命令执行成功之前，不断重复尝试。</li>
+<li>一般来说，<code>until</code>用得比较少，<code>until</code>循环都可以转为<code>while</code>循环，完全可以统一都使用<code>while</code>。比如下面的例子。</li>
+</ol>
+<p><code>until</code>循环转为<code>while</code>循环：</p>
+<blockquote>
+<pre><code class="sh">until cp $1 $2; do
+ echo &#39;Attempt to copy failed. waiting...&#39;
+ sleep 5
 done
 </code></pre>
-<p>上面例子中，只要变量<code>number</code>小于10，就会不断加1，直到<code>number</code>大于等于10，就退出循环。</p>
-<p><code>until</code>的条件部分也可以是一个命令，表示在这个命令执行成功之前，不断重复尝试。</p>
-<pre><code class="bash">until cp $1 $2; do
-  echo &#39;Attempt to copy failed. waiting...&#39;
-  sleep 5
+</blockquote>
+<blockquote>
+<pre><code class="sh">while ! cp $1 $2; do
+ echo &#39;Attempt to copy failed. waiting...&#39;
+ sleep 5
 done
 </code></pre>
-<p>上面例子表示，只要<code>cp $1 $2</code>这个命令执行不成功，就5秒钟后再尝试一次，直到成功为止。</p>
-<p><code>until</code>循环都可以转为<code>while</code>循环，只要把条件设为否定即可。上面这个例子可以改写如下。</p>
-<pre><code class="bash">while ! cp $1 $2; do
-  echo &#39;Attempt to copy failed. waiting...&#39;
-  sleep 5
-done
-</code></pre>
-<p>一般来说，<code>until</code>用得比较少，完全可以统一都使用<code>while</code>。</p>
+</blockquote>
 <h2 id="for…in-循环"><a href="#for…in-循环" class="headerlink" title="for…in 循环"></a>for…in 循环</h2><p><code>for...in</code>循环用于遍历列表的每一项。</p>
 <pre><code class="bash">for variable in list
 do
   commands
 done
 </code></pre>
-<p>上面语法中，<code>for</code>循环会依次从<code>list</code>列表中取出一项，作为变量<code>variable</code>，然后在循环体中进行处理。</p>
-<p>关键词<code>do</code>可以跟<code>for</code>写在同一行，两者使用分号分隔。</p>
-<pre><code class="bash">for variable in list; do
-  commands
-done
+<p><code>for</code>循环会依次从<code>list</code>列表中取出一项，作为变量<code>variable</code>，然后在循环体中进行处理。</p>
+<p>注意：</p>
+<ol>
+<li><p>关键字<code>for</code>与<code>do</code>写在同一行时，需要分号分隔。写成两行时不需要分号。</p>
+</li>
+<li><p><code>list</code>有多种形式，以下是一些例子</p>
+<ul>
+<li><pre><code class="sh">for i in word1 word2 word3;		# 给出多个值作为列表
 </code></pre>
-<p>下面是一个例子。</p>
-<pre><code class="bash">#!/bin/bash
-
-for i in word1 word2 word3; do
-  echo $i
-done
+</li>
+<li><pre><code class="sh">for i in *.png; 		# 由通配符产生，查看当前目录下的所有png文件
 </code></pre>
-<p>上面例子中，<code>word1 word2 word3</code>是一个包含三个单词的列表，变量<code>i</code>依次等于<code>word1</code>、<code>word2</code>、<code>word3</code>，命令<code>echo $i</code>则会相应地执行三次。</p>
-<p>列表可以由通配符产生。</p>
-<pre><code class="bash">for i in *.png; do
-  ls -l $i
-done
+</li>
+<li><pre><code class="sh">for i in $(cat ~/.bash_profile);		# 由子命令产生
 </code></pre>
-<p>上面例子中，<code>*.png</code>会替换成当前目录中所有 PNG 图片文件，变量<code>i</code>会依次等于每一个文件。</p>
-<p>列表也可以通过子命令产生。</p>
-<pre><code class="bash">#!/bin/bash
-
-count=0
-for i in $(cat ~/.bash_profile); do
-  count=$((count + 1))
-  echo &quot;Word $count ($i) contains $(echo -n $i | wc -c) characters&quot;
-done
+</li>
+<li><pre><code class="sh">for filename in &quot;$@&quot; ;		# 读取脚本的所有参数，可以直接简写为`for filename;`，但是可读性不好。
 </code></pre>
-<p>上面例子中，<code>cat ~/.bash_profile</code>命令会输出<code>~/.bash_profile</code>文件的内容，然后通过遍历每一个词，计算该文件一共包含多少个词，以及每个词有多少个字符。</p>
-<p><code>in list</code>的部分可以省略，这时<code>list</code>默认等于脚本的所有参数<code>$@</code>。但是，为了可读性，最好还是不要省略，参考下面的例子。</p>
-<pre><code class="bash">for filename; do
-  echo &quot;$filename&quot;
-done
-
-# 等同于
-
-for filename in &quot;$@&quot; ; do
-  echo &quot;$filename&quot;
-done
+</li>
+<li><pre><code class="sh">for in in &#123;1..10..2&#125;;		# 使用&#123;start..end..step&#125;扩展语法生成一个序列
 </code></pre>
-<p>在函数体中也是一样的，<code>for...in</code>循环省略<code>in list</code>的部分，则<code>list</code>默认等于函数的所有参数。</p>
+</li>
+</ul>
+</li>
+</ol>
 <h2 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h2><p><code>for</code>循环还支持 C 语言的循环语法。</p>
-<pre><code class="bash">for (( expression1; expression2; expression3 )); do
+<pre><code class="bash">for (( expression1; expression2; expression3 ))
+do
   commands
 done
 </code></pre>
-<p>上面代码中，<code>expression1</code>用来初始化循环条件，<code>expression2</code>用来决定循环结束的条件，<code>expression3</code>在每次循环迭代的末尾执行，用于更新值。</p>
-<p>注意，循环条件放在双重圆括号之中。另外，圆括号之中使用变量，不必加上美元符号<code>$</code>。</p>
-<p>它等同于下面的<code>while</code>循环。</p>
-<pre><code class="bash">(( expression1 ))
+<p><code>expression1</code>用来初始化循环条件，<code>expression2</code>用来决定循环结束的条件，<code>expression3</code>在每次循环迭代的末尾执行，用于更新值。</p>
+<p>它等同于下面的<code>while</code>循环：</p>
+<pre><code class="sh">(( expression1 ))
 while (( expression2 )); do
   commands
   (( expression3 ))
 done
 </code></pre>
-<p>下面是一个例子。</p>
-<pre><code class="bash">for (( i=0; i&lt;5; i=i+1 )); do
-  echo $i
-done
-</code></pre>
-<p>上面代码中，初始化变量<code>i</code>的值为0，循环执行的条件是<code>i</code>小于5。每次循环迭代结束时，<code>i</code>的值加1。</p>
-<p><code>for</code>条件部分的三个语句，都可以省略。</p>
-<pre><code class="bash">for ((;;))
+<p>注意：</p>
+<ol>
+<li><p>循环条件放在双重圆括号之中。</p>
+</li>
+<li><p>圆括号之中使用变量，不必加上美元符号<code>$</code>。</p>
+</li>
+<li><p><code>for</code>条件部分的三个语句，都可以省略。比如下面的例子：</p>
+<pre><code class="sh"># 脚本会反复读取命令行输入，直到用户输入了一个点（`.`）为止，才会跳出循环。
+for ((;;))
 do
   read var
   if [ &quot;$var&quot; = &quot;.&quot; ]; then
@@ -273,11 +222,16 @@ do
   fi
 done
 </code></pre>
-<p>上面脚本会反复读取命令行输入，直到用户输入了一个点（<code>.</code>）为止，才会跳出循环。</p>
-<h2 id="break，continue"><a href="#break，continue" class="headerlink" title="break，continue"></a>break，continue</h2><p>Bash 提供了两个内部命令<code>break</code>和<code>continue</code>，用来在循环内部跳出循环。</p>
+</li>
+</ol>
+<h2 id="break和continue"><a href="#break和continue" class="headerlink" title="break和continue"></a>break和continue</h2><p>Bash 提供了两个内部命令<code>break</code>和<code>continue</code>，用来在循环内部跳出循环。</p>
+<blockquote>
+<p><strong>break</strong></p>
+</blockquote>
 <p><code>break</code>命令立即终止循环，程序继续执行循环块之后的语句，即不再执行剩下的循环。</p>
 <pre><code class="bash">#!/bin/bash
 
+# 打印3行结果。一旦变量`$number`等于3，就会跳出循环，不再继续执行。
 for number in 1 2 3 4 5 6
 do
   echo &quot;number is $number&quot;
@@ -286,10 +240,13 @@ do
   fi
 done
 </code></pre>
-<p>上面例子只会打印3行结果。一旦变量<code>$number</code>等于3，就会跳出循环，不再继续执行。</p>
+<blockquote>
+<p><strong>continue</strong></p>
+</blockquote>
 <p><code>continue</code>命令立即终止本轮循环，开始执行下一轮循环。</p>
 <pre><code class="bash">#!/bin/bash
 
+# 只要用户输入的文件不存在，`continue`命令就会生效，直接进入下一轮循环（让用户重新输入文件名）
 while read -p &quot;What file do you want to test?&quot; filename
 do
   if [ ! -e &quot;$filename&quot; ]; then
@@ -300,42 +257,14 @@ do
   echo &quot;You entered a valid file..&quot;
 done
 </code></pre>
-<p>上面例子中，只要用户输入的文件不存在，<code>continue</code>命令就会生效，直接进入下一轮循环（让用户重新输入文件名），不再执行后面的打印语句。</p>
 <h2 id="select-结构"><a href="#select-结构" class="headerlink" title="select 结构"></a>select 结构</h2><p><code>select</code>结构主要用来生成简单的菜单。它的语法与<code>for...in</code>循环基本一致。</p>
-<pre><code class="bash">select name
-[in list]
+<p><code>select</code>生成一个菜单，内容是列表<code>list</code>的每一项，并且每一项前面还有一个数字编号。Bash 提示用户选择一项，输入它的编号。用户输入以后，Bash 会将该项的内容存在变量<code>name</code>，该项的编号存入环境变量<code>REPLY</code>，执行命令体<code>commands</code>。如果用户没有输入，就按回车键，Bash 会重新输出菜单，让用户选择。执行结束后，回到第一步，重复这个过程。</p>
+<pre><code class="bash">select name in list
 do
   commands
 done
 </code></pre>
-<p>Bash 会对<code>select</code>依次进行下面的处理。</p>
-<ol>
-<li><code>select</code>生成一个菜单，内容是列表<code>list</code>的每一项，并且每一项前面还有一个数字编号。</li>
-<li>Bash 提示用户选择一项，输入它的编号。</li>
-<li>用户输入以后，Bash 会将该项的内容存在变量<code>name</code>，该项的编号存入环境变量<code>REPLY</code>。如果用户没有输入，就按回车键，Bash 会重新输出菜单，让用户选择。</li>
-<li>执行命令体<code>commands</code>。</li>
-<li>执行结束后，回到第一步，重复这个过程。</li>
-</ol>
-<p>下面是一个例子。</p>
-<pre><code class="bash">#!/bin/bash
-# select.sh
-
-select brand in Samsung Sony iphone symphony Walton
-do
-  echo &quot;You have chosen $brand&quot;
-done
-</code></pre>
-<p>执行上面的脚本，Bash 会输出一个品牌的列表，让用户选择。</p>
-<pre><code class="bash">$ ./select.sh
-1) Samsung
-2) Sony
-3) iphone
-4) symphony
-5) Walton
-#?
-</code></pre>
-<p>如果用户没有输入编号，直接按回车键。Bash 就会重新输出一遍这个菜单，直到用户按下<code>Ctrl + c</code>，退出执行。</p>
-<p><code>select</code>可以与<code>case</code>结合，针对不同项，执行不同的命令。</p>
+<p><code>select</code>可以与<code>case</code>结合，针对不同项，执行不同的命令。下面是一个例子：</p>
 <pre><code class="bash">#!/bin/bash
 
 echo &quot;Which Operating System do you like?&quot;
@@ -356,10 +285,6 @@ do
   esac
 done
 </code></pre>
-<p>上面例子中，<code>case</code>针对用户选择的不同项，执行不同的命令。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://linuxhint.com/bash_select_command/">Bash Select Command</a>, Fahmida Yesmin</li>
-</ul>
 
     </div>
 

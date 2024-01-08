@@ -121,9 +121,11 @@
         
         <p>本章介绍 Shell 脚本的条件判断语法。</p>
 <p><code>if</code>是最常用的条件判断结构，只有符合给定条件时，才会执行指定的命令。它的语法如下。</p>
-<pre><code class="bash">if commands; then
+<pre><code class="bash">if commands
+then
   commands
-elif commands; then
+elif commands
+then
   commands...
 else
   commands
@@ -293,6 +295,7 @@ else
   exit 1
 fi
 </code></pre>
+<p>需要注意的是，对命令的执行结果进行判断，虽然返回值是<code>0</code>，认为满足条件，这与对整数<code>0</code>进行判断不同。</p>
 <h3 id="多条命令的逻辑运算"><a href="#多条命令的逻辑运算" class="headerlink" title="多条命令的逻辑运算"></a>多条命令的逻辑运算</h3><p>如果<code>if</code>结构使用的不是<code>test</code>命令，而是普通命令，比如上一节的<code>((...))</code>算术运算，或者<code>test</code>命令与普通命令混用，那么可以使用 Bash 的命令控制操作符<code>&amp;&amp;</code>（AND）和<code>||</code>（OR），进行多个命令的逻辑运算。</p>
 <pre><code class="bash">$ command1 &amp;&amp; command2		# 先执行command1，只有command1执行成功后， 才会执行command2
 $ command1 || command2		# 先执行command1，只有command1执行失败后， 才会执行command2
