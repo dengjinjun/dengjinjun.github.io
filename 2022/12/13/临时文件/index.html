@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="mktemp命令和trap命令" />
+    <meta name="description" content="临时文件" />
     <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang</title>
@@ -108,7 +108,7 @@
 
     
         <div class="post-main-title">
-            mktemp命令和trap命令
+            临时文件
         </div>
       
     
@@ -116,18 +116,11 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E7%9A%84%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="post-toc-text">临时文件的安全问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mktemp-%E5%91%BD%E4%BB%A4%E7%9A%84%E7%94%A8%E6%B3%95"><span class="post-toc-text">mktemp 命令的用法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mktemp-%E5%91%BD%E4%BB%A4%E7%9A%84%E5%8F%82%E6%95%B0"><span class="post-toc-text">mktemp 命令的参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#trap-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">trap 命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="post-toc-text">参考链接</span></a></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mktemp-%E5%91%BD%E4%BB%A4%E7%9A%84%E7%94%A8%E6%B3%95"><span class="post-toc-text">mktemp 命令的用法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mktemp-%E5%91%BD%E4%BB%A4%E7%9A%84%E5%8F%82%E6%95%B0"><span class="post-toc-text">mktemp 命令的参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#trap-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">trap 命令</span></a></li></ol>
             
         
-        <p>脚本有时需要创建临时文件或临时目录。常见的做法是，在<code>/tmp</code>目录里面创建文件或目录，这样做有很多弊端，使用<code>mktemp</code>命令是最安全的做法。</p>
-<p>Shell脚本有时需要创建临时文件或临时目录。常见的做法是，在&#x2F;tmp目录里面创建文件或目录，这样做有很多弊端，使用mktemp命令是最安全的做法。</p>
-<h2 id="临时文件的安全问题"><a href="#临时文件的安全问题" class="headerlink" title="临时文件的安全问题"></a>临时文件的安全问题</h2><p>直接创建临时文件，尤其在<code>/tmp</code>目录里面，往往会导致安全问题。</p>
+        <p>Shell脚本有时需要创建临时文件或临时目录。常见的做法是，在<code>/tmp</code>目录里面创建文件或目录，这样做有很多弊端</p>
 <p>首先，<code>/tmp</code>目录是所有人可读写的，任何用户都可以往该目录里面写文件。创建的临时文件也是所有人可读的。</p>
-<pre><code class="bash">$ touch /tmp/info.txt
-$ ls -l /tmp/info.txt
--rw-r--r-- 1 ruanyf ruanyf 0 12月 28 17:12 /tmp/info.txt
-</code></pre>
-<p>上面命令在<code>/tmp</code>目录直接创建文件，该文件默认是所有人可读的。</p>
 <p>其次，如果攻击者知道临时文件的文件名，他可以创建符号链接，链接到临时文件，可能导致系统运行异常。攻击者也可能向脚本提供一些恶意数据。因此，临时文件最好使用不可预测、每次都不一样的文件名，防止被利用。</p>
 <p>最后，临时文件使用完毕，应该删除。但是，脚本意外退出时，往往会忽略清理临时文件。</p>
 <p>生成临时文件应该遵循下面的规则。</p>
@@ -140,22 +133,13 @@ $ ls -l /tmp/info.txt
 <li>脚本退出时，要删除临时文件（使用<code>trap</code>命令）。</li>
 </ul>
 </blockquote>
+<p>使用<code>mktemp</code>命令来创建临时文件、<code>trap</code>命令来删除临时文件是最安全的做法。</p>
 <h2 id="mktemp-命令的用法"><a href="#mktemp-命令的用法" class="headerlink" title="mktemp 命令的用法"></a>mktemp 命令的用法</h2><p><code>mktemp</code>命令就是为安全创建临时文件而设计的。虽然在创建临时文件之前，它不会检查临时文件是否存在，但是它支持唯一文件名和清除机制，因此可以减轻安全攻击的风险。</p>
-<p>直接运行<code>mktemp</code>命令，就能生成一个临时文件。</p>
+<p>直接运行<code>mktemp</code>命令，就能生成一个临时文件。生成的临时文件名是随机的，而且权限是只有用户本人可读写。</p>
 <pre><code class="bash">$ mktemp
 /tmp/tmp.4GcsWSG4vj
-
-$ ls -l /tmp/tmp.4GcsWSG4vj
--rw------- 1 ruanyf ruanyf 0 12月 28 12:49 /tmp/tmp.4GcsWSG4vj
 </code></pre>
-<p>上面命令中，<code>mktemp</code>命令生成的临时文件名是随机的，而且权限是只有用户本人可读写。</p>
-<p>Bash 脚本使用<code>mktemp</code>命令的用法如下。</p>
-<pre><code class="bash">#!/bin/bash
-
-TMPFILE=$(mktemp)
-echo &quot;Our temp file is $TMPFILE&quot;
-</code></pre>
-<p>为了确保临时文件创建成功，<code>mktemp</code>命令后面最好使用 OR 运算符（<code>||</code>），保证创建失败时退出脚本。</p>
+<p>Bash 脚本使用<code>mktemp</code>命令的用法如下。<code>mktemp</code>命令后面最好使用 OR 运算符（<code>||</code>），保证创建失败时退出脚本。</p>
 <pre><code class="bash">#!/bin/bash
 
 TMPFILE=$(mktemp) || exit 1
@@ -177,7 +161,7 @@ echo &quot;Our temp file is $TMPFILE&quot;
 <pre><code class="bash">$ mktemp -p /home/ruanyf/
 /home/ruanyf/tmp.FOKEtvs2H3
 </code></pre>
-<p><code>-t</code>参数可以指定临时文件的文件名模板，模板的末尾必须至少包含三个连续的<code>X</code>字符，表示随机字符，建议至少使用六个<code>X</code>。默认的文件名模板是<code>tmp.</code>后接十个随机字符。</p>
+<p><code>-t</code>参数可以指定临时文件的文件名模板，模板的末尾必须至少包含三个连续的<code>X</code>字符表示随机字符。默认的文件名模板是<code>tmp.</code>后接十个随机字符。</p>
 <pre><code class="bash">$ mktemp -t mytemp.XXXXXXX
 /tmp/mytemp.yZ1HgZV
 </code></pre>
@@ -238,11 +222,6 @@ fi
 
 trap egress EXIT
 </code></pre>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.putorius.net/working-with-temporary-files.html">Working with Temporary Files and Directories in Shell Scripts</a>, Steven Vona</li>
-<li><a target="_blank" rel="noopener" href="https://www.putorius.net/using-trap-to-exit-bash-scripts-cleanly.html">Using Trap to Exit Bash Scripts Cleanly</a></li>
-<li><a target="_blank" rel="noopener" href="https://mywiki.wooledge.org/SignalTrap">Sending and Trapping Signals</a></li>
-</ul>
 
     </div>
 
