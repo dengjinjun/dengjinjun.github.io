@@ -346,7 +346,7 @@ find /etc -nouser -o -nogroup | xargs -I &#123;&#125; chown root.root &#123;&#12
 比如：ifconfig &gt;&gt; /a.txt
 </code></pre>
 </li>
-<li><p>区分内容是否正确：<code>0:标准输出；1: 标准正确输出；2：标准错误输出</code></p>
+<li><p>区分内容是否正确：<code>0:标准输入；1: 标准输出；2：标准错误输出</code></p>
 <pre><code>1和2可以把正确和错误的内容分别输出到不同的文件中
 比如：ifconfig ensxx 1&gt;a.txt 2&gt;b.txt		# 正确的内容输出到a.txt中，错误的结果输出到b.txt中。注意：数字和&gt;之间不能有空格
 </code></pre>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="环境配置" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    
+    <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            环境配置
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                
+            
+        
+        <p>编辑当前用户的家目录下的隐藏文件<code>.vimrc</code>，添加下面内容，配置和优化vim环境。</p>
+<pre><code class="v">&quot; 基本设置
+set nocompatible				&quot; 关闭兼容模式
+set history=100					&quot; 设置历史记录步数
+set autoread					&quot; 当文件被外部修改时，自动更新该文件
+set mouse=a						&quot; 激活鼠标的使用
+filetype on                     &quot; 启用文件类型检测
+filetype indent on              &quot; 根据文件类型自动缩进
+filetype plugin on              &quot; 根据文件类型加载插件
+
+
+&quot; 界面
+syntax enable                   &quot; 开启语法高亮
+set guifont=dejaVu\ Sans\ MONO\ 10	&quot; 设置字体
+colorscheme desert				&quot;设置配色
+set cursorline                  &quot; 高亮显示当前行
+hi cursorline guibg=#00ff00
+hi cursorColumn guibg=#00ff00
+set number                      &quot; 显示行号
+&quot; set relativenumber              显示相对行号
+&quot; set showcmd                     显示命令输入
+set wildmenu                    &quot; 命令行补全的可视化 (比如 :e &lt;Tab&gt;)
+set ruler						&quot; 显示标尺
+set cmdheight=1					&quot; 命令行高度
+set nu							&quot; 显示行数
+set lazyredraw                  &quot; 为了更快的宏和脚本执行，不要在操作时更新屏幕
+set showmatch    				&quot; 显示匹配的括号
+set backspace=eol,start,indent
+set whichwrap+=&lt;,&gt;,h,l
+set magic
+set noerrorbells
+set novisualbell
+set mat=2
+
+&quot; 代码折叠
+set foldenable					&quot; 激活折叠功能
+set foldmethod=manual			&quot; 设置折叠方式为手动折叠
+set foldcolumn=1				&quot; 设置折叠区域的宽度
+setlocal foldlevel=3			&quot; 设置折叠层数
+set foldclose=all				&quot; 自动关闭折叠
+nnoremap &lt;space&gt; @=((foldclosed(line(&#39;.&#39;)) &lt; 0) ? &#39;zc&#39; : &#39;zo&#39;)&lt;CR&gt;	&quot; 空格键控制折叠
+
+&quot; 换行与缩进处理
+set expandtab                   &quot; 使用空格代替制表符
+set tabstop=4                   &quot; 制表符宽度为4个空格
+set shiftwidth=4                &quot; 自动缩进宽度（&lt;&lt; 和 &gt;&gt;）
+set softtabstop=4				&quot; 退格时一次删掉4个空格
+set autoindent                  &quot; 自动缩进
+set smartindent                 &quot; 智能缩进
+set cin
+set wrap                        &quot; 自动换行
+set sw=4						&quot; 设置软宽度
+
+
+&quot; 搜索和替换
+set ignorecase                  &quot; 忽略大小写
+set hlsearch                    &quot; 高亮显示匹配的搜索
+
+
+
+&quot; 编码设置
+set encoding=utf-8              &quot; 文件编码
+set fileencodings=utf-8         &quot; 打开文件的编码检测列表
+set termencoding=utf-8			&quot; 设置终端编码
+
+&quot; 其他
+set background=dark				&quot; 背景色
+highlight Search ctermbg=black ctermfg=white guifg=white guibg=black
+set pastetoggle=&lt;F9&gt;			&quot; 解决粘贴不换行问题
+
+&quot; 自动添加解释器及作者等信息
+autocmd BufNewFile *.py,*.cc,*.sh,*.java exec &quot;:call SetTitle()&quot;
+func SetTitle()
+    if expand(&quot;%:e&quot;) == &#39;sh&#39;
+        call setline(1, &quot;#!/bin/bash&quot;)
+        call setline(1, &quot;#Author:Dengpangpang&quot;)
+        call setline(1, &quot;#Date:&quot;.strftime(&quot;%F %T&quot;))
+        call setline(1, &quot;#Description:&quot;)
+    endif
+endfunc
+</code></pre>
+<p>注意：</p>
+<p>在Windows系统下编辑的文件，直接复制到linux系统中，可能会提示存在^M的错误，但是在Linux下直接使用vim打开并不存在。造成这样的原因是不同的系统使用了不同的换行符。在Windows下文本文件的每一行结尾都有一个回车(‘\n’)和换行符(‘\r’)；在Linux下文本文件的每一行结尾都有一个回车(‘\n’)；在Mac下文本文件的每一行结尾都有一个换行符(‘\r’)。此时可以使用vim -b来打开脚本文件，就可以发现每行的末尾都存在^M。</p>
+<p>解决办法：<code>dos2unix filename</code>（需要提前安装<code>dos2unix</code>工具：<code>yum install -y dos2unix</code>）</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-01-11</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/'>
+                            奇技淫巧
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>
