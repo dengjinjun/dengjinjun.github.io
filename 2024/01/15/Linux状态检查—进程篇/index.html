@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Linux状态检查—进程篇" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    
+    <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Linux状态检查—进程篇
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ps"><span class="post-toc-text">ps</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pstree"><span class="post-toc-text">pstree</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pgrep"><span class="post-toc-text">pgrep</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pidstat"><span class="post-toc-text">pidstat</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#top"><span class="post-toc-text">top</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#htop"><span class="post-toc-text">htop</span></a></li></ol>
+            
+        
+        <h2 id="ps"><a href="#ps" class="headerlink" title="ps"></a><code>ps</code></h2><p>要对进程进行监测和控制，首先必须要了解当前进程的情况，也就是需要查看当前进程，而 <code>ps</code> 命令就是最基本同时也是非常强大的进程查看命令。</p>
+<p><code>ps</code>命令是Process Status的缩写。<code>ps</code>命令用来列出系统中当前运行了哪些进程，确定有哪些进程正在运行和运行的状态、进程是否结束、进程有没有僵死、哪些进程占用了过多的资源等等。总之大部分信息都是可以通过执行该命令得到的。<code>kill</code> 命令用于杀死进程。</p>
+<p>值得注意的是，<code>ps</code>命令所提供的查看结果并不动态连续的，而是当前那些进程的快照；如果想对进程时间监控，应该用 <code>top</code> 工具。</p>
+<blockquote>
+<p><strong>ps工具标识进程的5种状态码</strong></p>
+</blockquote>
+<p>**D 不可中断睡眠(disk sleep)**：一般表示进程正在跟硬件交互，并且交互过程不允许被其他进程或中断。 比如一个进程向磁盘读写数据时。</p>
+<p><strong>R 运行(runing)</strong> ：正在运行或在运行队列中等待</p>
+<p><strong>S 中断(sleeping)</strong> ：休眠中, 受阻, 在等待某个条件的形成或接受到信号。</p>
+<p><strong>T 停止(stopped)</strong> ：进程收到SIGSTOP, SIGSTP, SIGTIN, SIGTOU信号后停止运行运行 </p>
+<p><strong>Z 僵死(zombie)</strong> ：进程已终止, 但进程描述符存在, 直到父进程调用wait4()系统调用后释放</p>
+<blockquote>
+<p><strong>ps工具常用选项</strong></p>
+</blockquote>
+<p>-A 显示所有进程</p>
+<p>-e 等于“-A”</p>
+<p>c 显示进程的真实名称</p>
+<p>f 显示程序间的关系</p>
+<p>-H 显示树状结构</p>
+<p>u 指定用户的所有进程</p>
+<p>-aux 显示所有包含其他使用者的行程以及详细信息</p>
+<blockquote>
+<p><strong>输出信息的意义</strong></p>
+</blockquote>
+<ul>
+<li><p><code>ps -A</code></p>
+<p>全部进程信息，显示的基础条目太多，但是输出信息并不详细，不常用</p>
+<pre><code class="sh">[root@dengpangpang ~]$ ps -A
+  PID TTY          TIME CMD
+    1 ?        00:03:17 systemd
+    2 ?        00:00:00 kthreadd
+    3 ?        00:00:03 ksoftirqd/0
+    5 ?        00:00:00 kworker/0:0H
+    7 ?        00:00:00 migration/0
+    ......
+</code></pre>
+</li>
+<li><p><code>ps -u</code></p>
+<p>显示指定用户的信息， ps -A 的过滤版</p>
+<pre><code class="sh">[root@dengpangpang ~]$ ps -u root
+  PID TTY          TIME CMD
+    1 ?        00:03:17 systemd
+    2 ?        00:00:00 kthreadd
+    3 ?        00:00:03 ksoftirqd/0
+    5 ?        00:00:00 kworker/0:0H
+    7 ?        00:00:00 migration/0
+    8 ?        00:00:00 rcu_bh
+</code></pre>
+</li>
+<li><p><code>ps -ef</code></p>
+<p>显示所有进程信息，连同命令行，是最常用的命令。常与 grep 组合，查找特定进程</p>
+<pre><code class="sh">[root@dengpangpang ~]$ ps -ef | grep python
+UID        PID  PPID  C STIME TTY          TIME CMD
+root       866     1  0  2023 ?        00:04:06 /usr/bin/python2 -Es /usr/sbin/tuned -l -P
+root     15243 10556  0 02:22 pts/0    00:00:00 grep --color=auto python
+root     24917     1  0 Jan11 ?        00:00:01 python3 manage.py runserver 0.0.0.0:8000
+root     24921 24917  1 Jan11 ?        01:51:21 /usr/bin/python3 manage.py runserver 0.0.0.0:8000
+
+# UID: 进程拥有者的用户名
+# PID: 进程id
+# PPID: 父进程的id
+# C: 使用的CPU资源百分比
+# STIME: 进程启动日期
+# TTY: 登录的终端机位置
+# TIME: 进程使用的CPU时间
+# CMD: 进程启动的命令行
+</code></pre>
+</li>
+<li><p><code>ps -aux</code></p>
+<p>列出目前所有的正在内存当中的程序的详细信息，可以使用<code>ps -aux &gt; info.txt</code>保存到文件中查看。</p>
+<pre><code class="sh">[root@dengpangpang ~]$ ps -aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.2 190876  3832 ?        Ss    2023   3:17 /usr/lib/systemd/systemd --switched-root --system --deserialize 22
+root         2  0.0  0.0      0     0 ?        S     2023   0:00 [kthreadd]
+root         3  0.0  0.0      0     0 ?        S     2023   0:03 [ksoftirqd/0]
+root         5  0.0  0.0      0     0 ?        S&lt;    2023   0:00 [kworker/0:0H]
+root         7  0.0  0.0      0     0 ?        S     2023   0:00 [migration/0]
+
+# %CPU: 进程占用CPU百分比
+# %MEM: 进程占用内存百分比
+# VSZ: 进程使用的虚拟内存量(Kbytes)
+# RSS: 进程占用的固定内存量(Kbytes)
+# STAT: 进程目前的状态，主要有以下几种状态：R、S、T、Z，其他详细状态：
+   # &lt;	优先级高的进程 
+   # N	优先级较低的进程  
+   # s	进程的领导者（在它之下有子进程）； 
+   # l	多线程，克隆线程（使用 CLONE_THREAD, 类似 NPTL pthreads）； 
+   # +  位于后台的进程组
+</code></pre>
+</li>
+<li><p><code>ps -l</code></p>
+<p>将目前属于自己这次登入的 PID 与相关信息列示出来，看情况用。</p>
+<pre><code class="sh">[root@dengpangpang ~]$ ps -l
+F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+4 S     0 10556 10553  0  80   0 - 28893 do_wai pts/0    00:00:00 bash
+0 R     0 15340 10556  0  80   0 - 38309 -      pts/0    00:00:00 ps
+
+# F: flag，程序旗帜，4代表使用者为超级用户
+# S: stat，程序状态
+# PRI: 进程执行优先级，数值越小，优先级越高
+# NI: NICE值，进程的优先级的修正数值。相同PRI的进程，比较NICE值，负值表示高优先级，正值表示低优先级
+</code></pre>
+</li>
+</ul>
+<h2 id="pstree"><a href="#pstree" class="headerlink" title="pstree"></a><code>pstree</code></h2><p><code>ps</code>命令可以进程信息，但是对于它们之间的关系却显示得不够清晰。<code>pstree</code>命令可以将进程以及子进程的关系以树状显示，非常优雅。</p>
+<p>最常用的是<code>pstree -p pid</code>，指定一个进程的pid，查看它的子进程关系树，并显示子进程pid。</p>
+<pre><code class="sh">[root@dengpangpang ~]$ pstree -p 24917
+python3(24917)───python3(24921)─┬─&#123;python3&#125;(24925)
+                                ├─&#123;python3&#125;(24934)
+                                ├─&#123;python3&#125;(26860)
+                                ├─&#123;python3&#125;(26861)
+                                ├─&#123;python3&#125;(26863)
+                                ├─&#123;python3&#125;(26864)
+                                ├─&#123;python3&#125;(26865)
+                                ├─&#123;python3&#125;(26866)
+                                ├─&#123;python3&#125;(27234)
+                                ├─&#123;python3&#125;(27235)
+                                ├─&#123;python3&#125;(27283)
+                                └─&#123;python3&#125;(27284)
+</code></pre>
+<h2 id="pgrep"><a href="#pgrep" class="headerlink" title="pgrep"></a><code>pgrep</code></h2><p>简陋版的<code>ps</code>命令，通过进程名来查找进程，默认只显示pid，<code>-l</code>显示进程名。</p>
+<pre><code class="sh">[root@dengpangpang ~]$ pgrep -l ss
+531 assist_daemon
+1319 sshd
+10553 sshd
+</code></pre>
+<h2 id="pidstat"><a href="#pidstat" class="headerlink" title="pidstat"></a><code>pidstat</code></h2><p><code>pidstat</code>是sysstat工具的一个命令，用于监控全部或指定进程的cpu、内存、线程、设备IO等系统资源的占用情况。</p>
+<p><code>pidstat</code> 的用法：</p>
+<pre><code class="cobol">pidstat [ 选项 ] [ &lt;时间间隔&gt; ] [ &lt;次数&gt; ]
+</code></pre>
+<blockquote>
+<p><strong>选项</strong></p>
+</blockquote>
+<ul>
+<li><p><code>-p</code>: 指定进程pid</p>
+<pre><code class="sh"># 查看pid为24921的进程信息，每秒刷新一次，刷新4次
+[root@dengpangpang ~]$ pidstat -p 24921 1 10
+Linux 3.10.0-957.21.3.el7.x86_64 (dengpangpang) 	01/17/2024 	_x86_64_	(2 CPU)
+
+03:07:25 AM   UID       PID    %usr %system  %guest    %CPU   CPU  Command
+03:07:26 AM     0     24921    1.00    1.00    0.00    2.00     0  python3
+03:07:27 AM     0     24921    2.00    0.00    0.00    2.00     0  python3
+03:07:28 AM     0     24921    1.00    1.00    0.00    2.00     1  python3
+03:07:29 AM     0     24921    1.00    0.00    0.00    1.00     1  python3
+</code></pre>
+</li>
+<li><p><code>-u</code>：默认的参数，显示各个进程的cpu使用统计</p>
+<pre><code>%usr：进程在用户空间占用cpu的百分比
+%system：进程在内核空间占用cpu的百分比
+%guest：进程在虚拟机占用cpu的百分比
+%CPU：进程占用cpu的百分比
+</code></pre>
+</li>
+<li><p><code>-d</code>：查看I&#x2F;O情况</p>
+<pre><code>kB_rd/s：每秒从磁盘读取的KB
+kB_wr/s：每秒写入磁盘KB
+kB_ccwr/s：任务取消的写入磁盘的KB。当任务截断时的pagecache的时候会发生。
+</code></pre>
+</li>
+<li><p><code>-r</code>：显示内存使用统计</p>
+<pre><code>Minflt/s:任务每秒发生的次要错误，不需要从磁盘中加载页
+Majflt/s:任务每秒发生的主要错误，需要从磁盘中加载页
+VSZ：虚拟地址大小，虚拟内存的使用KB
+RSS：常驻集合大小，非交换区五里内存使用KB
+</code></pre>
+</li>
+</ul>
+<h2 id="top"><a href="#top" class="headerlink" title="top"></a><code>top</code></h2><p><code>top</code>命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的<strong>任务管理器</strong>。</p>
+<pre><code class="sh">[root@dengpangpang ~]$ top
+    top - 10:30:02 up 21 days,  9:32,  1 user,  load average: 0.02, 0.07, 0.05
+    Tasks:  91 total,   1 running,  90 sleeping,   0 stopped,   0 zombie
+    %Cpu(s):  3.3 us,  0.0 sy,  0.0 ni, 96.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    KiB Mem :  1882008 total,   161012 free,   381260 used,  1339736 buff/cache
+    KiB Swap:        0 total,        0 free,        0 used.  1274324 avail Mem 
+
+      PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND                                                 1 root      20   0  190876   3620   2384 S   0.0  0.2   3:24.43 systemd       
+
+# 1	top命令	当前系统时间	系统已开机时长	当前登录用户数量	1分钟、5分钟、15分钟的CPU负载情况
+# 2	进程数量：	总数	运行状态的进程	中断状态的进程	停止状态的进程	僵尸进程
+# 3	CPU占比：	用户空间	内核空间	高优先级的进程(1-19)	空闲	等待IO	硬中断	软中断	其他虚拟机抢走
+# 4	物理内存使用情况，需要注意的是free表示的是空闲内存，实际的可用内存还包括可重复利用的内存以及部分buff/cache，要比free更多
+# 5	交换内存使用情况，需要注意的是used表示的是已经使用的虚拟内存，如果它不断变化，表示内存不足，物理内存和虚拟内存在进行交换
+# 6
+# 7	进程id 进程所有者 进程优先级 NICE值 虚拟内存使用量 物理内存使用量 共享内存使用量 进程状态	CPU占比 物理内存占比 占用CPU时间 进程名称
+</code></pre>
+<blockquote>
+<p><strong>选项</strong></p>
+</blockquote>
+<p><code>-p</code>：指定进程pid</p>
+<p><code>-n</code>：设置信息更新次数</p>
+<p><code>-d</code>：设置信息更新间隔</p>
+<blockquote>
+<p><strong>互动指令</strong></p>
+</blockquote>
+<p>按数字<code>1</code>，切换显示每个逻辑CPU的使用情况</p>
+<p>按字母<code>b</code>，对当前处于运行状态的进程加亮显示</p>
+<p>按字母<code>c</code>，切换显示完整的进程命令</p>
+<p>按字母<code>m</code>， 切换显示内存信息</p>
+<p>按字母<code>t </code>，切换显示CPU状态信息</p>
+<p>按字母<code>M</code>， 根据驻留内存大小进行排序</p>
+<p>按字母<code>P</code>， 根据CPU使用百分比大小进行排序</p>
+<p>按字母<code>T</code>， 根据时间&#x2F;累计时间进行排序</p>
+<p>按字母<code>k </code>，终止一个进程</p>
+<p>按字母<code>r</code>， 重新安排一个进程的优先级别</p>
+<p>按字母<code>h</code>， 显示帮助信息</p>
+<p>按字母<code>q</code>， 退出程序</p>
+<h2 id="htop"><a href="#htop" class="headerlink" title="htop"></a><code>htop</code></h2><p><code>htop</code>同样是Linux系统中的任务管理器，是<code>top</code>的<strong>升级版</strong>，它相对于top命令有以下优势：</p>
+<ol>
+<li>功能更加丰富且可自定义</li>
+<li>支持鼠标操作</li>
+<li>炫酷</li>
+</ol>
+<blockquote>
+<p><img src="/../pic/image-20240117171742059.png" alt="image-20240117171742059"></p>
+</blockquote>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-01-15</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>

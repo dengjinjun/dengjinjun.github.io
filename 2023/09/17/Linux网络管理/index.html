@@ -170,7 +170,7 @@ reboot 0
 </code></pre>
 <ul>
 <li><p>ifconfig显示信息解释</p>
-<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230918011203737.png" alt="image-20230918011203737"></p>
+<p><img src="http://qny.oss.dengjinjun.site/image-20230918011203737.png" alt="image-20230918011203737"></p>
 <pre><code>ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
          # 从flags可知该接口已启用，支持广播、组播，MTU:1500（最大传输单元）：1500字节
  
@@ -215,9 +215,10 @@ ifconfig [网卡名称] up			# 开启网卡
 ifconfig [网卡名称] [IP地址/掩码位]					# 比如 ifconfig eth0 192.168.110.135/24, 与上条命令效果相同
 </code></pre>
 </li>
-<li><p>设置mtu(最大传输单元)</p>
-<pre><code>ifconfig [网卡名称] mtu [数值]
-# 此条命令是临时设置，如果想每次开机都设置一次，可以将此条命令加到 /etc/rc.local 文件中
+<li><p>设置mtu(最大传输单元)和发送队列长度</p>
+<pre><code>ifconfig [网卡名称] mtu [数值]		
+ifconfig eth0 txqueuelen 2000
+# 此命令是临时设置，如果想每次开机都设置一次，可以将此条命令加到 /etc/rc.local 文件中
 </code></pre>
 </li>
 </ul>
