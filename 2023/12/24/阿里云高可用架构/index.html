@@ -119,8 +119,7 @@
                 <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">负载均衡</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%B9%E6%80%A7%E5%85%AC%E7%BD%91IP"><span class="post-toc-text">弹性公网IP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-1"><span class="post-toc-text">负载均衡</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4"><span class="post-toc-text">配置步骤</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9"><span class="post-toc-text">弹性伸缩</span></a></li></ol>
             
         
-        <p>1</p>
-<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>多台ECS示例+负载均衡设备+弹性公网IP实现的高可用架构</p>
+        <h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>多台ECS示例+负载均衡设备+弹性公网IP实现的高可用架构</p>
 <p><img src="/../pic/vblxasdgiiuknrrfijzq.png" alt="img"></p>
 <h3 id="弹性公网IP"><a href="#弹性公网IP" class="headerlink" title="弹性公网IP"></a>弹性公网IP</h3><p><strong>公网IP</strong>是由公共网络运营商分配的，可让用户通过互联网与其他用户实现数据交流和信息传递的唯一地址。</p>
 <p><strong>普通公网IP</strong>是指在购买云资源时默认配置的公网IP地址，在阿里云平台上购买云服务器时，勾选分配公网IPV4地址按钮，会自动分配公网地址，这类地址通常和<strong>云资源实例强绑定</strong>，在<strong>释放云服务器</strong>时，此IP将会<strong>随之释放</strong>。</p>
@@ -186,8 +185,7 @@
 <p><strong>弹性伸缩</strong>(Elastic Scaling Service)，简称<strong>ESS</strong>，也称为Auto Scaling，是阿里云<strong>根据业务需求和策略自动调整计算能力（即实例数量）的服务</strong>。</p>
 <p>在业务需求增长时，弹性伸缩自动增加指定类型的实例，来保证计算能力；在业务需求下降时，弹性伸缩自动减少指定类型的实例，来节约成本。当业务需求量有波动时，弹性伸缩能够自动调整指定类型的实例数量，满足业务需求。</p>
 <p><strong>操作步骤：</strong></p>
-<img src="../pic/ubelcqxbrfjdymbarkiy.png" alt="img" style="zoom:80%;" />
-
+<p> <img src="/../pic/ubelcqxbrfjdymbarkiy.png" alt="img"></p>
 <ol>
 <li><p><strong>创建伸缩组：</strong></p>
 <p><strong>伸缩组是弹性伸缩的核心单元，用来管理满足该公司业务需求的一组实例。弹性伸缩将会在该伸缩组内自动增加或减少实例。</strong></p>

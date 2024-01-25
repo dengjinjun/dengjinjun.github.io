@@ -119,10 +119,7 @@
                 <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#01-%E7%B3%BB%E7%BB%9F%E5%8F%AF%E7%94%A8%E6%80%A7"><span class="post-toc-text">01 系统可用性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#02-%E5%8D%95%E6%9C%BA%E6%9E%B6%E6%9E%84"><span class="post-toc-text">02 单机架构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#03-%E4%B8%BB%E4%BB%8E%E5%89%AF%E6%9C%AC"><span class="post-toc-text">03 主从副本</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#04-%E9%A3%8E%E9%99%A9%E4%B8%8D%E5%8F%AF%E6%8E%A7"><span class="post-toc-text">04 风险不可控</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#05-%E5%90%8C%E5%9F%8E%E7%81%BE%E5%A4%87"><span class="post-toc-text">05 同城灾备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#06-%E5%90%8C%E5%9F%8E%E5%8F%8C%E6%B4%BB"><span class="post-toc-text">06 同城双活</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#07-%E4%B8%A4%E5%9C%B0%E4%B8%89%E4%B8%AD%E5%BF%83"><span class="post-toc-text">07 两地三中心</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#08-%E4%BC%AA%E5%BC%82%E5%9C%B0%E5%8F%8C%E6%B4%BB"><span class="post-toc-text">08 伪异地双活</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#09-%E7%9C%9F%E6%AD%A3%E7%9A%84%E5%BC%82%E5%9C%B0%E5%8F%8C%E6%B4%BB"><span class="post-toc-text">09 真正的异地双活</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-%E5%A6%82%E4%BD%95%E5%AE%9E%E6%96%BD%E5%BC%82%E5%9C%B0%E5%8F%8C%E6%B4%BB"><span class="post-toc-text">10 如何实施异地双活</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-%E5%BC%82%E5%9C%B0%E5%A4%9A%E6%B4%BB"><span class="post-toc-text">11 异地多活</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%80%BB%E7%BB%93"><span class="post-toc-text">总结</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="post-toc-text">后记</span></a></li></ol>
             
         
-        <blockquote>
-<p><strong>转载自 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/48728378">知乎回答</a></strong></p>
-</blockquote>
-<p>同城双活、两地三中心，这些都属于「**<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%BC%82%E5%9C%B0%E5%A4%9A%E6%B4%BB&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2176548792%7D">异地多活</a>**」架构设计的一部分。</p>
+        <p>同城双活、两地三中心，这些都属于「**<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%BC%82%E5%9C%B0%E5%A4%9A%E6%B4%BB&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2176548792%7D">异地多活</a>**」架构设计的一部分。</p>
 <p>而整个「异地多活」架构，是<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2176548792%7D">分布式系统</a>架构设计的一座<strong>高峰</strong>，很多人经常听过它，但很少人理解其中的原理。</p>
 <p><strong>异地多活到底是什么？为什么需要异地多活？它到底解决了什么问题？究竟是怎么解决的？</strong></p>
 <p>这些疑问，想必是每个程序看到异地多活这个名词时，都想要搞明白的问题。</p>
@@ -433,13 +430,17 @@
 <p>宏观上需要考虑业务（微服务部署、依赖、拆分、SDK、Web 框架）、基础设施（服务发现、流量调度、持续集成、同步中间件、自研存储），微观上要开发各种中间件，还要关注中间件的高性能、高可用、容错能力，其复杂度之高，只有亲身参与过之后才知道。</p>
 <p>我曾经有幸参与过，存储层同步中间件的设计与开发，实现过「跨机房」同步 MySQL、Redis、MongoDB 的中间件，踩过的坑也非常多。当然，这些中间件的设计思路也非常有意思，后面会单独分享一下这些中间件的设计思路（记得关注我）。</p>
 <p>值得提醒你的是，只有真正理解了「异地双活」，才能彻底理解「异地多活」。在我看来，从<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%90%8C%E5%9F%8E%E5%8F%8C%E6%B4%BB&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2176548792%7D">同城双活</a>演变为异地双活的过程，是最为复杂的，最核心的东西包括，<strong>业务单元化划分、存储层数据双向同步、最上层的分片逻辑</strong>，这些是实现异地多活的重中之重。</p>
+<hr>
+<blockquote>
+<p><strong>转载自 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/48728378">知乎回答</a></strong></p>
+</blockquote>
 
     </div>
 
     <div class="post-meta">
         <i>
         
-            <span>2024-01-03</span>
+            <span>2023-12-26</span>
             
                 <span>该篇文章被 邓胖胖</span>
             
