@@ -116,7 +116,7 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5"><span class="post-toc-text">数据库概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="post-toc-text">关系型数据库和非关系型数据库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%BB%E9%94%AE%E3%80%81%E5%A4%96%E9%94%AE%E3%80%81%E7%B4%A2%E5%BC%95"><span class="post-toc-text">主键、外键、索引</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SQL%E6%A6%82%E5%BF%B5"><span class="post-toc-text">SQL概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFSQL"><span class="post-toc-text">什么是SQL</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SQL%E5%88%86%E7%B1%BB"><span class="post-toc-text">SQL分类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SQL%E8%AF%AD%E6%B3%95"><span class="post-toc-text">SQL语法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SQL%E7%BA%A6%E6%9D%9F"><span class="post-toc-text">SQL约束</span></a></li></ol></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5"><span class="post-toc-text">数据库概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="post-toc-text">关系型数据库和非关系型数据库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%BB%E9%94%AE%E3%80%81%E5%A4%96%E9%94%AE%E3%80%81%E7%B4%A2%E5%BC%95"><span class="post-toc-text">主键、外键、索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="post-toc-text">数据库的数据类型</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SQL%E6%A6%82%E5%BF%B5"><span class="post-toc-text">SQL概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFSQL"><span class="post-toc-text">什么是SQL</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SQL%E5%88%86%E7%B1%BB"><span class="post-toc-text">SQL分类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SQL%E8%AF%AD%E6%B3%95"><span class="post-toc-text">SQL语法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SQL%E7%BA%A6%E6%9D%9F"><span class="post-toc-text">SQL约束</span></a></li></ol></li></ol>
             
         
         <h2 id="数据库概念"><a href="#数据库概念" class="headerlink" title="数据库概念"></a>数据库概念</h2><p>客户端、数据库以及数据库管理系统的关系</p>
@@ -217,6 +217,58 @@ Python常用的数据库:MySQL
 对于组合索引而言，可以直接快速的查询出地址在北京年龄为25的用户。
 在实际使用过程中，要根据实际应用场景选择建立索引的方式，如果只是为了快速查询单个字段，则使用单索引，若果需要使用多个字段进行查询分析，则使用组合索引，如果要保证数据的唯一性使用唯一索引。
 </code></pre>
+<h3 id="数据库的数据类型"><a href="#数据库的数据类型" class="headerlink" title="数据库的数据类型"></a>数据库的数据类型</h3><p>数据类型是用来定义数据库中存储数据的格式和属性的规范。不同的数据类型决定了数据在数据库中的存储方式、占用空间以及可以进行的操作。</p>
+<p>以MySQL为例，在MySQL中，常见的数据类型包括数值型、字符串型、二进制型、日期型和其他类型。</p>
+<p><img src="/../pic/24247238-2bda-4781-a706-adfa021a3224.png" alt="img"></p>
+<blockquote>
+<p><strong>数值型</strong></p>
+</blockquote>
+<p>MySQL支持多种数值型数据类型，包括整数型、小数型和布尔型。</p>
+<ul>
+<li><p><strong>整数型</strong></p>
+<p><strong>TINYINT：</strong>1字节，取值范围为-128到127或0到255。</p>
+<p><strong>SMALLINT：</strong>2字节，取值范围为-32768到32767或0到65535。</p>
+<p><strong>MEDIUMINT：</strong>3字节，取值范围为-8388608到8388607或0到16777215。</p>
+<p><strong>INT：</strong>4字节，取值范围为-2147483648到2147483647或0到4294967295。</p>
+<p><strong>BIGINT：</strong>8字节，取值范围为-9223372036854775808到9223372036854775807或0到18446744073709551615。</p>
+</li>
+<li><p><strong>小数型</strong></p>
+<p><strong>FLOAT：</strong>4字节，单精度浮点数，精度为7位。</p>
+<p><strong>DOUBLE：</strong>8字节，双精度浮点数，精度为15位。</p>
+<p><strong>DECIMAL：</strong>可变长度，用于存储精确的小数，精度和数据长度可以自定义。</p>
+</li>
+<li><p><strong>布尔型</strong></p>
+<p>MySQL支持布尔型数据类型，即BOOLEAN或BOOL。它只占用1位，取值为TRUE或FALSE。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>日期型</strong></p>
+</blockquote>
+<p><strong>DATE：</strong>用于存储日期，格式为YYYY-MM-DD。</p>
+<p><strong>TIME：</strong>用于存储时间，格式为HH:MM:SS。</p>
+<p><strong>DATETIME：</strong>用于存储日期时间，格式为YYYY-MM-DD HH:MM:SS。</p>
+<p><strong>TIMESTAMP：</strong>用于存储时间戳，格式为YYYY-MM-DD HH:MM:SS。</p>
+<p><strong>YEAR：</strong>用于存储年份，格式为YYYY。</p>
+<blockquote>
+<p><strong>字符串型</strong></p>
+</blockquote>
+<p><strong>CHAR：</strong>用于存储固定长度的字符串，长度为0到255个字符。</p>
+<p><strong>VARCHAR：</strong>用于存储可变长度的字符串，长度为0到65535个字符。</p>
+<p><strong>TEXT：</strong>用于存储大量的文本数据，最大长度为65535个字符。</p>
+<p><strong>BLOB：</strong>用于存储大量的二进制数据，最大长度为65535个字节。</p>
+<p><strong>ENUM：</strong>用于存储枚举类型的数据，如性别、状态等。</p>
+<blockquote>
+<p><strong>二进制型</strong></p>
+</blockquote>
+<p><strong>BIT：</strong>用于存储比特位，长度为1到64个比特位。</p>
+<p><strong>BINARY：</strong>用于存储固定长度的二进制数据，长度为0到255个字节。</p>
+<p><strong>VARBINARY：</strong>用于存储可变长度的二进制数据，长度为0到65535个字节。</p>
+<blockquote>
+<p><strong>其他类型</strong></p>
+</blockquote>
+<p><strong>SET：</strong>用于存储一组可选值，最多可以有64个选项。</p>
+<p><strong>JSON：</strong>用于存储JSON格式的数据。</p>
+<p><strong>Geometry：</strong>用于存储几何类型的数据，如点、线、面等。</p>
 <h2 id="SQL概念"><a href="#SQL概念" class="headerlink" title="SQL概念"></a>SQL概念</h2><h3 id="什么是SQL"><a href="#什么是SQL" class="headerlink" title="什么是SQL"></a>什么是SQL</h3><p>结构化查询语言(Structured Query Language)简称SQL，是一种数据库查询和程序设计语言，用于存取数据以及查询、更新和管理关系数据库系统；同时也是数据库脚本文件的扩展名。</p>
 <p>SQL是一种所有关系型数据库的查询规范，通用的数据库操作语言，所有的数据库都支持。不同的数据库 SQL 语句有一些区别。</p>
 <h3 id="SQL分类"><a href="#SQL分类" class="headerlink" title="SQL分类"></a>SQL分类</h3><p><strong>数据查询语言（DQL:Data Query Language）：</strong></p>

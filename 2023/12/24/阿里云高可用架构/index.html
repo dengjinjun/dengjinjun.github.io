@@ -116,7 +116,7 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">负载均衡</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%B9%E6%80%A7%E5%85%AC%E7%BD%91IP"><span class="post-toc-text">弹性公网IP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-1"><span class="post-toc-text">负载均衡</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4"><span class="post-toc-text">配置步骤</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9"><span class="post-toc-text">弹性伸缩</span></a></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">负载均衡</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%B9%E6%80%A7%E5%85%AC%E7%BD%91IP"><span class="post-toc-text">弹性公网IP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-1"><span class="post-toc-text">负载均衡</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4"><span class="post-toc-text">配置步骤</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%91%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="post-toc-text">云数据库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9"><span class="post-toc-text">弹性伸缩</span></a></li></ol>
             
         
         <h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>多台ECS示例+负载均衡设备+弹性公网IP实现的高可用架构</p>
@@ -180,6 +180,62 @@
 <li><p>测试负载均衡配置</p>
 <p>两台ECS实例安装httpd服务并启动，网站首页写入不同内容，浏览器访问EIP并多次刷新，观察是否显示不同内容。</p>
 </li>
+</ol>
+<h2 id="云数据库"><a href="#云数据库" class="headerlink" title="云数据库"></a>云数据库</h2><p><strong>RDS</strong>（Relational Database Service）是阿里云提供的一种托管式的关系型数据库服务，它为用户提供了一种简单、可靠、安全的方式来部署、操作和扩展数据库。</p>
+<p><strong>创建步骤如下：</strong></p>
+<blockquote>
+<p><strong>创建RDS实例</strong></p>
+</blockquote>
+<ol>
+<li><p>登录RDS控制台，点击<strong>创建实例</strong></p>
+</li>
+<li><p>设置基础资源和实例配置：地域可用区、存储类型、数据库类型、VPC和交换机等，此处以MySQL为例。</p>
+<p>注意：RDS实例购买后，不支持更改地域。尽量让<strong>ECS与RDS内网互通</strong>。否则，ECS实例只能通过外网访问RDS实例，无法发挥最佳性能。</p>
+</li>
+<li><p>支付</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>设置白名单</strong></p>
+</blockquote>
+<p>设置白名单可以限制只有指定的IP地址才能访问数据库，防止未授权的访问。这样可以有效防止黑客和恶意攻击，保护数据库安全。</p>
+<ol>
+<li><p>访问RDS实例列表，然后点击目标<strong>实例ID</strong>，进入实例配置页面。在左侧导航栏中，单击<strong>白名单与安全组</strong>。</p>
+<p>注意：RDS主库实例ID为rm-开头蓝色字体的字符串</p>
+</li>
+<li><p>添加白名单分组</p>
+<ul>
+<li>多个IP地址用英文逗号隔开，且逗号前后不能有空格。</li>
+<li>IP设置为0.0.0.0&#x2F;0意味着对公网开放，IP设置为127.0.0.1意味着禁止所有地址访问。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><strong>创建数据库</strong></p>
+</blockquote>
+<ol>
+<li><p>在左侧导航栏中单击<strong>数据库管理</strong>，然后单击<strong>创建数据库</strong>。</p>
+</li>
+<li><p>设置<strong>库名</strong>和<strong>字符集。</strong></p>
+<p>常见字符集名称：ASCII字符集、GB2312字符集、BIG5字符集、 GB18030字符集、Unicode字符集等。<strong>utf8、utf8mb4是Unicode其中的使用方式</strong>。在跨境电商行业里通常选用utf8就够了，若是表情符场景可选用utf8mb4这样会增加一点存储成本。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>创建账号与授权</strong></p>
+</blockquote>
+<ol>
+<li><p>在左侧导航栏选择<strong>账号管理</strong>，然后单击<strong>创建账号</strong>。</p>
+</li>
+<li><p>设置账号信息</p>
+<p><strong>高权限账号</strong>无需选择要授权的数据库，因为高权限账号拥有实例里所有数据库的权限，一个实例只能有一个；<strong>普通账号</strong>可以有多个，可授读写（DDL+DML）、只读、仅DDL或仅DML中的一个或多个，也可以自定义权限。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>连接RDS</strong></p>
+</blockquote>
+<ol>
+<li>在左侧导航栏选择<strong>基本信息</strong>，然后单击<strong>登录数据库</strong>。</li>
+<li>在弹出的DMS页面中，填写数据库账号名和密码，然后单击<strong>登录</strong>。</li>
 </ol>
 <h2 id="弹性伸缩"><a href="#弹性伸缩" class="headerlink" title="弹性伸缩"></a>弹性伸缩</h2><p>基于传统架构下的按高峰需求买齐云服务器的方式非常的浪费，因为业务低峰时间这些资源大部分都处于闲置状态。</p>
 <p><strong>弹性伸缩</strong>(Elastic Scaling Service)，简称<strong>ESS</strong>，也称为Auto Scaling，是阿里云<strong>根据业务需求和策略自动调整计算能力（即实例数量）的服务</strong>。</p>
