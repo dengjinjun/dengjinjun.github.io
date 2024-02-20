@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Zabbix部署" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    
+    <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Zabbix部署
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Zabbix%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Zabbix部署</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Zabbix%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">Zabbix配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GUI%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C"><span class="post-toc-text">GUI相关操作</span></a></li></ol>
+            
+        
+        <h2 id="Zabbix部署"><a href="#Zabbix部署" class="headerlink" title="Zabbix部署"></a>Zabbix部署</h2><p>可查看官方文档：<a target="_blank" rel="noopener" href="https://www.zabbix.com/cn/download?zabbix=5.0&os_distribution=centos&os_version=7&components=server_frontend_agent&db=mysql&ws=nginx">zabbix安装手册</a></p>
+<p> zabbix部署环境：nginx 1.24.0、php 7.2、mysql 5.5</p>
+<blockquote>
+<p><strong>nginx</strong></p>
+</blockquote>
+<pre><code class="sh"># 提前准备好nginx源
+yum install -y nginx --enablerepo=[nginx-stable]
+
+# 编辑站点文件
+vim /etc/nginx/conf.d/zabbix.conf
+
+# 输入以下内容
+server &#123;
+    listen 80;
+    server_name vm.zabbix;
+    root /code/zabbix;
+    location / &#123;
+        index index.php;
+    &#125;
+    location ~ \.php$ &#123;
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    &#125;
+&#125;
+
+# 创建站点目录
+mkdir -p /code/zabbix
+chown -R nginx.nginx /code/zabbix
+</code></pre>
+<blockquote>
+<p><strong>php</strong></p>
+</blockquote>
+<pre><code class="sh"># 提前安装好php以及相关插件，更改用户和组
+cd /etc/php-fpm.d/
+egrep &#39;^user|^group&#39; www.conf				# 查看用户名和组名
+sed -i &#39;/^user/c user = nginx&#39; www.conf		# 更改用户名
+sed -i &#39;/^group/c group = nginx&#39; www.conf 	# 更改组名
+egrep &#39;^user|^group&#39; www.conf				# 查看用户名和组名
+
+# 创建session目录，默认应该是/var/lib/php/session
+grep &#39;session.save_path&#39; /etc/php-fpm.d/www.conf
+mkdir -p /var/lib/php/session
+chown -R nginx.nginx /var/lib/php/session
+
+# 创建测试文件
+vim /code/zabbix/index.php
+
+# 输入以下内容
+&lt;?php
+phpinfo();
+?&gt;
+</code></pre>
+<blockquote>
+<p><strong>mariadb</strong></p>
+</blockquote>
+<pre><code class="sh"># 安装数据库
+yum install mariadc-server;
+
+# 登录数据库，创建数据库并添加用户
+create database zabbix character set utf8 collate utf8_bin;
+grant all on zabbix.* to zabbix@&#39;localhost&#39; identified by &#39;123456&#39;;
+</code></pre>
+<blockquote>
+<p><strong>zabbix服务端</strong></p>
+</blockquote>
+<pre><code class="sh"># 安装zabbix的yum源
+rpm -Uvh https://mirror.tuna.tsinghua.edu.cn/zabbix/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
+
+# 安装服务端和客户端
+yum install -y zabbix-server zabbix-agent2
+
+# 在数据库中导入数据
+rpm -ql zabbix-server-mysql		# 查询rpm包中的文件，找到create.sql.gz文件，里面是建表的sql语句
+zcat /usr/share/doc/zabbix-server-mysql-5.0.40/create.sql.gz | mysql -uzabbix -p123456		# 执行
+
+# 修改zabbix-server配置文件，连接数据库
+vim /etc/zabbix/zabbix_server.conf		# 编辑文件的如下配置
+DBHost=localhost
+DBName=zabbix
+DBUser=zabbix
+DBPassword=123456
+gerp ^DB /etc/zabbix/zabbix_server.conf		# 查看确认
+
+# 开启zabbix服务端
+systemctl start zabbix-server
+systemctl enable zabbix-server
+ss -tunlp | grep zabbix		# 查看端口，服务端的端口是10051，客户端端口是10050
+</code></pre>
+<blockquote>
+<p><strong>安装web插件</strong></p>
+</blockquote>
+<p>两种方式，可以根据官方手册通过yum安装；也可以使用源码包的方式安装。此处选择源码方式。</p>
+<pre><code class="sh"># 去官网下载源码包zabbix-5.0.40.tar.gz，解压
+tar -xf zabbix-5.0.40.tar.gz
+
+# 将ui目录中的文件，全部移动到nginx站点目录下
+cd zabbix-5.0.40
+mv ui/* /code/zabbix/
+
+# 访问站点目录，完成可视化安装。（可能需要修改php.ini文件以及安装扩展）
+</code></pre>
+<blockquote>
+<p><strong>zabbix客户端</strong></p>
+</blockquote>
+<p>以往zabbix的客户端是C语言开发的zabbix agent，以独立进程方式运行，后来在C语言的基础上增加了Go语言的部分，并且引入了多线程技术，能够承受更高的并发，减少CPU资源消耗，称为zabbix agent2。</p>
+<pre><code># 按照zabbix客户端
+yum install -y zabbix-agent2
+
+# 编辑zabbix客户端配置文件，客户端需配置Server=服务端IP，服务端本机设置Server=127.0.0.1即可
+vim /etc/zabbix/zabbix_agent2.conf
+
+# 启动zabbix-agent2
+systemctl enable zabbix-agent2
+systemctl start zabbix-agent2
+</code></pre>
+<blockquote>
+<p><strong>安装调试工具</strong></p>
+</blockquote>
+<p>为了确认zabbix服务端与客户端之间能够正常连通，一般使用调试工具<code>zabbix-get</code></p>
+<pre><code class="sh"># 安装调试工具
+yum install -y zabbix-get
+
+# 使用，一般用到一个命令就行：`zabbix_get -s [客户端IP] -p [客户端端口] -k [状态信息键名]`
+zabbix-get -s 192.168.110.137 -k system.hostname	# 此处获取客户端主机名，如果有正常返回说明成功
+</code></pre>
+<blockquote>
+<p><strong>部署成功</strong></p>
+</blockquote>
+<p><img src="/../pic/image-20240127235957993.png" alt="image-20240127235957993"></p>
+<h2 id="Zabbix配置文件"><a href="#Zabbix配置文件" class="headerlink" title="Zabbix配置文件"></a>Zabbix配置文件</h2><p><a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/5.0/zh/manual/appendix/config/">官方手册传送门</a></p>
+<blockquote>
+<p><strong>服务端</strong></p>
+</blockquote>
+<pre><code class="sh">|root@m01 ~|$ grep &#39;^[a-Z]&#39; /etc/zabbix/zabbix_server.conf 
+LogFile=/var/log/zabbix/zabbix_server.log			# 日志文件
+LogFileSize=0										# 日志文件大小，0代表不限制，不自动切割
+PidFile=/var/run/zabbix/zabbix_server.pid			# 进程pid文件
+SocketDir=/var/run/zabbix							# socket文件
+DBHost=localhost									# 数据库主机
+DBName=zabbix										# 数据库名
+DBUser=zabbix										# 数据库用户名
+DBPassword=123456									# 数据库用户密码
+SNMPTrapperFile=/var/log/snmptrap/snmptrap.log		# SNMP相关日志
+Timeout=4											# 外部检查的超时时间
+AlertScriptsPath=/usr/lib/zabbix/alertscripts		# 告警脚本的路径
+ExternalScripts=/usr/lib/zabbix/externalscripts		# 外部脚本存放路径，先不管
+LogSlowQueries=3000									# 日志慢查询时间，超过3000ms会记入日志
+StatsAllowedIP=127.0.0.1							# 谁可以查看服务端的状态
+</code></pre>
+<blockquote>
+<p><strong>客户端</strong></p>
+</blockquote>
+<pre><code class="sh">[root@web01 ~]$ grep &#39;^[a-Z]&#39; /etc/zabbix/zabbix_agent2.conf 
+PidFile=/var/run/zabbix/zabbix_agent2.pid
+LogFile=/var/log/zabbix/zabbix_agent2.log
+LogFileSize=0
+Server=192.168.110.128			# zabbix服务端IP 
+ServerActive=127.0.0.1			# 主动模式下的服务端IP
+Hostname=Zabbix server			# 客户端主机名
+Include=/etc/zabbix/zabbix_agent2.d/*.conf		# 包含其他的配置文件，类似于nginx的include
+ControlSocket=/tmp/agent.sock	# socket文件
+</code></pre>
+<h2 id="GUI相关操作"><a href="#GUI相关操作" class="headerlink" title="GUI相关操作"></a>GUI相关操作</h2><p>初始账号Admin，初始密码zabbix，成功登录。</p>
+<blockquote>
+<p><strong>添加用户群组</strong></p>
+</blockquote>
+<ol>
+<li><p>进入zabbix监控的web界面，点击侧边栏的<strong>管理</strong>&gt;<strong>用户群组</strong>，右上角<strong>创建用户群组</strong>，并填写相关信息</p>
+<p><img src="/../pic/image-20240221044128058.png" alt="image-20240221044128058"></p>
+</li>
+<li><p>选择权限，可以给这个用户群组分配主机群组的权限，可稍后分配。完成后点击添加即可。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>添加一个用户</strong></p>
+</blockquote>
+<ol>
+<li><p>进入zabbix监控的web界面，点击侧边栏的<strong>管理</strong>&gt;<strong>用户</strong>，右上角<strong>创建用户</strong>，并填写相关信息</p>
+<p><img src="/../pic/image-20240221043703720.png" alt="image-20240221043703720"></p>
+</li>
+<li><p>添加完成之后，即可使用此账号登录。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>添加一个主机群组</strong></p>
+</blockquote>
+<ol>
+<li>进入zabbix监控的web界面，点击侧边栏的<strong>配置</strong>&gt;<strong>主机群组</strong>，右上角<strong>创建主机群组</strong>。</li>
+<li>填写群组名称，点击添加即可。</li>
+</ol>
+<blockquote>
+<p><strong>添加一台客户端主机</strong></p>
+</blockquote>
+<ol>
+<li><p>进入zabbix监控的web界面，点击侧边栏的<strong>配置</strong>&gt;<strong>主机</strong>，右上角<strong>创建主机</strong>。</p>
+</li>
+<li><p>输入主机名称（需要与客户端Hostname相同），定义群组（一台主机可属于多个群组），输入客户端IP和端口，连接到IP。</p>
+</li>
+<li><p>点击菜单栏中的模板，在链接新模板中选择一个合适的模板，点击添加。</p>
+</li>
+<li><p>在主机界面的主机列表中，看到刚刚添加的主机的可用性变为绿色即可。回到监测界面的仪表盘，稍后刷新可看到主机数量增加。</p>
+<p><img src="/../pic/image-20240130045027369.png" alt="image-20240130045027369"></p>
+</li>
+</ol>
+<blockquote>
+<p><strong>解决图形界面的中文乱码问题</strong></p>
+</blockquote>
+<p>侧边栏，<strong>监测</strong>&gt;<strong>最新数据</strong>，选择一个监控项的<strong>图形</strong>界面，可能会出现下面的乱码，这是由于zabbix的字体在Windows设备上无法正常显示导致的。</p>
+<p><img src="/../pic/image-20240130045054295.png" alt="image-20240130045054295"></p>
+<p><strong>解决办法：</strong></p>
+<pre><code class="sh"># 这是zabbix下的字体文件
+|root@m01 ~|$ ll /code/zabbix/assets/fonts
+-rw-r--r-- 1 nginx nginx 756072 11月 30 16:41 DejaVuSans.ttf
+
+# 在Windows设备上找一个字体文件，替换上去就行了，比如Windows设备上的宋体 C:\Windows\Fonts\simsunb.ttf
+|root@m01 ~|$ cp simsunb.ttf /code/zabbix/assets/fonts/DejaVuSans.ttf 
+
+# 刷新web页面即可
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-01-23</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Zabbix/'>
+                            Zabbix
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>

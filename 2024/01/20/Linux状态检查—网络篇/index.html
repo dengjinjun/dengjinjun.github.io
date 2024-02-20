@@ -116,7 +116,7 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ping"><span class="post-toc-text">ping</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#netstat"><span class="post-toc-text">netstat</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sar"><span class="post-toc-text">sar</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#netcat"><span class="post-toc-text">netcat</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tcpdump"><span class="post-toc-text">tcpdump</span></a></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ping"><span class="post-toc-text">ping</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#netstat"><span class="post-toc-text">netstat</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ss"><span class="post-toc-text">ss</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sar"><span class="post-toc-text">sar</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#netcat"><span class="post-toc-text">netcat</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tcpdump"><span class="post-toc-text">tcpdump</span></a></li></ol>
             
         
         <h2 id="ping"><a href="#ping" class="headerlink" title="ping"></a><code>ping</code></h2><p><code>ping</code>命令是判断网络是否连通的最常用的工具，发送 ICMP 数据包，能获得本次连接的往返时间（RTT 时间），丢包情况，以及访问的域名所对应的 IP 地址（使用 DNS 域名解析）。</p>
@@ -187,6 +187,18 @@ netstat -pt
 </code></pre>
 </li>
 </ul>
+<h2 id="ss"><a href="#ss" class="headerlink" title="ss"></a><code>ss</code></h2><p><code>ss</code>是Socket Statistics的缩写。顾名思义，ss命令可以用来获取socket统计信息，它可以显示和<code>netstat</code>类似的内容。但ss的优势在于它能够显示更多更详细的有关TCP和连接状态的信息，而且比<code>netstat</code>更快速更高效。</p>
+<blockquote>
+<p><strong>常用参数</strong></p>
+</blockquote>
+<pre><code>-a: --all 显示所有套接字（sockets）
+-s, --summary 显示套接字（socket）使用概况
+-t: --tcp 仅显示 TCP套接字（sockets）
+-u: --udp 仅显示 UCP套接字（sockets）
+-n: --numeric 不解析服务名称
+-l: --listening 显示监听状态的套接字（sockets）,不加这个参数的话，默认显示建立状态的套接字
+-p, --processes 显示使用套接字（socket）的进程信息
+</code></pre>
 <h2 id="sar"><a href="#sar" class="headerlink" title="sar"></a><code>sar</code></h2><p>在众多linux分析工具中，<code>sar</code>是一个非常全面的一个分析工具，对系统当前的状态进行取样，然后通过计算数据和比例来表达系统的当前运行状态。可以文件的读写，系统调用的使用情况，磁盘IO，CPU相关使用情况，内存使用情况，进程活动等都可以进行有效的分析，相当于瑞士军刀。</p>
 <p>在以往的工具中，对CPU&#x2F;内存&#x2F;磁盘的情况分析已经足够详细。本次仅介绍网络性能分析功能：<code>sar -n</code></p>
 <pre><code>-n DEV : 网络接口统计信息。
