@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
     <meta name="description" content="Nginx负载均衡之高可用" />
-    <meta name="hexo-theme-A4" content="v1.8.6" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
-    <title>Dengpangpang</title>
+    <title>Dengpangpang | </title>
 
     
         
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/highlight/style1.css">
-
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
-
             
 <link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
 
@@ -28,52 +21,17 @@
  
             <!--注意：首页既不是post也不是page-->
             
-
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/ui.css">
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
  
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/style.css">
-
     
-            <!--返回顶部css-->
-            
-                
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/returnToTop.css">
+<link rel="stylesheet" href="/css/style.css">
 
-                
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/unicons.css">
-
-            
-            
-                <!--目录-->
-                
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/toc.css">
-
-            
-
-        
-    
-
-    
-        
-<link rel="stylesheet" href="/css/returnToLastPage.css">
-
-    
-    
-    <link href="
-https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
-" rel="stylesheet">
-
-<meta name="generator" content="Hexo 7.1.1"></head>
-    
+<meta name="generator" content="Hexo 6.3.0"></head>
     
     <body>
-        
-            <div class="left-toc-container">
-                <nav id="toc" class="bs-docs-sidebar"></nav>
-            </div>
-        
         <div class="paper">
             
             
@@ -81,8 +39,6 @@ https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
             
                 <div class="shadow-drop-2-bottom paper-main">
                     
-
-
 <div class="header">
     <div class="header-container">
         <img style="
@@ -140,9 +96,7 @@ https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
 
     <div class="post-md">
         
-            
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="post-toc-text">相关概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="post-toc-text">什么是高可用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Keepalived"><span class="post-toc-text">Keepalived</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Keepalived%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">Keepalived配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%83%A8%E7%BD%B2keepalived"><span class="post-toc-text">部署keepalived</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E5%A4%9A%E7%BB%84Keepalived%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98"><span class="post-toc-text">局域网内多组Keepalived冲突问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%A3%82%E8%84%91%E9%97%AE%E9%A2%98"><span class="post-toc-text">裂脑问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%8F%AA%E9%92%88%E5%AF%B9%E7%89%A9%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%97%AE%E9%A2%98"><span class="post-toc-text">高可用服务只针对物理服务器问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%80%E6%9C%BA%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">开机执行脚本实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Keepalived%E7%9B%91%E6%8E%A7%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">Keepalived监控脚本实现</span></a></li></ol></li></ol>
-            
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="post-toc-text">相关概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="post-toc-text">什么是高可用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Keepalived"><span class="post-toc-text">Keepalived</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Keepalived%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">Keepalived配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%83%A8%E7%BD%B2keepalived"><span class="post-toc-text">部署keepalived</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E5%A4%9A%E7%BB%84Keepalived%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98"><span class="post-toc-text">局域网内多组Keepalived冲突问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%A3%82%E8%84%91%E9%97%AE%E9%A2%98"><span class="post-toc-text">裂脑问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%8F%AA%E9%92%88%E5%AF%B9%E7%89%A9%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%97%AE%E9%A2%98"><span class="post-toc-text">高可用服务只针对物理服务器问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%80%E6%9C%BA%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">开机执行脚本实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Keepalived%E7%9B%91%E6%8E%A7%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">Keepalived监控脚本实现</span></a></li></ol></li></ol>
         
         <h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="什么是高可用"><a href="#什么是高可用" class="headerlink" title="什么是高可用"></a>什么是高可用</h3><p>在使用 Nginx 做反向代理或者负载均衡的时候，都是以 Nginx 为入口，如果 Nginx 宕机了，那么所有的服务都无法正常提供，影响非常严重。所有我们需要保证 nginx 高可用，就是配置备份机，前一个挂了，还有后一个。</p>
 <p>为了避免负载均衡服务器宕机造成严重影响，就需要建立一个备份机。主服务器和备份机上都运行高可用（High Availability）监控程序，通过传送诸如“I am alive”这样的信息来监控对方的运行状况。当备份机不能在一定的时间内收到这样的信息时，它就接管主服务器的服务IP并继续提供负载均衡服务；当备份管理器又从主管理器收到“I am alive”这样的信息时，它就释放服务IP地址，这样的主服务器就开始再次提供负载均衡服务。</p>
@@ -373,13 +327,6 @@ vrrp_instance VI_1 &#123;
         
         </i>
     </div>
-    <br>
-    
-    <!-- <div class="post-footer-pre-next">
-        <span>上一篇：<a href=""></a></span>
-        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
-    </div> -->
-
     
         
 
@@ -388,7 +335,6 @@ vrrp_instance VI_1 &#123;
 
 
 
-                                      
                     
                     
                     <div class="footer">
@@ -414,64 +360,22 @@ vrrp_instance VI_1 &#123;
 
     
         
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
 <script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
 
         
 <script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
 
-
-        
-<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/randomHeaderContent.js"></script>
-
-        <!--回到顶部按钮-->
-        
-            
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
-            
-<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/returnToTop.js"></script>
-
-        
-    
-        <!--目录-->
-        
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
-            
-<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/toc.js"></script>
-
-        
-
     
 
 
-
-
-<script src="
-https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/js/lightgallery.min.js
-"></script>
-
-
-                </div>
-            
-            
-                <!-- 回到顶部的按钮-->  
-                <div class="progress-wrap shadow-drop-2-bottom">
-                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
-                    </svg>
-                </div>
-            
-            
-                <!-- 返回的按钮-->  
-                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
-                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
-                    </svg>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
                 </div>
             
     </body>
-
-
 </html>

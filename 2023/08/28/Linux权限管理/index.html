@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
     <meta name="description" content="Linux权限管理" />
-    <meta name="hexo-theme-A4" content="v1.8.6" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
-    <title>Dengpangpang</title>
+    <title>Dengpangpang | </title>
 
     
         
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/highlight/style1.css">
-
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
-
             
 <link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
 
@@ -28,52 +21,17 @@
  
             <!--注意：首页既不是post也不是page-->
             
-
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/ui.css">
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
  
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/style.css">
-
     
-            <!--返回顶部css-->
-            
-                
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/returnToTop.css">
+<link rel="stylesheet" href="/css/style.css">
 
-                
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/unicons.css">
-
-            
-            
-                <!--目录-->
-                
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/toc.css">
-
-            
-
-        
-    
-
-    
-        
-<link rel="stylesheet" href="/css/returnToLastPage.css">
-
-    
-    
-    <link href="
-https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
-" rel="stylesheet">
-
-<meta name="generator" content="Hexo 7.1.1"></head>
-    
+<meta name="generator" content="Hexo 6.3.0"></head>
     
     <body>
-        
-            <div class="left-toc-container">
-                <nav id="toc" class="bs-docs-sidebar"></nav>
-            </div>
-        
         <div class="paper">
             
             
@@ -81,8 +39,6 @@ https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
             
                 <div class="shadow-drop-2-bottom paper-main">
                     
-
-
 <div class="header">
     <div class="header-container">
         <img style="
@@ -140,9 +96,7 @@ https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
 
     <div class="post-md">
         
-            
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="post-toc-text">基本权限管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户和组管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">组管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90"><span class="post-toc-text">文件与目录权限</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%89%B9%E6%AE%8A%E6%9D%83%E9%99%90"><span class="post-toc-text">特殊权限</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%AB%98%E7%BA%A7%E6%9D%83%E9%99%90%EF%BC%9AACL"><span class="post-toc-text">高级权限：ACL</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#su%E7%94%A8%E6%88%B7%E5%88%87%E6%8D%A2%E5%92%8Csudo%E6%8F%90%E6%9D%83"><span class="post-toc-text">su用户切换和sudo提权</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#su%E7%94%A8%E6%88%B7%E5%88%87%E6%8D%A2"><span class="post-toc-text">su用户切换</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sudo%E6%8F%90%E6%9D%83"><span class="post-toc-text">sudo提权</span></a></li></ol></li></ol>
-            
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="post-toc-text">基本权限管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户和组管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">组管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90"><span class="post-toc-text">文件与目录权限</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%89%B9%E6%AE%8A%E6%9D%83%E9%99%90"><span class="post-toc-text">特殊权限</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%AB%98%E7%BA%A7%E6%9D%83%E9%99%90%EF%BC%9AACL"><span class="post-toc-text">高级权限：ACL</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#su%E7%94%A8%E6%88%B7%E5%88%87%E6%8D%A2%E5%92%8Csudo%E6%8F%90%E6%9D%83"><span class="post-toc-text">su用户切换和sudo提权</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#su%E7%94%A8%E6%88%B7%E5%88%87%E6%8D%A2"><span class="post-toc-text">su用户切换</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sudo%E6%8F%90%E6%9D%83"><span class="post-toc-text">sudo提权</span></a></li></ol></li></ol>
         
         <h1 id="基本权限管理"><a href="#基本权限管理" class="headerlink" title="基本权限管理"></a>基本权限管理</h1><p>Linux把权限分为了三类：</p>
 <ol>
@@ -174,7 +128,7 @@ who				# 显示当前登陆系统的所有人的用户名
 </code></pre>
 <p>新建用户后会把用户信息写入<code>/etc/passwd</code>文件中，这是保存用户信息的文件，具体结构如下：</p>
 <p>​																用户名 ：密码占位符 ：uid ：gid ：所在组 ：用户家目录 ：提供给用户的终端</p>
-<p><img src="http://qny.oss.dengjinjun.site/image-20230828224334713.png" alt="image-20230828224334713"></p>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828224334713.png" alt="image-20230828224334713"></p>
 </li>
 <li><p>修改用户信息：<code>usermod</code></p>
 <pre><code>usermod [用户名]					# 修改用户的相关信息，必须是已存在的用户，相关选项与useradd的选项相同
@@ -190,11 +144,11 @@ usermod -U [用户名]				# 解锁用户
 </code></pre>
 <p>创建密码之后会把用户的密码写入<code>/etc/shadow</code>文件中，这是保存用户密码的文件，具体结构如下：</p>
 <p>​                   用户名 ： 密码密文 ：距离上一次变更过去的天数：更改密码的最少天数 ：更改密码的最长天数 ：过期提醒天数：预警天数：失效日期：</p>
-<p><img src="http://qny.oss.dengjinjun.site/image-20230828225507166.png" alt="image-20230828225507166"></p>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828225507166.png" alt="image-20230828225507166"></p>
 </li>
 <li><p>用户的家目录</p>
 <p>每个用户都有自己的家目录：<code>/home/用户名</code></p>
-<p><img src="http://qny.oss.dengjinjun.site/image-20230828231904711.png" alt="image-20230828231904711"></p>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828231904711.png" alt="image-20230828231904711"></p>
 <p>除了当前目录<code>.</code>和上级目录<code>..</code>之外，其他文件均是创建用户时附带的文件，来自于家目录模板：<code>/etc/skel</code></p>
 </li>
 <li><p>用户的邮箱文件</p>
@@ -238,7 +192,7 @@ gpasswd -A [用户名] [组名]					# 指定某用户为组长
 </ul>
 <h2 id="文件与目录权限"><a href="#文件与目录权限" class="headerlink" title="文件与目录权限"></a>文件与目录权限</h2><p>使用<code>ls -al</code>查看所有文件的详细信息</p>
 <p>下图是文件或目录的详细信息各部分的解释：</p>
-<p><img src="http://qny.oss.dengjinjun.site/0b53cb8ae1932466ae2e8a1f5f361047.gif" alt="文件属性的示意图"></p>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/0b53cb8ae1932466ae2e8a1f5f361047.gif" alt="文件属性的示意图"></p>
 <ul>
 <li><p>档案类型权限的解释</p>
 <p>例如：<code>-rw-r--r--</code></p>
@@ -337,7 +291,7 @@ gpasswd -A [用户名] [组名]					# 指定某用户为组长
 <p>umask 命令用来控制权限掩码，为新建的文件或目录设置一个初始权限。文件&#x2F;目录创建时的初始权限 &#x3D; 默认权限 - 权限掩码</p>
 <pre><code>umask			# 以数字的形式展示权限掩码
 </code></pre>
-<p><img src="http://qny.oss.dengjinjun.site/image-20230903023129866.png" alt="image-20230903023129866"></p>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230903023129866.png" alt="image-20230903023129866"></p>
 <p><code>0022</code>中的后三位<code>022</code>分别表示属主、属组和其他人的权限掩码，假设默认权限为<code>777</code>，则创建新文件&#x2F;目录时的初始权限为<code>755</code>，即<code>rwxr-xr-x</code></p>
 <p>临时设置权限掩码需要使用命令<code>umask [022]</code>即可，永久设置权限掩码需要修改配置文件<code>/etc/bashrc</code></p>
 <p>第一位的<code>0</code>表示的是特殊权限，SUID&#x3D;4，SGID&#x3D;2，SBIT&#x3D;1，与后三位不同，第一位的数字表示的就是需要设置的权限，<code>0</code>就是不加任何特殊权限。</p>
@@ -348,7 +302,7 @@ gpasswd -A [用户名] [组名]					# 指定某用户为组长
 <li><p>查看文件&#x2F;目录的角色权限信息</p>
 <pre><code>getfcal [文件/目录]
 </code></pre>
-<p><img src="http://qny.oss.dengjinjun.site/image-20230903204230830.png" alt="image-20230903204230830"></p>
+<p><img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230903204230830.png" alt="image-20230903204230830"></p>
 <pre><code>展示了文件名、属主、属组以及各个角色的权限，还包括给其他用户dengpangpang设置的额外权限：rwx, 以及mask值。
 mask值表示特殊角色对这个文件不能超出的最高权限，如果mask值为---，那么特殊角色没有任何额外权限。
 </code></pre>
@@ -455,13 +409,6 @@ gpasswd -a [用户名] wheel
         
         </i>
     </div>
-    <br>
-    
-    <!-- <div class="post-footer-pre-next">
-        <span>上一篇：<a href=""></a></span>
-        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
-    </div> -->
-
     
         
 
@@ -470,7 +417,6 @@ gpasswd -a [用户名] wheel
 
 
 
-                                      
                     
                     
                     <div class="footer">
@@ -496,64 +442,22 @@ gpasswd -a [用户名] wheel
 
     
         
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
 <script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
 
         
 <script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
 
-
-        
-<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/randomHeaderContent.js"></script>
-
-        <!--回到顶部按钮-->
-        
-            
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
-            
-<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/returnToTop.js"></script>
-
-        
-    
-        <!--目录-->
-        
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
-            
-<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/toc.js"></script>
-
-        
-
     
 
 
-
-
-<script src="
-https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/js/lightgallery.min.js
-"></script>
-
-
-                </div>
-            
-            
-                <!-- 回到顶部的按钮-->  
-                <div class="progress-wrap shadow-drop-2-bottom">
-                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
-                    </svg>
-                </div>
-            
-            
-                <!-- 返回的按钮-->  
-                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
-                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
-                    </svg>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
                 </div>
             
     </body>
-
-
 </html>

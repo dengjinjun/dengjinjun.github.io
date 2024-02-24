@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
     <meta name="description" content="Bash变量" />
-    <meta name="hexo-theme-A4" content="v1.8.6" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
-    <title>Dengpangpang</title>
+    <title>Dengpangpang | </title>
 
     
         
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/highlight/style1.css">
-
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
-
             
 <link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
 
@@ -28,52 +21,17 @@
  
             <!--注意：首页既不是post也不是page-->
             
-
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/ui.css">
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
  
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/style.css">
-
     
-            <!--返回顶部css-->
-            
-                
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/returnToTop.css">
+<link rel="stylesheet" href="/css/style.css">
 
-                
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/unicons.css">
-
-            
-            
-                <!--目录-->
-                
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/toc.css">
-
-            
-
-        
-    
-
-    
-        
-<link rel="stylesheet" href="/css/returnToLastPage.css">
-
-    
-    
-    <link href="
-https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
-" rel="stylesheet">
-
-<meta name="generator" content="Hexo 7.1.1"></head>
-    
+<meta name="generator" content="Hexo 6.3.0"></head>
     
     <body>
-        
-            <div class="left-toc-container">
-                <nav id="toc" class="bs-docs-sidebar"></nav>
-            </div>
-        
         <div class="paper">
             
             
@@ -81,8 +39,6 @@ https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
             
                 <div class="shadow-drop-2-bottom paper-main">
                     
-
-
 <div class="header">
     <div class="header-container">
         <img style="
@@ -140,14 +96,12 @@ https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
 
     <div class="post-md">
         
-            
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="post-toc-text">简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="post-toc-text">环境变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="post-toc-text">自定义变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%89%B9%E6%AE%8A%E5%8F%98%E9%87%8F"><span class="post-toc-text">特殊变量</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%98%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="post-toc-text">变量操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E5%8F%98%E9%87%8F"><span class="post-toc-text">创建变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AF%BB%E5%8F%96%E5%8F%98%E9%87%8F"><span class="post-toc-text">读取变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%A0%E9%99%A4%E5%8F%98%E9%87%8F"><span class="post-toc-text">删除变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%BE%93%E5%87%BA%E5%8F%98%E9%87%8F"><span class="post-toc-text">输出变量</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%89%B9%E6%AE%8A%E5%91%BD%E4%BB%A4"><span class="post-toc-text">特殊命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#declare-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">declare 命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#readonly-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">readonly 命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#let-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">let 命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="post-toc-text">变量的默认值</span></a></li></ol>
-            
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="post-toc-text">简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="post-toc-text">环境变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="post-toc-text">自定义变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%89%B9%E6%AE%8A%E5%8F%98%E9%87%8F"><span class="post-toc-text">特殊变量</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%98%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="post-toc-text">变量操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E5%8F%98%E9%87%8F"><span class="post-toc-text">创建变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AF%BB%E5%8F%96%E5%8F%98%E9%87%8F"><span class="post-toc-text">读取变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%A0%E9%99%A4%E5%8F%98%E9%87%8F"><span class="post-toc-text">删除变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%BE%93%E5%87%BA%E5%8F%98%E9%87%8F"><span class="post-toc-text">输出变量</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%89%B9%E6%AE%8A%E5%91%BD%E4%BB%A4"><span class="post-toc-text">特殊命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#declare-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">declare 命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#readonly-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">readonly 命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#let-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">let 命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="post-toc-text">变量的默认值</span></a></li></ol>
         
         <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Bash 变量分成环境变量和自定义变量两类。</p>
 <h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><p>环境变量是 Bash 环境自带的变量，进入 Shell 时已经定义好了，可以直接使用。它们通常是系统定义好的，也可以由用户从父 Shell 传入子 Shell。</p>
 <p><code>env</code>命令或<code>printenv</code>命令，可以显示所有环境变量。</p>
-<pre><code class="bash"># `printenv 环境变量名`可以输出单个环境变量的值，变量前不用加$
+<pre><code class="sh"># `printenv 环境变量名`可以输出单个环境变量的值，变量前不用加$
 $ printenv PATH
 
 # echo命令同样可以
@@ -183,7 +137,7 @@ $ echo $PATH
 <p><strong><code>$?</code></strong></p>
 </blockquote>
 <p><code>$?</code>为上一个命令的退出码，用来判断上一个命令是否执行成功。返回值是<code>0</code>，表示上一个命令执行成功；如果不是零，表示上一个命令执行失败。</p>
-<pre><code class="bash">$ ls doesnotexist
+<pre><code class="sh">$ ls doesnotexist
 ls: doesnotexist: No such file or directory
 
 $ echo $?
@@ -193,14 +147,14 @@ $ echo $?
 <p><strong><code>$$</code></strong></p>
 </blockquote>
 <p><code>$$</code>为当前 Shell 的进程 ID。</p>
-<pre><code class="bash"># 这个特殊变量可以用来命名临时文件
+<pre><code class="sh"># 这个特殊变量可以用来命名临时文件
 LOGFILE=/tmp/output_log.$$
 </code></pre>
 <blockquote>
 <p><strong><code>$_</code></strong></p>
 </blockquote>
 <p><code>$_</code>为上一个命令的最后一个参数。</p>
-<pre><code class="bash">$ grep dictionary /usr/share/dict/words
+<pre><code class="sh">$ grep dictionary /usr/share/dict/words
 dictionary
 
 $ echo $_
@@ -210,7 +164,7 @@ $ echo $_
 <p><strong><code>$!</code></strong></p>
 </blockquote>
 <p><code>$!</code>为最近一个后台执行的异步命令的进程 ID。</p>
-<pre><code class="bash">$ firefox &amp;
+<pre><code class="sh">$ firefox &amp;
 [1] 11064
 
 $ echo $!
@@ -221,7 +175,7 @@ $ echo $!
 <p><strong><code>$0</code></strong></p>
 </blockquote>
 <p><code>$0</code>为当前 Shell 的名称（在命令行直接执行时）或者脚本名（在脚本中执行时）。</p>
-<pre><code class="bash">$ echo $0
+<pre><code class="sh">$ echo $0
 bash
 </code></pre>
 <blockquote>
@@ -237,7 +191,7 @@ bash
 </blockquote>
 <p><code>$-</code>为当前 Shell 的启动参数。</p>
 <h2 id="变量操作"><a href="#变量操作" class="headerlink" title="变量操作"></a>变量操作</h2><h3 id="创建变量"><a href="#创建变量" class="headerlink" title="创建变量"></a>创建变量</h3><p>变量声明的语法如下：</p>
-<pre><code class="bash"># 等号左边是变量名，右边是变量。等号两边不能有空格
+<pre><code class="sh"># 等号左边是变量名，右边是变量。等号两边不能有空格
 # 如果变量的值包含空格，则必须将值放在引号中。
 # Bash 没有数据类型的概念，所有的变量值都是字符串。
 variable=value
@@ -249,29 +203,29 @@ variable=value
 <li>不允许出现空格和标点符号。</li>
 </ul>
 <h3 id="读取变量"><a href="#读取变量" class="headerlink" title="读取变量"></a>读取变量</h3><p>读取变量的时候，直接在变量名前加上<code>$</code>就可以了。如果变量不存在，Bash 不会报错，而会输出空字符。</p>
-<pre><code class="bash"># 读取变量的时候，变量名也可以使用花括号`&#123;&#125;`包围，这种写法可以用于变量名与其他字符连用的情况。
+<pre><code class="sh"># 读取变量的时候，变量名也可以使用花括号`&#123;&#125;`包围，这种写法可以用于变量名与其他字符连用的情况。
 $ foo=bar
 $ echo $&#123;foo&#125;
 bar
 </code></pre>
 <p>如果变量的值本身也是变量，可以使用<code>$&#123;!varname&#125;</code>的语法，读取最终的值。</p>
-<pre><code class="bash">$ myvar=USER
+<pre><code class="sh">$ myvar=USER
 $ echo $&#123;!myvar&#125;
 dengpangpang
 </code></pre>
 <p>如果变量值包含连续空格（或制表符和换行符），最好放在双引号里面读取，比如<code>echo &quot;$a&quot;</code></p>
 <h3 id="删除变量"><a href="#删除变量" class="headerlink" title="删除变量"></a>删除变量</h3><p><code>unset</code>命令用来删除一个变量。</p>
 <p>但是这个命令不是很有用。因为即使<code>unset</code>命令删除了变量，还是可以读取这个变量，值为空字符串。</p>
-<pre><code class="bash">unset NAME
+<pre><code class="sh">unset NAME
 </code></pre>
 <p>所以，删除一个变量，也可以将这个变量设成空字符串。</p>
-<pre><code class="bash">$ foo=&#39;&#39;
+<pre><code class="sh">$ foo=&#39;&#39;
 $ foo=
 </code></pre>
 <p>上面两种写法，都是删除了变量<code>foo</code>。由于不存在的值默认为空字符串，所以后一种写法可以在等号右边不写任何值。</p>
 <h3 id="输出变量"><a href="#输出变量" class="headerlink" title="输出变量"></a>输出变量</h3><p>用户创建的变量仅可用于当前 Shell，<strong>子 Shell 默认读取不到父 Shell 定义的变量</strong>。为了把变量传递给子 Shell，需要使用<code>export</code>命令。这样输出的变量，对于子 Shell 来说就是环境变量。</p>
 <p><code>export</code>命令用来向子 Shell 输出变量。</p>
-<pre><code class="bash">NAME=foo
+<pre><code class="sh">NAME=foo
 export NAME
 
 # 变量的赋值和输出也可以在一个步骤中完成
@@ -280,7 +234,7 @@ export NAME=foo
 <p>上面命令执行后，当前 Shell 及随后新建的子 Shell，都可以读取变量<code>$NAME</code>。<strong>子 Shell 如果修改继承的变量，不会影响父 Shell</strong>。</p>
 <h2 id="特殊命令"><a href="#特殊命令" class="headerlink" title="特殊命令"></a>特殊命令</h2><h3 id="declare-命令"><a href="#declare-命令" class="headerlink" title="declare 命令"></a>declare 命令</h3><p><code>declare</code>命令可以声明一些特殊类型的变量，为变量设置一些限制，比如声明只读类型的变量和整数类型的变量。</p>
 <p>它的语法形式如下。</p>
-<pre><code class="bash">declare OPTION VARIABLE=value
+<pre><code class="sh">declare OPTION VARIABLE=value
 </code></pre>
 <p><code>declare</code>命令的主要参数（OPTION）如下。</p>
 <ul>
@@ -288,7 +242,7 @@ export NAME=foo
 </li>
 <li><p><code>-i</code>：声明整数变量。</p>
 <p>声明整数变量以后，可以直接进行数学运算。</p>
-<pre><code class="bash">$ declare -i val1=12 val2=5
+<pre><code class="sh">$ declare -i val1=12 val2=5
 $ declare -i result
 $ result=val1*val2
 $ echo $result
@@ -321,7 +275,7 @@ $ echo $result
 </ul>
 <p><code>declare</code>命令如果用在函数中，声明的变量只在函数内部有效，等同于<code>local</code>命令。</p>
 <p>不带任何参数时，<code>declare</code>命令输出当前环境的所有变量，包括函数在内，等同于不带有任何参数的<code>set</code>命令。</p>
-<pre><code class="bash">$ declare
+<pre><code class="sh">$ declare
 </code></pre>
 <h3 id="readonly-命令"><a href="#readonly-命令" class="headerlink" title="readonly 命令"></a>readonly 命令</h3><p><code>readonly</code>命令等同于<code>declare -r</code>，用来声明只读变量，不能改变变量值，也不能<code>unset</code>变量。</p>
 <p><code>readonly</code>命令有三个参数。</p>
@@ -331,15 +285,15 @@ $ echo $result
 <li><code>-p</code>：打印出所有的只读变量。</li>
 </ul>
 <h3 id="let-命令"><a href="#let-命令" class="headerlink" title="let 命令"></a>let 命令</h3><p><code>let</code>命令声明变量时，可以直接执行算术表达式。</p>
-<pre><code class="bash">$ let foo=1+2
+<pre><code class="sh">$ let foo=1+2
 $ echo $foo
 3
 </code></pre>
 <p><code>let</code>命令的参数表达式如果包含空格，就需要使用引号。</p>
-<pre><code class="bash">$ let &quot;foo = 1 + 2&quot;
+<pre><code class="sh">$ let &quot;foo = 1 + 2&quot;
 </code></pre>
 <p><code>let</code>可以同时对多个变量赋值，赋值表达式之间使用空格分隔。</p>
-<pre><code class="bash">$ let &quot;v1 = 1&quot; &quot;v2 = v1++&quot;
+<pre><code class="sh">$ let &quot;v1 = 1&quot; &quot;v2 = v1++&quot;
 $ echo $v1,$v2
 2,1
 </code></pre>
@@ -370,7 +324,7 @@ $ echo $v1,$v2
 <p><strong>在脚本中的用法</strong></p>
 </blockquote>
 <p>上面四种语法如果用在脚本中，变量名的部分可以用数字<code>1</code>到<code>9</code>，表示脚本的参数。</p>
-<pre><code class="bash">filename=$&#123;1:?&quot;缺少参数1&quot;&#125;
+<pre><code class="sh">filename=$&#123;1:?&quot;缺少参数1&quot;&#125;
 </code></pre>
 <p>上面代码出现在脚本中，<code>1</code>表示脚本的第一个参数。如果该参数不存在，就退出脚本并报错。</p>
 
@@ -406,13 +360,6 @@ $ echo $v1,$v2
         
         </i>
     </div>
-    <br>
-    
-    <!-- <div class="post-footer-pre-next">
-        <span>上一篇：<a href=""></a></span>
-        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
-    </div> -->
-
     
         
 
@@ -421,7 +368,6 @@ $ echo $v1,$v2
 
 
 
-                                      
                     
                     
                     <div class="footer">
@@ -447,64 +393,22 @@ $ echo $v1,$v2
 
     
         
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
 <script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
 
         
 <script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
 
-
-        
-<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/randomHeaderContent.js"></script>
-
-        <!--回到顶部按钮-->
-        
-            
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
-            
-<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/returnToTop.js"></script>
-
-        
-    
-        <!--目录-->
-        
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
-            
-<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/toc.js"></script>
-
-        
-
     
 
 
-
-
-<script src="
-https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/js/lightgallery.min.js
-"></script>
-
-
-                </div>
-            
-            
-                <!-- 回到顶部的按钮-->  
-                <div class="progress-wrap shadow-drop-2-bottom">
-                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
-                    </svg>
-                </div>
-            
-            
-                <!-- 返回的按钮-->  
-                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
-                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
-                    </svg>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
                 </div>
             
     </body>
-
-
 </html>

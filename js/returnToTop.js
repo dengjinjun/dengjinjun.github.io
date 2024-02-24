@@ -6,6 +6,19 @@
 
 (function($) { "use strict";
 
+	//Switch dark/light
+	
+	$(".switch").on('click', function () {
+		if ($("body").hasClass("light")) {
+			$("body").removeClass("light");
+			$(".switch").removeClass("switched");
+		}
+		else {
+			$("body").addClass("light");
+			$(".switch").addClass("switched");
+		}
+	});
+		
 	$(document).ready(function(){"use strict";
 	
 		//Scroll back to top
@@ -16,7 +29,7 @@
 		progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
 		progressPath.style.strokeDashoffset = pathLength;
 		progressPath.getBoundingClientRect();
-		// progressPath.style.transition = progressPath.style.WebkitTransition = 'stroke-dashoffset 0ms linear';		
+		progressPath.style.transition = progressPath.style.WebkitTransition = 'stroke-dashoffset 10ms linear';		
 		var updateProgress = function () {
 			var scroll = $(window).scrollTop();
 			var height = $(document).height() - $(window).height();
@@ -26,7 +39,7 @@
 		updateProgress();
 		$(window).scroll(updateProgress);	
 		var offset = 50;
-		var duration = 250;
+		var duration = 550;
 		jQuery(window).on('scroll', function() {
 			if (jQuery(this).scrollTop() > offset) {
 				jQuery('.progress-wrap').addClass('active-progress');

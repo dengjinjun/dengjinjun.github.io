@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
     <meta name="description" content="Nginx负载均衡之会话保持" />
-    <meta name="hexo-theme-A4" content="v1.8.6" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
-    <title>Dengpangpang</title>
+    <title>Dengpangpang | </title>
 
     
         
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/highlight/style1.css">
-
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
-
             
 <link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
 
@@ -28,52 +21,17 @@
  
             <!--注意：首页既不是post也不是page-->
             
-
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/ui.css">
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
  
-            
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/style.css">
-
     
-            <!--返回顶部css-->
-            
-                
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/returnToTop.css">
+<link rel="stylesheet" href="/css/style.css">
 
-                
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/unicons.css">
-
-            
-            
-                <!--目录-->
-                
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/toc.css">
-
-            
-
-        
-    
-
-    
-        
-<link rel="stylesheet" href="/css/returnToLastPage.css">
-
-    
-    
-    <link href="
-https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
-" rel="stylesheet">
-
-<meta name="generator" content="Hexo 7.1.1"></head>
-    
+<meta name="generator" content="Hexo 6.3.0"></head>
     
     <body>
-        
-            <div class="left-toc-container">
-                <nav id="toc" class="bs-docs-sidebar"></nav>
-            </div>
-        
         <div class="paper">
             
             
@@ -81,8 +39,6 @@ https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
             
                 <div class="shadow-drop-2-bottom paper-main">
                     
-
-
 <div class="header">
     <div class="header-container">
         <img style="
@@ -140,9 +96,7 @@ https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
 
     <div class="post-md">
         
-            
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="post-toc-text">相关概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BC%9A%E8%AF%9D%E5%92%8C%E4%BC%9A%E8%AF%9D%E4%BF%9D%E6%8C%81"><span class="post-toc-text">会话和会话保持</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cookie%E5%92%8Csession"><span class="post-toc-text">cookie和session</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#session%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="post-toc-text">session实现原理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BC%9A%E8%AF%9D%E4%BF%9D%E6%8C%81%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="post-toc-text">会话保持的实现方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#session%E5%85%B1%E4%BA%AB%EF%BC%88%E6%99%AE%E9%81%8D%EF%BC%89"><span class="post-toc-text">session共享（普遍）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cookie%E6%8F%92%E5%85%A5%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">cookie插入方式实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%BA%E4%BA%8Eip-hash%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">基于ip_hash实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%BA%E4%BA%8E%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">基于连接超时实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%A9%E7%94%A8session%E5%A4%8D%E5%88%B6"><span class="post-toc-text">利用session复制</span></a></li></ol></li></ol>
-            
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="post-toc-text">相关概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BC%9A%E8%AF%9D%E5%92%8C%E4%BC%9A%E8%AF%9D%E4%BF%9D%E6%8C%81"><span class="post-toc-text">会话和会话保持</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cookie%E5%92%8Csession"><span class="post-toc-text">cookie和session</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#session%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="post-toc-text">session实现原理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BC%9A%E8%AF%9D%E4%BF%9D%E6%8C%81%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="post-toc-text">会话保持的实现方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#session%E5%85%B1%E4%BA%AB%EF%BC%88%E6%99%AE%E9%81%8D%EF%BC%89"><span class="post-toc-text">session共享（普遍）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cookie%E6%8F%92%E5%85%A5%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">cookie插入方式实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%BA%E4%BA%8Eip-hash%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">基于ip_hash实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%BA%E4%BA%8E%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">基于连接超时实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%A9%E7%94%A8session%E5%A4%8D%E5%88%B6"><span class="post-toc-text">利用session复制</span></a></li></ol></li></ol>
         
         <h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="会话和会话保持"><a href="#会话和会话保持" class="headerlink" title="会话和会话保持"></a>会话和会话保持</h3><blockquote>
 <p>会话</p>
@@ -251,13 +205,6 @@ https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
         
         </i>
     </div>
-    <br>
-    
-    <!-- <div class="post-footer-pre-next">
-        <span>上一篇：<a href=""></a></span>
-        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
-    </div> -->
-
     
         
 
@@ -266,7 +213,6 @@ https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
 
 
 
-                                      
                     
                     
                     <div class="footer">
@@ -292,64 +238,22 @@ https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css
 
     
         
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
 <script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
 
         
 <script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
 
-
-        
-<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/randomHeaderContent.js"></script>
-
-        <!--回到顶部按钮-->
-        
-            
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
-            
-<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/returnToTop.js"></script>
-
-        
-    
-        <!--目录-->
-        
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
-            
-<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/toc.js"></script>
-
-        
-
     
 
 
-
-
-<script src="
-https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/js/lightgallery.min.js
-"></script>
-
-
-                </div>
-            
-            
-                <!-- 回到顶部的按钮-->  
-                <div class="progress-wrap shadow-drop-2-bottom">
-                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
-                    </svg>
-                </div>
-            
-            
-                <!-- 返回的按钮-->  
-                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
-                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
-                    </svg>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
                 </div>
             
     </body>
-
-
 </html>
