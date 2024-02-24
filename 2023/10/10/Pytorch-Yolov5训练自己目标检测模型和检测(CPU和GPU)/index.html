@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
     <meta name="description" content="Pytorch Yolov5训练自己目标检测模型和检测(CPU和GPU)" />
-    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
-    <title>Dengpangpang | </title>
+    <title>Dengpangpang</title>
 
     
         
@@ -29,9 +29,28 @@
     
 <link rel="stylesheet" href="/css/style.css">
 
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
 <meta name="generator" content="Hexo 6.3.0"></head>
     
+    
     <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
         <div class="paper">
             
             
@@ -96,7 +115,9 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Pytorch-Yolov5%E8%AE%AD%E7%BB%83%E8%87%AA%E5%B7%B1%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%A3%80%E6%B5%8B-CPU%E5%92%8CGPU"><span class="post-toc-text">Pytorch Yolov5训练自己目标检测模型和检测(CPU和GPU)</span></a></li></ol>
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Pytorch-Yolov5%E8%AE%AD%E7%BB%83%E8%87%AA%E5%B7%B1%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%A3%80%E6%B5%8B-CPU%E5%92%8CGPU"><span class="post-toc-text">Pytorch Yolov5训练自己目标检测模型和检测(CPU和GPU)</span></a></li></ol>
+            
         
         <h1 id="Pytorch-Yolov5训练自己目标检测模型和检测-CPU和GPU"><a href="#Pytorch-Yolov5训练自己目标检测模型和检测-CPU和GPU" class="headerlink" title="Pytorch Yolov5训练自己目标检测模型和检测(CPU和GPU)"></a>Pytorch Yolov5训练自己目标检测模型和检测(CPU和GPU)</h1><p>先来看看我们要实现的效果，我们将会通过数据来训练一个口罩检测的模型，并用<a href="https://link.zhihu.com/?target=https://so.csdn.net/so/search?q=pyqt5&spm=1001.2101.3001.7020">pyqt5</a>进行封装，实现图片口罩检测、视频口罩检测和摄像头实时口罩检测的功能。</p>
 <p>代码下载代码的下载地址是：GitHub：<a href="https://link.zhihu.com/?target=https://github.com/ultralytics/yolov5">GitHub - ultralytics&#x2F;yolov5: YOLOv5 in PyTorch &gt;</a></p>
@@ -232,6 +253,7 @@ python train.py --data mask_data.yaml --cfg mask_yolov5s.yaml --weights pretrain
 
 
 
+                                      
                     
                     
                     <div class="footer">
@@ -272,7 +294,39 @@ python train.py --data mask_data.yaml --cfg mask_yolov5s.yaml --weights pretrain
     hljs.initHighlightingOnLoad();
     hljs.initLineNumbersOnLoad();
 </script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
                 </div>
             
     </body>
+
+
 </html>

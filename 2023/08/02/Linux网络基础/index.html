@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
     <meta name="description" content="Linux网络基础" />
-    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
-    <title>Dengpangpang | </title>
+    <title>Dengpangpang</title>
 
     
         
@@ -29,9 +29,28 @@
     
 <link rel="stylesheet" href="/css/style.css">
 
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
 <meta name="generator" content="Hexo 6.3.0"></head>
     
+    
     <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
         <div class="paper">
             
             
@@ -96,7 +115,9 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#OSI%E6%A8%A1%E5%9E%8B%E5%92%8CTCP-IP%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">OSI模型和TCP&#x2F;IP模型</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%90%84%E5%B1%82%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">各层协议</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ARP%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">ARP协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TCP%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">TCP协议</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="post-toc-text">三次握手</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="post-toc-text">四次挥手</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#backlog%E5%8D%8A%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="post-toc-text">backlog半连接池</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#TCP%E5%8D%8F%E8%AE%AE%E4%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%B0%E4%B8%BA%E5%8F%AF%E9%9D%A0%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">TCP协议会为什么称为可靠的协议</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DHCP"><span class="post-toc-text">DHCP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DNS"><span class="post-toc-text">DNS</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E7%8A%B6%E6%80%81"><span class="post-toc-text">查看网络状态</span></a></li></ol></li></ol>
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#OSI%E6%A8%A1%E5%9E%8B%E5%92%8CTCP-IP%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">OSI模型和TCP&#x2F;IP模型</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%90%84%E5%B1%82%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">各层协议</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ARP%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">ARP协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TCP%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">TCP协议</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="post-toc-text">三次握手</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="post-toc-text">四次挥手</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#backlog%E5%8D%8A%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="post-toc-text">backlog半连接池</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#TCP%E5%8D%8F%E8%AE%AE%E4%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%B0%E4%B8%BA%E5%8F%AF%E9%9D%A0%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="post-toc-text">TCP协议会为什么称为可靠的协议</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DHCP"><span class="post-toc-text">DHCP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DNS"><span class="post-toc-text">DNS</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E7%8A%B6%E6%80%81"><span class="post-toc-text">查看网络状态</span></a></li></ol></li></ol>
+            
         
         <h1 id="OSI模型和TCP-IP模型"><a href="#OSI模型和TCP-IP模型" class="headerlink" title="OSI模型和TCP&#x2F;IP模型"></a>OSI模型和TCP&#x2F;IP模型</h1><p>OSI模型为七层：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。</p>
 <p>TCP&#x2F;IP模型根据业务场景将其分为五层或者四层：物理层和数据链路层合并为网络接口层，网络层、传输层、顶端三层合并为应用层。</p>
@@ -326,6 +347,7 @@ echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all
 
 
 
+                                      
                     
                     
                     <div class="footer">
@@ -366,7 +388,39 @@ echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all
     hljs.initHighlightingOnLoad();
     hljs.initLineNumbersOnLoad();
 </script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
                 </div>
             
     </body>
+
+
 </html>

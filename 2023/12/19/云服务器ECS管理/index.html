@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
     <meta name="description" content="云服务器ECS管理" />
-    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
-    <title>Dengpangpang | </title>
+    <title>Dengpangpang</title>
 
     
         
@@ -29,9 +29,28 @@
     
 <link rel="stylesheet" href="/css/style.css">
 
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
 <meta name="generator" content="Hexo 6.3.0"></head>
     
+    
     <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
         <div class="paper">
             
             
@@ -96,7 +115,9 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7"><span class="post-toc-text">指标监控</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E4%BA%91%E7%9B%91%E6%8E%A7%E6%8F%92%E4%BB%B6"><span class="post-toc-text">安装云监控插件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%9B%91%E6%8E%A7%E5%9B%BE%E8%A1%A8"><span class="post-toc-text">查看监控图表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%8A%A5%E8%AD%A6%E8%A7%84%E5%88%99"><span class="post-toc-text">设置报警规则</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8F%98%E6%9B%B4"><span class="post-toc-text">配置变更</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BF%AE%E6%94%B9%E5%AE%9E%E4%BE%8B%E8%A7%84%E6%A0%BC"><span class="post-toc-text">修改实例规格</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BF%AE%E6%94%B9%E7%BD%91%E7%BB%9C%E5%B8%A6%E5%AE%BD"><span class="post-toc-text">修改网络带宽</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="post-toc-text">存储管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E7%9B%98"><span class="post-toc-text">添加数据盘</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%9B%B4%E6%8D%A2%E7%B3%BB%E7%BB%9F%E7%9B%98"><span class="post-toc-text">更换系统盘</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%BA%91%E7%9B%98%E6%89%A9%E5%AE%B9"><span class="post-toc-text">云盘扩容</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%BA%91%E7%9B%98%E5%8F%98%E9%85%8D"><span class="post-toc-text">云盘变配</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%81%BE%E5%A4%87%E7%AE%A1%E7%90%86"><span class="post-toc-text">灾备管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86"><span class="post-toc-text">镜像管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F"><span class="post-toc-text">创建自定义镜像</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86"><span class="post-toc-text">自定义镜像管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BF%AB%E7%85%A7%E7%AE%A1%E7%90%86"><span class="post-toc-text">快照管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA%E5%BF%AB%E7%85%A7"><span class="post-toc-text">手动创建快照</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%E5%BF%AB%E7%85%A7"><span class="post-toc-text">自动创建快照</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%BF%AB%E7%85%A7%E7%AE%A1%E7%90%86-1"><span class="post-toc-text">快照管理</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA"><span class="post-toc-text">安全加固</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BF%AE%E6%94%B9ECS%E5%AE%9E%E4%BE%8B%E7%99%BB%E5%BD%95%E5%AF%86%E7%A0%81"><span class="post-toc-text">修改ECS实例登录密码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E9%87%8D%E7%BD%AEECS%E5%AE%9E%E4%BE%8B%E5%AF%86%E7%A0%81"><span class="post-toc-text">重置ECS实例密码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%9C%A8%E5%AE%9E%E4%BE%8B%E5%86%85%E9%83%A8%E4%BF%AE%E6%94%B9%E7%99%BB%E5%BD%95%E5%AF%86%E7%A0%81"><span class="post-toc-text">在实例内部修改登录密码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95ECS%E5%AE%9E%E4%BE%8B"><span class="post-toc-text">使用密钥登录ECS实例</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E5%AE%89%E5%85%A8%E7%BB%84%E7%AD%96%E7%95%A5"><span class="post-toc-text">配置安全组策略</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F%E8%A1%A5%E4%B8%81"><span class="post-toc-text">安装系统补丁</span></a></li></ol></li></ol>
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7"><span class="post-toc-text">指标监控</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E4%BA%91%E7%9B%91%E6%8E%A7%E6%8F%92%E4%BB%B6"><span class="post-toc-text">安装云监控插件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%9B%91%E6%8E%A7%E5%9B%BE%E8%A1%A8"><span class="post-toc-text">查看监控图表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%8A%A5%E8%AD%A6%E8%A7%84%E5%88%99"><span class="post-toc-text">设置报警规则</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8F%98%E6%9B%B4"><span class="post-toc-text">配置变更</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BF%AE%E6%94%B9%E5%AE%9E%E4%BE%8B%E8%A7%84%E6%A0%BC"><span class="post-toc-text">修改实例规格</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BF%AE%E6%94%B9%E7%BD%91%E7%BB%9C%E5%B8%A6%E5%AE%BD"><span class="post-toc-text">修改网络带宽</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="post-toc-text">存储管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E7%9B%98"><span class="post-toc-text">添加数据盘</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%9B%B4%E6%8D%A2%E7%B3%BB%E7%BB%9F%E7%9B%98"><span class="post-toc-text">更换系统盘</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%BA%91%E7%9B%98%E6%89%A9%E5%AE%B9"><span class="post-toc-text">云盘扩容</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%BA%91%E7%9B%98%E5%8F%98%E9%85%8D"><span class="post-toc-text">云盘变配</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%81%BE%E5%A4%87%E7%AE%A1%E7%90%86"><span class="post-toc-text">灾备管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86"><span class="post-toc-text">镜像管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F"><span class="post-toc-text">创建自定义镜像</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86"><span class="post-toc-text">自定义镜像管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BF%AB%E7%85%A7%E7%AE%A1%E7%90%86"><span class="post-toc-text">快照管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA%E5%BF%AB%E7%85%A7"><span class="post-toc-text">手动创建快照</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%E5%BF%AB%E7%85%A7"><span class="post-toc-text">自动创建快照</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%BF%AB%E7%85%A7%E7%AE%A1%E7%90%86-1"><span class="post-toc-text">快照管理</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA"><span class="post-toc-text">安全加固</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BF%AE%E6%94%B9ECS%E5%AE%9E%E4%BE%8B%E7%99%BB%E5%BD%95%E5%AF%86%E7%A0%81"><span class="post-toc-text">修改ECS实例登录密码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E9%87%8D%E7%BD%AEECS%E5%AE%9E%E4%BE%8B%E5%AF%86%E7%A0%81"><span class="post-toc-text">重置ECS实例密码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%9C%A8%E5%AE%9E%E4%BE%8B%E5%86%85%E9%83%A8%E4%BF%AE%E6%94%B9%E7%99%BB%E5%BD%95%E5%AF%86%E7%A0%81"><span class="post-toc-text">在实例内部修改登录密码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95ECS%E5%AE%9E%E4%BE%8B"><span class="post-toc-text">使用密钥登录ECS实例</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E5%AE%89%E5%85%A8%E7%BB%84%E7%AD%96%E7%95%A5"><span class="post-toc-text">配置安全组策略</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F%E8%A1%A5%E4%B8%81"><span class="post-toc-text">安装系统补丁</span></a></li></ol></li></ol>
+            
         
         <p>一般来说，对于云服务ECS实例有如下管理需求：</p>
 <ol>
@@ -523,6 +544,7 @@
 
 
 
+                                      
                     
                     
                     <div class="footer">
@@ -563,7 +585,39 @@
     hljs.initHighlightingOnLoad();
     hljs.initLineNumbersOnLoad();
 </script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
                 </div>
             
     </body>
+
+
 </html>

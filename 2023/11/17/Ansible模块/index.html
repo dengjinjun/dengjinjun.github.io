@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
     <meta name="description" content="Ansible核心模块（上）" />
-    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
-    <title>Dengpangpang | </title>
+    <title>Dengpangpang</title>
 
     
         
@@ -29,9 +29,28 @@
     
 <link rel="stylesheet" href="/css/style.css">
 
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
 <meta name="generator" content="Hexo 6.3.0"></head>
     
+    
     <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
         <div class="paper">
             
             
@@ -96,7 +115,9 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#command-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">command 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">shell 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#script-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">script 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#hostname%E6%A8%A1%E5%9D%97"><span class="post-toc-text">hostname模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#copy-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">copy 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#template%E6%A8%A1%E5%9D%97"><span class="post-toc-text">template模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#fetch-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">fetch 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#file-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">file 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#archive-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">archive 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#unarchive-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">unarchive 模块</span></a></li></ol>
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#command-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">command 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">shell 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#script-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">script 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#hostname%E6%A8%A1%E5%9D%97"><span class="post-toc-text">hostname模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#copy-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">copy 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#template%E6%A8%A1%E5%9D%97"><span class="post-toc-text">template模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#fetch-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">fetch 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#file-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">file 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#archive-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">archive 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#unarchive-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">unarchive 模块</span></a></li></ol>
+            
         
         <h3 id="command-模块"><a href="#command-模块" class="headerlink" title="command 模块"></a>command 模块</h3><p>在远程主机执行命令，此为默认模块，可忽略-m选项</p>
 <p>注意：此命令不支持 <code>$VARNAME  &lt;  &gt;  |  ;  &amp; </code>  等符号，可以用shell模块实现。</p>
@@ -672,6 +693,7 @@ ansible all -m unarchive -a &#39;src=https://example.com/example.zip dest=/data 
 
 
 
+                                      
                     
                     
                     <div class="footer">
@@ -712,7 +734,39 @@ ansible all -m unarchive -a &#39;src=https://example.com/example.zip dest=/data 
     hljs.initHighlightingOnLoad();
     hljs.initLineNumbersOnLoad();
 </script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
                 </div>
             
     </body>
+
+
 </html>

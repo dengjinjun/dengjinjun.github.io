@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
     <meta name="description" content="read命令" />
-    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
-    <title>Dengpangpang | </title>
+    <title>Dengpangpang</title>
 
     
         
@@ -29,9 +29,28 @@
     
 <link rel="stylesheet" href="/css/style.css">
 
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
 <meta name="generator" content="Hexo 6.3.0"></head>
     
+    
     <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
         <div class="paper">
             
             
@@ -96,7 +115,9 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#read%E7%94%A8%E6%B3%95"><span class="post-toc-text">read用法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#read%E5%8F%82%E6%95%B0"><span class="post-toc-text">read参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IFS-%E5%8F%98%E9%87%8F"><span class="post-toc-text">IFS 变量</span></a></li></ol>
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#read%E7%94%A8%E6%B3%95"><span class="post-toc-text">read用法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#read%E5%8F%82%E6%95%B0"><span class="post-toc-text">read参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IFS-%E5%8F%98%E9%87%8F"><span class="post-toc-text">IFS 变量</span></a></li></ol>
+            
         
         <h2 id="read用法"><a href="#read用法" class="headerlink" title="read用法"></a>read用法</h2><p>有时，脚本需要在执行过程中，由用户提供一部分数据，这时可以使用<code>read</code>命令。它将用户的输入存入一个变量，方便后面的代码使用。用户按下回车键，就表示输入结束。<code>read</code>命令的格式如下。</p>
 <pre><code class="sh">read [-options] [variable...]
@@ -240,6 +261,7 @@ IFS=&quot;$OLD_IFS&quot;
 
 
 
+                                      
                     
                     
                     <div class="footer">
@@ -280,7 +302,39 @@ IFS=&quot;$OLD_IFS&quot;
     hljs.initHighlightingOnLoad();
     hljs.initLineNumbersOnLoad();
 </script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
                 </div>
             
     </body>
+
+
 </html>

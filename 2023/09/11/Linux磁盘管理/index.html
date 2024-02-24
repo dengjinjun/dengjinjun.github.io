@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
     <meta name="description" content="Linux磁盘管理" />
-    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
-    <title>Dengpangpang | </title>
+    <title>Dengpangpang</title>
 
     
         
@@ -29,9 +29,28 @@
     
 <link rel="stylesheet" href="/css/style.css">
 
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
 <meta name="generator" content="Hexo 6.3.0"></head>
     
+    
     <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
         <div class="paper">
             
             
@@ -96,7 +115,9 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%88%86%E5%8C%BA%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86"><span class="post-toc-text">分区与文件系统管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%86%E5%8C%BA%E6%A0%BC%E5%BC%8F"><span class="post-toc-text">分区格式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MBR%E6%96%B9%E5%BC%8F"><span class="post-toc-text">MBR方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#GPT%E6%96%B9%E5%BC%8F"><span class="post-toc-text">GPT方式</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%B6%E4%BD%9C%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E6%8C%82%E8%BD%BD"><span class="post-toc-text">制作文件系统和挂载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BAswap"><span class="post-toc-text">交换分区swap</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8%E7%A3%81%E7%9B%98%E5%88%9B%E5%BB%BAswap%E5%88%86%E5%8C%BA"><span class="post-toc-text">使用磁盘创建swap分区</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%87%E4%BB%B6%E5%88%9B%E5%BB%BAswap%E5%88%86%E5%8C%BA"><span class="post-toc-text">使用文件创建swap分区</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B3%E9%97%ADswap%E5%88%86%E5%8C%BA"><span class="post-toc-text">关闭swap分区</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8"><span class="post-toc-text">文件系统安全</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#XFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="post-toc-text">XFS文件系统的备份与恢复</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%8D%9F%E5%9D%8F%E7%9A%84%E4%BF%AE%E5%A4%8D%E6%96%B9%E6%A1%88"><span class="post-toc-text">文件系统损坏的修复方案</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#LVM"><span class="post-toc-text">LVM</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LVM%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">LVM介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LVM%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="post-toc-text">LVM操作流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA"><span class="post-toc-text">创建磁盘分区</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#PV%E6%93%8D%E4%BD%9C"><span class="post-toc-text">PV操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#VG%E6%93%8D%E4%BD%9C"><span class="post-toc-text">VG操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#LV%E6%93%8D%E4%BD%9C"><span class="post-toc-text">LV操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E6%8C%82%E8%BD%BD"><span class="post-toc-text">创建文件系统和挂载</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BF%AB%E7%85%A7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D"><span class="post-toc-text">快照与数据恢复</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#RAID"><span class="post-toc-text">RAID</span></a></li></ol>
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%88%86%E5%8C%BA%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86"><span class="post-toc-text">分区与文件系统管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%86%E5%8C%BA%E6%A0%BC%E5%BC%8F"><span class="post-toc-text">分区格式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MBR%E6%96%B9%E5%BC%8F"><span class="post-toc-text">MBR方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#GPT%E6%96%B9%E5%BC%8F"><span class="post-toc-text">GPT方式</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%B6%E4%BD%9C%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E6%8C%82%E8%BD%BD"><span class="post-toc-text">制作文件系统和挂载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BAswap"><span class="post-toc-text">交换分区swap</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8%E7%A3%81%E7%9B%98%E5%88%9B%E5%BB%BAswap%E5%88%86%E5%8C%BA"><span class="post-toc-text">使用磁盘创建swap分区</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%87%E4%BB%B6%E5%88%9B%E5%BB%BAswap%E5%88%86%E5%8C%BA"><span class="post-toc-text">使用文件创建swap分区</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B3%E9%97%ADswap%E5%88%86%E5%8C%BA"><span class="post-toc-text">关闭swap分区</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8"><span class="post-toc-text">文件系统安全</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#XFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="post-toc-text">XFS文件系统的备份与恢复</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%8D%9F%E5%9D%8F%E7%9A%84%E4%BF%AE%E5%A4%8D%E6%96%B9%E6%A1%88"><span class="post-toc-text">文件系统损坏的修复方案</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#LVM"><span class="post-toc-text">LVM</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LVM%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">LVM介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LVM%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="post-toc-text">LVM操作流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA"><span class="post-toc-text">创建磁盘分区</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#PV%E6%93%8D%E4%BD%9C"><span class="post-toc-text">PV操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#VG%E6%93%8D%E4%BD%9C"><span class="post-toc-text">VG操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#LV%E6%93%8D%E4%BD%9C"><span class="post-toc-text">LV操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E6%8C%82%E8%BD%BD"><span class="post-toc-text">创建文件系统和挂载</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BF%AB%E7%85%A7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D"><span class="post-toc-text">快照与数据恢复</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#RAID"><span class="post-toc-text">RAID</span></a></li></ol>
+            
         
         <h1 id="分区与文件系统管理"><a href="#分区与文件系统管理" class="headerlink" title="分区与文件系统管理"></a>分区与文件系统管理</h1><blockquote>
 <p>三种硬盘分区: 主分区、扩展分区、 逻辑分区。</p>
@@ -601,6 +622,7 @@ mount [目标LV原本挂载的文件目录]				# 数据恢复之后需要重新�
 
 
 
+                                      
                     
                     
                     <div class="footer">
@@ -641,7 +663,39 @@ mount [目标LV原本挂载的文件目录]				# 数据恢复之后需要重新�
     hljs.initHighlightingOnLoad();
     hljs.initLineNumbersOnLoad();
 </script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
                 </div>
             
     </body>
+
+
 </html>
