@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="grafana" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    
+    <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            grafana
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%83%A8%E7%BD%B2grafana"><span class="post-toc-text">部署grafana</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89grafana"><span class="post-toc-text">自定义grafana</span></a></li></ol>
+            
+        
+        <p>1</p>
+<h2 id="部署grafana"><a href="#部署grafana" class="headerlink" title="部署grafana"></a>部署grafana</h2><blockquote>
+<p><strong>安装grafana</strong></p>
+</blockquote>
+<pre><code class="sh">yum install -y https://mirrors.tuna.tsinghua.edu.cn/grafana/yum/rpm/Packages/grafana-8.0.0-1.x86_64.rpm
+
+
+rpm -ql grafana		# 查询相关文件
+
+/etc/grafana		# 配置文件目录
+/etc/init.d/grafana-server		# CentOS 6启动脚本
+/etc/sysconfig/grafana-server		# 配置文件
+/usr/lib/systemd/system/grafana-server.service		# sysstemd启动文件
+/usr/sbin/grafana-cli		# grafana管理命令
+/usr/sbin/grafana-server		# 服务端命令
+/usr/share/grafana/conf/		# 其他配置文件
+/usr/share/grafana/public/		# 家目录，前端页面
+
+systemctl start grafana
+systemctl enable grafana
+
+ss -tunlp | grep grafana		# 3000端口
+</code></pre>
+<blockquote>
+<p><strong>安装zabbix插件</strong></p>
+</blockquote>
+<pre><code class="sh">|root@m01 zabbix|$ grafana-cli plugins list-remote | grep zabbix		# 列出zabbix相关插件
+id: alexanderzobnin-zabbix-app version: 4.2.6
+
+|root@m01 zabbix|$ grafana-cli plugins install alexanderzobnin-zabbix-app 4.2.6		# 安装插件
+
+|root@m01 zabbix|$ systemctl restart grafana-server.service 		# 重启
+</code></pre>
+<pre><code>grafana-cli plugins 命令使用介绍:
+   install                  install &lt;plugin id&gt; &lt;plugin version (optional)&gt;
+   list-remote              list remote available plugins
+   list-versions            list-versions &lt;plugin id&gt;
+   update, upgrade          update &lt;plugin id&gt;
+   update-all, upgrade-all  update all your installed plugins
+   ls                       list all installed plugins
+   uninstall, remove        uninstall &lt;plugin id&gt;
+</code></pre>
+<blockquote>
+<p><strong>Grafana页面配置连接zabbix</strong></p>
+</blockquote>
+<ol>
+<li><p>登录grafana，浏览器输入<code>zabbix访问域名:3000</code>，进入grafana的web页面，初始账号密码都是<code>admin</code></p>
+</li>
+<li><p>启用zabbix插件，侧边栏Configuration—&gt;Plugins，在已安装的插件中搜索zabbix，enable</p>
+</li>
+<li><p>连接数据库，侧边栏Configuration—&gt;Data Sources，Add Data Sources ，搜索zabbix，点击进入配置界面，填写后点击<code>Save&amp;test</code></p>
+<pre><code># 需要注意填写的部分
+HTTP部分：URL:http://[zabbix域名]/api_jsonrpc.php
+Zabbix API details部分：Username/Password:zabbix服务端的登录用户和密码
+</code></pre>
+<p><img src="/../pic/image-20240229204909193.png" alt="image-20240229204909193"></p>
+</li>
+<li><p>Grafana页面添加dashboard，导入三个默认模板</p>
+<p><img src="/../pic/image-20240229205006658.png" alt="image-20240229205006658"></p>
+</li>
+</ol>
+<h2 id="自定义grafana"><a href="#自定义grafana" class="headerlink" title="自定义grafana"></a>自定义grafana</h2><blockquote>
+<p><strong>修改panel</strong></p>
+</blockquote>
+<p>侧边栏Dashboards—&gt;Manage，点击一个要修改的模板，比如<code>Zabbix Server Dashboard</code>点击任意一个项目的标题，比如<code>Hostname</code>，选择下方的<code>Edit</code></p>
+<p><img src="/../pic/image-20240229211158842.png" alt="image-20240229211158842"></p>
+<p>查询条件解析：</p>
+<pre><code>Query Mode: 查询的内容，可选文本、监控项、触发器、故障等，后面的其他选项会跟随此项变化
+Format As: 输出的格式，可选时间线或者表格形式
+Group: 主机分组
+Host:  主机
+application: 监控项的应用集
+Item: 监控项
+Text filter: 文本过滤器
+</code></pre>
+<blockquote>
+<p><strong>创建panel</strong></p>
+</blockquote>
+<p>选择模板Zabbix System Status，在右上方选择<code>Add Panel</code>，可选添加一个空面板</p>
+<p><img src="/../pic/image-20240229232317929.png" alt="image-20240229232317929"></p>
+<p>将此面板命名为网站故障信息，自定义填写查询条件，选择一个合适的展示图，保存并应用。</p>
+<p><img src="/../pic/image-20240229232507766.png" alt="image-20240229232507766"></p>
+<blockquote>
+<p><strong>导入模板</strong></p>
+</blockquote>
+<p>除了三个默认模板之外，还可以自行导入模板。进入<a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/">grafana官网模板库</a>，选择一个合适的模板。</p>
+<p>选择右边的<code>复制ID</code>或者<code>下载json</code></p>
+<p><img src="/../pic/image-20240229235820311.png" alt="image-20240229235820311"></p>
+<p>侧边栏Create—&gt;Import，在相应输入框中输入dashboard ID或者json数据，点击<code>load</code>，然后选择名字、分组和数据源，点击<code>import</code></p>
+<p><img src="/../pic/image-20240301001344794.png" alt="image-20240301001344794"></p>
+<p>回到Home，找到刚刚导入的dashboard，查看</p>
+<p><img src="/../pic/image-20240301004336005.png" alt="image-20240301004336005"></p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-02-18</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Zabbix/'>
+                            Zabbix
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>

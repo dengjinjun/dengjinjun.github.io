@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="分布式监控" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    
+    <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            分布式监控
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                
+            
+        
+        <p>zabbix分布式监控的应用场景是有多个机房或地域的情况下，设置一个proxy代理暂存不同机房的数据，然后发送给服务端进行处理。</p>
+<p><img src="/../pic/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly90aHNvbi5ibG9nLmNzZG4ubmV0,size_16,color_FFFFFF,t_70.png" alt="img"></p>
+<p>本次以部署zabbix-agent客户端模式为例，准备一台代理机器和一台客户端</p>
+<p>jmx客户端模式类似，参考jmx的部署方式</p>
+<blockquote>
+<p><strong>部署zabbix-proxy代理端</strong></p>
+</blockquote>
+<pre><code class="sh"># 安装zabbix-proxy程序
+rpm -ivh https://mirror.tuna.tsinghua.edu.cn/zabbix/zabbix/5.0/rhel/7/x86_64/zabbix-proxy-mysql-5.0.0-1.el7.x86_64.rpm
+
+# 修改zabbix-proxy配置文件，连接数据库
+vim /etc/zabbix/zabbix_proxy.conf		# 编辑文件的如下配置
+Server=192.168.110.128
+Hostname=zabbix_proxy
+DBName=zabbix_proxy
+DBUser=zabbix_proxy
+DBPassword=123456
+
+grep &#39;^[a-Z]&#39; $_			# 查看确认
+Server=192.168.110.128
+Hostname=zabbix_proxy
+LogFile=/var/log/zabbix/zabbix_proxy.log
+LogFileSize=0
+PidFile=/var/run/zabbix/zabbix_proxy.pid
+SocketDir=/var/run/zabbix
+DBName=zabbix_proxy
+DBUser=zabbix_proxy
+DBPassword=123456
+SNMPTrapperFile=/var/log/snmptrap/snmptrap.log
+Timeout=4
+ExternalScripts=/usr/lib/zabbix/externalscripts
+LogSlowQueries=3000
+StatsAllowedIP=127.0.0.1
+
+
+# 开启zabbix代理端
+systemctl start zabbix-proxy
+systemctl enable zabbix-proxy
+</code></pre>
+<blockquote>
+<p><strong>部署zabbix-agent2客户端</strong></p>
+</blockquote>
+<pre><code class="sh"># 安装zabbix-agent2程序
+rpm -ivh https://mirror.tuna.tsinghua.edu.cn/zabbix/zabbix/5.0/rhel/7/x86_64/zabbix-agent2-5.0.0-1.el7.x86_64.rpm
+
+vim /etc/zabbix/zabbix_agent2.conf		# 编辑客户端配置文件
+Server=192.168.110.128,192.168.110.132		# 服务端和代理端的IP
+ServerActive=192.168.110.128,192.168.110.132		# 服务端和代理端的IP
+HostnameItem=system.hostname
+HostMetadataItem=system.hostname
+
+grep &#39;^[a-Z]&#39; /etc/zabbix/zabbix_agent2.conf 		# 查看确认
+PidFile=/var/run/zabbix/zabbix_agent2.pid
+LogFile=/var/log/zabbix/zabbix_agent2.log
+LogFileSize=0
+Server=192.168.110.128,192.168.110.132
+ServerActive=192.168.110.128,192.168.110.132
+HostnameItem=system.hostname
+HostMetadataItem=system.hostname
+Include=/etc/zabbix/zabbix_agent2.d/*.conf
+ControlSocket=/tmp/agent.sock
+DenyKey=system.run[*]
+
+# 开启zabbix-agent2客户端
+systemctl start zabbix-agent2.service 
+systemctl enable zabbix-agent2.service 
+</code></pre>
+<blockquote>
+<p><strong>部署数据库</strong></p>
+</blockquote>
+<pre><code class="sh">yum install -y mariadb mariadb-server		# 安装数据库
+
+mysql		# 登录mysql
+create database zabbix_proxy character set utf8 collate utf8_bin;		# 创建数据库
+grant all on zabbix_proxy.* to zabbix_proxy@&#39;localhost&#39; identified by &#39;123456&#39;;		# 创建用户并授权
+flush privileges;		# 刷新权限
+exit;		# 退出
+
+rpm -ql zabbix-proxy-mysql		# 查询代理端的建表语句
+zcat /usr/share/doc/zabbix-proxy-mysql-5.0.0/schema.sql.gz | mysql -uzabbix_proxy -p123456 zabbix_proxy		# 执行
+</code></pre>
+<blockquote>
+<p><strong>GUI操作</strong></p>
+</blockquote>
+<ol>
+<li><p>进入zabbix监控的web界面，点击侧边栏的<strong>管理</strong>&gt;<strong>agent代理程序</strong>，点击右上角<strong>创建代理</strong>。</p>
+</li>
+<li><p>填入相关信息，点击添加即可。</p>
+<p><img src="/../pic/image-20240226030535386.png" alt="image-20240226030535386"></p>
+</li>
+</ol>
+<blockquote>
+<p><strong>自动注册</strong></p>
+</blockquote>
+<p>配置一下自动注册的动作就ok了</p>
+<blockquote>
+<p><strong>故障排查</strong></p>
+</blockquote>
+<ol>
+<li>在服务端使用zabbix_get工具进行调试</li>
+<li>查看日志文件<code>zabbix_proxy.conf</code>和<code>zabbix_agent2.conf</code>进行调试</li>
+</ol>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-02-18</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Zabbix/'>
+                            Zabbix
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>

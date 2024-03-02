@@ -120,7 +120,7 @@
             
         
         <p>开门见山，当我们输入一条 SQL 语句的时候，<a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/cdb?from_column=20065&from=20065">MySQL</a> 内部究竟执行了什么？直接上架构图，我们才能对其有一个概念，而不要陷入细节之中。</p>
-<p><img src="https://ask.qcloudimg.com/http-save/yehe-2253892/58arj68m3o.png" alt="img"></p>
+<p><img src="/../pic/58arj68m3o.png" alt="img"></p>
 <h3 id="架构概况"><a href="#架构概况" class="headerlink" title="架构概况"></a><strong>架构概况</strong></h3><p>大体上来说，MySQL 可以分为 Server 层与存储引擎两个部分。</p>
 <ol>
 <li>Server 层包括连接器、查询缓存、分析器、优化器、执行器。</li>
@@ -141,7 +141,7 @@
 </ol>
 <h3 id="优化器"><a href="#优化器" class="headerlink" title="优化器"></a><strong>优化器</strong></h3><p>经过了分析器分析，MySQL 知道你要干啥了，在开始执行之前，还要先经过优化器的处理。</p>
 <p>优化器的作用就是它认为的最优的执行方案去执行（虽然有时候也不是最优），比如多个索引的时候该如何选择索引，多表查询的时候如何选择关联顺序等。</p>
-<pre><code>select * from t1 join t2 using(ID) where t1.c=10 and t2.d=20;
+<pre><code class="sh">select * from t1 join t2 using(ID) where t1.c=10 and t2.d=20;
 </code></pre>
 <p>比如这条语句，既可以先从表 t1 里面取出 c&#x3D;10 的记录的 ID 值，再根据 ID 值关联到表 t2，再判断 t2 里面 d 的值是否等于 20。也可以先从表 t2 里面取出 d&#x3D;20 的记录的 ID 值，再根据 ID 值关联到 t1，再判断 t1 里面 c 的值是否等于 10。</p>
 <p>这两种的执行逻辑结果是一样的，但是执行效率会有不同，而优化器就是决定使用哪种方案。</p>
