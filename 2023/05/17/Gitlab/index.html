@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Gitlab" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    
+    <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Gitlab
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E6%A6%82%E8%BF%B0"><span class="post-toc-text">GitLab概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E9%83%A8%E7%BD%B2"><span class="post-toc-text">GitLab部署</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8"><span class="post-toc-text">GitLab入门使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E8%BF%81%E7%A7%BB%E4%B8%8E%E5%A4%87%E4%BB%BD"><span class="post-toc-text">GitLab迁移与备份</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E8%BF%81%E7%A7%BB%E4%B8%8E%E5%8D%87%E7%BA%A7"><span class="post-toc-text">GitLab迁移与升级</span></a></li></ol>
+            
+        
+        <h2 id="GitLab概述"><a href="#GitLab概述" class="headerlink" title="GitLab概述"></a>GitLab概述</h2><p>GitLab 是一个用于仓库管理系统的开源项目，使用Git作为代码管理工具，并在此基础上搭建起来的web服务。</p>
+<p><img src="/../pic/d4628535e5dde7113cbdf4460bc4611d9c1661c1.jpeg" alt="img"></p>
+<p>使用GitLab可以自己搭建一个类似于GitHub一样的仓库，但是GitLab有更完善的管理界面和权限控制。对于开源项目而言，GitHub 是代码托管的首选。但是从代码的私有性上来看，GitLab 是一个更好的选择。</p>
+<p>GitLab架构图：</p>
+<p><img src="/../pic/70.png" alt="这里写图片描述"></p>
+<p>访问GitLab有两个入口，一个是内置Nginx控制的web入口，另一个是SSH协议的GitLab Shell入口。</p>
+<h2 id="GitLab部署"><a href="#GitLab部署" class="headerlink" title="GitLab部署"></a>GitLab部署</h2><blockquote>
+<p><strong>安装GitLab依赖包</strong></p>
+</blockquote>
+<pre><code class="sh">yum install -y curl wegt openssl-server postfix		# 安装依赖：访问站点的组件、ssl组件、邮件相关组件
+</code></pre>
+<blockquote>
+<p><strong>安装Git Lab</strong></p>
+</blockquote>
+<pre><code class="sh"># 在清华官方源中找到GitLab的rpm包安装
+yum install -y https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-12.0.3-ce.0.el7.x86_64.rpm
+
+# 有效的提示信息，在字符拼接的狐狸头的下面：
+Thank you for installing GitLab!
+GitLab was unable to detect a valid hostname for your instance.
+Please configure a URL for your GitLab instance by setting `external_url`
+configuration in /etc/gitlab/gitlab.rb file.
+Then, you can start your GitLab instance by running the following command:
+  sudo gitlab-ctl reconfigure
+</code></pre>
+<blockquote>
+<p><strong>配置</strong></p>
+</blockquote>
+<ul>
+<li><p>配置域名</p>
+<p>用于web页面访问</p>
+<pre><code class="sh">vim /etc/gitlab/gitlab.rb		# 编辑配置文件
+
+# 通过`/^external_url` 找到此行，修改一个自定义的域名
+external_url &#39;http://study.gitlab.com&#39;		
+</code></pre>
+</li>
+<li><p>配置邮箱</p>
+<p>用于注册时发送验证邮件</p>
+<p>忘记密码时用于找回</p>
+<p>请求提交合并时，负责人收到邮件通知</p>
+<pre><code class="sh"># 通过`/Email Settings`找到此行，修改邮箱发件人相关配置
+
+### Email Settings
+gitlab_rails[&#39;gitlab_email_enabled&#39;] = true		# 启用邮箱
+gitlab_rails[&#39;gitlab_email_from&#39;] = &#39;dengjinjun0805@126.com&#39;		# 发件邮箱，可配置为企业邮箱
+gitlab_rails[&#39;gitlab_email_display_name&#39;] = &#39;GitLab通知&#39;		# 发件人名称
+# gitlab_rails[&#39;gitlab_email_reply_to&#39;] = &#39;noreply@example.com&#39;		# 暂不配置
+# gitlab_rails[&#39;gitlab_email_subject_suffix&#39;] = &#39;&#39;		# 暂不配置
+
+# 通过`/GitLab email server settings`找到此行，修改邮箱服务端相关配置
+
+### GitLab email server settings
+###! Docs: https://docs.gitlab.com/omnibus/settings/smtp.html
+###! **Use smtp instead of sendmail/postfix.**
+
+gitlab_rails[&#39;smtp_enable&#39;] = true		# 开启stmp服务端
+gitlab_rails[&#39;smtp_address&#39;] = &quot;smtp.126.com&quot;	# 服务端地址
+gitlab_rails[&#39;smtp_port&#39;] = 465		# 端口
+gitlab_rails[&#39;smtp_user_name&#39;] = &quot;dengjinjun0805@126.com&quot;	# 邮箱名
+gitlab_rails[&#39;smtp_password&#39;] = &quot;EMNOVPYJBDYFSNFN&quot;		# 密钥
+gitlab_rails[&#39;smtp_domain&#39;] = &quot;126.com&quot;		# 域名
+gitlab_rails[&#39;smtp_authentication&#39;] = &quot;login&quot;	# 登录方式
+gitlab_rails[&#39;smtp_enable_starttls_auto&#39;] = true	# 加密相关
+gitlab_rails[&#39;smtp_tls&#39;] = true		# 加密相关
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p><strong>启动并测试</strong></p>
+</blockquote>
+<ul>
+<li><p>启动</p>
+<pre><code class="sh">gitlab-ctl reconfigure		# 验证配置并启动，适用于修改配置后启动
+gitlab-ctl stop		# 关闭
+gitlab-ctl start	# 启动
+</code></pre>
+</li>
+<li><p>验证邮箱</p>
+<pre><code class="sh">gitlab-rails c
+Notify.test_email(&#39;498790885@qq.com&#39;,&#39;主题：Gitlab-test&#39;,&#39;内容：测试发送邮件&#39;).deliver_now
+</code></pre>
+</li>
+<li><p>web界面</p>
+<pre><code class="sh"># 浏览器中访问域名，查看是否正常。注意先编辑本地的hosts文件，添加域名与IP的解析关系
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p><strong>汉化</strong></p>
+</blockquote>
+<pre><code class="sh"># 下载汉化包
+wget https://gitlab.com/xhang/gitlab/-/archive/08a51a9db938bb05f9a4c999075d010079e16bad/gitlab-08a51a9db938bb05f9a4c999075d010079e16bad.tar.gz
+
+# 解压
+tar -xf gitlab-08a51a9db938bb05f9a4c999075d010079e16bad.tar.gz 
+
+rpm -qa | grep gitlab	# 查看gitlab版本
+cat /VERSION		# 查看汉化包版本，确保一致
+
+# 停止gitlab服务
+gitlab-ctl stop
+
+# 中文版资源覆盖英文版
+\cp -r gitlab-08a51a9db938bb05f9a4c999075d010079e16bad/* /opt/gitlab/embedded/service/gitlab-rails/
+
+# 重新配置gitlab服务
+gitlab-ctl reconfigure
+# 重启
+gitlab-ctl start
+</code></pre>
+<h2 id="GitLab入门使用"><a href="#GitLab入门使用" class="headerlink" title="GitLab入门使用"></a>GitLab入门使用</h2><p>web界面设置密码之后，使用用户名<code>root</code>与新密码登录，具体操作自行熟悉。</p>
+<h2 id="GitLab迁移与备份"><a href="#GitLab迁移与备份" class="headerlink" title="GitLab迁移与备份"></a>GitLab迁移与备份</h2><blockquote>
+<p><strong>手动备份</strong></p>
+</blockquote>
+<ul>
+<li><p>更改配置</p>
+<pre><code class="sh"># 编辑配置文件，通过`/Backup Settings`找到此行，修改备份相关配置
+
+### Backup Settings
+###! Docs: https://docs.gitlab.com/omnibus/settings/backups.html
+
+gitlab_rails[&#39;manage_backup_path&#39;] = true		# 开启自定义目录
+gitlab_rails[&#39;backup_path&#39;] = &quot;/var/opt/gitlab/backups&quot;		# 存储备份文件的目录
+gitlab_rails[&#39;backup_archive_permissions&#39;] = 0644		# 备份文件的权限
+gitlab_rails[&#39;backup_keep_time&#39;] = 604800		# 存储时间，以秒为单位
+
+gitlab-ctl reconfigure		# 重启
+</code></pre>
+</li>
+<li><p>执行备份</p>
+<pre><code class="sh"># 手动执行备份命令，会在备份目录下生成一个压缩包
+gitlab-rake gitlab:backup:create		# 执行备份，此命令适用于12.1及以前版本
+gitlab-backup create		# 执行备份，此命令适用于12.2及以后版本
+
+# 注意：配置文件gitlab.rb以及密码文件gitlab-secret.json包含敏感信息，需要手动备份
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p><strong>自动备份</strong></p>
+</blockquote>
+<ul>
+<li><p>更改配置</p>
+<pre><code class="sh"># 同上
+</code></pre>
+</li>
+<li><p>编写脚本</p>
+<pre><code class="sh">vim /server/scripts/backup-gitlab.sh
+
+#!/bin/bash
+
+# 执行备份
+gitlab-rake gitlab:backup:create
+# 备份配置文件以及密码文件
+tar -zcf /backup/gitlab-conf-$(date +%F).tar.gz /etc/gitlab
+</code></pre>
+</li>
+<li><p>写入定时任务</p>
+<pre><code class="sh">crontab -e
+
+# 每天凌晨3点备份
+00 03 * * * sh /server/scripts/backup-gitlab.sh &amp;&gt;/dev/null
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p><strong>恢复</strong></p>
+</blockquote>
+<pre><code class="sh"># 先停止GitLab的写入类服务
+gitlab-ctl stop puma
+gitlab-ctl stop sidekip
+
+# 执行恢复命令
+gitlab-rake gitlab:backup:restore BACKUP=备份文件的压缩包名		# 执行恢复，此命令适用于12.1及以前版本
+gitlab-backup restore BACKUP=备份文件的压缩包名		# 执行恢复，此命令适用于12.2及以后版本
+
+# 重启
+gitlab-ctl restart
+
+# 注意：如果需要恢复配置文件和密码文件，可以找到单独备份的压缩包，手动替换这两个文件，然后执行`gitlab-ctl reconfigure`
+</code></pre>
+<h2 id="GitLab迁移与升级"><a href="#GitLab迁移与升级" class="headerlink" title="GitLab迁移与升级"></a>GitLab迁移与升级</h2><blockquote>
+<p><strong>升级</strong></p>
+</blockquote>
+<p>GitLab升级的理由：</p>
+<ol>
+<li>非常吸引人的新功能</li>
+<li>安全漏洞和修复bug</li>
+<li>标准化和自动化</li>
+</ol>
+<p>GitLab升级的步骤：</p>
+<p>GitLab的升级必须按照官方指定的升级顺序进行升级，不能够随意越级更新。注意要做好备份和快照。<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/update/index.html#upgrade-paths">参考网页</a></p>
+<blockquote>
+<p><strong>迁移</strong></p>
+</blockquote>
+<p>GitLab跨服务器迁移有两种情况</p>
+<ol>
+<li>同版本迁移，只需要备份好GitLab数据和配置及密码文件，然后在另一台机器上部署同版本的服务，恢复即可。</li>
+<li>跨版本迁移，最好先在原来的机器上跨版本，然后再进行同版本迁移。</li>
+</ol>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-05-17</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/CICD/'>
+                            CICD
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>

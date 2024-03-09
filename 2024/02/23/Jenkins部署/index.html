@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Jenkins部署" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    
+    <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Jenkins部署
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Jenkins%E6%A6%82%E8%BF%B0"><span class="post-toc-text">Jenkins概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Jenkins%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Jenkins部署</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81"><span class="post-toc-text">自动拉取代码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2"><span class="post-toc-text">自动部署</span></a></li></ol>
+            
+        
+        <p>1</p>
+<h2 id="Jenkins概述"><a href="#Jenkins概述" class="headerlink" title="Jenkins概述"></a>Jenkins概述</h2><p>Jenkins是一个开源的用于持续集成的工具，由Java开发。</p>
+<p><img src="/../pic/v2-153f8be00c6e95d7e70cbfab0387bca3_r.jpg" alt="img"></p>
+<p>Jenkins是一个调度平台，本身不处理任何事情，调用插件来完成所有的工作，包括代码提交、构建、测试、发布以及部署等操作。</p>
+<p><img src="/../pic/1728470-20210813112832687-800242845-17099099936133.png" alt="img"></p>
+<h2 id="Jenkins部署"><a href="#Jenkins部署" class="headerlink" title="Jenkins部署"></a>Jenkins部署</h2><p>Jenkins的部署比较简单，系统要求1c1g即可，软件要求jdk8版本。</p>
+<p>三种安装方式</p>
+<ul>
+<li>rpm包安装，yum install 即可</li>
+<li>war包安装，将war包放入tomcat中运行</li>
+<li>jar包安装，执行java -jar xx.jar 运行</li>
+</ul>
+<p>本次选用rpm包安装</p>
+<blockquote>
+<p><strong>部署JDK</strong></p>
+</blockquote>
+<pre><code class="sh">yum list | grep openjdk		# 找出java1.11.0版本的openjdk包
+
+yum install -y java-11-openjdk.x86_64	# 安装
+
+java -version		# 查看版本
+</code></pre>
+<blockquote>
+<p><strong>安装Jenkins</strong></p>
+</blockquote>
+<pre><code class="sh">wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+yum install -y jenkins		# 如果找不到，且repo源是空的，可以手动添加yum源
+</code></pre>
+<blockquote>
+<p><strong>Jenkins目录结构</strong></p>
+</blockquote>
+<pre><code class="sh">[root@dengpangpang yum.repos.d]$ rpm -ql jenkins
+/usr/bin/jenkins		# 控制脚本
+/usr/lib/systemd/system/jenkins.service		# 配置文件以及控制开启关闭服务的命令
+/usr/lib/tmpfiles.d/jenkins.conf		# 临时配置文件
+/usr/share/java/jenkins.war		# jenkins的war包，包含代码和资源
+/usr/share/jenkins/migrate		# 迁移工具和文件
+/var/cache/jenkins		# 缓存目录
+/var/lib/jenkins		# Jenkins工作目录，插件
+
+# 注意：旧版本的Jenkins配置文件是在/etc/sysconfig/jenkins，但是新版本的配置文件是/usr/lib/systemd/system/jenkins.service这个文件，文件描述让用户使用systemctl edit jenkins来修改，包括jenkins服务的用户、群组、工作目录、日志目录、JDK目录、端口等配置。
+</code></pre>
+<blockquote>
+<p><strong>启动并测试</strong></p>
+</blockquote>
+<pre><code class="sh">systemctl start jenkins		# 开启之后，浏览器访问 http://IP:8080 
+</code></pre>
+<p>暂时不安装插件</p>
+<p><img src="/../pic/image-20240309015304530.png" alt="image-20240309015304530"></p>
+<blockquote>
+<p><strong>汉化</strong></p>
+</blockquote>
+<p>web页面侧边栏—&gt;Manage Jenkins—&gt;Plugins—&gt;Available plugins，搜索chinese可以看到简体中文的插件，按提示操作即可。</p>
+<blockquote>
+<p><strong>安装插件</strong></p>
+</blockquote>
+<p>有三种安装方式</p>
+<ol>
+<li>web界面搜索需要的插件下载安装，自动安装</li>
+<li>在web界面上传单个插件的压缩包（hpi包）,自动安装</li>
+<li>将多个插件的压缩包批量移动到<code>/var/lib/jenkins/plugins</code>目录中，重启服务即可。</li>
+</ol>
+<h2 id="自动拉取代码"><a href="#自动拉取代码" class="headerlink" title="自动拉取代码"></a>自动拉取代码</h2><p>本节的目的很简单，就是让Jenkins连接GitLab，测试CICD的第一个阶段：代码的拉取。</p>
+<blockquote>
+<p><strong>提前准备</strong></p>
+</blockquote>
+<ol>
+<li><p>提前准备好GitLab远程仓库</p>
+</li>
+<li><p>在Jenkins中安装gitlab相关插件</p>
+<pre><code>credentials: 允许在Jenkins中存储认证凭据
+Git：允许Jenkins集成Git
+Git client：允许在Jenkins中使用Git
+GitLab: 允许Gitlab触发Jenkins的构建任务，并在Gitlab中显示
+GitLab Authentication：GitLab的身份验证插件
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p><strong>操作步骤</strong></p>
+</blockquote>
+<ol>
+<li><p>需要先在Jenkins服务器上解析GitLab服务器的地址（编辑<code>/etc/hosts</code>文件）</p>
+</li>
+<li><p>在Jenkins服务器上创建SSH密钥对，将公钥添加到GitLab的web页面的SSH密钥中，私钥稍后在Jenkins的web页面添加</p>
+<p><img src="/../pic/image-20240310010537144.png" alt="image-20240310010537144"></p>
+</li>
+<li><p>创建一个项目，在源码管理中，添加GitLab仓库(Repositories)和SSH私钥(Credentials)，然后配置分支。</p>
+<p>注意，配置Credentials时（添加Jenkins私钥），Domain选择默认<code>Global credentials (unrestricted)</code>，Credentials选择<code>SSH Username with private key</code>，范围选择<code>Global</code>，Username可以随便写，Private Key 中直接填写私钥内容即可。</p>
+<p><img src="/../pic/image-20240310010634565.png" alt="image-20240310010634565"></p>
+</li>
+<li><p>保存项目，构建一下，根据控制台输出查看是否成功拉取代码</p>
+<p><img src="/../pic/image-20240310011206826.png" alt="image-20240310011206826"></p>
+</li>
+<li><p>在Jenkins中查看，可以看到Jenkins的工作目录<code>/var/lib/jenkins/workspace/</code>已经有了项目的代码目录</p>
+</li>
+</ol>
+<h2 id="自动部署"><a href="#自动部署" class="headerlink" title="自动部署"></a>自动部署</h2><p>本节的目的就是完成Jenkins的构建操作，从远程仓库拉取到代码之后，将代码部署到web服务器上。</p>
+<blockquote>
+<p><strong>提前准备</strong></p>
+</blockquote>
+<ol>
+<li>配置好web环境的若干台服务器</li>
+<li>在Jenkins服务器上编辑一个脚本，执行部署操作（包括将代码打包、然后推送到web服务器上，解压到指定的网站目录，创建软链接等）</li>
+</ol>
+<blockquote>
+<p><strong>操作步骤</strong></p>
+</blockquote>
+<p>继续Jenkins项目的配置，在构建（Build Steps）相关选项中，选择执行shell，然后输入shell命令<code>sh -x /server/scripts/deploy.sh</code></p>
+<p><img src="/../pic/image-20240310024715623.png" alt="image-20240310024715623"></p>
+<p>保存项目，构建一下，根据控制台输出查看是否成功部署</p>
+<p>注意：如果脚本中的部分命令执行过程中显示权限拒绝，可能是由于Jenkins服务的用户默认是Jenkins，无法执行一些命令。解决方法有两种：</p>
+<ol>
+<li>修改Jenkins配置文件，将Jenkins服务的用户修改为root</li>
+<li>配置用户Jenkins为高权限用户(visudo)，然后以sudo的方式执行脚本</li>
+</ol>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-02-23</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/CICD/'>
+                            CICD
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>
