@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="数据表记录" />
+    <meta name="description" content="" />
     <meta name="hexo-theme-A4" content="v1.7.9" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang</title>
@@ -107,88 +107,16 @@
                         <div class="post-main">
 
     
-        <div class="post-main-title">
-            数据表记录
-        </div>
-      
-    
 
     <div class="post-md">
         
             
-                
-            
         
-        <ul>
-<li>图像识别结果记录表： <code>nr_mall_product_identify_record</code></li>
-</ul>
-<p>记录商品识别的<code>详细信息</code>，<code>识别时间</code>，<code>图像</code>，<code>商品名称</code>，<code>商品id</code>(对应<strong>商品表</strong>的id)，<code>推荐位序</code>,等。</p>
-<ul>
-<li>标准记录对照表：<code>nr_mall_product_identify_record_rl</code></li>
-</ul>
-<p>记录设备的<code>sn号</code>，<code>pos机号</code>，<code>mac地址</code>，<code>租户id</code>，<code>租户id</code>(对应<strong>组织记录表</strong>的id)，<code>识别记录id</code>(对应<strong>图像识别结果记录表</strong>的id)</p>
-<ul>
-<li>组织记录表：<code>nr_sys_org</code></li>
-</ul>
-<p>记录了组织的<code>名字</code>，<code>类型</code>，<code>地址</code>，<code>租户号</code>等</p>
-<ul>
-<li>SDK申请记录表：<code>nr_pos_sdk_apply</code></li>
-</ul>
-<p>记录sn的<code>申请人</code>，<code>申请时间</code>，<code>商户名称</code>，<code>租户id</code>(对应<strong>组织记录表</strong>的id)，<code>sn类型</code>等。</p>
-<ul>
-<li>POS机：<code>nr_pos_machine</code></li>
-</ul>
-<p>记录<code>pos机号</code>，<code>租户id</code>(对应<strong>组织记录表</strong>的id)，<code>mac地址</code>，<code>pos机的设备信息</code>等</p>
-<ul>
-<li>pos机和SN码对应关系表：<code>nr_pos_sdk_sn</code></li>
-</ul>
-<p>记录pos机的<code>posid</code>(对应<strong>pos机表</strong>的id)，<code>sn码</code>，<code>申请记录id</code>(对应<strong>SDK申请记录表</strong>的id)，<code>租户id</code>(对应<strong>组织记录表</strong>的id)</p>
-<ul>
-<li>商品表：<code>nr_mall_product</code></li>
-</ul>
-<p>记录<code>商品名称</code>，<code>商品号</code>，<code>条码</code>，<code>商品图片</code>，<code>租户id</code>(对应<strong>组织记录表</strong>的id)，<code>商品信息</code>等</p>
-<ul>
-<li><p>报表格式表：<code>nr_rpt_report_definition</code></p>
-</li>
-<li><p>文件上传配置表：<code>nr_nfs_file</code></p>
-</li>
-</ul>
-<p>记录上传存储在oss中的<code>文件地址</code>，<code>文件类型</code>，<code>上传时间</code>等。目前主要存放图片向量值。</p>
-<ul>
-<li>乐檬商品学习向量表：<code>nr_mall_lemeng_product_pos_vector</code></li>
-</ul>
-<p>记录乐檬租户下的商品学习数据，调用setfeedback会把商品学习记录上传到这张表中。包含<code>商品plu</code>，<code>图片url</code>，<code>上传时间</code>等。</p>
-<p>向量值的查找，需要根据<code>file_id</code>字段的值，找到<code>nr_dfs_file</code>数据表，根据该表的<code>url</code>字段得到存放向量值的文件地址。</p>
-
+        
     </div>
 
     <div class="post-meta">
         <i>
-        
-            <span>2023-08-24</span>
-            
-                <span>该篇文章被 邓胖胖</span>
-            
-            
-                <span>打上标签:
-                    
-                    
-                        <a href='/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/'>
-                            数据库
-                        </a>
-                    
-                </span>
-             
-             
-                <span>归为分类:
-                    
-                    
-                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
-                            工作笔记
-                        </a>
-                    
-                </span>
-            
         
         </i>
     </div>

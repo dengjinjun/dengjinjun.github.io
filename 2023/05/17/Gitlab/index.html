@@ -116,7 +116,7 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E6%A6%82%E8%BF%B0"><span class="post-toc-text">GitLab概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E9%83%A8%E7%BD%B2"><span class="post-toc-text">GitLab部署</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8"><span class="post-toc-text">GitLab入门使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E8%BF%81%E7%A7%BB%E4%B8%8E%E5%A4%87%E4%BB%BD"><span class="post-toc-text">GitLab迁移与备份</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E8%BF%81%E7%A7%BB%E4%B8%8E%E5%8D%87%E7%BA%A7"><span class="post-toc-text">GitLab迁移与升级</span></a></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E6%A6%82%E8%BF%B0"><span class="post-toc-text">GitLab概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E9%83%A8%E7%BD%B2"><span class="post-toc-text">GitLab部署</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8"><span class="post-toc-text">GitLab入门使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E8%BF%81%E7%A7%BB%E4%B8%8E%E5%A4%87%E4%BB%BD"><span class="post-toc-text">GitLab迁移与备份</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E8%BF%81%E7%A7%BB%E4%B8%8E%E5%8D%87%E7%BA%A7"><span class="post-toc-text">GitLab迁移与升级</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GitLab%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E7%9A%84%E6%96%B9%E6%B3%95"><span class="post-toc-text">GitLab重置密码的方法</span></a></li></ol>
             
         
         <h2 id="GitLab概述"><a href="#GitLab概述" class="headerlink" title="GitLab概述"></a>GitLab概述</h2><p>GitLab 是一个用于仓库管理系统的开源项目，使用Git作为代码管理工具，并在此基础上搭建起来的web服务。</p>
@@ -320,6 +320,13 @@ gitlab-ctl restart
 <li>同版本迁移，只需要备份好GitLab数据和配置及密码文件，然后在另一台机器上部署同版本的服务，恢复即可。</li>
 <li>跨版本迁移，最好先在原来的机器上跨版本，然后再进行同版本迁移。</li>
 </ol>
+<h2 id="GitLab重置密码的方法"><a href="#GitLab重置密码的方法" class="headerlink" title="GitLab重置密码的方法"></a>GitLab重置密码的方法</h2><pre><code># 进入GitLab服务器，命令行操作
+gitlab-rails console
+user = User.where(id:1).first
+user.password=12345678
+user.password.confirmation=12345678
+user.save
+</code></pre>
 
     </div>
 

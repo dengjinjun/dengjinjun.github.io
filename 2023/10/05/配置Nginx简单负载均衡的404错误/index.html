@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="修改MySQL登录密码" />
+    <meta name="description" content="配置Nginx简单负载均衡的404错误" />
     <meta name="hexo-theme-A4" content="v1.7.9" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang</title>
@@ -108,7 +108,7 @@
 
     
         <div class="post-main-title">
-            修改MySQL登录密码
+            配置Nginx简单负载均衡的404错误
         </div>
       
     
@@ -116,52 +116,89 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AE%B0%E5%BE%97root%E5%AF%86%E7%A0%81%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B"><span class="post-toc-text">记得root密码的情况下</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B"><span class="post-toc-text">忘记root密码的情况下</span></a></li></ol>
+                
             
         
-        <h2 id="记得root密码的情况下"><a href="#记得root密码的情况下" class="headerlink" title="记得root密码的情况下"></a>记得root密码的情况下</h2><p>登录MySQL</p>
-<pre><code class="bash">mysql -uroot -p								# 登录MySQL
-Enter password: 【输入原来的密码】
-mysql&gt; use mysql;							# 数据库中的mysql库，用来存储MySQL的登录用户和信息
-mysql&gt; update user set password=password(&quot;123456&quot;) where user=&#39;root&#39;;		# 修改语句
-mysql&gt; flush privileges;					# 刷新
-mysql&gt; exit;								# 退出
+        <p><strong>现象：</strong></p>
+<p>今天测试搭建一个简单的负载均衡，一台Nginx机器为两台web机器提供反向代理，但是很意外两台都报了404错误，很简单的配置，貌似看不出错误，排查测试了很久之后，发现是URL路径拼接的问题。</p>
+<p>三台机器的配置</p>
+<blockquote>
+<p><strong>lb</strong></p>
+</blockquote>
+<pre><code>upstream static&#123;
+    server web01 weight=1;
+    server web02 weight=1;
+&#125;
+
+server&#123;
+    listen 80;
+    server_name blog;
+    set_real_ip_from 192.168.110.0/24;
+    location /static/&#123;
+        proxy_pass http://static;
+        proxy_set_header Host $http_host;
+    &#125;
+&#125;
 </code></pre>
-<p><strong>注意：如果MySql版本5.7及以上的话修改语句为</strong></p>
-<pre><code class="bash">mysql&gt; update user set authentication_string=password(&quot;123456&quot;) where user=&#39;root&#39;;
+<blockquote>
+<p><strong>web01&amp;&amp;web02</strong></p>
+</blockquote>
+<pre><code>server &#123;
+    listen       80;
+    server_name  blog;
+    location / &#123;
+    root /data/blog;
+        index  index.html;
+    &#125;
+    location /nginx_status &#123;
+        stub_status;
+    &#125;
+    location /php_status &#123;
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php; 
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    &#125;
+    location ~ \.php$ &#123;
+    fastcgi_pass 127.0.0.1:9000;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;
+    &#125;
+&#125;
 </code></pre>
-<h2 id="忘记root密码的情况下"><a href="#忘记root密码的情况下" class="headerlink" title="忘记root密码的情况下"></a>忘记root密码的情况下</h2><p>首先拿到操作系统的root权限，然后kill掉MySQL服务或者手动stop掉、例如手动</p>
-<pre><code class="bash">service mysql stop
-</code></pre>
-<p>然后找到my.cnf文件，添加一句<code>skip-grant-tables</code>，以跳过密码的方式登录MySQL</p>
-<pre><code class="bash">mysqld_safe --skip-grant-tables &amp;			# &amp; 表示在后台运行，不在后台运行的话，就再打开一个终端
-</code></pre>
-<p>接着无密码登录MySQL修改密码</p>
-<pre><code class="bash">mysql&gt; use mysql;
-mysql&gt; UPDATE user SET password=password(&quot;123456&quot;) WHERE user=&#39;root&#39;;
-mysql&gt; flush privileges;
-mysql&gt; exit;
-</code></pre>
-<p><strong>注意：如果MySql版本5.7及以上的话修改语句为</strong></p>
-<pre><code class="bash">mysql&gt; update user set authentication_string=passworD(&quot;123456&quot;) where user=&#39;root&#39;;
-</code></pre>
+<p><strong>原因：</strong></p>
+<p>问题出在lb机器的配置文件<code>proxy_pass http://static;</code>一句。</p>
+<p>本质上，web机器接收到的请求URL是lb机器转发的<code>proxy_pass</code>拼接上请求的资源名(目录及文件名)。所以，未修改之前，请求的URL是<code>http://static index.html</code>，所以出错的这句应该改为<code>proxy_pass http://static/;</code>，就是多加了一个斜杠。改完之后果然访问恢复了正常。</p>
+<p><strong>拓展：</strong></p>
+<p>那么很容易联想到另一个问题，既然是缺了一个斜杠，让<code>index.html</code>前面加一个斜杠应该也可以拼接出正确的URL啊，所以，我将lb的配置改回了原来的样子，将web机器的关于首页的配置改为<code>/index.html</code>，重启，确实也能解决问题，这让我确信了就是URL路径拼接的问题。</p>
+<p>但是在生产环境中只能改lb机器的配置，如果采用第二种方式，用户请求的URL中指定了资源名，仍然是没办法拼接的，因为第二种方法只对首页文件生效。</p>
 
     </div>
 
     <div class="post-meta">
         <i>
         
-            <span>2023-09-13</span>
+            <span>2023-10-05</span>
             
                 <span>该篇文章被 邓胖胖</span>
             
             
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/TroubleShooting/'>
+                            TroubleShooting
+                        </a>
+                    
+                </span>
+             
              
                 <span>归为分类:
                     
                     
-                        <a href='/categories/TroubleShooting/'>
-                            TroubleShooting
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
                         </a>
                     
                 </span>

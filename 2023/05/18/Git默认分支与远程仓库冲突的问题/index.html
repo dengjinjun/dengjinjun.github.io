@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="修改MySQL登录密码" />
+    <meta name="description" content="Git默认分支与远程仓库冲突的问题" />
     <meta name="hexo-theme-A4" content="v1.7.9" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang</title>
@@ -108,7 +108,7 @@
 
     
         <div class="post-main-title">
-            修改MySQL登录密码
+            Git默认分支与远程仓库冲突的问题
         </div>
       
     
@@ -116,52 +116,43 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AE%B0%E5%BE%97root%E5%AF%86%E7%A0%81%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B"><span class="post-toc-text">记得root密码的情况下</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B"><span class="post-toc-text">忘记root密码的情况下</span></a></li></ol>
+                
             
         
-        <h2 id="记得root密码的情况下"><a href="#记得root密码的情况下" class="headerlink" title="记得root密码的情况下"></a>记得root密码的情况下</h2><p>登录MySQL</p>
-<pre><code class="bash">mysql -uroot -p								# 登录MySQL
-Enter password: 【输入原来的密码】
-mysql&gt; use mysql;							# 数据库中的mysql库，用来存储MySQL的登录用户和信息
-mysql&gt; update user set password=password(&quot;123456&quot;) where user=&#39;root&#39;;		# 修改语句
-mysql&gt; flush privileges;					# 刷新
-mysql&gt; exit;								# 退出
+        <p>由于美国的Black Lives Matter运动，GitHub支持移除那些可能冒犯黑人开发者的词汇，以免造成种族歧视。把<code>master</code>、<code>slave</code>类似的词汇替换成中性词语，初始化仓库时建立的默认分支由<code>master</code>分支改为了<code>main</code>分支，这样开发者将本地仓库的代码向远程仓库推送的时候，可能出现一些冲突。</p>
+<p>解决办法：</p>
+<p>一个简单的解决办法是根据远程仓库的的分支名，更改本地仓库的分支名。这种方法只适用于空仓库第一次初始化的时候。</p>
+<p>比如远程仓库的主分支仍然是<code>master</code>，我们可以也将本地仓库的默认分支名修改为<code>master</code>，修改的方式是修改一下git的配置文件：文件地址在：C盘的<code>/用户/个人用户名/.gitconfig文件</code>，比如我的<code>.gitconfig</code>文件在<code>&quot;C:\Users\dengp\.gitconfig&quot;</code><br>文件内容加上：</p>
+<pre><code class="sh">[init]
+defaultBranch = main
 </code></pre>
-<p><strong>注意：如果MySql版本5.7及以上的话修改语句为</strong></p>
-<pre><code class="bash">mysql&gt; update user set authentication_string=password(&quot;123456&quot;) where user=&#39;root&#39;;
-</code></pre>
-<h2 id="忘记root密码的情况下"><a href="#忘记root密码的情况下" class="headerlink" title="忘记root密码的情况下"></a>忘记root密码的情况下</h2><p>首先拿到操作系统的root权限，然后kill掉MySQL服务或者手动stop掉、例如手动</p>
-<pre><code class="bash">service mysql stop
-</code></pre>
-<p>然后找到my.cnf文件，添加一句<code>skip-grant-tables</code>，以跳过密码的方式登录MySQL</p>
-<pre><code class="bash">mysqld_safe --skip-grant-tables &amp;			# &amp; 表示在后台运行，不在后台运行的话，就再打开一个终端
-</code></pre>
-<p>接着无密码登录MySQL修改密码</p>
-<pre><code class="bash">mysql&gt; use mysql;
-mysql&gt; UPDATE user SET password=password(&quot;123456&quot;) WHERE user=&#39;root&#39;;
-mysql&gt; flush privileges;
-mysql&gt; exit;
-</code></pre>
-<p><strong>注意：如果MySql版本5.7及以上的话修改语句为</strong></p>
-<pre><code class="bash">mysql&gt; update user set authentication_string=passworD(&quot;123456&quot;) where user=&#39;root&#39;;
-</code></pre>
+<p>然后再初始化本地仓库的时候，默认分支就变成<code>master</code>了</p>
 
     </div>
 
     <div class="post-meta">
         <i>
         
-            <span>2023-09-13</span>
+            <span>2023-05-18</span>
             
                 <span>该篇文章被 邓胖胖</span>
             
             
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/TroubleShooting/'>
+                            TroubleShooting
+                        </a>
+                    
+                </span>
+             
              
                 <span>归为分类:
                     
                     
-                        <a href='/categories/TroubleShooting/'>
-                            TroubleShooting
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
                         </a>
                     
                 </span>

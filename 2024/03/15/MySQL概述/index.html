@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="MySQL概述" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    
+    <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            MySQL概述
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="post-toc-text">数据类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AD%97%E6%AE%B5%E5%B1%9E%E6%80%A7"><span class="post-toc-text">字段属性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AD%97%E6%AE%B5%E7%BA%A6%E6%9D%9F"><span class="post-toc-text">字段约束</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL%E9%83%A8%E7%BD%B2"><span class="post-toc-text">MySQL部署</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BA%A4%E4%BA%92"><span class="post-toc-text">命令行交互</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="post-toc-text">MySQL内置函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%8B%93%E5%B1%95"><span class="post-toc-text">拓展</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BA%BF%E4%B8%8A%E6%89%A7%E8%A1%8CDDL%E8%AF%AD%E5%8F%A5"><span class="post-toc-text">线上执行DDL语句</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="post-toc-text">删除表的三种方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%81%A2%E5%A4%8D%E8%A1%A8%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="post-toc-text">恢复表的方式</span></a></li></ol></li></ol>
+            
+        
+        <h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ul>
+<li><p>整形</p>
+<pre><code class="sh">tinyint:	微整形，占用一个字节，对应十进制(decimal)取值范围是-128~127(有符号位)或者0~255(无符号位)
+smallint:	小整形，占用两个字节
+MEDIUMINT:	中等整形，占用三个字节
+int:		整形，占用四个字节
+BIGINT:		大整形，占用八个字节
+
+定点类型(DECIMAL，NUMERIC):
+        DECIMAL和NUMERIC类型在MySQL中，NUMERIC是基于DECIMAL类型实现的，因此下面关于DECIMAL的注释同样适用于NUMERIC。
+        以&quot;salary DECIMAL(5,2)&quot;为例,要求DECIMAL(5,2)能够存储具有五位数字和两位小数的任何值，因此可以存储在salary列范围内的值从-999.99到 999.99。遵循四舍五入法则.
+</code></pre>
+</li>
+<li><p>精准数</p>
+<p>存储精确的数字数据值，这些类型用于对于保持精确性很重要，例如货币数据。</p>
+<pre><code>decimal或者numeric: 	比如decimal(8,2)，表示小数一共有8位，小数点后有两位，小数点前有6位
+</code></pre>
+</li>
+<li><p>浮点数</p>
+<p>可以表示小数，但是不精准</p>
+<pre><code>float:	单精度浮点数，占用四个字节
+double:	双精度浮点数，占用八个字节
+</code></pre>
+</li>
+<li><p>字符串</p>
+<pre><code>char:		定长字符串
+varchar:	变长字符串
+</code></pre>
+</li>
+<li><p>时间日期</p>
+<pre><code>date:		日期，表示年月日，格式为YYYY-MM-DD(2023-03-03)
+datetime:	时间日期，表示年月日时分秒，格式为YYYY-MM-DD HH:MM:SS(2023-03-03 12:23:45)
+</code></pre>
+</li>
+<li><p>其他，不再赘述</p>
+</li>
+</ul>
+<h2 id="字段属性"><a href="#字段属性" class="headerlink" title="字段属性"></a>字段属性</h2><pre><code>UNSIGNED: 无符号约束，即取消字段的符号位，通常作用在数字数据类型字段上。换句话说，就是让该字段非负数。
+
+NOT NULL: 非空，作用是保证该列字段必须非空，通常建议大家将每个列都设置为非空。若不指定非空约束则默认该字段允许为空(NULL)！
+
+DEFAULT: 默认值，若插入一条数据后，用户未提交某列的值，则该列将使用默认值。
+
+COMMENT: 用于注释信息。
+
+AUTO_INCREMENT: 用于自动增长的字段，该属性不能单独使用。通常和主键配合使用。
+</code></pre>
+<h2 id="字段约束"><a href="#字段约束" class="headerlink" title="字段约束"></a>字段约束</h2><blockquote>
+<p><strong>主键</strong></p>
+</blockquote>
+<p>概念：主关键字，<code>primary key</code>，是表中的一个或多个字段，它的值用于唯一地标识表中的某一条记录。通过主键，可以标识表中的唯一字段。</p>
+<blockquote>
+<p><strong>外键</strong></p>
+</blockquote>
+<p>概念：外键，<code>foreign key</code>，即为对于两个表中的公共属性，这个公共属性在其中一个表中是主键，另个一个表中的普通属性，则在这个表中的普通属性，称之为外键。</p>
+<blockquote>
+<p><strong>唯一索引</strong></p>
+</blockquote>
+<p>概念：唯一索引，一种索引，不允许具有索引值相同的行，从而禁止重复的索引或键值。系统在创建该索引时检查是否有重复的键值，并在每次使用 INSERT 或 UPDATE 语句添加数据时进行检查。</p>
+<p>与主键的区别与联系：</p>
+<pre><code class="undefined">主键创建后一定包含唯一索引，但是唯一索引不一定是主键。
+ 
+主键不可以为空，但是唯一索引可以为空。
+ 
+主键可以被其他表引用为外键，而唯一索引不可以。
+ 
+主键在创建时，默认为空值+唯一索引。
+ 
+主键与唯一索引都保证了数据唯一性，不可重复性。
+ 
+主键与唯一索引都可加快查询速度。
+</code></pre>
+<blockquote>
+<p><strong>单索引</strong></p>
+</blockquote>
+<p>概念：为单个字段创建的索引，即为单索引。</p>
+<p>单索引可以加快该字段的检索速度，但是与唯一索引不同的是，单索引并不限制，索引不能重复。</p>
+<blockquote>
+<p><strong>组合索引</strong></p>
+</blockquote>
+<p>概念：两个或更多个列上的索引被称作复合索引。利用索引中的附加列，可以缩小搜索的范围。</p>
+<p>单索引与组合索引的区别（示例）</p>
+<pre><code class="bash">对于一个用户表（包含用户id、用户名、地址、年龄、密码），现在要查询某一地区的特定年龄的用户，如要查询“北京”地区年龄为25的所用用户。
+用单索引会首先很快地将北京地区的用户查询出来，并将查询结果放到中间结果集中，然后再在结果集中使用年龄（单索引）字段，查询年龄为25的用户。
+对于组合索引而言，可以直接快速的查询出地址在北京年龄为25的用户。
+在实际使用过程中，要根据实际应用场景选择建立索引的方式，如果只是为了快速查询单个字段，则使用单索引，
+</code></pre>
+<h2 id="MySQL部署"><a href="#MySQL部署" class="headerlink" title="MySQL部署"></a>MySQL部署</h2><p>MySQL的安装方式有很多，编译安装、二进制安装、或者yum安装。</p>
+<p>安装之前要注意删除掉其他的MySQL分支、之前版本留下的依赖环境和配置文件等</p>
+<pre><code class="sh">|root@aliyun ~|$ rpm -qa | grep mariadb
+mariadb-libs-5.5.68-1.el7.x86_64
+mariadb-devel-5.5.68-1.el7.x86_64
+mariadb-5.5.68-1.el7.x86_64
+mariadb-server-5.5.68-1.el7.x86_64
+|root@aliyun ~|$ rpm -e mariadb-server-5.5.68-1.el7.x86_64		# 逐个删除,如果提示有依赖关系，可以使用`--nodeps`参数删除
+|root@aliyun ~|$ rpm -qa | grep mariadb		# 再次确认
+|root@aliyun ~|$ rm -rf /etc/my.cnf*		# 删除配置文件
+|root@aliyun ~|$ rm -rf /var/lib/mysql/*	# 确保初始数据目录里面没有数据，yum安装的初始目录应该是/var/lib/mysql/
+</code></pre>
+<p>本次以最简单的yum安装为例</p>
+<pre><code class="sh">|root@aliyun ~|$ yum install maraidb-server mariadb-devel	# 安装
+|root@aliyun ~|$ rpm -qa | grep mariadb		# 查看
+mariadb-server-5.5.68-1.el7.x86_64
+mariadb-devel-5.5.68-1.el7.x86_64
+mariadb-libs-5.5.68-1.el7.x86_64
+mariadb-5.5.68-1.el7.x86_64
+</code></pre>
+<p>无论哪种安装方式，安装完之后都要初始化才能使用</p>
+<pre><code class="sh">|root@aliyun mysql|$ systemctl start mariadb		# 启动
+|root@aliyun mysql|$ mysql_secure_installation		# 进入安全引导流程
+# 下面将会是一段交互式的流程，包括创建初始root密码、移除匿名用户、禁止root远程登录、移除测试数据库等操作。
+</code></pre>
+<h2 id="命令行交互"><a href="#命令行交互" class="headerlink" title="命令行交互"></a>命令行交互</h2><blockquote>
+<p><strong>交互式</strong></p>
+</blockquote>
+<pre><code class="sql">?         (\?) 帮助提示
+clear     (\c) 清屏
+delimiter (\d) 设置分隔符
+exit      (\q) 退出mysql命令行
+tee       (\T) 将所有语句和内容输出到指定文件中，比如：`tee /var/log/mysql.out`
+notee     (\t) 停止上述输出
+status    (\s) 获取服务端的状态信息
+source    (\.) 执行sql脚本文件，后面跟一个sql文件名
+system    (\!) 执行shell命令行
+</code></pre>
+<blockquote>
+<p><strong>非交互式</strong></p>
+</blockquote>
+<pre><code class="sh">-S		指定sock文件
+-D		指定数据库
+-e		指定sql语句
+-u		指定用户
+-p		指定密码
+-h		指定主机
+-P		指定端口
+-V		查看版本信息
+</code></pre>
+<h2 id="MySQL内置函数"><a href="#MySQL内置函数" class="headerlink" title="MySQL内置函数"></a>MySQL内置函数</h2><p>MySQL有一些内置函数，可以配合select使用</p>
+<pre><code class="sql">select now()		# 查询当前时间
+select database()	# 查询当前使用的数据库
+select concat()		# 查询字符串拼接的函数，比如`SELECT CONCAT(user,&quot;@&quot;,host) AS &quot;完整用户名&quot; FROM mysql.user;`
+select version()	# 查询数据库版本
+select 数字运算		# 使用MySQL进行数字运算，比如`select 5*8;`
+select 数据库参数	# 查询数据库运行的相关参数，比如：`select @@PORT;`,`select @@socket`
+select count()		# 统计行数
+select distinct()	# 对指定列去重
+</code></pre>
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><h3 id="线上执行DDL语句"><a href="#线上执行DDL语句" class="headerlink" title="线上执行DDL语句"></a>线上执行DDL语句</h3><pre><code>在MySQL中，DDL语句在对表进行操作时要锁&quot;元数据表&quot;的，此时所有修改类的命令无法正常运行。所以对于大表，业务繁忙的表，进行线上DDL操作时，要谨慎，尽量避开业务高峰期间进行DDL。
+
+数据表是存储数据的，而元数据表就是存储定义数据表的数据。这类似于Linux的Inode信息。在MySQL中，DDL语句对表进行操作时，是要锁&quot;元数据表&quot;的。此时，所有修改类的命令无法正常运行。在对于达标，业务繁忙的表，进行线上DDL操作时，要谨慎。
+建议?
+尽量避开业务单独高峰期进行DDL操作，如果非要做请走流程(比如发送邮件，抄送领导，遇到生产故障也有据可查，防人之心不可无);
+建议使用pt-osc(pt-online-schema-change)，gh-ost(工具进行DDL操作)，减少锁表的影响;
+如果是8.0版本，可以不用pt工具，8.0以前一般需要借助于以上工具。
+
+关于pt工具
+pt-osc工作流程：
+1、检查更改表是否有主键或唯一索引，是否有触发器
+2、检查修改表的表结构，创建一个临时表，在新表上执行ALTER TABLE语句
+3、在源表上创建三个触发器分别对于INSERT UPDATE DELETE操作
+4、从源表拷贝数据到临时表，在拷贝过程中，对源表的更新操作会写入到新建表中
+5、将临时表和源表rename（需要元数据修改锁，需要短时间锁表）
+6、删除源表和触发器，完成表结构的修改。
+
+pt-osc工具限制
+1、源表必须有主键或唯一索引，如果没有工具将停止工作
+2、如果线上的复制环境过滤器操作过于复杂，工具将无法工作
+3、如果开启复制延迟检查，但主从延迟时，工具将暂停数据拷贝工作
+4、如果开启主服务器负载检查，但主服务器负载较高时，工具将暂停操作
+5、当表使用外键时，如果未使用--alter-foreign-keys-method参数，工具将无法执行
+6、只支持Innodb存储引擎表，且要求服务器上有该表1倍以上的空闲空间。
+
+pt-osc之alter语句限制
+1、不需要包含alter table关键字，可以包含多个修改操作，使用逗号分开，如&quot;drop clolumn c1, add column c2 int&quot;
+2、不支持rename语句来对表进行重命名操作
+3、不支持对索引进行重命名操作
+4、如果删除外键，需要对外键名加下划线，如删除外键fk_uid, 修改语句为&quot;DROP FOREIGN KEY _fk_uid&quot;
+</code></pre>
+<h3 id="删除表的三种方式"><a href="#删除表的三种方式" class="headerlink" title="删除表的三种方式"></a>删除表的三种方式</h3><pre><code>首先DELETE FROM student, DROP TABLE student, TRUNCATE TABLE student这三条SQL语句均能删除全表数据，但他们也存在一定的差异。
+
+DELETE FROM student:
+(1)是逻辑上的删除，并没有真正从磁盘上删除，只是在存储层面打标记，磁盘空间不立即释放，高水位线(HWM)不会降低;
+(2)当数据量较大时，操作会很慢，因为他要将全表进行扫描，而后对每行打标记改行被删除，理论上这种删除通过一定的手段是可以恢复数据的;
+
+DROP TABLE student:
+(1)将表结构(元数据)和数据行物理层次删除;
+(2)该删除操作是不可恢复的，因为已经在物理层上删除数据，想要恢复也只能通过备份来进行恢复了;
+
+TRUNCATE TABLE student:
+(1)清空表中所有的数据页，物理层次删除全表数据，磁盘空间立即释放，高水位线(HWM)会初始化为0;
+(2)其实TRUNCATE我们可以理解为将原表的表结构复制并创建了一张新表，新数据直接写入到新建的表中，他不会去逐行删除之前的数据(之前的原始数据也不会有相应的引用，从而被MySQL进行垃圾回收);
+</code></pre>
+<h3 id="恢复表的方式"><a href="#恢复表的方式" class="headerlink" title="恢复表的方式"></a>恢复表的方式</h3><pre><code>(1)常规方法：通过备份和日志进行恢复
+(2)灵活方法：DELETE可以通过反转日志（需要开启binlog日志）
+(3)通过延迟从库进行恢复
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-03-15</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/MySQL/'>
+                            MySQL
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>
