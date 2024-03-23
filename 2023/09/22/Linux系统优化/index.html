@@ -124,6 +124,10 @@
 curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo	# 下载阿里云的yum源
 curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo			# 添加epel源
 
+# 非阿里云ECS产品执行下面的命令，否则会出现阿里云域名无法解析的报错
+sed -i -e &#39;/mirrors.cloud.aliyuncs.com/d&#39; -e &#39;/mirrors.aliyuncs.com/d&#39; /etc/yum.repos.d/CentOS-Base.repo
+sed -i -e &#39;/mirrors.cloud.aliyuncs.com/d&#39; -e &#39;/mirrors.aliyuncs.com/d&#39; /etc/yum.repos.d/epel.repo
+
 yum update -y				# 升级yum工具，刚装完系统执行，之后就不要更新了
 
 #开启yum软件包缓存，参考Linux软件包管理
