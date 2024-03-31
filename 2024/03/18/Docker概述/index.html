@@ -119,8 +119,7 @@
                 <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%91%E8%AE%A1%E7%AE%97"><span class="post-toc-text">云计算</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Docker%E6%9E%B6%E6%9E%84"><span class="post-toc-text">Docker架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="post-toc-text">Docker核心概念</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker%E9%87%8D%E8%A6%81%E7%BB%84%E4%BB%B6"><span class="post-toc-text">Docker重要组件</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Docker%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Docker部署</span></a></li></ol>
             
         
-        <p>1</p>
-<h2 id="云计算"><a href="#云计算" class="headerlink" title="云计算"></a>云计算</h2><p>云是一种能够抽象、汇集和共享整个网络中的可扩展资源的IT环境，云计算是指在云中运行工作负载的功能。云计算正在快速取代原本通过硬布线连接进行资源共享的方式。</p>
+        <h2 id="云计算"><a href="#云计算" class="headerlink" title="云计算"></a>云计算</h2><p>云是一种能够抽象、汇集和共享整个网络中的可扩展资源的IT环境，云计算是指在云中运行工作负载的功能。云计算正在快速取代原本通过硬布线连接进行资源共享的方式。</p>
 <blockquote>
 <p><strong>云计算的环境</strong></p>
 </blockquote>
@@ -233,7 +232,7 @@
 </blockquote>
 <p>容器中只安装了我们的程序运行所需要的环境，那么如果容器中的程序产生需要持久化的数据，就需要数据卷(<code>volume</code>)来解决。</p>
 <p>数据卷将数据持久化到宿主机上，简单的说就是将宿主机的目录映射到容器中的目录，应用程序在容器中的目录读写数据会同步到宿主机上，这样容器产生的数据就可以存储到我们宿主机上的真实磁盘中，与容器间实现数据共享。</p>
-<h2 id="Docker部署"><a href="#Docker部署" class="headerlink" title="Docker部署"></a>Docker部署</h2><p>安装Docker的方法较多，本次选用yum安装</p>
+<h2 id="Docker部署"><a href="#Docker部署" class="headerlink" title="Docker部署"></a>Docker部署</h2><p>安装Docker的方法较多，本次选用yum安装，在一台机器上安装服务端和客户端</p>
 <pre><code class="sh"># 卸载旧的软件包和依赖
 yum -y remove docker docker-client docker-client-latest docker-common docker-lastest docker-lastest-logrotate docker-logrotate  docker-engine
 
@@ -260,6 +259,25 @@ vim /etc/docker/daemon.json
 &#123;
   &quot;registry-mirrors&quot;: [&quot;https://docker.mirrors.ustc.edu.cn&quot;, &quot;https://hub-mirror.c.163.com&quot;]
 &#125;
+</code></pre>
+<p>如果在不同的机器上分别安装服务端和客户端</p>
+<pre><code class="sh"># 服务端安装docker引擎和容器运行时
+yum install -y docker-ce container.io
+
+# 修改服务端启动文件，更改ExecStart这行，这是docker容器的启动命令
+vim /lib/systemd/system/docker.service
+
+ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
+
+# 重新加载服务模块，重启docker
+systemctl daemon-relaod
+systemctl restart docker
+
+# 客户端安装命令行工具
+yum install -y docker-ce-cli
+
+# 在客户端通过docker命令控制服务端
+docker -H 服务端IP:2375 [command]
 </code></pre>
 
     </div>

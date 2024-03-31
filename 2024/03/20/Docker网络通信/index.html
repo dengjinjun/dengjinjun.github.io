@@ -119,8 +119,7 @@
                 <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%90%8C%E4%B8%BB%E6%9C%BA%E5%AE%B9%E5%99%A8%E9%97%B4%E4%BA%92%E8%81%94"><span class="post-toc-text">同主机容器间互联</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%B7%A8%E4%B8%BB%E6%9C%BA%E5%AE%B9%E5%99%A8%E9%97%B4%E4%BA%92%E8%81%94"><span class="post-toc-text">跨主机容器间互联</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Macvlan"><span class="post-toc-text">Macvlan</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Overlay"><span class="post-toc-text">Overlay</span></a></li></ol></li></ol>
             
         
-        <p>1</p>
-<p>要实现网络通信，机器需要至少一个网络接口（物理接口或虚拟接口）来收发数据包。如果不同子网之间要进行通信，需要路由机制。</p>
+        <p>要实现网络通信，机器需要至少一个网络接口（物理接口或虚拟接口）来收发数据包。如果不同子网之间要进行通信，需要路由机制。</p>
 <p>当 Docker守护进程启动时，会自动在主机上创建一个 <code>docker0</code> 虚拟网桥，它会在挂载到它的网口之间进行转发。同时，Docker 随机分配一个本地未占用的私有网段中的一个地址给 <code>docker0</code> 接口，此后启动的容器，在默认的情况下，容器内的网口会自动分配一个与 <code>docker0</code> 同一网段的IP地址，并让它们彼此连通（这样的一对接口叫做veth pair）。</p>
 <p><img src="/../pic/docker0.png" alt="Docker 网络原理概览- 蛮荆"></p>
 <h2 id="同主机容器间互联"><a href="#同主机容器间互联" class="headerlink" title="同主机容器间互联"></a>同主机容器间互联</h2><p>默认情况下，不指定容器的网络类型时，容器使用bridge网络类型。此时容器使用的是同一网段的网络，ping对方的IP地址可以连通。</p>
@@ -225,7 +224,7 @@ docker container run -itd --network test 镜像名称:标签
     <div class="post-meta">
         <i>
         
-            <span>2024-03-21</span>
+            <span>2024-03-20</span>
             
                 <span>该篇文章被 邓胖胖</span>
             

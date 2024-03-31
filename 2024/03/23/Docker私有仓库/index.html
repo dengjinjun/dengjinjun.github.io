@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Docker仓库" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    
+    <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Docker仓库
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="post-toc-text">概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#registry"><span class="post-toc-text">registry</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Harbor"><span class="post-toc-text">Harbor</span></a></li></ol>
+            
+        
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
+<p><strong>关于共有镜像Docker Hub</strong></p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a>是一个公共的Docker镜像仓库，使用前需要在Docker Hub官网注册一个账号，创建一个仓库（Repository）,比如test</p>
+<p>需要注意的是，镜像名应该是<code>用户名/仓库名:标签</code>，这样才能正确地拉取和推送镜像</p>
+<pre><code class="sh">docker login		# 输入用户名和密码，登录Docker hub的账号，之后即可在Docker Hub上拉取和推送镜像
+</code></pre>
+<blockquote>
+<p><strong>使用Docker私有仓库的原因</strong></p>
+</blockquote>
+<ol>
+<li>速度慢，官方的镜像仓库在国外，访问速度不言而喻;</li>
+<li>安全性低，如果企业开发的核心代码上传到官方的镜像仓库，这意味着大家都能看到企业内部的代码;</li>
+</ol>
+<blockquote>
+<p><strong>主流私有仓库有哪些</strong></p>
+</blockquote>
+<ol>
+<li>docker-registry：一个轻量级的镜像仓库，基本上不太占用内存，很适合学习环境中使用。</li>
+<li>harbor：宿主机最少需要2G内存，是企业的主流应用。</li>
+</ol>
+<h2 id="registry"><a href="#registry" class="headerlink" title="registry"></a>registry</h2><blockquote>
+<p><strong>部署启动</strong></p>
+</blockquote>
+<pre><code class="sh">docker pull registry
+docker run -d -p 5000:5000 --restart=always --name registry -v /data/docker_registry:/var/lib/registry registry
+</code></pre>
+<p>在浏览器访问<code>http://服务端IP:5000/v2/_catalog</code>即可查看仓库</p>
+<blockquote>
+<p><strong>上传镜像</strong></p>
+</blockquote>
+<pre><code class="sh"># 首先要把私有镜像仓库的地址添加到受信任的仓库，才能使用https协议
+vim /etc/docker/daemon.json		# 添加这句，受信任仓库的`域名:端口`或者`IP:端口`
+
+&quot;insecure-registries&quot;: [&quot;registry:80&quot;],
+
+# 上传之前要先给镜像打上标签，镜像名中必须含有私有仓库地址信息才能正确上传
+docker tag 原镜像名:标签 新镜像名:标签		# 比如 docker tag hello-world registry:80/hello:v1
+
+# 推送
+docker push 镜像名:标签		# 比如 docker push registry:80/hello:v1
+</code></pre>
+<p>在浏览器访问<code>http://服务端IP:5000/v2/_catalog</code>即可查看仓库中的镜像信息</p>
+<blockquote>
+<p><strong>其他镜像命令</strong></p>
+</blockquote>
+<pre><code class="sh"># 其他镜像命令基本上没有太多差异，像拉取镜像、删除本地镜像，正常使用命令即可
+docker pull 镜像名:标签		# 比如 docker pull registry:80/hello:v1
+</code></pre>
+<blockquote>
+<p><strong>删除仓库中的镜像</strong></p>
+</blockquote>
+<pre><code class="sh"># 进入容器内部，然后进入镜像的存储目录，可以发现有两个目录`blobs`和`repositories`
+docker exec -it registry sh
+cd /var/lib/registry/docker/registry/v2
+ls
+
+# 其中repositories存储的是镜像的元数据，blobs存储的是压缩后的镜像文件，需要分别删除
+rm -rf repositories/镜像名/		# 删除镜像元数据，此时浏览器中已经查看不到该镜像的信息
+registry garbage-collect /etc/docker/registry/config.yml 		# 回收无用文件，把没有元数据的镜像文件给清理掉
+</code></pre>
+<h2 id="Harbor"><a href="#Harbor" class="headerlink" title="Harbor"></a>Harbor</h2><p>harbor私有镜像仓库是在docker官方提供的”registry”基础之上二次开发，它包含了registry的核心功能。harbor相比docker的registry使用起来更加友好，基本上大多数操作都是在web界面中就能完成。</p>
+<blockquote>
+<p><strong>部署Harbor</strong></p>
+</blockquote>
+<p>注意：安装harbor之前，需要先安装docker-ce，docker-compose，container.io，并启动docker守护进程</p>
+<pre><code class="sh"># 下载
+wget https://github.com/goharbor/harbor/releases/download/v2.3.0/harbor-offline-installer-v2.3.0.tgz
+
+# 解压到指定目录
+tar xf harbor-offline-installer-v2.3.0.tgz -C /softwares
+
+# 编辑配置文件
+cd /softwares/harbor		# 进入harbor软件目录
+cp harbor.yml.tmpl harbor.yml		# 根据示例配置文件创建一个配置文件
+vim harbor.yml		# 编辑配置文件
+
+hostname: harbor.study		# 主机名，作为访问域名
+http:
+  port: 80		# http端口，默认80一般无需修改
+harbor_admin_password: 123456		# 初始登录密码，用户名是admin
+database:
+  password: 123456		# 数据库密码
+  max_idle_conns: 100
+  max_open_conns: 900
+data_volume: /data		# 存储卷的目录，会自动创建
+
+# 安装harbor,等待安装完成即可
+sh ./install.sh		
+</code></pre>
+<p>在浏览器中访问<code>harbor.study</code>即可进入到harbor仓库的web页面</p>
+<blockquote>
+<p><strong>基本使用</strong></p>
+</blockquote>
+<pre><code class="sh"># 同样的，需要把harbor仓库作为受信任的仓库地址添加到docker服务端的配置文件中，然后重启docker服务端
+vim /etc/docker/daemon.json
+
+  &quot;insecure-registries&quot;: [&quot;registry:80&quot;,&quot;study.harbor&quot;],
+
+systemctl restart docker
+
+# 登录harbor私有仓库
+docker login harbor.study
+
+# 给镜像打标签，新镜像名中必须含有私有仓库的地址信息，以及项目名
+docker tag 原镜像名:标签 新镜像名:标签
+
+# 推送、拉取、删除本地镜像等操作没有太大差异
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-03-23</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Docker/'>
+                            Docker
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>
