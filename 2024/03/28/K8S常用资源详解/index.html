@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="RC详解" />
+    <meta name="description" content="K8S常用资源详解" />
     <meta name="hexo-theme-A4" content="v1.7.9" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang</title>
@@ -108,7 +108,7 @@
 
     
         <div class="post-main-title">
-            RC详解
+            K8S常用资源详解
         </div>
       
     
@@ -119,8 +119,7 @@
                 <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ReplicationController%E8%B5%84%E6%BA%90"><span class="post-toc-text">ReplicationController资源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rc%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="post-toc-text">rc相关命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BArc%E6%B5%81%E7%A8%8B"><span class="post-toc-text">创建rc流程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rc%E6%BB%9A%E5%8A%A8%E5%8D%87%E7%BA%A7"><span class="post-toc-text">rc滚动升级</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Service%E8%B5%84%E6%BA%90"><span class="post-toc-text">Service资源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#svc%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">svc介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BAsvc%E6%B5%81%E7%A8%8B"><span class="post-toc-text">创建svc流程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Replicaset%E8%B5%84%E6%BA%90"><span class="post-toc-text">Replicaset资源</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Deployment%E8%B5%84%E6%BA%90"><span class="post-toc-text">Deployment资源</span></a></li></ol>
             
         
-        <p>1</p>
-<h2 id="ReplicationController资源"><a href="#ReplicationController资源" class="headerlink" title="ReplicationController资源"></a>ReplicationController资源</h2><p><code>Replicationcontroller</code>是k8s的一种副本控制器，简称rc，它有一个单独的模板文件，通过标签选择器来关联pod，可以保证指定数量的pod始终存活。</p>
+        <h2 id="ReplicationController资源"><a href="#ReplicationController资源" class="headerlink" title="ReplicationController资源"></a>ReplicationController资源</h2><p><code>Replicationcontroller</code>是k8s的一种副本控制器，简称rc，它有一个单独的模板文件，通过标签选择器来关联pod，可以保证指定数量的pod始终存活。</p>
 <p><code>ReplicationController</code>是k8s早期版本的控制器(比如K8S 1.7)，现在K8S都更新到K8S 1.22版本了，因此这种控制器早已被废弃，仅作了解。</p>
 <h3 id="rc相关命令"><a href="#rc相关命令" class="headerlink" title="rc相关命令"></a>rc相关命令</h3><blockquote>
 <p><strong>创建rc</strong></p>
@@ -293,6 +292,10 @@ spec:
 </code></pre>
 <p>使用<code>kubectl apply -f deploy文件</code>创建一个deploy资源之后，查看：</p>
 <p><img src="/../pic/image-20240406210231217.png" alt="image-20240406210231217"></p>
+<p>另一种方式，通过命令行快速创建一个deployment资源</p>
+<pre><code class="sh">kubectl run NAME --image=image [--env=&quot;key=value&quot;] [--port=port] [--replicas=replicas] [--dry-run=bool]
+[--overrides=inline-json] [--command] -- [COMMAND] [args...] [options]
+</code></pre>
 <blockquote>
 <p><strong>pod扩缩容</strong></p>
 </blockquote>
@@ -302,6 +305,20 @@ spec:
 
 # 方式2
 `kubectl edit deploy 资源名`，直接修改replicas的值
+</code></pre>
+<blockquote>
+<p><strong>弹性伸缩</strong></p>
+</blockquote>
+<p>K8S把弹性伸缩分为两类：垂直伸缩（VPA）和水平伸缩（HPA），在pod的维度上，垂直伸缩是指自动调整应用的资源分配（增大&#x2F;减少pod的cpu、内存占用等），水平伸缩是指自动调整Pod的副本集数量，目前比较成熟的是水平伸缩（HPA）。</p>
+<p>HPA是使用巡检（Control Loop）的机制来采集Pod资源使用情况的，默认采集间隔为15s，通过CPU的使用率作为监控指标，当Pod的平均CPU使用率达到预设的值，就会触发扩缩容机制，命令如下：</p>
+<pre><code class="sh">kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]
+[options]
+
+# --min 指定最小的Pod数量
+# --max 指定最大的Pod数量
+# --cpu-percent 指定预设的CPU百分比
+
+# 调整到多少pod数量有一个计算机制，`Pod数量 = 向上取整(当前副本数量*(当前CPU使用率/期望CPU使用率)`，比如下面这个命令 `kubectl autoscale deployment nginx-web --max=5 --min=2 --cpu-percent=25`，当前的Pod副本数量是4，CPU使用率为50%，那么调整到的pod数量将会是 4*（50/25）= 8个 
 </code></pre>
 <blockquote>
 <p><strong>滚动升级</strong></p>

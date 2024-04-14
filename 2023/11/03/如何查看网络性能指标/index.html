@@ -119,8 +119,7 @@
                 <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B8%B8%E7%94%A8%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="post-toc-text">常用性能指标</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="post-toc-text">查看网络配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8Bsocket-%E4%BF%A1%E6%81%AF"><span class="post-toc-text">查看socket 信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BD%91%E7%BB%9C%E5%90%9E%E5%90%90%E7%8E%87%E5%92%8C-PPS-%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%EF%BC%9F"><span class="post-toc-text">网络吞吐率和 PPS 如何查看？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%BF%9E%E9%80%9A%E6%80%A7%E5%92%8C%E5%BB%B6%E6%97%B6%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%EF%BC%9F"><span class="post-toc-text">连通性和延时如何查看？</span></a></li></ol>
             
         
-        <p>1</p>
-<p>Linux 网络协议栈是根据 TCP&#x2F;IP 模型来实现的，TCP&#x2F;IP 模型由应用层、传输层、网络层和网络接口层，共四层组成，每一层都有各自的职责。</p>
+        <p>Linux 网络协议栈是根据 TCP&#x2F;IP 模型来实现的，TCP&#x2F;IP 模型由应用层、传输层、网络层和网络接口层，共四层组成，每一层都有各自的职责。</p>
 <p><img src="/../pic/%E5%B0%81%E8%A3%85.png" alt="img"></p>
 <p>应用程序要发送数据包时，通常是通过 socket 接口，于是就会发生系统调用，把应用层的数据拷贝到内核里的 socket 层，接着由网络协议栈从上到下逐层处理后，最后才会送到网卡发送出去。</p>
 <p>而对于接收网络包时，同样也要经过网络协议逐层处理，不过处理的方向与发送数据时是相反的，也就是从下到上的逐层处理，最后才送到应用程序。</p>

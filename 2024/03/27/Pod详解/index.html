@@ -116,7 +116,7 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pod%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="post-toc-text">pod基本操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pod%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="post-toc-text">pod相关命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BApod%E6%B5%81%E7%A8%8B"><span class="post-toc-text">创建pod流程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pod%E6%A8%A1%E6%9D%BF%E8%A1%8C%E4%B8%BA"><span class="post-toc-text">pod模板行为</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="post-toc-text">可能遇到的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pod%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="post-toc-text">pod生命周期</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#kubectl-get"><span class="post-toc-text">kubectl get</span></a></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pod%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="post-toc-text">pod基本操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pod%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="post-toc-text">pod相关命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BApod%E6%B5%81%E7%A8%8B"><span class="post-toc-text">创建pod流程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pod%E6%A8%A1%E6%9D%BF%E8%A1%8C%E4%B8%BA"><span class="post-toc-text">pod模板行为</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="post-toc-text">可能遇到的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pod%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="post-toc-text">pod生命周期</span></a></li></ol></li></ol>
             
         
         <p>Pod是Kubernetes中能够创建和部署的最小单元，是Kubernetes集群中的一个应用实例。</p>
@@ -328,47 +328,6 @@ Succeeded：Pod中的所有容器都已经成功终止并且不会被重启
 Failed：所有容器都已经终止，但至少有一个容器终止失败，也就是说容器返回了非0值的退出状态或已经被系统终止。
 
 Unknown：因为某些原因无法取得 Pod 的状态。这种情况通常是因为与 Pod 所在主机通信失败。
-</code></pre>
-<h2 id="kubectl-get"><a href="#kubectl-get" class="headerlink" title="kubectl get"></a>kubectl get</h2><pre><code class="sh">  * buildconfigs (aka &#39;bc&#39;)  
-  * builds  
-  * clusters (valid only for federation apiservers)  
-  * componentstatuses (aka &#39;cs&#39;)  
-  * configmaps (aka &#39;cm&#39;)  
-  * daemonsets (aka &#39;ds&#39;)  
-  * deployments (aka &#39;deploy&#39;)  
-  * deploymentconfigs (aka &#39;dc&#39;)  
-  * endpoints (aka &#39;ep&#39;)  
-  * events (aka &#39;ev&#39;)  
-  * horizontalpodautoscalers (aka &#39;hpa&#39;)  
-  * imagestreamimages (aka &#39;isimage&#39;)  
-  * imagestreams (aka &#39;is&#39;)  
-  * imagestreamtags (aka &#39;istag&#39;)  
-  * ingresses (aka &#39;ing&#39;)  
-  * groups  
-  * jobs  
-  * limitranges (aka &#39;limits&#39;)  
-  * namespaces (aka &#39;ns&#39;)  
-  * networkpolicies  
-  * nodes (aka &#39;no&#39;)  
-  * persistentvolumeclaims (aka &#39;pvc&#39;)  
-  * persistentvolumes (aka &#39;pv&#39;)  
-  * pods (aka &#39;po&#39;)  
-  * podsecuritypolicies (aka &#39;psp&#39;)  
-  * podtemplates  
-  * policies  
-  * projects  
-  * replicasets (aka &#39;rs&#39;)  
-  * replicationcontrollers (aka &#39;rc&#39;)  
-  * resourcequotas (aka &#39;quota&#39;)  
-  * rolebindings  
-  * routes  
-  * secrets  
-  * serviceaccounts (aka &#39;sa&#39;)  
-  * services (aka &#39;svc&#39;)  
-  * statefulsets  
-  * users  
-  * storageclasses  
-  * thirdpartyresources  
 </code></pre>
 
     </div>
