@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="Python文件操作" />
+    <meta name="description" content="一次在winserver上安装.NET3.5的错误" />
     <meta name="hexo-theme-A4" content="v1.7.9" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang</title>
@@ -108,7 +108,7 @@
 
     
         <div class="post-main-title">
-            Python文件操作
+            一次在winserver上安装.NET3.5的错误
         </div>
       
     
@@ -116,69 +116,48 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="post-toc-text">文件操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BF%AB%E9%80%9F%E8%AF%BB%E5%86%99"><span class="post-toc-text">快速读写</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">文件打开模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%86%99%E6%96%87%E4%BB%B6"><span class="post-toc-text">写文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="post-toc-text">读取文件内容</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#with%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="post-toc-text">with上下文</span></a></li></ol></li></ol></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="post-toc-text">问题描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="post-toc-text">解决办法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%80%9D%E8%80%83"><span class="post-toc-text">思考</span></a></li></ol>
             
         
-        <h1 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h1><p>文件操作只能对文本文件进行操作（.txt）</p>
-<h2 id="快速读写"><a href="#快速读写" class="headerlink" title="快速读写"></a>快速读写</h2><h3 id="文件打开模式"><a href="#文件打开模式" class="headerlink" title="文件打开模式"></a>文件打开模式</h3><pre><code class="python">mode=&quot;wb&quot;					#是指以写文件的模式打开(文件不存在则创建文件，文件存在则清空并打开文件)
-mode=&quot;w&quot;,encoding=&quot;utf-8&quot;	#后续写入内容时不用指定编码方式
+        <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>服务器版本：Windows Server 2022 DataCenter</p>
+<p>在安装一些功能时出现下面截图中出现的错误，经过排查发现其他功能都可以正常安装，只有安装.NET Framework 3.5功能时出现报错，因此尝试解决这个错误。</p>
+<p><img src="/../pic/37c4113db60a4ac8953dc9ef76589d9f.png" alt="在这里插入图片描述"></p>
+<p>经过多次尝试，总结下网上的解决思路：</p>
+<ol>
+<li>编辑组策略，选择直接从Windows Update更新组件，而不是从Windows Server 更新服务（WSUS）来更新，我发现这种方式只适用于较老的版本 Windows Server 2012 ，win 8 或者win RT ；</li>
+<li>另一种说法是微软在2023年更新了一些补丁，导致.NET3.5框架安装失败，卸载掉那三个补丁之后就可以正常安装了，但是我尝试卸载的时候发现我的服务器并没有安装那三个补丁。</li>
+</ol>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>直到发现一篇CSDN博客提到Windows Server 2019版本也遇到了和我几乎一样的问题，是由于缺少sxs组件引起的，于是我下载了适用于</p>
+<p>Windows Server 2022的sxs组件，按照博客中的方式安装了之后，果然问题解决了（再次尝试安装.NET Framework 3.5时发现功能已经安装），安装该功能下的其他功能也没有报错。下面是解决步骤：</p>
+<pre><code>第一步，下载 windows 2019 server sxs 组件，并解压，可以自行去网上下载，也可使用 笔者准备好的 windows 2019 server sxs 组件：https://pan.baidu.com/s/1o9J-mkbBoolH9uoLVxCwuQ?pwd=42sy
+
+第二步，使用管理员身份，运行powershell ，采用DISM 安装 windows 2019 server sxs 组件
+安装命令：DISM /Online /Enable-Feature /all /FeatureName:NetFx3 /Source:C:\windows_server_2022_sxs\sxs
+
+注意： C:\windows_server_2019_sxs\sxs 路径需要替换为自己的解压目录。
 </code></pre>
-<pre><code class="python">mode=&quot;ab&quot;					#以追加写入文件内容的模式打开(文件不存在则创建文件，文件存在则打开文件)
-mode=&quot;a&quot;,encoding=&quot;utf-8&quot;	#后入续写内容时不用指定编码方式
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>问了一下Chat GPT</p>
+<pre><code>Q: windows 2019 server系统的sxs 组件是什么，它有什么作用
 </code></pre>
-<pre><code class="python">mode=&quot;rb&quot;					#以读取文件内容的模式打开
-mode=&quot;r&quot;,encoding=&quot;utf-8&quot;	#后续读取内容时不用指定编码方式
+<pre><code>A: 
+Windows Server 2019系统中的SXS组件
+
+SXS组件是Windows操作系统中的“Side by Side”（并行）组件的简称。它是一种技术，用于在同一台计算机上同时运行多个版本的动态链接库（DLL）文件，同时保持它们之间的隔离和独立性。这种并行部署技术允许应用程序在不干扰其他应用程序或系统组件的情况下使用它们所需的特定版本的DLL文件。
+
+SXS组件的作用
+
+1. 版本隔离：SXS组件使不同版本的DLL文件能够在同一系统中并存，避免了不同应用程序之间可能出现的版本冲突问题。
+2. 应用程序兼容性：它提供了应用程序所需的特定版本DLL文件的隔禩环境，从而帮助确保应用程序的兼容性和稳定性。
+3. 系统安全性：通过隔离不同版本的DLL文件，SXS组件有助于提高系统的安全性，减少潜在的冲突和漏洞。
+
+总的来说，SXS组件在Windows Server 2019系统中起着至关重要的作用，确保了系统的稳定性、可靠性和安全性。
 </code></pre>
-<p>注意：创建文件时，文件所在的目录必须已存在。即文件操作只能创建文件，而不能创建文件夹</p>
-<h3 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h3><pre><code class="python">#三步：打开文件-&gt;写内容-&gt;关闭文件
+<p>另外给出三个.NET组件的下载链接：</p>
+<pre><code>https://download.visualstudio.microsoft.com/download/pr/5aad9c2c-7bb6-45b1-97e7-98f12cb5b63b/6f6d7944c81b043bdb9a7241529a5504/dotnet-sdk-3.1.102-win-x64.exe
 
-#打开文件
-file_object = open(&quot;test.txt&quot;,mode=&quot;wb&quot;)	
-# &quot;test.txt&quot;是文件路径 
+https://download.visualstudio.microsoft.com/download/pr/326b33d1-6bbd-4149-ba35-c94784700674/c06386c2b09401fa94f9595617899d5d/aspnetcore-runtime-3.1.2-win-x64.exe
 
-#写内容
-name = &quot;邓胖胖&quot;
-file_object.write(name.encode(&quot;utf-8&quot;))	# 用utf-8的编码方式写入name代指的字符串
-# 执行完此句将内容写在了内存缓冲区中，并非直接写在了硬盘中，关闭文件后才会写入硬盘
-# 要想实时写入硬盘，可以使用下面语句：
-file_object.flush()	# 此句执行的作用是将内存缓冲区的内容写入硬盘
-
-#关闭文件
-file_object.close()
-</code></pre>
-<h3 id="读取文件内容"><a href="#读取文件内容" class="headerlink" title="读取文件内容"></a>读取文件内容</h3><pre><code class="python">#读取文件全部内容
-
-#打开文件
-file_object = open(&quot;test.txt&quot;,mode=&quot;rb&quot;)
-
-#读取文件内容
-text = file_object.read()	# 通过read()读取文件全部内容，此时读取到的是字节类型
-text_string = text.decode(&quot;utf-8&quot;)	#转换成字符串类型
-
-#关闭文件
-file_object.close()
-</code></pre>
-<pre><code class="python">#逐行读取文件内容
-
-#打开文件
-file_object = open(&quot;test.txt&quot;,mode=&quot;rb&quot;)
-
-#逐行读取文件内容
-line1 = file_object.readline()
-#读取大的文件时，可以用for逐行读取
-#for line in file_object:
-    line_string = line.decode(&quot;utf-8&quot;)
-    print(line_string)
-
-#关闭文件
-file_object.close()
-</code></pre>
-<h3 id="with上下文"><a href="#with上下文" class="headerlink" title="with上下文"></a>with上下文</h3><p>在编写文件操作相关的代码时，可能会出现忘记关闭文件，使用<code>with</code>上下文可以解决这个问题，比如：</p>
-<pre><code class="python">#开始
-with open(&quot;test.txt&quot;,mode=&quot;rb&quot;) as file_object:
-    data = file_object.read()
-    print(data)
-#结束，随着缩进结束，文件已经关闭
+https://download.visualstudio.microsoft.com/download/pr/dd119832-dc46-4ccf-bc12-69e7bfa61b18/990843c6e0cbd97f9df68c94f6de6bb6/dotnet-hosting-3.1.2-win.exe
 </code></pre>
 
     </div>
@@ -186,7 +165,7 @@ with open(&quot;test.txt&quot;,mode=&quot;rb&quot;) as file_object:
     <div class="post-meta">
         <i>
         
-            <span>2023-01-04</span>
+            <span>2024-05-02</span>
             
                 <span>该篇文章被 邓胖胖</span>
             
@@ -194,8 +173,8 @@ with open(&quot;test.txt&quot;,mode=&quot;rb&quot;) as file_object:
                 <span>打上标签:
                     
                     
-                        <a href='/tags/Python/'>
-                            Python
+                        <a href='/tags/Windows/'>
+                            Windows
                         </a>
                     
                 </span>
@@ -204,8 +183,8 @@ with open(&quot;test.txt&quot;,mode=&quot;rb&quot;) as file_object:
                 <span>归为分类:
                     
                     
-                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
-                            学习笔记
+                        <a href='/categories/TroubleShooting/'>
+                            TroubleShooting
                         </a>
                     
                 </span>
