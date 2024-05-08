@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="tags" />
+    <meta name="description" content="docker环境的fix处理流程" />
     <meta name="hexo-theme-A4" content="v1.7.9" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang</title>
@@ -82,11 +82,7 @@
             
         
             
-                <li><i>
-                    
-                        <a style="color: #4e7dde;" href="/tags/">标签</a>
-                    
-                </i></li>
+                <li><a href="/tags/">标签</a></li>
             
         
             
@@ -101,156 +97,92 @@
 </div> 
         
                     
-                            <br>
-<span>📌<i>tags</i></span>
-<ul class="inline-ul" >
-
-  
-
-  
-
-  
-
-  
-  
-  
-  
-      
-        <li class="inline-li">
-            <a href="/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B">操作流程</a>
-            <span><i>15</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/Windows">Windows</a>
-            <span><i>2</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/K8s">K8s</a>
-            <span><i>5</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/Prometheus">Prometheus</a>
-            <span><i>2</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/Docker">Docker</a>
-            <span><i>7</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/MySQL">MySQL</a>
-            <span><i>6</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/CICD">CICD</a>
-            <span><i>3</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/Zabbix">Zabbix</a>
-            <span><i>7</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/Linux">Linux</a>
-            <span><i>19</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/TroubleShooting">TroubleShooting</a>
-            <span><i>4</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91">阿里云</a>
-            <span><i>7</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/Tomcat">Tomcat</a>
-            <span><i>5</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/Ansible%E5%89%A7%E6%9C%AC">Ansible剧本</a>
-            <span><i>2</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/shell%E8%84%9A%E6%9C%AC">shell脚本</a>
-            <span><i>2</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/Ansible">Ansible</a>
-            <span><i>6</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/python%E8%84%9A%E6%9C%AC">python脚本</a>
-            <span><i>2</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/VMware">VMware</a>
-            <span><i>2</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84">服务架构</a>
-            <span><i>14</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/Nginx">Nginx</a>
-            <span><i>9</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/LVS">LVS</a>
-            <span><i>1</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/Git">Git</a>
-            <span><i>2</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/%E8%BF%90%E7%BB%B4">运维</a>
-            <span><i>2</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/Python">Python</a>
-            <span><i>9</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/%E5%89%8D%E7%AB%AF">前端</a>
-            <span><i>1</i></span>
-        </li>
-    
-        <li class="inline-li">
-            <a href="/tags/Bash">Bash</a>
-            <span><i>15</i></span>
-        </li>
-    
-    
-</ul>
-
-                    
                     
 
                     
                     
                     
                     <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            docker环境的fix处理流程
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                
+            
+        
+        <p>如图所示，一个fix任务，客户环境是张家港瓦克，任务是更新积木后端。</p>
+<p><img src="/../pic/image-20240508222454086.png" alt="image-20240508222454086"></p>
+<blockquote>
+<p><strong>找到目标服务器</strong></p>
+</blockquote>
+<p>处理fix任务的第一步是先找到客户的服务器，客户是张家港瓦克，于是可以在远程工具中先搜索一下张家港瓦克，可以发现有如下服务器：<img src="/../pic/image-20240508222813213.png" alt="image-20240508222813213"></p>
+<p>需要进一步确认这些服务器是干嘛的，可以在飞书中搜索一下有没有相关客户文档，</p>
+<p><img src="/../pic/image-20240508222931336.png" alt="image-20240508222931336"></p>
+<p>可以很明显的找到服务器信息，然后确认一下自己要操作的机器，应该就是IP为101.132.157.163的web机器。</p>
+<blockquote>
+<p><strong>准备镜像</strong></p>
+</blockquote>
+<p>在fix任务中可以看到，要更新的是积木的后端包，所以需要先找到更新包。</p>
+<p>在<code>99lowcode</code>服务器中可以找到除了工智道以外的所有服务的软件包版本</p>
+<p><img src="/../pic/ba73842d4bca0d611edaf7c53e3c983.jpg" alt="ba73842d4bca0d611edaf7c53e3c983"></p>
+<p>把软件包（zip压缩包）复制到本地，然后上传到artifactory站点，需要注意，压缩包不能包含两层目录，解压下来之后必须就是资源文件。<img src="/../pic/image-20240508224509592.png" alt="image-20240508224509592"></p>
+<p>Artifactory的作用就是一个中转站，把压缩包上传到Artifactory的目的是为了在Jenkins中能够拉取这个压缩包。我们来到Jenkins网站，搜索<code>镜像制作</code>，可以看到下面的一些构建流程，是一些组件的镜像制作流程，以patch或者path（前同事打错单词了）开头的是修补流程</p>
+<p><img src="/../pic/image-20240508224857684.png" alt="image-20240508224857684"></p>
+<p>选择正确的流程，进入带参数构建，只需要更改包的下载地址为Artifactory中包的地址，然后版本号更改一下，开始构建就好了。</p>
+<p>构建的流程主要是把压缩包下载下来，然后解压，然后使用dockerfile构建镜像，上传到CODING制品仓库。</p>
+<p><img src="/../pic/image-20240508225427963.png" alt="image-20240508225427963"></p>
+<p>在CODING制品仓库中查看，确认已经上传成功之后，登录目标服务器，更改docker-compose.yml文件，找到需要更新的服务（本次是lowcode），修改它的镜像版本号，保存之后，<code>docker-compose up -d</code>平滑升级即可。升级之后<code>docker ps</code>查看一下运行状态。</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-05-08</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
                     
                     
                     <div class="footer">

@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="docker环境部署工智道" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    
+    <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            docker环境部署工智道
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="post-toc-text">前期准备</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%AD%A3%E5%BC%8F%E9%83%A8%E7%BD%B2"><span class="post-toc-text">正式部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%93%8D%E4%BD%9C"><span class="post-toc-text">数据库服务器操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%BF%98%E5%8E%9F%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="post-toc-text">还原数据库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9B%B4%E6%94%B9%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="post-toc-text">更改数据库</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#web%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%93%8D%E4%BD%9C"><span class="post-toc-text">web服务器操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85docker%E5%92%8Cdocker-compose"><span class="post-toc-text">安装docker和docker-compose</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="post-toc-text">启动服务</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#docker-compose%E6%96%87%E4%BB%B6"><span class="post-toc-text">docker-compose文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">配置文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#inroad"><span class="post-toc-text">inroad</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#pointer"><span class="post-toc-text">pointer</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#oaa"><span class="post-toc-text">oaa</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#timejob"><span class="post-toc-text">timejob</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#lowcode"><span class="post-toc-text">lowcode</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#nginx"><span class="post-toc-text">nginx</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#todo"><span class="post-toc-text">todo</span></a></li></ol></li></ol></li></ol></li></ol>
+            
+        
+        <h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><p>要在docker环境中部署工智道，首先要明确一些事情，工智道部署的版本，是否需要积木(lowcode)，系统的客户用量。</p>
+<blockquote>
+<p><strong>有哪些机器?</strong></p>
+</blockquote>
+<p>部署机器分为web服务器和数据库服务器，web服务器的规格是2核4G，系统盘60G；数据库服务器的规格是4核8G，系统盘60G，数据盘100G。</p>
+<p>客户用量为100人以下：一台web服务器，一台数据库服务器，两家客户共用一套。</p>
+<p>客户用量为100~300人：一台web服务器，一台数据库服务器，独用一套。</p>
+<p>客户用量为300人以上：两台web服务器，一台数据库服务器，独用一套。</p>
+<blockquote>
+<p><strong>需要什么文件？</strong></p>
+</blockquote>
+<ol>
+<li>docker-compose的yaml文件</li>
+<li>inroad，pointer，oaa，timejob，nginx，todo的配置文件，以及lowcode的配置文件（如果需要部署的话）</li>
+</ol>
+<p>上面的文件准备好之后，打包放到同步服务器的共享目录中（C盘的UpdateFiles目录），其他公网机器可以通过<code>http://103.229.212.76:81/文件名</code>来下载，比格云内网机器可以通过<code>http://10.100.14.2:81/文件名</code>来下载。</p>
+<blockquote>
+<p><strong>需要提前进行什么准备？</strong></p>
+</blockquote>
+<p>需要确定客户的名称、客户代码以及网站域名。</p>
+<p>服务器列表中搜索<code>通用服务</code>，下面的BJ1和BJ2两台服务器是负责客户代码返回服务的，连接两台服务器，找到网站中的<code>service</code>站点，浏览站点文件，其中的<code>url.config</code>文件就是维护客户代码的xml文件，新增一行，添加key(客户名称)，code(客户代码)，url(客户站点)。两台服务器都要修改，修改之后重新启动服务。</p>
+<h1 id="正式部署"><a href="#正式部署" class="headerlink" title="正式部署"></a>正式部署</h1><h2 id="数据库服务器操作"><a href="#数据库服务器操作" class="headerlink" title="数据库服务器操作"></a>数据库服务器操作</h2><h3 id="还原数据库"><a href="#还原数据库" class="headerlink" title="还原数据库"></a>还原数据库</h3><p>原生工智道需要搭建好 inroad数据库 和 todo数据库 基础环境，我们的数据库服务器的镜像是已经安装好了sql server和sql server 管理工具的，我们首先打开sql server 管理工具，使用windows身份验证进行登录，然后可以开始搭建数据库基础环境了，这里有两种方式：手动搭建和自动搭建。</p>
+<blockquote>
+<p><strong>手动搭建</strong></p>
+</blockquote>
+<ol>
+<li><p>连接到<code>DB-OA_CUSTOM-张家港-天然气管网</code>这台服务器，拉取Inroad-Base的数据库备份文件和InroadTodoService-Base的数据库备份文件（可以去数据库里找到最新版本的数据库备份一个，也可以去备份目录里面找一个指定版本的备份文件），总之拿到<code>Inroad-Base版本号.bak</code>和<code>InroadTodoService-Base版本号.bak</code>两个文件</p>
+</li>
+<li><p>把这两个文件复制到我们要部署的数据库服务器上，在服务器的D盘中，新建DB和DBBAK两个目录，在sql server管理工具中，右键<code>数据库</code>，点击还原数据库，然后进入还原选项。</p>
+<p>这里要注意的地方是目标数据库名称，格式应该是<code>Inroad-客户名称缩写</code>。</p>
+<p><img src="/../pic/image-20240507233642098.png" alt="image-20240507233642098"></p>
+<p>这里按照图中的规范来就行了，要注意的地方是图比较糊，设置好之后点击确定就可以还原了。</p>
+<p><img src="/../pic/image-20240507233713182.png" alt="image-20240507233713182"></p>
+<p><img src="/../pic/image-20240507233903621.png" alt="image-20240507233903621"></p>
+</li>
+<li><p>还原成功了之后，在这个数据库中新建查询，有一个sql脚本，把其中的语句粘贴进去执行，脚本内容太长就不把代码贴在这里了，主要的作用是创建一些作业。执行成功之后进到图中这里刷新一下看看作业是否生成。</p>
+<p><img src="/../pic/image-20240507234745476.png" alt="image-20240507234745476"></p>
+</li>
+<li><p>设置备份计划。这一步看图就行</p>
+<p>管理——维护计划——维护计划向导，跳过起始页</p>
+<p><img src="/../pic/clip_image006.gif" alt="IMG_256"></p>
+<p><img src="/../pic/clip_image008.gif" alt="IMG_256"></p>
+<p><img src="/../pic/clip_image010.gif" alt="IMG_256"></p>
+<p><img src="/../pic/clip_image012.gif" alt="IMG_256"></p>
+<p>这个图箭头标错了，确认任务顺序没问题就选择下一步</p>
+<p><img src="/../pic/clip_image014.gif" alt="IMG_256"></p>
+<p><img src="/../pic/clip_image016.gif" alt="IMG_256"></p>
+<p><img src="/../pic/clip_image018.gif" alt="IMG_256"></p>
+<p><img src="/../pic/clip_image020.gif" alt="IMG_256"></p>
+<p><img src="/../pic/clip_image022.gif" alt="IMG_256"></p>
+<p><img src="/../pic/clip_image024.gif" alt="IMG_256"></p>
+<p><img src="/../pic/clip_image026.gif" alt="IMG_256"></p>
+<p><img src="/../pic/clip_image028.gif" alt="IMG_256"></p>
+<p><img src="/../pic/clip_image030.gif" alt="IMG_256"></p>
+<p>选择报告选项，默认即可，点击下一步</p>
+<p><img src="/../pic/clip_image032.gif" alt="IMG_256"></p>
+<p>完成向导，点击完成</p>
+<p><img src="/../pic/clip_image034.gif" alt="IMG_256"></p>
+<p>等待维护计划向导完成，关闭即可</p>
+<p><img src="/../pic/clip_image036.gif" alt="IMG_256"></p>
+<p>查看维护计划是否创建成功。作业需要刷新</p>
+<p><img src="/../pic/clip_image038.gif" alt="IMG_256"></p>
+</li>
+<li><p>新建一个todo数据库，命名为<code>InroadTodoService-客户名称简写</code>，在todo数据库中新建一个查询，粘贴SQL语句，SQL语句太长就不贴了，执行的目的是初始化数据库结构。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>自动搭建</strong></p>
+</blockquote>
+<p>执行一个auto_install.bat，这是一个Windows脚本，我还没试过，试过了再写。</p>
+<h3 id="更改数据库"><a href="#更改数据库" class="headerlink" title="更改数据库"></a>更改数据库</h3><p>进入Inroad数据库，执行<code>select * from CommonConstConfig where consttitle=&#39;CommonFileServer&#39;</code>，查到下面的数据</p>
+<p><img src="/../pic/clip_image002-1715098520267-22.gif" alt="img"></p>
+<p>其中CommonFileServer是指公共服务：文件服务的地址  <a target="_blank" rel="noopener" href="https://uploadfilenew.in-road.com/FileUploadHandle.ashx%EF%BC%8C%E8%BF%99%E4%B8%AA%E6%98%AF%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E3%80%82%E5%A6%82%E6%9E%9C%E6%98%AF%E5%AE%A2%E6%88%B7%E5%86%85%E7%BD%91%E9%83%A8%E7%BD%B2%E5%85%AC%E5%85%B1%E6%9C%8D%E5%8A%A1%EF%BC%8C%E5%B0%B1%E9%9C%80%E8%A6%81%E4%BF%AE%E6%94%B9%E8%BF%99%E4%B8%AA%E5%9C%B0%E5%9D%80%EF%BC%8C%E6%94%B9%E4%B8%BA%E5%AE%A2%E6%88%B7%E5%86%85%E7%BD%91%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%9C%B0%E5%9D%80%E3%80%82">https://uploadfilenew.in-road.com/FileUploadHandle.ashx，这个是默认参数。如果是客户内网部署公共服务，就需要修改这个地址，改为客户内网文件服务的地址。</a></p>
+<p>然后执行<code>select * from CommonConstConfig where consttitle=&#39;工智道基础&#39;</code>，如果出现这些数据，就按图中操作。</p>
+<p><img src="/../pic/clip_image004-1715098520267-23.gif" alt="img"></p>
+<p> 另外补充一点，执行<code>select * from CommonMobileSms order by c_cretaetime</code>，可以查看登录时接收的验证码。</p>
+<h2 id="web服务器操作"><a href="#web服务器操作" class="headerlink" title="web服务器操作"></a>web服务器操作</h2><h3 id="安装docker和docker-compose"><a href="#安装docker和docker-compose" class="headerlink" title="安装docker和docker-compose"></a>安装docker和docker-compose</h3><p>在ubuntu环境中部署</p>
+<pre><code class="sh"># 更新
+apt update &amp;&amp; apt upgrade
+# 安装必要的证书并允许 apt 包管理器使用以下命令通过 HTTPS 使用存储库
+apt install apt-transport-https ca-certificates curl software-properties-common gnupg lsb-release
+# 添加 Docker 的官方 GPG 密钥
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+# 添加 Docker 官方库
+echo &quot;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot; | tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+# 更新 Ubuntu 源列表
+apt update
+# 安装最新 Docker CE
+apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+# 验证 Docker 服务是否在运行
+systemctl status docker
+systemctl enable docker
+
+# 安装docker-compose
+curl -L &quot;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose &amp;&amp; \
+chmod +x /usr/local/bin/docker-compose  &amp;&amp; \
+ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+</code></pre>
+<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><p>把配置文件下载到web服务器</p>
+<pre><code>
+</code></pre>
+<h3 id="docker-compose文件"><a href="#docker-compose文件" class="headerlink" title="docker-compose文件"></a>docker-compose文件</h3><pre><code class="yaml">version: &#39;3&#39;
+networks:
+  inroad_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.88.0.0/24
+          gateway: 172.88.0.1
+services:
+  inroad:
+    image: in-road-docker.pkg.coding.net/in/road/inroad:v240329 # 此处需要修改镜像版本号
+    restart: unless-stopped
+    environment:
+      TZ: &#39;Asia/Shanghai&#39;
+    networks:
+      inroad_network:
+        ipv4_address: 172.88.0.2 #工智道默认IP为x.x.x.2
+    expose:
+      - 85
+    volumes:
+      - &quot;./config/inroad/appsettings.json:/usr/local/inroad/appsettings.json&quot;
+      - &quot;./config/inroad/Properties:/usr/local/inroad/Properties&quot;
+  timejob:
+    image: in-road-docker.pkg.coding.net/in/road/timejob:v220930 # 此处需要修改镜像版本号
+    restart: unless-stopped
+    environment:
+      TZ: &#39;Asia/Shanghai&#39;
+    networks:
+      inroad_network:
+        ipv4_address: 172.88.0.3 #timejob默认IP为x.x.x.3
+    expose:
+      - 5001
+    volumes:
+      - &quot;./config/timejob/appsettings.json:/usr/local/timejob/appsettings.json&quot;    
+  oaa:
+    image: in-road-docker.pkg.coding.net/in/road/oaa:v240329 # 此处需要修改镜像版本号
+    restart: unless-stopped
+    environment:
+      TZ: &#39;Asia/Shanghai&#39;
+    networks:
+      inroad_network:
+        ipv4_address: 172.88.0.4 #oaa默认IP为x.x.x.4
+    expose:
+      - 82
+    volumes:
+      - &quot;./config/oaa/appsettings.json:/usr/local/oaa/appsettings.json&quot; 
+      - &quot;./config/oaa/SubsidiaryInfo.json:/usr/local/oaa/SubsidiaryInfo.json&quot; 
+  pointer:
+    image: in-road-docker.pkg.coding.net/in/road/pointer:v220930 # 此处需要修改镜像版本号
+    restart: unless-stopped
+    environment:
+      TZ: &#39;Asia/Shanghai&#39;
+    networks:
+      inroad_network:
+        ipv4_address: 172.88.0.5 #poinetr默认IP为x.x.x.5
+    expose:
+      - 18
+    volumes:
+      - &quot;./config/pointer/appsettings.json:/usr/local/pointer/appsettings.json&quot;      
+  nginx:
+    image: in-road-docker.pkg.coding.net/in/road/nginx:v240206_1 # 此处需要修改镜像版本号
+    restart: unless-stopped
+    environment:
+      TZ: &#39;Asia/Shanghai&#39;
+    networks:
+      inroad_network:
+        ipv4_address: 172.88.0.6 #nginx默认IP为x.x.x.6
+    ports:
+      - &quot;80:80&quot; 
+    volumes:   
+      - &quot;./config/nginx/nginx.conf:/etc/nginx/nginx.conf&quot;  
+  lowcode:
+    image: in-road-docker.pkg.coding.net/in/road/lowcode:v2.3.4 # 此处需要修改镜像版本号
+    restart: unless-stopped
+    environment:
+      TZ: &#39;Asia/Shanghai&#39;
+    networks:
+      inroad_network:
+        ipv4_address: 172.88.0.7 #lowcode默认IP为x.x.x.7
+    expose:
+      - 8088
+    volumes:
+      - &quot;./config/lowcode/appsettings.json:/usr/local/lowcode/appsettings.json&quot; 
+  todo:
+    image: in-road-docker.pkg.coding.net/in/road/todo:v240329 # 此处需要修改镜像版本号
+    restart: unless-stopped
+    environment:
+      TZ: &#39;Asia/Shanghai&#39;
+    networks:
+      inroad_network:
+        ipv4_address: 172.88.0.8 #lowcode默认IP为x.x.x.8
+    expose:
+      - 88
+    volumes:
+      - &quot;./config/todo/appsettings.json:/usr/local/todo/appsettings.json&quot;          
+</code></pre>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><h4 id="inroad"><a href="#inroad" class="headerlink" title="inroad"></a>inroad</h4><blockquote>
+<p><strong>appsettings.json</strong></p>
+</blockquote>
+<pre><code class="json">&#123;
+  &quot;ConnectionStrings&quot;: &#123;
+      //此处需要修改MS SQL数据库的IP，用户名和密码
+    &quot;Default&quot;: &quot;Data Source=10.100.14.150;Initial Catalog=Inroad-Base;Persist Security Info=True;User ID=sa;Password=First_Deploy_GZD_0507;Pooling=true;Max Pool Size=200;Min Pool Size=5;&quot;
+  &#125;,
+  &quot;Logging&quot;: &#123;
+    &quot;IncludeScopes&quot;: false,
+    &quot;LogLevel&quot;: &#123;
+      &quot;Default&quot;: &quot;Information&quot;,
+      &quot;System&quot;: &quot;Error&quot;,
+      &quot;Microsoft&quot;: &quot;Error&quot;
+    &#125;
+  &#125;,
+&quot;InroadOaaAuth&quot;: &#123;
+     //如果需要使用OAA方式登录，则需要将OAA服务的IP放入AuthWhiteList中
+    &quot;AuthWhiteList&quot;: [
+      &quot;http://172.88.0.4:82&quot;
+    ]
+  &#125;,
+  &quot;inroad&quot;: &#123;
+        &quot;LoggerSubscribers&quot;: &#123;
+            //将日志信息输出到何处，建议优先ES，如果都为false会输出到控制台
+          &quot;OutPut&quot;: &#123;
+            &quot;SQLSERVER&quot;: false,
+            &quot;ES&quot;: true,
+            &quot;LocalFile&quot;: false,
+            &quot;MQ&quot;: false
+          &#125;
+        &#125;,
+        &quot;LogFitering&quot;: &#123;
+          &quot;ResponseFilter&quot;: &#123;
+            &quot;UrlPaths&quot;: [
+              &#123;
+                &quot;Path&quot;: &quot;/UAPI/Demo/Index&quot;,
+                &quot;Method&quot;: &quot;GET&quot;
+              &#125;
+            ]
+          &#125;
+        &#125;,
+       //租户ID，格式为`客户简称_客户代码_production`
+        &quot;TenantID&quot;: &quot;GZKYCD_2356_production&quot;,
+      //客户名称
+        &quot;TenantName&quot;: &quot;贵州开阳川东&quot;,
+      //ES的地址，华为云地址119.3.59.53:8200，比格云地址：10.100.10.17:8200
+        &quot;EsConfig&quot;: &#123;
+          &quot;ConnectionStrings&quot;: [ &quot;http://10.100.10.17:8200&quot; ],
+          &quot;UseName&quot;: &quot;elastic&quot;,
+          &quot;PassWord&quot;: &quot;Inroad18121225109&quot;
+        &#125;,
+        &quot;MQConfig&quot;: &#123;
+          &quot;Host&quot;: &quot;119.3.49.204&quot;,
+          &quot;Port&quot;: 5672,
+          &quot;Username&quot;: &quot;inroad&quot;,
+          &quot;Password&quot;: &quot;InroadMq20191107&quot;,
+          &quot;VirtualHost&quot;: &quot;/&quot;,
+          &quot;ConnectionTimeOut&quot;: 15000,
+          &quot;Name&quot;: &quot;InroadLogger&quot;
+        &#125;,
+    &quot;openLogFlag&quot;:&quot;1&quot;,
+    &quot;HTTPRedirection&quot;: &quot;false&quot;,
+    &quot;APIVersion&quot;: &quot;2020123101&quot;,
+    &quot;CountPerPage&quot;: &quot;50&quot;,
+    &quot;DefaultWorkTypeWhenCreate&quot;: &quot;普工&quot;,
+    &quot;pushservertype&quot;: &quot;jiguang&quot;,
+    &quot;IsDebug&quot;: &quot;false&quot;,
+    &quot;IsLimitUserid&quot;: &quot;IsLimitUserid&quot;,
+    &quot;IsApiDebug&quot;: &quot;IsApiDebug&quot;,
+    &quot;isDeleteImportHistory&quot;: &quot;true&quot;,
+    &quot;calltoken&quot;: &quot;3979189c96de598a7c2e10433bb1885a&quot;,
+      //公共服务-上传服务的地址，如果是客户本地部署公共服务，需要修改此地址
+    &quot;uploadserver&quot;: &quot;https://uploadfilenew.in-road.com/FileUploadHandle.ashx&quot;,
+    &quot;serviceserver&quot;: &quot;http://service.in-road.com/Getserverlist.ashx&quot;,
+    &quot;smsserver&quot;: &quot;http://sms.in-road.com/SMSHandle.ashx&quot;,
+    &quot;LogCenterType&quot;: &quot;1&quot;,
+    &quot;LogCenterUrl&quot;: &quot;http://log.in-road.com/Log/AddLog&quot;,
+    &quot;TempLogLevel&quot;: &quot;4&quot;,
+    &quot;fileContentInvokeUrl&quot;: &quot;http://192.168.31.99/log/FileContent&quot;,
+    &quot;fileContentUrl&quot;: &quot;http://192.168.31.99:9031/GetFilesContent.ashx&quot;,
+    &quot;permition_permanent&quot;: &quot;http://182.254.156.49/savevideo&quot;,
+    &quot;permition_delete&quot;: &quot;http://182.254.156.49/removevideo&quot;,
+    &quot;computing_test&quot;: &quot;http://10.21.1.30:8888&quot;,
+    &quot;ExportDocUrl&quot;: &quot;http://readdoc.in-road.com/&quot;,
+    &quot;RedirectAddress&quot;: &quot;&quot;,
+    &quot;WxOpenToken&quot;: &quot;4A4B98ED0F66ECC3720543C2AD681624&quot;,
+    &quot;OpenLinkToken&quot;: &quot;4A4B98ED0F66ECC3720543C2AD681624&quot;,
+      //实时数据地址，下面两行需要修改
+    &quot;prGetDataCurrValueURL&quot;: &quot;http://43.247.90.165:81/SVGDataValue/SVGPointPosition&quot;,
+    &quot;prSaveDataCurrValueURL&quot;: &quot;http://43.247.90.165:81/DataPushToPR/ReceivedIRData&quot;,
+    &quot;ShzhHost&quot;: &quot;http://10.141.45.128:9045&quot;,
+    &quot;CustomComputing&quot;: &quot;0&quot;,
+    &quot;LocalTest&quot;: &quot;1&quot;,
+    &quot;SDHFComputing&quot;: &quot;0&quot;,
+    &quot;SDHFHost&quot;: &quot;http://172.16.100.45&quot;,
+    &quot;IsMsgPush&quot;: &quot;1&quot;,
+      //数据中心地址，需要修改
+    &quot;DataCenterAddress&quot;: &quot;http://43.247.90.165:81&quot;,
+    &quot;DataCenterdataGap&quot;: &quot;&quot;,
+    &quot;is_use_translate&quot;: &quot;0&quot;,
+    &quot;useDataBase&quot;:&quot;SQLServer&quot;,
+    &quot;enginMouldPath&quot;: &quot;C:\\Users\\hhchen\\source\\repos\\InroadWorkFlowEngin\\InroadWorkFlowEngin\\Template\\&quot;,
+    &quot;enginFunctionSavePath&quot;: &quot;C:\\Users\\hhchen\\source\\repos\\InroadWorkFlowEngin\\InroadWorkFlowEngin\\BusinessLibrary\\&quot;,
+    &quot;CmdPath&quot;: &quot;C:\\Windows\\System32\\cmd.exe&quot;,
+    &quot;enginCmd&quot;: &quot;C:&amp;cd C:\\Users\\hhchen\\source\\repos\\InroadWorkFlowEngin&amp;dotnet publish -c release -o C:\\Users\\hhchen\\publish&quot;,
+    &quot;enginDll&quot;: &quot;C:\\InroadWebCoredDemo\\Engin\\InroadWorkFlowEngin.dll&quot;,
+    &quot;emailserver&quot;: &quot;http://43.247.89.168:81/EmailHandle.ashx&quot;,
+      //todo代办服务的地址
+    &quot;TodoListAddress&quot;: &quot;http://172.88.0.8:88/&quot;,
+    &quot;pointer&quot;: &quot;http://172.88.0.5:18/&quot;
+  &#125;,
+  &quot;ES&quot;: &#123;
+   &quot;ESAPIUrl&quot;: &quot;http://platform.in-road.com&quot;
+  &#125;,
+  &quot;IdentityServer&quot;: &#123;
+      //OAA服务的地址
+    &quot;Authority&quot;: &quot;http://172.88.0.4:82&quot;,
+    &quot;Scope&quot;: &quot;OaaScope&quot;,
+    &quot;InUse&quot;: true,
+    &quot;ClaimRelationDic&quot;: &#123;
+      &quot;uid&quot;: &quot;c_id&quot;,
+      &quot;deptId&quot;: &quot;DeptId&quot;,
+      &quot;commonFunctionPostId&quot;: &quot;functionpostid&quot;,
+      &quot;regionIds&quot;: &quot;regionids&quot;,
+      &quot;isNeedChangePassword&quot;: &quot;isNeedChangePassword&quot;,
+      &quot;givenname&quot;: &quot;Name&quot;
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<blockquote>
+<p><strong>.&#x2F;Properties&#x2F;appsettings.json</strong></p>
+</blockquote>
+<pre><code class="json">&#123;
+  &quot;ConnectionStrings&quot;: [
+    &#123;
+      &quot;ConnectionName&quot;: &quot;DefaultConnection&quot;,
+        //修改数据库服务器的地址，用户名和密码
+      &quot;ConnectionString&quot;: &quot;Data Source=10.100.14.150;Initial Catalog=Inroad-Base;Persist Security Info=True;User ID=sa;Password=First_Deploy_GZD_0507;Pooling=true;Max Pool Size=200;Min Pool Size=5;&quot;,
+      &quot;ProviderName&quot;: &quot;System.Data.SqlClient&quot;,
+      &quot;DatabaseType&quot;: &quot;SqlServer&quot; //Database type can be SqlServer\Oracle\OfficialOracle\MySql\PostgreSql
+    &#125;
+  ],
+  &quot;InroadSettings&quot;: &#123;
+      //修改数据库服务器的地址，用户名和密码
+    &quot;ConnectionString&quot;: &quot;Data Source=10.100.14.150;Initial Catalog=Inroad-Base;Persist Security Info=True;User ID=sa;Password=First_Deploy_GZD_0507;Pooling=true;Max Pool Size=200;Min Pool Size=5;&quot;,
+    &quot;ProviderName&quot;: &quot;System.Data.SqlClient&quot;,
+    &quot;DatabaseType&quot;: &quot;SqlServer&quot;, //Database type can be SqlServer\Oracle\OfficialOracle\MySql\PostgreSql
+    &quot;DefaultIdentityUsed&quot;: false, //specify if current system is using default identity system
+    &quot;FoundationConfigFile&quot;: &quot;&quot;
+  &#125;
+&#125;
+</code></pre>
+<blockquote>
+<p><strong>数据库修改</strong></p>
+</blockquote>
+<p><code>select * from CommonConstConfig</code></p>
+<p>把<code>consttitle</code>字段的值为CommonFileServer的所在行的<code>constvalue</code>字段的值改为上传服务的地址，如果公共服务不采取客户内网部署的话，默认应该是<code>https://uploadfilenew.in-road.com/FileUploadHandle.ashx</code></p>
+<p>把<code>consttitle</code>字段的值为”工智道基础”的，都改为”客户名称”</p>
+<h4 id="pointer"><a href="#pointer" class="headerlink" title="pointer"></a>pointer</h4><blockquote>
+<p><strong>appsettings.json</strong></p>
+</blockquote>
+<pre><code class="json">&#123;
+  &quot;Logging&quot;: &#123;
+    &quot;LogLevel&quot;: &#123;
+      &quot;Default&quot;: &quot;Information&quot;,
+      &quot;Microsoft&quot;: &quot;Warning&quot;,
+      &quot;Microsoft.Hosting.Lifetime&quot;: &quot;Information&quot;
+    &#125;
+  &#125;,
+  &quot;AllowedHosts&quot;: &quot;*&quot;,
+    //修改数据库地址，账号和密码
+  &quot;ConnectionSql&quot;: &quot;Data Source=10.100.14.150;Initial Catalog=Inroad-Base;Persist Security Info=True;User ID=sa;Password=First_Deploy_GZD_0507;Pooling=true;Max Pool Size=200;Min Pool Size=3;MultipleActiveResultSets=true;&quot;,
+  &quot;Redis&quot;: &#123;
+    &quot;ConnectionRedis&quot;: &quot;122.112.221.122:6379,password=inroad18121225109&quot;
+  &#125;,
+  &quot;Jwt&quot;: &#123;
+    &quot;JwtOptions&quot;: &#123;
+      &quot;Audience&quot;: &quot;InroadPointer&quot;,
+      &quot;Issuer&quot;: &quot;InroadPointer&quot;,
+      &quot;AccessTokenExpiration&quot;: 30,
+      &quot;RefreshTokenExpiration&quot;: 60
+    &#125;,
+    &quot;JwtKey&quot;: &quot;MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDI2a2EJ7m872v0afyoSDJT2o1+SitIeJSWtLJU8/Wz2m7gStexajkeD+Lka6DSTy8gt9UwfgVQo6uKjVLG5Ex7PiGOODVqAEghBuS7JzIYU5RvI543nNDAPfnJsas96mSA7L/mD7RTE2drj6hf3oZjJpMPZUQI/B1Qjb5H3K3PNwIDAQAB&quot;
+  &#125;,
+  &quot;Global&quot;: &#123;
+    &quot;IsUseCache&quot;: 1,
+      //修改为客户代码
+    &quot;FactoryCode&quot;: &quot;2356&quot;
+  &#125;
+&#125;
+</code></pre>
+<h4 id="oaa"><a href="#oaa" class="headerlink" title="oaa"></a>oaa</h4><blockquote>
+<p><strong>appsettings.json</strong></p>
+</blockquote>
+<pre><code class="json">&#123;
+  &quot;Logging&quot;: &#123;
+    &quot;LogLevel&quot;: &#123;
+      &quot;Default&quot;: &quot;Information&quot;
+    &#125;
+  &#125;,
+  &quot;AllowedHosts&quot;: &quot;*&quot;,
+  &quot;ConnectionStrings&quot;: &#123;
+      //修改数据库地址，账号和密码，下面两项Default和UAA都要修改
+    &quot;Default&quot;: &quot;Data Source=10.100.14.150;Initial Catalog=Inroad-Base;Persist Security Info=True;User ID=sa;Password=First_Deploy_GZD_0507;Pooling=true;Max Pool Size=200;Min Pool Size=5;&quot;, 
+    &quot;UAA&quot;: &quot;Data Source=10.100.14.150;Initial Catalog=Inroad-Base;Persist Security Info=True;User ID=sa;Password=First_Deploy_GZD_0507;Pooling=true;Max Pool Size=200;Min Pool Size=5;&quot;
+  &#125;,
+  &quot;Sms&quot;: &#123;
+      //没太理解，好像是双因素认证服务的地址
+    &quot;TwoFactorSmsUrl&quot;: &quot;http://sms.in-road.com/SMSHandle.ashx&quot;
+  &#125;, 
+  &quot;ApiVersion&quot;: &quot;v2&quot;,
+  &quot;IdentityServer&quot;: &#123;
+        //oaa站点的地址
+    &quot;Authority&quot;: &quot;http://172.88.0.4:82&quot;,
+    &quot;Scope&quot;: &quot;OaaScope&quot;,
+    &quot;InUse&quot;: true,
+    &quot;ClaimRelationDic&quot;: &#123;
+      &quot;uid&quot;: &quot;c_id&quot;,
+      &quot;deptId&quot;: &quot;DeptId&quot;,
+      &quot;commonFunctionPostId&quot;: &quot;functionpostid&quot;,
+      &quot;regionIds&quot;: &quot;regionids&quot;,
+      &quot;isNeedChangePassword&quot;: &quot;isNeedChangePassword&quot;
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<blockquote>
+<p><strong>SubsidiaryInfo.json</strong></p>
+</blockquote>
+<pre><code class="json">&#123;
+  &quot;DefaultLogo&quot;: &quot;http://files.in-road.com/inroadfiles/nbwh/attachfiles/20180831/6358648602061006666673563.png&quot;,   //数据中心登陆logo
+  &quot;FileAddress&quot;: &quot;https://uploadfilenew.in-road.com/FileUploadHandle.ashx&quot;, //上传，数据中心使用站点
+  &quot;CurrentSubsidiaryId&quot;: &quot;1&quot;,
+  &quot;InroadAuthInfo&quot;: &#123;
+    &quot;Md5Key&quot;: &quot;jZae727K08KaOmKSgOaGzwwXVqGrPKEgIMkjrcbJI&quot;,
+    &quot;ExpTick&quot;: 20
+  &#125;, 
+  &quot;SubsidiaryList&quot;: [
+  
+    &#123;
+      &quot;SubsidiaryId&quot;: &quot;1&quot;,
+      &quot;Name&quot;: &quot;工智道&quot;,
+      &quot;Logo&quot;: &quot;http://files.in-road.com/inroadfiles/nbwh/attachfiles/20180831/6358648602061006666673563.png&quot;, //数据中心登陆logo
+        //修改为oaa站点地址
+      &quot;BaseUrl&quot;: &quot;http://172.88.0.4:82&quot;,
+         //修改为工智道站点地址，非集团用户无需更改
+      &quot;InroadUrl&quot;: &quot;http://172.88.0.2:85&quot;,
+      &quot;ClientId&quot;: &quot;OaaClient&quot;,
+      &quot;ClientSecret&quot;: &quot;665CAF62CCF42FD945B690DC830DD8&quot;
+    &#125;
+  ]
+&#125;
+</code></pre>
+<h4 id="timejob"><a href="#timejob" class="headerlink" title="timejob"></a>timejob</h4><blockquote>
+<p><strong>appsettings.json</strong></p>
+</blockquote>
+<pre><code class="json">&#123;
+  &quot;ConnectionStrings&quot;: &#123;
+      //修改数据库IP地址，用户和密码
+    &quot;Default&quot;: &quot;Data Source=10.100.14.150;Initial Catalog=Inroad-Base;Persist Security Info=True;User ID=sa;Password=First_Deploy_GZD_0507;Pooling=true;Max Pool Size=200;Min Pool Size=5;&quot;
+  &#125;,
+  &quot;Logging&quot;: &#123;
+    &quot;LogLevel&quot;: &#123;
+      &quot;Default&quot;: &quot;Information&quot;,
+      &quot;Microsoft&quot;: &quot;Warning&quot;,
+      &quot;Microsoft.Hosting.Lifetime&quot;: &quot;Information&quot;
+    &#125;
+  &#125;,
+  &quot;inroad&quot;: &#123;
+    &quot;IsOpen&quot;: &quot;1&quot;,
+    &quot;useDataBase&quot;: &quot;SQLServer&quot;,
+      //指定为1
+    &quot;IsOpenInroadRabbitMq&quot;: &quot;1&quot;,
+    &quot;emailserver&quot;: &quot;http://43.247.89.168:81/EmailHandle.ashx&quot;,
+    &quot;smsserver&quot;: &quot;http://sms.in-road.com/SMSHandle.ashx&quot;,
+    &quot;OpenLinkToken&quot;: &quot;4A4B98ED0F66ECC3720543C2AD681624&quot;,
+    &quot;PrReportCalculation&quot;: &quot;http://43.247.90.165/Report/ReportCalculation&quot;
+  &#125;,
+  &quot;BackgroundJobs&quot;: &#123;
+    &quot;IsOpen&quot;: &quot;1&quot;,
+      //指定为1
+    &quot;IsAuto&quot;: &quot;1&quot;,
+      //修改为工智道的地址
+    &quot;InroadWebUrl&quot;: &quot;http://kycd.in-road.com&quot;,
+      //修改为timejob的地址
+    &quot;HeartBeatUrl&quot;: &quot;http://172.88.0.3:5001&quot;,
+    &quot;OpenLinkToken&quot;: &quot;4A4B98ED0F66ECC3720543C2AD681624&quot;,
+    &quot;SyncCoreDataItem2DataCenterUrl&quot;: &quot;http://43.247.90.165:81/Pretreat/ReceivePretreatConfig&quot;,
+    &quot;PlatFormUrl&quot;: &quot;http://localhost:2218&quot;
+  &#125;,
+  &quot;ES&quot;: &#123;
+      //这个地方应该也需要修改吧
+    &quot;IsOpen&quot;: &quot;1&quot;,
+    &quot;ESUrls&quot;: &quot;http://10.100.10.17:8200&quot;,
+    &quot;TenantID&quot;: &quot;GZKYCD_2356_production&quot;,
+    &quot;UserName&quot;: &quot;elastic&quot;,
+    &quot;Password&quot;: &quot;Inroad18121225109&quot;
+  &#125;,
+  &quot;RabbitMq&quot;: &#123;
+      //指定为0
+    &quot;IsOpen&quot;: &quot;0&quot;,
+    &quot;HostName&quot;: &quot;119.3.49.204&quot;,
+    &quot;UserName&quot;: &quot;inroad&quot;,
+    &quot;Password&quot;: &quot;InroadMq20191107&quot;,
+    &quot;Port&quot;: 5672
+  &#125;,
+  &quot;AllowedHosts&quot;: &quot;*&quot;,
+  &quot;EmailConfig&quot;: &#123;
+    &quot;Account&quot;: &quot;df_notice@in-road.com&quot;,
+    &quot;PassWord&quot;: &quot;Gzd123456&quot;,
+    &quot;EmailServer&quot;: &quot;smtp.exmail.qq.com&quot;,
+    &quot;ServerPort&quot;: &quot;25&quot;,
+    &quot;UseSSL&quot;: &quot;1&quot;
+  &#125;
+&#125;
+</code></pre>
+<h4 id="lowcode"><a href="#lowcode" class="headerlink" title="lowcode"></a>lowcode</h4><blockquote>
+<p><strong>appsettings.json</strong></p>
+</blockquote>
+<pre><code class="json">&#123;
+  &quot;Z.Expressions.Eval&quot;: &#123;
+    &quot;LicenseName&quot;: &quot;4061;500-sagena.hr&quot;,
+    &quot;LicenseKey&quot;: &quot;08X8X386-X0X2-7X8X-4EXX-23XXC2XXB6XX&quot;
+  &#125;,
+  &quot;App&quot;: &#123;
+    &quot;CorsOrigins&quot;: &quot;https://*.FormEngine.com,http://localhost:4200,http://localhost:44307,https://localhost:44307&quot;
+  &#125;,
+  &quot;ConnectionStrings&quot;: &#123;
+      //积木的数据库连接
+    &quot;FormEngine&quot;: &quot;Data Source=10.100.14.150;Initial Catalog=InroadLowCode2-Base;Persist Security Info=True;User ID=sa;Password=First_Deploy_GZD_0507;Pooling=true;Max Pool Size=200;Min Pool Size=5;&quot;,
+      //工智道的数据库连接
+    &quot;Common&quot;: &quot;Data Source=10.100.14.150;Initial Catalog=Inroad-Base;Persist Security Info=True;User ID=sa;Password=First_Deploy_GZD_0507;Pooling=true;Max Pool Size=200;Min Pool Size=5;&quot;
+  &#125;,
+  &quot;Redis&quot;: &#123;
+    &quot;Configuration&quot;: &quot;127.0.0.1&quot;
+  &#125;,
+  &quot;AuthServer&quot;: &#123;
+      //oaa地址
+    &quot;Authority&quot;: &quot;http://172.88.0.4:82/&quot;,
+    &quot;RequireHttpsMetadata&quot;: &quot;false&quot;,
+    &quot;SwaggerClientId&quot;: &quot;FormEngine_Swagger&quot;,
+    &quot;SwaggerClientSecret&quot;: &quot;1q2w3e*&quot;
+  &#125;,
+  &quot;RemoteServices&quot;: &#123;//远程服务
+      &quot;Todo&quot;: &#123;
+          &quot;BaseUrl&quot;: &quot;http://172.88.0.8:88&quot; //待办服务的远程地址
+      &#125;
+  &#125;,  
+  &quot;Settings&quot;: &#123;
+    &quot;MemoryCacheSlidingExpiration&quot;: 86400,
+    &quot;Abp.Localization.DefaultLanguage&quot;: &quot;zh-CN&quot;,
+      //工智道的地址，好像是域名吧
+    &quot;InroadDomain&quot;: &quot;kycd.in-road.com&quot;,
+    &quot;EmailNotify&quot;: false,
+    &quot;JGPushNotify&quot;: false,
+    &quot;JGPushIOSIsProduction&quot;: true,
+      //修改为nginx地址或者客户域名
+    &quot;RecordLink&quot;: &quot;kycd.in-road.com/low-code-platform/list-view-record?modelId=&#123;0&#125;&amp;recordId=&#123;1&#125;&amp;name=&#123;2&#125;&amp;viewType=FlowView&quot;,
+    &quot;InroadDomainRecordLink&quot;: &quot;kycd.in-road.com/vweb/#/low-code-platform/list-view-record?modelId=&#123;0&#125;&amp;recordId=&#123;1&#125;&amp;viewType=FlowView&quot;,
+    &quot;Abp.Mailing.Smtp.Host&quot;: &quot;smtp.exmail.qq.com&quot;,
+    &quot;Abp.Mailing.Smtp.Port&quot;: &quot;25&quot;,
+    &quot;Abp.Mailing.Smtp.UserName&quot;: &quot;df_notice@in-road.com&quot;,
+    &quot;Abp.Mailing.Smtp.Password&quot;: &quot;YuYXTjKUTYbR+4Cs0FquCw==&quot;,
+    &quot;Abp.Mailing.Smtp.Domain&quot;: &quot;&quot;,
+    &quot;Abp.Mailing.Smtp.EnableSsl&quot;: &quot;true&quot;,
+    &quot;Abp.Mailing.Smtp.UseDefaultCredentials&quot;: &quot;false&quot;,
+    &quot;Abp.Mailing.DefaultFromAddress&quot;: &quot;df_notice@in-road.com&quot;,
+    &quot;Abp.Mailing.DefaultFromDisplayName&quot;: &quot;Inroad&quot;,
+    &quot;EmailServiceUrl&quot;:&quot;https://mailserver.in-road.com&quot;,
+    &quot;EmailServiceApiKey&quot;:&quot;3979189c96de598a7c2e10433bb1885a&quot;,	
+    &quot;JiGuang&quot;: &#123;
+      &quot;AppKey&quot;: &quot;90eb727b6de30bb58e76ef21&quot;,
+      &quot;MasterSecret&quot;: &quot;46d039d1f5920db61478028f&quot;
+    &#125;,
+    &quot;StreamingPlatformConfig&quot;: &#123;
+        &quot;Url&quot;: &quot;http://103.229.212.44:9000&quot;,
+        &quot;SecretKey&quot;: &quot;KJmCTKIS2En+Ly0vBSBy20Bc2XSkPsK4X/IszHpGJ0xhyze2ErLqokbUqmPk/r9RmzbuPcLl7UBtFRLI6cGkj+T2IQVRY4MKRHh7phr878jEvBZgxJgwkhMNNaRGE5PoTZm82/zqRvaUOH5obGqYbmTZkfHR68lqfxxiIW+/XWI=&quot;,
+        &quot;Codes&quot;: [&quot;LowCode&quot;]
+    &#125;,	
+    &quot;ResourceUpload&quot;: &#123;
+        //客户上传服务接口，对应修改为nginx地址或者域名
+        &quot;Url&quot;: &quot;kycd.in-road.com/lowcode/prod-upload&quot;,
+        &quot;Calltoken&quot;: &quot;3979189c96de598a7c2e10433bb1885a&quot;,
+        //客户代码
+        &quot;Customercode&quot;: &quot;2356&quot;,
+        &quot;Action&quot;: &quot;uploadfile&quot;
+    &#125;	
+  &#125;
+&#125;
+</code></pre>
+<h4 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h4><blockquote>
+<p>nginx.conf</p>
+</blockquote>
+<pre><code class="python">user  root;
+worker_processes  2;
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+#pid        logs/nginx.pid;
+events &#123;
+    worker_connections  1024;
+&#125;
+http &#123;
+    include       mime.types;
+    default_type  application/octet-stream;
+    log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
+                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
+                      &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot; &#39;
+                      &#39;&quot;$upstream_addr&quot; &quot;$upstream_status&quot; &quot;$upstream_response_time&quot; &quot;$request_time&quot;&#39;;
+    access_log  /var/log/nginx/access.log  main;	
+    client_max_body_size 500M;
+    client_body_timeout 600s;
+    underscores_in_headers on;
+    sendfile        on;
+    keepalive_timeout  120;	
+    proxy_connect_timeout 600;
+    proxy_send_timeout 600;
+    proxy_read_timeout 600;	
+    gzip  on;
+    gzip_min_length 1k;	#设置允许压缩的页面最小字节数，建议设置成大于1k的字节数，小于1k可能会越压越大
+    gzip_buffers 4 32k; #设置系统获取几个单位的缓存用于存储gzip的压缩结果数据流，比如4 32K表示申请了4块内存，每块32K。
+    gzip_comp_level 6; #压缩比，1~9，数值越大压缩比例越高，压缩比例越高越消耗CPU
+    # 对哪些类型的文件压缩， 默认text/html, 还可以指定对js，css,txt,xml,json等类型文件压缩
+    gzip_types text/plain text/css application/javascript application/xml application/json image/png;	
+    gzip_vary on; # 是否显示gzip压缩标志
+    gzip_static on; #静态压缩
+    gzip_http_version 1.0; #压缩支持http1.0协议
+    # Oaa 集团版 工智道
+    server &#123;
+        listen       80; # nginx监听的端口1
+        location /oaa/ &#123;
+            rewrite ^/oaa/(.*) /$1 break;
+            proxy_pass  http://172.88.0.4:82/oaa;
+        &#125;
+        
+        # 工智道系统
+        location / &#123;
+            root   /usr/local/inroad/wwwroot/;
+            index  index.html index.htm;
+            absolute_redirect off; # 注意，可能有坑
+            if ( $request_uri = &quot;/&quot; ) &#123;
+                return 302  /vweb/;
+            &#125;
+        &#125;
+
+        #低代码平台
+        location /low-code-platform&#123;
+            absolute_redirect off;
+            add_header Cache-Control no-cache;
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods &#39;GET, POST, OPTIONS&#39;;
+            add_header Access-Control-Allow-Headers &#39;DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization&#39;;
+
+            if ($request_method = &#39;OPTIONS&#39;) &#123;
+                return 204;
+            &#125;
+            root   /usr/local/inroad/wwwroot/;
+            try_files $uri $uri/ /low-code-platform/index.html; # vue路由模式为history        
+        &#125;
+
+    
+        location ~ .*\.(js|css|ico|jpg|png|ttf|woff|woff2)$ &#123;
+             root   /usr/local/inroad/wwwroot/;
+             index  index.html;
+        &#125;
+
+        # 代理工智道接口
+        location ~^/(UAPI|uapi|API|api|www|Web|web) &#123;
+            proxy_pass http://172.88.0.2:85;
+            
+        &#125;
+        
+        location /low-code-platform/API &#123;
+            proxy_pass http://172.88.0.2:85/API;
+        &#125;		
+        
+        location /low-code-platform/UAPI &#123;
+            proxy_pass http://172.88.0.2:85/UAPI;
+        &#125;		
+
+        location /vweb/API &#123;
+            proxy_pass http://172.88.0.2:85/API;
+        &#125;
+        
+        location /vweb/UAPI &#123;
+            proxy_pass http://172.88.0.2:85/UAPI;
+        &#125;
+        
+        location /lowcode/api &#123;
+            proxy_pass http://172.88.0.7:8088/api;
+        &#125;	
+
+        location /lowcode/v2 &#123;
+            proxy_pass http://172.88.0.7:8088/api/inroad/formEngine;
+        &#125;		
+
+        location /lowcode-platform &#123;
+            proxy_pass http://172.88.0.7:8088/api;
+        &#125;
+
+        location /lowcode/prod-upload &#123;
+            proxy_pass  https://uploadfilenew.in-road.com/FileUploadHandle.ashx;
+        &#125;
+        
+        location /prod-upload &#123;
+            proxy_pass  https://uploadfilenew.in-road.com/FileUploadHandle.ashx;
+        &#125;
+        
+        location /prod-api-login &#123;
+            rewrite ^/prod-api-login/(.*) /$1 break;
+            proxy_pass   http://172.88.0.4:82;
+        &#125;
+        
+        location /todo/api &#123;
+            proxy_pass http://172.88.0.8:88/api/app;
+        &#125;		
+    &#125;
+        
+    # 工智道https
+    server &#123;
+        listen       443 ssl; # nginx监听的端口2
+        
+        ssl_certificate      cert/1_in-road.com_bundle.crt;
+        ssl_certificate_key  cert/2_in-road.com.key;
+        
+        ssl_session_cache    shared:SSL:1m;
+        ssl_session_timeout  5m;
+        
+        ssl_ciphers  HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers  on;		
+
+        location /oaa/ &#123;
+            rewrite ^/oaa/(.*) /$1 break;
+            proxy_pass  http://172.88.0.4:82/oaa;
+        &#125;
+        
+        # 工智道系统
+        location / &#123;
+            root   /usr/local/inroad/wwwroot/;
+            index  index.html index.htm;
+            absolute_redirect off;
+            #默认重定向
+            if ( $request_uri = &quot;/&quot; ) &#123;
+                return 302 /vweb/;
+            &#125;
+        &#125;
+
+        #低代码平台
+        location /low-code-platform&#123;
+            #absolute_redirect off;
+            add_header Cache-Control no-cache;
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Methods &#39;GET, POST, OPTIONS&#39;;
+            add_header Access-Control-Allow-Headers &#39;DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization&#39;;
+
+            if ($request_method = &#39;OPTIONS&#39;) &#123;
+                return 204;
+            &#125;
+            root   /usr/local/inroad/wwwroot/;
+            try_files $uri $uri/ /low-code-platform/index.html; # vue路由模式为history        
+        &#125;
+
+    
+        location ~ .*\.(js|css|ico|jpg|png|ttf|woff|woff2)$ &#123;
+             root   /usr/local/inroad/wwwroot/;
+             index  index.html;
+        &#125;
+
+        # 代理工智道接口
+        location ~^/(UAPI|uapi|API|api|www|Web|web) &#123;
+            proxy_pass http://172.88.0.2:85;
+            
+        &#125;
+        
+        location /low-code-platform/API &#123;
+            proxy_pass http://172.88.0.2:85/API;
+        &#125;		
+        
+        location /low-code-platform/UAPI &#123;
+            proxy_pass http://172.88.0.2:85/UAPI;
+        &#125;		
+
+        location /vweb/API &#123;
+            proxy_pass http://172.88.0.2:85/API;
+        &#125;
+        
+        location /vweb/UAPI &#123;
+            proxy_pass http://172.88.0.2:85/UAPI;
+        &#125;
+        
+        location /lowcode/api &#123;
+            proxy_pass http://172.88.0.7:8088/api;
+        &#125;	
+
+        location /lowcode/v2 &#123;
+            proxy_pass http://172.88.0.7:8088/api/inroad/formEngine;
+        &#125;		
+
+        location /lowcode-platform &#123;
+            proxy_pass http://172.88.0.7:8088/api;
+        &#125;
+
+        location /lowcode/prod-upload &#123;
+            # 上传服务的地址
+            proxy_pass  https://uploadfilenew.in-road.com/FileUploadHandle.ashx;
+        &#125;
+        
+        location /prod-upload &#123;
+            # 上传服务的地址
+            proxy_pass  https://uploadfilenew.in-road.com/FileUploadHandle.ashx;
+        &#125;		
+        
+        location /prod-api-login &#123;
+            rewrite ^/prod-api-login/(.*) /$1 break;
+            proxy_pass   http://172.88.0.4:82;
+        &#125;	
+        
+        location /todo/api &#123;
+            proxy_pass http://172.88.0.8:88/api/app;
+        &#125;		
+    &#125;
+&#125;
+</code></pre>
+<h4 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h4><p>有点麻烦，涉及到数据库，最后再说</p>
+<blockquote>
+<p><strong>appsettings.json</strong></p>
+</blockquote>
+<pre><code class="json">&#123;
+  &quot;App&quot;: &#123;
+    &quot;CorsOrigins&quot;: &quot;https://*.TodoService.com&quot;
+  &#125;,
+  &quot;ConnectionStrings&quot;: &#123;
+      //修改
+    &quot;TodoService&quot;: &quot;Server=10.100.14.150;Database=InroadTodoService_GZKYCD;User Id=sa;Password=First_Deploy_GZD_0507;&quot;
+  &#125;,
+  &quot;Redis&quot;: &#123;
+    &quot;Configuration&quot;: &quot;127.0.0.1&quot;
+  &#125;,
+  &quot;AuthServer&quot;: &#123;
+      //oaa地址
+    &quot;Authority&quot;: &quot;http://172.88.0.4:82&quot;,
+    &quot;RequireHttpsMetadata&quot;: &quot;false&quot;,
+    &quot;SwaggerClientId&quot;: &quot;TodoService_Swagger&quot;
+  &#125;,
+  &quot;StringEncryption&quot;: &#123;
+    &quot;DefaultPassPhrase&quot;: &quot;w7pdVMj0twGVeaOi&quot;
+  &#125;
+&#125;
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-05-07</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>
