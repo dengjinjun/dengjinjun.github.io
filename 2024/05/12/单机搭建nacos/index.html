@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="单机搭建nacos" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    
+    <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            单机搭建nacos
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85JDK"><span class="post-toc-text">安装JDK</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85MySQL"><span class="post-toc-text">安装MySQL</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85nacos"><span class="post-toc-text">安装nacos</span></a></li></ol>
+            
+        
+        <h2 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h2><pre><code>#  下载华为云镜像的jdk压缩包
+cd /opt &amp;&amp; wget https://repo.huaweicloud.com/java/jdk/8u202-b08/jdk-8u202-linux-x64.tar.gz
+
+# 创建jdk目录
+mkdir /usr/local/java &amp;&amp; cd /usr/local/java/
+
+# 解压到jdk目录
+tar -xf /opt/jdk-8u202-linux-x64.tar.gz -C /usr/local/java
+
+# 把解压文件移动到jdk目录
+mv jdk1.8.0_202/* ./ &amp;&amp; rmdir jdk1.8.0_202
+
+# 创建环境变量
+cat &gt;&gt; /etc/profile &lt;&lt; &#39;EOF&#39;
+export JAVA_HOME=/usr/local/java
+export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH
+export CLASSPATH=.$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib:$JAVA_HOME/lib/tools.jar
+EOF
+
+#  激活配置
+. /etc/profile
+
+# 验证jdk已经安装
+java -version
+</code></pre>
+<h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><pre><code class="sh"># 下载mysql8.0的rpm包
+cd /opt &amp;&amp; wget https://repo.mysql.com//mysql80-community-release-el7-7.noarch.rpm
+
+# 安装rpm
+rpm -Uvh mysql80-community-release-el7-7.noarch.rpm
+
+# yum安装
+yum install mysql-community-server -y --nogpgcheck
+
+# 修改MySQL配置文件，在[mysqld]下增加`loose_polar_log_bin = ON`
+vim /etc/my.cnf
+
+# 启动并查看MySQL
+systemctl enable mysqld.service 
+systemctl start mysqld.service 
+systemctl status mysqld.service
+
+# 查看MySQL临时密码
+grep &#39;temporary password&#39; /var/log/mysqld.log
+
+# 登入mysql
+mysql -uroot -p
+</code></pre>
+<pre><code class="sql">--修改root用户的密码
+ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;xxxxxxxx&#39;;
+
+--设置用户密码策略的安全强度
+set global validate_password.policy=LOW;
+
+--设置密码长度不少于4
+set global validate_password.length=4;
+
+--查看密码策略
+SHOW VARIABLES LIKE &#39;validate_password%&#39;;
+
+--创建canal用户
+CREATE USER nacos IDENTIFIED BY &#39;nacos&#39;;
+
+--授权
+GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO &#39;nacos&#39;@&#39;%&#39;; 
+GRANT ALL PRIVILEGES ON *.* TO &#39;nacos&#39;@&#39;%&#39;; 
+
+--创建nacos_config数据库
+create database nacos_config character set utf8mb4 collate utf8mb4_unicode_ci;
+
+--刷新
+FLUSH PRIVILEGES; 
+
+--进入nacos_config数据库
+use nacos_config;
+
+--执行脚本,脚本需要提前放到/opt目录下
+source /opt/nacos_mysql.sql
+
+--刷新
+FLUSH PRIVILEGES; 
+
+--退出
+exit
+</code></pre>
+<h2 id="安装nacos"><a href="#安装nacos" class="headerlink" title="安装nacos"></a>安装nacos</h2><pre><code class="sh"># nacos压缩文件提前放到/opt目录下
+mkdir /usr/local/nacos &amp;&amp; cd /usr/local/nacos
+
+# 解压到当前目录
+tar -xf /opt/nacos-server-1.4.2.tar.gz -C  ./
+
+# 把解压文件移动到nacos目录
+mv nacos/* ./ &amp;&amp; rmdir nacos
+
+# 取消注释配置文件中db开头的行，修改数据库的地址，数据库名，数据库密码，其他默认就行
+vim conf/application.properties
+
+需要注意的是db.url开头的哪一行，行尾可以加上`&amp;allowPublicKeyRetriev`，不然可能报错
+
+# 修改集群文件，把`本机地址:8848`添加进去，如果有其他服务器部署了nacos，也要加上
+vim conf/cd cluster.conf
+
+# 编辑nacos系统服务脚本，添加一下内容
+vim /lib/systemd/system/nacos.service
+
+[Unit]
+Description=nacos
+After=network.target
+
+[Service]
+Type=forking
+Environment=&quot;JAVA_HOME=/usr/local/java&quot;
+ExecStart=/usr/local/nacos/bin/startup.sh
+ExecReload=/usr/local/nacos/bin/shutdown.sh
+ExecStop=/usr/local/nacos/bin/shutdown.sh
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
+# 重新加载系统配置文件
+systemctl daemon-reload
+
+# 启动nacos
+systemctl enable nacos &amp;&amp; systemctl start nacos
+</code></pre>
+<p>浏览器访问<code>http://服务器IP/nacos</code>，用户名和密码默认都是nacos</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-05-12</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>

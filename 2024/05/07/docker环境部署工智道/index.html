@@ -217,8 +217,11 @@ curl -L &quot;https://github.com/docker/compose/releases/download/1.29.2/docker-
 chmod +x /usr/local/bin/docker-compose  &amp;&amp; \
 ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 </code></pre>
-<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><p>把配置文件下载到web服务器</p>
-<pre><code>
+<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><p>把配置文件下载到web服务器，登陆镜像仓库</p>
+<pre><code>上传用户名和密码
+docker login -u road-1664368754995 -p fc70890e6980e2263e668f6bef02634cc40b537e in-road-docker.pkg.coding.net
+拉取用户名和密码
+docker login -u road-1661826238505 -p 4678a3ca6f3ba64013eed03b6e9e94be0f639fa9 in-road-docker.pkg.coding.net 
 </code></pre>
 <h3 id="docker-compose文件"><a href="#docker-compose文件" class="headerlink" title="docker-compose文件"></a>docker-compose文件</h3><pre><code class="yaml">version: &#39;3&#39;
 networks:
