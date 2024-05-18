@@ -116,10 +116,26 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85JDK"><span class="post-toc-text">安装JDK</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85MySQL"><span class="post-toc-text">安装MySQL</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85nacos"><span class="post-toc-text">安装nacos</span></a></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nacos%E7%AE%80%E4%BB%8B"><span class="post-toc-text">Nacos简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85JDK"><span class="post-toc-text">安装JDK</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85MySQL"><span class="post-toc-text">安装MySQL</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85nacos"><span class="post-toc-text">安装nacos</span></a></li></ol>
             
         
-        <h2 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h2><pre><code>#  下载华为云镜像的jdk压缩包
+        <h2 id="Nacos简介"><a href="#Nacos简介" class="headerlink" title="Nacos简介"></a>Nacos简介</h2><p>Nacos的全称是Dynamic Naming and Configuration Service，Na为naming&#x2F;nameServer即注册中心,co为configuration即注册中心，service是指该注册&#x2F;配置中心都是以服务为核心。Nacos是阿里旗下的一款开源产品，它主要针对微服务架构中的服务发现和配置管理。简单来说 Nacos 就是注册中心 + 配置中心的组合。</p>
+<blockquote>
+<p><strong>单体架构</strong></p>
+</blockquote>
+<p>单体架构所有的模块全都耦合在一块，所有的模块开发所使用的技术一样，所有的模块都共用一个数据库，存储方式比较单一代码量大，维护困难。</p>
+<blockquote>
+<p><strong>微服务</strong></p>
+</blockquote>
+<p>微服务架构就是把一个单体项目拆分为多个微小的服务,每个微服务可以在自己的进程中运行并与HTTP资源API进行通信。</p>
+<p>微服务每个模块都可以使用不同的存储方式（比如有的用redis，有的用mysql等），数据库也是单个模块对应自己的数据库。<br>单体架构微服务每个模块都可以使用不同的开发技术，开发模式更灵活。</p>
+<p><strong>微服务架构只是一个样式，一种风格；可以将一个项目，拆分成多个模块去开发；每一个模块都是单独运行在自己的容器中的；每个模块需要相互通讯（HTTP、MQ）；每一个模块之间没有依赖关系，都是单独部署；可以使用多种语言去开发不同模块；</strong></p>
+<blockquote>
+<p><strong>nacos架构</strong></p>
+</blockquote>
+<p>三个Nacos Server 组成一个集群，通过MySQL实现数据的持久化，Nacos的客户端通过Nginx负载均衡来访问到Nacos节点。</p>
+<p><img src="/../pic/7c43e30d96104c128e401007ee099a9d.png" alt="在这里插入图片描述"></p>
+<h2 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h2><pre><code>#  下载华为云镜像的jdk压缩包
 cd /opt &amp;&amp; wget https://repo.huaweicloud.com/java/jdk/8u202-b08/jdk-8u202-linux-x64.tar.gz
 
 # 创建jdk目录
