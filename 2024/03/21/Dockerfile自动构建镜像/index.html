@@ -196,8 +196,13 @@ CMD &quot;param1&quot;, &quot;param2&quot;		# 只传递参数
 <pre><code class="dockerfile">ENTRYPOINT &lt;command&gt;		# shell格式
 ENTRYPOINT &quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;		# exec格式
 </code></pre>
-<p>ENTRYPOINT 与 CMD指令的用途相似，都是在镜像启动时执行命令，但它们又有些不同:<br>当使用shell格式时，ENTRYPOINT 会忽略<code>docker run</code>以及 CMD 所传递的参数，且不能接受Unix信号，即如果执行 <code>docker stop &lt;container&gt;</code>命令时，ENTRYPOINT进程无法无法接收SIGTERM 信号。</p>
-<p>而使用exec格式时，<code>docker run</code> 传入的命令参数可以覆盖CMD的指令内容，并附加到ENTRYPOINT指令的参数中。</p>
+<p>ENTRYPOINT 与 CMD指令的用途相似，都是在镜像启动时执行命令，但它们又有些不同:</p>
+<ul>
+<li>如果 ENTRYPOINT 使用了 shell 模式，会忽略<code>docker run</code>以及 CMD 所传递的参数，且不能接受Unix信号，即如果执行 <code>docker stop &lt;container&gt;</code>命令时，ENTRYPOINT进程无法无法接收SIGTERM 信号。</li>
+<li>如果 ENTRYPOINT 使用了 exec 模式，CMD 指定的内容被追加为 ENTRYPOINT 指定命令的参数。<code>docker run</code> 传入的命令参数可以覆盖CMD的指令内容，并附加到ENTRYPOINT指令的参数中。</li>
+</ul>
+<p>真实的情况比上面的两点复杂，这是docker官方给出的参考：</p>
+<p><img src="/../pic/952033-20180223131745112-1674454515.png" alt="img"></p>
 <p>针对CMD和ENTRYPOINT有以下的使用建议:如果Docker镜像的用途是作为应用程序或者服务，例如Mysql 则使用EXEC格式的ENTRYPOINT指令，启动命令相对固定，只需要提供额外的参数进行替换便可启动容器。而如果想为容器设置启动命令，则使用CMD指令，通过docker run 指定命令参数进行替换。<br>除此之外，如果我们使用了ENTRYPOINT，但是我们又想设置启动命令，则可以使用 –entrypoint 参数，可以同时覆盖CMD以及ENTRYPOINT指令.</p>
 </li>
 <li><p><strong>EXPOSE</strong></p>

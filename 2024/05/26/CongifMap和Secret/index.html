@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="categories" />
+    <meta name="description" content="CongifMap和Secret" />
     <meta name="hexo-theme-A4" content="v1.7.9" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang</title>
@@ -86,11 +86,7 @@
             
         
             
-                <li><i>
-                    
-                        <a style="color: #4e7dde;" href="/categories/">分类</a>
-                    
-                </i></li>
+                <li><a href="/categories/">分类</a></li>
             
         
             
@@ -102,65 +98,80 @@
         
                     
                     
-                            <br>
-<span>🔖<i>categories</i></span>
-<ul class="" >
-  
-
-  
-
-  
-
-  
-  
-  
-  
-      
-        <li class="">
-            <a href="/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0">工作笔记</a>
-            <span><i>28</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/TroubleShooting">TroubleShooting</a>
-            <span><i>9</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">学习笔记</a>
-            <span><i>121</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E6%8B%93%E5%B1%95%E8%A7%86%E9%87%8E">拓展视野</a>
-            <span><i>16</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7">奇技淫巧</a>
-            <span><i>4</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95">生活记录</a>
-            <span><i>3</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E6%96%87%E6%91%98">文摘</a>
-            <span><i>3</i></span>
-        </li>
-    
-    
-
-    
-</ul>
-                    
 
                     
                     
                     
                     <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            CongifMap和Secret
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFConfigMap%E5%92%8CSecret"><span class="post-toc-text">什么是ConfigMap和Secret</span></a></li></ol>
+            
+        
+        <p>在k8s中，应用中可能会使用一些特定的配置文件进行配置，比如settings.py文件；应用程序中也经常需要配置一些特殊的数据，比如密钥、Token 、数据库连接地址或者其他私密的信息；在应用的业务逻辑中也需要读取环境变量或者某些标志来处理配置信息。</p>
+<p>我们要做到这个，有好多种方案，比如：</p>
+<ol>
+<li>在打包镜像的时候写在应用配置文件里面，但是这种方式的坏处显而易见而且非常明显。</li>
+<li>在yaml文件里面通过 env 环境变量传入，但是这样的话我们要修改 env 就必须修改 yaml 文件，而且需要重启所有的 container 。</li>
+<li>在应用启动的时候去数据库或者某个特定的地方拿，这样实现起来相对麻烦，而且如果配置的地方有变动也会很麻烦。</li>
+</ol>
+<p>而且，还有一个问题就是，如果说我的一个配置，是要多个应用一起使用的，以上除了第三种方案，都没办法进行配置的共享，就是说我如果要改配置的话，那得一个一个手动改。假如我们有 100 个应用，就得改 100 份配置，以此类推……</p>
+<p>kubernetes 对这个问题提供了一个很好的解决方案，就是用 ConfigMap 和 Secret。</p>
+<h2 id="什么是ConfigMap和Secret"><a href="#什么是ConfigMap和Secret" class="headerlink" title="什么是ConfigMap和Secret"></a>什么是ConfigMap和Secret</h2><p>ConfigMap对象是一系列配置的集合，k8s会将这一集合注入到对应的Pod对像中，并为容器成功启动使用。注入的方式一般有两种，一种是挂载存储卷，一种是传递变量。ConfigMap被引用之前必须存在，属于名称空间级别，不能跨名称空间使用，内容明文显示。ConfigMap内容修改后，对应的pod必须重启或者重新加载配置。</p>
+<p>Secret类似于ConfigMap，是用Base64加密，密文显示，一般存放敏感数据。一般有两种创建方式，一种是使用kubectl create创建，一种是用Secret配置文件。</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-05-26</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8s/'>
+                            K8s
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
                     
                     
                     <div class="footer">

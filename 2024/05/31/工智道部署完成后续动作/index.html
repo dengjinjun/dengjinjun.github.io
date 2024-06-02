@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="工智道部署完成后续动作" />
+    <meta name="hexo-theme-A4" content="v1.7.9" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--返回顶部css-->
+    
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+    
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+
+
+    <!--目录-->
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    
+    <body>
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            工智道部署完成后续动作
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AEES%E7%B4%A2%E5%BC%95"><span class="post-toc-text">配置ES索引</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0%E4%B8%BB%E6%9C%BA%E7%9B%91%E6%8E%A7"><span class="post-toc-text">添加主机监控</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0windows%E7%9B%91%E6%8E%A7"><span class="post-toc-text">添加windows监控</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0linux%E7%9B%91%E6%8E%A7"><span class="post-toc-text">添加linux监控</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%91%E6%8E%A7"><span class="post-toc-text">添加数据库监控</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%BD%91%E7%AB%99%E7%9B%91%E6%8E%A7"><span class="post-toc-text">添加网站监控</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%AF%94%E6%A0%BC%E4%BA%91%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD"><span class="post-toc-text">比格云数据库备份</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A4%87%E4%BB%BD%E5%88%B0%E6%97%A0%E9%94%A1%E8%8A%82%E7%82%B9"><span class="post-toc-text">数据库服务器备份到无锡节点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%97%A0%E9%94%A1%E8%8A%82%E7%82%B9%E5%A4%87%E4%BB%BD%E5%88%B0%E5%8C%97%E4%BA%AC%E8%8A%82%E7%82%B9"><span class="post-toc-text">无锡节点备份到北京节点</span></a></li></ol></li></ol>
+            
+        
+        <h2 id="配置ES索引"><a href="#配置ES索引" class="headerlink" title="配置ES索引"></a>配置ES索引</h2><ol>
+<li><p>创建生命周期策略</p>
+<p>ESweb页面侧边栏，点击开发工具，输入语句后执行：</p>
+<p>demo需要替换为客户小写简拼，code需要替换为客户代码</p>
+<pre><code class="sh">PUT _ilm/policy/demo_code_production_policy
+&#123;
+  &quot;policy&quot;: &#123;
+    &quot;phases&quot;: &#123;
+      &quot;hot&quot;: &#123;
+        &quot;min_age&quot;: &quot;0ms&quot;,
+        &quot;actions&quot;: &#123;
+          &quot;set_priority&quot;: &#123;
+            &quot;priority&quot;: 100
+          &#125;
+        &#125;
+      &#125;,
+      &quot;delete&quot;: &#123;
+        &quot;min_age&quot;: &quot;7d&quot;,
+        &quot;actions&quot;: &#123;
+          &quot;delete&quot;: &#123;
+            &quot;delete_searchable_snapshot&quot;: true
+          &#125;
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+</li>
+<li><p>创建模板</p>
+<p>demo需要替换为客户小写简拼，code需要替换为客户代码</p>
+<pre><code>PUT _template/demo_code_production_template
+&#123;
+  &quot;index_patterns&quot;: [&quot;demo_code_production*&quot;]
+&#125;
+</code></pre>
+</li>
+<li><p>生命周期策略匹配模板</p>
+<p>侧边栏——stackmanagement——索引生命周期策略——搜索刚创建的生命周期策略——点击右侧<code>+</code>号，将策略添加到索引模板——显示旧版索引模板——搜索刚创建的索引模板——添加策略</p>
+</li>
+</ol>
+<h2 id="添加主机监控"><a href="#添加主机监控" class="headerlink" title="添加主机监控"></a>添加主机监控</h2><p>监控服务器连接信息</p>
+<pre><code>服务器: 163.53.168.109
+用户名: root
+密码: s4~5A2J1C8Y3vL
+</code></pre>
+<h3 id="添加windows监控"><a href="#添加windows监控" class="headerlink" title="添加windows监控"></a>添加windows监控</h3><ol>
+<li><p>下载监控服务软件，双击安装，然后浏览器输入<code>http://localhost:9182/metrics</code>验证</p>
+<pre><code>https://3dview-1251252938.cos.ap-shanghai.myqcloud.com/dengjinjun/software/windows_export_0.25.1.msi
+</code></pre>
+</li>
+<li><p>在监控服务器上添加windows主机信息</p>
+<p>DEMO替换为客户简拼，IP替换为主机的IP</p>
+<pre><code>vim /usr/local/prometheus/windows/DEMO.json
+[
+  &#123;
+    &quot;targets&quot;: [
+      &quot;10.100.15.12:9182&quot;
+    ],
+    &quot;labels&quot;: &#123;
+      &quot;server&quot;: &quot;DEMO-db&quot;,
+      &quot;user&quot;: &quot;客户名称&quot;
+    &#125;
+  &#125;
+]
+</code></pre>
+</li>
+<li><p>重新加载配置文件</p>
+<pre><code>curl -X POST http://localhost:9011/-/reload
+</code></pre>
+</li>
+</ol>
+<h3 id="添加linux监控"><a href="#添加linux监控" class="headerlink" title="添加linux监控"></a>添加linux监控</h3><ol>
+<li><p>安装node_export</p>
+<pre><code># 下载
+wget https://3dview-1251252938.cos.ap-shanghai.myqcloud.com/dengjinjun/software/node_exporter_1.3.1.tar.gz
+echo &quot;===============================================下载完成===============================================&quot;
+
+# 解压
+tar -zxf node_exporter_1.3.1.tar.gz
+echo &quot;===============================================解压完成===============================================&quot;
+
+# 移动
+mv node_exporter-1.3.1.linux-amd64 /usr/local/node-exporter
+cd /usr/local/node-exporter/
+ln -s /usr/local/bin/
+echo &quot;===============================================软件包移动完成===============================================&quot;
+
+# 设置开机自启
+cat &gt; /etc/systemd/system/node_exporter.service &lt;&lt; EOF
+[Unit]
+Description=node_exporter
+Documentation=node_exporter Monitoring System
+After=network.target
+
+[Service]
+ExecStart=/usr/local/node-exporter/node_exporter --web.listen-address=:9100 
+
+[Install]
+WantedBy=multi-user.target
+EOF
+echo &quot;===============================================服务注册完成===============================================&quot;
+
+# 加载服务
+systemctl daemon-reload
+systemctl enable node_exporter.service 
+systemctl start  node_exporter.service 
+if [ $? -eq 0 ]; then
+    echo &quot;==========================================启动成功===============================================&quot;
+else
+    echo &quot;==============================启动失败，请检查！==============================&quot; &amp;&amp; exit 1
+fi
+</code></pre>
+</li>
+<li><p>在监控服务器上添加linux主机信息</p>
+<p>DEMO替换为客户简拼，IP替换为主机的外网IP</p>
+<pre><code>vim /usr/local/prometheus/node/DEMO.json 
+[
+  &#123;
+    &quot;targets&quot;: [
+     &quot;IP:9100&quot;
+    ],
+    &quot;labels&quot;: &#123;
+     &quot;services&quot;: &quot;DEMO-web&quot;,
+     &quot;user&quot;: &quot;客户名称&quot;
+    &#125;
+  &#125;
+]
+</code></pre>
+</li>
+<li><p>重新加载配置文件</p>
+<pre><code>curl -X POST http://localhost:9011/-/reload
+</code></pre>
+</li>
+</ol>
+<h2 id="添加数据库监控"><a href="#添加数据库监控" class="headerlink" title="添加数据库监控"></a>添加数据库监控</h2><p>数据库监控服务器连接信息(只能内网登录)</p>
+<pre><code>外网地址：163.53.168.5
+内网地址: 10.100.14.151
+用户名: root
+密码: MN2Z+0Pb8M7Re5
+</code></pre>
+<ol>
+<li><p>创建数据库监控服务</p>
+<pre><code># 执行脚本，demo替换为客户简拼，port自行选择一个空闲的端口（可以自动扫描获取）
+sh /root/install_sqlexporter.sh demo port
+</code></pre>
+</li>
+<li><p>修改任务文件</p>
+<pre><code># 修改history_work.collector.yml任务文件，修改相关数据库，demo替换为客户简拼
+vim /usr/local/sql_exporter_demo/history_work.collector.yml
+
+collector_name: history_work
+metrics:
+  - metric_name: history_wrok
+    type: counter
+    help: &#39;监控sqlserver历史作业执行状态:0表示失败,1表示成功,2表示重新尝试,3表示取消,4表示进行中&#39;
+    key_labels:
+      - workname
+    value_label: operation
+    values:
+      - workstatus
+      - workdata
+      - worktime
+      - spendtime
+    query: |
+      SELECT jobs.name AS workname,history.run_date AS workdata,history.run_time AS worktime,history.run_status AS workstatus,history.run_duration AS spendtime
+      FROM msdb.dbo.sysjobhistory AS history
+      LEFT JOIN msdb.dbo.sysjobs as jobs ON history.job_id = jobs.job_id
+      WHERE history.run_date = convert(varchar(100),getdate(),112)  AND history.step_name LIKE &#39;%(作业结果)%&#39; 
+
+  - metric_name: history_wrok_row
+    type: gauge
+    help: &#39;统计客户历史作业执行情况&#39;
+    values: [history_wrok_row]
+    query: |
+      SELECT count(*) history_wrok_row FROM msdb.dbo.sysjobhistory AS history WHERE  history.run_date = convert(varchar(100),getdate(),112) AND history.run_status != 1
+#备注：以下修改数据库名称.Inroad-DEMO替换为客户数据库名称
+  - metric_name: job_ticket_number
+    type: gauge
+    help: &#39;客户当日开票的数量&#39;
+    values: [job_ticket]
+    query: |
+      SELECT COUNT(*) job_ticket FROM [Inroad-DEMO].dbo.SafeOperationLicenseRecord AS a WHERE datediff(dd, a.planbegintime,getdate())=0 AND isdeleted=0
+
+  - metric_name: effective_person_number
+    type: gauge
+    help: &#39;统计客户有效人员的数量&#39;
+    values: [effective_person]
+    query: |
+      SELECT count(c_id) AS effective_person FROM [Inroad-DEMO].dbo.Accounts WHERE status = 1
+
+  - metric_name: inspection_number
+    type: gauge
+    help: &#39;统计客户当天巡检数量&#39;
+    values: [inspection]
+    query: |
+      select count(1) AS inspection from [Inroad-DEMO].dbo.InspectionPlanRecord  WHERE c_createtime &gt; convert(nvarchar(10),getdate(),121)
+
+  - metric_name: hiddanger_number
+    type: gauge
+    help: &#39;统计客户当天隐患的数量&#39;
+    values: [hiddanger]
+    query: |
+      select count(1) AS hiddanger from [Inroad-DEMO].dbo.PotentialDangerRecord WHERE c_createtime &gt; convert(nvarchar(10),getdate(),121)
+</code></pre>
+</li>
+<li><p>修改配置文件</p>
+<pre><code># 修改配置文件，demo替换为客户简拼
+vim /usr/local/sql_exporter_demo/sql_exporter.yml    
+
+global:
+  scrape_timeout_offset: 500ms
+  min_interval: 0s
+  max_connections: 3
+  max_idle_connections: 3
+target:
+  # Data source name always has a URI schema that matches the driver name. In some cases (e.g. MySQL)
+  # the schema gets dropped or replaced to match the driver expected DSN format.
+  data_source_name: &#39;sqlserver://数据库用户名:数据库密码@数据库地址:数据库端口&#39;  #内网默认是1433,外网是在比格云控制台设置的转发端口
+  密码如果有特殊字符需要转义
+
+  collectors: [mssql_standard, history_work] 
+  collector_files: 
+  - &quot;*.collector.yml&quot;
+ 
+#重新加载服务启动项
+systemctl daemon-reload
+# 启动服务
+systemctl start sql_demo.service
+#设置开机自启
+systemctl enable  sql_demo.service
+</code></pre>
+</li>
+<li><p>浏览器输入地址服务地址和端口 查看是否正常</p>
+<pre><code>10.100.14.151:端口/metrics
+</code></pre>
+</li>
+<li><p>prometheus添加数据库监控服务</p>
+<pre><code class="\">vim /usr/local/prometheus/sqlserver/sqlserver.json
+ [
+ ...........................
+ # 在文件后面追加即可
+ &#123;
+    &quot;targets&quot;: [
+      &quot;10.100.14.151:9254&quot;
+    ],
+    &quot;labels&quot;: &#123;
+      &quot;server&quot;: &quot;demo&quot;,
+      &quot;user&quot;: &quot;code_客户名称&quot;
+    &#125;
+  &#125;,
+ &#123;
+    &quot;targets&quot;: [
+      &quot;10.100.14.151:9253&quot;
+    ],
+    &quot;labels&quot;: &#123;
+      &quot;server&quot;: &quot;demo&quot;,
+      &quot;user&quot;: &quot;code_客户名称&quot;
+    &#125;
+  &#125;
+]
+</code></pre>
+</li>
+<li><p>重新加载配置文件</p>
+<pre><code>curl -X POST http://localhost:9011/-/reload
+</code></pre>
+</li>
+</ol>
+<h2 id="添加网站监控"><a href="#添加网站监控" class="headerlink" title="添加网站监控"></a>添加网站监控</h2><ol>
+<li><p>连接数据库</p>
+<pre><code>数据库地址：103.229.212.21
+数据库用户：sa
+数据库密码：qpMb7uL6jzjl4EdtYOQ7
+</code></pre>
+</li>
+<li><p>执行sql语句</p>
+<pre><code class="sql"># 添加到网站监控清单
+insert into [CMDB].[dbo].[url_list] (name,url,status,remark) 
+values (&#39;客户名称&#39;,&#39;https://客户域名/API/Common/GetSysInfo&#39;,&#39;是&#39;,&#39;gzd&#39;)
+
+# 添加到网站版本采集清单，code替换为客户代码
+insert into [IPI].[dbo].[siteinfo] (code,Weburl) 
+values (&#39;code&#39;,&#39;https://客户域名&#39;);
+</code></pre>
+</li>
+</ol>
+<h2 id="比格云数据库备份"><a href="#比格云数据库备份" class="headerlink" title="比格云数据库备份"></a>比格云数据库备份</h2><h3 id="数据库服务器备份到无锡节点"><a href="#数据库服务器备份到无锡节点" class="headerlink" title="数据库服务器备份到无锡节点"></a>数据库服务器备份到无锡节点</h3><ol>
+<li><p>下载<code>pscp.exe</code>程序，拷贝<code>pscp.exe</code>程序到<code>C:\Windows\System32</code>目录下面</p>
+<pre><code>https://3dview-1251252938.cos.ap-shanghai.myqcloud.com/dengjinjun/software/pscp.exe
+</code></pre>
+</li>
+<li><p>下载脚本文件<code>rsync_db.bat</code>到d盘(DBBAK同级目录)</p>
+<pre><code>https://3dview-1251252938.cos.ap-shanghai.myqcloud.com/dengjinjun/scripts/rsync_db.bat
+</code></pre>
+</li>
+<li><p>然后创建计划任务每天凌晨3点十几分复制备份文件到无锡节点</p>
+<pre><code>搜索计划任务程序，创建基本任务，然后按引导就行，起始于要填`D:\`，才会有输出日志
+</code></pre>
+<p>创建计划任务测试脚本，手动测试一次任务，第一次备份需要输入yes，之后备份不在需要输入</p>
+</li>
+</ol>
+<h3 id="无锡节点备份到北京节点"><a href="#无锡节点备份到北京节点" class="headerlink" title="无锡节点备份到北京节点"></a>无锡节点备份到北京节点</h3><ol>
+<li><p>连接无锡和北京服务器</p>
+<pre><code>无锡：
+root
+163.53.170.107
+Rvinf8iRBK6f0
+
+北京：
+root
+114.118.22.118
+6ZCwXlf03BVK
+</code></pre>
+</li>
+<li><p>无锡节点操作</p>
+<pre><code class="sh">cd /data/ &amp;&amp; mkdir Inroad-DEMO
+chown rsync:rsync Inroad-DEMO
+</code></pre>
+</li>
+<li><p>北京节点操作</p>
+<pre><code class="sh">cd /data/ &amp;&amp; mkdir Inroad-DEMO
+# 设置备份文件目录用户以及用户组
+chown rsync:rsync Inroad-DEMO
+
+# 配置rsync服务的配置文件，添加内容
+vim /etc/rsyncd.conf
+..........
+[Inroad-DEMO]
+path = /data/Inroad-FXDDL
+
+# 重启rsyncd服务
+systemctl restart rsyncd
+</code></pre>
+</li>
+</ol>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-05-31</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+
+<!--回到顶部按钮-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script src="/js/returnToTop.js"></script>
+
+
+<!--目录-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+
+<script src="/js/toc.js"></script>
+
+
+
+
+<script src="/js/randomHeaderContent.js"></script>
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+
+
+</html>

@@ -3,7 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
-    <meta name="description" content="categories" />
+    <meta name="description" content="扩容分区和文件系统" />
     <meta name="hexo-theme-A4" content="v1.7.9" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang</title>
@@ -86,11 +86,7 @@
             
         
             
-                <li><i>
-                    
-                        <a style="color: #4e7dde;" href="/categories/">分类</a>
-                    
-                </i></li>
+                <li><a href="/categories/">分类</a></li>
             
         
             
@@ -102,65 +98,85 @@
         
                     
                     
-                            <br>
-<span>🔖<i>categories</i></span>
-<ul class="" >
-  
-
-  
-
-  
-
-  
-  
-  
-  
-      
-        <li class="">
-            <a href="/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0">工作笔记</a>
-            <span><i>28</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/TroubleShooting">TroubleShooting</a>
-            <span><i>9</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">学习笔记</a>
-            <span><i>121</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E6%8B%93%E5%B1%95%E8%A7%86%E9%87%8E">拓展视野</a>
-            <span><i>16</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7">奇技淫巧</a>
-            <span><i>4</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95">生活记录</a>
-            <span><i>3</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E6%96%87%E6%91%98">文摘</a>
-            <span><i>3</i></span>
-        </li>
-    
-    
-
-    
-</ul>
-                    
 
                     
                     
                     
                     <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            扩容分区和文件系统
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                
+            
+        
+        <blockquote>
+<p><strong>查看磁盘是否有剩余空间</strong></p>
+</blockquote>
+<p>可以看出本来磁盘有200个G，挂载到&#x2F;data目录下，现在增加了200G容量，&#x2F;dev&#x2F;vdc容量有400G，但是新增加的200G还处于未分配状态。</p>
+<p><img src="/../pic/image-20240529130714575-1717335951615-1.png" alt="image-20240529130714575"></p>
+<blockquote>
+<p><strong>分区扩容</strong></p>
+</blockquote>
+<p>使用grow_part命令，</p>
+<pre><code># 安装软件包
+yum install cloud-utils-growpart
+yum install xfsprogs
+
+# 分区扩容，grow_part 分区 分区号
+grow_part /dev/vdc 1
+</code></pre>
+<p><img src="/../pic/image-20240529131658566-1717335969516-3.png" alt="image-20240529131658566"></p>
+<blockquote>
+<p><strong>扩容文件系统</strong></p>
+</blockquote>
+<p>xfs文件系统使用xfs_growfs命令，其他文件系统使用resize2fs命令</p>
+<pre><code>xfs_growfs /dev/vdc1
+</code></pre>
+<p><img src="/../pic/image-20240529131547789-1717335988438-5.png" alt="image-20240529131547789"></p>
+<p>最后贴一个博客地址：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/muzlei/p/16963183.html">阿里云Linux热扩容云盘（growpart和resize2fs工具） - muzlei - 博客园 (cnblogs.com)</a></p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-16</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/TroubleShooting/'>
+                            TroubleShooting
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                                      
                     
                     
                     <div class="footer">
