@@ -116,13 +116,76 @@
     <div class="post-md">
         
             
-                
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91%E6%96%B9%E6%A1%88"><span class="post-toc-text">阿里云方案</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B8%85%E5%8D%8E%E6%BA%90%E6%96%B9%E6%A1%88%EF%BC%88%E5%A4%87%E9%80%89%EF%BC%89"><span class="post-toc-text">清华源方案（备选）</span></a></li></ol>
             
         
         <p>ubuntu使用国内源安装docker和docker-compose</p>
 <pre><code class="sh">vim install_docker.sh
 </code></pre>
-<pre><code class="sh">#!/bin/bash
+<h2 id="阿里云方案"><a href="#阿里云方案" class="headerlink" title="阿里云方案"></a>阿里云方案</h2><pre><code class="sh">#!/bin/bash
+# author: dengjinjun
+# date: 2024-05-30
+# description: auto install docker docker-compose
+
+echo &quot;============================================开始执行脚本,卸载旧版本docker===============================================&quot;
+echo &quot; &quot;
+echo &quot; &quot;
+echo &quot; &quot;
+echo &quot; &quot;
+apt-get remove docker docker-engine docker.io containerd runc 
+if [ $? -eq 0 ]; then
+    echo &quot;=======================================卸载旧版本的docker完成，开始下载工具和依赖项==========================================&quot;
+else
+    echo &quot;卸载失败&quot; &amp;&amp; exit 1
+fi
+
+apt-get update
+apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release docker-compose-plugin
+if [ $? -eq 0 ]; then
+    echo &quot;=======================================工具和依赖项下载完成，开始下载并添加docker密钥========================================&quot;
+else
+    echo &quot;安装工具和依赖项失败&quot; &amp;&amp; exit 1
+fi
+
+curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg |  gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+if [ $? -eq 0 ]; then
+    echo &quot;==========================================docker密钥添加完成，开始添加docker源============================================&quot;
+else
+    echo &quot;docker密钥添加失败&quot; &amp;&amp; exit 1
+fi
+echo &quot;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&quot; | tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+
+if [ $? -eq 0 ]; then
+    echo &quot;============================================docker源添加完成，开始安装docker=============================================&quot;
+else
+    echo &quot;docker源添加失败&quot; &amp;&amp; exit 1
+fi
+apt-get update
+apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+systemctl enable docker
+if [ $? -eq 0 ]; then
+    echo &quot;======================================安装完成，已设置自启动，开始安装docker-compose========================================&quot;
+else
+    echo &quot;docker安装失败&quot; &amp;&amp; exit 1
+fi
+
+curl -L &quot;https://3dview-1251252938.cos.ap-shanghai.myqcloud.com/dengjinjun/software/docker-compose&quot; -o /usr/local/bin/docker-compose &amp;&amp; \
+chmod +x /usr/local/bin/docker-compose  &amp;&amp; \
+ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+if [ $? -eq 0 ]; then
+    echo &quot;===============================================docker-compose安装完成===============================================&quot;
+else
+    echo &quot;docker-compose安装失败&quot; &amp;&amp; exit 1
+fi
+
+docker login -u road-1661826238505 -p 4678a3ca6f3ba64013eed03b6e9e94be0f639fa9 in-road-docker.pkg.coding.net
+echo &quot;===============================================镜像仓库登录成功，开始拉取镜像===============================================&quot;
+docker-compose pull
+echo &quot;===============================================镜像拉取完成，等待手动启动容器===============================================&quot;
+
+</code></pre>
+<h2 id="清华源方案（备选）"><a href="#清华源方案（备选）" class="headerlink" title="清华源方案（备选）"></a>清华源方案（备选）</h2><pre><code class="sh">#!/bin/bash
 # author: dengjinjun
 # date: 2024-05-30
 # description: auto install docker docker-compose

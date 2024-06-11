@@ -176,7 +176,7 @@
 [
   &#123;
     &quot;targets&quot;: [
-      &quot;10.100.15.12:9182&quot;
+      &quot;IP:9182&quot;
     ],
     &quot;labels&quot;: &#123;
       &quot;server&quot;: &quot;DEMO-db&quot;,
@@ -193,44 +193,10 @@
 </ol>
 <h3 id="添加linux监控"><a href="#添加linux监控" class="headerlink" title="添加linux监控"></a>添加linux监控</h3><ol>
 <li><p>安装node_export</p>
-<pre><code># 下载
-wget https://3dview-1251252938.cos.ap-shanghai.myqcloud.com/dengjinjun/software/node_exporter_1.3.1.tar.gz
-echo &quot;===============================================下载完成===============================================&quot;
-
-# 解压
-tar -zxf node_exporter_1.3.1.tar.gz
-echo &quot;===============================================解压完成===============================================&quot;
-
-# 移动
-mv node_exporter-1.3.1.linux-amd64 /usr/local/node-exporter
-cd /usr/local/node-exporter/
-ln -s /usr/local/bin/
-echo &quot;===============================================软件包移动完成===============================================&quot;
-
-# 设置开机自启
-cat &gt; /etc/systemd/system/node_exporter.service &lt;&lt; EOF
-[Unit]
-Description=node_exporter
-Documentation=node_exporter Monitoring System
-After=network.target
-
-[Service]
-ExecStart=/usr/local/node-exporter/node_exporter --web.listen-address=:9100 
-
-[Install]
-WantedBy=multi-user.target
-EOF
-echo &quot;===============================================服务注册完成===============================================&quot;
-
-# 加载服务
-systemctl daemon-reload
-systemctl enable node_exporter.service 
-systemctl start  node_exporter.service 
-if [ $? -eq 0 ]; then
-    echo &quot;==========================================启动成功===============================================&quot;
-else
-    echo &quot;==============================启动失败，请检查！==============================&quot; &amp;&amp; exit 1
-fi
+<pre><code class="sh">cd 
+wget https://3dview-1251252938.cos.ap-shanghai.myqcloud.com/dengjinjun/scripts/install_exporter.sh
+chmod +x install_exporter.sh
+sh install_exporter.sh
 </code></pre>
 </li>
 <li><p>在监控服务器上添加linux主机信息</p>
