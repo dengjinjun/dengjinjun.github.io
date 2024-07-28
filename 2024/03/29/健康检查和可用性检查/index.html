@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="健康检查和可用性检查" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            健康检查和可用性检查
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%8E%A2%E9%92%88%E6%A6%82%E8%BF%B0"><span class="post-toc-text">探针概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#livenessProbe"><span class="post-toc-text">livenessProbe</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#readinessProbe"><span class="post-toc-text">readinessProbe</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#startupProbe"><span class="post-toc-text">startupProbe</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="探针概述"><a href="#探针概述" class="headerlink" title="探针概述"></a>探针概述</h2><p>K8S需要保证负载均衡（Service）后面的pod都可用，自动检测不正常的应用程序，异常实例自动剔除，并将请求重新路由到其他可用系统，并具备一定的自愈能力。以上需求是通过探针来实现的。</p>
+<p>K8S中存在三种类型的探针：</p>
+<ul>
+<li><p><code>liveness probe</code>：存活探针</p>
+</li>
+<li><p><code>readiness probe</code>：就绪探针</p>
+</li>
+<li><p><code>startup Probe</code>：启动探针</p>
+</li>
+</ul>
+<p>每类探针都支持三种探测方法：</p>
+<ul>
+<li><p><code>exec</code>：自定义健康检查，是通用性最强的方法，在容器中执行指定的命令，如果执行成功，退出码为 0 则探测成功。</p>
+</li>
+<li><p><code>httpGet</code>：适用于web业务，通过容器的IP地址、端口号及路径调用 HTTP Get方法，如果响应的状态码在200到400之间，则认为容器健康。</p>
+</li>
+<li><p><code>tcpSocket</code>：适用于TCP业务，通过容器的 IP 地址和端口号执行 TCP 检查，如果能够建立TCP连接，则表明容器健康。</p>
+</li>
+</ul>
+<p>这三种探针均具有以下参数：</p>
+<ul>
+<li><p><code>initialDelaySeconds</code>：容器启动后多久开始进行第一次探测工作，默认是0秒。</p>
+</li>
+<li><p><code>periodSeconds</code>：执行探测的频率。默认是10秒，最小1秒。</p>
+</li>
+<li><p><code>timeoutSeconds</code>：探测超时时间。默认1秒，最小1秒。</p>
+</li>
+<li><p><code>successThreshold</code>：处于失败状态时，探测连续成功几次，被认为成功。默认是1，最小值是1。</p>
+</li>
+<li><p><code>failureThreshold</code>：处于成功状态时，探测连续失败几次可被认为失败。默认是3。最小值是1。</p>
+</li>
+</ul>
+<p>探针探测的结果有以下三者之一：</p>
+<ul>
+<li><p><code>Success</code>：Container通过了检查。</p>
+</li>
+<li><p><code>Failure</code>：Container未通过检查。</p>
+</li>
+<li><p><code>Unknown</code>：暂未执行检查，因此不采取任何措施。</p>
+</li>
+</ul>
+<h2 id="livenessProbe"><a href="#livenessProbe" class="headerlink" title="livenessProbe"></a>livenessProbe</h2><p>存活性探针，适用情况：有时进程在运行，但是应用程序可能已经挂掉了，导致K8S无法隔离有故障的pod，调用者可能会访问到有故障的pod。</p>
+<p>如果探测结果为容器不健康（Failure），kubelet 会杀掉该容器，将根据 <code>restartPolicy</code> 来重启。如果未配置存活探针，则默认容器启动为通过（Success）状态。</p>
+<blockquote>
+<p><strong>示例</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl explain pod.spec.containers.livenessProbe.<span class="built_in">exec</span>		<span class="comment"># 以exec方式为例</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">command</span>	&lt;[]string&gt;		<span class="comment"># command是一个数组对象，执行shell的命令和参数</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">liveness-exec</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">nodeName:</span> <span class="number">192.168</span><span class="number">.110</span><span class="number">.163</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">liveness</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">registry.aliyuncs.com/google_containers/busybox</span></span><br><span class="line">    <span class="attr">args:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">/bin/sh</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">-c</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">touch</span> <span class="string">/tmp/healthy;</span> <span class="string">sleep</span> <span class="number">30</span><span class="string">;</span> <span class="string">rm</span> <span class="string">-f</span> <span class="string">/tmp/healthy;</span> <span class="string">sleep</span> <span class="number">600</span></span><br><span class="line">    <span class="attr">livenessProbe:</span></span><br><span class="line">      <span class="attr">exec:</span></span><br><span class="line">        <span class="attr">command:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">cat</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">/tmp/healthy</span></span><br><span class="line">      <span class="attr">initialDelaySeconds:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">periodSeconds:</span> <span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="readinessProbe"><a href="#readinessProbe" class="headerlink" title="readinessProbe"></a>readinessProbe</h2><p>就绪性探针，适用情况：应用程序暂时不可用（比如加载大量数据、等待外部连接时），这种情况下，暂时不要杀死应用程序，而是等待它恢复。</p>
+<p>如果探测结果为容器不健康（Failure），kubelet 会将Pod的Endpoint从对应的Service的Endpoint列表中移除，从此不再将任何请求调度此Pod上。</p>
+<p>直到下次通过使用Readiness探针探测成功，然后才将Pod的IP添加到Service的Endpoint列表中，允许服务将流量发送到此Pod中。</p>
+<p>若未配置就绪探针，则默认状态容器启动后为<code>Success</code>。</p>
+<blockquote>
+<p><strong>示例</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">kubectl explain pod.spec.containers.readinessProbe.httpGet		<span class="comment"># 以httpGet方式为例</span></span><br><span class="line"></span><br><span class="line">   port	&lt;string&gt; -required-		<span class="comment"># 容器的端口号或者端口名称</span></span><br><span class="line"></span><br><span class="line">   scheme	&lt;string&gt;		<span class="comment"># 连接主机的方式，HTTP或者HTTPS</span></span><br><span class="line"></span><br><span class="line">   host	&lt;string&gt;		<span class="comment"># pod的IP地址或者主机名，也可以在HTTP请求头中设置 “Host” 来代替</span></span><br><span class="line"></span><br><span class="line">   httpHeaders	&lt;[]Object&gt;		<span class="comment"># HTTP请求头</span></span><br><span class="line"></span><br><span class="line">   path	&lt;string&gt;		<span class="comment"># 访问路径，默认是`/`</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">liveness-httpget</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">nodeName:</span> <span class="number">192.168</span><span class="number">.110</span><span class="number">.163</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">liveness-httpget-container</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">      <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">readinessProbe:</span></span><br><span class="line">      <span class="attr">httpGet:</span></span><br><span class="line">        <span class="attr">port:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">/index.html</span></span><br><span class="line">      <span class="attr">initialDelaySeconds:</span> <span class="number">1</span></span><br><span class="line">      <span class="attr">periodSeconds:</span> <span class="number">3</span></span><br><span class="line">      <span class="attr">timeoutSeconds:</span> <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="startupProbe"><a href="#startupProbe" class="headerlink" title="startupProbe"></a>startupProbe</h2><p>启动探针，判断容器内的应用程序是否已启动，主要针对于不能确定具体启动时间的应用。</p>
+<p>如果探测结果为容器不健康（Failure），kubelet 将杀死容器，将根据 <code>restartPolicy</code> 来重启。如果未配置启动探针，则默认容器启动为通过（Success）状态。</p>
+<p>需要注意的是，如果配置了 <code>startupProbes</code> 探测，则在 <code>startupProbes</code> 状态为 Success 之前，其他所有探针都处于无效状态，直到它成功后其他探针才起作用。这么做的目的是，针对一些启动缓慢的业务，避免业务长时间启动而被前面的探针kill掉。</p>
+<blockquote>
+<p><strong>示例</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl explain pod.spec.containers.startupProbe.tcpSocket		<span class="comment"># 以tcpSocket方式为例</span></span><br><span class="line">   port	&lt;string&gt; -required-		<span class="comment"># 容器的端口号或端口名</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">liveness-readiness-tcpsocket</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">nodeName:</span> <span class="number">192.168</span><span class="number">.110</span><span class="number">.163</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">liveness-readiness-tcpsocket</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">startupProbe:</span></span><br><span class="line">        <span class="attr">tcpSocket:</span></span><br><span class="line">          <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">        <span class="attr">initialDelaySeconds:</span> <span class="number">15</span></span><br><span class="line">        <span class="attr">periodSeconds:</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-03-29</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8s/'>
+                            K8s
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

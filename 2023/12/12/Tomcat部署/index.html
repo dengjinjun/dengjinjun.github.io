@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Tomcat部署" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Tomcat部署
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="post-toc-text">相关概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Tomcat"><span class="post-toc-text">Tomcat</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#JDK%E3%80%81JRE%E5%92%8CJVM"><span class="post-toc-text">JDK、JRE和JVM</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tomcat%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Tomcat部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="post-toc-text">安装软件包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Tomcat%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="post-toc-text">Tomcat目录结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AEsystemctl%E5%90%AF%E5%8A%A8%E6%96%B9%E6%A1%88"><span class="post-toc-text">配置systemctl启动方案</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%80%E5%90%AFTomcat%E7%AE%A1%E7%90%86%E7%AB%AF"><span class="post-toc-text">开启Tomcat管理端</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tomcat%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">Tomcat配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AAjavaweb%E5%BA%94%E7%94%A8"><span class="post-toc-text">部署一个javaweb应用</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h3><p><a href="/../pic/tomcat.jpg" title="image-20231216223729589" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/tomcat.jpg" alt="image-20231216223729589"></a></p>
+<p>Tomcat是一个servlet容器，用来装载javaweb程序，也可以称它为web容器。同类型的javaweb容器还有JBoss、WebLogic等。</p>
+<p>Tomcat也具有传统的Web服务器的功能：处理Html页面。其他web服务器还有Apache、Nginx等。与Nginx相比，Tomcat的处理静态Html的能力较弱，可以将Tomcat和Nginx集成到一块，让Nginx处理静态Html，而Tomcat处理Jsp和Servlet。</p>
+<p>综上所述：Tomcat可以理解为一个中间件，在B&#x2F;S架构中，浏览器发出的http请求经过Tomcat中间件，转发到最终的目的服务器上，响应消息再通过Tomcat返回给浏览器。Tomcat所做的事情主要有：开启监听端口监听用户的请求，解析用户发来的http请求然后访问到指定的应用系统，然后返回的页面经过Tomcat返回给用户。</p>
+<h3 id="JDK、JRE和JVM"><a href="#JDK、JRE和JVM" class="headerlink" title="JDK、JRE和JVM"></a>JDK、JRE和JVM</h3><p>JDK、JRE、JVM 是 Java 开发中的三个重要概念，JDK 包含了 JRE 和开发工具，JRE 包含了 JVM 和类库，JVM 是 Java 程序的运行环境。</p>
+<p>在开发 Java 应用程序时，需要使用 JDK，而在运行 Java 应用程序时，只需要使用 JRE。</p>
+<blockquote>
+<p><strong>JDK</strong></p>
+</blockquote>
+<p>如果想进行 Java 开发，需要先安装 JDK。JDK（Java Development Kit）是 Java 开发工具包的缩写，是 Java 开发的基础，可以简单的理解 JDK 就是 Java 开发的软件环境，如果没有它，我们很难进行 Java 开发。JDK 包含了 Java 编译器、Java 虚拟机、Java 标准库等组件，可以用于开发和运行 Java 应用程序。</p>
+<blockquote>
+<p><strong>JRE</strong></p>
+</blockquote>
+<p>JRE（Java Runtime Environment）是 Java 运行环境的缩写，是 Java 应用程序的运行环境。JRE 提供了在机器上运行 Java 程序的环境，因此 JRE 包含了 Java 虚拟机和 Java 应用程序所需的类库等组件。与 JDK 不同的是，JRE 不包含 Java 编译器和其他开发工具，只包含 Java 运行环境所需的组件。</p>
+<p>如果只需要运行 Java 应用程序，可以安装 JRE（JDK 中已经自带），也可以从 <a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase-jre8-downloads.html">Oracle 官网</a> 下载 JRE。</p>
+<blockquote>
+<p><strong>JVM</strong></p>
+</blockquote>
+<p> JVM（Java Virtual Machine）是 Java 虚拟机的缩写，它负责 Java 程序的具体运行。Java 程序在运行时，会被编译成字节码文件，然后由 JVM 解释执行，因此 JVM 也被称为<strong>解释器</strong>。JVM 可以在不同的操作系统上运行 Java 应用程序，保证了 Java 的跨平台性。</p>
+<h2 id="Tomcat部署"><a href="#Tomcat部署" class="headerlink" title="Tomcat部署"></a>Tomcat部署</h2><h3 id="安装软件包"><a href="#安装软件包" class="headerlink" title="安装软件包"></a>安装软件包</h3><p>JDK版本：jdk 1.8.0_60（jdk-8u202-linux-x64.tar.gz）</p>
+<p>Tomcat版本：tomcat 8.5.66（apache-tomcat-8.5.66.tar.gz）</p>
+<p>下载方式：国内镜像站下载，远程传送到Linux机器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建解压目录并解压到该目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /app/jdk /app/tomcat</span><br><span class="line">tar -xf jdk-8u202-linux-x64.tar.gz</span><br><span class="line">tar -xf apache-tomcat-8.5.66.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加jdk环境变量</span></span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; /etc/profile &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&gt; <span class="built_in">export</span> JAVA_HOME=/app/jdk</span><br><span class="line">&gt; <span class="built_in">export</span> TOMCAT_HOME=/app/tomcat</span><br><span class="line">&gt; <span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$JAVA_HOME</span>/jre/bin:<span class="variable">$PATH</span></span><br><span class="line">&gt; <span class="built_in">export</span> CLASSPATH=.<span class="variable">$CLASSPATH</span>:<span class="variable">$JAVA_HOME</span>/lib:<span class="variable">$JAVA_HOME</span>/jre/lib:<span class="variable">$JAVA_HOME</span>/lib/tools.jar</span><br><span class="line">&gt; EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证JDK安装成功</span></span><br><span class="line">[root@web03 app]$ java -version</span><br><span class="line">java version <span class="string">&quot;1.8.0_202&quot;</span></span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_202-b08)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.202-b08, mixed mode)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证Tomcat安装成功</span></span><br><span class="line">[root@web03 app]$ /app/tomcat/bin/version.sh </span><br><span class="line">Using CATALINA_BASE:   /app/tomcat</span><br><span class="line">Using CATALINA_HOME:   /app/tomcat</span><br><span class="line">Using CATALINA_TMPDIR: /app/tomcat/temp</span><br><span class="line">Using JRE_HOME:        /app/jdk</span><br><span class="line">Using CLASSPATH:       /app/tomcat/bin/bootstrap.jar:/app/tomcat/bin/tomcat-juli.jar</span><br><span class="line">Using CATALINA_OPTS:   </span><br><span class="line">Server version: Apache Tomcat/8.5.66</span><br><span class="line">Server built:   May 8 2021 22:44:01 UTC</span><br><span class="line">Server number:  8.5.66.0</span><br><span class="line">OS Name:        Linux</span><br><span class="line">OS Version:     3.10.0-1160.102.1.el7.x86_64</span><br><span class="line">Architecture:   amd64</span><br><span class="line">JVM Version:    1.8.0_202-b08</span><br><span class="line">JVM Vendor:     Oracle Corporation</span><br></pre></td></tr></table></figure>
+
+<h3 id="Tomcat目录结构"><a href="#Tomcat目录结构" class="headerlink" title="Tomcat目录结构"></a>Tomcat目录结构</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@web03 tomcat]$ tree -L 1</span><br><span class="line">.</span><br><span class="line">├── bin					<span class="comment"># tomcat核心命令目录</span></span><br><span class="line">├── BUILDING.txt</span><br><span class="line">├── conf				<span class="comment"># 配置文件所在目录</span></span><br><span class="line">├── CONTRIBUTING.md</span><br><span class="line">├── lib</span><br><span class="line">├── LICENSE</span><br><span class="line">├── logs				<span class="comment"># 日志所在目录</span></span><br><span class="line">├── NOTICE</span><br><span class="line">├── README.md</span><br><span class="line">├── RELEASE-NOTES</span><br><span class="line">├── RUNNING.txt</span><br><span class="line">├── temp</span><br><span class="line">├── webapps				<span class="comment"># tomcat站点目录</span></span><br><span class="line">└── work</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>核心命令</strong></p>
+</blockquote>
+<p>tomcat命令目录位于tomcat安装目录的<code>bin</code>目录下，主要是以下脚本实现：</p>
+<p><code>startup.sh</code>：用于启动tomcat</p>
+<p><code>shutdown.sh</code>：用于关闭tomcat</p>
+<p><code>version.sh</code>：用于检查jdk与tomcat版本信息</p>
+<p><code>catalina.sh</code>：tomcat核心脚本，启动和关闭时都会调用，也用于配置Java启动参数，tomcat远程管理、配置jvm参数等</p>
+<blockquote>
+<p><strong>配置文件</strong></p>
+</blockquote>
+<p>tomcat配置文件位于tomcat安装目录的<code>conf</code>目录下，主要包含以下配置文件：</p>
+<p><code>server.xml</code>：tomcat主配置文件</p>
+<p><code>web.xml</code>：补充配置文件（额外功能）</p>
+<p><code>tomcat-user.xml</code>：tomcat管理端配置文件</p>
+<blockquote>
+<p><strong>日志</strong></p>
+</blockquote>
+<p>tomcat日志文件位于tomcat安装目录的<code>logs</code>目录下</p>
+<p><code>catalina.out</code>：tomcat最全日志，查看所有信息</p>
+<p><code>catalina.[日期].log</code>：切割日志文件，以天为单位</p>
+<p><code>localhost_access_log.[日期].txt</code>：tomcat访问日志，以天为单位</p>
+<p><code>host-manager.2023-12-12.log</code>  ,<code>manager.2023-12-12.log</code>,<code> localhost.2023-12-12.log</code>：管理端相关日志</p>
+<h3 id="配置systemctl启动方案"><a href="#配置systemctl启动方案" class="headerlink" title="配置systemctl启动方案"></a>配置systemctl启动方案</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入系统服务的脚本目录</span></span><br><span class="line"><span class="built_in">cd</span> /usr/lib/systemd/system</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑脚本</span></span><br><span class="line">vim tomcat.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=tomcat service</span><br><span class="line">After=network.target</span><br><span class="line"> </span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">Environment=<span class="string">&quot;JAVA_HOME=/app/jdk&quot;</span></span><br><span class="line">ExecStart=/app/tomcat/bin/startup.sh</span><br><span class="line">ExecStop=/app/tomcat/bin/shutdown.sh</span><br><span class="line">PrivateTmp=<span class="literal">true</span></span><br><span class="line"> </span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">注意：关于服务脚本需要加上环境变量的问题</span><br><span class="line">之前已经在/etc/profile文件中定义了JAVA_HOME，但是此处还是需要重新指定一下，否则使用systemctl启动tomcat时会报错：</span><br><span class="line">&quot;Neither the JAVA_HOME nor the JRE_HOME environment variable is defined&quot;</span><br><span class="line">因为普通Shell脚本在终端下运行时，可以获得~/.bash_profile，/etc/profile等文件中定义的环境变量。而在系统服务中注册服务，通过系统服务启动的应用，在service模式下，脚本运行在受限的环境中，不能获取已经全局设置的环境变量。</span><br><span class="line">所以，当把一个shell脚本放入到service中时，需要设定好PATH等环境。</span><br><span class="line">在此tomcat的服务脚本中，需要加上`Environment=&quot;JAVA_HOME=/app/jdk&quot;`，以便startup.sh和shutdown.sh正常脚本运行。</span><br><span class="line">另一个方法是在这两个脚本中添加`source /etc/profile`这句话，这样在执行脚本时，也会去加载外部已经定义好的环境变量。</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="开启Tomcat管理端"><a href="#开启Tomcat管理端" class="headerlink" title="开启Tomcat管理端"></a>开启Tomcat管理端</h3><p>以下是浏览器访问tomcat主页，显示的三个管理端入口，分别是查看Tomcat服务状态、管理应用程序、管理主机。</p>
+<p><a href="/../pic/image-20231213011832504.png" title="image-20231213011832504" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20231213011832504.png" alt="image-20231213011832504"></a></p>
+<p>为了保证安全性，只有主机能够访问Tomcat管理端页面，并且配置文件中并没有设定身份验证的用户和密码，所以Tomcat默认关闭Tomcat的管理端。</p>
+<p>在生产环境中，也不需要开启Tomcat管理端功能。但是在测试环境中，可以开启管理端功能进行调试，以下是开启方法。</p>
+<ol>
+<li><p>允许其他主机访问管理端页面</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需要修改两个文件，使得除主机外的其他主机能够访问tomcat管理端页面</span></span><br><span class="line">[root@web03 tomcat]$ vim ./webapps/manager/META-INF/context.xml</span><br><span class="line">[root@web03 tomcat]$ vim ./webapps/host-manager/META-INF/context.xml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将此条配置改为如下内容（主要是更改allow的内容，此处允许所有主机访问）</span></span><br><span class="line">  &lt;Valve className=<span class="string">&quot;org.apache.catalina.valves.RemoteAddrValve&quot;</span></span><br><span class="line">         allow=<span class="string">&quot;\d+\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加身份验证信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑此文件，解除注释，添加身份信息</span></span><br><span class="line">[root@web03 tomcat]$ vim ./conf/tomcat-users.xml </span><br><span class="line"></span><br><span class="line">  &lt;role rolename=<span class="string">&quot;admin-gui&quot;</span>/&gt;		<span class="comment"># 此角色是 Host Manager 角色</span></span><br><span class="line">  &lt;role rolename=<span class="string">&quot;manager-gui&quot;</span>/&gt;	<span class="comment"># 此角色是 Server Status 和 Manager App 角色</span></span><br><span class="line">  &lt;user username=<span class="string">&quot;tomcat&quot;</span> password=<span class="string">&quot;tomcat&quot;</span> roles=<span class="string">&quot;admin-gui,manager-gui&quot;</span>/&gt;		<span class="comment"># 自定义用户名和密码，指定上面添加的角色，</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Tomcat配置文件"><a href="#Tomcat配置文件" class="headerlink" title="Tomcat配置文件"></a>Tomcat配置文件</h2><p>主配置文件<code>server.xml</code>，位于tomcat的<code>conf</code>目录下</p>
+<p>查看文件内容（已过滤部分注释信息），详细解释信息参考：&#96;&#96;</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Server配置部分。相关文档：https://tomcat.apache.org/tomcat-8.5-doc/config/server.html --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- tomcat的关闭端口8005，连接此端口后可以通过命令停止tomcat，默认只能本机连接。--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Server</span> <span class="attr">port</span>=<span class="string">&quot;8005&quot;</span> <span class="attr">shutdown</span>=<span class="string">&quot;SHUTDOWN&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Listener</span> <span class="attr">className</span>=<span class="string">&quot;org.apache.catalina.startup.VersionLoggerListener&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Listener</span> <span class="attr">className</span>=<span class="string">&quot;org.apache.catalina.core.AprLifecycleListener&quot;</span> <span class="attr">SSLEngine</span>=<span class="string">&quot;on&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Listener</span> <span class="attr">className</span>=<span class="string">&quot;org.apache.catalina.core.JreMemoryLeakPreventionListener&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Listener</span> <span class="attr">className</span>=<span class="string">&quot;org.apache.catalina.mbeans.GlobalResourcesLifecycleListener&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Listener</span> <span class="attr">className</span>=<span class="string">&quot;org.apache.catalina.core.ThreadLocalLeakPreventionListener&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- tomcat管理端相关，具体内容已省略 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">GlobalNamingResources</span>&gt;</span></span><br><span class="line">    ......</span><br><span class="line">  <span class="tag">&lt;/<span class="name">GlobalNamingResources</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- Service配置部分。相关文档：https://tomcat.apache.org/tomcat-8.5-doc/config/service.html --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Service</span> <span class="attr">name</span>=<span class="string">&quot;Catalina&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 8080端口用于http连接，跳转端口是8443，如配置https可以使用 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Connector可以使用共享执行程序，需要添加一个executor参数，比如 executor=&quot;线程池名字&quot;，此线程池需要提前定义 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">&quot;8080&quot;</span> <span class="attr">protocol</span>=<span class="string">&quot;HTTP/1.1&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">connectionTimeout</span>=<span class="string">&quot;20000&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">redirectPort</span>=<span class="string">&quot;8443&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 此处可以定义HTTPS的Connector，在8443端口上使用SSL/TLS协议。已省略 --&gt;</span></span><br><span class="line">   </span><br><span class="line">    <span class="comment">&lt;!-- 8009端口用于与Apache连接 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">    &lt;Connector protocol=&quot;AJP/1.3&quot;</span></span><br><span class="line"><span class="comment">               address=&quot;::1&quot;</span></span><br><span class="line"><span class="comment">               port=&quot;8009&quot;</span></span><br><span class="line"><span class="comment">               redirectPort=&quot;8443&quot; /&gt;</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Engine配置部分。相关文档：https://tomcat.apache.org/tomcat-8.5-doc/config/engine.html --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Engine</span> <span class="attr">name</span>=<span class="string">&quot;Catalina&quot;</span> <span class="attr">defaultHost</span>=<span class="string">&quot;localhost&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">&lt;!-- 此处可以定义集群相关配置。参考：</span></span><br><span class="line"><span class="comment">          https://tomcat.apache.org/tomcat-8.5-doc/cluster-howto.html  (simple how to)</span></span><br><span class="line"><span class="comment">          https://tomcat.apache.org/tomcat-8.5-doc/config/cluster.html (reference documentation) --&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">&lt;!-- 用于定义认证和授权规则。比如基于数据库的认证、LDAP认证等。确保Web应用程序的安全性。--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Realm</span> <span class="attr">className</span>=<span class="string">&quot;org.apache.catalina.realm.LockOutRealm&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Realm</span> <span class="attr">className</span>=<span class="string">&quot;org.apache.catalina.realm.UserDatabaseRealm&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">resourceName</span>=<span class="string">&quot;UserDatabase&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Realm</span>&gt;</span></span><br><span class="line">		</span><br><span class="line">      <span class="comment">&lt;!-- tomcat虚拟主机相关配置。</span></span><br><span class="line"><span class="comment">			name是域名，appBase是站点目录，unpackWARs代表是否自动解压WAR包，autoDeploy代表是否自动部署，加载到jvm --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Host</span> <span class="attr">name</span>=<span class="string">&quot;localhost&quot;</span>  <span class="attr">appBase</span>=<span class="string">&quot;webapps&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">unpackWARs</span>=<span class="string">&quot;true&quot;</span> <span class="attr">autoDeploy</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 日志配置，定义了存储目录、文件名、后缀以及日志格式。</span></span><br><span class="line"><span class="comment">			 相关文档：https://tomcat.apache.org/tomcat-8.5-doc/config/valve.html --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Valve</span> <span class="attr">className</span>=<span class="string">&quot;org.apache.catalina.valves.AccessLogValve&quot;</span> <span class="attr">directory</span>=<span class="string">&quot;logs&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">prefix</span>=<span class="string">&quot;localhost_access_log&quot;</span> <span class="attr">suffix</span>=<span class="string">&quot;.txt&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">pattern</span>=<span class="string">&quot;%h %l %u %t <span class="symbol">&amp;quot;</span>%r<span class="symbol">&amp;quot;</span> %s %b&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Host</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Engine</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Service</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Server</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="部署一个javaweb应用"><a href="#部署一个javaweb应用" class="headerlink" title="部署一个javaweb应用"></a>部署一个javaweb应用</h2><p>主机</p>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>IP</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>web03</td>
+<td>192.168.110.139</td>
+<td>JDK，Tomcat，运行Javaweb应用</td>
+</tr>
+<tr>
+<td>db01</td>
+<td>192.168.110.143</td>
+<td>mariadb，作为数据库服务器</td>
+</tr>
+</tbody></table>
+<p>zrlog是一个开源的Java博客程序，进入<a target="_blank" rel="noopener" href="https://www.zrlog.com/">zrlog官网</a>下载应用的war包，传输到web主机的tomcat目录下的<code>webapps</code>目录，启动tomcat。</p>
+<p>进入db主机，创建一个zrblog数据库。</p>
+<p>客户端访问<code>192.168.110.139:8080/zrlog</code>，填写信息连接数据库，即可创建博客。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-12</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Tomcat/'>
+                            Tomcat
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

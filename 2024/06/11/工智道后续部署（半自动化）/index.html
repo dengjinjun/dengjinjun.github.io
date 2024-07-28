@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="工智道部署完成后续动作(半自动化)" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            工智道部署完成后续动作(半自动化)
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B7%A5%E6%99%BA%E9%81%93%E5%90%8E%E7%BB%AD%E9%83%A8%E7%BD%B2%EF%BC%88%E5%8D%8A%E8%87%AA%E5%8A%A8%E5%8C%96%EF%BC%89"><span class="post-toc-text">工智道后续部署（半自动化）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%89%8B%E5%8A%A8%E9%83%A8%E5%88%86"><span class="post-toc-text">手动部分</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AEES%E7%B4%A2%E5%BC%95"><span class="post-toc-text">配置ES索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#windows%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%93%8D%E4%BD%9C"><span class="post-toc-text">windows服务器操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%BD%91%E7%AB%99%E7%9B%91%E6%8E%A7"><span class="post-toc-text">添加网站监控</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E9%83%A8%E5%88%86%EF%BC%88%E6%94%BE%E5%9C%A8jenkins%E4%B8%AD%EF%BC%89"><span class="post-toc-text">自动部分（放在jenkins中）</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="工智道后续部署（半自动化）"><a href="#工智道后续部署（半自动化）" class="headerlink" title="工智道后续部署（半自动化）"></a>工智道后续部署（半自动化）</h2><h2 id="手动部分"><a href="#手动部分" class="headerlink" title="手动部分"></a>手动部分</h2><h3 id="配置ES索引"><a href="#配置ES索引" class="headerlink" title="配置ES索引"></a>配置ES索引</h3><ol>
+<li><p>创建生命周期策略</p>
+<p>ESweb页面侧边栏，点击开发工具，输入语句后执行：</p>
+<p>demo需要替换为客户小写简拼，code需要替换为客户代码</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">PUT _ilm/policy/demo_code_production_policy</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;policy&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;phases&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;hot&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;min_age&quot;</span>: <span class="string">&quot;0ms&quot;</span>,</span><br><span class="line">        <span class="string">&quot;actions&quot;</span>: &#123;</span><br><span class="line">          <span class="string">&quot;set_priority&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;priority&quot;</span>: 100</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="string">&quot;delete&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;min_age&quot;</span>: <span class="string">&quot;7d&quot;</span>,</span><br><span class="line">        <span class="string">&quot;actions&quot;</span>: &#123;</span><br><span class="line">          <span class="string">&quot;delete&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;delete_searchable_snapshot&quot;</span>: <span class="literal">true</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建模板</p>
+<p>demo需要替换为客户小写简拼，code需要替换为客户代码</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PUT _template/demo_code_production_template</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;index_patterns&quot;</span>: [<span class="string">&quot;demo_code_production*&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生命周期策略匹配模板</p>
+<p>侧边栏——stackmanagement——索引生命周期策略——搜索刚创建的生命周期策略——点击右侧<code>+</code>号，将策略添加到索引模板——显示旧版索引模板——搜索刚创建的索引模板——添加策略</p>
+</li>
+</ol>
+<h3 id="windows服务器操作"><a href="#windows服务器操作" class="headerlink" title="windows服务器操作"></a>windows服务器操作</h3><blockquote>
+<p><strong>安装监控软件</strong></p>
+</blockquote>
+<p>下载监控服务软件，双击安装，然后浏览器输入<code>http://localhost:9182/metrics</code>验证</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://3dview-1251252938.cos.ap-shanghai.myqcloud.com/dengjinjun/software/windows_export_0.25.1.msi</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>创建计划任务</strong></p>
+</blockquote>
+<ol>
+<li><p>下载<code>pscp.exe</code>程序，拷贝<code>pscp.exe</code>程序到<code>C:\Windows\System32</code>目录下面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://3dview-1251252938.cos.ap-shanghai.myqcloud.com/dengjinjun/software/pscp.exe</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下载脚本文件<code>rsync_db.bat</code>到d盘(DBBAK同级目录)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://3dview-1251252938.cos.ap-shanghai.myqcloud.com/dengjinjun/scripts/rsync_db.bat</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后创建计划任务每天凌晨3点十几分复制备份文件到无锡节点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">搜索计划任务程序，创建基本任务，然后按引导就行，起始于要填`D:\`，才会有输出日志</span><br></pre></td></tr></table></figure>
+
+<p>创建计划任务测试脚本，手动测试一次任务，第一次备份需要输入yes，之后备份不在需要输入</p>
+</li>
+</ol>
+<h3 id="添加网站监控"><a href="#添加网站监控" class="headerlink" title="添加网站监控"></a>添加网站监控</h3><ol>
+<li><p>连接数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数据库地址：103.229.212.21</span><br><span class="line">数据库用户：sa</span><br><span class="line">数据库密码：qpMb7uL6jzjl4EdtYOQ7</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行sql语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 添加到网站监控清单</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> [CMDB].[dbo].[url_list] (name,url,status,remark) </span><br><span class="line"><span class="keyword">values</span> (<span class="string">&#x27;客户名称&#x27;</span>,<span class="string">&#x27;https://客户域名/API/Common/GetSysInfo&#x27;</span>,<span class="string">&#x27;是&#x27;</span>,<span class="string">&#x27;gzd&#x27;</span>)</span><br><span class="line"></span><br><span class="line"># 添加到网站版本采集清单，code替换为客户代码</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> [IPI].[dbo].[siteinfo] (code,Weburl) </span><br><span class="line"><span class="keyword">values</span> (<span class="string">&#x27;code&#x27;</span>,<span class="string">&#x27;https://客户域名&#x27;</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="自动部分（放在jenkins中）"><a href="#自动部分（放在jenkins中）" class="headerlink" title="自动部分（放在jenkins中）"></a>自动部分（放在jenkins中）</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># author: dengjinjun</span></span><br><span class="line"><span class="comment"># date: 2024-06-06</span></span><br><span class="line"><span class="comment"># description: add windows and linux info</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ==================================================远程到监控主机上执行=====================================================</span></span><br><span class="line">CUSTOM_NAME = </span><br><span class="line">CUSTOM_SPELL = </span><br><span class="line">DOMAIN = </span><br><span class="line">CODE = </span><br><span class="line">WEB_ADDR = </span><br><span class="line">SQL_ADRR = </span><br><span class="line">SQL_PASSWD = </span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加windows主机信息</span></span><br><span class="line"><span class="built_in">cat</span> &gt; /usr/local/prometheus/windows/<span class="variable">$&#123;CUSTOM_SPELL&#125;</span>.json &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string">[</span></span><br><span class="line"><span class="string">  &#123;</span></span><br><span class="line"><span class="string">    &quot;targets&quot;: [</span></span><br><span class="line"><span class="string">      &quot;$&#123;SQL_ADRR&#125;:9182&quot;</span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    &quot;labels&quot;: &#123;</span></span><br><span class="line"><span class="string">      &quot;server&quot;: &quot;$&#123;CUSTOM_SPELL&#125;-db&quot;,</span></span><br><span class="line"><span class="string">      &quot;user&quot;: &quot;$&#123;CUSTOM_NAME&#125;&quot;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">]</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加linux主机信息</span></span><br><span class="line"><span class="built_in">cat</span> &gt; /usr/local/prometheus/node/<span class="variable">$&#123;CUSTOM_SPELL&#125;</span>.json &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string">[</span></span><br><span class="line"><span class="string">  &#123;</span></span><br><span class="line"><span class="string">    &quot;targets&quot;: [</span></span><br><span class="line"><span class="string">     &quot;$&#123;WEB_ADRR&#125;:9100&quot;</span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    &quot;labels&quot;: &#123;</span></span><br><span class="line"><span class="string">     &quot;services&quot;: &quot;$&#123;CUSTOM_SPELL&#125;-web&quot;,</span></span><br><span class="line"><span class="string">     &quot;user&quot;: &quot;$&#123;CUSTOM_NAME&#125;&quot;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">]</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加数据库监控信息,注意这里的port，要想办法从数据库监控主机上获取到它的值</span></span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; /usr/local/prometheus/sqlserver/sqlserver.json &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string">,</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    &quot;targets&quot;: [</span></span><br><span class="line"><span class="string">      &quot;10.100.14.151:$port&quot;</span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    &quot;labels&quot;: &#123;</span></span><br><span class="line"><span class="string">      &quot;server&quot;: &quot;$&#123;CUSTOM_SPELL&#125;&quot;,</span></span><br><span class="line"><span class="string">      &quot;user&quot;: &quot;$&#123;code&#125;_$&#123;CUSTOM_NAME&#125;&quot;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载配置文件</span></span><br><span class="line">curl -X POST http://localhost:9011/-/reload</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===================================================远程到web主机上执行=====================================================</span></span><br><span class="line"><span class="built_in">cd</span> </span><br><span class="line">wget https://3dview-1251252938.cos.ap-shanghai.myqcloud.com/dengjinjun/scripts/install_exporter.sh</span><br><span class="line"><span class="built_in">chmod</span> +x install_exporter.sh</span><br><span class="line">sh install_exporter.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===================================================远程到数据库监控主机上执行=====================================================</span></span><br><span class="line"><span class="built_in">cd</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">declare</span> -i port=9240</span><br><span class="line"><span class="function"><span class="title">find_port</span></span>() &#123;</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span>; <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> [ ! -z <span class="string">&quot;<span class="subst">$(ss -tunlp | grep $port)</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">            ((port++))</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">return</span> <span class="string">&quot;<span class="variable">$port</span>&quot;</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">find_port</span><br><span class="line">sh /root/install_sqlexporter.sh <span class="variable">$&#123;CUSTOM_SPELL&#125;</span> <span class="variable">$&#123;port&#125;</span></span><br><span class="line">sed -i <span class="string">&quot;s/DMN/<span class="variable">$&#123;CUSTOM_SPELL&#125;</span>/g&quot;</span> /usr/local/sql_exporter_<span class="variable">$&#123;CUSTOM_SPELL&#125;</span>/history_work.collector.yml</span><br><span class="line">sed -i <span class="string">&quot;s/prom_user:prom_password/sa:<span class="variable">$&#123;SQL_PASSWD&#125;</span>/g&quot;</span> /usr/local/sql_exporter_<span class="variable">$&#123;CUSTOM_SPELL&#125;</span>/sql_exporter.yml    </span><br><span class="line">sed -i <span class="string">&quot;s/dbserver1.example.com/<span class="variable">$&#123;SQL_ADDR&#125;</span>/g&quot;</span> /usr/local/sql_exporter_<span class="variable">$&#123;CUSTOM_SPELL&#125;</span>/sql_exporter.yml</span><br><span class="line">sed -i <span class="string">&quot;s/mssql_standard/mssql_standard,history_work/g&quot;</span> /usr/local/sql_exporter_<span class="variable">$&#123;CUSTOM_SPELL&#125;</span>/sql_exporter.yml</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start sql_<span class="variable">$&#123;CUSTOM_SPELL&#125;</span>.service</span><br><span class="line">systemctl <span class="built_in">enable</span> sql_<span class="variable">$&#123;CUSTOM_SPELL&#125;</span>.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===================================================远程到无锡备份主机上执行=====================================================</span></span><br><span class="line"><span class="built_in">cd</span> /data/ &amp;&amp; <span class="built_in">mkdir</span> Inroad-<span class="variable">$&#123;CUSTOM_SPELL&#125;</span></span><br><span class="line"><span class="built_in">chown</span> rsync:rsync Inroad-<span class="variable">$&#123;CUSTOM_SPELL&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===================================================远程到北京备份主机上执行=====================================================</span></span><br><span class="line"><span class="built_in">cd</span> /data/ &amp;&amp; <span class="built_in">mkdir</span> Inroad-<span class="variable">$&#123;CUSTOM_SPELL&#125;</span></span><br><span class="line"><span class="built_in">chown</span> rsync:rsync Inroad-<span class="variable">$&#123;CUSTOM_SPELL&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; /etc/rsyncd.conf &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[Inroad-DEMO]</span></span><br><span class="line"><span class="string">path = /data/Inroad-$&#123;CUSTOM_SPELL&#125;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line">systemctl restart rsyncd</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-06-11</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

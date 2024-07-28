@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Docker-Compose" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Docker-Compose
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="post-toc-text">概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Docker-Compose%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8E"><span class="post-toc-text">Docker-Compose语法说明</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Docker-Compose%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="post-toc-text">Docker-Compose常用命令</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
+<p><strong>什么是Docker-Compose</strong></p>
+</blockquote>
+<p>Docker-Compose 项目是Docker官方的开源项目，负责实现对Docker容器集群的快速编排。</p>
+<p>在单个机器上部署和管理繁多的Docker容器是困难的，而这正是 Docker Compose 要解决的问题。Docker Compose 并不是通过脚本和各种冗长的 docker 命令来将应用组件组织起来，而是通过一个声明式的配置文件描述整个应用，从而使用一条命令完成部署。应用部署成功后，还可以通过一系列简单的命令实现对其完整声明周期的管理。甚至，配置文件还可以置于版本控制系统中进行存储和管理。</p>
+<p>Docker-Compose 项目由 Python 编写，调用 Docker 服务提供的API来对容器进行管理。因此，只要所操作的平台支持 Docker API，就可以在其上利用Compose 来进行编排管理。</p>
+<p>Compose、Machine 和 Swarm 是Docker 原生提供的三大编排工具。简称Docker三剑客。</p>
+<blockquote>
+<p><strong>Compose模板文件</strong></p>
+</blockquote>
+<p>Compose模板文件是一个定义服务、网络和卷的YAML文件，它定义一组相关联的应用容器为一个项目（project）。有了Docker-Compose，不需要使用shell命令来启动容器，而是使用Compose模板文件来配置应用程序需要的所有服务，然后使用一个命令，根据Compose模板文件的配置创建并启动所有服务。</p>
+<ol>
+<li>Compose模板文件默认路径是当前目录，使用<code>.yml</code>或<code>.yaml</code>作为文件扩展名，文件默认为 <code>docker-compose.yml</code>，可通过环境变量 <code>COMPOSB_FILE</code> 或 <code>-f</code> 参数自定义文件名。</li>
+<li>Compose标准模板文件应该包含<code>version</code>、<code>services</code>、<code>networks</code>三大部分。</li>
+<li>一个项目中可包含多个服务，每个服务中定义了容器运行的镜像、参数、依赖等。</li>
+<li>一个服务当中可包括多个容器实例，但是Docker-Compose 并没有解决负载均衡的问题，因此需要借助其它工具实现服务发现及负载均衡，比如 Consul 技术。</li>
+</ol>
+<blockquote>
+<p><strong>安装Docker-Compose</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install docker-compose</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Docker-Compose语法说明"><a href="#Docker-Compose语法说明" class="headerlink" title="Docker-Compose语法说明"></a>Docker-Compose语法说明</h2><blockquote>
+<p><strong>image</strong></p>
+</blockquote>
+<p>指定镜像名称或镜像id，使用此镜像。如果本地不存在这个镜像，Compose会从镜像仓库去拉取这个镜像</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx:1.14</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>build</strong></p>
+</blockquote>
+<p>指定Dockerfile所在文件夹的路径。Compose将会利用此文件夹中的Dockerfile文件自动构建这个镜像，然后使用这个镜像。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">path</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>command</strong></p>
+</blockquote>
+<p>覆盖容器启动后默认执行的命令。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">image:</span> <span class="string">nginx:1.14</span></span><br><span class="line"><span class="attr">command:</span> <span class="string">/bin/sh</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>links</strong></p>
+</blockquote>
+<p>连接到其他服务容器，使用服务名称(同时作为别名)或服务别名（SERVICE:ALIAS）都可以</p>
+<p>注意：用别名会自动在容器中的&#x2F;etc&#x2F;hosts 里创建解析名，相应的环境变量也会被创建。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">links:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">db:database</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">redis</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>external_links</strong></p>
+</blockquote>
+<p>链接到docker-compose.yml外部的容器，甚至并非是Compose管理的容器。参数格式和links类似。 </p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">external_links:</span> </span><br><span class="line">  <span class="bullet">-</span> <span class="string">redis_1</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">project_db_1:mysql</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>ports</strong></p>
+</blockquote>
+<p>指定暴露的端口，或者仅仅指定容器的端口（宿主机器将会随机分配端口），格式：<code>宿主机端口：容器端口</code>。</p>
+<p>注意：建议采用字符串写法，因为如果使用的容器端口小于 60 可能会得到错误的结果，因为 YAML 会将解xx:yy这种数字格式解析为 60 进制。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ports:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;3306&quot;</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;8080:80&quot;</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;127.0.0.1:8090:8001&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>expose</strong></p>
+</blockquote>
+<p>也是指定暴露的端口，与posts不同的是expose只是提供一个声明，便于使用。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">expose:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;3000&quot;</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;8000&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>volumes</strong></p>
+</blockquote>
+<p>设置卷挂载的路径，可以设置<code>宿主机路径:容器路径</code>，也可以设置<code>卷名：容器路径</code>（卷名若不存在会自动创建），或加上访问模式</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">db_data:/var/lib/mysql</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">/configs/mysql:/etc/configs/:ro</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>volumes_from</strong></p>
+</blockquote>
+<p>挂载另一个服务或容器的所有数据卷，使用相同的卷名和目录。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes_from:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">service_name</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">container_name</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>environment</strong></p>
+</blockquote>
+<p>设置环境变量。如果只给定变量的名称则会自动加载它在Compose主机上的值，可以用来防止泄露不必要的数据。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">environment:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">RACK_ENV=development</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">SESSION_SECRET</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>env_file</strong></p>
+</blockquote>
+<p>从文件中获取环境变量，基于Compose模板文件的相对路径，可以为单独的文件或列表。如果有变量与environment指令冲突则以后者为准。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">env_file:</span> <span class="string">.env</span></span><br><span class="line"><span class="attr">env_file:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">./common.env</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">./apps/web.env</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">/opt/secrets.env</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：环境变量文件格式如下，每一行都必须有#开头的注释行</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># common.env: Set Rails/Rack environment</span></span><br><span class="line"><span class="string">RACK_ENV=development</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>net</strong></p>
+</blockquote>
+<p>设置网络模式，与<code>docker run</code> 命令中的 <code>--network</code>选项一样</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">net:</span> <span class="string">&quot;bridge&quot;</span>		<span class="comment"># 可选：none/host/container:容器名/自定义网络名</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>dns</strong></p>
+</blockquote>
+<p>配置DNS服务器。可以是一个值，也可以是一个列表</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">dns:</span> <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span></span><br><span class="line"><span class="attr">dns:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">9.9</span><span class="number">.9</span><span class="number">.9</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>depends_on</strong></p>
+</blockquote>
+<p>依赖的服务，优先启动</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">depends_on:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">redis</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>deploy</strong></p>
+</blockquote>
+<p>部署相关的配置都在这里，若无特殊需求，下面的例子可以通用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  mode: replicated</span><br><span class="line">  replicas: 2</span><br><span class="line">  restart_policy:</span><br><span class="line">    condition: on-failure</span><br><span class="line">    max_attempts: 3</span><br><span class="line">  update_config:</span><br><span class="line">    delay: 5s</span><br><span class="line">    order: start-first # 默认为 stop-first，推荐设置先启动新服务再终止旧的</span><br><span class="line">  resources:</span><br><span class="line">    limits:</span><br><span class="line">      cpus: &quot;0.50&quot;</span><br><span class="line">      memory: 1g</span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker-Compose常用命令"><a href="#Docker-Compose常用命令" class="headerlink" title="Docker-Compose常用命令"></a>Docker-Compose常用命令</h2><p>命令格式：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose [-f &lt;arg&gt;...] [options] [COMMAND] [ARGS...]</span><br></pre></td></tr></table></figure>
+
+<p>常用选项：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-f 文件名		指定docker-compose模板文件，默认是当前目录下的docker-compose.yml</span><br><span class="line">-p 项目名		指定项目名，默认是当前目录名</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Commands:</span><br><span class="line">  build              Build or rebuild services</span><br><span class="line">  bundle             Generate a Docker bundle from the Compose file</span><br><span class="line">  config             Validate and view the Compose file</span><br><span class="line">  create             Create services</span><br><span class="line">  down               Stop and remove containers, networks, images, and volumes</span><br><span class="line">  events             Receive real time events from containers</span><br><span class="line">  exec               Execute a command in a running container</span><br><span class="line">  help               Get help on a command</span><br><span class="line">  images             List images</span><br><span class="line">  kill               Kill containers</span><br><span class="line">  logs               View output from containers</span><br><span class="line">  pause              Pause services</span><br><span class="line">  port               Print the public port for a port binding</span><br><span class="line">  ps                 List containers</span><br><span class="line">  pull               Pull service images</span><br><span class="line">  push               Push service images</span><br><span class="line">  restart            Restart services</span><br><span class="line">  rm                 Remove stopped containers</span><br><span class="line">  run                Run a one-off command</span><br><span class="line">  scale              Set number of containers for a service</span><br><span class="line">  start              Start services</span><br><span class="line">  stop               Stop services</span><br><span class="line">  top                Display the running processes</span><br><span class="line">  unpause            Unpause services</span><br><span class="line">  up                 Create and start containers</span><br><span class="line">  version            Show the Docker-Compose version information</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>docker-compose up</strong></p>
+</blockquote>
+<p>启动项目中的容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up [options] [--scale SERVICE=NUM...] [SERVICE...]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up		<span class="comment"># 启动所有服务</span></span><br><span class="line">docker-compose up -d	<span class="comment"># 在后台启动所有服务</span></span><br><span class="line">docker-compose up -d --scale SERVICE=3 nginx		<span class="comment"># 在后台启动三个nginx服务</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>docker-compose down</strong></p>
+</blockquote>
+<p>停止并且删除项目中定义的容器和网络</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose down [options]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker-compose down --rmi 镜像类型		<span class="comment"># 顺便把镜像也删了，all：删除所有用到的镜像；local：仅删除未指定标签的镜像</span></span><br><span class="line">docker-compose down -v		<span class="comment"># 顺便把用到的存储卷也删了，包括声明卷和匿名卷</span></span><br><span class="line">--remove-orphans 		<span class="comment"># 把模板文件中没有定义的容器也删了</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>docker-compose ps</strong></p>
+</blockquote>
+<p> 列出项目中目前的所有容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose ps [options] [SERVICE...]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker-compose ps		<span class="comment"># 列出项目中目前的所有容器</span></span><br><span class="line">docker-compose ps -q	<span class="comment"># 列出项目中目前的所有容器，仅展示容器id</span></span><br><span class="line">docker-compose ps nginx		<span class="comment"># 列出项目中nginx服务的所有容器</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>docker-compose stop</strong></p>
+</blockquote>
+<p>停止正在运行的容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose stop [options] [SERVICE...]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose stop		<span class="comment"># 停止所有正在运行的容器</span></span><br><span class="line">docker-compose stop	nginx		<span class="comment"># 停止所有正在运行nginx服务的容器</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>docker-compose start</strong></p>
+</blockquote>
+<p>启动已经存在的容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose start [SERVICE...]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose start		<span class="comment"># 启动已经存在的容器</span></span><br><span class="line">docker-compose start nginx		<span class="comment"># 启动已经存在的nginx服务的容器</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>docker-compose restart</strong></p>
+</blockquote>
+<p>重启正在运行的容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose restart [options] [SERVICE...]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose restart -t 20		<span class="comment"># 重启运行中的容器，默认超时时间是10s</span></span><br><span class="line">docker-compose restart nginx		<span class="comment"># 重启运行中的nginx服务中的容器</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>docker-compose logs</strong></p>
+</blockquote>
+<p>查看服务容器的输出</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose logs [options] [SERVICE...]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose logs		<span class="comment"># 展示所有容器的输出</span></span><br><span class="line">docker-compose logs	nginx		<span class="comment"># 展示nginx服务中容器的输出</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>docker-compose build</strong></p>
+</blockquote>
+<p>构建（重新构建）项目中的容器，当更改了构建目录或者服务的Dockerfile文件时，可以使用此命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose build [options] [--build-arg key=val...] [SERVICE...]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose build		# 重新构建所有容器</span><br><span class="line">docker-compose build nginx		# 重新构建nginx服务中的容器</span><br></pre></td></tr></table></figure>
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-03-22</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Docker/'>
+                            Docker
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

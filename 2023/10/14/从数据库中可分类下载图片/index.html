@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="从数据库中可分类下载图片" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            从数据库中可分类下载图片
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#download-urls-py"><span class="post-toc-text">download_urls.py</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%86%E7%B1%BB%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87-py"><span class="post-toc-text">分类下载图片.py</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%8D%E5%88%86%E7%B1%BB%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87-py"><span class="post-toc-text">不分类下载图片.py</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%96%B0%E7%9A%84%E9%9C%80%E6%B1%82"><span class="post-toc-text">新的需求</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>防损项目经常要采集图片用于训练。</p>
+<p>利用脚本可便捷完成从数据库中下载图片，只需要提供sql语句，可以直接运行脚本将图片下载到本地，或者按照商品code分类下载到不同文件夹。</p>
+<p>一共三个脚本和一个文本文件：</p>
+<p><a href="/../pic/image-20231014025514790.png" title="image-20231014025514790" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20231014025514790.png" alt="image-20231014025514790"></a></p>
+<p><strong>具体操作：</strong>在<code>sql.txt</code>文件中写入查询语句，然后<code>分类下载图片.py</code>和<code>不分类下载图片.py</code>两个脚本根据需求选择其中一个执行即可。</p>
+<p>关于<code>download_urls.py</code>：</p>
+<ol>
+<li>此文件是作为模块被另外两个脚本导入执行。</li>
+<li>此文件作为脚本单独执行的结果是新建文本文件<code>urls.txt</code>，将sql查询结果写入其中，一般不需要单独执行。</li>
+</ol>
+<h3 id="download-urls-py"><a href="#download-urls-py" class="headerlink" title="download_urls.py"></a>download_urls.py</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">url_file = <span class="string">&#x27;urls.txt&#x27;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;sql.txt&quot;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> s:</span><br><span class="line">    data = s.read()</span><br><span class="line">query = data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接到MySQL数据库</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">connect_to_mysql</span>():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        conn = pymysql.connect(</span><br><span class="line">            host=<span class="string">&#x27;xxxx&#x27;</span>,  <span class="comment"># MySQL主机</span></span><br><span class="line">            database=<span class="string">&#x27;xxxx&#x27;</span>,  <span class="comment"># 数据库名称</span></span><br><span class="line">            user=<span class="string">&#x27;xxxx&#x27;</span>,  <span class="comment"># 数据库用户名</span></span><br><span class="line">            password=<span class="string">&#x27;xxxx&#x27;</span>  <span class="comment"># 数据库密码</span></span><br><span class="line">        )</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;成功连接到MySQL数据库&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> conn</span><br><span class="line">    <span class="keyword">except</span> pymysql.Error <span class="keyword">as</span> error:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;连接MySQL数据库失败: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(error))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询并将结果写入文件</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">execute_query_write_to_file</span>(<span class="params">conn, query, filename</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        cursor = conn.cursor()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 执行查询语句</span></span><br><span class="line">        cursor.execute(query)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 获取查询结果</span></span><br><span class="line">        rows = cursor.fetchall()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 将结果写入文件</span></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">            <span class="keyword">for</span> row <span class="keyword">in</span> rows:</span><br><span class="line">                <span class="comment"># 每项数据以制表符分隔</span></span><br><span class="line">                line = <span class="string">&#x27;\t&#x27;</span>.join(<span class="built_in">str</span>(col) <span class="keyword">for</span> col <span class="keyword">in</span> row) + <span class="string">&#x27;\n&#x27;</span></span><br><span class="line">                file.write(line)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;查询结果已写入文件：&#123;&#125;&quot;</span>.<span class="built_in">format</span>(filename))</span><br><span class="line">    <span class="keyword">except</span> pymysql.Error <span class="keyword">as</span> error:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;执行查询语句失败: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(error))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 处理无效行</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_empty_lines</span>(<span class="params">url_file</span>):</span><br><span class="line">    <span class="comment"># 打开文件并读取内容</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(url_file, <span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        lines = file.readlines()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 过滤空行和不以&quot;http&quot;开头的行</span></span><br><span class="line">    lines = [line <span class="keyword">for</span> line <span class="keyword">in</span> lines <span class="keyword">if</span> line.strip() <span class="keyword">and</span> line.startswith(<span class="string">&quot;http&quot;</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 打开文件并覆盖写入过滤后的内容</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(url_file, <span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        file.write(<span class="string">&quot;&quot;</span>.join(lines))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 主函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="comment"># 连接到MySQL数据库</span></span><br><span class="line">    conn = connect_to_mysql()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> conn:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 执行查询并将结果写入文件</span></span><br><span class="line">    execute_query_write_to_file(conn, query, url_file)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 关闭数据库连接</span></span><br><span class="line">    conn.close()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 处理无效行</span></span><br><span class="line">    delete_empty_lines(url_file)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="分类下载图片-py"><a href="#分类下载图片-py" class="headerlink" title="分类下载图片.py"></a>分类下载图片.py</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> download_urls</span><br><span class="line"></span><br><span class="line">start = time.time()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 存放图片url的txt文件命名为url.txt，放在python脚本的同级目录下</span></span><br><span class="line">url_file = download_urls.url_file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建存放图片的文件夹</span></span><br><span class="line">save_dir = <span class="string">&#x27;./images/&#x27;</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(save_dir):</span><br><span class="line">    os.makedirs(save_dir)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义异步协程函数，用于下载单张图片并保存到本地</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">download_image</span>(<span class="params">session, url, code</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">async</span> <span class="keyword">with</span> session.get(url) <span class="keyword">as</span> resp:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(save_dir+code):  <span class="comment"># 创建商品代码命名的文件夹</span></span><br><span class="line">                os.makedirs(save_dir+code)</span><br><span class="line">            dir_path, filename = os.path.split(url)     <span class="comment"># 获取文件名</span></span><br><span class="line">            download_path = os.path.join(<span class="string">&#x27;images&#x27;</span>, code, filename)  <span class="comment"># 保存路径</span></span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(download_path, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:  <span class="comment"># 下载</span></span><br><span class="line">                <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">                    chunk = <span class="keyword">await</span> resp.content.read(<span class="number">1024</span> * <span class="number">1024</span>)</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">not</span> chunk:</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                    f.write(chunk)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;url&#125;</span> 下载完成！&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;url&#125;</span> 下载失败！异常信息：<span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义入口函数，启动异步事件循环，并逐个下载所有图片</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(url_file, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            lines = f.readlines()</span><br><span class="line">        tasks = [download_image(session, line.strip().split(<span class="string">&quot;\t&quot;</span>)[<span class="number">0</span>], line.strip().split(<span class="string">&quot;\t&quot;</span>)[<span class="number">1</span>]) <span class="keyword">for</span> line <span class="keyword">in</span> lines]</span><br><span class="line">        <span class="keyword">await</span> asyncio.gather(*tasks)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显式调用，下载商品url和code到文件</span></span><br><span class="line">download_urls.main()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动异步事件循环，并等待所有任务完成</span></span><br><span class="line">asyncio.run(main())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行结束，输出信息</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;脚本执行结束，总耗时：&#123;&#125;秒，请退出！&#x27;</span>.<span class="built_in">format</span>(time.time() - start))</span><br><span class="line">time.sleep(<span class="number">30</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="不分类下载图片-py"><a href="#不分类下载图片-py" class="headerlink" title="不分类下载图片.py"></a>不分类下载图片.py</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> download_urls</span><br><span class="line"></span><br><span class="line">start = time.time()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 存放图片url的txt文件命名为url.txt，放在python脚本的同级目录下</span></span><br><span class="line">url_file = download_urls.url_file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建存放图片的文件夹</span></span><br><span class="line">save_dir = <span class="string">&#x27;./images/&#x27;</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(save_dir):</span><br><span class="line">    os.makedirs(save_dir)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义异步协程函数，用于下载单张图片并保存到本地</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">download_image</span>(<span class="params">session, url</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">async</span> <span class="keyword">with</span> session.get(url) <span class="keyword">as</span> resp:  <span class="comment"># 异步下载</span></span><br><span class="line">            dir_path, dir_name = os.path.split(url)  <span class="comment"># URL资源目录和图片文件名</span></span><br><span class="line">            save_path = os.path.join(save_dir + dir_name)  <span class="comment"># 图片保存路径</span></span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(save_path, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">                <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">                    chunk = <span class="keyword">await</span> resp.content.read(<span class="number">1024</span> * <span class="number">1024</span>)</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">not</span> chunk:</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                    f.write(chunk)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;url&#125;</span> 下载完成！&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;url&#125;</span> 下载失败！异常信息：<span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义入口函数，启动异步事件循环，并逐个下载所有图片</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(url_file, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            lines = f.readlines()</span><br><span class="line">        tasks = [download_image(session, line.strip().split(<span class="string">&quot;\t&quot;</span>)[<span class="number">0</span>]) <span class="keyword">for</span> line <span class="keyword">in</span> lines]  <span class="comment"># 此处只传递了url</span></span><br><span class="line">        <span class="keyword">await</span> asyncio.gather(*tasks)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 显式调用，下载商品url和code到文件中</span></span><br><span class="line">download_urls.main()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动异步事件循环，并等待所有任务完成</span></span><br><span class="line">asyncio.run(main())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行结束，输出信息</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;脚本执行结束，总耗时：&#123;&#125;秒，请退出！&#x27;</span>.<span class="built_in">format</span>(time.time() - start))</span><br><span class="line">time.sleep(<span class="number">30</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="新的需求"><a href="#新的需求" class="headerlink" title="新的需求"></a>新的需求</h3><p>不分类下载图片，但是每张图片都有一个对应的json，需要将每张图片的json写到一个txt文件中，并且json文本的文件名需要与图片相同。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> download_urls</span><br><span class="line"></span><br><span class="line">start = time.time()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 存放图片url的txt文件命名为url.txt，放在python脚本的同级目录下</span></span><br><span class="line">url_file = download_urls.url_file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建存放图片的文件夹</span></span><br><span class="line">save_dir = <span class="string">&#x27;./images/&#x27;</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(save_dir):</span><br><span class="line">    os.makedirs(save_dir)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建存放json的文件夹</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(<span class="string">&#x27;./labels/&#x27;</span>):</span><br><span class="line">    os.makedirs(<span class="string">&#x27;./labels/&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"><span class="comment"># 定义异步协程函数，用于下载单张图片并保存到本地</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">download_image</span>(<span class="params">session, url, json</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">async</span> <span class="keyword">with</span> session.get(url) <span class="keyword">as</span> resp:</span><br><span class="line">            dir_path, file_name = os.path.split(url)  <span class="comment"># URL资源目录和图片文件名</span></span><br><span class="line">            save_path = os.path.join(save_dir + file_name)  <span class="comment"># 图片保存路径</span></span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;./labels/&#123;&#125;.txt&quot;</span>.<span class="built_in">format</span>(file_name), <span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> file:		<span class="comment"># 写入json文件</span></span><br><span class="line">                file.write(json)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;json已成功写入文件&quot;</span>)</span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(save_path, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:			<span class="comment"># 下载图片</span></span><br><span class="line">                <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">                    chunk = <span class="keyword">await</span> resp.content.read(<span class="number">1024</span> * <span class="number">1024</span>)</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">not</span> chunk:</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                    f.write(chunk)</span><br><span class="line">        	<span class="built_in">print</span>(<span class="string">&#x27;图片下载完成&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;url&#125;</span> 下载失败！异常信息：<span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义入口函数，启动异步事件循环，并逐个下载所有图片</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(url_file, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            lines = f.readlines()</span><br><span class="line">        tasks = [download_image(session, line.strip().split(<span class="string">&quot;\t&quot;</span>)[<span class="number">0</span>], line.strip().split(<span class="string">&quot;\t&quot;</span>)[<span class="number">1</span>]) <span class="keyword">for</span> line <span class="keyword">in</span> lines]</span><br><span class="line">        <span class="keyword">await</span> asyncio.gather(*tasks)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 显式调用，下载商品url和code到文件中</span></span><br><span class="line">download_urls.main()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动异步事件循环，并等待所有任务完成</span></span><br><span class="line">asyncio.run(main())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行结束，输出信息</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;脚本执行结束，总耗时：&#123;&#125;秒，请退出！&#x27;</span>.<span class="built_in">format</span>(time.time() - start))</span><br><span class="line">time.sleep(<span class="number">30</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-14</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/python%E8%84%9A%E6%9C%AC/'>
+                            python脚本
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Nginx部署全站HTTPS" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">分类</a></li>
+            
+        
+            
+                <li><a href="/about/">关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Nginx部署全站HTTPS
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%A8%E7%AB%99https"><span class="post-toc-text">全站https</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#lb-5%E6%9C%BA%E5%99%A8%EF%BC%88%E8%BF%99%E9%87%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%EF%BC%8C%E5%8A%A0%E4%B8%8Aupstream%E9%85%8D%E7%BD%AE%EF%BC%89"><span class="post-toc-text">lb-5机器（这里负载均衡，加上upstream配置）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#web7-%EF%BC%8Cweb8"><span class="post-toc-text">web7   ，web8</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B5%8B%E8%AF%95%E8%AE%BF%E9%97%AE%EF%BC%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%81%9A%E5%A5%BDdns%E8%A7%A3%E6%9E%90"><span class="post-toc-text">测试访问，客户端做好dns解析</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%BB%BC%E5%90%88%EF%BC%8C%E9%9A%BE%E5%BA%A6%E5%8A%A0%E5%A4%A7%E7%9A%84%E7%8E%A9%E6%B3%95%EF%BC%88slb%E6%94%AF%E6%8C%81https%EF%BC%8C%E5%90%8E%E7%AB%AF%E4%BE%9D%E7%84%B6%E6%98%AFhttp%E5%B0%B1%E8%A1%8C%EF%BC%89"><span class="post-toc-text">综合，难度加大的玩法（slb支持https，后端依然是http就行）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BB%A5wordpress%E4%B8%BA%E7%BB%83%E4%B9%A0%E5%85%A5%E6%89%8B%E3%80%82"><span class="post-toc-text">以wordpress为练习入手。</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%88%E9%83%A8%E7%BD%B2lb-5%E6%9C%BA%E5%99%A8"><span class="post-toc-text">先部署lb-5机器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%83%A8%E7%BD%B2wordpress%E5%90%8E%E7%AB%AF%E6%9C%BA%E5%99%A8%E7%BB%84"><span class="post-toc-text">部署wordpress后端机器组</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%B8%A9%E5%9D%91%E8%A7%A3%E9%87%8A%E8%AE%B0%E5%BD%95%EF%BC%88%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%89"><span class="post-toc-text">踩坑解释记录（数据库）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%8B%E8%AF%95"><span class="post-toc-text">客户端测试</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%A1%AE%E4%BF%9D%E4%BD%A0%E7%9A%84%E7%BD%91%E7%AB%99%E6%98%AF%E6%AD%A3%E7%A1%AE%E7%9A%84%EF%BC%88%E7%9C%8B%E6%97%A5%E5%BF%97%EF%BC%89"><span class="post-toc-text">确保你的网站是正确的（看日志）</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="全站https"><a href="#全站https" class="headerlink" title="全站https"></a>全站https</h2><p>https的数据加密过程，也会导致请求响应速度慢很多，数据都要加密，解密。因此内网可以不做https，外网入口slb做https即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">client ，</span><br><span class="line">访问 http://www.linux0224.cn  &gt; https://www.linux0224.cn</span><br><span class="line">↓</span><br><span class="line"></span><br><span class="line">slb (ssl  + nginx【http】)  </span><br><span class="line">http://www.linux0224.cn  &gt; https://www.linux0224.cn</span><br><span class="line"></span><br><span class="line">证书这里一份</span><br><span class="line">↓</span><br><span class="line"></span><br><span class="line">证书再来一份</span><br><span class="line"></span><br><span class="line">http://www.linux0224.cn  &gt; https://www.linux0224.cn</span><br><span class="line">web7 web8（ 【ssl】 +   nginx[http]  +   php-fpm   ）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="lb-5机器（这里负载均衡，加上upstream配置）"><a href="#lb-5机器（这里负载均衡，加上upstream配置）" class="headerlink" title="lb-5机器（这里负载均衡，加上upstream配置）"></a>lb-5机器（这里负载均衡，加上upstream配置）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">准备好slb+ssl</span><br><span class="line"></span><br><span class="line">私钥文件</span><br><span class="line">/etc/nginx/ssl-cert/server.key</span><br><span class="line">公钥文件，证书文件</span><br><span class="line">/etc/nginx/ssl-cert/server.crt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">创建nginx配置文件</span><br><span class="line"></span><br><span class="line">vim /etc/nginx/conf.d/ssl.conf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name www.linux0224.cn;</span><br><span class="line">    rewrite ^(.*) https://$server_name$1 redirect;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 从80 &gt; 443</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">upstream myweb &#123;</span><br><span class="line">	# 反正这是后端内网的节点，用户也不可见</span><br><span class="line">	server 172.16.1.7:443;</span><br><span class="line">	server 172.16.1.8:443;</span><br><span class="line">&#125;</span><br><span class="line">server&#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name www.linux0224.cn;</span><br><span class="line">    ssl_certificate /etc/nginx/ssl-cert/server.crt;</span><br><span class="line">    ssl_certificate_key   /etc/nginx/ssl-cert/server.key  ;</span><br><span class="line"></span><br><span class="line">  location / &#123;</span><br><span class="line">       proxy_pass  https://myweb;</span><br><span class="line">       # 加上代理转发参数</span><br><span class="line">       include proxy_params;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 创建好转发参数</span><br><span class="line">vim /etc/nginx/proxy_params</span><br><span class="line"></span><br><span class="line">proxy_set_header Host $http_host;</span><br><span class="line">proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">proxy_connect_timeout 30;</span><br><span class="line">proxy_send_timeout 60;</span><br><span class="line">proxy_read_timeout 60;</span><br><span class="line">proxy_buffering on;</span><br><span class="line">proxy_buffer_size 32k;</span><br><span class="line">proxy_buffers 4 128k;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 这个配置能看懂扣 6，看不懂7</span><br><span class="line"></span><br><span class="line">[root@lb-5 /etc/nginx/ssl-cert]#netstat -tunlp |grep &#x27;443|80&#x27; -E</span><br><span class="line">tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      2155/nginx: master  </span><br><span class="line">tcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN      2155/nginx: master  </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="web7-，web8"><a href="#web7-，web8" class="headerlink" title="web7   ，web8"></a>web7   ，web8</h3><p>两台机器一起操作即可。</p>
+<p>ssl.conf</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">1. 拷贝证书文件，用同一份证书</span><br><span class="line">mkdir -p /etc/nginx/ssl-cert/</span><br><span class="line">scp  root@172.16.1.5:/etc/nginx/ssl-cert/*   /etc/nginx/ssl-cert/</span><br><span class="line"></span><br><span class="line">这2个步骤，看懂扣 3，不懂4</span><br><span class="line"></span><br><span class="line">2. 配置文件</span><br><span class="line"></span><br><span class="line">vim /etc/nginx/conf.d/ssl.conf</span><br><span class="line">server&#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name www.linux0224.cn;</span><br><span class="line">    ssl_certificate /etc/nginx/ssl-cert/server.crt;</span><br><span class="line">    ssl_certificate_key   /etc/nginx/ssl-cert/server.key  ;</span><br><span class="line">  location / &#123;</span><br><span class="line">          root /www;</span><br><span class="line">          index index.html;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">3.创建测试数据的页面</span><br><span class="line">mkdir /www</span><br><span class="line">#echo &#x27;i am web 8 ++++++++++++++&#x27; &gt; /www/index.html</span><br><span class="line">#echo &#x27;i am  web7~~~~~~~~~~~~&#x27; &gt; /www/index.html</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="测试访问，客户端做好dns解析"><a href="#测试访问，客户端做好dns解析" class="headerlink" title="测试访问，客户端做好dns解析"></a>测试访问，客户端做好dns解析</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">10.0.0.5 www.linux0224.cn</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http://www.linux0224.cn/</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="综合，难度加大的玩法（slb支持https，后端依然是http就行）"><a href="#综合，难度加大的玩法（slb支持https，后端依然是http就行）" class="headerlink" title="综合，难度加大的玩法（slb支持https，后端依然是http就行）"></a>综合，难度加大的玩法（slb支持https，后端依然是http就行）</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">最常见的，入口和外网的数据通信，确保安全，用https</span><br><span class="line">内网的转发，无须设置https。</span><br><span class="line"></span><br><span class="line">部署后端应用服务器，接收https请求的时候，得加上一些设置。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="以wordpress为练习入手。"><a href="#以wordpress为练习入手。" class="headerlink" title="以wordpress为练习入手。"></a>以wordpress为练习入手。</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">client</span><br><span class="line">↓</span><br><span class="line">http://wordpress.linux0224.cc</span><br><span class="line">自动302跳转</span><br><span class="line">https://wordpress.linux0224.cc</span><br><span class="line">↓</span><br><span class="line"></span><br><span class="line">slb-5 （nginx配置）</span><br><span class="line">负载均衡， 转发给后端</span><br><span class="line"></span><br><span class="line">↓</span><br><span class="line">web组 7和8</span><br><span class="line">nginx + php-fpm的代理转发。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">这个流程，能清晰看懂，理解的 扣 3，不理解扣 4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><a href="E:/%25E4%25B8%25AA%25E4%25BA%25BA%25E7%25BD%2591%25E7%25AB%2599/hexo/source/_posts/pic/image-20220602172521707.png" title="image-20220602172521707" class="gallery-item" style="box-shadow: none;"> <img src="E:/%25E4%25B8%25AA%25E4%25BA%25BA%25E7%25BD%2591%25E7%25AB%2599/hexo/source/_posts/pic/image-20220602172521707.png" alt="image-20220602172521707"></a></p>
+<h2 id="先部署lb-5机器"><a href="#先部署lb-5机器" class="headerlink" title="先部署lb-5机器"></a>先部署lb-5机器</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">我又差点踩坑了。。。。</span><br><span class="line"></span><br><span class="line">wordpress安装后，数据写到数据库了，</span><br><span class="line">你昨天是以wordpress.linux0224.cc安装的</span><br><span class="line"></span><br><span class="line">最终这个博客产品，写入的url都是这个域名 wordpress.linux0224.cc</span><br><span class="line">因此，你还得用这个域名，不能乱改。。</span><br></pre></td></tr></table></figure>
+
+<p>lb-5机器的配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">[root@lb-5 ~]#cat /etc/nginx/conf.d/wordpress.conf </span><br><span class="line"># 这里定义后端的入口是  ip:33333</span><br><span class="line"># 因此你后端的节点，nginx入口得是 listen 33333;</span><br><span class="line"># 到这里都OK的扣 6，看不懂7</span><br><span class="line"></span><br><span class="line">upstream wordpress_pools &#123;</span><br><span class="line">    server 172.16.1.7:33333;</span><br><span class="line">    server 172.16.1.8:33333;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 80虚拟主机，目的是为了匹配http请求的80端口，强制转发给https的443端口</span><br><span class="line"># 1 . 目的是接收 http://wordpress.yuchaoit.cc;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name wordpress.linux0224.cc;</span><br><span class="line">    rewrite ^(.*) https://$server_name$1 redirect;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 2. https虚拟主机的设置</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line"></span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name wordpress.linux0224.cc;</span><br><span class="line">	# 指定证书的地址</span><br><span class="line">    ssl_certificate /etc/nginx/ssl-cert/server.crt;</span><br><span class="line">    ssl_certificate_key   /etc/nginx/ssl-cert/server.key;</span><br><span class="line">  </span><br><span class="line">  	# 反向代理，这里就基于http协议的转发，给后端机器组即可。</span><br><span class="line">  	# 用的是proxy_pass </span><br><span class="line">  	location / &#123;</span><br><span class="line">            proxy_pass http://wordpress_pools;</span><br><span class="line">            include proxy_params;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 重新启动nginx</span><br><span class="line">nginx -s reload</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="部署wordpress后端机器组"><a href="#部署wordpress后端机器组" class="headerlink" title="部署wordpress后端机器组"></a>部署wordpress后端机器组</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">nginx 去接收转发而来的请求，然后再通过fastcgi_pass 127.0.0.1:9000</span><br><span class="line">并且转发的时候，添加让http数据，转为fastcgi_pass可认识的变量数据</span><br><span class="line"></span><br><span class="line">这个流程记得扣 1，不记得 2</span><br><span class="line">在部署了https之后</span><br><span class="line"></span><br><span class="line">slb-5接收到 https的请求后，再转发给后端，需要后端框架支持。</span><br><span class="line"># 让fastcgi协议，也认识https</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">写入到web7  和web8的nginx目录下</span><br><span class="line">cat fastcgi_params </span><br><span class="line">fastcgi_param  QUERY_STRING       $query_string;</span><br><span class="line">fastcgi_param  REQUEST_METHOD     $request_method;</span><br><span class="line">fastcgi_param  CONTENT_TYPE       $content_type;</span><br><span class="line">fastcgi_param  CONTENT_LENGTH     $content_length;</span><br><span class="line"></span><br><span class="line">fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;</span><br><span class="line">fastcgi_param  REQUEST_URI        $request_uri;</span><br><span class="line">fastcgi_param  DOCUMENT_URI       $document_uri;</span><br><span class="line">fastcgi_param  DOCUMENT_ROOT      $document_root;</span><br><span class="line">fastcgi_param  SERVER_PROTOCOL    $server_protocol;</span><br><span class="line">fastcgi_param  REQUEST_SCHEME     $scheme;</span><br><span class="line">fastcgi_param  HTTPS              $https if_not_empty;</span><br><span class="line"></span><br><span class="line">fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;</span><br><span class="line">fastcgi_param  SERVER_SOFTWARE    nginx/$nginx_version;</span><br><span class="line"></span><br><span class="line">fastcgi_param  REMOTE_ADDR        $remote_addr;</span><br><span class="line">fastcgi_param  REMOTE_PORT        $remote_port;</span><br><span class="line">fastcgi_param  SERVER_ADDR        $server_addr;</span><br><span class="line">fastcgi_param  SERVER_PORT        $server_port;</span><br><span class="line">fastcgi_param  SERVER_NAME        $server_name;</span><br><span class="line"></span><br><span class="line"># PHP only, required if PHP was built with --enable-force-cgi-redirect</span><br><span class="line">fastcgi_param  REDIRECT_STATUS    200;</span><br><span class="line"></span><br><span class="line"># enable https</span><br><span class="line"># 因为，入口是https请求，转发到后端，url依然是https://wordpress.linux0224.cc，比如你来看</span><br><span class="line"># 因此在这里要打开这个参数，记住就行，。</span><br><span class="line"></span><br><span class="line">fastcgi_param HTTPS on;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">生成nginx的配置文件</span><br><span class="line"></span><br><span class="line"># 看懂扣 3，不懂 4</span><br><span class="line">server &#123;</span><br><span class="line">    listen 33333; # 因为slb的upstream里面写的就是33333</span><br><span class="line">    # 注意这个域名要和slb对上</span><br><span class="line">    server_name wordpress.linux0224.cc;</span><br><span class="line">    root /mysite/wordpress/;</span><br><span class="line">    index index.php index.html;</span><br><span class="line"></span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        root /mysite/wordpress/;</span><br><span class="line">        # 发给fastcgi去执行php的wordpress源代码程序</span><br><span class="line">        fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">        fastcgi_index index.php;</span><br><span class="line">        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">        include fastcgi_params;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 到这里，能清晰看懂的，扣 6，不懂7 </span><br><span class="line"></span><br><span class="line"> # 见证奇迹的时候到了，。是正确访问？还是又是踩坑？这是一个迷。。。</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"># 看看数据库里写入的url域名是什么。</span><br><span class="line"></span><br><span class="line">#启动是lb和 web组</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">你自建的证书，没有绑定域名</span><br><span class="line"></span><br><span class="line">阿里云上的证书，绑定域名是通过了一个 txt类型的dns记录，做的绑定解析，限制你必须用单个的域名。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="踩坑解释记录（数据库）"><a href="#踩坑解释记录（数据库）" class="headerlink" title="踩坑解释记录（数据库）"></a>踩坑解释记录（数据库）</h2><p><a href="E:/%25E4%25B8%25AA%25E4%25BA%25BA%25E7%25BD%2591%25E7%25AB%2599/hexo/source/_posts/pic/image-20220602170809870.png" title="image-20220602170809870" class="gallery-item" style="box-shadow: none;"> <img src="E:/%25E4%25B8%25AA%25E4%25BA%25BA%25E7%25BD%2591%25E7%25AB%2599/hexo/source/_posts/pic/image-20220602170809870.png" alt="image-20220602170809870"></a></p>
+<h2 id="客户端测试"><a href="#客户端测试" class="headerlink" title="客户端测试"></a>客户端测试</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.0.0.5  wordpress.linux0224.cc</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果负载均衡有问题，你可以先试试，单个的节点是否正常。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.0.0.7  wordpress.linux0224.cc</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="确保你的网站是正确的（看日志）"><a href="#确保你的网站是正确的（看日志）" class="headerlink" title="确保你的网站是正确的（看日志）"></a>确保你的网站是正确的（看日志）</h2><p>通过检测，日志，明确请求负载均衡到了 web7  web8 默认是轮训一人一次</p>
+<p>确保你的wordpress后台管理也是对的，以及发表文章都是对的</p>
+<p>这个问题，还是数据库中写入了端口的问题。</p>
+<p>之前部署，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">slb </span><br><span class="line">upstrem &#123;</span><br><span class="line">	server ip:80;</span><br><span class="line">	server ip:80;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">web7  web8 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">告诉你这个思路，如何别踩这个坑。</span><br><span class="line"></span><br><span class="line">1. 你的wordpress实验，</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-24</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>
