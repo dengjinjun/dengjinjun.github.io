@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#K8S%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="post-toc-text">K8S理论基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-%E5%85%88%E4%BB%8EDocker%E8%AF%B4%E8%B5%B7"><span class="post-toc-text">1. 先从Docker说起</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-K8S%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="post-toc-text">2. K8S的概念</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-K8S%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="post-toc-text">3. K8S的架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-1-Master%E8%8A%82%E7%82%B9"><span class="post-toc-text">3.1 Master节点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-2-Node%E8%8A%82%E7%82%B9"><span class="post-toc-text">3.2 Node节点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-K8S%E7%9A%84%E6%A0%B8%E5%BF%83%E8%B5%84%E6%BA%90%E5%AF%B9%E8%B1%A1"><span class="post-toc-text">4. K8S的核心资源对象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-%E5%B7%A5%E6%99%BA%E9%81%93%E7%B3%BB%E7%BB%9FK8S%E6%9E%B6%E6%9E%84"><span class="post-toc-text">5. 工智道系统K8S架构</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="K8S理论基础"><a href="#K8S理论基础" class="headerlink" title="K8S理论基础"></a>K8S理论基础</h1><h2 id="1-先从Docker说起"><a href="#1-先从Docker说起" class="headerlink" title="1. 先从Docker说起"></a>1. 先从Docker说起</h2><p><a href="/../pic/u=1476487225,2790914624&fm=253&fmt=auto&app=138&f=PNG.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/u=1476487225,2790914624&fm=253&fmt=auto&app=138&f=PNG.png" alt="img"></a></p>
+<p>Docker，翻译过来是码头工人，是容器的代表，容器是一种虚拟化的技术。</p>
+<blockquote>
+<p><strong>Docker和虚拟机</strong></p>
+</blockquote>
+<p>Docker和虚拟机，都用到了虚拟化的技术。</p>
+<p>虚拟机是通过对物理机进行虚拟化，每一个虚拟机都是一个具有完整的硬件功能的计算机系统。</p>
+<p>Docker是通过对操作系统虚拟化，所有的Docker容器共享主机的操作系统内核，但是具有各自独立且隔离的用户空间。</p>
+<blockquote>
+<p><strong>Docker的优势</strong></p>
+</blockquote>
+<p>同样是虚拟化的技术，Docker相对于虚拟机的优势就在于Docker<strong>更加的轻量</strong>。</p>
+<p>虚拟机的创建、启动和销毁都需要加载整个操作系统以及所有的硬件功能，它的整个生命周期的操作，往往都会耗费分钟级别的时间。</p>
+<p>但是Docker只需要数秒钟，因为Docker容器其实就是一个进程，创建和销毁Docker容器，需要分配和回收的资源相比虚拟机要小得多，是以MB为单位的。</p>
+<p>所以一台物理机，一般支持运行几十个虚拟机，但是同样规格的单机，无论是虚拟机或者物理机，一般可以支持上千个容器运行。</p>
+<blockquote>
+<p><strong>Docker的架构</strong></p>
+</blockquote>
+<p><a href="/../pic/u=590257994,865793200&fm=253&fmt=auto&app=138&f=PNG.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/u=590257994,865793200&fm=253&fmt=auto&app=138&f=PNG.png" alt="img"></a></p>
+<h2 id="2-K8S的概念"><a href="#2-K8S的概念" class="headerlink" title="2. K8S的概念"></a>2. K8S的概念</h2><p><a href="/../pic/127c024d6f6e0650ddc115af9e7fda55c9af9b32.jpg" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/127c024d6f6e0650ddc115af9e7fda55c9af9b32.jpg" alt="img"></a></p>
+<p>Kubernetes，翻译过来是“舵手”（掌舵的人），简称K8S。K8S是用来管理Docker的，是一个容器编排工具。</p>
+<blockquote>
+<p><strong>为什么需要K8S</strong></p>
+</blockquote>
+<p>从Docker成为企业的主流选择之后，相继出现过很多容器编排工具，比如Docker-Compose或者是Docker-Swarm，但是这些工具都有一个通病，就是过于以单台主机上的Docker容器为核心，提供的能力也比较简单，比如定义网络，指定镜像，控制谁先启动谁后启动等等，无法满足复杂的集群场景。</p>
+<blockquote>
+<p><strong>K8S的由来</strong></p>
+</blockquote>
+<p>K8S最开始是Google的一个开源项目，因为Google很早就全面使用容器作为应用的运行环境，绝大部分应用都运行在容器上，需要一个管理大规模容器集群的工具，K8S就是诞生在这种背景下，基于 Google 公司超过 10 多年的运维经验，2015年发布Kubernetes v1.0 ，融入Linux开源生态，随后Microsoft、IBM、RedHat、VMWare等众多国际大厂都积极支持该项目。</p>
+<blockquote>
+<p><strong>K8S的企业支持</strong></p>
+</blockquote>
+<p>K8S发展到现在，已经成为企业中最受欢迎的开源容器编排平台，因此也被广泛地支持和集成到各大云服务提供商的容器服务中，包括 Google Kubernetes Engine（GKE）、Amazon Elastic Kubernetes Service（EKS）、Microsoft Azure Kubernetes Service（AKS）等，国内有腾讯云 TKE 和阿里云 ACK 等。</p>
+<h2 id="3-K8S的架构"><a href="#3-K8S的架构" class="headerlink" title="3. K8S的架构"></a>3. K8S的架构</h2><p><a href="/../pic/k8s-arch.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/k8s-arch.webp" alt="img"></a></p>
+<p>K8S集群是由多台服务器组成的，在K8S集群中，单台服务器都称为节点，K8S的集群节点分为两种角色：Master节点和Node节点。</p>
+<h3 id="3-1-Master节点"><a href="#3-1-Master节点" class="headerlink" title="3.1 Master节点"></a>3.1 <strong>Master节点</strong></h3><p>官方叫做控制平面（Control Plane）。主要负责整个集群的管控，包含监控、编排、调度集群中的各类资源对象，通常 Master 会占用一个单独的集群节点（不会运行应用容器），基于高可用考虑，一般会占用多台。</p>
+<p>Master节点由四部分组成</p>
+<blockquote>
+<p><strong>API Server</strong></p>
+</blockquote>
+<p>API Server是Master节点的核心组件之一，为集群中各类资源提供增删改查的 HTTP REST 接口，即操作任何资源都要经过 API Server。</p>
+<p>运维人员和开发人员想要管理集群，一般都是通过<strong>间接</strong>调用API Server的接口实现的。</p>
+<p>即通过 kubectl 客户端访问，其本质上是将命令转换为 REST API 调用，是最主要的访问方式。</p>
+<blockquote>
+<p><strong>etcd</strong></p>
+</blockquote>
+<p>K8s 使用 etcd 作为内部数据库，用于保存集群配置以及所有对象的状态信息，是以键值对的方式存储的。只有 API Server 进程能直接读写 etcd。为了保证集群数据安全性，一般会做etcd的高可用，并且为其考虑备份方案。</p>
+<blockquote>
+<p><strong>Scheduler</strong></p>
+</blockquote>
+<p>Scheduler是 Pod 资源的调度器，用于监听刚创建还未分配 Node 的 Pod，为其分配相应 Node。  调度器也是操作 API Server 进程的各项接口来完成调度的。比如 Watch 接口监听新建的 Pod，并搜索所有满足 Pod 需求的 Node 列表， 再执行 Pod 调度逻辑，调度成功后将 Pod 绑定到目标 Node 上。</p>
+<blockquote>
+<p><strong>kube-controller-manager</strong></p>
+</blockquote>
+<p>Controller 管理器实现了全部的后台控制循环，完成对集群的健康并对事件做出响应。Controller 管理器是各种 Controller 的管理者，负责创建 controller，并监控它们的执行。这些 Controller 包括 NodeController、ReplicationController 等，每个 controller 都在后台启动了一个独立的监听循环（可以简单理解为一个线程），负责监控 API Server 的变更。</p>
+<h3 id="3-2-Node节点"><a href="#3-2-Node节点" class="headerlink" title="3.2 Node节点"></a>3.2 Node节点</h3><p>Node 由三部分组成：kubelet、kube-proxy 和容器运行时（如 docker&#x2F;containerd）。</p>
+<blockquote>
+<p><strong>kubelet</strong></p>
+</blockquote>
+<p>kubelet是每个 Node 上都运行的主要代理进程，管理Node节点上的资源。kubelet负责监听从API Server发送来的任务，执行任务并报告给主节点。</p>
+<p>kubelet 也会及时将 Pod 内容器状态以及自身状态报告给 API Server。</p>
+<blockquote>
+<p><strong>kube-proxy</strong></p>
+</blockquote>
+<p>kube-proxy也是每个Node上都运行代理进程，管理Node节点上的网络规则。kube-proxy会监听 API Server 中各类资源发生的变化，并将这些变化实时反应到节点的网络规则中，确保流量正确路由到服务。 总结来说，kube-proxy 主要负责维护网络规则和四层流量的负载均衡工作。</p>
+<blockquote>
+<p><strong>容器运行时</strong></p>
+</blockquote>
+<p>容器运行时负责在Node节点上创建容器的运行环境，K8S支持多种容器运行时，主流的容器运行时是Docker，containerd等，不过在较新的K8S版本中强制采用了Containerd作为容器运行时，Docker被废弃（1.24版本及以前仍然是可用的）。</p>
+<h2 id="4-K8S的核心资源对象"><a href="#4-K8S的核心资源对象" class="headerlink" title="4. K8S的核心资源对象"></a>4. K8S的核心资源对象</h2><blockquote>
+<p><strong>Namespace</strong></p>
+</blockquote>
+<p>Namespace（命名空间）用来隔离集群内不同环境下的资源。</p>
+<blockquote>
+<p><strong>Pod</strong></p>
+</blockquote>
+<p>在 Kubernetes 的世界中，调度的原子单位是 Pod。一个Pod中通常包含一个或多个容器，我们的业务应用都运行在容器中。</p>
+<blockquote>
+<p><strong>Deployment</strong></p>
+</blockquote>
+<p>通常，Pod 不会被直接创建和管理，而是由更高级别的控制器，例如 Deployment 来创建和管理。 这是因为单独运行的 Pod 没有自愈能力，一旦因为各种原因被删除就不会再重新创建。Deployment控制器可以提供更强大的管理功能，比如：应用更新和回滚，Pod自愈能力，副本数量管理等。</p>
+<blockquote>
+<p><strong>Service</strong></p>
+</blockquote>
+<p>Pod被创建之后，只能在K8S的Pod子网内被访问。要实现被外界所访问，就需要依靠Service资源，所以简单来说，Service是作为一个四层网络代理，外界的流量进入Node节点，然后转发给Service，由Service转发给各种业务Pod。</p>
+<blockquote>
+<p><strong>Ingress</strong></p>
+</blockquote>
+<p>在实际环境中，往往需要七层的代理，这是Service无法完成的工作，于是需要Ingress来定义路由规则，使请求根据域名和路径匹配路由到不同的后端服务。</p>
+<blockquote>
+<p><strong>PV</strong></p>
+</blockquote>
+<p>PV（persistent volume）是持久化数据卷，一种K8S的全局资源。</p>
+<p>持久卷是对存储资源数据卷(volume)创建和使用的抽象，使得存储作为集群中的资源管理。PV允许底层存储使用NFS、Cephfs或是其他存储系统，可以预先定义存储能力(使用多大的存储空间)，也可以实现后端存储的权限管控(rw,ro)。</p>
+<blockquote>
+<p><strong>PVC</strong></p>
+</blockquote>
+<p>PVC（persistent volume claim）是持久化数据卷声明，PVC也不负责数据的真实存储，它只是显式声明需要使用的存储资源需求，然后K8S会自动去关联符合条件的PV，从而实现对存储资源的使用。</p>
+<h2 id="5-工智道系统K8S架构"><a href="#5-工智道系统K8S架构" class="headerlink" title="5. 工智道系统K8S架构"></a>5. 工智道系统K8S架构</h2><p><a href="/../pic/image-20240820161315665.png" title="image-20240820161315665" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240820161315665.png" alt="image-20240820161315665"></a></p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-08-17</span>
+            
+            
+             
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

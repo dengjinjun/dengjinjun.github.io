@@ -4,7 +4,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
-    <meta name="description" content="categories" />
+    <meta name="description" content="工智道迁移K8S问题汇总" />
     <meta name="hexo-theme-A4" content="v1.9.1" />
     <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
     <title>Dengpangpang</title>
@@ -121,11 +121,7 @@
             
         
             
-                <li><i>
-                    
-                        <a style="color: #4e7dde;" href="/categories/">🗂️分类</a>
-                    
-                </i></li>
+                <li><a href="/categories/">🗂️分类</a></li>
             
         
             
@@ -137,66 +133,97 @@
         
                     
                     
-                            <br>
-<span><span class="darkmode-ignore">🔖</span><i>categories</i></span>
-<ul class="" >
-  
-
-  
-
-  
-
-  
-  
-  
-  
-  
-      
-        <li class="">
-            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">学习笔记</a>
-            <span><i>122</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/TroubleShooting">TroubleShooting</a>
-            <span><i>10</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0">工作笔记</a>
-            <span><i>37</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7">奇技淫巧</a>
-            <span><i>5</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E6%8B%93%E5%B1%95%E8%A7%86%E9%87%8E">拓展视野</a>
-            <span><i>16</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95">生活记录</a>
-            <span><i>3</i></span>
-        </li>
-    
-        <li class="">
-            <a href="/categories/%E6%96%87%E6%91%98">文摘</a>
-            <span><i>3</i></span>
-        </li>
-    
-    
-
-    
-</ul>
-                    
 
                     
                     
                     
                     <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            工智道迁移K8S问题汇总
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%BF%81%E7%A7%BBK8S%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB"><span class="post-toc-text">迁移K8S问题汇总</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="迁移K8S问题汇总"><a href="#迁移K8S问题汇总" class="headerlink" title="迁移K8S问题汇总"></a>迁移K8S问题汇总</h2><blockquote>
+<p><strong>ingress把<code>_method</code>方法过滤掉，导致积木部分应用报错</strong></p>
+</blockquote>
+<p>方法1，单个客户生效</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ingress的注解中添加如下配置：</span><br><span class="line">    nginx.ingress.kubernetes.io/server-snippet: |</span><br><span class="line">      underscores_in_headers on;</span><br></pre></td></tr></table></figure>
+
+<p>方法2，全局生效</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ingress-controller的ConfigMap中添加</span><br><span class="line"></span><br><span class="line">data:</span><br><span class="line">  enable-underscores-in-headers: &quot;true&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>上传大文件报错<code>413 Request Entity Too Large</code></strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ingress的注解中添加如下配置：</span><br><span class="line">    nginx.ingress.kubernetes.io/proxy-body-size: &quot;1024m&quot;</span><br><span class="line">    nginx.ingress.kubernetes.io/proxy-connect-timeout: &#x27;600&#x27;</span><br><span class="line">    nginx.ingress.kubernetes.io/proxy-read-timeout: &#x27;600&#x27;</span><br><span class="line">    nginx.ingress.kubernetes.io/proxy-send-timeout: &#x27;600&#x27;</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-09-26</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8S/'>
+                            K8S
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/TroubleShooting/'>
+                            TroubleShooting
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
                     
                     
                     <div class="footer">

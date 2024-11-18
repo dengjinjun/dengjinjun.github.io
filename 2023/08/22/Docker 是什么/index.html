@@ -220,7 +220,7 @@
 <p>镜像是 Docker 运行容器的前提，仓库是存放镜像的场所，可见镜像更是 Docker 的核心。</p>
 <h3 id="Image（镜像）"><a href="#Image（镜像）" class="headerlink" title="Image（镜像）"></a>Image（镜像）</h3><p>那么镜像到底是什么呢？Docker 镜像可以看作是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。</p>
 <p>镜像不包含任何动态数据，其内容在构建之后也不会被改变。镜像（Image）就是一堆只读层（read-only layer）的统一视角，也许这个定义有些难以理解，下面的这张图能够帮助读者理解镜像的定义：</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-da825ff61be86c0dd28a3ed27308e0b8_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-da825ff61be86c0dd28a3ed27308e0b8_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-da825ff61be86c0dd28a3ed27308e0b8_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-da825ff61be86c0dd28a3ed27308e0b8_720w.webp" alt="img"></a></p>
 <p>从左边我们看到了多个只读层，它们重叠在一起。除了最下面一层，其他层都会有一个指针指向下一层。这些层是 Docker 内部的实现细节，并且能够在主机的文件系统上访问到。</p>
 <p>统一文件系统（Union File System）技术能够将不同的层整合成一个文件系统，为这些层提供了一个统一的视角。</p>
 <p>这样就隐藏了多层的存在，在用户的角度看来，只存在一个文件系统。我们可以在图片的右边看到这个视角的形式。</p>
@@ -246,15 +246,15 @@
 <p>当用户创建了自己的镜像之后就可以使用 Push 命令将它上传到公有或者私有仓库，这样下次在另外一台机器上使用这个镜像时候，只需要从仓库上 Pull 下来就可以了。最大的公开仓库是 Docker Hub(<a href="https://link.zhihu.com/?target=https://hub.docker.com/">https://hub.docker.com/</a>)，存放了数量庞大的镜像供用户下载。国内的公开仓库包括阿里云 、网易云等。</p>
 <p>我们主要把 Docker 的一些常见概念如 Image，Container，Repository 做了详细的阐述，也从传统虚拟化方式的角度阐述了 Docker 的优势。</p>
 <h2 id="五、Docker-架构"><a href="#五、Docker-架构" class="headerlink" title="五、Docker 架构"></a>五、Docker 架构</h2><p>我们从下图可以直观地看到 Docker 的架构：</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-8eabc999ad931aec2f0c5c4d43af76f0_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-8eabc999ad931aec2f0c5c4d43af76f0_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-8eabc999ad931aec2f0c5c4d43af76f0_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-8eabc999ad931aec2f0c5c4d43af76f0_720w.webp" alt="img"></a></p>
 <p>Docker 使用 C&#x2F;S 结构，即客户端&#x2F;服务器体系结构。Docker 客户端与 Docker 服务器进行交互，Docker服务端负责构建、运行和分发 Docker 镜像。</p>
 <p>Docker 客户端和服务端可以运行在一台机器上，也可以通过 RESTful 、 Stock 或网络接口与远程 Docker 服务端进行通信。</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-6a44343b0199266ffe341c22c428d11a_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-6a44343b0199266ffe341c22c428d11a_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-6a44343b0199266ffe341c22c428d11a_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-6a44343b0199266ffe341c22c428d11a_720w.webp" alt="img"></a></p>
 <p>这张图展示了 Docker 客户端、服务端和 Docker 仓库（即 Docker Hub 和 Docker Cloud ），默认情况下 Docker 会在 Docker 中央仓库寻找镜像文件。</p>
 <p>这种利用仓库管理镜像的设计理念类似于 Git ，当然这个仓库是可以通过修改配置来指定的，甚至我们可以创建我们自己的私有仓库。</p>
 <h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><p>Docker是一个Client-Server结构的系统，Docker守护进程运行在主机上， 然后通过Socket连接从客户端访问，守护进程从客户端接受命令并管理运行在主机上的容器。容器，是一个运行时环境，就是我们前面说到的集装箱。</p>
 <p><a target="_blank" rel="noopener" href="https://pic4.zhimg.com/80/v2-8bd6a06d156c6b7b0e21bbae83b8bc73_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic4.zhimg.com/80/v2-8bd6a06d156c6b7b0e21bbae83b8bc73_720w.webp" alt="img"></a></p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-c5e9bfed680b6ef0a05630fc33ee3ddf_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-c5e9bfed680b6ef0a05630fc33ee3ddf_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-c5e9bfed680b6ef0a05630fc33ee3ddf_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-c5e9bfed680b6ef0a05630fc33ee3ddf_720w.webp" alt="img"></a></p>
 <p>Docker 的核心组件包括：</p>
 <ul>
 <li>Docker Client</li>
@@ -269,11 +269,11 @@
 <h3 id="Docker-Client"><a href="#Docker-Client" class="headerlink" title="Docker Client"></a>Docker Client</h3><p>Docker Client ，也称 Docker 客户端。它其实就是 Docker 提供命令行界面（CLI）工具，是许多 Docker 用户与 Docker 进行交互的主要方式。</p>
 <p>客户端可以构建，运行和停止应用程序，还可以远程与 Docker_Host 进行交互。</p>
 <p>最常用的 Docker 客户端就是 Docker 命令，我们可以通过 Docker 命令很方便地在 Host 上构建和运行 Docker 容器。</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-d0773e8b5d97c5ee3905f8b597a5f318_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-d0773e8b5d97c5ee3905f8b597a5f318_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-d0773e8b5d97c5ee3905f8b597a5f318_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-d0773e8b5d97c5ee3905f8b597a5f318_720w.webp" alt="img"></a></p>
 <h3 id="Docker-Daemon"><a href="#Docker-Daemon" class="headerlink" title="Docker Daemon"></a>Docker Daemon</h3><p>Docker Daemon 是服务器组件，以 Linux 后台服务的方式运行，是 Docker 最核心的后台进程，我们也把它称为守护进程。</p>
 <p>它负责响应来自 Docker Client 的请求，然后将这些请求翻译成系统调用完成容器管理操作。</p>
 <p>该进程会在后台启动一个 API Server ，负责接收由 Docker Client 发送的请求，接收到的请求将通过 Docker Daemon 内部的一个路由分发调度，由具体的函数来执行请求。</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-8ac4ff3ea5b898d1ee8f6922b2a5226b_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-8ac4ff3ea5b898d1ee8f6922b2a5226b_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-8ac4ff3ea5b898d1ee8f6922b2a5226b_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-8ac4ff3ea5b898d1ee8f6922b2a5226b_720w.webp" alt="img"></a></p>
 <p>我们大致可以将其分为以下三部分：</p>
 <ul>
 <li>Docker Server</li>
@@ -281,7 +281,7 @@
 <li>Job</li>
 </ul>
 <p>Docker Daemon 的架构如下所示：</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-29ff015d0d2a505586a743c13f97ff96_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-29ff015d0d2a505586a743c13f97ff96_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-29ff015d0d2a505586a743c13f97ff96_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-29ff015d0d2a505586a743c13f97ff96_720w.webp" alt="img"></a></p>
 <p>Docker Daemon 可以认为是通过 Docker Server 模块接受 Docker Client 的请求，并在 Engine 中处理请求，然后根据请求类型，创建出指定的 Job 并运行。</p>
 <p>Docker Daemon 运行在 Docker Host 上，负责创建、运行、监控容器，构建、存储镜像。</p>
 <p>运行过程的作用有以下几种可能：</p>
@@ -325,7 +325,7 @@
 <p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-7f3288874a609cf8618f8370edb34e2c_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-7f3288874a609cf8618f8370edb34e2c_720w.webp" alt="img"></a></p>
 <p>运行 docker push、docker pull、docker search 时，实际上是通过 Docker Daemon 与 Docker Registry 通信。</p>
 <h2 id="六、Docker-网络"><a href="#六、Docker-网络" class="headerlink" title="六、Docker 网络"></a>六、Docker 网络</h2><h3 id="1-本机网络理解"><a href="#1-本机网络理解" class="headerlink" title="1.本机网络理解"></a>1.本机网络理解</h3><p>我们使用ifconfig可以看到三组网络。首先是docker0，这是我们本节的重点，docker的网络。之后是eth0，本机的外网地址。lo口，本地环回地址，可以代表localhost。</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-a32633ec34220f4e6c111e6e63658641_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-a32633ec34220f4e6c111e6e63658641_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-a32633ec34220f4e6c111e6e63658641_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-a32633ec34220f4e6c111e6e63658641_720w.webp" alt="img"></a></p>
 <p>关于docker0呢，其实就是一个叫docker0的虚拟网桥。我们使用brctl命令来查看一下。（没有这个命令的下载<strong>yum -y install bridge-utils</strong>）</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brctl show</span><br></pre></td></tr></table></figure>
 
@@ -366,23 +366,23 @@
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker network create --driver bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 testnet</span><br><span class="line"></span><br><span class="line">docekr network ls</span><br></pre></td></tr></table></figure>
 
 <p>只需要两条命令，你就创建完了自己的网络！</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-e8f1417c07cbe2c612668ef21b819dea_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-e8f1417c07cbe2c612668ef21b819dea_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-e8f1417c07cbe2c612668ef21b819dea_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-e8f1417c07cbe2c612668ef21b819dea_720w.webp" alt="img"></a></p>
 <p>这里在教大家一条命令：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network inspect 网卡名字  #查看网卡详细信息</span><br></pre></td></tr></table></figure>
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-63cf40fce7e53f579a6c9ed0b2c48945_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-63cf40fce7e53f579a6c9ed0b2c48945_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-63cf40fce7e53f579a6c9ed0b2c48945_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-63cf40fce7e53f579a6c9ed0b2c48945_720w.webp" alt="img"></a></p>
 <h3 id="3-发布两个在自己创建的网络里的容器。"><a href="#3-发布两个在自己创建的网络里的容器。" class="headerlink" title="3)发布两个在自己创建的网络里的容器。"></a>3)发布两个在自己创建的网络里的容器。</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -P --name=tomcat01-net --net=testnet tomcat:7</span><br><span class="line">docker run -d -P --name=tomcat02-net --net testnet tomcat:7</span><br></pre></td></tr></table></figure>
 
 <p>然后使用docker network inspect testnet，就可以看到刚才创建的这两个容器的IP了。</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-ce52a66133220082707b540f919dccb9_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-ce52a66133220082707b540f919dccb9_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-ce52a66133220082707b540f919dccb9_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-ce52a66133220082707b540f919dccb9_720w.webp" alt="img"></a></p>
 <p>还记得我们前面说的docker0的缺点之一，不能通过域名访问吗？而我们自定义的网络，就修复了这个功能！</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it tomcat01-net ping -c 3 IP</span><br><span class="line">docker exec -it tomcat01-net ping -c 3 tomcat02-net</span><br><span class="line"></span><br><span class="line">#提示，ping -c可以自定义ping的次数</span><br></pre></td></tr></table></figure>
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-5975199d1496ebe3a3d90671ab51252e_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-5975199d1496ebe3a3d90671ab51252e_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-5975199d1496ebe3a3d90671ab51252e_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-5975199d1496ebe3a3d90671ab51252e_720w.webp" alt="img"></a></p>
 <h2 id="七、Docker-安装"><a href="#七、Docker-安装" class="headerlink" title="七、Docker 安装"></a>七、Docker 安装</h2><p>Docker 的安装和使用有一些前提条件，主要体现在体系架构和内核的支持上。</p>
 <p>对于体系架构，除了 Docker 一开始就支持的 X86-64 ，其他体系架构的支持则一直在不断地完善和推进中。</p>
 <p>2017年初，docker公司将原先的docker开源项目改名为<strong>moby。</strong></p>
@@ -407,7 +407,7 @@
 <li>阿里云服务器（1 核 2G，1M 带宽）</li>
 <li>CentOS 7.4 64 位</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-c55e1cb0fa8105dbf9e64b07ad31e8e5_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-c55e1cb0fa8105dbf9e64b07ad31e8e5_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-c55e1cb0fa8105dbf9e64b07ad31e8e5_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-c55e1cb0fa8105dbf9e64b07ad31e8e5_720w.webp" alt="img"></a></p>
 <p>由于 Docker-CE 支持 64 位版本的 CentOS 7 ，并且要求内核版本不低于 3.10，首先我们需要卸载掉旧版本的 Docker：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum remove docker \</span><br><span class="line">              docker-client \</span><br><span class="line">              docker-client-latest \</span><br><span class="line">              docker-common \</span><br><span class="line">              docker-latest \</span><br><span class="line">              docker-latest-logrotate \</span><br><span class="line">              docker-logrotate \</span><br><span class="line">              docker-selinux \</span><br><span class="line">              docker-engine-selinux \</span><br><span class="line">              docker-engine</span><br></pre></td></tr></table></figure>
 
@@ -419,7 +419,7 @@
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-cb19c78c9cc1e4f9be0a54365b1fcc32_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-cb19c78c9cc1e4f9be0a54365b1fcc32_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-cb19c78c9cc1e4f9be0a54365b1fcc32_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-cb19c78c9cc1e4f9be0a54365b1fcc32_720w.webp" alt="img"></a></p>
 <p>这里已经安装过了，所以提示Nothing to do。</p>
 <h3 id="配置国内yum源"><a href="#配置国内yum源" class="headerlink" title="配置国内yum源"></a>配置国内yum源</h3><p>这里采用的是阿里云</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
@@ -454,23 +454,23 @@
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker -v 或 docker version 或 docker --version</span><br><span class="line"># 或</span><br><span class="line">docker info</span><br></pre></td></tr></table></figure>
 
 <p>返回 Docker 的版本相关信息，证明 Docker 安装成功：</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-9d00c79ec213c84cd4b6aa057ef7ef8b_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-9d00c79ec213c84cd4b6aa057ef7ef8b_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-9d00c79ec213c84cd4b6aa057ef7ef8b_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-9d00c79ec213c84cd4b6aa057ef7ef8b_720w.webp" alt="img"></a></p>
 <h3 id="Docker-的简单运用-Hello-World"><a href="#Docker-的简单运用-Hello-World" class="headerlink" title="Docker 的简单运用 Hello World"></a>Docker 的简单运用 Hello World</h3><p>我们通过最简单的 Image 文件 Hello World，感受一下 Docker 的魅力吧！</p>
 <p>我们直接运行下面的命令，将名为 hello-world 的 image 文件从仓库抓取到本地：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull hello</span><br><span class="line">-</span><br><span class="line">world</span><br></pre></td></tr></table></figure>
 
 <p>docker pull images 是抓取 image 文件，library&#x2F;hello-world 是 image 文件在仓库里面的位置，其中 library 是 image 文件所在的组，hello-world 是 image 文件的名字。</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-5e7133c11bac3489a74ca3e1ddbd4c15_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-5e7133c11bac3489a74ca3e1ddbd4c15_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-5e7133c11bac3489a74ca3e1ddbd4c15_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-5e7133c11bac3489a74ca3e1ddbd4c15_720w.webp" alt="img"></a></p>
 <p>抓取成功以后，就可以在本机看到这个 image 文件了：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
 
 <p>我们可以看到如下结果：</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-e9f4664afab5c55abcd524121b65155e_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-e9f4664afab5c55abcd524121b65155e_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-e9f4664afab5c55abcd524121b65155e_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-e9f4664afab5c55abcd524121b65155e_720w.webp" alt="img"></a></p>
 <p>现在，我们可以运行 hello-world 这个 image 文件：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run hello</span><br><span class="line">-</span><br><span class="line">world</span><br></pre></td></tr></table></figure>
 
 <p>我们可以看到如下结果：</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-3211d862ee4b07a3eaae0d2ab0d69b47_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-3211d862ee4b07a3eaae0d2ab0d69b47_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-3211d862ee4b07a3eaae0d2ab0d69b47_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-3211d862ee4b07a3eaae0d2ab0d69b47_720w.webp" alt="img"></a></p>
 <p>输出这段提示以后，hello world 就会停止运行，容器自动终止。有些容器不会自动终止，因为提供的是服务，比如 Nginx镜像等。</p>
 <p>我们从上面可以看出，Docker 的功能是十分强大的，除此之外，我们还可以拉取一些 Centos，Ubuntu，Alpine等镜像，在未来的教程中我们将会一一提到。</p>
 <p>Docker 提供了一套简单实用的命令来创建和更新镜像，我们可以通过网络直接下载一个已经创建好了的应用镜像，并通过 Docker RUN 命令就可以直接使用。</p>
@@ -482,7 +482,7 @@
 <p>Docker 命令使用 Docker API 。Docker 客户端可以与多个服务端进行通信。</p>
 <p>我们将剖析一下 Docker 容器是如何工作的，学习好 Docker 容器工作的原理，我们就可以自己去管理我们的容器了。</p>
 <h3 id="Docker-配置镜像加速器"><a href="#Docker-配置镜像加速器" class="headerlink" title="Docker 配置镜像加速器"></a>Docker 配置镜像加速器</h3><p>这是使用阿里云docker镜像加速器。控制台地址:<a href="https://link.zhihu.com/?target=https://cr.console.aliyun.com">https://cr.console.aliyun.com</a>，登录后，左侧-镜像工具-镜像加速器，加速器帮助页面会为你显示<strong>独立的加速地址</strong>，这个加速地址每个人的都不同。</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-5edf67a347611a21ca56fc8272fa9853_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-5edf67a347611a21ca56fc8272fa9853_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-5edf67a347611a21ca56fc8272fa9853_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-5edf67a347611a21ca56fc8272fa9853_720w.webp" alt="img"></a></p>
 <p>针对Docker客户端版本大于 1.10.0 的用户</p>
 <p>您可以通过修改daemon配置文件&#x2F;etc&#x2F;docker&#x2F;daemon.json来使用加速器</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://zjj1c410.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
@@ -498,7 +498,7 @@
 <li>Docker Daemon 启动容器。</li>
 </ul>
 <p>具体过程可以看如下这幅演示图：</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-61ee39b51c97e00f39eed6861d88d74d_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-61ee39b51c97e00f39eed6861d88d74d_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-61ee39b51c97e00f39eed6861d88d74d_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-61ee39b51c97e00f39eed6861d88d74d_720w.webp" alt="img"></a></p>
 <p>我们可以通过 Docker Images 可以查看到 hello-world 已经下载到本地：</p>
 <p><a target="_blank" rel="noopener" href="https://pic2.zhimg.com/80/v2-f11d13e417ecd3c82e611bb53abb84cd_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic2.zhimg.com/80/v2-f11d13e417ecd3c82e611bb53abb84cd_720w.webp" alt="img"></a></p>
 <p>我们可以通过 Docker Ps 或者 Docker Container ls 显示正在运行的容器，我们可以看到，hello-world 在输出提示信息以后就会停止运行，容器自动终止，所以我们在查看的时候没有发现有容器在运行。</p>
@@ -513,7 +513,7 @@
 </ul>
 <p>了解了这些过程以后，我们再来理解这些命令就不会觉得很突兀了，下面我来给大家讲讲 Docker 常用的一些命令操作吧。</p>
 <h2 id="八、Docker-常用命令"><a href="#八、Docker-常用命令" class="headerlink" title="八、Docker 常用命令"></a>八、Docker 常用命令</h2><p>我们可以通过 docker -h 去查看命令的详细的帮助文档。在这里我只会讲一些日常我们可能会用的比较多的一些命令。</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-ca37702e3b27c530e0a02bcef774ea97_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-ca37702e3b27c530e0a02bcef774ea97_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-ca37702e3b27c530e0a02bcef774ea97_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-ca37702e3b27c530e0a02bcef774ea97_720w.webp" alt="img"></a></p>
 <h3 id="1-帮助启动类命令"><a href="#1-帮助启动类命令" class="headerlink" title="1.帮助启动类命令"></a>1.帮助启动类命令</h3><ul>
 <li>[ 查看版本] <code>docker version</code></li>
 <li>[ 查看Docker概要信息] <code>docker info</code></li>
@@ -546,7 +546,7 @@
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-a1fd33d4015a5a037cb96b7e8d647674_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-a1fd33d4015a5a037cb96b7e8d647674_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-a1fd33d4015a5a037cb96b7e8d647674_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-a1fd33d4015a5a037cb96b7e8d647674_720w.webp" alt="img"></a></p>
 <h3 id="3-下载镜像"><a href="#3-下载镜像" class="headerlink" title="3)下载镜像"></a>3)下载镜像</h3><blockquote>
 <p>docker pull 镜像名称[:tag]</p>
 </blockquote>
@@ -689,7 +689,7 @@
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-7f63fc781b72d42644f1c918f337b467_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-7f63fc781b72d42644f1c918f337b467_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-7f63fc781b72d42644f1c918f337b467_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-7f63fc781b72d42644f1c918f337b467_720w.webp" alt="img"></a></p>
 <h3 id="2-下载镜像"><a href="#2-下载镜像" class="headerlink" title="2.下载镜像"></a>2.下载镜像</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx</span><br><span class="line">:</span><br><span class="line">alpine</span><br></pre></td></tr></table></figure>
 
 
@@ -710,7 +710,7 @@
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-452128f17485c9e9f973007d1b54cb6a_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-452128f17485c9e9f973007d1b54cb6a_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-452128f17485c9e9f973007d1b54cb6a_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-452128f17485c9e9f973007d1b54cb6a_720w.webp" alt="img"></a></p>
 <h3 id="6-测试访问"><a href="#6-测试访问" class="headerlink" title="6.测试访问"></a>6.测试访问</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl </span><br><span class="line">127.0</span><br><span class="line">.</span><br><span class="line">0.1</span><br><span class="line">:</span><br><span class="line">80</span><br></pre></td></tr></table></figure>
 
 <p>127.0.0.1是本地回环ip，就是本机啦，可以用localhost代替。</p>
@@ -730,7 +730,7 @@
 <p>因此毫无疑问的说， Dockerfile 是镜像和容器的关键，并且 Dockerfile 还可以很轻易的去定义镜像内容，说了这么多，那么 Dockerfile 到底是个什么东西呢？</p>
 <p>Dockerfile 是自动构建 Docker 镜像的配置文件，用户可以使用 Dockerfile 快速创建自定义的镜像。Dockerfile 中的命令非常类似于 Linux 下的 Shell 命令。</p>
 <p>我们可以通过下面这幅图来直观地感受下 Docker 镜像、容器和 Dockerfile 三者之间的关系：</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-1819c7543c2367fa1b186ddea2abdf65_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-1819c7543c2367fa1b186ddea2abdf65_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-1819c7543c2367fa1b186ddea2abdf65_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-1819c7543c2367fa1b186ddea2abdf65_720w.webp" alt="img"></a></p>
 <p>我们从上图中可以看到，Dockerfile 可以自定义镜像，通过 Docker 命令去运行镜像，从而达到启动容器的目的。Dockerfile 是由一行行命令语句组成，并且支持已 # 开头的注释行。</p>
 <p>一般来说，我们可以将 Dockerfile 分为四个部分：</p>
 <ul>
@@ -820,7 +820,7 @@
 <li>:1.0 为标签（不添加为默认 latest ）</li>
 </ul>
 <p>我们构建完成之后，使用 Docker Images 命令查看所有镜像，如果存在 REPOSITORY 为 Nginx 和 TAG 是 1.0 的信息，就表示构建成功。</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-2e0fcd810a414de82cd4a8d819cf36e4_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-2e0fcd810a414de82cd4a8d819cf36e4_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-2e0fcd810a414de82cd4a8d819cf36e4_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-2e0fcd810a414de82cd4a8d819cf36e4_720w.webp" alt="img"></a></p>
 <p>接下来使用 docker run 命令来启动容器：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mynginx -d -p 8080:80 mynginx:1.0</span><br></pre></td></tr></table></figure>
 
@@ -828,7 +828,7 @@
 <p>这样我们可以用浏览器去访问这个 Nginx 服务器：</p>
 <p><a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080/</a></p>
 <p>或者 http:&#x2F;&#x2F;本机的 IP 地址：8080&#x2F;，页面返回信息：</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-1a09c14a77a59e5c12096aa6415aa546_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-1a09c14a77a59e5c12096aa6415aa546_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-1a09c14a77a59e5c12096aa6415aa546_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-1a09c14a77a59e5c12096aa6415aa546_720w.webp" alt="img"></a></p>
 <h2 id="十三、实战测试：制作镜像并且提交到镜像仓库"><a href="#十三、实战测试：制作镜像并且提交到镜像仓库" class="headerlink" title="十三、实战测试：制作镜像并且提交到镜像仓库"></a>十三、实战测试：制作镜像并且提交到镜像仓库</h2><h3 id="公有云镜像仓库"><a href="#公有云镜像仓库" class="headerlink" title="公有云镜像仓库"></a>公有云镜像仓库</h3><h3 id="Docker-Hub仓库"><a href="#Docker-Hub仓库" class="headerlink" title="Docker Hub仓库"></a>Docker Hub仓库</h3><p>1.注册docker hub 账号</p>
 <p>网址：<a href="https://link.zhihu.com/?target=https://hub.docker.com/">https://hub.docker.com/</a></p>
 <p>2.服务器上使用命令行登录</p>
@@ -836,7 +836,7 @@
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-391b8d6438e40f5cbb533521e0000094_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-391b8d6438e40f5cbb533521e0000094_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-391b8d6438e40f5cbb533521e0000094_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-391b8d6438e40f5cbb533521e0000094_720w.webp" alt="img"></a></p>
 <p>看到Lgin Succeeded，就表示登录成功了。</p>
 <p>3.构建镜像1)编写dockerfile</p>
 <p>alpine官方默认镜像，没有vim命令，我们就基于此，创建一个镜像。</p>
@@ -849,7 +849,7 @@
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-1586c500738be5b68eb4b9f08d3a66eb_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-1586c500738be5b68eb4b9f08d3a66eb_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-1586c500738be5b68eb4b9f08d3a66eb_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-1586c500738be5b68eb4b9f08d3a66eb_720w.webp" alt="img"></a></p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#查看刚构建的镜像</span><br><span class="line">docker images</span><br></pre></td></tr></table></figure>
 
 
@@ -860,12 +860,12 @@
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-ef26cd493ed14dd7137fd16d9c5ba6ef_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-ef26cd493ed14dd7137fd16d9c5ba6ef_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-ef26cd493ed14dd7137fd16d9c5ba6ef_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-ef26cd493ed14dd7137fd16d9c5ba6ef_720w.webp" alt="img"></a></p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#查看dockerfile的构建过程</span><br><span class="line">docker history myalpine:1.0</span><br></pre></td></tr></table></figure>
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-40f5528e7b03ec2591d864526c167667_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-40f5528e7b03ec2591d864526c167667_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-40f5528e7b03ec2591d864526c167667_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-40f5528e7b03ec2591d864526c167667_720w.webp" alt="img"></a></p>
 <p>4.推送镜像至docker hub</p>
 <p>需要先登录(根据提示输入用户名和密码即可)，已登录请忽略。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login</span><br></pre></td></tr></table></figure>
@@ -880,18 +880,18 @@
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker tag  myalpine:1.0 dhdemo/myalpine:1.0</span><br><span class="line">docker push dhdemo/myalpine:1.0</span><br></pre></td></tr></table></figure>
 
 <p>等了一会之后，就推送到docker hub</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-c3ba1a5ed78da60ab7e705603224d701_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-c3ba1a5ed78da60ab7e705603224d701_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-c3ba1a5ed78da60ab7e705603224d701_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-c3ba1a5ed78da60ab7e705603224d701_720w.webp" alt="img"></a></p>
 <p>我们登陆docker hub就可以看到我们刚刚推送上去的镜像啦，这个镜像可是全世界人民都看得到的哦，是不是有点小激动呢！</p>
 <p><a target="_blank" rel="noopener" href="https://pic4.zhimg.com/80/v2-d104bf21b6cc22c724090bedaacbc913_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic4.zhimg.com/80/v2-d104bf21b6cc22c724090bedaacbc913_720w.webp" alt="img"></a></p>
 <h3 id="阿里云仓库"><a href="#阿里云仓库" class="headerlink" title="阿里云仓库"></a>阿里云仓库</h3><p>国内镜像仓库有阿里云 、网易云等，这里以阿里云为例。</p>
 <p>1.登入阿里云地址并创建镜像仓库</p>
 <p><a href="https://link.zhihu.com/?target=https://aliyun.com">https://aliyun.com</a></p>
 <p><strong>搜索 “容器镜像服务”，找到镜像仓库，创建镜像仓库</strong></p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-5fcd436855cd5b6ba97d051e49624dfb_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-5fcd436855cd5b6ba97d051e49624dfb_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-5fcd436855cd5b6ba97d051e49624dfb_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-5fcd436855cd5b6ba97d051e49624dfb_720w.webp" alt="img"></a></p>
 <p><a target="_blank" rel="noopener" href="https://pic2.zhimg.com/80/v2-d1fca62213ecf5bbbc310cb007be3a0d_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic2.zhimg.com/80/v2-d1fca62213ecf5bbbc310cb007be3a0d_720w.webp" alt="img"></a></p>
 <p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-5b33c70e29fea7b44951e7f34dea7620_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-5b33c70e29fea7b44951e7f34dea7620_720w.webp" alt="img"></a></p>
 <p><strong>进入仓库查看创建后的镜像仓库信息</strong></p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-f621d0d45f8cdafd0bb08821e6946431_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-f621d0d45f8cdafd0bb08821e6946431_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-f621d0d45f8cdafd0bb08821e6946431_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-f621d0d45f8cdafd0bb08821e6946431_720w.webp" alt="img"></a></p>
 <p>2.推送镜像到阿里云仓库</p>
 <ul>
 <li>登录</li>
@@ -912,7 +912,7 @@
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-a411385059010777fd1956f1f0e926f0_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-a411385059010777fd1956f1f0e926f0_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-a411385059010777fd1956f1f0e926f0_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-a411385059010777fd1956f1f0e926f0_720w.webp" alt="img"></a></p>
 <ul>
 <li>查看阿里云镜像是否上传成功</li>
 </ul>
@@ -929,39 +929,39 @@
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-89ea8dfa5e87801bde923d19f09d187b_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-89ea8dfa5e87801bde923d19f09d187b_720w.webp" alt="img"></a></p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-e242e84eb67e14a30fc1756363c24d2b_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-e242e84eb67e14a30fc1756363c24d2b_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-89ea8dfa5e87801bde923d19f09d187b_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-89ea8dfa5e87801bde923d19f09d187b_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-e242e84eb67e14a30fc1756363c24d2b_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-e242e84eb67e14a30fc1756363c24d2b_720w.webp" alt="img"></a></p>
 <p>2.本地Reegistry镜像仓库证书加密</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install openssl11 -y #需要epel源将本地名令进行升级使其可以支持</span><br><span class="line">openssl11 req -newkey rsa:4096 -nodes -sha256 -keyout certs/www.registry.org.key -addext &quot;subjectAltName = DNS:www.registry.org&quot; -x509 -days 365 -out certs/www.registry.org.crt</span><br><span class="line">Generating a RSA private key #使用openssl11生成软件仓库的证书使其可以进行certs/www.registry,irg,crt使用的是相对路径注意下自己的所在位置</span><br></pre></td></tr></table></figure>
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-fb7b4a154ac08baf6fec1e1fff9301a4_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-fb7b4a154ac08baf6fec1e1fff9301a4_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-fb7b4a154ac08baf6fec1e1fff9301a4_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-fb7b4a154ac08baf6fec1e1fff9301a4_720w.webp" alt="img"></a></p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p  /etc/docker/certs.d/www.registry.org/  #建立存放证书的使得容器运行后自动读取证书</span><br><span class="line">cp certs/www.registry.org.crt /etc/docker/certs.d/www.registry.org/ca.crt #证书必须为ca.crt否则不会识别</span><br><span class="line">docker run -d -p 443:443 --name registry --restart=always -v /root/certs:/certs/ -v /opt/registry:/var/lib/registry/ -e REGISTRY_HTTP_ADDR=0.0.0.0:443   -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/www.registry.org.crt   -e REGISTRY_HTTP_TLS_KEY=/certs/www.registry.org.key registry</span><br><span class="line">#运行容器使得容器可以在后台自动运行同时将证书添加上去使得容器可以进行加密访问-v表示挂载目录目录未创建则自动创建-e表示添加证书</span><br></pre></td></tr></table></figure>
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-c1fe9503aecf9c2d40452d7d4e5a0769_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-c1fe9503aecf9c2d40452d7d4e5a0769_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-c1fe9503aecf9c2d40452d7d4e5a0769_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-c1fe9503aecf9c2d40452d7d4e5a0769_720w.webp" alt="img"></a></p>
 <p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-faaba77ee89b4828b1e15e800873b144_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-faaba77ee89b4828b1e15e800873b144_720w.webp" alt="img"></a></p>
 <p>3.Registry私有仓库http加密1)用户名和密码生成</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir auth        #建立存放认证的目录</span><br><span class="line">htpasswd -Bc auth/htpasswd uset1    #-B表示安全-c表示创建二次创建时不要加-c否则会覆盖之前的</span><br></pre></td></tr></table></figure>
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-25ed27c77bef7eba8319eefcf099461f_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-25ed27c77bef7eba8319eefcf099461f_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-25ed27c77bef7eba8319eefcf099461f_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-25ed27c77bef7eba8319eefcf099461f_720w.webp" alt="img"></a></p>
 <p>2)运行仓库</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 443:443 --restart=always --name registry \</span><br><span class="line">&gt; -v /root/auth:/auth/ \          #挂载认证</span><br><span class="line">&gt; -v /root/certs:/certs/ \          #挂载证书</span><br><span class="line">&gt; -v /opt/registry:/var/lib/registry \    #挂载数据卷</span><br><span class="line">&gt; -e &quot;REGISTRY_AUTH=htpasswd&quot; \</span><br><span class="line">&gt; -e &quot;REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm&quot; \</span><br><span class="line">&gt; -e &quot;REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd&quot; \</span><br><span class="line">&gt; -e &quot;REGISTRY_HTTP_ADDR=0.0.0.0:443&quot; \</span><br><span class="line">&gt; -e &quot;REGISTRY_HTTP_TLS_CERTIFICATE=/certs/www.registry.org.crt&quot; \</span><br><span class="line">&gt; -e &quot;REGISTRY_HTTP_TLS_KEY=/certs/www.registry.org.key&quot; \</span><br><span class="line">&gt; registry</span><br></pre></td></tr></table></figure>
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-5553c2539f527d40c016efc3f9e23bcc_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-5553c2539f527d40c016efc3f9e23bcc_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-5553c2539f527d40c016efc3f9e23bcc_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-5553c2539f527d40c016efc3f9e23bcc_720w.webp" alt="img"></a></p>
 <p>3)上传镜像到私服</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker tag yakexi007/game2018 www.registry.org/game2048      #更改tag标签准备上传</span><br><span class="line">docker login www.registry.org                   #登陆私有仓库</span><br><span class="line">docker push www.registry.org/game2048              #上传镜像</span><br></pre></td></tr></table></figure>
 
 
 
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-bb128e301f26100ad19f8f15115cba99_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-bb128e301f26100ad19f8f15115cba99_720w.webp" alt="img"></a></p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-d2343d6a03c3f61278e6489d2e58ff06_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-d2343d6a03c3f61278e6489d2e58ff06_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-bb128e301f26100ad19f8f15115cba99_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-bb128e301f26100ad19f8f15115cba99_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-d2343d6a03c3f61278e6489d2e58ff06_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-d2343d6a03c3f61278e6489d2e58ff06_720w.webp" alt="img"></a></p>
 <h3 id="Nexus"><a href="#Nexus" class="headerlink" title="Nexus"></a>Nexus</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nexus默认只有maven和nuget的镜像，但是他本身支持各种私有镜像，如linux软件包镜像：apt、yum，还有语言库镜像如：npm、conada、pypi、go，当然也包括docker的镜像。</span><br></pre></td></tr></table></figure>
 
 <p>前置条件：已安装docker</p>
@@ -970,20 +970,20 @@
 
 <p>其中8086端口是本文要使用的作为docker私有库的端口;</p>
 <p>登录后，创建docker镜像。</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-4e68de059cd2e371292b7748fdd5449a_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-4e68de059cd2e371292b7748fdd5449a_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-4e68de059cd2e371292b7748fdd5449a_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-4e68de059cd2e371292b7748fdd5449a_720w.webp" alt="img"></a></p>
 <p>镜像类型有点多，仔细观察</p>
-<p><strong><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-549808896a148835e01484d185950d6d_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-549808896a148835e01484d185950d6d_720w.webp" alt="img"></a></strong></p>
+<p><strong><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-549808896a148835e01484d185950d6d_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-549808896a148835e01484d185950d6d_720w.webp" alt="img"></a></strong></p>
 <p>可以发现docker的镜像类型有三个：group、host、proxy，他们的关系</p>
 <p>proxy：官方源的镜像代理</p>
 <p>host：自己创建的一些源，一般是私有的不公开的,<strong>本文主要创建的就是host类型的私有镜像</strong></p>
 <p>group：对这些镜像进行分组</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-47d4cb91cbd513f20636b5014cb70f9e_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-47d4cb91cbd513f20636b5014cb70f9e_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-47d4cb91cbd513f20636b5014cb70f9e_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-47d4cb91cbd513f20636b5014cb70f9e_720w.webp" alt="img"></a></p>
 <p>在创建docker库之前，需要做一个授权的设置，否则无法创建仓库</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-b188db52ea740cdf84af2dddaef3d986_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-b188db52ea740cdf84af2dddaef3d986_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-b188db52ea740cdf84af2dddaef3d986_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-b188db52ea740cdf84af2dddaef3d986_720w.webp" alt="img"></a></p>
 <p>下面就开始创建docker的仓库了，本文选择的是host类型，下面是录入的表单界面</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-0893e2fe3b7a4d1a78e0253f253625d0_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-0893e2fe3b7a4d1a78e0253f253625d0_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-0893e2fe3b7a4d1a78e0253f253625d0_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-0893e2fe3b7a4d1a78e0253f253625d0_720w.webp" alt="img"></a></p>
 <p>创建完查看仓库列表，多了刚才见的cs仓库</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-5d1df5efa57f497d8d0aa909af967680_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-5d1df5efa57f497d8d0aa909af967680_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-5d1df5efa57f497d8d0aa909af967680_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-5d1df5efa57f497d8d0aa909af967680_720w.webp" alt="img"></a></p>
 <p>仓库创建完以后，就可以使用一个测试的docker镜像来执行docker push了。</p>
 <p><strong>说明：</strong></p>
 <p>1)因为我的nexus3也是通过docker容器创建的，容器所在的机器上的IP地址是172.17.0.1，那么172.17.0.1:8086就是nexus3下私有docker镜像的地址；</p>
@@ -1001,7 +1001,7 @@
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker push 172.17.0.1:8086/app:v1.0.1</span><br><span class="line">The push refers to repository [172.17.0.1:8086/app]</span><br><span class="line">7eab7e4c2e5d: Pushed</span><br><span class="line">0c746c7a2bd6: Pushed</span><br><span class="line">9675b67121e6: Pushed</span><br><span class="line">f1dd685eb59e: Pushed</span><br><span class="line">v1.0.1: digest: sha256:1f1a27db80d7823d3dc08731732e7a935930a23e682b7ed6e2aaff2ff7d78743 size: 1153</span><br></pre></td></tr></table></figure>
 
 <p>在nexus3中查看push的镜像</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-60fbf9c9aa8749f1691429ef5e1531f2_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-60fbf9c9aa8749f1691429ef5e1531f2_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-60fbf9c9aa8749f1691429ef5e1531f2_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-60fbf9c9aa8749f1691429ef5e1531f2_720w.webp" alt="img"></a></p>
 <h3 id="Harbor"><a href="#Harbor" class="headerlink" title="Harbor"></a>Harbor</h3><p>Harbor 是由 VMware 公司中国团队为企业用户设计的 Registry server 开源项目，包括了权限管理 (RBAC)、LDAP、审计、管理界面、自我注册、HA 等企业必需的功能，同时针对中国用户的特点，设计镜像复制和中文支持等功能。</p>
 <p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-1d9db01e73b2835ac4476f05943fc338_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-1d9db01e73b2835ac4476f05943fc338_720w.webp" alt="img"></a></p>
 <p>作为一个企业级私有 Registry 服务器，Harbor 提供了更好的性能和安全。提升用户使用 Registry 构建和运行环境传输镜像的效率。Harbor 支持安装在多个 Registry 节点的镜像资源复制，镜像全部保存在私有 Registry 中， 确保数据和知识产权在公司内部网络中管控。另外，Harbor 也提供了高级的安全特性，诸如用户管理，访问控制和活动审计等。</p>
@@ -1071,7 +1071,7 @@
 
 <p>6)执行 <code>\q</code> 退出postgresql，再执行 exit 退出容器。</p>
 <p>7)重启harbor服务，以配置中的默认密码进行登陆。</p>
-<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/v2-3f785d52310e363bdc3e94fa63fb64f3_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/v2-3f785d52310e363bdc3e94fa63fb64f3_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-3f785d52310e363bdc3e94fa63fb64f3_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-3f785d52310e363bdc3e94fa63fb64f3_720w.webp" alt="img"></a></p>
 <blockquote>
 <p><strong>参考链接：</strong><br><a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E8%99%9A%E6%8B%9F%E6%9C%BA/104440?fr=aladdin">https://baike.baidu.com/item/%E8%99%9A%E6%8B%9F%E6%9C%BA/104440?fr=aladdin</a><br><a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/Docker%E5%AE%B9%E5%99%A8?fromModule=search-resultlemma">https://baike.baidu.com/item/Docker%E5%AE%B9%E5%99%A8?fromModule=search-resultlemma</a><br><a href="https://link.zhihu.com/?target=http://dockone.io/article/8350">http://dockone.io/article/8350</a><br><a href="https://link.zhihu.com/?target=https://blog.csdn.net/m061503020/article/details/125456520">https://blog.csdn.net/m061503020/article/details/125456520</a><br><a href="https://link.zhihu.com/?target=https://blog.csdn.net/weixin_46560589/article/details/125184387">https://blog.csdn.net/weixin_46560589&#x2F;article&#x2F;details&#x2F;125184387</a><br><a href="https://link.zhihu.com/?target=https://www.cnblogs.com/kire-cat/p/16471962.html">https://www.cnblogs.com/kire-cat/p/16471962.html</a><br><a href="https://link.zhihu.com/?target=https://www.pudn.com/news/6273ff5c8dbc4529de3d3dd7.html">https://www.pudn.com/news/6273ff5c8dbc4529de3d3dd7.html</a><br><a href="https://link.zhihu.com/?target=https://blog.csdn.net/u012632105/article/details/107110243">https://blog.csdn.net/u012632105/article/details/107110243</a><br><a href="https://link.zhihu.com/?target=https://www.cnblogs.com/Netsharp/p/15459481.html">https://www.cnblogs.com/Netsharp/p/15459481.html</a><br><a href="https://link.zhihu.com/?target=https://www.oschina.net/p/harbor?hmsr=aladdin1e1">https://www.oschina.net/p/harbor?hmsr=aladdin1e1</a><br><a href="https://link.zhihu.com/?target=https://www.cnblogs.com/hahaha111122222/p/16370495.html">https://www.cnblogs.com/hahaha111122222/p/16370495.html</a></p>
 </blockquote>

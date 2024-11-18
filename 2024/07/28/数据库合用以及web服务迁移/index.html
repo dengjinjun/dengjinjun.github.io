@@ -232,11 +232,50 @@
 </li>
 <li><p>Windows exporter 监控客户端</p>
 </li>
-<li><p>rclone软件及配置</p>
+<li><p>安装NFS客户端功能，便于使用robocopy(自带的)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">robocopy D:\DBBAK\   \\10.100.3.132\47c7c0ed4292\DBBAK /mir</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>rclone软件及配置（不要了）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rclone sync  -P D:\DBBAK backup:biggeryun-backup-1251252938/DBBAK/vmware --max-age 2d</span><br></pre></td></tr></table></figure></li>
 </ul>
+<blockquote>
+<p><strong>下载数据库备份文件</strong></p>
+</blockquote>
+<p>远程下载名为<code>XXXX</code>的目录中的所有bak文件，<code>XXXX</code>是客户的简拼，目录的内容类似下面这样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Inroad-XXXX.bak</span><br><span class="line">InroadLowCode2-XXXX.bak</span><br><span class="line">InroadTodoService-XXXX.bak</span><br></pre></td></tr></table></figure>
+
+<p>可能有lowcode或者todo的数据库，也可能没有</p>
+<blockquote>
+<p><strong>还原数据库</strong></p>
+</blockquote>
+<p>数据库名称是下面这样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Inroad-XXXX</span><br><span class="line">InroadLowCode2-XXXX</span><br><span class="line">InroadTodoService-XXXX</span><br></pre></td></tr></table></figure>
+
+<p>数据库文件存放的目录在<code>D:\DB\XXXX\*</code>，这样各家是独立的</p>
+<blockquote>
+<p><strong>数据库作业</strong></p>
+</blockquote>
+<p>数据库历史作业，还有每天创建备份，数据库备份文件放在<code>D:\DBBAK\XXXX\*</code>，这样各家是独立的，下面可以再分inroad,lowcode和todo的单独目录，也可以不分。</p>
+<blockquote>
+<p><strong>定期删除备份文件</strong></p>
+</blockquote>
+<p>递归删除DBBAK目录里面，所有超过7天的备份文件</p>
 <p>bsbmlink打包镜像脚本</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /root/link &amp;&amp; wget <span class="variable">$1</span></span><br><span class="line"><span class="built_in">rm</span> -f link.tar</span><br><span class="line">unzip -o *.zip</span><br><span class="line"><span class="built_in">rm</span> -f *.zip</span><br><span class="line">docker build -t bsbm/link:<span class="variable">$2</span> .</span><br><span class="line">docker save bsbm/link:<span class="variable">$2</span> -o link.tar</span><br><span class="line">scp -rp link.tar 10.134.204.14:/root/link_images/</span><br><span class="line">scp -rp link.tar 10.134.204.15:/root/link_images/</span><br><span class="line">ssh root@10.134.204.14 <span class="string">&#x27;docker load -i /root/link_images/link.tar&#x27;</span></span><br><span class="line">ssh root@10.134.204.15 <span class="string">&#x27;docker load -i /root/link_images/link.tar&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -k -H <span class="string">&quot;Content-Type: application/json&quot;</span> -X PUT --data-binary @djdh.json http://127.0.0.1:8081/api/v1/namespaces/djdh/finalize</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">dev </span><br><span class="line">|------V2.5.0 </span><br><span class="line">		 |---- tag v2.5.0-date0</span><br><span class="line">		 |---- tag v2.5.0-date1		 </span><br><span class="line"></span><br><span class="line">git pull ----&gt; bat/shell ----&gt; pnpm run build ----&gt; low-code-platform ----&gt; zip -----&gt; 制品仓库</span><br><span class="line"></span><br><span class="line">147.243.12.105 - - [09/Aug/2024:11:00:10 +0800] &quot;GET /low-code-platform/static/web-control_1.2.5.min.js HTTP/1.1&quot; 404 555 &quot;https://epermit-btbm.basf.com/low-code-platform/&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36&quot; &quot;40.73.95.120&quot; &quot;-&quot; &quot;-&quot; &quot;-&quot; &quot;0.000&quot;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 </div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
         var options1 = {

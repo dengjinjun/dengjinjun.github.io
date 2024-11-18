@@ -151,7 +151,7 @@
     <div class="post-md">
         
             
-                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E8%8F%9C%E5%8D%95%E5%90%8C%E6%AD%A5"><span class="post-toc-text">配置菜单同步</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BD%9C%E4%B8%9A%E7%A5%A8%E5%90%8C%E6%AD%A5"><span class="post-toc-text">配置作业票同步</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A4%8D%E5%88%B6%E5%8F%B0%E8%B4%A6"><span class="post-toc-text">复制台账</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%B0%83%E6%95%B4%E4%BD%9C%E4%B8%9A%E7%A5%A8%E7%8A%B6%E6%80%81"><span class="post-toc-text">调整作业票状态</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Inroad%E6%8A%A5%E9%94%99%E6%97%A5%E5%BF%97%E6%9F%A5%E8%AF%A2"><span class="post-toc-text">Inroad报错日志查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%91%E5%AE%9ADV3%E5%92%8CDV5"><span class="post-toc-text">数据库绑定DV3和DV5</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sql-server2012%E5%8D%87%E7%BA%A72016"><span class="post-toc-text">sql server2012升级2016</span></a></li></ol>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E8%8F%9C%E5%8D%95%E5%90%8C%E6%AD%A5"><span class="post-toc-text">配置菜单同步</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BD%9C%E4%B8%9A%E7%A5%A8%E5%90%8C%E6%AD%A5"><span class="post-toc-text">配置作业票同步</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A4%8D%E5%88%B6%E5%8F%B0%E8%B4%A6"><span class="post-toc-text">复制台账</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A4%8D%E5%88%B6%E4%BD%9C%E4%B8%9A%E6%A0%87%E9%A2%98"><span class="post-toc-text">复制作业标题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%B0%83%E6%95%B4%E4%BD%9C%E4%B8%9A%E7%A5%A8%E7%8A%B6%E6%80%81"><span class="post-toc-text">调整作业票状态</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Inroad%E6%8A%A5%E9%94%99%E6%97%A5%E5%BF%97%E6%9F%A5%E8%AF%A2"><span class="post-toc-text">Inroad报错日志查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%91%E5%AE%9ADV3%E5%92%8CDV5"><span class="post-toc-text">数据库绑定DV3和DV5</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sql-server2012%E5%8D%87%E7%BA%A72016"><span class="post-toc-text">sql server2012升级2016</span></a></li></ol>
             
         
         <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="配置菜单同步"><a href="#配置菜单同步" class="headerlink" title="配置菜单同步"></a>配置菜单同步</h2><p>需求：新疆梅花生物新搭建的环境，要同步吉林梅花生物的菜单</p>
@@ -162,7 +162,7 @@
 <li><p>设置脚本编写选项里面，高级，然后在最下面找到要编写脚本的数据的类型，选择仅限数据，然后点击确定，选择在新建查询窗口打开，然后把脚本复制下来</p>
 </li>
 <li><p>找到新疆梅花生物的Inroad数据库，直接新建查询，删除脚本中的第一行，添加两行，执行即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">truncate table CommonAppMenuCustom </span><br><span class="line">truncate table CommonwebMenuCustom </span><br></pre></td></tr></table></figure></li>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> CommonAppMenuCustom </span><br><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> CommonwebMenuCustom </span><br></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="配置作业票同步"><a href="#配置作业票同步" class="headerlink" title="配置作业票同步"></a>配置作业票同步</h2><p>需求：联欣环保科技新搭建的环境，要同步健坤化学的菜单和作业票</p>
 <p>菜单的同步上面已经写过了，作业票的同步跟菜单同步差不多，只是数据表不一样</p>
@@ -172,9 +172,12 @@
 
 
 <h2 id="复制台账"><a href="#复制台账" class="headerlink" title="复制台账"></a>复制台账</h2><p>跟上面一样，数据表：<code>CommonLedgerConfig</code>，<code>CommonLedgerConfigPart</code>，<code>CommonLedgerConfigPartColumn</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">truncate table CommonLedgerConfig</span><br><span class="line">truncate table CommonLedgerConfigPart</span><br><span class="line">truncate table CommonLedgerConfigPartColumn</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> CommonLedgerConfig</span><br><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> CommonLedgerConfigPart</span><br><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> CommonLedgerConfigPartColumn</span><br></pre></td></tr></table></figure>
 
 
+
+<h2 id="复制作业标题"><a href="#复制作业标题" class="headerlink" title="复制作业标题"></a>复制作业标题</h2><p>两张表：<code>WorkingBillType</code>，<code>WorkingBillTypeDetail</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> WorkingBillType</span><br><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> WorkingBillTypeDetail</span><br></pre></td></tr></table></figure>
 
 
 
