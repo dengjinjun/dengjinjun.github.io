@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="iptables详细规则" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            iptables详细规则
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9F%A5%E8%AF%A2%E8%A7%84%E5%88%99"><span class="post-toc-text">查询规则</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0%E8%A7%84%E5%88%99"><span class="post-toc-text">添加规则</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%A0%E9%99%A4iptables%E4%B8%AD%E7%9A%84%E8%AE%B0%E5%BD%95"><span class="post-toc-text">删除iptables中的记录</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BF%AE%E6%94%B9%E8%A7%84%E5%88%99"><span class="post-toc-text">修改规则</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BF%9D%E5%AD%98%E8%A7%84%E5%88%99"><span class="post-toc-text">保存规则</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9B%B4%E8%AF%A6%E7%BB%86%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="post-toc-text">更详细的命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#tcp%E6%89%A9%E5%B1%95%E6%A8%A1%E5%9D%97"><span class="post-toc-text">tcp扩展模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#multiport%E6%89%A9%E5%B1%95%E6%A8%A1%E5%9D%97"><span class="post-toc-text">multiport扩展模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#iprange%E6%89%A9%E5%B1%95%E6%A8%A1%E5%9D%97"><span class="post-toc-text">iprange扩展模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#string%E6%89%A9%E5%B1%95%E6%A8%A1%E5%9D%97"><span class="post-toc-text">string扩展模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#time%E6%89%A9%E5%B1%95%E6%A8%A1%E5%9D%97"><span class="post-toc-text">time扩展模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#connlimit%E6%A8%A1%E5%9D%97"><span class="post-toc-text">connlimit模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#limit%E6%89%A9%E5%B1%95%E6%A8%A1%E5%9D%97"><span class="post-toc-text">limit扩展模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#udp%E6%89%A9%E5%B1%95%E6%A8%A1%E5%9D%97"><span class="post-toc-text">udp扩展模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#icmp%E6%89%A9%E5%B1%95%E6%A8%A1%E5%9D%97"><span class="post-toc-text">icmp扩展模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#state%E6%89%A9%E5%B1%95%E6%A8%A1%E5%9D%97"><span class="post-toc-text">state扩展模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%BB%91%E7%99%BD%E5%90%8D%E5%8D%95%E6%9C%BA%E5%88%B6"><span class="post-toc-text">黑白名单机制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%93%BE"><span class="post-toc-text">自定义链</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BA%86%E8%A7%A3%EF%BC%9Aufw%E9%98%B2%E7%81%AB%E5%A2%99"><span class="post-toc-text">了解：ufw防火墙</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h3 id="查询规则"><a href="#查询规则" class="headerlink" title="查询规则"></a>查询规则</h3><p>命令格式：<code>iptables [选项] [参数]</code></p>
+<p><strong>常用选项</strong>：<br><code>-L</code>: list的缩写，list我们通常翻译成列表，意思是列出每条链上的规则，因为多条规则就是一个列表，所以用<code>-L</code>来表示。<code>-L</code>后面还可以跟上5条链(POSTROUTING、INPUT、FORWARD、OUTPUT、POSTROUTING)的其中一条链名，注意链名必须全大写，如查看“INPUT链”上的规则:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -L INPUT</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ExplainChain INPUT (policy ACCEPT)</span><br><span class="line">target     prot opt source               destination</span><br><span class="line">ACCEPT     all  --  anywhere             anywhere            state RELATED,ESTABLISHED</span><br><span class="line">ACCEPT     icmp --  anywhere             anywhere</span><br><span class="line">ACCEPT     all  --  anywhere             anywhere</span><br><span class="line">ACCEPT     tcp  --  anywhere             anywhere            state NEW tcp dpt:ssh</span><br><span class="line">REJECT     all  --  anywhere             anywhere            reject-with icmp-host-prohibited</span><br></pre></td></tr></table></figure>
+
+<p>不指定的话就是默认查看所有链上的规则列表:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -L</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ExplainChain INPUT (policy ACCEPT)</span><br><span class="line">target     prot opt source               destination</span><br><span class="line">ACCEPT     all  --  anywhere             anywhere            state RELATED,ESTABLISHED</span><br><span class="line">ACCEPT     icmp --  anywhere             anywhere</span><br><span class="line">ACCEPT     all  --  anywhere             anywhere</span><br><span class="line">ACCEPT     tcp  --  anywhere             anywhere            state NEW tcp dpt:ssh</span><br><span class="line">REJECT     all  --  anywhere             anywhere            reject-with icmp-host-prohibited</span><br><span class="line"></span><br><span class="line">Chain FORWARD (policy ACCEPT)</span><br><span class="line">target     prot opt source               destination</span><br><span class="line">REJECT     all  --  anywhere             anywhere            reject-with icmp-host-prohibited</span><br><span class="line"></span><br><span class="line">Chain OUTPUT (policy ACCEPT)</span><br><span class="line">target     prot opt source               destination</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Chain INPUT:</strong> INPUT链上的规则，同理，后面的“Chain FORWARD”、“Chain OUTPUT”分别是FORWARD链和OUTPUT链上的规则；</li>
+<li><strong>(policy ACCEPT):</strong> 表示默认策略是接受，即假如我没设置，那就是允许，只有我设置哪个不允许，才会不允许，示例中是安装iptables后的默认规则，由于默认是ACCEPT，你规则也设置为ACCEPT按道理来说是没什么意义的，因为你不设置也是ACCEPT呀，但事实上，是为了方便修改为REJECT&#x2F;DROP等规则，说白了就是放在那，要设置的时候我们就可以直接修改；</li>
+<li><strong>target:</strong> 英文意思是“目标”，但该列的值通常是动作，比如ACCEPT(接受)、REJECT(拒绝)等等，但它确实可以是“目标”，比如我们创建 一条链<code>iptables -N July_filter</code>，然后在INPUT链上添加一条规则，让它跳转到刚刚的新链<code>-A INPUT -p tcp -j July_filter</code>，再用<code>iptables -L</code>查看，可以看到target此时已经是真正的“target(July_filter)”而不再是动作了：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ExplainChain INPUT (policy ACCEPT)</span><br><span class="line">target     prot opt source               destination</span><br><span class="line">ACCEPT     all  --  anywhere             anywhere            state RELATED,ESTABLISHED</span><br><span class="line">ACCEPT     icmp --  anywhere             anywhere</span><br><span class="line">ACCEPT     all  --  anywhere             anywhere</span><br><span class="line">ACCEPT     tcp  --  anywhere             anywhere            state NEW tcp dpt:ssh</span><br><span class="line">REJECT     all  --  anywhere             anywhere            reject-with icmp-host-prohibited</span><br><span class="line">July_filter  tcp  --  anywhere             anywhere</span><br><span class="line"></span><br><span class="line">Chain FORWARD (policy ACCEPT)</span><br><span class="line">target     prot opt source               destination</span><br><span class="line">REJECT     all  --  anywhere             anywhere            reject-with icmp-host-prohibited</span><br><span class="line"></span><br><span class="line">Chain OUTPUT (policy ACCEPT)</span><br><span class="line">target     prot opt source               destination</span><br><span class="line"></span><br><span class="line">Chain July_filter (1 references)</span><br><span class="line">target     prot opt source               destination</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>prot:</strong> protocol，协议；</li>
+<li><strong>opt:</strong> option，选项；</li>
+<li><strong>source:</strong> 源地址(ip(可以是网段)&#x2F;域名&#x2F;主机名)</li>
+<li><strong>destination:</strong> 目标地址(ip(可以是网段)&#x2F;域名&#x2F;主机名)</li>
+<li><strong>末列:</strong> 一些额外的信息</li>
+</ul>
+<hr>
+<p><code>-t</code>：前面<code>-L</code>不是列出所有链的规则列表吗？为什么没有PREROUTING和POSTROUTING链呢？因为有默认参数<code>-t</code>，t是table的缩写，意思是指定显示哪张“表”中的规则(前面说过iptables有四种表)，<code>iptables -L</code>其实就相当于<code>iptables -t filter -L</code>，即相当于你查看的是“filter”表中的规则。而根据前面的讲解，filter表只可用于INPUT、FORWARD、OUTPUT三条链中，这就是为什么<code>iptables -L</code>不显示PREROUTING链和POSTROUTING链的原因。</p>
+<hr>
+<p><code>-n</code>: numeric的缩写，numeric意思是数字的，数值的，意思是指定源和目标地址、端口什么的都以数字&#x2F;数值的方式显示，否则默认会以域名&#x2F;主机名&#x2F;程序名等显示，该选项一般与<code>-L</code>合用，因为单独的<code>-n</code>是没有用的(没有<code>-L</code>列表都不显示，所以用<code>-n</code>就没有意义了)。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ExplainChain INPUT (policy ACCEPT)</span><br><span class="line">target     prot opt source               destination</span><br><span class="line">ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           state RELATED,ESTABLISHED</span><br><span class="line">ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0</span><br><span class="line">ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0</span><br><span class="line">ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           state NEW tcp dpt:22</span><br><span class="line">REJECT     all  --  0.0.0.0/0            0.0.0.0/0           reject-with icmp-host-prohibited</span><br><span class="line"></span><br><span class="line">Chain FORWARD (policy ACCEPT)</span><br><span class="line">target     prot opt source               destination</span><br><span class="line">REJECT     all  --  0.0.0.0/0            0.0.0.0/0           reject-with icmp-host-prohibited</span><br><span class="line"></span><br><span class="line">Chain OUTPUT (policy ACCEPT)</span><br><span class="line">target     prot opt source               destination</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><code>-v</code>: 基本上有点Linux常识的童鞋就应该知道，<code>-v</code>在Linux命令里，一般都是指“verbose”，这个词的意思是是“冗余的，啰嗦的”，即输出更加详细的信息，在iptables这里也是这个意思，一般可以跟<code>-L</code>连用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -v -L</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ExplainChain INPUT (policy ACCEPT 0 packets, 0 bytes)</span><br><span class="line"> pkts bytes target     prot opt in     out     source               destination</span><br><span class="line">13627 1033K ACCEPT     all  --  any    any     anywhere             anywhere            state RELATED,ESTABLISHED</span><br><span class="line">    0     0 ACCEPT     icmp --  any    any     anywhere             anywhere</span><br><span class="line">    0     0 ACCEPT     all  --  lo     any     anywhere             anywhere</span><br><span class="line">    2   128 ACCEPT     tcp  --  any    any     anywhere             anywhere            state NEW tcp dpt:ssh</span><br><span class="line">  275 53284 REJECT     all  --  any    any     anywhere             anywhere            reject-with icmp-host-prohibited</span><br><span class="line"></span><br><span class="line">Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)</span><br><span class="line"> pkts bytes target     prot opt in     out     source               destination</span><br><span class="line">    0     0 REJECT     all  --  any    any     anywhere             anywhere            reject-with icmp-host-prohibited</span><br><span class="line"></span><br><span class="line">Chain OUTPUT (policy ACCEPT 12506 packets, 1485K bytes)</span><br><span class="line"> pkts bytes target     prot opt in     out     source               destination</span><br></pre></td></tr></table></figure>
+
+<p>可以看到多了四列：</p>
+<ul>
+<li><strong>pkts:</strong> packets，包的数量；</li>
+<li><strong>bytes:</strong> 流过的数据包的字节数；</li>
+<li><strong>in:</strong> 入站网卡；</li>
+<li><strong>out:</strong> 出站网卡。</li>
+</ul>
+<p>当然还可以跟前面的<code>-n</code>合用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -n -v -L</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这样source和destination中用域名或者字符串表示的方式就换成ip了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ExplainChain INPUT (policy ACCEPT 0 packets, 0 bytes)</span><br><span class="line"> pkts bytes target     prot opt in     out     source               destination</span><br><span class="line">13642 1034K ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0           state RELATED,ESTABLISHED</span><br><span class="line">    0     0 ACCEPT     icmp --  *      *       0.0.0.0/0            0.0.0.0/0</span><br><span class="line">    0     0 ACCEPT     all  --  lo     *       0.0.0.0/0            0.0.0.0/0</span><br><span class="line">    2   128 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0           state NEW tcp dpt:22</span><br><span class="line">  275 53284 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0           reject-with icmp-host-prohibited</span><br><span class="line"></span><br><span class="line">Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)</span><br><span class="line"> pkts bytes target     prot opt in     out     source               destination</span><br><span class="line">    0     0 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0           reject-with icmp-host-prohibited</span><br><span class="line"></span><br><span class="line">Chain OUTPUT (policy ACCEPT 12516 packets, 1489K bytes)</span><br><span class="line"> pkts bytes target     prot opt in     out     source               destination</span><br></pre></td></tr></table></figure>
+
+<p>稍微了解Linux命令的童鞋应该都知道，在很多情况下，Linux的选项是可以合并的，比如前面的<code>iptables -n -v -L</code>其实是可以合并成<code>iptables -nvL</code>的，并且参数顺序一般情况下是无关紧要的，比如<code>iptables -vnL</code>也是一样的。但是<code>-L</code>一定要写在最后，原因是<code>-L</code>是要接收参数的选项(虽然可以不传参数)，而<code>-v</code>和<code>-n</code>是不需要接收参数的，假如你写成<code>iptables -Lvn</code>，那就表示是用<code>-n</code>来接收参数了，这肯定是不行的。</p>
+<hr>
+<p><code>-x</code>: 加了<code>-v</code>后，Policy那里变成了“(policy ACCEPT 0 packets, 0 bytes)”，即多了过滤的数据包数量和字节数，其中的字节数，如果数据大了之后，会自动转换单位，比如够KB不够MB，它会显示“xxxk”，够了MB它显示“MB”，但单位转换之后，就不完全精确了，因为它没有小数，如果还是想要看以“字母”即“bytes”为单位查看的话，加个<code>-x</code>就行了，“x”来自于“exact”，意思是“精确的；准确的”，不取首字母应该是太多选项首字母是e了。</p>
+<hr>
+<p><code>--line-numbers</code>: 如果你想列表有序号，可以加上该选项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -nvL --line-numbers</span><br></pre></td></tr></table></figure>
+
+
+
+<p>结果中多了一列“num”，就是序号：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ExplainChain INPUT (policy ACCEPT 0 packets, 0 bytes)</span><br><span class="line">num   pkts bytes target     prot opt in     out     source               destination</span><br><span class="line">1    14739 1123K ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0           state RELATED,ESTABLISHED</span><br><span class="line">2        0     0 ACCEPT     icmp --  *      *       0.0.0.0/0            0.0.0.0/0</span><br><span class="line">3        0     0 ACCEPT     all  --  lo     *       0.0.0.0/0            0.0.0.0/0</span><br><span class="line">4        2   128 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0           state NEW tcp dpt:22</span><br><span class="line">5      305 55948 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0           reject-with icmp-host-prohibited</span><br><span class="line">6        0     0 July_filter  tcp  --  *      *       0.0.0.0/0            0.0.0.0/0</span><br><span class="line"></span><br><span class="line">Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)</span><br><span class="line">num   pkts bytes target     prot opt in     out     source               destination</span><br><span class="line">1        0     0 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0           reject-with icmp-host-prohibited</span><br><span class="line"></span><br><span class="line">Chain OUTPUT (policy ACCEPT 310 packets, 42772 bytes)</span><br><span class="line">num   pkts bytes target     prot opt in     out     source               destination</span><br><span class="line"></span><br><span class="line">Chain July_filter (1 references)</span><br><span class="line">num   pkts bytes target     prot opt in     out     source               destination</span><br></pre></td></tr></table></figure>
+
+<p>其实，<code>--line-numbers</code>并不用写全，不然也太长了，其实写成<code>--line</code>就行了，甚至你不写最后一个e，即写成<code>--lin</code>都行。</p>
+<p>合并使用各选项的命令示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables --line -t filter -nvxL INPUT</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="添加规则"><a href="#添加规则" class="headerlink" title="添加规则"></a>添加规则</h3><p>我们可以向某条链中的某个表的最前面添加记录(我们叫“插入”，会用到<code>-I</code>选项，I表示Input)，也可以向某条链中的某个表的最后面添加记录(我们叫“追加”，会用到<code>-A</code>选项，A表示Append)，熟悉<code>vi/vim</code>的童鞋会对这个“I”和“A”感觉到熟悉，因为在<code>vi/vim</code>的命令模式下，按<code>I</code>是在光标所行的行首插入，按<code>A</code>是在光标所在行的行尾插入，跟这个在表头跟表尾插入非常像。</p>
+<p>之所以有向前添加和向后添加，是因为如果前面规则的是丢弃或拒绝，那么后面的规则是不会起作用的；而如果前面的是接受后面的是丢弃或拒绝，则接受之后后面的丢弃或拒绝也是不会生效的。</p>
+<p>向INPUT链的filter表中添加一条规则：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -s 10.37.129.2 -j DROP</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><code>-t</code>: 是指定插入到哪个表中，不写的话默认为“filter”表；</li>
+<li><code>-I</code>: 指定插入到哪条链中，并且会在该链指定表(在这里是filter表)中的最前面插入(I:Input)，如果用<code>-A</code>则是在最后插入(A:Append)。</li>
+<li><code>-s</code>: 匹配源ip，s: source，源。</li>
+<li><code>-j</code>: jump，跳转的意思，后面可指定跳转的target(目标)，比如自定义的链，当然更多的是跳转到“action(动作)”中，比如ACCEPT、DROP、REJECT等等。</li>
+<li>整个意思，就是向iptables中的“INPUT”链(<code>-I INPUT</code>)的“filter”表(<code>-t filter</code>)的最前面(<code>-I</code>)添加一条记录，这条记录会匹配源地址为“10.39.129.2”的请求(<code>-s 10.39.129.2</code>)，并把该请求丢弃掉(<code>-j DROP</code>)。</li>
+</ul>
+<h3 id="删除iptables中的记录"><a href="#删除iptables中的记录" class="headerlink" title="删除iptables中的记录"></a>删除iptables中的记录</h3><p><strong>1、根据编号删除</strong>：<br>前面说过，查询iptables规则列表时，添加<code>--line-numbers</code>简写成<code>--line</code>即可显示记录编号，我们现在就可以根据这个编号来删除了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -D INPUT 2</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>-t filter</code>指定操作的表为filter表，<code>-D</code>表示delete，后面跟的两个参数，第一个是链名，第二个是要删除的规则的编号。</p>
+<p><strong>2、根据条件删除</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -D INPUT -s 10.37.129.2 -j DROP</span><br></pre></td></tr></table></figure>
+
+
+
+<p>删除INPUT链中的filter表中源地址为“10.37.129.2”并且动作为“DROP”的规则。</p>
+<p><strong>3、清空</strong>：<br><code>-F</code>: flush的缩写，flush是“冲洗、冲掉”的意思，在这里是清空的意思，<code>iptables -t filter -F INPUT</code>代表清空“INPUT”链中“filter”表中的所有规则，如果不指定链不指定表，即直接用<code>iptables -F</code>，则清空所有链中所有表的规则。</p>
+<h3 id="修改规则"><a href="#修改规则" class="headerlink" title="修改规则"></a>修改规则</h3><p>事实上用“替换”来描述会更好一点，因为所谓的修改其实就是把整个规则替换成新的规则：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -R INPUT 1 -s 10.37.129.3 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其中的<code>-R</code>就是replace，即替换的意思，整句命令意思是从INPUT链中的filter表中替换编号为1的规则，编号1后面的<code>-s 10.37.129.3 -j ACCEPT</code>就是要替换成的新规则。</p>
+<p><strong>修改策略(policy):</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables  -P FORWARD DROP</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>-P</code>: policy，即策略。整个意思是把FORWARD链的默认规则设置为DROP，需要注意的是，策略对整个链起作用，不会在同一条链中对两个不同的表起作用，虽然<code>man iptables</code>中有<code>iptables [-t table] -P chain target</code>这个说明，但我认为这是错的，不信你可以执行以下两条命令试试，不管先执行哪行，后面执行的总会替换前面执行的(即使它们指定的表不一样)，这就说明指定表跟不指定表是没区别的，因为默认规则是作用于整条链的，无法单独对表作用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t raw -P OUTPUT ACCEPT</span><br><span class="line">iptables -t filter -P OUTPUT DROP</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注：这个结论还有待证明，我目前认为是这样。</p>
+<h3 id="保存规则"><a href="#保存规则" class="headerlink" title="保存规则"></a>保存规则</h3><p><strong>对于CentOS6:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables save</span><br></pre></td></tr></table></figure>
+
+
+
+<p>保存时它会输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables: Saving firewall rules to /etc/sysconfig/iptables:[  OK  ]</span><br></pre></td></tr></table></figure>
+
+<p>是的，它是保存到<code>/etc/sysconfig/iptables</code>文件中的。</p>
+<hr>
+<p><strong>另一种方式保存方式</strong>：<code>iptables-save</code>命令能把需要保存规则数据输出到控制台，由前面可知，保存iptables规则其实是保存到<code>/etc/sysconfig/iptables</code>文件中，所以我们只要把<code>iptables-save</code>输出的内容重定向输入到<code>/etc/sysconfig/iptables</code>文件中即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables-save &gt; /etc/sysconfig/iptables</span><br></pre></td></tr></table></figure>
+
+
+
+<p>同理，还有另一个命令用于重载配置(即以下操作相当于<code>service iptables reload</code>)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables-restore &lt; /etc/sysconfig/iptables</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>对于CentOS7:</strong><br>前面说过CentOS7需要自己安装<code>iptables-services</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y iptables-services</span><br></pre></td></tr></table></figure>
+
+
+
+<p>安装后，就可以跟CentOS6一样保存了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables save</span><br></pre></td></tr></table></figure>
+
+
+
+<p>但要注意的是，这个save必须用service的方式，不能用systemctl，也就是不能这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl save iptables</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在CentOS7中start&#x2F;status&#x2F;stop&#x2F;restart&#x2F;reload都可以换成systemctl的方式，但唯独save不能换成systemctl的方式。</p>
+<p>另外，<code>iptables-save</code>和<code>iptables-restore</code>也跟CentOS6一样可以使用。</p>
+<h3 id="更详细的命令"><a href="#更详细的命令" class="headerlink" title="更详细的命令"></a>更详细的命令</h3><p><code>-d</code>：destination，用于匹配报文的目标地址，可以同时指定多个ip(逗号隔开，逗号两侧都不允许有空格)，也可指定ip段：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I OUTPUT -d 192.168.1.111,192.168.1.118 -j DROP</span><br><span class="line">iptables -t filter -I INPUT -d 192.168.1.0/24 -j ACCEPT</span><br><span class="line">iptables -t filter -I INPUT ! -d 192.168.1.0/24 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<p><code>-p</code>：用于匹配报文的协议类型,可以匹配的协议类型tcp、udp、udplite、icmp、esp、ah、sctp等（centos7中还支持icmpv6、mh）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p tcp -s 192.168.1.146 -j ACCEPT</span><br><span class="line"><span class="comment"># 感叹号表示“非”，即除了匹配这个条件的都ACCEPT，但匹配这个条件不一定就是REJECT或DROP？这要看是否有为它特别写一条规则，如果没有写就会用默认策略：</span></span><br><span class="line">iptables -t filter -I INPUT ! -p udp -s 192.168.1.146 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<p><code>-i</code>：用于匹配报文是从哪个网卡接口流入本机的，由于匹配条件只是用于匹配报文流入的网卡，所以在OUTPUT链与POSTROUTING链中不能使用此选项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p icmp -i eth0 -j DROP</span><br><span class="line">iptables -t filter -I INPUT -p icmp ! -i eth0 -j DROP</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<p><code>-o</code>：用于匹配报文将要从哪个网卡接口流出本机，于匹配条件只是用于匹配报文流出的网卡，所以在INPUT链与PREROUTING链中不能使用此选项。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I OUTPUT -p icmp -o eth0 -j DROP</span><br><span class="line">iptables -t filter -I OUTPUT -p icmp ! -o eth0 -j DROP</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="tcp扩展模块"><a href="#tcp扩展模块" class="headerlink" title="tcp扩展模块"></a>tcp扩展模块</h3><p><code>-p tcp -m tcp --sport</code>用于匹配tcp协议报文的源端口，可以使用冒号指定一个连续的端口范围(<code>-p</code>:protocol，<code>-m</code>:module，<code>--sport</code>: source port)；<br><code>-p tcp -m tcp --dport</code>用于匹配tcp协议报文的目标端口，可以使用冒号指定一个连续的端口范围(<code>--dport</code>:destination port)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Explain:</span><br><span class="line">iptables -t filter -I OUTPUT -d 192.168.1.146 -p tcp -m tcp --sport 22 -j REJECT</span><br><span class="line">iptables -t filter -I INPUT -s 192.168.1.146 -p tcp -m tcp --dport 22:25 -j REJECT</span><br><span class="line">iptables -t filter -I INPUT -s 192.168.1.146 -p tcp -m tcp --dport :22 -j REJECT</span><br><span class="line">iptables -t filter -I INPUT -s 192.168.1.146 -p tcp -m tcp --dport 80: -j REJECT</span><br><span class="line">iptables -t filter -I OUTPUT -d 192.168.1.146 -p tcp -m tcp ! --sport 22 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+
+
+<p>此外，tcp扩展模块还有<a target="_blank" rel="noopener" href="http://www.zsythink.net/archives/1578">–tcp-flags</a>选项，它可以根据TCP头部的“标识位”来匹配，具体直接点进去看吧。</p>
+<h3 id="multiport扩展模块"><a href="#multiport扩展模块" class="headerlink" title="multiport扩展模块"></a>multiport扩展模块</h3><p><code>-p tcp -m multiport --sports</code>用于匹配报文的源端口，可以指定离散的多个端口号,端口之间用”逗号”隔开;<br><code>-p udp -m multiport --dports</code>用于匹配报文的目标端口，可以指定离散的多个端口号，端口之间用”逗号”隔开：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Explain#示例如下</span><br><span class="line">iptables -t filter -I OUTPUT -d 192.168.1.146 -p udp -m multiport --sports 137,138 -j REJECT</span><br><span class="line">iptables -t filter -I INPUT -s 192.168.1.146 -p tcp -m multiport --dports 22,80 -j REJECT</span><br><span class="line">iptables -t filter -I INPUT -s 192.168.1.146 -p tcp -m multiport ! --dports 22,80 -j REJECT</span><br><span class="line">iptables -t filter -I INPUT -s 192.168.1.146 -p tcp -m multiport --dports 80:88 -j REJECT</span><br><span class="line">iptables -t filter -I INPUT -s 192.168.1.146 -p tcp -m multiport --dports 22,80:88 -j REJECT</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="iprange扩展模块"><a href="#iprange扩展模块" class="headerlink" title="iprange扩展模块"></a>iprange扩展模块</h3><p>使用iprange扩展模块可以指定”一段连续的IP地址范围”，用于匹配报文的源地址或者目标地址。iprange扩展模块中有两个扩展匹配条件可以使用：<br>– <code>--src-range</code>(匹配源地址范围)<br>– <code>--dst-range</code>(匹配目标地址范围)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -m iprange --src-range 192.168.1.127-192.168.1.146 -j DROP</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="string扩展模块"><a href="#string扩展模块" class="headerlink" title="string扩展模块"></a>string扩展模块</h3><p>假设我们访问的是“<a target="_blank" rel="noopener" href="http://192.168.1.146/index.html%E2%80%9D%EF%BC%8C%E5%BD%93%E2%80%9Cindex.html%E2%80%9D%E4%B8%AD%E5%8C%85%E6%8B%AC%E2%80%9CXXOO%E2%80%9D%E5%AD%97%E7%AC%A6%E6%97%B6%EF%BC%8C%E5%B0%B1%E4%BC%9A%E8%A2%AB%E4%BB%A5%E4%B8%8B%E8%A7%84%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%8A%EF%BC%9A">http://192.168.1.146/index.html”，当“index.html”中包括“XXOO”字符时，就会被以下规则匹配上：</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -m string --algo bm --string <span class="string">&quot;XXOO&quot;</span> -j REJECT</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>-m string</code>：表示使用string模块<br><code>--algo bm</code>：表示使用bm算法来匹配index.html中的字符串，“algo”是“algorithm”的缩写，另外还有一种算法叫“kmp”，所以<code>--algo</code>可以指定两种值，bm或kmp，貌似是bm算法速度比较快。</p>
+<h3 id="time扩展模块"><a href="#time扩展模块" class="headerlink" title="time扩展模块"></a>time扩展模块</h3><p>我们可以通过time扩展模块，根据时间段区匹配报文，如果报文到达的时间在指定的时间范围以内，则符合匹配条件。</p>
+<p>我想要自我约束，每天早上9点到下午6点不能看网页：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p tcp --dport 80 -m time --timestart 09:00:00 --timestop 18:00:00 -j REJECT</span><br><span class="line">iptables -t filter -I INPUT -p tcp --dport 443 -m time --timestart 09:00:00 --timestop 18:00:00 -j REJECT</span><br></pre></td></tr></table></figure>
+
+
+
+<p>周六日不能看网页：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p tcp --dport 80 -m time --weekdays 6,7 -j REJECT</span><br><span class="line">iptables -t filter -I INPUT -p tcp --dport 443 -m time --weekdays 6,7 -j REJECT</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>--weekdays</code>可用1-7表示一周的7天，还能用星期的缩写来指定匹配：Mon、Tue、Wed、Thu、Fri、Sat、Sun。</p>
+<p>匹配每月22，23号：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p tcp --dport 80 -m time --monthdays 22,23 -j REJECT</span><br></pre></td></tr></table></figure>
+
+
+
+<p>多个条件是“相与”的关系，比如以下规则指定匹配每周五，并且这个周五还必须是在22,23,24,25,26,27,28中的一天(其实就相当于设置每月的第四个星期五)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p tcp --dport 80 -m time --weekdays 5 --monthdays 22,23,24,25,26,27,28 -j REJECT</span><br></pre></td></tr></table></figure>
+
+
+
+<p>另外还有daystart和daystop：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p tcp --dport 80 -m time --daystart 2019-07-20 --daystop 2019-07-25 -j REJECT</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>--monthdays</code>和<code>--weekdays</code>可以用感叹号<code>!</code>取反，其他的不行。</p>
+<h3 id="connlimit模块"><a href="#connlimit模块" class="headerlink" title="connlimit模块"></a>connlimit模块</h3><p>使用connlimit扩展模块，可以限制每个IP地址同时链接到server端的链接数量，注意：我们不用指定IP，其默认就是针对”每个客户端IP”，即对单IP的并发连接数限制。</p>
+<p>限制22端口(ssh默认端口)连接数量上限不能超过2个；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p tcp --dport 22 -m connlimit --connlimit-above 2 -j REJECT</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在CentOS6中可对<code>--connlimit-above</code>取反：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p tcp --dport 22 -m connlimit ! --connlimit-above 2 -j REJECT</span><br></pre></td></tr></table></figure>
+
+
+
+<p>表示连接数量只要不超过两个就允许连接，至于超过两个并不一定不允许连接，这得看默认策略是ACCEPT还是DROP或REJECT，又或者有其它规则对它进行限制。</p>
+<p>在CentOS7中有一个叫<code>--connlimit-upto</code>的选项，它的作用跟<code>! --connlimit-above</code>一样，不过这种用法还是比较少用的。</p>
+<p>配合<code>--connlimit-mask</code>来限制网段：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p tcp --dport 22 -m connlimit --connlimit-above 2 --connlimit-mask 24 -j REJECT</span><br></pre></td></tr></table></figure>
+
+
+
+<p>网址由32位二进制组成，最大可写成：255.255.255.255，而mask就是掩码(网络知识，请自行了解)，24表示24个1，即255.255.255.0。</p>
+<h3 id="limit扩展模块"><a href="#limit扩展模块" class="headerlink" title="limit扩展模块"></a>limit扩展模块</h3><p>limit模块是限速用的，用于限制“单位时间内流入的数据包的数量”。</p>
+<p>每6位秒放行一下ping包(因为1分钟是60秒，所以1分钟10个包，就相当于每6秒1个包)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p icmp -m <span class="built_in">limit</span> --<span class="built_in">limit</span> 10/minite -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>--limit</code>后面的单位除了minite，还可以是second、hour、day</p>
+<p><code>--limit-burst</code>： burst是爆发、迸发的意思，在这里是指最多允许一次性有几个包通过，要理解burst，先看以下的“令牌桶算法”。</p>
+<p><strong>令牌桶算法</strong>：<br>有一个木桶，木桶里面放了5块令牌，而且这个木桶最多也只能放下5块令牌，所有报文如果想要出关入关，都必须要持有木桶中的令牌才行，这个木桶有一个神奇的功能，就是每隔6秒钟会生成一块新的令牌，如果此时，木桶中的令牌不足5块，那么新生成的令牌就存放在木桶中，如果木桶中已经存在5块令牌，新生成的令牌就无处安放了，只能溢出木桶（令牌被丢弃），如果此时有5个报文想要入关，那么这5个报文就去木桶里找令牌，正好一人一个，于是他们5个手持令牌，快乐的入关了，此时木桶空了，再有报文想要入关，已经没有对应的令牌可以使用了，但是，过了6秒钟，新的令牌生成了，此刻，正好来了一个报文想要入关，于是，这个报文拿起这个令牌，就入关了，在这个报文之后，如果很长一段时间内没有新的报文想要入关，木桶中的令牌又会慢慢的积攒了起来，直到达到5个令牌，并且一直保持着5个令牌，直到有人需要使用这些令牌，这就是令牌桶算法的大致逻辑。</p>
+<p>看完了“令牌桶算法”，其实<code>--limit</code>就相当于指定“多长时间生成一个新令牌”，而<code>--limit-burst</code>则用于指定木桶中最多存放多少块令牌。</p>
+<h3 id="udp扩展模块"><a href="#udp扩展模块" class="headerlink" title="udp扩展模块"></a>udp扩展模块</h3><p>udp扩展模块中能用的匹配条件比较少，只有两个，就是<code>--sport</code>与<code>--dport</code>，即匹配报文的源端口与目标端口。</p>
+<p>放行samba服务的137和138端口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p udp -m udp --dport 137 -j ACCEPT</span><br><span class="line">iptables -t filter -I INPUT -p udp -m udp --dport 138 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+
+
+<p>当使用扩展匹配条件时，如果未指定扩展模块，iptables会默认调用与<code>-p</code>对应的协议名称相同的模块，所以，当使用<code>-p udp</code>时，可以省略<code>-m udp</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p udp --dport 137 -j ACCEPT</span><br><span class="line">iptables -t filter -I INPUT -p udp --dport 138 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+
+
+<p>udp扩展中的<code>--sport</code>与<code>--dport</code>与tcp一样，同样支持指定一个连续的端口范围：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p udp --dport 137:157 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>--dport 137:157</code>表示匹配137-157之间的所有端口。</p>
+<p>另外与tcp一样，udp也能使用<code>--multiport</code>指定多个不连续的端口。</p>
+<h3 id="icmp扩展模块"><a href="#icmp扩展模块" class="headerlink" title="icmp扩展模块"></a>icmp扩展模块</h3><p>ping是使用icmp协议的，假设要禁止所有icmp协议的报文进入本机(根据前面所说，我们可以省略用<code>-m icmp</code>来指定使用icmp模块，因为不指定它会默认使用<code>-p</code>指定的协议对应的模块)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p icmp -j REJECT</span><br></pre></td></tr></table></figure>
+
+
+
+<p>上述命令能产生两个效果：<br>– 1、别人ping本机时，无法ping通，因为数据报文无法进入；<br>– 2、本机ping别人时，虽然数据包可以出去，但别人的响应包也是icmp协议，无法进来(即“有去无回”)。<br>所以这样设置会导致，不止别人ping不通本机，本机也ping不通别人。</p>
+<hr>
+<p>很明显上边的规则不是我们想要的，我们想要的一般都是允许本机ping别人，不允许别人ping本机：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p icmp --icmp-type 8/0 -j REJECT</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>--icmp-type 8/0</code>用于匹配报文type为8，code为0时才会被匹配到，至于会是type和code，这是icmp协议的知识，可以参考这里<a target="_blank" rel="noopener" href="http://www.zsythink.net/archives/1588">iptables详解（7）：iptables扩展之udp扩展与icmp扩展</a>。</p>
+<p>其实上边的命令还可以省略code(即把“8&#x2F;0”写成“8”即可，省略掉“&#x2F;0”，原因是type&#x3D;8的报文中只有code&#x3D;0一种，所以我们不写默认就是code&#x3D;0，不会有其它值)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p icmp --icmp-type 8 -j REJECT</span><br></pre></td></tr></table></figure>
+
+
+
+<p>除了能用type&#x2F;code来匹配icmp报文，还可以使用icmp的描述名称来匹配：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p icmp --icmp-type <span class="string">&quot;echo-request&quot;</span> -j REJECT</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>--icmp-type &quot;echo-request&quot;</code>的效果与<code>icmp --icmp-type 8/0</code>或<code>icmp --icmp-type 8</code>的效果完全一样(你可能发现了，icmp协议的描述“echo-request”其实是“echo request”，只不过我们用于作为匹配条件时，要把空格换成横杠)。</p>
+<h3 id="state扩展模块"><a href="#state扩展模块" class="headerlink" title="state扩展模块"></a>state扩展模块</h3><p>在TCP&#x2F;IP协议簇中，UDP和ICMP是没有所谓的连接的，但是对于state模块来说，tcp报文、udp报文、icmp报文都是有连接状态的，我们可以这样认为，对于state模块而言，只要两台机器在”你来我往”的通信，就算建立起了连接。</p>
+<p>而”连接”中的报文可以分为5种状态，报文状态可以为NEW、ESTABLISHED、RELATED、INVALID、UNTRACKED。具体请查看：<a target="_blank" rel="noopener" href="http://www.zsythink.net/archives/1597">iptables详解（8）：iptables扩展模块之state扩展</a></p>
+<p>放行RELATED和ESTABLISHED状态的报文：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -m state --state RELATED, ESTABLISHED -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="黑白名单机制"><a href="#黑白名单机制" class="headerlink" title="黑白名单机制"></a>黑白名单机制</h3><p>报文在经过iptables的链时，会匹配链中的规则，遇到匹配的规则时，就执行对应的动作，如果链中的规则都无法匹配到当前报文，则使用链的默认策略（默认动作），链的默认策略通常设置为ACCEPT或者DROP。</p>
+<p>那么，当链的默认策略设置为ACCEPT时，如果对应的链中没有配置任何规则，就表示接受所有的报文，如果对应的链中存在规则，但是这些规则没有匹配到报文，报文还是会被接受。</p>
+<p>同理，当链的默认策略设置为DROP时，如果对应的链中没有配置任何规则，就表示拒绝所有报文，如果对应的链中存在规则，但是这些规则没有匹配到报文，报文还是会被拒绝。</p>
+<p>所以，当链的默认策略设置为ACCEPT时，按照道理来说，我们在链中配置规则时，对应的动作应该设置为DROP或者REJECT，为什么呢？</p>
+<p>因为默认策略已经为ACCEPT了，如果我们在设置规则时，对应动作仍然为ACCEPT，那么所有报文都会被放行了，因为不管报文是否被规则匹配到都会被ACCEPT，所以就失去了访问控制的意义。</p>
+<p>所以，当链的默认策略为ACCEPT时，链中的规则对应的动作应该为DROP或者REJECT，表示只有匹配到规则的报文才会被拒绝，没有被规则匹配到的报文都会被默认接受，这就是”黑名单”机制。</p>
+<p>同理，当链的默认策略为DROP时，链中的规则对应的动作应该为ACCEPT，表示只有匹配到规则的报文才会被放行，没有被规则匹配到的报文都会被默认拒绝，这就是”白名单”机制。</p>
+<p>如果使用白名单机制，我们就要把所有人都当做坏人，只放行好人。<br>如果使用黑名单机制，我们就要把所有人都当成好人，只拒绝坏人。<br>白名单机制更加安全一些，黑名单机制更加灵活一些。</p>
+<p><strong>如果服务器是做网关功能，一般设置为黑名单模式；如果是做主机防火墙功能，那么设置为白名单模式。</strong></p>
+<h3 id="自定义链"><a href="#自定义链" class="headerlink" title="自定义链"></a>自定义链</h3><p>在最前面的时候就说过，iptables有五个“关卡”，即五条“链”，这些都是默认的，但其实我们可以创建自己的自定义链。</p>
+<p>还记得前面介绍<code>iptables -L</code>时的那个“target”列吗？为什么target列都是一些“动作”呢？这样的话为什么不把target写成“action”呢？其实就是因为target不一定是“动作”，它还可以是“自定义链”，当指定target为自定义链时，如果匹配上了，那么就会跳转到指定的自定义链中。</p>
+<p>你可能会问，前面一直用默认链不也都能实现想要实现的功能吗？为什么还要自定义呢？</p>
+<p>原因是当默认链中的规则非常多时，不方便我们管理。</p>
+<p>想象一下，如果INPUT链中存放了200条规则，这200条规则有针对httpd服务的，有针对sshd服务的，有针对私网IP的，有针对公网IP的，假如，我们突然想要修改针对httpd服务的相关规则，难道我们还要从头看一遍这200条规则，找出哪些规则是针对httpd的吗？这显然不合理。</p>
+<p>所以，iptables中，可以自定义链，通过自定义链即可解决上述问题。</p>
+<p>假设，我们自定义一条链，链名叫IN_WEB，我们可以将所有针对80端口的入站规则都写入到这条自定义链中，当以后想要修改针对web服务的入站规则时，就直接修改IN_WEB链中的规则就好了，即使默认链中有再多的规则，我们也不会害怕了，因为我们知道，所有针对80端口的入站规则都存放在IN_WEB链中，同理，我们可以将针对sshd的出站规则放入到OUT_SSH自定义链中，将针对Nginx的入站规则放入到IN_NGINX自定义链中，这样，我们就能想改哪里改哪里，再也不同担心找不到规则在哪里了。</p>
+<p>但是要注意的是，自定义链并不能直接使用，而是需要被默认链引用才能够使用，即默认生效的还是默认的五条链，而自定义链必须在某条默认链的某个规则里设置target为自定义链，然后才会被引用。</p>
+<p>创建一条名叫“IN_WEB”的自定义链(<code>-N</code>：new)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -N IN_WEB</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Chain IN_WEB (0 references)</span><br><span class="line">target     prot opt source               destination</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到有“0 references”这个字样，reference是“引用”的意思，“0 references”表示引用计数为0，“引用”就是前面说的“自定义链必须在某条默认链的某个规则里设置target为自定义链，然后才会被引用”。</p>
+<p>创建一条引用“IN_WEB”链的规则(所谓的引用就是用<code>-j</code>跳转到该规则里)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT -p tcp --dport 80 -j IN_WEB</span><br></pre></td></tr></table></figure>
+
+
+
+<p>此时我们再用<code>iptables -L</code>查看，可以看到“引用计数”已经是1了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Chain IN_WEB (1 references)</span><br><span class="line">target     prot opt source               destination</span><br></pre></td></tr></table></figure>
+
+<p>修改自定义链名称(把名为IN_WEB的自定义链的名称改为WEB，<code>-E</code>是edit的意思)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -E IN_WEB WEB</span><br></pre></td></tr></table></figure>
+
+
+
+<p>能修改肯定也能删除，但删除是有条件的：<br>– 1、自定义链没有被任何默认链引用，即自定义链的引用计数为0；<br>– 2、自定义链中没有任何规则，即自定义链为空。</p>
+<p>删除名为IN_WEB的自定义链：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -X IN_WEB</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<h3 id="了解：ufw防火墙"><a href="#了解：ufw防火墙" class="headerlink" title="了解：ufw防火墙"></a>了解：ufw防火墙</h3><p>ufw是Uncomplicated Firewall，翻译为“不复杂的防火墙”，是Ubuntu系统上配置iptables防火墙的工具，现在为ubuntu和debian的默认防火墙，ufw的底层还是iptables，它只不过帮我们简化了操作命令。如果我们只是简单的开放端口，禁止端口，可以使用ufw更简单，你可以完全不学习iptables的原理。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Explain# 开启防火墙，同时会开启开机自启动</span><br><span class="line"><span class="built_in">sudo</span> ufw <span class="built_in">enable</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭防火墙，同时也会关闭开机自启动</span></span><br><span class="line"><span class="built_in">sudo</span> ufw <span class="built_in">disable</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看防火墙是否已经开启，如果显示规则那就是开启了</span></span><br><span class="line"><span class="built_in">sudo</span> ufw status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置默认允许所有出站流量</span></span><br><span class="line">ufw default allow outgoing</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置默认禁止所有入站流量</span></span><br><span class="line">ufw default deny incoming</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启一个端口(同时tcp和udp都开启)</span></span><br><span class="line"><span class="built_in">sudo</span> ufw allow 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除一个端口(delete后面要接开启时使用的命令)</span></span><br><span class="line"><span class="built_in">sudo</span> ufw delete allow 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只开启tcp</span></span><br><span class="line"><span class="built_in">sudo</span> ufw allow 80/tcp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启多个连续端口(开启多个端口必须指定是tcp或udp，不能不指定)</span></span><br><span class="line"><span class="comment"># 本例为开启13520到13530之间(包含它们本身)共11个端口</span></span><br><span class="line"><span class="built_in">sudo</span> ufw allow 13520:13530/udp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启多个不连续端口(逗号隔开，只要是多个端口就必须指定是tcp还是udp)</span></span><br><span class="line"><span class="built_in">sudo</span> ufw allow 2053,2083,2087,2096,8443/udp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置所有规则</span></span><br><span class="line"><span class="built_in">sudo</span> ufw reset</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-12</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

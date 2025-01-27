@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Linux命令--文件与目录" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Linux命令--文件与目录
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Linux%E7%9B%AE%E5%BD%95%E8%AF%A6%E8%A7%A3"><span class="post-toc-text">Linux目录详解</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E5%91%BD%E4%BB%A4"><span class="post-toc-text">文件与目录命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF"><span class="post-toc-text">查看文件信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%AE%E5%BD%95%E5%A0%86%E6%A0%88"><span class="post-toc-text">目录堆栈</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E5%8F%8A%E7%9B%AE%E5%BD%95%E7%9A%84%E5%88%9B%E5%BB%BA%E3%80%81%E5%88%A0%E9%99%A4%E5%92%8C%E7%A7%BB%E5%8A%A8"><span class="post-toc-text">文件及目录的创建、删除和移动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E5%B1%9E%E6%80%A7%E4%B8%8E%E6%9D%83%E9%99%90"><span class="post-toc-text">文件的属性与权限</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="Linux目录详解"><a href="#Linux目录详解" class="headerlink" title="Linux目录详解"></a>Linux目录详解</h1><table>
+<thead>
+<tr>
+<th>&#x2F;</th>
+<th>根目录</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>&#x2F;bin</strong></td>
+<td><strong>bin是binary的缩写。这个目录沿袭了UNIX系统的结构，存放着使用者最经常使用的命令。例如cp、ls、cat，等等</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;boot</strong></td>
+<td><strong>这里存放的是启动 Linux时使用的一些核心文件,如内核initrd，grub。</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;dev</strong></td>
+<td><strong>dev是device。存放设备文件(外部设备)–黑底红字，如dvd、cdrom。1、块设备–随机访问(数据块)，2、字符设备–线性访问(有顺序、字符为单位)。其功能类似DOS下的.sys和Win下的.vxd。在 Linux中设备和文件是用同种方法访问的。例如：&#x2F;dev&#x2F;hda代表第一个物理IDE硬盘。</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;etc</strong></td>
+<td><strong>etcetera的缩写。系统及各应用的配置文件，文本格式存放。</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;home</strong></td>
+<td><strong>用户的主目录，比如说有个用户叫zhong，那他的主目录就是&#x2F;home&#x2F;zhong也可以用~zhong表示。</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;lib</strong></td>
+<td><strong>library的缩写库文件，(静态库，动态库)这个目录里存放着系统最基本的动态链接共享库，其作用类似于Windows里的.dll文件。几乎所有的应用程序都须要用到这些共享库。 注意：库文件不能直接运行，只能被程序的访问\执行接口调用。</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;lost+found</strong></td>
+<td><strong>这个目录平时是空的，当系统不正常关机后，这里就成了一些无家可归的文件的避难所。对了，有点类似于DOS下的.chk文件。</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;meida</strong></td>
+<td><strong>挂载点目录–移动设备</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;mnt</strong></td>
+<td><strong>mount缩写。这个目录是让用户临时挂载别的文件系统</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;opt</strong></td>
+<td><strong>可选目录，有些第三方软件（即和系统无任何关系），把此目录当作默认安装位置</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;proc</strong></td>
+<td><strong>这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。也就是说，这个目录的内容不在硬盘上而是在内存里。  (可查看内核工作属性)</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;root</strong></td>
+<td><strong>系统管理员root的主目录。</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;run</strong></td>
+<td><strong>存放系统运行的相关文件</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;sbin</strong></td>
+<td><strong>s就是Super User的意思，也就是说这里存放的是系统管理员使用的管理程序。</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;srv</strong></td>
+<td><strong>server的简写，提供一些特定服务的所在目录。</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;sys</strong></td>
+<td><strong>伪文件系统，跟硬件设备相关的属性映射文件</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;tmp</strong></td>
+<td><strong>用来存放一些临时文件的地方。</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;usr</strong></td>
+<td><strong>这是最庞大的目录，我们要用到的应用程序和文件几乎都存放在这个目录下。</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;var</strong></td>
+<td><strong>存放着可变化的文件，为了保持&#x2F;usr的相对稳定，那些经常被修改的目录可以放在这个目录下，实际上许多系统管理员都是这样干的。顺带说一下系统的日志文件就在&#x2F;var&#x2F;log&#x2F;messages目录中,可以使用tail -f &#x2F;var&#x2F;log&#x2F;messages来查看。</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;misc</strong></td>
+<td><strong>杂项设备（misc device）,杂项设备也是在嵌入式系统中用得比较多的一种设备驱动.</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;cgroup</strong></td>
+<td><strong>cgroup就是controller group。是Linux内核提供的一种可以限制、记录、隔离进程组（process groups）所使用的物理资源（如：cpu,memory,IO等等）的机制。Cgroups也是LXC为实现虚拟化所使用的资源管理手段.</strong></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th><strong>&#x2F;dev</strong></th>
+<th><strong>dev是device。存放设备文件(外部设备)–黑底红字，如dvd、cdrom。1、块设备–随机访问(数据块)，2、字符设备–线性访问(有顺序、字符为单位)。其功能类似DOS下的.sys和Win下的.vxd。在 Linux中设备和文件是用同种方法访问的。例如：&#x2F;dev&#x2F;hda代表第一个物理IDE硬盘。</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;dev&#x2F;cdrom</td>
+<td>光盘设备，光盘里存放的内容都在里面，以后用来为操作系统补包</td>
+</tr>
+<tr>
+<td>&#x2F;dev&#x2F;null</td>
+<td>黑洞文件，把不想要显示的内容都放在里面</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>&#x2F;etc</th>
+<th>etcetera的缩写。系统及各应用的配置文件，文本格式存放。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;etc&#x2F;hostname</td>
+<td>主机名的配置文件</td>
+</tr>
+<tr>
+<td>&#x2F;etc&#x2F;gateways</td>
+<td>设定路由器</td>
+</tr>
+<tr>
+<td>&#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-eth0</td>
+<td>网卡的配置文件</td>
+</tr>
+<tr>
+<td>&#x2F;etc&#x2F;resolv.conf</td>
+<td>设置DNS地址</td>
+</tr>
+<tr>
+<td>&#x2F;etc&#x2F;hosts</td>
+<td>本地的域名解析文件</td>
+</tr>
+<tr>
+<td>&#x2F;etc&#x2F;fstab</td>
+<td>记录开机要mount的文件系统（做磁盘配额的时候用过这个文件）</td>
+</tr>
+<tr>
+<td>&#x2F;etc&#x2F;inittab</td>
+<td>设定系统启动时init进程把系统设置成什么样的runlevel</td>
+</tr>
+<tr>
+<td>&#x2F;etc&#x2F;group</td>
+<td>设定用户的组名与相关信息</td>
+</tr>
+<tr>
+<td>&#x2F;etc&#x2F;passwd</td>
+<td>帐号信息</td>
+</tr>
+<tr>
+<td>&#x2F;etc&#x2F;shadow</td>
+<td>密码信息</td>
+</tr>
+<tr>
+<td>&#x2F;etc&#x2F;exports</td>
+<td>设定NFS系统用的</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th><strong>&#x2F;proc</strong></th>
+<th><strong>这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。也就是说，这个目录的内容不在硬盘上而是在内存里。  (可查看内核工作属性)</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4</td>
+<td>与网络优化相关的文件夹</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>&#x2F;usr</th>
+<th>这是最庞大的目录，我们要用到的应用程序和文件几乎都存放在这个目录下。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;usr&#x2F;X11R6</td>
+<td>存放X-Window的目录；</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;bin</td>
+<td>存放着许多应用程序；</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;sbin</td>
+<td>给超级用户使用的一些管理程序就放在这里；</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;doc</td>
+<td>这是 Linux文档的大本营；</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;include</td>
+<td>Linux下开发和编译应用程序需要的头文件，在这里查找；</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;lib</td>
+<td>存放一些常用的动态链接共享库和静态档案库；</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;local</td>
+<td>这是提供给一般用户的&#x2F;usr目录，在这里安装软件最适合；</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;man</td>
+<td>man在 Linux中是帮助的同义词，这里就是帮助文档的存放目录；</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;src</td>
+<td>Linux开放的源代码就存在这个目录</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>&#x2F;var</th>
+<th>存放着可变化的文件，为了保持&#x2F;usr的相对稳定，那些经常被修改的目录可以放在这个目录下。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;var&#x2F;log</td>
+<td>日志文件</td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;run</td>
+<td>每个进程的PID文件</td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;mail</td>
+<td>用户的邮件未查看的用户队列</td>
+</tr>
+</tbody></table>
+<h1 id="文件与目录命令"><a href="#文件与目录命令" class="headerlink" title="文件与目录命令"></a>文件与目录命令</h1><h2 id="查看文件信息"><a href="#查看文件信息" class="headerlink" title="查看文件信息"></a>查看文件信息</h2><ul>
+<li><p>观察文件基本数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file [文件]		# 是否属于 ASCII 或者是 data 文件，或者是 binary ， 且其中有没有使用到动态函数库 （share library） 等等的信息，就可以利用 file 这个指令来检阅</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>列出文件信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls			# list</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls -a  ：全部的文件，连同隐藏文件（ 开头为 . 的文件） 一起列出来</span><br><span class="line">ls -d  ：仅列出目录本身，而不是列出目录内的文件数据（常与-l连用：ls -ld）</span><br><span class="line">ls -l  : 长数据串行出，包含文件的属性与权限等等数据；（常用别名ll）	</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>查看目录结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tree [目录]				# 以树形方式展示目录结构</span><br><span class="line">tree -a [目录]			# 连带展示隐藏文件</span><br><span class="line">tree -L [数字] [目录]		# 展示到第几层目录</span><br><span class="line">tree -F [目录]			# 在结果中区分文件和文件夹（文件夹后会带 / ）</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>查看目录大小</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">du -h [目录]				# 查看该目录下的子目录大小</span><br><span class="line">du -sh [目录]				# 查看该目录内所有文件占用的大小</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>显示当前的工作目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd			# print working directory</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd -p		# 显示完整的真实路径，而非链接路径</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>查看文本文件内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat [-options] [文件]		# 正向查看</span><br><span class="line">tac [-options] [文件]		# 反向查看</span><br><span class="line">cat -n			# 显示行号</span><br><span class="line">cat -A			# 显示控制字符</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">head [-x] [文件]		# 默认查看前10行内容,x代表数字，查看前几行</span><br><span class="line">tail [-x] [文件]		# 默认查看后10行内容,x代表数字，查看后几行</span><br><span class="line">tail -4 a.txt | head -2		# 查看后四行的前两行，即查看倒数第4行和倒数第3行</span><br><span class="line">tail -f a.txt 			# 动态监测文件末尾内容</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">less [文件]			# 查看文件，上下键可以翻页</span><br><span class="line">more [文件]			# 查看文件，空格键可以翻页</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>查阅二进制文件内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">od [-t options] [文件]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-t  ：后面可以接各种“类型 （TYPE）”的输出，例如：</span><br><span class="line">      a       ：利用默认的字符来输出；</span><br><span class="line">      c       ：使用 ASCII 字符来输出</span><br><span class="line">      d[size] ：利用十进制（decimal）来输出数据，每个整数占用 size Bytes ；</span><br><span class="line">      f[size] ：利用浮点数值（floating）来输出数据，每个数占用 size Bytes ；</span><br><span class="line">      o[size] ：利用八进位（octal）来输出数据，每个整数占用 size Bytes ；</span><br><span class="line">      x[size] ：利用十六进制（hexadecimal）来输出数据，每个整数占用 size Bytes ；</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>搜寻文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">whereis [-options] [文件或目录]			# 在一些特定的目录中查找文件或目录</span><br><span class="line">	-l    :可以列出 whereis 会去查询的几个主要目录而已</span><br><span class="line">    -b    :只找 binary 格式的文件</span><br><span class="line">    -m    :只找在说明文档 manual 路径下的文件</span><br><span class="line">    -s    :只找 source 来源文件</span><br><span class="line">    -u    :搜寻不在上述三个项目当中的其他特殊文件</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">locate [-options] [文件或目录的关键字]	# 在系统数据库中搜索包含关键字的文件或目录</span><br><span class="line">	-i  ：忽略大小写的差异；</span><br><span class="line">    -c  ：不输出文件名，仅计算找到的文件数量</span><br><span class="line">    -l  ：仅输出几行的意思，例如输出五行则是 -l 5</span><br><span class="line">    -S  ：输出 locate 所使用的数据库文件的相关信息，包括该数据库记录的文件/目录数量等</span><br><span class="line">    -r  ：后面可接正则表达式的显示方式</span><br><span class="line">系统数据库每日自动更新，如果需要手动更新可以输入 updatedb</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="目录堆栈"><a href="#目录堆栈" class="headerlink" title="目录堆栈"></a>目录堆栈</h2><p>为了方便用户在不同目录之间切换，Bash 提供了目录堆栈功能。Bash 可以记忆用户进入过的目录。默认情况下，只记忆前一次所在的目录，而使用<code>pushd</code>和<code>popd</code>命令可以记忆多重目录。</p>
+<ul>
+<li><p><code>cd</code></p>
+<p><code>cd</code>命令用于切换目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd [相对路径/绝对路径]			# change directory</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Explaincd					# 不加任何参数代表切换到当前使用者的主文件夹 ~ </span><br><span class="line">cd ~dengpangpang	# 代表切换到某用户的主文件夹，仅限root用户使用</span><br><span class="line">cd ..				# 去到上层目录</span><br><span class="line">cd -				# 回到刚刚的那个目录</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>pushd</code></p>
+<p><code>pushd</code>命令的用法类似<code>cd</code>命令，可以进入指定的目录。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Explainpushd dirname		# 进入目录`dirname`，并将该目录放入栈顶</span><br><span class="line">pushd				# 切换栈顶第一条和第二条的目录作为自己的工作目录</span><br><span class="line">pushd +n			# 将从栈顶算起的n号目录（从0开始）移动到栈顶，同时切换到该目录</span><br><span class="line">pushd -n			# 将从栈底算起的n号目录（从0开始）移动到栈顶，同时切换到该目录</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>popd</code></p>
+<p><code>popd</code>命令不带有参数时，会移除堆栈的顶部记录，并进入新的栈顶目录（即原来的第二条目录）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">popd		# 删除栈顶元素，并进入新的栈顶目录</span><br><span class="line">popd +n		# 删除从栈顶算起的n号目录（从0开始），不改变当前目录</span><br><span class="line">popd -n		# 删除从栈底算起的n号目录（从0开始），不改变当前目录</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>dirs</code></p>
+<p><code>dirs</code>命令可以显示目录堆栈的内容，一般用来查看<code>pushd</code>和<code>popd</code>操作后的结果。</p>
+<p>一般使用<code>pushd</code>和<code>popd</code>操作后也会输出一行，显示目录堆栈，目录之间使用空格分隔。栈顶在最左边，栈底在最右边。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dirs -v		# 每行一个条目，每个条目之前显示位置编号（从0开始）</span><br><span class="line">dirs -c		# 清空目录栈</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="文件及目录的创建、删除和移动"><a href="#文件及目录的创建、删除和移动" class="headerlink" title="文件及目录的创建、删除和移动"></a>文件及目录的创建、删除和移动</h2><ul>
+<li><p>创建新文件或修改文件时间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">touch [文件位置]			# 在指定目录下创建一个文本文件（无则创建，有则修改时间）</span><br><span class="line">touch &#123;a,b,c,d&#125;.txt			# 可以创建多个文本文件，可以具有统一的后缀名</span><br><span class="line">touch /tmp/&#123;1..100&#125;			# 快速建立100个文件</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+<li><p>创建一个新的目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir [要创建的目录]		# make directory</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/&#123;a,b,c&#125;			# 建立多个文件夹</span><br><span class="line">mkdir -m [xyz] -p [要创建的目录]		# -m 代表预分配权限，-p代表递归创建目录（否则必须有上层目录）</span><br><span class="line">mkdir -p 目录1/目录2/目录3			# -p 代表递归建立文件夹</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>移除一个空目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rmdir		# remove directory</span><br><span class="line">rmdir -p [要删除的目录]			# -p代表可以递归删掉目标目录的上层空目录</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>删除文件或目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm [-options] [目标文件或目录]		# remove</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rm -f  ：就是 force 的意思，忽略不存在的文件，不会出现警告讯息；</span><br><span class="line">rm -i  ：互动模式，在删除前会询问使用者是否动作</span><br><span class="line">rm -r  ：递回删除! 最常用在目录的删除,是非常危险的选项!</span><br></pre></td></tr></table></figure>
+
+<p>注意：<code>rm -rf /*</code>：强制删除根目录下的所有文件</p>
+</li>
+<li><p>复制文件或目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp	[-options] [原文件/目录]	[目标文件或目录]		# 如果是目标目录则不改名复制，如果是目标文件则改名复制</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cp -i  ：若目标文件（destination）已经存在时，在覆盖时会先询问动作的进行（常用）</span><br><span class="line">cp -p  ：连同文件的属性（权限、用户、时间）一起复制过去，而非使用默认属性（备份常用）；</span><br><span class="line">cp -a  ：除了 -p 的权限相关参数外，还加入 SELinux 的属性, links, xattr 等也复制了；</span><br><span class="line">cp -r  ：递回持续复制，用于目录的复制行为；（常用）</span><br><span class="line">cp -r /tmp/* /test		# 把tmp文件夹下的所有文件，拷贝到test文件夹下（不包含tmp文件夹）</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>移动文件或更名目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv [-options] [原文件/目录] [目标文件/目录]		# move</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mv -f  ：force 强制的意思，如果目标文件已经存在，不会询问而直接覆盖；</span><br><span class="line">mv -i  ：若目标文件 （destination） 已经存在时，就会询问是否覆盖！</span><br><span class="line">mv -u  ：若目标文件已经存在，且 source 比较新，才会更新 （update）</span><br></pre></td></tr></table></figure>
+
+<p>注意：区别<code>rename</code></p>
+</li>
+</ul>
+<h2 id="文件的属性与权限"><a href="#文件的属性与权限" class="headerlink" title="文件的属性与权限"></a>文件的属性与权限</h2><ul>
+<li><p>查看创建文件&#x2F;目录时的默认权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">umask -S	</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>改变文件拥有者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown [账号名称] [文件或目录]				# change owner</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R [账号名称：群组名称] [文件或目录]	# 同时改变文件拥有者和群组， -R表示递归修改，用于目录的修改。</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>改变文件所属群组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chgrp [-R] [群组名] [文件或目录]					# change group ,-R表示递归，用于目录</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>改变文件权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod				# change mode</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>数字形式改变文件权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod [-R] xyz [文件或目录]		# xyz分别代表文件拥有者，群组和其他人的权限</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字母方式改变文件权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod [-R] u=rwx,go=rx [文件或目录]	# u指user，g指代group，o指代others</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmdo [-R] a-x [文件或目录]			# a代表三种身份，a-x表示三种身份都拿掉执行权限	</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>文件隐藏属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lsattr [-options] [文件或目录]			# 查看文件隐藏属性</span><br><span class="line">	-a ：展示文件的隐藏属性</span><br><span class="line">	-d ：如果接的是目录，仅列出目录本身的属性而非目录内的文件名；</span><br><span class="line">	-R ：连同子目录的数据也一并列出来</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chattr [+/—/=] [options] [文件或目录]			# 设置文件隐藏属性，+-=表示增加移除或设定属性</span><br><span class="line">	a ：仅允许追加内容</span><br><span class="line">	i ：禁止任何修改</span><br><span class="line">	A ：不更改文件访问时间</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+<li><p>三种文件时间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctime: change time。对文件更名，修改文件的属主等操作，会更新ctime。</span><br><span class="line"></span><br><span class="line">mtime: 就是modify time。mtime和ctime的区别在于，只有修改了文件的内容，才会更新文件的mtime</span><br><span class="line"></span><br><span class="line">atime: access time。这个就是每次查看文件内容的时候会更新。比如cat操作，而ls操作是不会更新的。</span><br></pre></td></tr></table></figure></li>
+</ul>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-18</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

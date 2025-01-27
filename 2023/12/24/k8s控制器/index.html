@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="K8S控制器" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            K8S控制器
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#k8s%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="post-toc-text">k8s控制器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Deployment"><span class="post-toc-text">Deployment</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DaemonSet"><span class="post-toc-text">DaemonSet</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#StatefulSet"><span class="post-toc-text">StatefulSet</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Job"><span class="post-toc-text">Job</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CronJob"><span class="post-toc-text">CronJob</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="k8s控制器"><a href="#k8s控制器" class="headerlink" title="k8s控制器"></a>k8s控制器</h2><p>控制器是k8s中自动化管理与维护资源状态的工具，k8s中创建出资源本质仅仅只是往etcd数据库中写入了一条数据，针对这些数据必须要有代码负责watch该数据，帮你创建出该资源，并且要负责后续的维护，这就是控制器的功能。</p>
+<p>控制器分为两类：</p>
+<ul>
+<li><p>内置控制器<br>k8s中内置了一些控制器，包括replicaset、deployment、daemonset、statefulset、job、cronjob等，每一种控制器都具备自己特定的管理逻辑&#x2F;功能。</p>
+</li>
+<li><p>自定义控制器</p>
+<p>k8s中的内置控制器无法满足企业场景中的需求，涉及到定制化开发控制器。</p>
+</li>
+</ul>
+<h3 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h3><p>讲解deployment控制器之前，需要先介绍ReplicaSet控制器，ReplicaSet控制器用来控制Pod中的副本数。</p>
+<p>ReplicaSet可以独立使用，但一般还是建议使用 Deployment 来自动管理ReplicaSet，这样才可以实现更高级的功能例如滚动更新。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Deployment 控制器  ———&gt; ReplicaSet控制器  ———&gt; Pod</span><br></pre></td></tr></table></figure>
+
+<p>Deployment最重要的一个功能就是滚动更新</p>
+<p>滚动更新的策略有两种：RollingUpdate（默认值）和Recreate</p>
+<ul>
+<li><p>RollingUpdate：滚动更新。可以指定<code>maxUnavailable</code> 和 <code>maxSurge</code> 来控制 rolling update 进程。</p>
+<ul>
+<li>maxSurge: 默认1，在滚动更新的过程中，在spec.replicas的基础上可以额外新建最大pod数，控制的是创建新的。</li>
+<li>maxUnavailable: 默认1，在滚动更新的过程中，老pod最大同时干掉几个，控制的是干掉老的。</li>
+</ul>
+</li>
+<li><p>Recreate： 重建式更新，删一个建一个，即首先删除现有的Pod对象，然后由控制器基于新模板重新创建新版本资源对象。类似于ReplicaSet的更新方式。</p>
+</li>
+</ul>
+<h3 id="DaemonSet"><a href="#DaemonSet" class="headerlink" title="DaemonSet"></a>DaemonSet</h3><p>DaemonSet的特点是默认会在每个节点都启动<strong>一个</strong>pod副本（可以用使用NodeSelector或者NodeAffinity来控制哪些节点上启动）</p>
+<p>DaemonSet有以下应用场景：</p>
+<ol>
+<li>每个节点上都要启动一个进程，比如flanneld</li>
+<li>kube-proxy组件负载pod的负载均衡流量转发，每个节点要有</li>
+<li>采集每个节点上的日志</li>
+<li>对每个节点进行监控</li>
+</ol>
+<h3 id="StatefulSet"><a href="#StatefulSet" class="headerlink" title="StatefulSet"></a>StatefulSet</h3><p>StatefulSet：译为“有状态的集合”，专门用于管理有状态的资源。有状态指的是，应用的运行要依赖之前的数据，必须限制调度，pod只能调度到之前状态存在的节点上才可以。</p>
+<p>StatefulSet控制器的应用场景：</p>
+<ol>
+<li>稳定的次序：对于N个副本的StatefulSet，每个Pod名字后缀从0-N，按次序启停</li>
+<li>稳定的网络标识（网络标识即dns域名）：每个pod都有一个固定的域名（FQDN），pod的ip地址随意变化，但这个域名不变</li>
+<li>稳定的存储：通过VolumeClaimTemplate为每个Pod创建一个PV。删除、减少副本，不会删除相关的卷。</li>
+</ol>
+<p>StatefulSet有两个重要组成部分</p>
+<ul>
+<li><p>Headless Service<br>Headless Service是一种Service类型，Headless Service没有Cluster IP，它的作用是使得每个pod有一个固定FQDN名字，上游的访问可以直接访问该域名来访问pod。</p>
+<p>fqdn域名格式：<code>$(podname).$(headless Service name).$(namespace).svc.cluster.local</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">基于普通svc的访问流程</span><br><span class="line">	普通svc的域名 ———&gt; coredns解析 ———&gt; svc的cluster ip ———&gt; ipvs转发 ———&gt; pod的endpoint</span><br><span class="line">基于无头svc的访问流程</span><br><span class="line">	无头svc的域名 ———&gt; coredns解析 ———&gt; 所关联pod的ip地址</span><br></pre></td></tr></table></figure>
+
+<p>注意：Headless Service没有负载均衡的效果，StatefulSet控制的Pod也不需要svc做流量转发。</p>
+</li>
+<li><p>volumeClaimTemplates<br>创建pvc的模版，每个pod副本都会创建出一个自己独有的pvc，不与其他pod共享</p>
+</li>
+</ul>
+<p>	</p>
+<h3 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h3><p>Job通过启动Pod来执行一次性的任务，Job中也有一个Pod模板，不一样的是Job的pod中的容器要求是一个可以执行完毕、可以退出的任务，而不是一个常驻的进程，这也导致Job的RestartPolicy仅支持设置为Never或OnFailure，不能是Always，因为job是一次性的。</p>
+<p>Job中的Pod正常执行完毕后的状态为completed，表示pod正常执行完毕，且返回的状态码为0。如果状态是CrashLoopBackOff ，表示 Pod 内的容器在启动后反复崩溃，并且 Kubernetes 已经多次尝试重新启动但仍然失败。</p>
+<p>下面是Job中的一些控制参数：</p>
+<ul>
+<li><p><code>spec.activeDeadlineSeconds</code></p>
+<p>超时时间，表示Job在启动之后，经过多少时间还没有运行成功，就判定为Job执行失败。</p>
+</li>
+<li><p><code>backoffLimit</code></p>
+<p>失败次数限制，跟下面的Pod重启策略相关。</p>
+</li>
+<li><p><code>restartPolicy</code></p>
+<p>Job中Pod的重启策略，有两种值：<code>OnFailure</code>和<code>Never</code></p>
+<p><code>OnFailure</code>表示当Pod运行失败后，会重启该Pod本身（不会创建新Pod），最多重启backoffLimit次。重启的频率是指数性质增长的，时间间隔会越来越慢。</p>
+<p><code>Never</code>表示当Pod运行失败后，不会重启Pod本身了，但是Job控制器会创建新的Pod，最多新建backoffLimit个新Pod。</p>
+</li>
+<li><p><code>completions</code></p>
+<p>Pod的成功次数，<code>completions</code>可以设置为大于1，也就是批处理任务。</p>
+</li>
+<li><p><code>parallelism</code></p>
+<p>当Job中设置的<code>completions</code>大于1时，为了提高运行效率，可以增加并行运行的个数。默认值为1，即串行运行Pod。</p>
+</li>
+<li><p>ttlSecondsAfterFinished</p>
+<p>Job完成后多少秒后做清理操作，删掉Job运行记录。</p>
+</li>
+</ul>
+<h3 id="CronJob"><a href="#CronJob" class="headerlink" title="CronJob"></a>CronJob</h3><p>CronJob是定时任务，就是在job一次性任务的基础上加了一个时间调度，通过定期执行的策略来控制 Job 资源。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cronjob控制器 ———&gt; job控制器 ———&gt; Pod</span><br></pre></td></tr></table></figure>
+
+<p>下面是Job中的一些控制参数：</p>
+<ul>
+<li><p><code>spec.concurrencyPolicy</code></p>
+<p><code>spec.concurrencyPolicy</code> 字段是可选的，声明 CronJob 创建的 Job 执行时发生重叠如何处理。有三种值Allow、Forbid、Replace</p>
+<ul>
+<li><p><code>Allow</code></p>
+<p>允许并发 Job 执行。如果一个任务还没有结束，而下一次调度时间到了，新的任务会直接启动，新旧 Job 共存。</p>
+</li>
+<li><p><code>Forbid</code></p>
+<p>禁止并发 Job 执行。如果新 Job 的执行时间到了而旧 Job 没有完成，新 Job 不会启动。适用于只允许一个任务实例运行的场景。</p>
+</li>
+<li><p><code>Replace</code></p>
+<p>如果新 Job 的执行时间到了而旧 Job 没有完成，CronJob 会用新 Job 替换当前正在运行的 Job，旧 Job 会被终止掉。</p>
+</li>
+</ul>
+</li>
+<li><p><code>successfulJobsHistoryLimit</code></p>
+<p>保留多少个运行成功的CronJob的历史记录</p>
+</li>
+<li><p><code>failedJobsHistoryLimit</code></p>
+<p>保留多少个运行失败的CronJob的历史记录</p>
+</li>
+</ul>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-24</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8S/'>
+                            K8S
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

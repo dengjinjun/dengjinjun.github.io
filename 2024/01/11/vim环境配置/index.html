@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="vim环境配置" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            vim环境配置
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>编辑当前用户的家目录下的隐藏文件<code>.vimrc</code>，添加下面内容，配置和优化vim环境。</p>
+<figure class="highlight v"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot; 基本设置</span></span><br><span class="line"><span class="string">set nocompatible				&quot;</span> 关闭兼容模式</span><br><span class="line">set history=<span class="number">100</span>					<span class="string">&quot; 设置历史记录步数</span></span><br><span class="line"><span class="string">set autoread					&quot;</span> 当文件被外部修改时，自动更新该文件</span><br><span class="line">set mouse=a						<span class="string">&quot; 激活鼠标的使用</span></span><br><span class="line"><span class="string">filetype on                     &quot;</span> 启用文件类型检测</span><br><span class="line">filetype indent on              <span class="string">&quot; 根据文件类型自动缩进</span></span><br><span class="line"><span class="string">filetype plugin on              &quot;</span> 根据文件类型加载插件</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&quot; 界面</span></span><br><span class="line"><span class="string">syntax enable                   &quot;</span> 开启语法高亮</span><br><span class="line">set guifont=dejaVu\ Sans\ MONO\ <span class="number">10</span>	<span class="string">&quot; 设置字体</span></span><br><span class="line"><span class="string">colorscheme desert				&quot;</span>设置配色</span><br><span class="line">set cursorline                  <span class="string">&quot; 高亮显示当前行</span></span><br><span class="line"><span class="string">hi cursorline guibg=#00ff00</span></span><br><span class="line"><span class="string">hi cursorColumn guibg=#00ff00</span></span><br><span class="line"><span class="string">set number                      &quot;</span> 显示行号</span><br><span class="line"><span class="string">&quot; set relativenumber              显示相对行号</span></span><br><span class="line"><span class="string">&quot;</span> set showcmd                     显示命令输入</span><br><span class="line">set wildmenu                    <span class="string">&quot; 命令行补全的可视化 (比如 :e &lt;Tab&gt;)</span></span><br><span class="line"><span class="string">set ruler						&quot;</span> 显示标尺</span><br><span class="line">set cmdheight=<span class="number">1</span>					<span class="string">&quot; 命令行高度</span></span><br><span class="line"><span class="string">set nu							&quot;</span> 显示行数</span><br><span class="line">set lazyredraw                  <span class="string">&quot; 为了更快的宏和脚本执行，不要在操作时更新屏幕</span></span><br><span class="line"><span class="string">set showmatch    				&quot;</span> 显示匹配的括号</span><br><span class="line">set backspace=eol,start,indent</span><br><span class="line">set whichwrap+=&lt;,&gt;,h,l</span><br><span class="line">set magic</span><br><span class="line">set noerrorbells</span><br><span class="line">set novisualbell</span><br><span class="line">set mat=<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot; 代码折叠</span></span><br><span class="line"><span class="string">set foldenable					&quot;</span> 激活折叠功能</span><br><span class="line">set foldmethod=manual			<span class="string">&quot; 设置折叠方式为手动折叠</span></span><br><span class="line"><span class="string">set foldcolumn=1				&quot;</span> 设置折叠区域的宽度</span><br><span class="line">setlocal foldlevel=<span class="number">3</span>			<span class="string">&quot; 设置折叠层数</span></span><br><span class="line"><span class="string">set foldclose=all				&quot;</span> 自动关闭折叠</span><br><span class="line">nnoremap &lt;space&gt; @=((foldclosed(line(&#x27;.&#x27;)) &lt; <span class="number">0</span>) ? &#x27;zc&#x27; : &#x27;zo&#x27;)&lt;CR&gt;	<span class="string">&quot; 空格键控制折叠</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> 换行与缩进处理</span><br><span class="line">set expandtab                   <span class="string">&quot; 使用空格代替制表符</span></span><br><span class="line"><span class="string">set tabstop=4                   &quot;</span> 制表符宽度为<span class="number">4</span>个空格</span><br><span class="line">set shiftwidth=<span class="number">4</span>                <span class="string">&quot; 自动缩进宽度（&lt;&lt; 和 &gt;&gt;）</span></span><br><span class="line"><span class="string">set softtabstop=4				&quot;</span> 退格时一次删掉<span class="number">4</span>个空格</span><br><span class="line">set autoindent                  <span class="string">&quot; 自动缩进</span></span><br><span class="line"><span class="string">set smartindent                 &quot;</span> 智能缩进</span><br><span class="line">set cin</span><br><span class="line">set wrap                        <span class="string">&quot; 自动换行</span></span><br><span class="line"><span class="string">set sw=4						&quot;</span> 设置软宽度</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&quot; 搜索和替换</span></span><br><span class="line"><span class="string">set ignorecase                  &quot;</span> 忽略大小写</span><br><span class="line">set hlsearch                    <span class="string">&quot; 高亮显示匹配的搜索</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> 编码设置</span><br><span class="line">set encoding=utf-<span class="number">8</span>              <span class="string">&quot; 文件编码</span></span><br><span class="line"><span class="string">set fileencodings=utf-8         &quot;</span> 打开文件的编码检测列表</span><br><span class="line">set termencoding=utf-<span class="number">8</span>			<span class="string">&quot; 设置终端编码</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> 其他</span><br><span class="line">set background=dark				<span class="string">&quot; 背景色</span></span><br><span class="line"><span class="string">highlight Search ctermbg=black ctermfg=white guifg=white guibg=black</span></span><br><span class="line"><span class="string">set pastetoggle=&lt;F9&gt;			&quot;</span> 解决粘贴不换行问题</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; 自动添加解释器及作者等信息</span></span><br><span class="line"><span class="string">autocmd BufNewFile *.py,*.cc,*.sh,*.java exec &quot;</span>:call SetTitle()<span class="string">&quot;</span></span><br><span class="line"><span class="string">func SetTitle()</span></span><br><span class="line"><span class="string">	if expand(&quot;</span>%:e<span class="string">&quot;) == &#x27;sh&#x27;</span></span><br><span class="line"><span class="string">		call setline(1, &quot;</span>#!/bin/bash<span class="string">&quot;)</span></span><br><span class="line"><span class="string">		call setline(1, &quot;</span>#Author:Dengpangpang<span class="string">&quot;)</span></span><br><span class="line"><span class="string">		call setline(1, &quot;</span>#Date:<span class="string">&quot;.strftime(&quot;</span>%F %T<span class="string">&quot;))</span></span><br><span class="line"><span class="string">		call setline(1, &quot;</span>#Description:<span class="string">&quot;)</span></span><br><span class="line"><span class="string">	endif</span></span><br><span class="line"><span class="string">endfunc</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意：</p>
+<p>在Windows系统下编辑的文件，直接复制到linux系统中，可能会提示存在^M的错误，但是在Linux下直接使用vim打开并不存在。造成这样的原因是不同的系统使用了不同的换行符。在Windows下文本文件的每一行结尾都有一个回车(‘\n’)和换行符(‘\r’)；在Linux下文本文件的每一行结尾都有一个回车(‘\n’)；在Mac下文本文件的每一行结尾都有一个换行符(‘\r’)。此时可以使用vim -b来打开脚本文件，就可以发现每行的末尾都存在^M。</p>
+<p>解决办法：<code>dos2unix filename</code>（需要提前安装<code>dos2unix</code>工具：<code>yum install -y dos2unix</code>）</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-01-11</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/'>
+                            奇技淫巧
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

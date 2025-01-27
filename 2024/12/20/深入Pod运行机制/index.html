@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="深入Pod运行机制" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            深入Pod运行机制
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Pod%E6%B7%B1%E5%85%A5"><span class="post-toc-text">Pod深入</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pod%E6%A6%82%E5%BF%B5"><span class="post-toc-text">pod概念</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Pod%E5%88%86%E7%B1%BB"><span class="post-toc-text">Pod分类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Pod%E7%9A%84%E5%AE%8C%E6%95%B4%E5%88%9B%E5%BB%BA%E6%B5%81%E7%A8%8B"><span class="post-toc-text">Pod的完整创建流程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Pod%E9%87%8D%E5%90%AF%E7%AD%96%E7%95%A5%E5%BA%94%E7%94%A8"><span class="post-toc-text">Pod重启策略应用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Init%E5%AE%B9%E5%99%A8"><span class="post-toc-text">Init容器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0"><span class="post-toc-text">钩子函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Pod%E5%81%A5%E5%BA%B7%E6%A3%80%E6%9F%A5"><span class="post-toc-text">Pod健康检查</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6"><span class="post-toc-text">资源限制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%9A%84%E8%B4%A8%E9%87%8F%E7%AD%89%E7%BA%A7%EF%BC%88Qos%EF%BC%89"><span class="post-toc-text">服务的质量等级（Qos）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Downward-API"><span class="post-toc-text">Downward API</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="Pod深入"><a href="#Pod深入" class="headerlink" title="Pod深入"></a>Pod深入</h2><h3 id="pod概念"><a href="#pod概念" class="headerlink" title="pod概念"></a>pod概念</h3><p>Pod是在K8s集群中运行部署应用或服务的最小单元，以更高的抽象层次为应用部署提供了极大的方便。</p>
+<p>Pod中可以运行一个容器，也可以同时运行多个容器协同工作。比如Pod中有一个容器作为web服务器运行，需要用到共享的volume，有另一个“sidecar”容器来从远端获取资源更新这些文件。</p>
+<p>Pod中可以共享两种资源：网络和存储。</p>
+<ul>
+<li><strong>网络：</strong></li>
+</ul>
+<p>　　每个Pod都会被分配一个唯一的IP地址。Pod中的所有容器共享网络空间，包括IP地址和端口。Pod内部的容器可以使用<code>localhost</code>互相通信。Pod中的容器与外界通信时，必须分配共享网络资源（例如使用宿主机的端口映射）。基于共享网络可以实现流量染色。</p>
+<ul>
+<li><strong>存储：</strong></li>
+</ul>
+<p>　　可以Pod指定多个共享的Volume。Pod中的所有容器都可以访问共享的volume。Volume也可以用来持久化Pod中的存储资源，以防容器重启后文件丢失。基于共享存储可以实现sidecar模式的日志收集。</p>
+<h3 id="Pod分类"><a href="#Pod分类" class="headerlink" title="Pod分类"></a>Pod分类</h3><p>Pod总体上分为两大类：</p>
+<ul>
+<li><p>普通pod</p>
+<p>普通pod是通过客户端提交请求给Api server创建的，普通pod又分为两种：</p>
+<ul>
+<li><p>裸Pod</p>
+<p>又称为自主式Pod，不依赖任何控制器，比如通过<code>kubectl run pod-test --image=nginx:1.8.1 </code>直接创建，这种Pod自愈能力不完善，Pod内的容器挂掉了，会依据restartPolicy来进行重启，但是如果Pod本身被删掉，或者说Pod所在的节点挂掉了，导致本副本不可用了，不会在一个新节点上拉起Pod。</p>
+</li>
+<li><p>控制器管理的Pod</p>
+<p>Kubernetes可以使用更高级的称为Controller的抽象层来管理Pod实例。比如通过<code>kubectl create deployment web --image=nginx:1.14</code>创建Pod，这种Pod被 Deployment  Controller来管理。Controller可以创建和管理多个Pod，提供副本管理、滚动升级和集群级别的自愈能力。例如，如果一个Node故障，Controller就能自动将该节点上的Pod调度到其他健康的Node上。</p>
+</li>
+</ul>
+</li>
+<li><p>静态Pod</p>
+<p>静态Pod是直接通过配置文件或HTTP的方式交给kubelet创建的pod，相当于一种系统服务，不走API Server。kubelet会定时检测<code>/etc/kubernetes/manifest</code>目录下的yaml文件定义的静态Pod，yaml文件新增、减少或变动时，kubelet会保证处于yaml文件中定义的状态，静态的pod的状态可以查看到，无法彻底删除静态（删掉就会自动被kubelet拉起，除非删掉它的yaml文件）。</p>
+<p>静态pod始终与某个Node节点的kubelet绑定，即始终运行在同一个节点，不会被调度到其他节点上。kubelet无法对静态Pod进行健康检测，但pod崩溃时kubelet会重启该静态pod</p>
+</li>
+</ul>
+<h3 id="Pod的完整创建流程"><a href="#Pod的完整创建流程" class="headerlink" title="Pod的完整创建流程"></a>Pod的完整创建流程</h3><ol>
+<li>创建pod，并调度到合适节点</li>
+<li>创建pause基础容器，提供共享名称空间</li>
+<li>串行运行init容器（如果有的话）</li>
+<li>启动业务容器，启动那一刻会并行运行主容器上定义的Poststart钩子事件</li>
+<li>startupProbe健康状态监测，判断容器是否启动成功</li>
+<li>持续检测livenessProbe、readnessProbe</li>
+<li>结束时，在容器结束之前会先执行prestop钩子事件，然后才终止容器</li>
+<li>kubelet会帮当前节点的pod信息上报给API Server将Pod信息存储到etcd系统中。</li>
+<li>在etcd确认写入操作完成，API Server将确认信息发送到相关的kubelet。</li>
+</ol>
+<h3 id="Pod重启策略应用"><a href="#Pod重启策略应用" class="headerlink" title="Pod重启策略应用"></a>Pod重启策略应用</h3><p>restartPolicy的值有三个：Always、OnFailure、Never；默认值为Always。</p>
+<p>三种策略的区别在于:</p>
+<ul>
+<li>Always：只要Container退出就重启，即使它的退出码为0（即成功退出）</li>
+<li>OnFailure：如果Container的退出码不是0（即失败退出），就重启</li>
+<li>Never：Container退出后永不重启</li>
+</ul>
+<p>虽然restartPolicy字段是Pod的配置，但是其实是作用于Pod的Container，换句话说，不应该叫Pod的重启策略，而是叫Container的重启策略；Pod中的所有Container都适用于这个策略。</p>
+<p>重启策略适用于Pod对象中的所有容器，首次需要重启的容器，将在其需要时立即进行重启，随后再次需要重启的操作将由Kubelet延迟一段时间后进行，且反复的重启操作的延迟时长为10s，20s，40s，80s，160s，300s，300s是最大延迟时长。</p>
+<p><strong>所谓Container的退出码，就是Container中进程号为1的进程的退出码。</strong>每个进程退出时都有一个退出码，我们常见的提示exit 0表示退出码为0（即成功退出）。举个例子：shell命令cat &#x2F;tmp&#x2F;file，如果文件&#x2F;tmp&#x2F;file存在，则该命令（进程）的退出码为0。</p>
+<blockquote>
+<p><strong>静态pod</strong></p>
+</blockquote>
+<p>不允许设置restartPolicy</p>
+<blockquote>
+<p><strong>控制器管理的pod</strong></p>
+</blockquote>
+<p><code>ReplicaSet</code>、<code>Deployment</code>、<code>DaemonSet</code>：此类控制器希望 Pod 一直运行下去，它们的重启策略只能是<code>Always</code>。<br><code>job</code>一次性任务控制器的重启策略只能是<code>OnFailure</code>或者<code>Never</code></p>
+<blockquote>
+<p><strong>裸Pod</strong>	</p>
+</blockquote>
+<p>可以设置三种策略<code>Always</code>、<code>OnFailure</code>、<code>Never</code></p>
+<h3 id="Init容器"><a href="#Init容器" class="headerlink" title="Init容器"></a>Init容器</h3><p>Init容器是在containers定义的业务容器启动之前先启动的一些容器，用于完成一些初始化操作。比如：</p>
+<ol>
+<li>在启动前检测依赖的上下游服务端口是否就绪</li>
+<li>做启动前的初始化配置，例如数据库初始化</li>
+<li>启动前将pod信息注册到配置中心等场景</li>
+</ol>
+<p>整个pod只要不重启，init容器就会只执行一次，而且多个init容器是串行运行。Init容器通常无需设置探针，探针通常设置在业务容器中。Init容器运行失败，会依据pod的重启策略进行重启。如果重建pod那必然会运行Init容器。<br>下面一些情况并不一定会重新运行Init容器：</p>
+<ol>
+<li>如果是裸pod，并且只更新了业务容器的镜像，不会触发pod的重启，那自然也不会不会重新执行init容器的重启。</li>
+<li>更新init容器的镜像，也不会触发pod的重启，那自然也不会重新执行一遍Init容器。</li>
+</ol>
+<h3 id="钩子函数"><a href="#钩子函数" class="headerlink" title="钩子函数"></a>钩子函数</h3><p>钩子函数是由kubelet发起调用的，钩子函数有两种：PostStart和PreStop。</p>
+<blockquote>
+<p><strong>PostStart</strong></p>
+</blockquote>
+<p>运行时机：与业务容器是同时起来的，是异步运行，没有先后<br>PostStart的作用是在容器运行之初完成一些初始化操作，这些初始化工作没有要求必须在业务容器运行前运行，仅仅在容器启动之初做一下就可以。如果PostStart运行失败，容器会被杀死，并根据RestartPolicy决定是否重启。</p>
+<p>注意：如果这些初始化工作一定要在业务容器运行前运行，那就用initcontainers来定制。	</p>
+<blockquote>
+<p><strong>PreStop</strong></p>
+</blockquote>
+<p>运行时间：一定是容器终止之前执行<br>PreStop的主要用于资源清理、优雅关闭应用程序、通知其他系统等事项。</p>
+<p>当 Pod 开始终止时，Kubernetes 会执行 preStop 钩子。钩子有一个超时时间（默认为 30 秒）。如果钩子在超时时间内没有成功完成，Kubernetes 会终止 Pod，而不再继续等待钩子完成。如果 preStop 运行失败，也会强制删除pod。</p>
+<p>补充：</p>
+<p>正常删除Pod时会做两件事：</p>
+<ol>
+<li>去目标节点终止进程</li>
+<li>清理掉该资源在etcd中数据，也就是<code>kubectl --force --grace-period=0   delete pod xxxx</code>的作用。</li>
+</ol>
+<p>所以如果Pod一直处于Terminating状态，可能是目标节点挂掉，或者目标节点的kubelet挂掉。终止进程的操作无法收到回复，Pod的状态一直是Terminating。</p>
+<h3 id="Pod健康检查"><a href="#Pod健康检查" class="headerlink" title="Pod健康检查"></a>Pod健康检查</h3><p>Pod的健康检查是通过探针来实现的，探针就是用来检测容器或容器的服务是否存活的一种机制，主要有三种探针：startupProbe、livenessProbe和readinessProbe。</p>
+<blockquote>
+<p><strong>startupProbe</strong></p>
+</blockquote>
+<p>用于启动场景的检测，通常的应用场景就是启动时间不确定。</p>
+<p>该探针检测通过之后才会运行后面的探针，一旦该探针通过则不会重复执行该探针，重复执行的是后两个探针</p>
+<blockquote>
+<p><strong>livenessProbe</strong></p>
+</blockquote>
+<p>周期性检测，检查失败就会重启pod</p>
+<blockquote>
+<p><strong>readinessProbe</strong></p>
+</blockquote>
+<p>周期性检测，检查失败就会把pod从自己的service里下线</p>
+<p>探针有三种探测方式：</p>
+<ol>
+<li><code>exec</code>：执行一段命令（成功与否判定的标准不是命令输出，而是命令的成功与否的状态码）</li>
+<li><code>http Get</code>：检测某个 http 请求，如果响应状态码&gt;&#x3D;200且&lt;&#x3D;400，则认为容器健康  </li>
+<li><code>tcpSocket</code>：与目标端口建立tcp连接，建立成功则代表检测功能</li>
+</ol>
+<h3 id="资源限制"><a href="#资源限制" class="headerlink" title="资源限制"></a>资源限制</h3><p>k8s中常用的资源限制有两种：CPU和内存。</p>
+<p>CPU属于可压缩资源，单位是<code>m</code>，<code>1m</code>等于千分之一颗CPU。达到limits上限之后只会限频，不会杀掉pod。</p>
+<p>内存属于不可压缩资源，单位是<code>Mi</code>或者<code>Gi</code>。达到limits上限之后则触发k8s级别的OOM，杀掉Pod。</p>
+<p>除了CPU和内存之外，还有其他的资源类型，了解即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ephemeral-storage: &quot;2Gi&quot;             # 限制最多使用 2 GiB 临时存储</span><br><span class="line">nvidia.com/gpu: &quot;1&quot;                  # 限制最多使用 1 个 GPU</span><br><span class="line">hugepages-2Mi: &quot;128Mi&quot;               # 限制最多使用 128 MiB 大页内存</span><br><span class="line">example.com/special-resource: &quot;4&quot;    # 限制最多使用 4 个自定义扩展资源  </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="服务的质量等级（Qos）"><a href="#服务的质量等级（Qos）" class="headerlink" title="服务的质量等级（Qos）"></a>服务的质量等级（Qos）</h3><p>当某个节点的资源不足时，k8s会把该节点的pod进行驱逐，(pod此时处于evicted 状态)，驱逐时会按照pod的Qos质量等级进行驱逐，质量等级越低的会成为被驱逐的目标，按照优先级从高到低的顺序排列</p>
+<ol>
+<li><p>Guranteed（完全可靠的）：<br>Pod中的所有容器对所有资源类型（cpu与内存）都定义了Limits与requests，且二者值相等、且大于0</p>
+</li>
+<li><p>Burstable(不稳定的)</p>
+<p>设置了requests或limits，但是存在不一致的情况。一个pod既不是Guranteed级也不是BestEffort级，那就是Burstable级。</p>
+</li>
+<li><p>BestEffort(尽最大努力)<br>Pod中的所有容器都未定义资源配置（Requests与Limits都未定义），那么该pod的Qos级别就是BestEffort</p>
+</li>
+</ol>
+<h3 id="Downward-API"><a href="#Downward-API" class="headerlink" title="Downward API"></a>Downward API</h3><p>基于Downward API机制可以把容器所在pod的一些状态信息（pod名字、pod的ip、调度的节点、Label、Annotation）注入到容器中（在容器体现的形式可以是环境变量、也可以某个文件中的文件）</p>
+<p>Downward API可以通过两种方式将Pod和容器的元数据注入容器内部</p>
+<ul>
+<li><p>环境变量：将Pod或Container信息设置为容器内的环境变量</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># env-pod.yaml</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">env-pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">env-pod</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">registry.cn-shanghai.aliyuncs.com/egon-k8s-test/busybox:v1.0</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;/bin/sh&quot;</span>, <span class="string">&quot;-c&quot;</span>]</span><br><span class="line">    <span class="attr">args:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">while</span> <span class="literal">true</span><span class="string">;do</span></span><br><span class="line">      <span class="string">echo</span> <span class="string">-en</span> <span class="string">&quot;\n&quot;</span><span class="string">;</span></span><br><span class="line">      <span class="string">env;</span></span><br><span class="line">      <span class="string">echo</span> <span class="string">&quot;===============&quot;</span><span class="string">;</span></span><br><span class="line">      <span class="string">sleep</span> <span class="number">300</span><span class="string">;</span></span><br><span class="line">      <span class="string">done;</span></span><br><span class="line">    <span class="attr">env:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">NODE_NAME</span></span><br><span class="line">      <span class="attr">valueFrom:</span></span><br><span class="line">        <span class="attr">fieldRef:</span></span><br><span class="line">          <span class="attr">fieldPath:</span> <span class="string">spec.nodeName</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">POD_NAME</span></span><br><span class="line">      <span class="attr">valueFrom:</span></span><br><span class="line">        <span class="attr">fieldRef:</span></span><br><span class="line">          <span class="attr">fieldPath:</span> <span class="string">metadata.name</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">POD_NAMESPACE</span></span><br><span class="line">      <span class="attr">valueFrom:</span></span><br><span class="line">        <span class="attr">fieldRef:</span></span><br><span class="line">          <span class="attr">fieldPath:</span> <span class="string">metadata.namespace</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">POD_IP</span></span><br><span class="line">      <span class="attr">valueFrom:</span></span><br><span class="line">        <span class="attr">fieldRef:</span></span><br><span class="line">          <span class="attr">fieldPath:</span> <span class="string">status.podIP</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Volume挂载：将Pod或Container的信息以文件形式挂载到容器内部</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># volume-pod.yaml</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">volume-pod</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">k8s-app:</span> <span class="string">test-volume</span></span><br><span class="line">    <span class="attr">node-env:</span> <span class="string">test</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">user:</span> <span class="string">egon</span></span><br><span class="line">    <span class="attr">gender:</span> <span class="string">male</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">podinfo</span></span><br><span class="line">    <span class="attr">downwardAPI:</span></span><br><span class="line">      <span class="attr">items:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">labels</span></span><br><span class="line">        <span class="attr">fieldRef:</span></span><br><span class="line">          <span class="attr">fieldPath:</span> <span class="string">metadata.labels</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">annotations</span></span><br><span class="line">        <span class="attr">fieldRef:</span></span><br><span class="line">          <span class="attr">fieldPath:</span> <span class="string">metadata.annotations</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">volume-pod</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">args:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">sleep</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;3600&quot;</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">podinfo</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">/etc/podinfo</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>注意：<br>    Downward API 能够获取到的信息，一定是 Pod 里的容器进程启动之前就能够确定下来的信息。而如果想要获取 Pod 容器运行后才会出现的信息，比如，容器进程的 PID，那就肯定不能使用 Downward API 了，而应该考虑在 Pod 里定义一个 sidecar 容器来获取了。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-12-20</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8S/'>
+                            K8S
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

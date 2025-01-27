@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="vim编辑器" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            vim编辑器
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#vim%E7%BC%96%E8%BE%91%E5%99%A8"><span class="post-toc-text">vim编辑器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%80%E8%88%AC%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">一般模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E7%A7%BB%E5%8A%A8%E5%85%89%E6%A0%87%E7%9A%84%E6%96%B9%E6%B3%95"><span class="post-toc-text">移动光标的方法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%9F%A5%E6%89%BE%E4%B8%8E%E6%9B%BF%E6%8D%A2"><span class="post-toc-text">查找与替换</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%A0%E9%99%A4%E3%80%81%E5%A4%8D%E5%88%B6%E5%92%8C%E7%B2%98%E8%B4%B4"><span class="post-toc-text">删除、复制和粘贴</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%92%A4%E9%94%80%E5%92%8C%E9%87%8D%E5%81%9A"><span class="post-toc-text">撤销和重做</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">编辑模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">命令模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%8C%BA%E5%9D%97%E9%80%89%E6%8B%A9%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">区块选择模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">多文件编辑模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%A4%9A%E7%AA%97%E5%8F%A3%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">多窗口模式</span></a></li></ol></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="vim编辑器"><a href="#vim编辑器" class="headerlink" title="vim编辑器"></a>vim编辑器</h1><p>vim编辑器分为三种模式：一般模式，编辑模式和命令模式。</p>
+<p>使用vim打开一个文本文件时，进入一般模式。</p>
+<p>一般模式下输入<code>i</code>,<code>a</code>,<code>o</code>,<code>r</code>等进入编辑模式，编辑模式按<code>esc</code>回到一般模式</p>
+<p>一般模式下输入<code>：</code>进入命令模式，命令模式按<code>esc</code>回到一般模式</p>
+<h2 id="一般模式"><a href="#一般模式" class="headerlink" title="一般模式"></a>一般模式</h2><h4 id="移动光标的方法"><a href="#移动光标的方法" class="headerlink" title="移动光标的方法"></a>移动光标的方法</h4><ul>
+<li><p><code>h j k l</code>，上下左右键</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">h: 向左移动一个字符</span><br><span class="line">j: 向下移动一个字符</span><br><span class="line">k: 向上移动一个字符</span><br><span class="line">l: 向右移动一个字符</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hjkl都可以搭配数字来使用，比如8h就是向左移动8个字符，同样方向键也可以。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>0</code>和<code>$</code>,<code>end</code>和<code>home</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0: 光标移动到此行的第一个字符之前，相当于home</span><br><span class="line">$: 光标移动到此行的最后一个字符之后，相当于end</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>H</code> <code>M</code> <code>L</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">H: 光标移动到屏幕第一行的第一个字符处</span><br><span class="line">M: 光标移动到屏幕中间一行的第一个字符处</span><br><span class="line">L: 光标移动到屏幕最下方一行的第一个字符处</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>简单的数字</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[数字] + enter : 光标向下移动指定的行数</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>g</code>和<code>G</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">G: 光标移动到文件的最后一行</span><br><span class="line">[数字]G : 光标移动到文件的指定行，在set nu模式下很方便</span><br><span class="line">gg: 光标移动到文件的第一行，相当于1G</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>翻页</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pageup: 向上翻一页</span><br><span class="line">pagedown: 向下翻一页</span><br><span class="line">ctrl + u : 向上翻半页</span><br><span class="line">ctrl + d : 向下翻半页</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="查找与替换"><a href="#查找与替换" class="headerlink" title="查找与替换"></a>查找与替换</h4><ul>
+<li><p>用<code>/</code>来查找文本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/字符串 ： 在文件中查找相关字符串，n找下一个，N找上一个</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用<code>s</code>来替换文本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:1,$ s/文本1/文本2/	# 1和$指定行号范围，s表示替换</span><br><span class="line">    后可加 g 表示全局替换，而不是只替换每行的第一个</span><br><span class="line">    后可加 i 表示不区分大小写</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="删除、复制和粘贴"><a href="#删除、复制和粘贴" class="headerlink" title="删除、复制和粘贴"></a>删除、复制和粘贴</h4><ul>
+<li><p>删除字符：<code>x</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x: 删除光标所在字符，相当于delete</span><br><span class="line">[数字]x: 从光标所在处，连续向后删除指定数量的字符</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除行：<code>dd</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dd: 删除光标所在的那一行</span><br><span class="line">[数字]dd: 从光标所在处，向下删除指定数量的行</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复制行：<code>yy</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yy: 复制光标所在的那一行</span><br><span class="line">[数字]yy: 从光标所在处，向下复制指定数量的行</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>粘贴：<code>p</code>和<code>P</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p: 将复制的内容粘贴到光标下一行</span><br><span class="line">P: 将复制的内容粘贴到光标上一行</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="撤销和重做"><a href="#撤销和重做" class="headerlink" title="撤销和重做"></a>撤销和重做</h4><ul>
+<li><p><code>u</code>和<code>ctrl + r</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">u: 撤销上一步操作</span><br><span class="line">ctrl + r : 撤销上一步的撤销</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>.</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">. : 这是一个点，代表重复前一个动作</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="编辑模式"><a href="#编辑模式" class="headerlink" title="编辑模式"></a>编辑模式</h2><p>一般模式进入编辑模式的几种方式</p>
+<ul>
+<li><p><code>i</code>和<code>I</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">i: 在光标所在处插入</span><br><span class="line">I: 在光标所在行的第一个字符前插入</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>a</code>和<code>A</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a: 在光标所在处的下一个字符插入</span><br><span class="line">A: 在光标所在行的最后一个字符后插入</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>o</code>和<code>O</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">o: 在光标所在行的下一行插入</span><br><span class="line">O: 在光标所在行的上一行插入</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>r</code>和<code>R</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">r: 取代光标所在字符一次</span><br><span class="line">R: 一直向后移动，取代光标所在文字</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h2><ul>
+<li><p>保存和退出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">w: 保存</span><br><span class="line">w!: 强制保存</span><br><span class="line">q: 退出</span><br><span class="line">q!: 强制退出</span><br><span class="line">wq: 保存并退出</span><br><span class="line">wq!: 强制保存并退出</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>环境变更</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set nu 显示行号</span><br><span class="line">set nonu 取消显示行号</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="区块选择模式"><a href="#区块选择模式" class="headerlink" title="区块选择模式"></a>区块选择模式</h4><p>在一般模式下，想要选中一个区块范围，可以使用以下按键</p>
+<ul>
+<li><p><code>v</code>， <code>V</code>和<code>ctrl + v</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">v: 字符选择，会将光标经过的字符反白选择</span><br><span class="line">V: 行选择，会将光标经过的行反白选择</span><br><span class="line">ctrl + v: 区块选择，会将光标经过的区块反白选择</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>y</code>，<code>d</code>和<code>p</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">y: 复制</span><br><span class="line">d: 删除</span><br><span class="line">d: 粘贴</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="多文件编辑模式"><a href="#多文件编辑模式" class="headerlink" title="多文件编辑模式"></a>多文件编辑模式</h4><p><code>vim</code>命令后可以跟多个参数，即可以同时编辑多个文件，多文件编辑模式下增加了功能按键</p>
+<table>
+<thead>
+<tr>
+<th><strong>:n</strong></th>
+<th><strong>编辑下一个文件</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>:N</strong></td>
+<td><strong>编辑上一个文件</strong></td>
+</tr>
+<tr>
+<td><strong>:files</strong></td>
+<td><strong>列出目前这个 vim 的打开的所有文件</strong></td>
+</tr>
+</tbody></table>
+<h4 id="多窗口模式"><a href="#多窗口模式" class="headerlink" title="多窗口模式"></a>多窗口模式</h4><p>使用<code>vim</code>打开一个文件之后，在一般模式下输入 <code>:sp [文件]</code>可以打开另一个文件窗口，多窗口模式下增加了功能按键</p>
+<table>
+<thead>
+<tr>
+<th><strong>[ctrl]+w+↓</strong></th>
+<th><strong>同时按 ctrl 和 w，然后再按向下方向键，则光标可移动到下方的窗口。</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>[ctrl]+w+↑</strong></td>
+<td><strong>同时按 ctrl 和 w，然后再按向上方向键，则光标可移动到下方的窗口。</strong></td>
+</tr>
+</tbody></table>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-17</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

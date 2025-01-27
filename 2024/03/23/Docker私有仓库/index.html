@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Docker仓库" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Docker仓库
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="post-toc-text">概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#registry"><span class="post-toc-text">registry</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Harbor"><span class="post-toc-text">Harbor</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
+<p><strong>关于共有镜像Docker Hub</strong></p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a>是一个公共的Docker镜像仓库，使用前需要在Docker Hub官网注册一个账号，创建一个仓库（Repository）,比如test</p>
+<p>需要注意的是，镜像名应该是<code>用户名/仓库名:标签</code>，这样才能正确地拉取和推送镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login		<span class="comment"># 输入用户名和密码，登录Docker hub的账号，之后即可在Docker Hub上拉取和推送镜像</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>使用Docker私有仓库的原因</strong></p>
+</blockquote>
+<ol>
+<li>速度慢，官方的镜像仓库在国外，访问速度不言而喻;</li>
+<li>安全性低，如果企业开发的核心代码上传到官方的镜像仓库，这意味着大家都能看到企业内部的代码;</li>
+</ol>
+<blockquote>
+<p><strong>主流私有仓库有哪些</strong></p>
+</blockquote>
+<ol>
+<li>docker-registry：一个轻量级的镜像仓库，基本上不太占用内存，很适合学习环境中使用。</li>
+<li>harbor：宿主机最少需要2G内存，是企业的主流应用。</li>
+</ol>
+<h2 id="registry"><a href="#registry" class="headerlink" title="registry"></a>registry</h2><blockquote>
+<p><strong>部署启动</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull registry</span><br><span class="line">docker run -d -p 5000:5000 --restart=always --name registry -v /data/docker_registry:/var/lib/registry registry</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器访问<code>http://服务端IP:5000/v2/_catalog</code>即可查看仓库</p>
+<blockquote>
+<p><strong>上传镜像</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先要把私有镜像仓库的地址添加到受信任的仓库，才能使用https协议</span></span><br><span class="line">vim /etc/docker/daemon.json		<span class="comment"># 添加这句，受信任仓库的`域名:端口`或者`IP:端口`</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;insecure-registries&quot;</span>: [<span class="string">&quot;registry:80&quot;</span>],</span><br><span class="line"></span><br><span class="line"><span class="comment"># 上传之前要先给镜像打上标签，镜像名中必须含有私有仓库地址信息才能正确上传</span></span><br><span class="line">docker tag 原镜像名:标签 新镜像名:标签		<span class="comment"># 比如 docker tag hello-world registry:80/hello:v1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送</span></span><br><span class="line">docker push 镜像名:标签		<span class="comment"># 比如 docker push registry:80/hello:v1</span></span><br></pre></td></tr></table></figure>
+
+<p>在浏览器访问<code>http://服务端IP:5000/v2/_catalog</code>即可查看仓库中的镜像信息</p>
+<blockquote>
+<p><strong>其他镜像命令</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 其他镜像命令基本上没有太多差异，像拉取镜像、删除本地镜像，正常使用命令即可</span></span><br><span class="line">docker pull 镜像名:标签		<span class="comment"># 比如 docker pull registry:80/hello:v1</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>删除仓库中的镜像</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入容器内部，然后进入镜像的存储目录，可以发现有两个目录`blobs`和`repositories`</span></span><br><span class="line">docker <span class="built_in">exec</span> -it registry sh</span><br><span class="line"><span class="built_in">cd</span> /var/lib/registry/docker/registry/v2</span><br><span class="line"><span class="built_in">ls</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 其中repositories存储的是镜像的元数据，blobs存储的是压缩后的镜像文件，需要分别删除</span></span><br><span class="line"><span class="built_in">rm</span> -rf repositories/镜像名/		<span class="comment"># 删除镜像元数据，此时浏览器中已经查看不到该镜像的信息</span></span><br><span class="line">registry garbage-collect /etc/docker/registry/config.yml 		<span class="comment"># 回收无用文件，把没有元数据的镜像文件给清理掉</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Harbor"><a href="#Harbor" class="headerlink" title="Harbor"></a>Harbor</h2><p>harbor私有镜像仓库是在docker官方提供的”registry”基础之上二次开发，它包含了registry的核心功能。harbor相比docker的registry使用起来更加友好，基本上大多数操作都是在web界面中就能完成。</p>
+<blockquote>
+<p><strong>部署Harbor</strong></p>
+</blockquote>
+<p>注意：安装harbor之前，需要先安装docker-ce，docker-compose，container.io，并启动docker守护进程</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载</span></span><br><span class="line">wget https://github.com/goharbor/harbor/releases/download/v2.3.0/harbor-offline-installer-v2.3.0.tgz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压到指定目录</span></span><br><span class="line">tar xf harbor-offline-installer-v2.3.0.tgz -C /softwares</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑配置文件</span></span><br><span class="line"><span class="built_in">cd</span> /softwares/harbor		<span class="comment"># 进入harbor软件目录</span></span><br><span class="line"><span class="built_in">cp</span> harbor.yml.tmpl harbor.yml		<span class="comment"># 根据示例配置文件创建一个配置文件</span></span><br><span class="line">vim harbor.yml		<span class="comment"># 编辑配置文件</span></span><br><span class="line"></span><br><span class="line">hostname: harbor.study		<span class="comment"># 主机名，作为访问域名</span></span><br><span class="line">http:</span><br><span class="line">  port: 80		<span class="comment"># http端口，默认80一般无需修改</span></span><br><span class="line">harbor_admin_password: 123456		<span class="comment"># 初始登录密码，用户名是admin</span></span><br><span class="line">database:</span><br><span class="line">  password: 123456		<span class="comment"># 数据库密码</span></span><br><span class="line">  max_idle_conns: 100</span><br><span class="line">  max_open_conns: 900</span><br><span class="line">data_volume: /data		<span class="comment"># 存储卷的目录，会自动创建</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装harbor,等待安装完成即可</span></span><br><span class="line">sh ./install.sh		</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器中访问<code>harbor.study</code>即可进入到harbor仓库的web页面</p>
+<blockquote>
+<p><strong>基本使用</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同样的，需要把harbor仓库作为受信任的仓库地址添加到docker服务端的配置文件中，然后重启docker服务端</span></span><br><span class="line">vim /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">  <span class="string">&quot;insecure-registries&quot;</span>: [<span class="string">&quot;registry:80&quot;</span>,<span class="string">&quot;study.harbor&quot;</span>],</span><br><span class="line"></span><br><span class="line">systemctl restart docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 登录harbor私有仓库</span></span><br><span class="line">docker login harbor.study</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给镜像打标签，新镜像名中必须含有私有仓库的地址信息，以及项目名</span></span><br><span class="line">docker tag 原镜像名:标签 新镜像名:标签</span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送、拉取、删除本地镜像等操作没有太大差异</span></span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-03-23</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Docker/'>
+                            Docker
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

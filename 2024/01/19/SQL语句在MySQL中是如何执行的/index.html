@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="SQL语句在MySQL中是如何执行的" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            SQL语句在MySQL中是如何执行的
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9E%B6%E6%9E%84%E6%A6%82%E5%86%B5"><span class="post-toc-text">架构概况</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%BF%9E%E6%8E%A5%E5%99%A8"><span class="post-toc-text">连接器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98"><span class="post-toc-text">查询缓存</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%86%E6%9E%90%E5%99%A8"><span class="post-toc-text">分析器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BC%98%E5%8C%96%E5%99%A8"><span class="post-toc-text">优化器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%89%A7%E8%A1%8C%E5%99%A8"><span class="post-toc-text">执行器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%80%BB%E7%BB%93"><span class="post-toc-text">总结</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>开门见山，当我们输入一条 SQL 语句的时候，<a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/cdb?from_column=20065&from=20065">MySQL</a> 内部究竟执行了什么？直接上架构图，我们才能对其有一个概念，而不要陷入细节之中。</p>
+<p><a href="/../pic/58arj68m3o.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/58arj68m3o.png" alt="img"></a></p>
+<h3 id="架构概况"><a href="#架构概况" class="headerlink" title="架构概况"></a><strong>架构概况</strong></h3><p>大体上来说，MySQL 可以分为 Server 层与存储引擎两个部分。</p>
+<ol>
+<li>Server 层包括连接器、查询缓存、分析器、优化器、执行器。</li>
+<li>存储引擎负责数据的存储和读取，其架构模式是插件式的，支持支持 InnoDB、MyISAM、Memory 等多个存储引擎。现在最常用的存储引擎是 InnoDB，它从 MySQL5.5.5 版本开始成为了默认存储引擎。</li>
+</ol>
+<p>所以不难看出，主要差别在于 Server 层，也就是连接器到执行器部分。接下来我们来说明上文的 SQL 语句到底在内部经历了什么。</p>
+<h3 id="连接器"><a href="#连接器" class="headerlink" title="连接器"></a><strong>连接器</strong></h3><p>第一步，客户端会先连接到<a target="_blank" rel="noopener" href="https://cloud.tencent.com/solution/database?from_column=20065&from=20065">数据库</a>，这个时候就是连接器来接待。它负责跟客户端建立连接、获取权限、维持和管理连接。</p>
+<p>如果用户名密码正确，连接器就到权限表查询你所拥有的的权限之后这个连接里面的权限判断，都依赖于此时读到的权限。</p>
+<p>这就意味着，一个用户成功建立连接后，被修改了权限，也不会影响已经存在的连接的权限。修改完成后，只有再重新建立的连接才会使用到新的权限设置。</p>
+<p>建立连接的过程通常是比较复杂的，所以我建议你在使用中要尽量减少建立连接的动作，也就是尽量使用长连接。</p>
+<h3 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a><strong>查询缓存</strong></h3><p>连接建立好了以后，就可以执行 select 语句了，执行逻辑进入第二步：查询缓存。</p>
+<p>MySQL 拿到一个查询语句，会先查询缓存，先校验这个语句是否执行过，以 key-value 的形式存在内存里， Key 是查询预计，Value 是结果集。如果缓存 key 被命中，就会直接返回给客户端，如果没有命中，就会执行后续的操作，完成后也会把结果缓存起来，方便下一次调用。当然在真正执行缓存查询的时候还是会校验用户的权限，是否有该表的查询条件。</p>
+<p>Mysql 查询不建议使用缓存，因为对于经常更新的数据来说，缓存的有效时间太短了，往往带来的效果并不好，对于不经常更新的数据来说，使用缓存还是可以的，Mysql 8.0 版本后删除了缓存的功能，官方也是认为该功能在实际的应用场景比较少，所以干脆直接删掉了。</p>
+<h3 id="分析器"><a href="#分析器" class="headerlink" title="分析器"></a><strong>分析器</strong></h3><p>如果没有命中缓存，那么就进入分析器，主要就是分析 SQL 语句是拿来干嘛，也就是解析该语句生成语法树，会分为两步：</p>
+<ol>
+<li>第一步：<strong>词法分析</strong>， 一条 SQL 语句有多个字符串组成，首先要提取关键字，比如 select，提出查询的表，提出字段名，提出查询条件等等。做完这些操作后，就会进入第二步。</li>
+<li>第二步：<strong>语法分析</strong>，主要就是判断你输入的 SQL 是否正确，是否符合 MySQL 的语法。，主要就是判断你输入的 SQL 是否正确，是否符合 MySQL 的语法。</li>
+</ol>
+<h3 id="优化器"><a href="#优化器" class="headerlink" title="优化器"></a><strong>优化器</strong></h3><p>经过了分析器分析，MySQL 知道你要干啥了，在开始执行之前，还要先经过优化器的处理。</p>
+<p>优化器的作用就是它认为的最优的执行方案去执行（虽然有时候也不是最优），比如多个索引的时候该如何选择索引，多表查询的时候如何选择关联顺序等。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * from t1 <span class="built_in">join</span> t2 using(ID) <span class="built_in">where</span> t1.c=10 and t2.d=20;</span><br></pre></td></tr></table></figure>
+
+<p>比如这条语句，既可以先从表 t1 里面取出 c&#x3D;10 的记录的 ID 值，再根据 ID 值关联到表 t2，再判断 t2 里面 d 的值是否等于 20。也可以先从表 t2 里面取出 d&#x3D;20 的记录的 ID 值，再根据 ID 值关联到 t1，再判断 t1 里面 c 的值是否等于 10。</p>
+<p>这两种的执行逻辑结果是一样的，但是执行效率会有不同，而优化器就是决定使用哪种方案。</p>
+<h3 id="执行器"><a href="#执行器" class="headerlink" title="执行器"></a><strong>执行器</strong></h3><p>当选择了执行方案后，MySQL 就准备开始执行了，首先执行前会校验该用户有没有权限，如果没有权限，就会返回错误信息，如果有权限，就会去调用引擎的接口，返回接口执行的结果。这里的权限其实就是第一步客户端连接到连接器然后去查询出来的权限信息。</p>
+<p>InnoDB 引擎更新数据的操作其实还会涉及到两个日志模块的操作，以后会专门分析。主要就是 binlog 以及 redolog 的操作。</p>
+<p><strong>InnoDB 引擎把数据保存在内存中，同时记录 redo log，此时 redo log 进入 prepare 状态，然后告诉执行器，执行完成了，随时可以提交。执行器收到通知后记录 binlog，然后调用引擎接口，提交 redo log 为提交状态，更新完成。</strong></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><ul>
+<li>Mysql 主要分为 Server 层和引擎层，Server 层主要包括连接器、查询缓存、分析器、优化器、执行器，同时还有一个日志模块（binlog），这个日志模块所有执行引擎都可以共用。</li>
+<li>引擎层是插件式的，目前主要包括，MyISAM,InnoDB,Memory 等。</li>
+<li>查询语句的执行流程如下：权限校验（如果命中缓存）—》查询缓存—》分析器—》优化器—》权限校验—》执行器—》引擎 。</li>
+<li>更新语句执行流程如下：分析器—-》权限校验—-》执行器—》引擎—redo log(prepare 状态—》binlog—》redo log(commit 状态) 。</li>
+</ul>
+<hr>
+<p>转载自 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1603645"><strong>腾讯云开发者社区</strong></a></p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-01-19</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E6%8B%93%E5%B1%95%E8%A7%86%E9%87%8E/'>
+                            拓展视野
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

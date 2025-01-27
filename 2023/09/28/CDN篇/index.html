@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="CDN篇" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            CDN篇
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CDN%E7%AE%80%E4%BB%8B"><span class="post-toc-text">CDN简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CDN%E4%BA%A7%E5%93%81%E7%89%B9%E7%82%B9%EF%BC%88%E9%98%BF%E9%87%8C%E4%BA%91%EF%BC%89"><span class="post-toc-text">CDN产品特点（阿里云）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CDN%E7%9A%84%E4%BB%B7%E5%80%BC"><span class="post-toc-text">CDN的价值</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CDN%E7%9A%84%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B"><span class="post-toc-text">CDN的域名解析流程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0%E9%98%BF%E9%87%8C%E4%BA%91CDN%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="post-toc-text">添加阿里云CDN的步骤</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IDC%E6%9C%BA%E6%88%BF%E5%92%8CCDN%E4%B8%9A%E5%8A%A1%E5%BC%82%E5%B8%B8%E7%9A%84%E6%A1%88%E4%BE%8B%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="post-toc-text">IDC机房和CDN业务异常的案例和解决方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="post-toc-text">问题分析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="post-toc-text">解决方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E7%9C%9F%E5%AE%9E%E9%81%AD%E5%8F%97DDOS%E6%94%BB%E5%87%BB"><span class="post-toc-text">真实遭受DDOS攻击</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%86%85%E9%83%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%AD%E6%AF%92%EF%BC%8C%E5%A4%A7%E9%87%8F%E5%A4%96%E5%8F%91%E6%B5%81%E9%87%8F"><span class="post-toc-text">内部服务器中毒，大量外发流量</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E7%BD%91%E7%AB%99%E5%85%83%E7%B4%A0%EF%BC%88%E5%A6%82%E5%9B%BE%E7%89%87%EF%BC%89%E8%A2%AB%E7%9B%97%E8%BF%9E"><span class="post-toc-text">网站元素（如图片）被盗连</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%90%88%E4%BD%9C%E5%85%AC%E5%8F%B8%E6%9D%A5%E6%8A%93%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%A6%82%EF%BC%9A%E5%AF%B9%E5%90%88%E4%BD%9C%E5%8D%95%E4%BD%8D%E6%8F%90%E4%BE%9B%E4%BA%86API%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E6%88%96%E8%B4%AD%E4%B9%B0%E4%BA%86CDN%E4%B8%9A%E5%8A%A1%E3%80%82"><span class="post-toc-text">合作公司来抓数据，如：对合作单位提供了API数据接口或购买了CDN业务。</span></a></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="CDN简介"><a href="#CDN简介" class="headerlink" title="CDN简介"></a>CDN简介</h2><p>CDN（Content Delivery Network）：内容分发网络。CDN本质上是一套分布式缓存集群，范围可以是全国甚至全球。</p>
+<p>通过云厂商提供的CDN服务，将用户的静态资源存储在不同区域的边缘节点服务器的内存中，当用户发起静态资源请求时，DNS服务器会根据就近原则将IP解析到离用户最近的一台存储服务器的IP地址（通过设置域名别名CNAME），这样客户端到服务端的访问距离就近了，提升访问和响应的速度。</p>
+<p>通俗来说，CDN可以解决资源访问慢的问题。</p>
+<h3 id="CDN产品特点（阿里云）"><a href="#CDN产品特点（阿里云）" class="headerlink" title="CDN产品特点（阿里云）"></a>CDN产品特点（阿里云）</h3><blockquote>
+<p>阿里云的CDN产品：<a target="_blank" rel="noopener" href="https://www.aliyun.com/product/cdn">https://www.aliyun.com/product/cdn</a></p>
+</blockquote>
+<blockquote>
+<p>单线带宽</p>
+</blockquote>
+<p>CDN大多数使用单线带宽，CDN公司通过智能DNS解析判断运营商来源,进而重新分配最近的适合用户访问的某个单线线路。</p>
+<blockquote>
+<p>智能DNS调度</p>
+</blockquote>
+<p>最主要的技术，在于对用户的客户端IP实现精准定位，对IP进行负载均衡，根据就近原则将用户调度到最佳最合适的服务器节点。</p>
+<blockquote>
+<p>缓存服务器</p>
+</blockquote>
+<p>CDN服务器中的资源来自于源站服务器，所以应该给CDN设置缓存过期时间，防止源站数据更新了，CDN服务器数据没有更新，用户看到的还是旧资源<br>资源更新的方式有两种：</p>
+<ol>
+<li>在阿里云上设置缓存过期时间如 3天  </li>
+<li>直接主动的在cdn上更新某资源的数据</li>
+</ol>
+<h3 id="CDN的价值"><a href="#CDN的价值" class="headerlink" title="CDN的价值"></a>CDN的价值</h3><blockquote>
+<p>省钱</p>
+</blockquote>
+<p>使用CDN比使用BGP机房省钱。</p>
+<blockquote>
+<p>提升用户访问体验</p>
+</blockquote>
+<p>通过各地的缓存节点，解决资源访问慢的问题</p>
+<blockquote>
+<p>阻挡大部分网络攻击</p>
+</blockquote>
+<p>CDN提供防盗链功能</p>
+<p><strong>盗链</strong></p>
+<p>一般在网上浏览一个完整的页面并不是一次性全部传送到客户端的。如果所请求的页面带有图片或其他信息，那么第一个HTTP请求传送的是这个页面的文本，然后通过客户端的浏览器对这段文本进行解释执行，如果发现其中还有图片，那么客户端的浏览器会再次发送一条HTTP请求，当这个请求被处理后这个图片文件才会被传送到客户端，最后浏览器回将图片安放到页面的正确位置，就这样一个完整的页面要经过多次发送HTTP请求才能够被完整的显示。</p>
+<p>基于这样的机制，就会产生盗链问题，如果一个网站中将其图片源链接到其他网站的图片信息上，而不是自己的网站服务器中，那么一个没有任何资源的网站利用了别的网站的资源来展示给浏览者，提高了自己的访问量，而大部分浏览者又不会很容易地发现，这样显然对于那些被利用了资源的网站是不公平的。</p>
+<p>一些不良网站为了不增加成本而扩充自己站点内容，经常盗用其他网站的链接。一方面损害了原网站的合法利益，另一方面又加重了服务器的负担。</p>
+<p><strong>防盗链</strong></p>
+<p>在HTTP协议中，有一个表头字段叫referer，采用URL的格式来表示从哪儿链接到当前的网页或文件。换句话说，通过referer，网站可以检测目标网页访问的来源网页，如果是资源文件，则可以跟踪到显示它的网页地址。这时就可以通过技术手段来进行处理，一旦检测到来源不是本站即进行阻止或者返回指定的页面，只允许从本站访问资源，而不允许从其他网站访问本站的资源，从而实现防盗链的功能。</p>
+<h2 id="CDN的域名解析流程"><a href="#CDN的域名解析流程" class="headerlink" title="CDN的域名解析流程"></a>CDN的域名解析流程</h2><p><a href="/../pic/1611584802225-image.png" title="CDN解析流程" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1611584802225-image.png" alt="CDN解析流程"></a></p>
+<h2 id="添加阿里云CDN的步骤"><a href="#添加阿里云CDN的步骤" class="headerlink" title="添加阿里云CDN的步骤"></a>添加阿里云CDN的步骤</h2><blockquote>
+<ol>
+<li>准备好一个源站服务器，以及源站域名apecome.com</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2">
+<li>创建好一个加速域名</li>
+</ol>
+</blockquote>
+<p><a href="/pic/image-20220517115053992.png" title="image-20220517115053992" class="gallery-item" style="box-shadow: none;"> <img src="/pic/image-20220517115053992.png" alt="image-20220517115053992"></a></p>
+<blockquote>
+<ol start="3">
+<li>创建CDN域名</li>
+</ol>
+</blockquote>
+<p>指定需要加速的域名alicdn.apecome.com , 源站信息</p>
+<p><a href="/pic/image-20220517115227934.png" title="image-20220517115227934" class="gallery-item" style="box-shadow: none;"> <img src="/pic/image-20220517115227934.png" alt="image-20220517115227934"></a></p>
+<blockquote>
+<ol start="4">
+<li>修改 【加速域名】的类型，从A记录改为CNAME</li>
+</ol>
+</blockquote>
+<p>修改DNS设置即可</p>
+<p><a href="/pic/image-20220517115322037.png" title="image-20220517115322037" class="gallery-item" style="box-shadow: none;"> <img src="/pic/image-20220517115322037.png" alt="image-20220517115322037"></a></p>
+<hr>
+<p><a href="/pic/image-20220517115348648.png" title="image-20220517115348648" class="gallery-item" style="box-shadow: none;"> <img src="/pic/image-20220517115348648.png" alt="image-20220517115348648"></a></p>
+<hr>
+<blockquote>
+<ol start="5">
+<li>如何判断，静态资源是否使用到了CDN</li>
+</ol>
+</blockquote>
+<p>查看是否有CNAME：通过ping 命令或者 dig 命令，查看是否解析到CNAME指定的域名。</p>
+<h2 id="IDC机房和CDN业务异常的案例和解决方法"><a href="#IDC机房和CDN业务异常的案例和解决方法" class="headerlink" title="IDC机房和CDN业务异常的案例和解决方法"></a>IDC机房和CDN业务异常的案例和解决方法</h2><p>参考链接：<a target="_blank" rel="noopener" href="https://blog.51cto.com/oldboy/909696">轻松应对IDC机房带宽突然暴涨问题_51CTO博客</a></p>
+<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><blockquote>
+<p>IDC带宽被占满的原因很多，常见的有：</p>
+</blockquote>
+<ol>
+<li>真实遭受DDOS攻击（遇到过几次，造成影响的不多见，其中还有黑客勒索的案例）。</li>
+<li>内部服务器中毒，大量外发流量</li>
+<li>网站元素（如图片）被盗连，在门户页面被推广导致大量流量产生</li>
+<li>合作公司来抓数据，如：对合作单位提供了API数据接口</li>
+<li>购买了CDN业务，CDN猛抓源站。</li>
+<li>其他</li>
+</ol>
+<blockquote>
+<p>CDN带宽异常，源站没异常。</p>
+</blockquote>
+<p>  这类问题基本都是缓存在CDN的数据被频繁访问引起的。解决方法见结尾案例。</p>
+<blockquote>
+<p>CDN带宽异常，源站也异常。</p>
+</blockquote>
+<p>可能原因如公司做推广，大量数据访问，热点数据cache里不全。或CDN问题导致数据回源（有关CDN回源率问题及提升回源率经验，以后再和大家分享）。影响就是带宽高，后端静态服务器及图片及存储压力大（解决办法参考7层门户网站架构案例文章 <a target="_blank" rel="noopener" href="http://oldboy.blog.51cto.com/2561410/736710%EF%BC%89">http://oldboy.blog.51cto.com/2561410/736710）</a></p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p> 分析了问题的可能原因，就好比较排查了。</p>
+<h4 id="真实遭受DDOS攻击"><a href="#真实遭受DDOS攻击" class="headerlink" title="真实遭受DDOS攻击"></a>真实遭受DDOS攻击</h4><pre><code>DDOS问题的解决老男孩已经写了原创文章（ http://oldboy.blog.51cto.com/2561410/845349），提供了17条解决经验思路，供大家参考，这里就不提了，
+</code></pre>
+<h4 id="内部服务器中毒，大量外发流量"><a href="#内部服务器中毒，大量外发流量" class="headerlink" title="内部服务器中毒，大量外发流量"></a>内部服务器中毒，大量外发流量</h4><pre><code>这个问题的解决比较简单，可能有的朋友说，看看服务器流量，哪个机器带宽高处理下就好了。其实不然，实际解决比这复杂得多，带宽打满，所有监控都是看不到的。
+比较好的思路，是联系机房确定机房自身无问题后（机房一般没法帮我们的），请机房断开连接外部IP服务器的网线，如负载均衡器，仅保留××× SERVER，然后断掉内部服务器出网光关的线路，切断外发流量源头。
+接下来查看监控流量服务，判断外发流量的服务器，然后进行处理。
+其实，这个问题的发生及快速定位和很多公司的运维规范、制度关系很大，老男孩在给一些公司做运维培训分享时发现这个问题很严重（表象很好，内部运维规范、制度欠缺很多），大家都讨论的很深入，实际用的还是和聊的有差距。。
+比如有的公司开发直接FTP连接随时发布代码，或者由开发人员负责定时多次上线。而运维人员又不知晓，结果导致问题发生定位时间长，这点建议各公司的老大多思考下。
+老男孩的运维思路是，如果把网站机房比喻为一座房子，那首先要堵住后门（内部），其次是监控好前门（做好安全，留个小窗户给外面人看，即80端口服务，同时安排站岗值班的）。
+网站的无休止的随时随意发布代码，对网站的稳定影响是至关重要的。对运维人员对故障的定位快慢也很关键。根据老男孩不完全调查，约50%以上的重要运维故障都是程序代码导致的，这也是老男孩给企业做培训分享时，灌输建议CTO的，多把网站稳定的责任分给开发，而不是运维。如果这个思想不扭转，网站不稳定状况就难以改变。
+</code></pre>
+<h4 id="网站元素（如图片）被盗连"><a href="#网站元素（如图片）被盗连" class="headerlink" title="网站元素（如图片）被盗连"></a>网站元素（如图片）被盗连</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这个属于网站的基本优化了，apache,lighttpd,nginx都有防盗链的方案，必须要搞。说到这也提个案例，老男孩的一个学生，到了企业工作，发现人家网站没有防盗链，结果上来没有周知老大，直接做防盗链了,然后美滋滋的当时还给我留言，说给公司搞防盗链了，很有成就，结果导致公司对外合作的业务，都是小叉子了，幸亏发现的及时没出大问题。</span><br></pre></td></tr></table></figure>
+
+<h4 id="合作公司来抓数据，如：对合作单位提供了API数据接口或购买了CDN业务。"><a href="#合作公司来抓数据，如：对合作单位提供了API数据接口或购买了CDN业务。" class="headerlink" title="合作公司来抓数据，如：对合作单位提供了API数据接口或购买了CDN业务。"></a>合作公司来抓数据，如：对合作单位提供了API数据接口或购买了CDN业务。</h4><pre><code>最常见的就是购买CDN服务，如：CDN新建一个节点（可能数十机器），直接来我们IDC原战来抓数据（有的做好点的夜里来抓）。把原站抓的流量暴涨，严重的导致服务宕机。几家CDN公司，都有过这样的问题。这点希望CDN公司看到了，能改善，毕竟用户上帝嘛。
+
+当然和电信，联通，GOOGLE,BAIDU，词霸等公司的合作，也会有流量暴高的情况，这里面包括了为合作的站搜索引擎爬虫爬数据的问题。有时虽然带宽流量不高，但是服务器或数据库撑不住了，搜索引擎专门喜欢爬我们的站内搜索，DISCUZ，CMS等早期的开源程序的搜索都是全站like %%方式去数据库搜索的，几个爬虫过来，直接就挂掉了，当然这不是本文要讨论的，解决方案以后再聊。
+</code></pre>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-09-28</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Prometheus概述" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Prometheus概述
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Prometheus%E6%9E%B6%E6%9E%84"><span class="post-toc-text">Prometheus架构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Prometheus%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Prometheus部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%83%A8%E7%BD%B2"><span class="post-toc-text">服务端部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B2"><span class="post-toc-text">客户端部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0"><span class="post-toc-text">配置自动发现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pushgateway%E9%83%A8%E7%BD%B2"><span class="post-toc-text">pushgateway部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#alertmanager%E9%83%A8%E7%BD%B2"><span class="post-toc-text">alertmanager部署</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>Prometheus是一个开源监控工具，是新一代的云原生监控系统</p>
+<h2 id="Prometheus架构"><a href="#Prometheus架构" class="headerlink" title="Prometheus架构"></a>Prometheus架构</h2><p>Prometheus的整体架构如下：</p>
+<p><a target="_blank" rel="noopener" href="https://pingfan.s3.amazonaws.com/pic4/z6cqx.png"><a href="/../pic/z6cqx.png" title="Prometheus architecture" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/z6cqx.png" alt="Prometheus architecture"></a></a></p>
+<blockquote>
+<p><strong>Prometheus Server</strong></p>
+</blockquote>
+<p>Server是Prometheus组件中的核心部分，负责实现对监控数据的<strong>获取，存储以及查询</strong>。</p>
+<ul>
+<li>获取数据(Retrival)。Prometheus Server可以通过静态配置管理监控目标，也可以配合使用Service Discovery的方式动态管理监控目标，并从这些监控目标中获取数据。</li>
+<li>存储数据(Storage)。其次Prometheus Server需要对采集到的监控数据进行存储，Prometheus Server本身就是一个时序数据库，将采集到的监控数据按照时间序列的方式存储在本地磁盘当中。</li>
+<li>查询数据。最后Prometheus Server对外提供了自定义的PromQL语言，实现对数据的查询以及分析。</li>
+</ul>
+<blockquote>
+<p><strong>Exporters</strong></p>
+</blockquote>
+<p>Exporter将监控数据采集的端点通过HTTP服务的形式暴露给Prometheus Server，Prometheus Server通过访问该Exporter提供的Endpoint端点，即可获取到需要采集的监控数据。</p>
+<p>一般来说可以将Exporter分为2类：</p>
+<ul>
+<li>直接采集：这一类Exporter直接内置了对Prometheus监控的支持，比如cAdvisor，Kubernetes，Etcd，Gokit等，都直接内置了用于向Prometheus暴露监控数据的端点。</li>
+<li>间接采集：间接采集，原有监控目标并不直接支持Prometheus，因此我们需要通过Prometheus提供的Client Library编写该监控目标的监控采集程序。例如： Mysql Exporter，JMX Exporter，Consul Exporter等。</li>
+</ul>
+<blockquote>
+<p><strong>AlertManager</strong></p>
+</blockquote>
+<p>在Prometheus Server中支持基于PromQL创建告警规则，如果满足PromQL定义的规则，则会产生一条告警，而告警的后续处理流程则由AlertManager进行管理。在AlertManager中我们可以与邮件，Slack等等内置的通知方式进行集成，也可以通过Webhook自定义告警处理方式。AlertManager即Prometheus体系中的告警处理中心。</p>
+<blockquote>
+<p><strong>PushGateway</strong></p>
+</blockquote>
+<p>由于Prometheus数据采集基于Pull模型进行设计，因此在网络环境的配置上必须要让Prometheus Server能够直接与Exporter进行通信。 当这种网络需求无法直接满足时，就可以利用PushGateway来进行中转。可以通过PushGateway将内部网络的监控数据主动Push到Gateway当中。而Prometheus Server则可以采用同样Pull的方式从PushGateway中获取到监控数据。</p>
+<blockquote>
+<p><strong>Service Discovery</strong></p>
+</blockquote>
+<p>在云上所有资源都是弹性的，这些资源可以随着需求规模的变化而变化。例如在AWS的AutoScaling，可以根据用户定义的规则动态地创建或者销毁ECS实例，从而使用户部署在AWS上的应用可以自动的适应访问规模的变化；在Kubernetes中，pod也会随时在创建和被销毁。</p>
+<p>这种按需的资源使用方式对于监控系统而言就意味着没有了一个固定的监控目标，所有的监控对象(基础设施、应用、服务)都在动态的变化。对于Prometheus这一类基于Pull模式的监控系统，显然也无法继续使用的static_configs的方式静态的定义监控目标。而对于Prometheus而言其解决方案就是引入一个中间的代理人（服务注册中心），这个代理人掌握着当前所有监控目标的访问信息，Prometheus只需要向这个代理人询问有哪些监控目标控即可， 这种模式被称为服务发现。</p>
+<p>Prometheus通过使用平台提供的API就可以找到所有需要监控的云主机。在Kubernetes这类容器管理平台中，Kubernetes掌握并管理着所有的容器以及服务信息，那此时Prometheus只需要与Kubernetes打交道就可以找到所有需要监控的容器以及服务对象。Prometheus还可以直接与一些开源的服务发现工具进行集成，例如在微服务架构的应用程序中，经常会使用到例如Consul这样的服务发现注册软件，Promethues也可以与其集成从而动态的发现需要监控的应用服务实例。</p>
+<h2 id="Prometheus部署"><a href="#Prometheus部署" class="headerlink" title="Prometheus部署"></a>Prometheus部署</h2><h3 id="服务端部署"><a href="#服务端部署" class="headerlink" title="服务端部署"></a>服务端部署</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同步集群时间</span></span><br><span class="line">ntpdate ntp1.aliyun.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 官网下载软件包</span></span><br><span class="line">wget https://github.com/prometheus/prometheus/releases/download/v2.45.4/prometheus-2.45.4.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压软件包</span></span><br><span class="line">tar -xf prometheus-2.29.1.linux-amd64.tar.gz -C /prometheus</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入软件目录然后执行启动命令</span></span><br><span class="line"><span class="built_in">cd</span> /prometheus &amp;&amp; <span class="built_in">nohup</span> ./prometheus &amp;&gt;/var/log/prometheus.log &amp;</span><br></pre></td></tr></table></figure>
+
+<p>浏览器访问<code>服务端IP:9090</code>即可查看Prometheus的web页面</p>
+<h3 id="客户端部署"><a href="#客户端部署" class="headerlink" title="客户端部署"></a>客户端部署</h3><p>Prometheus支持多种客户端，此处以node_exporter为例</p>
+<blockquote>
+<p><strong>部署</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官网下载软件包</span></span><br><span class="line">wget https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压软件包</span></span><br><span class="line">tar -xf node_exporter-1.2.2.linux-amd64.tar.gz  -C /node_exporter/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入软件目录然后执行启动命令</span></span><br><span class="line"><span class="built_in">cd</span> /node_exporter &amp;&amp; <span class="built_in">nohup</span> ./node_exporter &amp;&gt;/var/log/export.log &amp;</span><br></pre></td></tr></table></figure>
+
+<p>浏览器访问<code>客户端IP:9100</code>即可查看客户端的监控信息，默认是9100端口，信息在metrics目录里</p>
+<blockquote>
+<p><strong>服务端获取客户端信息</strong></p>
+</blockquote>
+<p>服务端通过拉取的方式获取客户端的信息，需要修改服务端的配置文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑服务端配置文件</span></span><br><span class="line">vim prometheus.yml </span><br><span class="line"></span><br><span class="line">scrape_configs:		<span class="comment"># 这里的抓取监控信息的配置</span></span><br><span class="line">  - job_name: <span class="string">&quot;prometheus&quot;</span>		<span class="comment"># 这是一个任务，抓取的是服务端本机的数据，job_name是自定义的，会显示在web页面</span></span><br><span class="line">    static_configs:</span><br><span class="line">      - targets: [<span class="string">&quot;localhost:9090&quot;</span>]		<span class="comment"># 服务端本机的地址＆2端口</span></span><br><span class="line">  - job_name: <span class="string">&quot;docker-server&quot;</span>	<span class="comment"># 这里添加一个任务，抓取一个客户端docker节点的数据</span></span><br><span class="line">    static_configs:</span><br><span class="line">      - targets: [<span class="string">&quot;192.168.110.156:9100&quot;</span>]		<span class="comment"># 这里是客户端的IP和端口，客户端的默认端口是9100</span></span><br></pre></td></tr></table></figure>
+
+<p>浏览器访问<code>服务端IP:9090</code>查看Prometheus的web页面，点击Status—&gt;Targets即可看到新加入的客户端信息</p>
+<h3 id="配置自动发现"><a href="#配置自动发现" class="headerlink" title="配置自动发现"></a>配置自动发现</h3><p>服务端配置文件中，之前的任务都是通过添加静态配置(static_configs)实现的，这样做的缺点是每次添加一个监控项目就得去重启prometheus server，这一点是无法忍受的，因为重启的时候会导致prometheus server在这段时间不可用。所以配置自动发现是必需的。</p>
+<p>本次基于文件file_sd实现自动发现，这样做的好处是，在每次添加监控项目时，只需要更改自动发现的配置文件就行了，在文件中添加一个目标主机，无需更改服务端配置文件，也无需重启prometheus server。</p>
+<blockquote>
+<p><strong>file_sd介绍</strong></p>
+</blockquote>
+<p>File Service Discovery (file_sd)是Prometheus中的一种服务发现机制，用于动态地发现和监控目标实例。</p>
+<p>File Service Discovery通过读取静态文件（通常是JSON或YAML格式）中定义的目标实例信息来发现服务。这些信息通常包括目标的IP地址、端口以及其他标识信息。当这些信息被添加、更新或移除时，Prometheus会及时地感知到并相应地调整监控目标。</p>
+<blockquote>
+<p><strong>配置</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑服务端配置文件</span></span><br><span class="line">vim prometheus.yml </span><br><span class="line"></span><br><span class="line">scrape_configs:</span><br><span class="line"></span><br><span class="line">  - job_name: <span class="string">&quot;prometheus&quot;</span></span><br><span class="line">    static_configs:</span><br><span class="line">      - targets: [<span class="string">&quot;localhost:9090&quot;</span>]</span><br><span class="line"></span><br><span class="line">  - job_name: <span class="string">&#x27;auto_discovery&#x27;</span>		<span class="comment"># 这是新添加的一个任务，用于自动发现</span></span><br><span class="line">    file_sd_configs:</span><br><span class="line">    - files:</span><br><span class="line">      - /prometheus/discovery/test.yml		<span class="comment"># 这是需要自定义的自动发现配置文件，用于配置自动发现的目标	</span></span><br><span class="line">      refresh_interval: 5s		<span class="comment"># 发现间隔</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑自动发现配置文件，添加一个目标地址</span></span><br><span class="line">vim /prometheus/discovery/test.yml</span><br><span class="line"></span><br><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">&quot;targets&quot;</span>:  [<span class="string">&quot;192.168.110.156:9100&quot;</span>]</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="pushgateway部署"><a href="#pushgateway部署" class="headerlink" title="pushgateway部署"></a>pushgateway部署</h3><p>通过node-exporter可以收集到各种服务器的相关性指标，但是并没有办法满足我们的定制化需求，比如需要监控某个进程数，某个进程打开的文件数，某个进程消耗的内存等等，这就需要一个定制化的监控项，类似于zabbix的自定义监控项是一个道理。</p>
+<blockquote>
+<p><strong>部署</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官网下载软件包</span></span><br><span class="line">wget https://github.com/prometheus/pushgateway/releases/download/v1.7.0/pushgateway-1.7.0.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压软件包</span></span><br><span class="line">tar -xf pushgateway-1.7.0.linux-amd64.tar.gz -C /pushgateway/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入软件目录然后执行启动命令</span></span><br><span class="line"><span class="built_in">cd</span> /pushgateway &amp;&amp; <span class="built_in">nohup</span> ./pushgateway &amp;&gt;/var/log/pushgateway.log &amp;</span><br></pre></td></tr></table></figure>
+
+<p>浏览器访问<code>pushgateway服务端IP:9091</code>即可查看客户端的监控信息，默认是9091端口，信息在metrics目录里</p>
+<blockquote>
+<p><strong>自定义监控项</strong></p>
+</blockquote>
+<p>编写脚本发送到pushgateway</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编写脚本，添加以下内容，脚本的作用是将`metrics_name metrics_value`以二进制的形式发送到pushgateway服务端</span></span><br><span class="line">vim /server/scripts/tcp_conn.sh</span><br><span class="line"></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment"># author: Dengpangpang</span></span><br><span class="line"></span><br><span class="line">INSTANCE=`hostname -s`</span><br><span class="line"></span><br><span class="line">METRICS_NAME=<span class="string">&quot;tcp_wait_conn&quot;</span></span><br><span class="line"></span><br><span class="line">TCP_WAIT_CONN=`netstat -ant | grep ESTAB | <span class="built_in">wc</span> -l`</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$METRICS_NAME</span> <span class="variable">$TCP_WAIT_CONN</span>&quot;</span> | curl --data-binary @- http://192.168.110.155:9091/metrics/job/pushgateway/instance/<span class="variable">$INSTANCE</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给脚本添加执行权限并执行脚本</span></span><br><span class="line"><span class="built_in">chmod</span> +x /server/scripts/tcp_conn.sh</span><br><span class="line">sh server/scripts/tcp_conn.sh</span><br></pre></td></tr></table></figure>
+
+<p>浏览器访问<code>pushgateway服务端IP:9091</code>即可查看客户端新推送的监控信息</p>
+<p><a href="/../pic/image-20240402003207318.png" title="image-20240402003207318" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240402003207318.png" alt="image-20240402003207318"></a></p>
+<p>在Promtheus服务端web页面，搜索metrics名称<code>tcp_wait_conn</code>也能看到监控项的数据</p>
+<p><a href="/../pic/image-20240402003326805.png" title="image-20240402003326805" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240402003326805.png" alt="image-20240402003326805"></a></p>
+<blockquote>
+<p><strong>定时推送</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编写定时任务，每10s推送一次</span></span><br><span class="line">crontab -e</span><br><span class="line"></span><br><span class="line">* * * * * <span class="built_in">sleep</span> 10;/server/scripts/tcp_conn.sh</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="alertmanager部署"><a href="#alertmanager部署" class="headerlink" title="alertmanager部署"></a>alertmanager部署</h3><p>Alertmanager是Prometheus体系中告警的统一处理中心。</p>
+<p>在Prometheus Server中可以基于PromQL表达式定义告警触发条件（告警规则），Prometheus后端对这些触发规则进行周期性计算，当满足触发条件后则会触发告警通知。默认情况下，用户可以通过Prometheus的Web界面查看这些告警规则以及告警的触发状态。</p>
+<p>当Promthues与Alertmanager关联之后，可以将告警发送到Alertmanager中并通过Alertmanager可以对这些告警进行进一步的处理。Alertmanager提供了多种内置第三方告警通知方式，同时还提供了对Webhook通知的支持，通过Webhook用户可以完成对告警更多个性化的扩展。</p>
+<blockquote>
+<p><strong>部署</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官网下载软件包</span></span><br><span class="line">wget https://github.com/prometheus/alertmanager/releases/download/v0.27.0/alertmanager-0.27.0.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压软件包</span></span><br><span class="line">tar -xf alertmanager-0.27.0.linux-amd64.tar.gz -C /alertmanager/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改配置文件alertmanager.yml配置好邮件告警方式，或者其他告警方式</span></span><br><span class="line">vim /alertmanager/alertmanager.yml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入软件目录然后执行启动命令</span></span><br><span class="line"><span class="built_in">cd</span> /alertmanager &amp;&amp; <span class="built_in">nohup</span> ./alertmanager &amp;&gt;/var/log/alertmanager.log &amp;</span><br></pre></td></tr></table></figure>
+
+<p>浏览器访问<code>alertmanager服务端IP:9093</code>即可查看告警端的信息，默认是9093端口</p>
+<blockquote>
+<p><strong>服务端配置</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更改prometheus配置文件</span></span><br><span class="line"><span class="string">vim</span> <span class="string">prometheus.yml</span>		<span class="comment"># 更改告警相关配置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Alertmanager configuration</span></span><br><span class="line"><span class="attr">alerting:</span></span><br><span class="line">  <span class="attr">alertmanagers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">static_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">localhost:9093</span>		<span class="comment"># alertmanager端的地址和端口，我安装在了服务端本机，所以用了本机地址</span></span><br><span class="line"><span class="attr">rule_files:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;alert_rules.yml&quot;</span>		<span class="comment"># 这是自定义的告警规则文件，需要另外编写</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>告警规则文件</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">vim</span> <span class="string">alert_rules.yml</span>		<span class="comment"># 此文件在服务端的配置文件中有定义位置</span></span><br><span class="line"></span><br><span class="line"><span class="attr">groups:</span>		<span class="comment"># 可以将一组相关的规则设置定义在一个group中</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">my-rules</span>		<span class="comment"># 组的名称</span></span><br><span class="line">    <span class="attr">rules:</span>		<span class="comment"># 告警规则，可以包含多个告警规则</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">NodeExporterDown</span>		<span class="comment"># 告警规则的名称</span></span><br><span class="line">      <span class="attr">expr:</span> <span class="string">up&#123;job=&quot;pushgateway&quot;&#125;</span>  <span class="string">==</span> <span class="number">0</span>		<span class="comment"># 基于PromQL表达式告警触发条件，用于计算是否有时间序列满足该条件</span></span><br><span class="line">      <span class="attr">for:</span> <span class="string">10s</span>		<span class="comment"># 评估等待时间，可选参数。用于表示只有当触发条件持续一段时间后才发送告警。在等待期间新产生告警的状态为pending。</span></span><br><span class="line">      <span class="attr">labels:</span>		<span class="comment"># 自定义标签，允许用户指定要附加到告警上的一组附加标签。</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">severity:</span> <span class="string">warning</span></span><br><span class="line">      <span class="attr">annotations:</span>		<span class="comment"># 用于指定一组附加信息，比如用于描述告警详细信息的文字等</span></span><br></pre></td></tr></table></figure>
+
+<p>此时如果<code>pushgateway</code>停止运行，评估10s后会发送邮件告警，<code>pushgateway</code>恢复运行后，会自动发送恢复邮件。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-03-24</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Prometheus/'>
+                            Prometheus
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Nginx基础" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Nginx基础
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx%E6%A0%B8%E5%BF%83%E4%BC%81%E4%B8%9A%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="post-toc-text">Nginx核心企业应用场景</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx%E5%AE%89%E8%A3%85"><span class="post-toc-text">Nginx安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%98%E6%96%B9yum%E4%BB%93%E5%BA%93%E5%AE%89%E8%A3%85"><span class="post-toc-text">官方yum仓库安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%BA%90%E7%A0%81%E5%AE%9A%E5%88%B6%E5%AE%89%E8%A3%85"><span class="post-toc-text">源码定制安装</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx%E8%BD%AF%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="post-toc-text">Nginx软件目录结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Nginx%E8%BD%AF%E4%BB%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E6%88%90"><span class="post-toc-text">Nginx软件的核心组成</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#yum%E5%AE%89%E8%A3%85%E7%9A%84Nginx%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="post-toc-text">yum安装的Nginx目录结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E7%9A%84Nginx%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="post-toc-text">编译安装的Nginx目录结构</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">Nginx配置文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#nginx%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">nginx主配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#nginx%E7%9A%84%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">nginx的虚拟主机配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#location%E5%8C%BA%E6%AE%B5%E9%85%8D%E7%BD%AE"><span class="post-toc-text">location区段配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A4%9A%E5%AE%9E%E4%BE%8B%E5%92%8C%E5%A4%9A%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA"><span class="post-toc-text">多实例和多虚拟主机</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%A4%9A%E5%AE%9E%E4%BE%8B%E5%92%8C%E5%A4%9A%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E6%A6%82%E5%BF%B5"><span class="post-toc-text">多实例和多虚拟主机概念</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%83%A8%E7%BD%B2%E5%A4%9A%E5%AE%9E%E4%BE%8B%E5%92%8C%E5%A4%9A%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA"><span class="post-toc-text">部署多实例和多虚拟主机</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%9E%E8%B7%B5%EF%BC%9A%E5%A4%A7%E5%8E%82%E5%A4%9A%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%A4%9A%E5%AE%9E%E4%BE%8Bweb%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="post-toc-text">实践：大厂多项目部署多实例web解决方案</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>Nginx是一个开源的，具备高性能、高并发、高可靠性的WWW服务和代理服务软件。相比于Apache，Nginx能够支持更多的并发连接访问，占用的资源更少，效率更高。</p>
+<blockquote>
+<p>Nginx的特点：</p>
+</blockquote>
+<p>支持高并发：能支持几万并发连接（特别是静态小文件业务环境）</p>
+<p>资源消耗少：在3万并发连接下，开启10个Nginx线程消耗不到200MB内存</p>
+<p>可以做HTTP反向代理及加速缓存，及负载均衡功能，内置对RS节点服务器健康检查功能。</p>
+<h2 id="Nginx核心企业应用场景"><a href="#Nginx核心企业应用场景" class="headerlink" title="Nginx核心企业应用场景"></a>Nginx核心企业应用场景</h2><blockquote>
+<p>静态web服务器</p>
+</blockquote>
+<p>使用Nginx运行HTML、JS、CSS、图片等静态数据（类似的软件：Apache、lighttpd、IIS、Node.js）</p>
+<blockquote>
+<p>支持动态web服务扩展。</p>
+</blockquote>
+<p>Nginx结合FASTCGI运行PHP等动态程序。（fastcgi_pass方式）</p>
+<p>Nginx结合proxy_pass运行Java等动态程序。（tomcat&#x2F;resin服务）</p>
+<p>Nginx结合uwsgi_pass运行Python动态程序。</p>
+<blockquote>
+<p>反向代理和负载均衡服务</p>
+</blockquote>
+<p>正向代理：代替局域网内的PC，请求外部应用服务</p>
+<p>反向代理：代替外部的用户请求内部的应用服务器（重点学习）</p>
+<p><a href="/../pic/Center.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/Center.png" alt="img"></a></p>
+<p>负载均衡：只转发、后抛请求，与反向代理相比效率更高。负载均衡同类软件（haproxy，lvs），硬件（F5，netscaler）</p>
+<blockquote>
+<p>web缓存服务器</p>
+</blockquote>
+<p>在web缓存服务方面，Nginx可通过自身的proxy_cache模块实现类Squid等专业缓存软件的功能。</p>
+<p>常见的缓存软件（Squid、Varnish、Nginx、Ats）</p>
+<blockquote>
+<p>支持安全的web服务（HTTPS）</p>
+</blockquote>
+<h2 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h2><blockquote>
+<p>安装方式选择</p>
+</blockquote>
+<ul>
+<li><p>源码安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">优点：版本随意，功能随意</span><br><span class="line">缺点：安装较复杂，安装时间长</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过yum仓库的epel源安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">优点：安装简单</span><br><span class="line">缺点：版本较低，不能定制版本和功能</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过官方仓库指定的yum仓库安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">优点：安装简单、版本较新、配置更易懂</span><br><span class="line">缺点：不能定制版本和功能</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用源码定制rpm包，放到yum仓库里，最后yum安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">优点：可以随意定制，高度满足需求</span><br><span class="line">缺点：编译和配置yum仓库比较复杂</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>本次选用两种安装方式：<strong>官方yum仓库安装</strong>和<strong>源码定制安装</strong></p>
+<h3 id="官方yum仓库安装"><a href="#官方yum仓库安装" class="headerlink" title="官方yum仓库安装"></a>官方yum仓库安装</h3><p>官方文档：<a target="_blank" rel="noopener" href="https://nginx.org/en/linux_packages.html#RHEL">nginx: Linux packages</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/yum.repos.d/nginx.repo			<span class="comment"># 创建yum仓库文件，输入官方文档中指定的信息</span></span><br><span class="line">yum install nginx -y			<span class="comment"># 安装</span></span><br><span class="line">rpm -qa nginx					<span class="comment"># 验证安装</span></span><br><span class="line">systemctl start nginx</span><br><span class="line">systemctl <span class="built_in">enable</span> nginx</span><br><span class="line">systemctl status nginx</span><br><span class="line">netstat -tunlp | grep nginx		<span class="comment"># 验证进程状态</span></span><br><span class="line">wget 服务端IP		<span class="comment"># 客户端验证是否正常启动，或 curl 服务端IP，或者浏览器访问</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="源码定制安装"><a href="#源码定制安装" class="headerlink" title="源码定制安装"></a>源码定制安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /server/tools		<span class="comment"># 进入需要存放源码包的路径</span></span><br><span class="line"><span class="comment"># 下载源码包</span></span><br><span class="line">wget http://nginx.org/download/nginx-1.20.1.tar.gz</span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">yum install pcre pcre-devel -y		<span class="comment"># rewrite正则相关，pcre:URL重写软件，实现伪静态URL跳转、SEO优化等</span></span><br><span class="line">yum install openssl openssl-devel -y	<span class="comment"># 实现https加密访问</span></span><br><span class="line"><span class="comment"># 检查</span></span><br><span class="line">rpm -qa pcre pcre-devel openssl openssl-devel</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line"><span class="built_in">cd</span> nginx-1.20.1.tar.gz</span><br><span class="line">tar xvf nginx-1.20.1.tar.gz</span><br><span class="line"><span class="comment"># 编译安装</span></span><br><span class="line"><span class="built_in">cd</span> nginx-1.20.1</span><br><span class="line">./configure --user=www --group=www --prefix=/application/nginx-1.20.1 --with-http_stub_status_module --with-http_ssl_module --with-pcre			<span class="comment"># 生成配置文件</span></span><br><span class="line">make			<span class="comment"># 编译</span></span><br><span class="line">make install	<span class="comment"># 安装到指定位置</span></span><br><span class="line"><span class="built_in">ln</span> -s /application/nginx-1.20.1 /application/nginx		<span class="comment"># 创建软链接，方便使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">/application/nginx/sbin/nginx		<span class="comment"># 启动命令</span></span><br><span class="line">netstat -tunlp | grep nginx			<span class="comment"># 验证启动</span></span><br><span class="line">wget 服务端IP		<span class="comment"># 客户端验证是否正常启动，或 curl 服务端IP，或者浏览器访问</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>优化：修改环境变量</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改环境变量</span></span><br><span class="line">vim /etc/profile		<span class="comment"># 编辑文件，添加以下内容</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;/application/nginx/sbin:<span class="variable">$PATH</span>&quot;</span></span><br><span class="line"><span class="comment"># 使修改立即生效</span></span><br><span class="line">. /etc/profile		<span class="comment"># 跟 source /etc/profile 效果相同</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>优化：使用systemctl控制进程</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/lib/systemd/system/nginx.service			<span class="comment"># 编辑nginx的系统启动脚本，添加以下内容</span></span><br><span class="line"><span class="comment"># 这是从yum安装的另一台机器上拿来的，然后修改了一下</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=nginx - high performance web server</span><br><span class="line">Documentation=http://nginx.org/en/docs/</span><br><span class="line">After=network-online.target remote-fs.target nss-lookup.target</span><br><span class="line">Wants=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/application/nginx/logs/nginx.pid</span><br><span class="line">ExecStart=/application/nginx/sbin/nginx -c /application/nginx/conf/nginx.conf</span><br><span class="line">ExecReload=/bin/sh -c <span class="string">&quot;/bin/kill -s HUP <span class="subst">$(/bin/cat /application/nginx/logs/nginx.pid)</span>&quot;</span></span><br><span class="line">ExecStop=/bin/sh -c <span class="string">&quot;/bin/kill -s TERM <span class="subst">$(/bin/cat /application/nginx/logs/nginx.pid)</span>&quot;</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后就可以用systemctl来控制nginx了</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Nginx软件目录结构"><a href="#Nginx软件目录结构" class="headerlink" title="Nginx软件目录结构"></a>Nginx软件目录结构</h2><h3 id="Nginx软件的核心组成"><a href="#Nginx软件的核心组成" class="headerlink" title="Nginx软件的核心组成"></a>Nginx软件的核心组成</h3><ol>
+<li>Nginx可执行程序</li>
+<li>Nginx配置文件</li>
+<li>Nginx访问日志access.log，记录用户访问日志</li>
+<li>Nginx error错误日志，记录错误信息</li>
+</ol>
+<h3 id="yum安装的Nginx目录结构"><a href="#yum安装的Nginx目录结构" class="headerlink" title="yum安装的Nginx目录结构"></a>yum安装的Nginx目录结构</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">rpm -ql nginx			<span class="comment"># 查看nginx目录结构</span></span><br><span class="line"></span><br><span class="line">/etc/logrotate.d/nginx		<span class="comment"># nginx日志切割解决配置，包含了nginx日志轮换的配置，用于控制nginx日志文件的轮换周期、命名规则等。系统默认切割工具在/etc/logrotate.conf文件中</span></span><br><span class="line">/etc/nginx					<span class="comment"># nginx的主配置目录，包含了nginx的全局配置文件和一些子配置文件</span></span><br><span class="line">/etc/nginx/nginx.conf		<span class="comment"># nginx主配置文件 *****</span></span><br><span class="line">/etc/nginx/conf.d			<span class="comment"># 用来存放nginx额外配置文件的地方。在这个目录下的所有.conf文件都将被nginx加载。扩展名是xx.conf *****</span></span><br><span class="line">/etc/nginx/conf.d/default.conf		<span class="comment"># nginx的默认服务器配置文件，用于定义默认的虚拟主机和其它服务器设置。</span></span><br><span class="line">/etc/nginx/mime.types		<span class="comment"># 定义了文件扩展名和MIME类型之间的映射关系，用于配置nginx的媒体类型。</span></span><br><span class="line">/etc/nginx/modules			<span class="comment"># 指向/usr/lib64/nginx/modules，模块路径</span></span><br><span class="line">/usr/lib64/nginx/modules	<span class="comment"># 包含了nginx的模块配置文件，用于加载和配置特定的nginx模块。</span></span><br><span class="line"></span><br><span class="line">/etc/nginx/fastcgi_params	<span class="comment"># fastcgi参数，配合PHP动态服务</span></span><br><span class="line">/etc/nginx/scgi_params		<span class="comment"># scgi的参数文件</span></span><br><span class="line">/etc/nginx/uwsgi_params		<span class="comment"># fastcgi参数，配合Python动态服务</span></span><br><span class="line"></span><br><span class="line">/usr/lib/systemd/system/nginx-debug.service	<span class="comment"># debug调试</span></span><br><span class="line">/usr/lib/systemd/system/nginx.service		<span class="comment"># systemd的nginx启动文件</span></span><br><span class="line"></span><br><span class="line">/usr/lib64/nginx			<span class="comment"># 包含了nginx的模块配置文件，用于加载和配置特定的nginx模块。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用yum安装的nginx，如果要添加模块，可以在任意地点编译好带有第三方模块的命令，拷贝到这里用</span></span><br><span class="line">/usr/sbin/nginx				<span class="comment"># nginx可执行文件，二进制命令。</span></span><br><span class="line">/usr/sbin/nginx-debug		<span class="comment"># debug调试</span></span><br><span class="line"></span><br><span class="line">/usr/share/nginx	</span><br><span class="line">/usr/share/nginx/html				<span class="comment"># 默认站点目录</span></span><br><span class="line">/usr/share/nginx/html/50x.html		<span class="comment"># 出错页面</span></span><br><span class="line">/usr/share/nginx/html/index.html	<span class="comment"># 默认首页</span></span><br><span class="line">/var/cache/nginx					<span class="comment"># 缓存目录，存放nginx生成的临时文件和缓存文件。</span></span><br><span class="line">/var/log/nginx						<span class="comment"># 日志目录，当nginx服务器启动后，这里面会有 access.log error.log 和nginx.pid三个文件出现</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="编译安装的Nginx目录结构"><a href="#编译安装的Nginx目录结构" class="headerlink" title="编译安装的Nginx目录结构"></a>编译安装的Nginx目录结构</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">tree /application/nginx		<span class="comment"># 查看目录结构</span></span><br><span class="line"></span><br><span class="line">nginx</span><br><span class="line">├── client_body_temp			<span class="comment"># POST大文件暂存目录</span></span><br><span class="line">├── conf						<span class="comment"># nginx所有配置文件的目录，后缀为default的都是备份文件 *****</span></span><br><span class="line">│   ├── fastcgi.conf				 </span><br><span class="line">│   ├── fastcgi.conf.default		</span><br><span class="line">│   ├── fastcgi_params</span><br><span class="line">│   ├── fastcgi_params.default</span><br><span class="line">│   ├── koi-utf</span><br><span class="line">│   ├── koi-win</span><br><span class="line">│   ├── mime.types</span><br><span class="line">│   ├── mime.types.default</span><br><span class="line">│   ├── nginx.conf					<span class="comment"># 默认主配置文件</span></span><br><span class="line">│   ├── nginx.conf.default			<span class="comment"># 主配置文件的备份</span></span><br><span class="line">│   ├── scgi_params</span><br><span class="line">│   ├── scgi_params.default</span><br><span class="line">│   ├── uwsgi_params</span><br><span class="line">│   ├── uwsgi_params.default</span><br><span class="line">│   └── win-utf</span><br><span class="line">├── fastcgi_temp				<span class="comment"># fastcgi的临时数据目录</span></span><br><span class="line">├── html						<span class="comment"># nginx的主站点目录</span></span><br><span class="line">│   ├── 50x.html</span><br><span class="line">│   └── index.html</span><br><span class="line">├── logs</span><br><span class="line">│   ├── access.log</span><br><span class="line">│   ├── error.log</span><br><span class="line">│   └── nginx.pid</span><br><span class="line">├── proxy_temp					<span class="comment"># 临时目录</span></span><br><span class="line">├── sbin						<span class="comment"># nginx命令的目录</span></span><br><span class="line">│   └── nginx						<span class="comment"># nginx的启动命令</span></span><br><span class="line">├── scgi_temp					<span class="comment"># 临时目录</span></span><br><span class="line">└── uwsgi_temp					<span class="comment"># 临时目录</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Nginx配置文件"><a href="#Nginx配置文件" class="headerlink" title="Nginx配置文件"></a>Nginx配置文件</h2><h3 id="nginx主配置文件"><a href="#nginx主配置文件" class="headerlink" title="nginx主配置文件"></a>nginx主配置文件</h3><p>通过不同方式安装的nginx，配置文件不完全相同</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://nginx.org/en/docs/</span></span><br><span class="line"><span class="comment"># main区</span></span><br><span class="line">user  nginx;					<span class="comment"># 进程使用用户</span></span><br><span class="line">worker_processes  auto;			<span class="comment"># worker进程数量，和CPU核数相当</span></span><br><span class="line"></span><br><span class="line">error_log  /var/log/nginx/error.log notice;		<span class="comment"># 错误日志的路径以及日志级别，最低warn或error级别</span></span><br><span class="line">pid        /var/run/nginx.pid;					<span class="comment"># 进程运行后，进程号所在文件，用来管理进程</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 事件模块</span></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;		<span class="comment"># 单个worker进程可接收的最大连接数，nginx并发总量=worker_connections * worker_processes</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># http模块，ngx_http_core_module</span></span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types;		<span class="comment"># 加载所有的静态资源类型，nginx所支持的类型</span></span><br><span class="line">    default_type  application/octet-stream;		<span class="comment"># 默认的类型</span></span><br><span class="line">	<span class="comment"># 日志格式，定义了main格式</span></span><br><span class="line">    log_format  main  <span class="string">&#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span></span><br><span class="line">                      <span class="string">&#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span></span><br><span class="line">                      <span class="string">&#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;</span>;</span><br><span class="line">    access_log  /var/log/nginx/access.log  main;	<span class="comment"># 使用main格式来产生日志</span></span><br><span class="line">    sendfile        on;			<span class="comment"># 开启高效传输模式</span></span><br><span class="line">    <span class="comment">#tcp_nopush     on;</span></span><br><span class="line">    keepalive_timeout  65;		<span class="comment"># 长连接超时时间</span></span><br><span class="line">    <span class="comment">#gzip  on;					# 压缩功能</span></span><br><span class="line">    include /etc/nginx/conf.d/*.conf;		<span class="comment"># 包含/etc/nginx/conf.d/所有以.conf结尾的配置文件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="nginx的虚拟主机配置文件"><a href="#nginx的虚拟主机配置文件" class="headerlink" title="nginx的虚拟主机配置文件"></a>nginx的虚拟主机配置文件</h3><p>虚拟主机是一个网站站点</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/nginx/conf.d/default.conf		<span class="comment"># 查看虚拟主机配置模板文件</span></span><br><span class="line"></span><br><span class="line">server &#123;					<span class="comment"># 表示定义一个虚拟主机，Apache的虚拟主机定义是在&lt;VirtualHost&gt;标签内</span></span><br><span class="line">    listen       80;				<span class="comment"># 监听80端口，默认所有网卡，也可以指定IP地址</span></span><br><span class="line">    server_name  localhost;			<span class="comment"># 域名</span></span><br><span class="line">	charset      utf-8;				<span class="comment"># 中文乱码处理</span></span><br><span class="line">    <span class="comment">#access_log  /var/log/nginx/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># location区段，下部分详细介绍</span></span><br><span class="line">    location /index &#123;						<span class="comment"># 用来匹配用户URL请求的路径</span></span><br><span class="line">        root   /usr/share/nginx/html;		<span class="comment"># 站点所在的根目录</span></span><br><span class="line">        index  index.html index.htm;		<span class="comment"># 站点的首页，没有则返回403错误</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#error_page  404              /404.html;	# 单独处理404错误</span></span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="location区段配置"><a href="#location区段配置" class="headerlink" title="location区段配置"></a>location区段配置</h3><p>location区段是用来控制访问网站的URI路径</p>
+<blockquote>
+<p>location语法</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">location name&#123;...&#125;				<span class="comment"># name可以前加@ ，仅用于重定向</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;=&quot;</span>前缀指令匹配，如果匹配成功，则停止其他匹配</span><br><span class="line">普通字符串指令匹配，顺序是从长到短，匹配成功的location如果使用^~，则停止其他匹配（正则匹配）</span><br><span class="line">正则表达式指令匹配，按照配置文件里的顺序，成功就停止其他匹配</span><br><span class="line">如果第三步中有匹配成功，则使用该结果，否则使用第二步结果</span><br><span class="line"></span><br><span class="line"><span class="comment"># 匹配符	匹配规则				优先级</span></span><br><span class="line"><span class="comment">#   =	  精确匹配					1</span></span><br><span class="line"><span class="comment">#  ^~	  带修饰符的前缀匹配			  2</span></span><br><span class="line"><span class="comment">#	~	  区分大小写的正则匹配		  3，按照配置文件加载的顺序</span></span><br><span class="line"><span class="comment">#	~*	  不区分大小写的正则匹配		  3，按照配置文件加载的顺序</span></span><br><span class="line"><span class="comment">#  /字符串	  不带任何修饰符的前缀匹配		 4，同样不带修饰符的前缀匹配比较，优先匹配字符串长的</span></span><br><span class="line"><span class="comment">#	/	  通用匹配，任何请求都会匹配到       5</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试&quot;^~&quot;和&quot;~&quot;，nginx配置如下。浏览器输入http://localhost/helloworld/test，返回601。如将#1注释，#2打开，浏览器输入http://localhost/helloworld/test，返回603。注：#1和#2不能同时打开，如同时打开，启动nginx会报nginx: [emerg] duplicate location &quot;/helloworld&quot;...，因为这两个都是普通字符串。</span></span><br><span class="line"></span><br><span class="line">location ^~ /helloworld &#123;      <span class="comment">#1</span></span><br><span class="line">    <span class="built_in">return</span> 601;</span><br><span class="line">&#125;</span><br><span class="line">        </span><br><span class="line"><span class="comment">#location /helloworld &#123;        #2</span></span><br><span class="line"><span class="comment">#    return 602;</span></span><br><span class="line"><span class="comment">#&#125;</span></span><br><span class="line"></span><br><span class="line">location ~ /helloworld &#123;</span><br><span class="line">    <span class="built_in">return</span> 603;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试普通字符串的长短（普通字符串的匹配与顺序无关，与长短有关）。浏览器输入http://localhost/helloworld/test/a.html，返回601。浏览器输入http://localhost/helloworld/a.html，返回602。</span></span><br><span class="line"></span><br><span class="line">location /helloworld/test/ &#123;        <span class="comment">#1</span></span><br><span class="line">    <span class="built_in">return</span> 601;</span><br><span class="line">&#125;</span><br><span class="line">        </span><br><span class="line">location /helloworld/ &#123;                <span class="comment">#2</span></span><br><span class="line">    <span class="built_in">return</span> 602;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试正则表达式的顺序（正则匹配与顺序相关）。浏览器输入http://localhost/helloworld/test/a.html，返回602；将#2和#3调换顺序，浏览器输入http://localhost/helloworld/test/a.html，返回603</span></span><br><span class="line"></span><br><span class="line">location /helloworld/test/ &#123;        <span class="comment">#1</span></span><br><span class="line">    <span class="built_in">return</span> 601;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location ~ /helloworld &#123;            <span class="comment">#2</span></span><br><span class="line">    <span class="built_in">return</span> 602;</span><br><span class="line">&#125;</span><br><span class="line">        </span><br><span class="line">location ~ /helloworld/test &#123;        <span class="comment">#3</span></span><br><span class="line">    <span class="built_in">return</span> 603;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="多实例和多虚拟主机"><a href="#多实例和多虚拟主机" class="headerlink" title="多实例和多虚拟主机"></a>多实例和多虚拟主机</h2><h3 id="多实例和多虚拟主机概念"><a href="#多实例和多虚拟主机概念" class="headerlink" title="多实例和多虚拟主机概念"></a>多实例和多虚拟主机概念</h3><p>虚拟主机：一个虚拟主机，可以理解为在web服务中的一个独立的网络站点，这个站点对应独立的域名（也可以是IP或者端口），具有独立的程序以及资源目录，可以独立地对外提供服务，供用户访问。</p>
+<p>多实例：一个nginx master进程对应一个实例，一个实例可以有多个虚拟主机</p>
+<blockquote>
+<p>为什么要用虚拟主机？</p>
+</blockquote>
+<p>如果不用虚拟主机，那么一个域名就要对应一台服务器，浪费资源</p>
+<p>如果采用多实例的方式，那么多个nginx进程相比于多个虚拟主机来说，对服务器的性能压力很大</p>
+<p><strong>正确的做法：一个nginx主进程，对应多个虚拟主机；可以同时开启多个nginx主进程，从而达到资源的最大利用</strong></p>
+<blockquote>
+<p>虚拟主机分类</p>
+</blockquote>
+<p>基于域名的虚拟主机：一般用于企业提供正常网站服务，是最常用的虚拟主机方式</p>
+<p>基于端口的虚拟主机：一般用于不对外提供访问的服务</p>
+<ol>
+<li>比如测试环境、网站的后台（不做域名解析、不用默认端口、不配公网IP、通过VPN拨号访问）等</li>
+<li>应用的各种API接口（内部访问）</li>
+<li>前端有负载均衡的情况，负载均衡下面的节点用什么端口无所谓</li>
+</ol>
+<p>基于IP的虚拟主机：很少用到</p>
+<blockquote>
+<p>虚拟主机原理</p>
+</blockquote>
+<p>客户端：</p>
+<ol>
+<li>浏览器输入【域名:端口】回车</li>
+<li>浏览器请求本地DNS解析器，若没有则递归查询进行DNS解析，最终获取到IP</li>
+<li>请求web服务器建立TCP三次握手连接</li>
+<li>发起http请求，请求IP的对应端口</li>
+<li>发起HTTP请求报文</li>
+</ol>
+<p>服务端：</p>
+<ol>
+<li>监听本地网卡，对端口的请求</li>
+<li>读取接收到的HTTP报文的信息</li>
+<li>读取Nginx配置文件中虚拟主机server标签中的信息</li>
+<li>先匹配server对应的端口号</li>
+<li>相同端口号去匹配server_name对应的域名</li>
+<li>把对应域名下的站点目录下的index.html文件发送给客户端</li>
+<li>如果没有匹配的域名，就把排在第一个顺序的server标签虚拟主机对应的内容发给客户端</li>
+</ol>
+<h3 id="部署多实例和多虚拟主机"><a href="#部署多实例和多虚拟主机" class="headerlink" title="部署多实例和多虚拟主机"></a>部署多实例和多虚拟主机</h3><blockquote>
+<p>多实例的部署比较简单，只需要启动一个nginx进程即可，需要指定配置文件</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[nginx命令路径] -c [nginx主配置文件路径]		<span class="comment"># 执行前加 -t 验证是否配置正确</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>单实例多虚拟主机的部署只需要在实例的配置文件中添加一个server区域即可，可以在主配置文件中添加，也可以额外新建文件</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第一个虚拟主机</span></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  blog;		<span class="comment"># 如果想要增加域名，可以在这里添加另一个域名</span></span><br><span class="line">        charset utf-8;</span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html/blog;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html/blog;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment"># 第二个虚拟主机</span></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  bbs;</span><br><span class="line">        charset utf-8;</span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html/bbs;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        error_page  404              /404.html;</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html/bbs;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment"># 确保域名可以被解析到，确保虚拟主机站点目录存在</span></span><br><span class="line"></span><br><span class="line">nginx -t					<span class="comment"># 检查语法</span></span><br><span class="line">systemctl reload nginx		<span class="comment"># 重新加载nginx文件</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="实践：大厂多项目部署多实例web解决方案"><a href="#实践：大厂多项目部署多实例web解决方案" class="headerlink" title="实践：大厂多项目部署多实例web解决方案"></a>实践：大厂多项目部署多实例web解决方案</h3><ol>
+<li><p>创建多个用户，每个用户家目录作为一个web实例的根目录，实现环境隔离</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useradd www &amp;&amp; passwd www</span><br><span class="line">useradd bbs &amp;&amp; passwd bbs</span><br><span class="line">useradd blog &amp;&amp; passwd blog</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>每个用户的家目录创建站点目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p conf/extra logs html</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写配置文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">主配置文件，更改nginx进程的用户，日志格式，访问日志的路径错误日志的路径，pid文件的路径</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>一个location区段的作用场景：日志过滤</strong>：</p>
+<p>一个网站会包含很多元素，尤其是大量的图片，js，css等静态资源，这些请求可以不用记录，使用下面的方法。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location ~* .*\.(gif|jpg|png|css|js)$</span><br><span class="line">&#123;</span><br><span class="line">    access_log /dev/null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>一个server区段的作用场景：解决恶意域名解析</strong></p>
+<p>若是有人将没有备案的域名解析到本公司的服务器IP上，当有客户端通过这个域名访问时，我们的服务器查不到客户端访问所请求的域名信息，就会默认把第一个虚拟主机分配给客户端进行访问，所以为了解决这个问题，可以将nginx第一个虚拟主机设置为</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">	listen 80 default;</span><br><span class="line">	<span class="built_in">return</span> 404;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-21</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Nginx/'>
+                            Nginx
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="LNMP实践" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            LNMP实践
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="post-toc-text">安装软件包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8D%95%E6%9C%BA%E9%83%A8%E7%BD%B2WordPress"><span class="post-toc-text">单机部署WordPress</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%8B%AC%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="post-toc-text">独立数据库服务器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%89%A9%E5%B1%95%E5%A4%9A%E5%8F%B0web%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="post-toc-text">扩展多台web服务器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%8B%86%E5%88%86%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%88%B0%E7%8B%AC%E7%AB%8B%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="post-toc-text">拆分静态资源到独立服务器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%9B%86%E6%88%90%E5%A4%87%E4%BB%BD%E6%9C%8D%E5%8A%A1"><span class="post-toc-text">集成备份服务</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>图解<strong>Linux&#x2F;Nginx&#x2F;MySQL&#x2F;PHP</strong>架构流程</p>
+<p><a href="/../pic/1694653-20190918163700371-396967787.png" title="Nginx流行架构LNMP" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1694653-20190918163700371-396967787.png" alt="Nginx流行架构LNMP"></a></p>
+<h2 id="安装软件包"><a href="#安装软件包" class="headerlink" title="安装软件包"></a>安装软件包</h2><p>版本信息：</p>
+<p>Linux：CentOS 7.6</p>
+<p>Nginx：nginx&#x2F;1.24.0</p>
+<p>PHP：PHP 7.1.33</p>
+<p>MariaDB： 5.5.68-MariaDB</p>
+<blockquote>
+<p>安装Nginx</p>
+</blockquote>
+<p>参考 <code>学习笔记——Nginx部署篇</code>，确保不同机器的Linux版本号一致，安装的Nginx版本一致。</p>
+<blockquote>
+<p>安装PHP</p>
+</blockquote>
+<ul>
+<li><p>安装PHP的组件yum源</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm				<span class="comment"># 下载epel源</span></span><br><span class="line">rpm -Uvh epel-release-latest-7.noarch.rpm												<span class="comment"># 安装epel源</span></span><br><span class="line">wget https://mirror.webtatic.com/yum/el7/webtatic-release.rpm --no-check-certificate	<span class="comment"># 下载组件库源</span></span><br><span class="line">rpm -Uvh webtatic-release.rpm															<span class="comment"># 安装组件库源</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装PHP服务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">rpm -e $(rpm -qa | grep php)		<span class="comment"># 卸载旧版本的PHP包</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装PHP以及所有开发调试需要的组件</span></span><br><span class="line">yum install php71w php71w-cli php71w-common php71w-devel php71w-embedded php71w-gd -y</span><br><span class="line">yum install php71w-mcrypt php71w-mbstring php71w-pdo php71w-xml php71w-fpm php71w-mysqlnd -y</span><br><span class="line">yum install php71w-opcache php71w-pecl-memcached php71w-pecl-redis php71w-pecl-mongodb -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更改PHP的用户为www，找到配置文件 /etc/php-fpm.d/www.conf</span></span><br><span class="line">egrep <span class="string">&#x27;^user|^group&#x27;</span> www.conf				<span class="comment"># 查看用户名和组名</span></span><br><span class="line">sed -i <span class="string">&#x27;/^user/c user = www&#x27;</span> www.conf		<span class="comment"># 更改用户名</span></span><br><span class="line">sed -i <span class="string">&#x27;/^group/c group = www&#x27;</span> www.conf 	<span class="comment"># 更改组名</span></span><br><span class="line">egrep <span class="string">&#x27;^user|^group&#x27;</span> www.conf				<span class="comment"># 查看用户名和组名</span></span><br><span class="line"></span><br><span class="line">systemctl start php-fpm</span><br><span class="line">systemctl <span class="built_in">enable</span> php-fpm</span><br><span class="line">lsof -i:9000</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>安装mariadb</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mariadb-server mariadb -y</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>nginx配置php虚拟主机</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  blog;</span><br><span class="line">    root /data/blog;</span><br><span class="line">    location / &#123;</span><br><span class="line">        index  index.php default.html;</span><br><span class="line">    &#125;</span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        <span class="comment"># 将请求后抛给9000端口的php服务去解析</span></span><br><span class="line">        fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">        fastcgi_index index.php;</span><br><span class="line">        <span class="comment"># 告诉php服务，我们需要被解析的文件在哪个目录，是哪个文件</span></span><br><span class="line">        fastcgi_param SCRIPT_FILENAME $document_root<span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">        include fastcgi_params;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="built_in">mkdir</span> -p /data/blog</span><br><span class="line"><span class="built_in">cd</span> /data/blog</span><br><span class="line"><span class="built_in">chown</span> -R www.www /data/blog</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>测试</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim test_mysql.php			<span class="comment"># 添加一个测试mysql连接的脚本,添加以下内容</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">		<span class="variable">$servername</span> = <span class="string">&quot;localhost&quot;</span>;</span><br><span class="line">		<span class="variable">$username</span> = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">		<span class="variable">$password</span> = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//创建连接</span></span><br><span class="line">		<span class="variable">$conn</span> = <span class="title function_ invoke__">mysqli_connect</span>(<span class="variable">$servername</span>, <span class="variable">$username</span>, <span class="variable">$password</span>);</span><br><span class="line">		<span class="comment">//检测连接</span></span><br><span class="line">		<span class="keyword">if</span> (!<span class="variable">$conn</span>)&#123;</span><br><span class="line">			<span class="keyword">die</span>(<span class="string">&quot;Connection failed: &quot;</span> . <span class="title function_ invoke__">mysqli_connect_error</span>());</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;数据库连接成功&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>浏览器访问：<code>http://blog/test_mysql.php</code></p>
+<h2 id="单机部署WordPress"><a href="#单机部署WordPress" class="headerlink" title="单机部署WordPress"></a>单机部署WordPress</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装WordPress软件包</span></span><br><span class="line"><span class="built_in">cd</span> /server/tools</span><br><span class="line">wget https://cn.wordpress.org/latest-zh_CN.tar.gz	<span class="comment"># 下载压缩包</span></span><br><span class="line">tar xf latest-zh_CN.tar.gz -C /data/blog/			<span class="comment"># 解压</span></span><br><span class="line"><span class="built_in">mv</span> /data/blog/wordpress/* /data/blog/				<span class="comment"># 把子文件提取到blog文件夹下</span></span><br><span class="line"><span class="built_in">chown</span> -R www.www /data/blog							<span class="comment"># 工作中这样很危险，其实只需要将允许上传的文件夹更改属主和数组即可</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建WordPress的用户和数据库</span></span><br><span class="line">create database blog character <span class="built_in">set</span> utf8mb4 collate utf8mb4_unicode_ci;			<span class="comment"># 创建blog数据库</span></span><br><span class="line">show create database blog;							<span class="comment"># 查看创建信息</span></span><br><span class="line">grant all privileges on blog.* to <span class="string">&#x27;blog&#x27;</span>@<span class="string">&#x27;192.168.110.%&#x27;</span> identified by <span class="string">&#x27;123456&#x27;</span>;		<span class="comment"># 创建用户密码并授权，危险</span></span><br><span class="line"><span class="comment"># 企业生产环境不能给所有权限，只能有增删改查的权限,可以换用下面这句</span></span><br><span class="line"><span class="comment"># grant select,insert,update,delete on blog.* to &#x27;blog&#x27;@&#x27;192.168.110.%&#x27; identified by &#x27;123456&#x27;;</span></span><br><span class="line">flush privileges;									<span class="comment"># 刷新</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 浏览器访问测试</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="独立数据库服务器"><a href="#独立数据库服务器" class="headerlink" title="独立数据库服务器"></a>独立数据库服务器</h2><p>数据库的瓶颈主要来源于CPU、磁盘I&#x2F;O和内存，将数据库部署到独立的服务器，具有以下优点：</p>
+<ol>
+<li>缓解web网站的压力</li>
+<li>增强数据库的读写性能</li>
+<li>提高用户访问速度</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># web01备份数据库</span></span><br><span class="line">mysqldump -uroot -p123456 -B -A | gzip &gt; /tmp/bak.sql.gz	<span class="comment"># -B 导出所有数据库，-A 导出数据库中所有表</span></span><br><span class="line">scp /tmp/bak.sql.gz root@192.168.110.143:/tmp/</span><br><span class="line"></span><br><span class="line"><span class="comment"># db01安装数据库</span></span><br><span class="line">yum install mariadb-server mariadb -y</span><br><span class="line">systemctl start mariadb</span><br><span class="line">systemctl <span class="built_in">enable</span> mariadb</span><br><span class="line"><span class="comment"># db01导入数据库</span></span><br><span class="line"><span class="built_in">cd</span> /tmp</span><br><span class="line">gzip -d bak.sql.gz			<span class="comment"># 解压</span></span><br><span class="line">mysql &lt; /tmp/bak.sql		<span class="comment"># 导入</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更改WordPress的配置文件（主要是域名），调试访问</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="扩展多台web服务器"><a href="#扩展多台web服务器" class="headerlink" title="扩展多台web服务器"></a>扩展多台web服务器</h2><p>按照之前的步骤，安装Nginx和PHP</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># web02机器</span></span><br><span class="line">scp -rp root@web01:/etc/nginx /etc/			<span class="comment"># 拉取一下web01的配置文件</span></span><br><span class="line">scp -rp root@web01:/data/blog /data/		<span class="comment"># 拉取一下web01的产品文件</span></span><br><span class="line"></span><br><span class="line">systemctl restart nginx</span><br><span class="line">systemctl restart php-fpm</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 浏览器访问测试</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="拆分静态资源到独立服务器"><a href="#拆分静态资源到独立服务器" class="headerlink" title="拆分静态资源到独立服务器"></a>拆分静态资源到独立服务器</h2><p>NFS的搭建流程参考 <code>传统网络存储——NAS</code>篇</p>
+<p>WordPress的静态资源存放在<code>/data/blog/wp-content/uploads</code>目录下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scp -rp /data/blog/wp-content/* root@nfs:/data/blog/		<span class="comment"># web01服务器上的静态资源迁移到NFS服务器上</span></span><br><span class="line">mount -t nfs nfs:/data/blog /data/blog/wp-content/uploads/			<span class="comment"># 临时挂载</span></span><br><span class="line"><span class="built_in">df</span> -Th		<span class="comment"># 查看挂载</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同样的操作放到web02服务器上操作</span></span><br><span class="line"><span class="comment"># 浏览器访问测试</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="集成备份服务"><a href="#集成备份服务" class="headerlink" title="集成备份服务"></a>集成备份服务</h2><p>在web01服务器上编写脚本，定时备份到backup服务器上（因为web01和web02内容相同，所以备份一台即可）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 本机备份路径</span></span><br><span class="line">backup=<span class="string">&quot;/backup&quot;</span></span><br><span class="line"><span class="comment"># 以主机IP地址命名的文件夹</span></span><br><span class="line">path=<span class="string">&quot;/backup/<span class="subst">$(hostname -i)</span>&quot;</span></span><br><span class="line"><span class="comment"># 如果不存在此文件夹则创建文件夹</span></span><br><span class="line">[ -f <span class="variable">$path</span> ] || <span class="built_in">mkdir</span> -p <span class="variable">$path</span></span><br><span class="line"><span class="comment"># 判断是不是周一</span></span><br><span class="line"><span class="keyword">if</span> [ $(<span class="built_in">date</span> +%w -eq 2)];<span class="keyword">then</span></span><br><span class="line">	<span class="built_in">date</span>=<span class="string">&quot;<span class="subst">$(date +%F -d -1day)</span>_week1&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">date</span>=<span class="string">&quot;<span class="subst">$(date +%F -d -1day)</span>&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># 进入此文件夹</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$path</span></span><br><span class="line"><span class="comment"># 将配置文件和脚本打包进一个压缩包</span></span><br><span class="line">tar -cvhf conf_<span class="variable">$&#123;date&#125;</span>.tar.gz /var/spool/cron/root /server/scripts /etc 2&gt;/dev/null</span><br><span class="line"><span class="comment"># 将站点目录打包进一个压缩包</span></span><br><span class="line">tar -cvf  www_<span class="variable">$&#123;date&#125;</span>.tar.gz /data --exclude=/data/blog/wp-content  2&gt;/dev/null</span><br><span class="line"><span class="comment"># 将app日志打包进一个压缩包</span></span><br><span class="line">tar -cvf logs_<span class="variable">$&#123;date&#125;</span>.tar.gz /var/log/nginx 2&gt;/dev/null</span><br><span class="line"><span class="comment"># 获取所有打包文件的原始指纹</span></span><br><span class="line">find <span class="variable">$path</span> -<span class="built_in">type</span> f -name <span class="string">&quot;*_<span class="variable">$&#123;date&#125;</span>.tar.gz&quot;</span> | xargs <span class="built_in">md5sum</span> &gt; <span class="variable">$path</span>/$(hostname -i)_fingerprint_<span class="variable">$&#123;date&#125;</span>.<span class="built_in">log</span></span><br><span class="line"><span class="comment"># 推送</span></span><br><span class="line">rsync -avz <span class="variable">$backup</span>/ rsync@backup::backup --password-file=/etc/rsyncd.password</span><br><span class="line"><span class="comment"># 删除7天前的备份</span></span><br><span class="line">find <span class="variable">$backup</span>/ -<span class="built_in">type</span> f -name <span class="string">&quot;*.tar.gz&quot;</span> -mtime +7 -o -name <span class="string">&quot;*.log&quot;</span> -mtime +7 | xargs <span class="built_in">rm</span> -f</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-29</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

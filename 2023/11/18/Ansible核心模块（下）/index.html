@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Ansible核心模块（下）" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Ansible核心模块（下）
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cron-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">cron 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#yum-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">yum 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#yum-repository%E6%A8%A1%E5%9D%97"><span class="post-toc-text">yum_repository模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#service-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">service 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#user-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">user 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Group-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Group 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Setup-%E6%A8%A1%E5%9D%97"><span class="post-toc-text">Setup 模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#mount%E6%A8%A1%E5%9D%97"><span class="post-toc-text">mount模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#iptables%E6%A8%A1%E5%9D%97"><span class="post-toc-text">iptables模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="post-toc-text">注意</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h3 id="cron-模块"><a href="#cron-模块" class="headerlink" title="cron 模块"></a>cron 模块</h3><p>计划任务</p>
+<p>支持时间：minute，hour，day，month，weekday</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>backup</strong> boolean</td>
+<td>If set, create a backup of the crontab before it is modified. Default choice is <code>false</code><br />The location of the backup is returned in the <code>backup_file</code> variable by this module.</td>
+</tr>
+<tr>
+<td><strong>name</strong> string &#x2F; required</td>
+<td>Description of a crontab entry or, if env is set, the name of environment variable.This parameter is always required as of ansible-core 2.12.</td>
+</tr>
+<tr>
+<td><strong>job</strong> aliases: valuestring</td>
+<td>The command to execute or, if env is set, the value of environment variable.The command should not contain line breaks.Required if <code>state=present</code>.</td>
+</tr>
+<tr>
+<td><strong>disabled</strong> boolean</td>
+<td>If the job should be disabled (commented out) in the crontab.Only has effect if <code>state=present</code>.<br />Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>state</strong> string</td>
+<td>Whether to ensure the job or environment variable is present or absent.<strong>Choices:</strong><code>&quot;absent&quot;</code>，<code>&quot;present&quot;</code>  (default)</td>
+</tr>
+<tr>
+<td><strong>env</strong> boolean</td>
+<td>If set, manages a crontab’s environment variable.New variables are added on top of crontab.<code>[name]</code> and <code>[value]</code> parameters are the name and the value of environment variable.Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>insertafter</strong> string</td>
+<td>Used with <code>state=present</code> and <code>[env]</code>.If specified, the environment variable will be inserted after the declaration of specified environment variable.</td>
+</tr>
+<tr>
+<td><strong>insertbefore</strong> string</td>
+<td>Used with <code>state=present</code> and <code>[env]</code>.If specified, the environment variable will be inserted before the declaration of specified environment variable.</td>
+</tr>
+<tr>
+<td><strong>minute</strong> string</td>
+<td>Minute when the job should run (<code>0-59</code>, <code>*</code>, <code>*/2</code>, and so on).<strong>Default:</strong> <code>&quot;*&quot;</code></td>
+</tr>
+<tr>
+<td><strong>hour</strong> string</td>
+<td>Hour when the job should run (<code>0-23</code>, <code>*</code>, <code>*/2</code>, and so on).<strong>Default:</strong> <code>&quot;*&quot;</code></td>
+</tr>
+<tr>
+<td><strong>day</strong> aliases: domstring</td>
+<td>Day of the month the job should run (<code>1-31</code>, <code>*</code>, <code>*/2</code>, and so on).<strong>Default:</strong> <code>&quot;*&quot;</code></td>
+</tr>
+<tr>
+<td><strong>month</strong> string</td>
+<td>Month of the year the job should run (<code>1-12</code>, <code>*</code>, <code>*/2</code>, and so on).<strong>Default:</strong> <code>&quot;*&quot;</code></td>
+</tr>
+<tr>
+<td><strong>weekday</strong> aliases: dowstring</td>
+<td>Day of the week that the job should run (<code>0-6</code> for Sunday-Saturday, <code>*</code>, and so on).<strong>Default:</strong> <code>&quot;*&quot;</code></td>
+</tr>
+<tr>
+<td><strong>special_time</strong> string</td>
+<td>Special time specification nickname.<strong>Choices:</strong><code>&quot;annually&quot;``&quot;daily&quot;``&quot;hourly&quot;``&quot;monthly&quot;``&quot;reboot&quot;``&quot;weekly&quot;``&quot;yearly&quot;</code></td>
+</tr>
+<tr>
+<td><strong>user</strong> string</td>
+<td>The specific user whose crontab should be modified.When unset, this parameter defaults to the current user.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m corn -a &quot;cmd&quot;</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建计划任务，周一到周五的两点半执行/opt/mysql_backup.sh脚本，计划任务的名称是backup mysql</span></span><br><span class="line">ansible dbsrvs -m cron -a <span class="string">&quot;hour=2 minute=30 weekday=1-5 name=&#x27;backup mysql&#x27; job=/opt/mysql_backup.sh&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#再创建一个时间同步的计划任务</span></span><br><span class="line">ansible dbsrvs -m cron -a <span class="string">&#x27;minute=*/5 name=Synctime job=&quot;/usr/sbin/ntpdate ntp.aliyun.com &amp;&gt;/dev/null&quot; &#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除任务</span></span><br><span class="line">ansible dbsrvs -m cron -a <span class="string">&#x27;name=&quot;backup mysql&quot; state=absent&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#禁用计划任务,必须加上job参数</span></span><br><span class="line">ansible dbsrvs -m cron -a <span class="string">&#x27;minute=*/5 job=&quot;/usr/sbin/ntpdate ntp.aliyun.com &amp;&gt;/dev/null&quot; name=Synctime disabled=yes&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#启用计划任务</span></span><br><span class="line">ansible dbsrvs -m cron -a <span class="string">&#x27;minute=*/5 job=&quot;/usr/sbin/ntpdate ntp.aliyun.com &amp;&gt;/dev/null&quot; name=Synctime disabled=no&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="yum-模块"><a href="#yum-模块" class="headerlink" title="yum 模块"></a>yum 模块</h3><p>管理软件包，只支持RHEL，CentOS，fedora，不支持Ubuntu其它版本</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>conf_file</strong> string</td>
+<td>The remote yum configuration file to use for the transaction.</td>
+</tr>
+<tr>
+<td><strong>disablerepo</strong> list &#x2F; elements&#x3D;string</td>
+<td><em>Repoid</em> of repositories to disable for the install&#x2F;update operation. These repos will not persist beyond the transaction. When specifying multiple repos, separate them with a <code>&quot;,&quot;</code>.As of Ansible 2.7, this can alternatively be a list instead of <code>&quot;,&quot;</code> separated string<strong>Default:</strong> <code>[]</code></td>
+</tr>
+<tr>
+<td><strong>enablerepo</strong> list &#x2F; elements&#x3D;string</td>
+<td><em>Repoid</em> of repositories to enable for the install&#x2F;update operation. These repos will not persist beyond the transaction. When specifying multiple repos, separate them with a <code>&quot;,&quot;</code>.As of Ansible 2.7, this can alternatively be a list instead of <code>&quot;,&quot;</code> separated string. <strong>Default:</strong> <code>[]</code></td>
+</tr>
+<tr>
+<td><strong>exclude</strong> list &#x2F; elements&#x3D;string</td>
+<td>Package name(s) to exclude when state&#x3D;present, or latest<strong>Default:</strong> <code>[]</code></td>
+</tr>
+<tr>
+<td><strong>name</strong> aliases: pkglist &#x2F; elements&#x3D;string</td>
+<td>A package name or package specifier with version, like <code>name-1.0</code>.<br />Comparison operators for package version are valid here <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>. Example - <code>name&gt;=1.0</code>If a previous version is specified, the task also needs to turn <code>[allow_downgrade]</code> on. <br />See the <code>[allow_downgrade]</code> documentation for caveats with downgrading packages.When using <code>state=latest</code>, this can be <code>&#39;*&#39;</code> which means run <code>yum -y update</code>.You can also pass a url or a local path to an rpm file (using <code>state=present</code>). To operate on several packages this can accept a comma separated string of packages or (as of 2.0) a list of packages.<strong>Default:</strong> <code>[]</code></td>
+</tr>
+<tr>
+<td><strong>list</strong> string</td>
+<td>Package name to run the equivalent of <code>yum list --show-duplicates &lt;package&gt;</code> against. In addition to listing packages, use can also list the following: <code>installed</code>, <code>updates</code>, <code>available</code> and <code>repos</code>.This parameter is mutually exclusive with <code>[name]</code>.</td>
+</tr>
+<tr>
+<td><strong>state</strong> string</td>
+<td>Whether to install (<code>present</code> or <code>installed</code>, <code>latest</code>), or remove (<code>absent</code> or <code>removed</code>) a package.<br /><code>present</code> and <code>installed</code> will simply ensure that a desired package is installed.<br /><code>latest</code> will update the specified package if it’s not of the latest available version.<br /><code>absent</code> and <code>removed</code> will remove the specified package.<br />Default is <code>None</code>. <strong>Choices:</strong><code>&quot;absent&quot;``&quot;installed&quot;``&quot;latest&quot;``&quot;present&quot;``&quot;removed&quot;</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m yum -a &quot;cmd&quot;</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装软件包，安装多个用逗号隔开，present可以省略</span></span><br><span class="line">ansible websrvs -m yum -a <span class="string">&#x27;name=iotop,telnet state=present&#x27;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除</span></span><br><span class="line">ansible websrvs -m yum -a <span class="string">&#x27;name=iotop state=absent&#x27;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新</span></span><br><span class="line">ansible websrvs -m yum -a <span class="string">&#x27;name=iotop state=latest&#x27;</span> </span><br></pre></td></tr></table></figure>
+
+<h3 id="yum-repository模块"><a href="#yum-repository模块" class="headerlink" title="yum_repository模块"></a>yum_repository模块</h3><p>管理yum源</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>baseurl</strong> list &#x2F; elements&#x3D;string</td>
+<td>URL to the directory where the yum repository’s ‘repodata’ directory lives.It can also be a list of multiple URLs.This, the <code>[metalink]</code> or <code>[mirrorlist]</code> parameters are required if <code>[state]</code> is set to <code>present</code>.</td>
+</tr>
+<tr>
+<td><strong>description</strong> string</td>
+<td>A human readable string describing the repository. This option corresponds to the “name” property in the repo file.This parameter is only required if <code>[state]</code> is set to <code>present</code>.</td>
+</tr>
+<tr>
+<td><strong>enabled</strong> boolean</td>
+<td>This tells yum whether or not use this repository.Yum default value is <code>true</code>.<strong>Choices:</strong><code>false</code>，<code>true</code></td>
+</tr>
+<tr>
+<td><strong>file</strong> string</td>
+<td>File name without the <code>.repo</code> extension to save the repo in. Defaults to the value of <code>[name]</code>.</td>
+</tr>
+<tr>
+<td><strong>gpgcakey</strong> string</td>
+<td>A URL pointing to the ASCII-armored CA key file for the repository.</td>
+</tr>
+<tr>
+<td><strong>gpgcheck</strong> boolean</td>
+<td>Tells yum whether or not it should perform a GPG signature check on packages.No default setting. If the value is not set, the system setting from <code>/etc/yum.conf</code> or system default of <code>false</code> will be used.<strong>Choices:</strong><code>false</code>，<code>true</code></td>
+</tr>
+<tr>
+<td><strong>gpgkey</strong> list &#x2F; elements&#x3D;string</td>
+<td>A URL pointing to the ASCII-armored GPG key file for the repository.It can also be a list of multiple URLs.</td>
+</tr>
+<tr>
+<td><strong>include</strong> string</td>
+<td>Include external configuration file. Both, local path and URL is supported. Configuration file will be inserted at the position of the <code>include=</code> line. Included files may contain further include lines. Yum will abort with an error if an inclusion loop is detected.</td>
+</tr>
+<tr>
+<td><strong>keepcache</strong> string</td>
+<td>Either <code>1</code> or <code>0</code>. Determines whether or not yum keeps the cache of headers and packages after successful installation.This parameter is deprecated and will be removed in version 2.20.<strong>Choices:</strong><code>&quot;0&quot;</code>，<code>&quot;1&quot;</code></td>
+</tr>
+<tr>
+<td><strong>metalink</strong> string</td>
+<td>Specifies a URL to a metalink file for the repomd.xml, a list of mirrors for the entire repository are generated by converting the mirrors for the repomd.xml file to a <code>[baseurl]</code>.This, the <code>[baseurl]</code> or <code>[mirrorlist]</code> parameters are required if <code>[state]</code> is set to <code>present</code>.</td>
+</tr>
+<tr>
+<td><strong>mirrorlist</strong> string</td>
+<td>Specifies a URL to a file containing a list of baseurls.This, the <code>[baseurl]</code> or <code>[metalink]</code> parameters are required if <code>**[state]</code> is set to <code>present</code>.</td>
+</tr>
+<tr>
+<td><strong>name</strong> string &#x2F; required</td>
+<td>Unique repository ID. This option builds the section name of the repository in the repo file.This parameter is only required if <code>[state]</code> is set to <code>present</code> or <code>absent</code>.</td>
+</tr>
+<tr>
+<td><strong>priority</strong> string</td>
+<td>Enforce ordered protection of repositories. The value is an integer from 1 to 99.This option only works if the YUM Priorities plugin is installed.</td>
+</tr>
+<tr>
+<td><strong>state</strong> string</td>
+<td>State of the repo file.<strong>Choices:</strong><code>&quot;absent&quot;</code>，<code>&quot;present&quot;</code> ← (default)</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m yum_repository -a &quot;cmd&quot;</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible all -m yum_repository -a <span class="string">&#x27;file=nginx name=nginx description=&quot;nginx repo&quot;  baseurl=&quot;http://nginx.org/packages/centos/$releasever/$basearch/&quot; state=present enabled=yes gpgcheck=no&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="service-模块"><a href="#service-模块" class="headerlink" title="service 模块"></a>service 模块</h3><p>管理服务</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>name</strong> string &#x2F; （required）</td>
+<td>Name of the service.</td>
+</tr>
+<tr>
+<td><strong>enabled</strong> boolean</td>
+<td>Whether the service should start on boot.**At least one of state and enabled are required.**Choices:<code>false</code>，<code>true</code></td>
+</tr>
+<tr>
+<td><strong>state</strong> string</td>
+<td><code>started</code>&#x2F;<code>stopped</code> are idempotent actions that will not run commands unless necessary.<br /><code>restarted</code> will always bounce the service.<code>reloaded</code> will always reload.<strong>At least one of state and enabled are required.</strong><br />Note that reloaded will start the service if it is not already started, even if your chosen init system wouldn’t normally.<br /><strong>Choices:</strong><code>&quot;reloaded&quot;</code>，<code>&quot;restarted&quot;</code>，<code>&quot;started&quot;</code>，<code>&quot;stopped&quot;</code></td>
+</tr>
+<tr>
+<td><strong>sleep</strong> integer</td>
+<td>If the service is being <code>restarted</code> then sleep this many seconds between the stop and start command.This helps to work around badly-behaving init scripts that exit immediately after signaling a process to stop.Not all service managers support sleep, i.e when using systemd this setting will be ignored.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m service -a &quot;cmd&quot;</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动服务，设置自启</span></span><br><span class="line">ansible all -m service -a <span class="string">&#x27;name=httpd state=started enabled=yes&#x27;</span></span><br><span class="line"><span class="comment"># 停止服务</span></span><br><span class="line">ansible all -m service -a <span class="string">&#x27;name=httpd state=stopped&#x27;</span></span><br><span class="line"><span class="comment"># 重载</span></span><br><span class="line">ansible all -m service -a <span class="string">&#x27;name=httpd state=reloaded&#x27;</span></span><br><span class="line"><span class="comment"># 重启</span></span><br><span class="line">ansible all -m service -a <span class="string">&#x27;name=httpd state=restarted&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="user-模块"><a href="#user-模块" class="headerlink" title="user 模块"></a>user 模块</h3><p>管理用户</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>name</strong> aliases: userstring &#x2F;(required)</td>
+<td>Name of the user to create, remove or modify.</td>
+</tr>
+<tr>
+<td><strong>comment</strong> string</td>
+<td>Optionally sets the description (aka <em>GECOS</em>) of user account.On macOS, this defaults to the <code>[name]</code> option.</td>
+</tr>
+<tr>
+<td><strong>uid</strong> integer</td>
+<td>Optionally sets the <em>UID</em> of the user.</td>
+</tr>
+<tr>
+<td><strong>group</strong> string</td>
+<td>Optionally sets the user’s primary group (takes a group name).On macOS, this defaults to <code>&#39;staff&#39;</code></td>
+</tr>
+<tr>
+<td><strong>create_home</strong> aliases: createhome boolean</td>
+<td>Unless set to <code>false</code>, a home directory will be made for the user when the account is created or if the home directory does not exist. Default choice is <code>true</code></td>
+</tr>
+<tr>
+<td><strong>home</strong> path</td>
+<td>Optionally set the user’s home directory.</td>
+</tr>
+<tr>
+<td><strong>force</strong> boolean</td>
+<td>This only affects <code>state=absent</code>, it forces removal of the user and associated directories on supported platforms.The behavior is the same as <code>userdel --force</code>.When used with <code>generate_ssh_key=yes</code> this forces an existing key to be overwritten.Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>generate_ssh_key</strong> boolean</td>
+<td>Whether to generate a SSH key for the user in question.This will <strong>not</strong> overwrite an existing SSH key unless used with <code>force=yes</code>.Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>non_unique</strong> boolean</td>
+<td>Optionally when used with the -u option, this option allows to change the user ID to a non-unique value. Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>system</strong> boolean</td>
+<td>When creating an account <code>state=present</code>, setting this to <code>true</code> makes the user a system account.This setting cannot be changed on existing users. Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>password</strong> string</td>
+<td>If provided, set the user’s password to the provided encrypted hash (Linux) or plain text password (macOS).<strong>Linux&#x2F;Unix&#x2F;POSIX:</strong> Enter the hashed password as the value.</td>
+</tr>
+<tr>
+<td><strong>remove</strong> boolean</td>
+<td>This only affects <code>state=absent</code>, it attempts to remove directories associated with the user.The behavior is the same as <code>userdel --remove</code>, check the man page for details and support.Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>shell</strong> string</td>
+<td>Optionally set the user’s shell.</td>
+</tr>
+<tr>
+<td><strong>state</strong> string</td>
+<td>Whether the account should exist or not, taking action if the state is different from what is stated.See this <a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#running-on-macos-as-a-target">FAQ entry</a> for additional requirements when removing users on macOS systems.<br /><strong>Choices:</strong><code>&quot;absent&quot;</code>，<code>&quot;present&quot;</code> ← (default)</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m user -a &quot;cmd&quot;</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建用户,指定用户名、描述、uid、家目录、所属组</span></span><br><span class="line">ansible all -m user -a <span class="string">&#x27;name=user1 comment=&quot;test user&quot; uid=2048 home=/app/user1 group=root&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用户名 描述 uid 所属组 从属组 shell类型 是否系统账户 是否创建家目录 家目录路径 uid是否唯一</span></span><br><span class="line">ansible all -m user -a <span class="string">&#x27;name=nginx comment=nginx uid=88 group=nginx groups=&quot;root,daemon&quot; shell=/sbin/nologin system=yes create_home=no home=/data/nginx non_unique=yes&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除用户，remove=yes表示删除用户及家目录等数据，默认remove=no</span></span><br><span class="line">ansible all -m user -a <span class="string">&#x27;name=nginx state=absent remove=yes&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Group-模块"><a href="#Group-模块" class="headerlink" title="Group 模块"></a>Group 模块</h3><p>管理组</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>name</strong> string &#x2F; required</td>
+<td>Name of the group to manage.</td>
+</tr>
+<tr>
+<td><strong>gid</strong> integer</td>
+<td>Optional <em>GID</em> to set for the group.</td>
+</tr>
+<tr>
+<td><strong>force</strong> boolean<em>added in ansible-core 2.15</em></td>
+<td>Whether to delete a group even if it is the primary group of a user.Only applicable on platforms which implement a –force flag on the group deletion command. Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>non_unique</strong> boolean <em>added in Ansible 2.8</em></td>
+<td>This option allows to change the group ID to a non-unique value. Requires <code>[gid]</code>.Not supported on macOS or BusyBox distributions. Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>state</strong> string</td>
+<td>Whether the group should be present or not on the remote host.<br /><strong>Choices:</strong><code>&quot;absent&quot;</code>，<code>&quot;present&quot;</code> ← (default)</td>
+</tr>
+<tr>
+<td><strong>system</strong> boolean</td>
+<td>If <code>yes</code>, indicates that the group created is a system group. Default choice is <code>false</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m group -a &quot;cmd&quot;</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建组</span></span><br><span class="line">ansible websrvs -m group -a <span class="string">&#x27;name=nginx gid=88 system=yes&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除组</span></span><br><span class="line">ansible websrvs -m group -a <span class="string">&#x27;name=nginx state=absent&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Setup-模块"><a href="#Setup-模块" class="headerlink" title="Setup 模块"></a>Setup 模块</h3><p> setup 模块来收集主机的系统信息，这些 facts 信息可以直接以变量的形式使用，但是如果主机较多，会影响执行速度，可以使用gather_facts: no 来禁止 Ansible 收集 facts 信息</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>filter</strong> list &#x2F; elements&#x3D;string</td>
+<td>If supplied, only return facts that match one of the shell-style (fnmatch) pattern. An empty list basically means ‘no filter’. As of Ansible 2.11, the type has changed from string to list and the default has became an empty list. A simple string is still accepted and works as a single pattern. The behaviour prior to Ansible 2.11 remains.<strong>Default:</strong> <code>[]</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m setup -a &quot;cmd&quot;</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ansible all -m setup		<span class="comment">#收集服务器详细信息</span></span><br><span class="line">ansible all -m setup -a <span class="string">&quot;filter=ansible_nodename&quot;</span>		<span class="comment">#主机全名</span></span><br><span class="line">ansible all -m setup -a <span class="string">&quot;filter=ansible_hostname&quot;</span>		<span class="comment">#主机名（部分名称）</span></span><br><span class="line">ansible all -m setup -a <span class="string">&quot;filter=ansible_os_family&quot;</span>		<span class="comment">#操作系统家族</span></span><br><span class="line">ansible all -m setup -a <span class="string">&quot;filter=ansible_domain&quot;</span>			<span class="comment">#域名</span></span><br><span class="line">ansible all -m setup -a <span class="string">&quot;filter=ansible_memtotal_mb&quot;</span>		<span class="comment">#内存总大小</span></span><br><span class="line">ansible all -m setup -a <span class="string">&quot;filter=ansible_memory_mb&quot;</span>		<span class="comment">#内存，包含交换分区等</span></span><br><span class="line">ansible all -m setup -a <span class="string">&quot;filter=ansible_memfree_mb&quot;</span>		<span class="comment">#剩余内存</span></span><br><span class="line"></span><br><span class="line">ansible all -m setup -a <span class="string">&quot;filter=ansible_distribution_major_version&quot;</span>	<span class="comment">#操作系统版本号</span></span><br><span class="line">ansible all -m setup -a <span class="string">&quot;filter=ansible_distribution_version&quot;</span>		<span class="comment">#小版本号</span></span><br><span class="line">ansible websrvs -m setup -a <span class="string">&quot;filter=ansible_distribution&quot;</span>		<span class="comment">#操作系统版本</span></span><br><span class="line"></span><br><span class="line">ansible all -m setup -a <span class="string">&quot;filter=ansible_processor_vcpus&quot;</span>		<span class="comment">#cpu个数</span></span><br><span class="line">ansible all -m setup -a <span class="string">&quot;filter=ansible_all_ipv4_addresses&quot;</span>		<span class="comment">#多块网卡的所有ip地址</span></span><br><span class="line">ansible all -m setup -a <span class="string">&quot;filter=ansible_default_ipv4&quot;</span>			<span class="comment">#默认ip地址		</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="mount模块"><a href="#mount模块" class="headerlink" title="mount模块"></a>mount模块</h3><p>磁盘挂载相关 </p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>fstype</td>
+<td>指定文件系统类型，如nfs，xfs，ext4等</td>
+</tr>
+<tr>
+<td>src</td>
+<td>挂载源，如src&#x3D;172.16.1.31:&#x2F;data&#x2F;zh</td>
+</tr>
+<tr>
+<td>path</td>
+<td>在目标主机的挂载路径，如path&#x3D;&#x2F;mnt&#x2F;new-lidao-mount</td>
+</tr>
+<tr>
+<td>state</td>
+<td>状态<br />present ：仅修改配置，开机挂载，仅将挂载配置写入&#x2F;etc&#x2F;fstab<br/>mounted：挂载+修改配置，挂载设备，并将配置写入&#x2F;etc&#x2F;fstab<br/>unmounted：卸载设备，不会清除&#x2F;etc&#x2F;fstab写入的配置<br/>absent： 卸载设备，会清理&#x2F;etc&#x2F;fstab写入的配置<br/>remounted：重新挂载</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m mount -a &quot;cmd&quot;</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 挂载nfs，如果要挂载点目录不存在，则会自动创建目录</span></span><br><span class="line">ansible all -m mount -a <span class="string">&#x27;fstype=nfs src=172.16.1.31:/data/zh  path=/mnt/   state=mounted&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="iptables模块"><a href="#iptables模块" class="headerlink" title="iptables模块"></a>iptables模块</h3><p>设置防火墙</p>
+<blockquote>
+<p><strong>参数</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>table</strong> string</td>
+<td>This option specifies the packet matching table which the command should operate on.<br /><strong>Choices:</strong><code>&quot;filter&quot;</code> ← (default)，<code>&quot;nat&quot;</code>，<code>&quot;mangle&quot;</code>，<code>&quot;raw&quot;</code>，<code>&quot;security&quot;</code></td>
+</tr>
+<tr>
+<td><strong>chain</strong> string</td>
+<td>Specify the iptables chain to modify.This could be a user-defined chain or one of the standard iptables chains,<br /> like <code>INPUT</code>, <code>FORWARD</code>, <code>OUTPUT</code>, <code>PREROUTING</code>, <code>POSTROUTING</code>, <code>SECMARK</code> or <code>CONNSECMARK</code>.</td>
+</tr>
+<tr>
+<td><strong>action</strong> string</td>
+<td>Whether the rule should be appended at the bottom or inserted at the top.<br />If the rule already exists the chain will not be modified. <strong>Choices:</strong><code>&quot;append&quot;</code> ← (default)，<code>&quot;insert&quot;</code></td>
+</tr>
+<tr>
+<td><strong>comment</strong> string</td>
+<td>This specifies a comment that will be added to the rule.</td>
+</tr>
+<tr>
+<td><strong>protocol</strong> string</td>
+<td>The protocol of the rule or of the packet to check.The specified protocol can be one of <code>tcp</code>, <code>udp</code>, <code>udplite</code>, <code>icmp</code>, <code>ipv6-icmp</code> or <code>icmpv6</code>, <code>esp</code>, <code>ah</code>, <code>sctp</code> or the special keyword <code>all</code>, or it can be a numeric value, representing one of these protocols or a different one.<br />A protocol name from <code>/etc/protocols</code> is also allowed.<br />A <code>!</code> argument before the protocol inverts the test.The number zero is equivalent to all.<br /><code>all</code> will match with all protocols and is taken as default when this option is omitted.</td>
+</tr>
+<tr>
+<td><strong>source</strong> string</td>
+<td>Source specification.<br />Address can be a network name, a hostname, a network IP address (with &#x2F;mask), or a plain IP address.<br />Hostnames will be resolved once only, before the rule is submitted to the kernel. Please note that specifying any name to be resolved with a remote query such as DNS is a really bad idea.<br />The mask can be either a network mask or a plain number, specifying the number of 1’s at the left side of the network mask. Thus, a mask of 24 is equivalent to 255.255.255.0.<br /> A <code>!</code> argument before the address specification inverts the sense of the address.</td>
+</tr>
+<tr>
+<td><strong>src_range</strong> string<em>added in Ansible 2.8</em></td>
+<td>Specifies the source IP range to match in the iprange module.</td>
+</tr>
+<tr>
+<td><strong>destination</strong> string</td>
+<td>Destination specification.<br />Address can be  a network name, a hostname, a network IP address (with &#x2F;mask), or a plain IP address.<br />Hostnames will be resolved once only, before the rule is submitted to the kernel. <br />Please note that specifying any name to be resolved with a remote query such as DNS is a really bad idea.<br />The mask can be either a network mask or a plain number, specifying the number of 1’s at the left side of the network mask. Thus, a mask of 24 is equivalent to 255.255.255.0. <br />A <code>!</code> argument before the address specification inverts the sense of the address.</td>
+</tr>
+<tr>
+<td><strong>dst_range</strong> string<em>added in Ansible 2.8</em></td>
+<td>Specifies the destination IP range to match in the iprange module.</td>
+</tr>
+<tr>
+<td><strong>source_port</strong> string</td>
+<td>Source port or port range specification.This can either be a service name or a port number.<br />An inclusive range can also be specified, using the format <code>first:last</code>.<br />If the first port is omitted, <code>0</code> is assumed; if the last is omitted, <code>65535</code> is assumed.<br />If the first port is greater than the second one they will be swapped.</td>
+</tr>
+<tr>
+<td><strong>destination_port</strong> string</td>
+<td>Destination port or port range specification. This can either be a service name or a port number. <br />An inclusive range can also be specified, using the format first:last. <br />If the first port is omitted, ‘0’ is assumed; if the last is omitted, ‘65535’ is assumed. <br />If the first port is greater than the second one they will be swapped. <br />This is only valid if the rule also specifies one of the following protocols: tcp, udp, dccp or sctp.</td>
+</tr>
+<tr>
+<td><strong>destination_ports</strong> list &#x2F; elements&#x3D;string</td>
+<td>This specifies multiple destination port numbers or port ranges to match in the multiport module.<br />It can only be used in conjunction with the protocols tcp, udp, udplite, dccp and sctp.<strong>Default:</strong> <code>[]</code></td>
+</tr>
+<tr>
+<td><strong>jump</strong> string</td>
+<td>This specifies the target of the rule; i.e., what to do if the packet matches it.</td>
+</tr>
+<tr>
+<td><strong>state</strong> string</td>
+<td>Whether the rule should be absent or present.<strong>Choices:</strong><code>&quot;absent&quot;</code>，<code>&quot;present&quot;</code> ← (default)</td>
+</tr>
+<tr>
+<td><strong>flush</strong> boolean</td>
+<td>Flushes the specified table and chain of all rules.If no chain is specified then the entire table is purged.<br />Ignores all other parameters. Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>out_interface</strong> string</td>
+<td>Name of an interface via which a packet is going to be sent (for packets entering the <code>FORWARD</code>, <code>OUTPUT</code> and <code>POSTROUTING</code> chains).When the <code>!</code> argument is used before the interface name, the sense is inverted.If the interface name ends in a <code>+</code>, then any interface which begins with this name will match.If this option is omitted, any interface name will match.</td>
+</tr>
+<tr>
+<td><strong>policy</strong> string</td>
+<td>Set the policy for the chain to the given target.Only built-in chains can have policies.This parameter requires the <code>[chain]</code> parameter.If you specify this parameter, all other parameters will be ignored.<br />This parameter is used to set default policy for the given <code>[chain]</code>. Don’t confuse with <code>[jump]</code> parameter.<br /><strong>Choices:</strong><code>&quot;ACCEPT&quot;</code>，<code>&quot;DROP&quot;</code>，<code>&quot;QUEUE&quot;</code>，<code>&quot;RETURN&quot;</code></td>
+</tr>
+<tr>
+<td><strong>to_destination</strong> string</td>
+<td>This specifies a destination address to use with <code>DNAT</code>.Without this, the destination address is never altered.</td>
+</tr>
+<tr>
+<td><strong>to_source</strong> string</td>
+<td>This specifies a source address to use with <code>SNAT</code>.Without this, the source address is never altered.</td>
+</tr>
+<tr>
+<td><strong>to_ports</strong> string</td>
+<td>This specifies a destination port or range of ports to use, without this, the destination port is never altered.<br />This is only valid if the rule also specifies one of the protocol <code>tcp</code>, <code>udp</code>, <code>dccp</code> or <code>sctp</code>.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>ad-hoc</strong></p>
+</blockquote>
+<p>格式：<code>ansible 主机名 -m iptables -a &quot;cmd&quot;</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新增一条防火墙策略</span></span><br><span class="line">ansible web -m iptables -a <span class="string">&#x27;table=filter action=insert chain=INPUT source=10.0.0.0/24 protocol=tcp  destination_port=80 jump=DROP state=present&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>除了以上模块以外，还有其他的常用模块不再赘述。更多模块介绍详见官方文档：<a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/index.html#plugins-in-ansible-builtin"> 模块参考 </a></p>
+<p>这些模块功能有些使用shell模块直接运行命令也可以实现，但是并不推荐，因为使用ansible模块具有</p>
+<ol>
+<li>Idempotency（幂等性）：即无论运行多少次，都会确保所需的状态被应用。相反，使用shell模块执行命令时，需要手动编写逻辑来确保这种状态的达成。</li>
+<li>可读性和维护性：使用专门的模块可以使Playbook更易于阅读和维护。mount模块和iptables模块提供了清晰的抽象，可以让操作更易于理解，并且减少了对特定命令语法的依赖。</li>
+<li>安全性：使用专门的模块可以提高安全性，因为它们通常会提供内置的错误检查和安全性措施，以确保正确的参数和配置。</li>
+</ol>
+<p>总的来说，首选应该是使用Ansible提供的专门模块，尤其是对于常见的系统管理任务，因为这样更易于编写、理解和维护。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-18</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Ansible/'>
+                            Ansible
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

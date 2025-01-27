@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Jenkins部署" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Jenkins部署
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Jenkins%E6%A6%82%E8%BF%B0"><span class="post-toc-text">Jenkins概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Jenkins%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Jenkins部署</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B"><span class="post-toc-text">Jenkins自动部署流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81"><span class="post-toc-text">自动拉取代码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9E%84%E5%BB%BA%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="post-toc-text">构建触发器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9E%84%E5%BB%BA%E4%BB%BB%E5%8A%A1"><span class="post-toc-text">构建任务</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="post-toc-text">测试</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="Jenkins概述"><a href="#Jenkins概述" class="headerlink" title="Jenkins概述"></a>Jenkins概述</h2><p>Jenkins是一个开源的用于持续集成的工具，由Java开发。</p>
+<p><a href="/../pic/v2-153f8be00c6e95d7e70cbfab0387bca3_r.jpg" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/v2-153f8be00c6e95d7e70cbfab0387bca3_r.jpg" alt="img"></a></p>
+<p>Jenkins是一个调度平台，本身不处理任何事情，调用插件来完成所有的工作，包括代码提交、构建、测试、发布以及部署等操作。</p>
+<p><a href="/../pic/1728470-20210813112832687-800242845-17099099936133.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1728470-20210813112832687-800242845-17099099936133.png" alt="img"></a></p>
+<h2 id="Jenkins部署"><a href="#Jenkins部署" class="headerlink" title="Jenkins部署"></a>Jenkins部署</h2><p>Jenkins的部署比较简单，系统要求1c1g即可，软件要求jdk8版本。</p>
+<p>三种安装方式</p>
+<ul>
+<li>rpm包安装，yum install 即可</li>
+<li>war包安装，将war包放入tomcat中运行</li>
+<li>jar包安装，执行java -jar xx.jar 运行</li>
+</ul>
+<p>本次选用rpm包安装</p>
+<blockquote>
+<p><strong>部署JDK</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum list | grep openjdk		<span class="comment"># 找出java1.11.0版本的openjdk包</span></span><br><span class="line"></span><br><span class="line">yum install -y java-11-openjdk.x86_64	<span class="comment"># 安装</span></span><br><span class="line"></span><br><span class="line">java -version		<span class="comment"># 查看版本</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>安装Jenkins</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo</span><br><span class="line">rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key</span><br><span class="line">yum install -y jenkins		<span class="comment"># 如果找不到，且repo源是空的，可以手动添加yum源</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Jenkins目录结构</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@dengpangpang yum.repos.d]$ rpm -ql jenkins</span><br><span class="line">/usr/bin/jenkins		<span class="comment"># 控制脚本</span></span><br><span class="line">/usr/lib/systemd/system/jenkins.service		<span class="comment"># 配置文件以及控制开启关闭服务的命令</span></span><br><span class="line">/usr/lib/tmpfiles.d/jenkins.conf		<span class="comment"># 临时配置文件</span></span><br><span class="line">/usr/share/java/jenkins.war		<span class="comment"># jenkins的war包，包含代码和资源</span></span><br><span class="line">/usr/share/jenkins/migrate		<span class="comment"># 迁移工具和文件</span></span><br><span class="line">/var/cache/jenkins		<span class="comment"># 缓存目录</span></span><br><span class="line">/var/lib/jenkins		<span class="comment"># Jenkins工作目录，插件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意：旧版本的Jenkins配置文件是在/etc/sysconfig/jenkins，但是新版本的配置文件是/usr/lib/systemd/system/jenkins.service这个文件，文件描述让用户使用systemctl edit jenkins来修改，包括jenkins服务的用户、群组、工作目录、日志目录、JDK目录、端口等配置。</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>启动并测试</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start jenkins		<span class="comment"># 开启之后，浏览器访问 http://IP:8080 </span></span><br></pre></td></tr></table></figure>
+
+<p>暂时不安装插件</p>
+<p><a href="/../pic/image-20240309015304530.png" title="image-20240309015304530" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240309015304530.png" alt="image-20240309015304530"></a></p>
+<blockquote>
+<p><strong>汉化</strong></p>
+</blockquote>
+<p>web页面侧边栏—&gt;Manage Jenkins—&gt;Plugins—&gt;Available plugins，搜索chinese可以看到简体中文的插件，按提示操作即可。</p>
+<blockquote>
+<p><strong>安装插件</strong></p>
+</blockquote>
+<p>有三种安装方式</p>
+<ol>
+<li>web界面搜索需要的插件下载安装，自动安装</li>
+<li>在web界面上传单个插件的压缩包（hpi包）,自动安装</li>
+<li>将多个插件的压缩包批量移动到<code>/var/lib/jenkins/plugins</code>目录中，重启服务即可。</li>
+</ol>
+<h2 id="Jenkins自动部署流程"><a href="#Jenkins自动部署流程" class="headerlink" title="Jenkins自动部署流程"></a>Jenkins自动部署流程</h2><p>本节将以一个实践操作，完成一次Jenkins自动部署流程：开发人员提交代码到远程仓库，然后Jenkins自动拉取最新代码，将代码部署到web服务器上。</p>
+<p>前期准备：</p>
+<ol>
+<li><p>GitLab服务器，作为远程仓库，新建一个项目。</p>
+</li>
+<li><p>初始化一个Git本地仓库，能够正常推送到GitLab远程仓库</p>
+</li>
+<li><p>配置好一台代理服务器和两台web服务器做负载均衡，能够正常访问</p>
+</li>
+<li><p>Jenkins服务器，提前做好GitLab服务器和两台web服务器的域名解析和SSH验证。</p>
+</li>
+<li><p>在Jenkins的web页面提前安装好相关插件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">credentials: 允许在Jenkins中存储认证凭据</span><br><span class="line">Git：允许Jenkins集成Git</span><br><span class="line">Git client：允许在Jenkins中使用Git</span><br><span class="line">GitLab: 允许Gitlab触发Jenkins的构建任务，并在Gitlab中显示</span><br><span class="line">GitLab Authentication：GitLab的身份验证插件</span><br><span class="line">Git Parameter: 允许从Jenkins添加Git参数，获取分支、标签、修订等信息</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="自动拉取代码"><a href="#自动拉取代码" class="headerlink" title="自动拉取代码"></a>自动拉取代码</h3><p>这部分目的很简单，就是让Jenkins连接GitLab，测试CICD的第一个阶段：代码的拉取。</p>
+<ol>
+<li><p>将Jenkins服务器上的SSH公钥添加到GitLab的web页面的SSH密钥中，私钥稍后在Jenkins的web页面添加</p>
+<p><a href="/../pic/image-20240310010537144.png" title="image-20240310010537144" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240310010537144.png" alt="image-20240310010537144"></a></p>
+</li>
+<li><p>创建一个Jenkins项目，在源码管理中，添加GitLab仓库(Repositories)和SSH私钥(Credentials)，然后配置分支。</p>
+<p>注意，配置Credentials时（添加Jenkins私钥），Domain选择默认<code>Global credentials (unrestricted)</code>，Credentials选择<code>SSH Username with private key</code>，范围选择<code>Global</code>，Username可以随便写，Private Key 中直接填写私钥内容即可。</p>
+<p><a href="/../pic/image-20240310010634565.png" title="image-20240310010634565" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240310010634565.png" alt="image-20240310010634565"></a></p>
+</li>
+<li><p>保存项目，构建一下，根据控制台输出查看是否成功拉取代码</p>
+<p><a href="/../pic/image-20240310011206826.png" title="image-20240310011206826" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240310011206826.png" alt="image-20240310011206826"></a></p>
+</li>
+<li><p>在Jenkins中查看，可以看到Jenkins的工作目录<code>/var/lib/jenkins/workspace/</code>已经有了项目的代码目录</p>
+</li>
+</ol>
+<h3 id="构建触发器"><a href="#构建触发器" class="headerlink" title="构建触发器"></a>构建触发器</h3><p>本节的目的就是完成Jenkins的自动操作，开发人员将代码提交到远程仓库会触发一个钩子事件，触发Jenkins自动拉取代码，然后执行相应动作。</p>
+<p>一般希望测试环境通过钩子事件自动触发，生产环境最好手动build。</p>
+<ol>
+<li><p>Jenkins配置触发器</p>
+<p>在Jenkins项目的配置中，在<strong>构建触发器</strong>的相关选项中，选择<code>Build when a change is pushed to GitLab </code>，即GitLab项目有更新时触发。后面的 <code>GitLab webhook URL: http://study.jenkins:8080/project/freestyle-page</code> 是GitLab发送提醒的地址(钩子地址)。</p>
+<p>在具体的触发事件中，一般选择<code>Push Event</code> 和 <code>Opened Merge Request Events</code>两项，即推送代码和合并代码时触发。然后在下面的高级选项中，生成一个<code>Secret token</code>，即token令牌。</p>
+<p><a href="/../pic/image-20240310181428961.png" title="image-20240310181428961" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240310181428961.png" alt="image-20240310181428961"></a></p>
+</li>
+<li><p>GitLab添加钩子事件(web hooks)</p>
+<p>在GitLab的web页面中，点击对应项目，找到设置—&gt;集成，在URL栏中填写钩子地址，在Secret token栏中填写token令牌，保存之后测试。</p>
+<p><a href="/../pic/image-20240310181733380.png" title="image-20240310181733380" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240310181733380.png" alt="image-20240310181733380"></a></p>
+<p>若报错：Urlis blocked: Requests to the local network are not allowed，意思是不允许局域网内请求，需要进入GitLab的管理中心，侧边栏设置—&gt;网络，展开外发请求，选择<code>Allow requests to the local network from hooks and services</code>，保存。</p>
+</li>
+</ol>
+<h3 id="构建任务"><a href="#构建任务" class="headerlink" title="构建任务"></a>构建任务</h3><p>这部分的重点是一个脚本文件，放在Jenkins服务器上，让Jenkins触发执行。涉及到脚本需要与Jenkins中的参数配合才能完成自动部署的逻辑。</p>
+<ol>
+<li><p>编写脚本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="comment"># author:dengpangpang</span></span><br><span class="line"><span class="comment"># desc: Jenkins auto deploy gitlab code</span></span><br><span class="line"></span><br><span class="line">code_dir=<span class="string">&quot;<span class="variable">$WORKSPACE</span>&quot;</span></span><br><span class="line">Server_Array=(<span class="variable">$SERVERS_ARRAY</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地压缩代码</span></span><br><span class="line"><span class="function"><span class="title">tar_code</span></span>()&#123;</span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$code_dir</span></span><br><span class="line">tar zcf /code/web_<span class="variable">$&#123;git_version&#125;</span>.tar.gz ./*</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 传送代码到web服务器的code目录</span></span><br><span class="line"><span class="function"><span class="title">scp_code</span></span>()&#123;</span><br><span class="line">scp /code/web_<span class="variable">$&#123;git_version&#125;</span>.tar.gz <span class="variable">$server</span>:/code/</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># web服务器解压代码，然后删除压缩包</span></span><br><span class="line"><span class="function"><span class="title">tar_xf</span></span>()&#123;</span><br><span class="line">ssh <span class="variable">$server</span> <span class="string">&quot;mkdir /code/web_<span class="variable">$&#123;git_version&#125;</span>&quot;</span></span><br><span class="line">ssh <span class="variable">$server</span> <span class="string">&quot;cd /code;tar xf web_<span class="variable">$&#123;git_version&#125;</span>.tar.gz -C web_<span class="variable">$&#123;git_version&#125;</span>;rm -rf web_<span class="variable">$&#123;git_version&#125;</span>.tar.gz&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除旧的软链接，创建新的软链接</span></span><br><span class="line"><span class="function"><span class="title">ln_code</span></span>()&#123;</span><br><span class="line">ssh <span class="variable">$server</span> <span class="string">&quot;cd /data;rm -rf blog;ln -s /code/web_<span class="variable">$&#123;git_version&#125;</span> blog&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 完成一次新的构建，依次需要上面四个步骤</span></span><br><span class="line"><span class="function"><span class="title">build</span></span>()&#123;</span><br><span class="line">	tar_code</span><br><span class="line">	scp_code</span><br><span class="line">	tar_xf</span><br><span class="line">	ln_code</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断目的是构建还是回滚，回滚的话，不需要重新拉取代码、分发、解压等操作；构建的话需要判断一下是不是构建过了。</span></span><br><span class="line"><span class="function"><span class="title">deploy</span></span>()&#123;</span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$deploy_env</span> = <span class="string">&quot;部署&quot;</span> ];<span class="keyword">then</span></span><br><span class="line">     <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$GIT_COMMIT</span>&quot;</span> = <span class="string">&quot;<span class="variable">$GIT_PREVIOUS_SUCCESSFUL_COMMIT</span>&quot;</span> ];<span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;当前版本已经构建过不允许重复构建&quot;</span></span><br><span class="line">        <span class="built_in">exit</span></span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">         build</span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$deploy_env</span> = <span class="string">&quot;回滚&quot;</span> ];<span class="keyword">then</span></span><br><span class="line">     ln_code</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多个web服务器，循环部署</span></span><br><span class="line"><span class="keyword">for</span> server <span class="keyword">in</span> <span class="variable">$&#123;SERVERS_ARRAY[@]&#125;</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  deploy</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置Jenkins参数</p>
+<p>Jenkins有一些内置变量，在shell脚本中可以直接使用，比如<code>WORKSPACE</code>是指存放当前项目代码的目录，<code>GIT_COMMIT</code>是指本次拉取的代码提交id的哈希值，<code>GIT_PREVIOUS_SUCCESSFUL_COMMIT</code>是指上一次成功构建的代码，提交id的哈希值。</p>
+<p>另外脚本中还用到了一些变量，需要手动添加，方法是在项目的配置中，General部分勾选<code>This project is parameterized</code>，意思是参数化构建该项目，添加参数，根据需求可选不同类别的参数。</p>
+<p><a href="/../pic/image-20240311070647614.png" title="image-20240311070647614" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240311070647614.png" alt="image-20240311070647614"></a></p>
+<p>下面是上述脚本中用到的参数：</p>
+<ul>
+<li><p><code>SERVERS_ARRAY</code></p>
+<p>这个变量的作用是作为一个数组，数组的元素是web服务器的主机名，可以自定义添加或者删除，并提供默认值。所以这个参数选择字符串参数。</p>
+<p><a href="/../pic/image-20240311071211591.png" title="image-20240311071211591" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240311071211591.png" alt="image-20240311071211591"></a></p>
+</li>
+<li><p><code>git_version</code></p>
+<p>这个变量的作用是获取代码提交到远程仓库时的标签值(tag)，用来给服务器中的代码文件命名，方便看出迭代的过程。所以这个参数选择的是<code>Git Parameter</code>，需要安装<code>Git Parameter</code>这个插件才能选择，参数类型选择<strong>标签</strong>，即可获取tag。</p>
+<p>需要特别注意的是，这里获取的tag只是获取了一堆tag值，和代码的提交顺序没有强对应关系，所以在高级选项中需要执行tag的<strong>排序方式</strong>和<strong>已选值</strong>，这里选择的是智能倒序，已选值选择排在顶部的tag。</p>
+<p><a href="/../pic/image-20240311071822171.png" title="image-20240311071822171" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240311071822171.png" alt="image-20240311071822171"></a></p>
+<p>注意：选用这个参数要谨慎，代码提交的tag要注意规范，才能智能排序将新版本排在顶部。另外在实践过程中，我发现推送代码之后推送tag会导致获取到的tag落后一个版本，所以建议推送代码时先推送tag，再推送代码。</p>
+</li>
+<li><p><code>deploy_env</code></p>
+<p>这个参数的作用是说明此次部署的目的，构建或者回滚，二者在脚本中有不同的逻辑。所以这个参数的类型是<code>Choice Parameter</code>(选项参数)，在选项栏中，不同的选项用回车分隔即可。</p>
+<p><a href="/../pic/image-20240311072418416.png" title="image-20240311072418416" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240311072418416.png" alt="image-20240311072418416"></a></p>
+</li>
+</ul>
+</li>
+<li><p>添加任务</p>
+<p>继续Jenkins项目的配置，在构建任务（Build Steps）中，选择执行shell，然后输入执行脚本的命令，保存即可。</p>
+<p><a href="/../pic/image-20240310024715623.png" title="image-20240310024715623" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240310024715623.png" alt="image-20240310024715623"></a></p>
+<p>注意：</p>
+<p>如果脚本中的部分命令执行过程中显示权限拒绝，可能是由于Jenkins服务的用户默认是Jenkins，无法执行一些命令。解决方法有两种：</p>
+<p>方法1：修改Jenkins配置文件，将Jenkins服务的用户修改为root</p>
+<p>方法2：配置用户Jenkins为高权限用户(visudo)，然后以sudo的方式执行脚本</p>
+</li>
+</ol>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>项目配置完成之后，一定要多测试几次，确保万无一失。</p>
+<p>可以手动推送代码触发CICD，查看构建是否成功，也可以在项目的<code>Build with Parameter</code>中手动选择参数去构建。</p>
+<p><a href="/../pic/image-20240311072846806.png" title="image-20240311072846806" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240311072846806.png" alt="image-20240311072846806"></a></p>
+<p>查看构建历史的控制台输出和日志来观察流程是否存在问题。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-02-23</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/CICD/'>
+                            CICD
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

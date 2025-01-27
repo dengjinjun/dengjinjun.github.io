@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="VRRP技术原理" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            VRRP技术原理
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8VRRP%E6%8A%80%E6%9C%AF"><span class="post-toc-text">为什么要使用VRRP技术</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VRRP%E7%AE%80%E4%BB%8B%EF%BC%88%E8%BD%AC%E5%8F%91%E6%9C%BA%E5%88%B6%EF%BC%89"><span class="post-toc-text">VRRP简介（转发机制）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VRRP%E7%8A%B6%E6%80%81%E5%92%8C%E9%80%89%E4%B8%BE%E6%9C%BA%E5%88%B6"><span class="post-toc-text">VRRP状态和选举机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VRRP%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="post-toc-text">VRRP定时器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VRRP%E6%8E%A5%E5%8F%A3%E8%B7%9F%E8%B8%AA"><span class="post-toc-text">VRRP接口跟踪</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VRRP%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">VRRP负载均衡</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VRRP%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="post-toc-text">VRRP工作过程总结</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="为什么要使用VRRP技术"><a href="#为什么要使用VRRP技术" class="headerlink" title="为什么要使用VRRP技术"></a>为什么要使用VRRP技术</h2><p>我们知道，为了实现不同子网之间的设备通信，需要配置路由。目前常用的指定路由方法有两种：</p>
+<p>第一种是通过路由协议 ：RIP、OSPF动态学习。第二种是通过静态路由： 对终端PC机配置静态路由。</p>
+<p>这两种路由各有各的优缺点：</p>
+<p>第一种路由可以自动寻找最优路径，邻居路由也可以通过学习来获得路由表，但是动态路由占用线路带宽和CPU处理时间。</p>
+<p>第二种路由是不需要CPU处理时间同样也不占用线路带宽，但是这个路由需要对终端的PC机进行配置网关来实现，工作量是比较大的。</p>
+<p>对于以上的两种路由在现在来说都是广泛应用的。</p>
+<p>我们现在只来分析静态路由的缺点，因为<strong>ＶＲＲＰ技术就是使用在静态路由</strong>上，而不是动态路由上。</p>
+<p>对于静态路由来说，对终端PC机配置默认网关。如果作为默认网关的路由器出现故障，所有使用该网关为下一跳的主机的通信是要中断的。如下图所示：主机Ａ—Ｄ都配置了一个默认的网关：10.1.1.1，网关路由的下一跳指向主机所在网段内的一个路由器RouterA，RouterA将报文发送到外网，但是如果现在RouterA坏掉了，那么所有的主机将无法与其他网段进行通信了。</p>
+<p><a href="/../pic/resize,m_fixed,w_1184.webp" title="虚拟路由器冗余协议【原理篇】VRRP详解_虚拟路由器冗余协议" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/resize,m_fixed,w_1184.webp" alt="虚拟路由器冗余协议【原理篇】VRRP详解_虚拟路由器冗余协议"></a></p>
+<p>为了解决以上的问题，我们可以加一个路由器RouterB，当RouterA坏掉时，所有的PC机将网关切换到RouterB上的网关。这样就实现了路由器的备份。这个技术就是VRRP技术—虚拟路由器冗余协议。如下图所示：</p>
+<p><a href="/../pic/resize,m_fixed,w_1184-16991201531356.webp" title="虚拟路由器冗余协议【原理篇】VRRP详解_VRRP_02" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/resize,m_fixed,w_1184-16991201531356.webp" alt="虚拟路由器冗余协议【原理篇】VRRP详解_VRRP_02"></a></p>
+<h2 id="VRRP简介（转发机制）"><a href="#VRRP简介（转发机制）" class="headerlink" title="VRRP简介（转发机制）"></a>VRRP简介（转发机制）</h2><ol>
+<li><p>VRRP（Virtual Router Redundancy Protocol，虚拟路由器冗余协议）将可以承担网关功能的路由器加入到备份组中，形成一台虚拟路由器，由VRRP的选举机制决定哪台路由器承担转发任务，局域网内的主机只需将虚拟路由器配置为缺省网关</p>
+</li>
+<li><p>VRRP是一种容错协议，在提高可靠性的同时，简化了主机的配置。在具有多播或广播能力的局域网（如以太网）中，借助VRRP 能在某台设备出现故障时仍然提供高可靠的缺省链路，有效避免单一链路发生故障后网络中断的问题，而无需修改动态路由协议、路由发现协议等配置信息</p>
+</li>
+<li><p>VRRP协议的实现有VRRPv2和VRRPv3两个版本，VRRP v2基于IPv4，VRRP v3基于IPv6</p>
+</li>
+<li><p>VRRP路由器： 所有运行VRRP协议的路由器就叫做VRRP路由器</p>
+</li>
+<li><p>VRRP备份组： 多台路由器被分到一个组中，在这个组中选举出一台主路由器，其他作为备份路由器。平常时候都是主路由器一个工作，备份路由器空闲，当主路由器故障后，从多台备份路由器中选举出一台替代故障的主路由器工作。这一组中的路由器构成了一个备份组。</p>
+<p>如下图所示： 有两个路由器，两个网关，从两个路由器中选举出一个路由器作为主路由器，其他的都是备份路由器，主路由器负责发转发数据报，而备份路由器处于空闲状态，当主路由器出现故障后，备份路由器会成为主路由器，代替主路由器实现转发功能。</p>
+</li>
+</ol>
+<p><a href="/../pic/resize,m_fixed,w_1184-16991202431359.webp" title="虚拟路由器冗余协议【原理篇】VRRP详解_VRRP_03" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/resize,m_fixed,w_1184-16991202431359.webp" alt="虚拟路由器冗余协议【原理篇】VRRP详解_VRRP_03"></a></p>
+<ol start="6">
+<li>虚拟路由器：虚拟路由器是VRRP备份组中所有路由器的集合，它是一个逻辑概念，并不是真正存在的。从备份组外面看备份组中的路由器，感觉组中的所有路由器就像一个 一样，你可以理解为  在一个组中： 主路由器+所有备份路由器&#x3D;虚拟路由器。虚拟路由器有一个虚拟的IP地址和MAC地址。如果虚拟IP和备份组中的某台路由器的IP相同的话，那么这台路由器称为IP地址拥有者，并且作为备份组中的主路由器。</li>
+</ol>
+<p>   如下图所示:  RA、RB和RC都是VRRP路由器，他们构成了一个VRRP备份组，RA为主路由器，RB和RC为备份路由器，这三台路由器从外界来看就像一台一样，这样构成一个虚拟路由器Router Group，虚拟路由器有一个虚拟的ＩＰ地址为10.1.1.1（RA主路由器的IP）。RA是IP地址拥有者，也是主路由器。</p>
+<p>   <a href="/../pic/resize,m_fixed,w_1184-169912031187612.webp" title="虚拟路由器冗余协议【原理篇】VRRP详解_冗余协议_04" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/resize,m_fixed,w_1184-169912031187612.webp" alt="虚拟路由器冗余协议【原理篇】VRRP详解_冗余协议_04"></a></p>
+<ol start="7">
+<li>虚拟IP地址和MAC地址：VRRP组（备份组）中的虚拟路由器对外表现为唯一的虚拟MAC地址，地址格式为00-00-5E-00-01-【VRID】，VRID为VRRP组的编号，范围是0<del>255。比如上图中，三台路由器在一个组中，这个组可以起一个0</del>255之间的编号。</li>
+</ol>
+<p><strong>注意：</strong></p>
+<ol>
+<li>虚拟路由器具有IP地址。局域网内的主机仅需要知道这个虚拟路由器的IP地址，并将其设置为缺省路由的下一跳地址。</li>
+<li>虚拟路由器的 IP 地址可以是备份组所在网段中未被分配的IP 地址，也可以和备份组内的某个路由器的接口IP 地址相同。</li>
+<li>接口 IP 地址与虚拟IP 地址相同的路由器被称为“IP 地址拥有者” 在同一个 VRRP 备份组中，只允许配置一个IP 地址拥有者。</li>
+</ol>
+<h2 id="VRRP状态和选举机制"><a href="#VRRP状态和选举机制" class="headerlink" title="VRRP状态和选举机制"></a>VRRP状态和选举机制</h2><p><strong>VRRP路由器在运行过程中有三种状态：</strong></p>
+<ol>
+<li><p>Initialize状态： 系统启动后就进入Initialize，此状态下路由器不对VRRP报文做任何处理，可以理解为初始化。</p>
+</li>
+<li><p>Master状态： 一般主路由器处于Master状态，路由器会发送VRRP通告，发送免费ARP报文。</p>
+</li>
+<li><p>Backup状态：备份路由器处于Backup状态， 接受VRRP通告。</p>
+</li>
+</ol>
+<p>VRRP使用选举机制来确定路由器的状态，运行VRRP的一组路由器对外构成了一个虚拟路由器，其中一台路由器处于Master状态，其他处于Backup状态。所以主路由器又叫做Master路由器，备份路由器又叫做Backup路由器。</p>
+<p><strong>优先级选举：</strong></p>
+<ol>
+<li><p>VRRP组中IP拥有者。如果虚拟IP地址与VRRP组中的某台VRRP路由器IP地址相同，则此路由器为IP地址拥有者，这台路由器将被定位主路由器。</p>
+</li>
+<li><p>比较优先级。如果没有IP地址拥有者，则比较路由器的优先级，优先级的范围是0~255，大的作为主路由器</p>
+</li>
+<li><p>比较IP地址。在没有Ip地址拥有者和优先级相同的情况下，IP地址大的作为主路由器。</p>
+</li>
+</ol>
+<p>如下图所示： 虚拟IP为10.1.1.254，在VRRP组中没有IP地址拥有者，则比较优先级，很明显RB和RA的优先级要大于RC，则比较RA和RB的IP地址，RB的IP地址大。所以RB为组中的主路由器。</p>
+<p><a href="/../pic/resize,m_fixed,w_1184-169912056190615.webp" title="虚拟路由器冗余协议【原理篇】VRRP详解_冗余协议_05" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/resize,m_fixed,w_1184-169912056190615.webp" alt="虚拟路由器冗余协议【原理篇】VRRP详解_冗余协议_05"></a></p>
+<h2 id="VRRP定时器"><a href="#VRRP定时器" class="headerlink" title="VRRP定时器"></a>VRRP定时器</h2><blockquote>
+<p><strong>VRRP通告报文时间间隔定时器</strong></p>
+</blockquote>
+<ul>
+<li><p>VRRP备份组中的Master路由器会定时发送VRRP通告报文，通知备份组内的路由器自己工作正常</p>
+</li>
+<li><p>用户可以通过设置VRRP定时器来调整Master路由器发送VRRP 通告报文的时间间隔</p>
+</li>
+<li><p>如果Backup路由器在等待了3个间隔时间后，依然没有收到VRRP 通告报文，则对外发送VRRP通告报文，重新进行Master路由器的选举</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>VRRP抢占延迟时间定时器</strong></p>
+</blockquote>
+<p>为了避免备份组内的成员频繁进行主备状态转换，让Backup路由器有足够的时间搜集必要的信息（如路由信息），Backup 路由器接收到优先级低于本地优 先级的通告报文后，不会立即抢占成为Master而是等待一定时间——抢占延迟时间后，才会对外发送VRRP通告报文取代原来的Master路由器。</p>
+<h2 id="VRRP接口跟踪"><a href="#VRRP接口跟踪" class="headerlink" title="VRRP接口跟踪"></a>VRRP接口跟踪</h2><p> VRRP接口跟踪机制就是检测接口故障的一种机制。</p>
+<p>如下图所示：RA为主路由器，RB为备份路由器，但是当RA上的接口S0发生故障时，RA依然从接口E0发送通告报文，声明自己为主路由器，但是RA实际上已经不能进行转发了。也就是说路由器网路中不能判定路由器接口是否发生了故障。配置了接口跟踪机制的路由器，当自己的接口发生故障时会将自己的路由器优先级降低，从而使自己从主路由器变为备份路由器，然后原来的备份路由器此时将成为主路由器。</p>
+<p><a href="/../pic/resize,m_fixed,w_1184-169912388941324.webp" title="虚拟路由器冗余协议【原理篇】VRRP详解_VRRP_07" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/resize,m_fixed,w_1184-169912388941324.webp" alt="虚拟路由器冗余协议【原理篇】VRRP详解_VRRP_07"></a></p>
+<h2 id="VRRP负载均衡"><a href="#VRRP负载均衡" class="headerlink" title="VRRP负载均衡"></a>VRRP负载均衡</h2><p>在一组VRRP组中，主路由器承担数据转发任务的同时，备份路由器的链路将处于空闲状态，这必然造成了带宽资源的浪费。为了避免这种浪费，可以使用VRRP负载均衡。</p>
+<p>VRRP并不具备对流量进行监控的机制，它的负载均衡只是通过使用多个VRRP组来实现的，将路由器加入到多个VRRP组，使VRRP路由器在不同的组中担任不同的角色。如下图所示：RA为组35的主路由器，同时又是组36的备份路由器。RB为组36的主路由器，同时又是组35的备份路由器。在正常状态下，PC1和PC2 走 RA，PC3和PC4走RB，但是两个路由器一旦出现故障，就将网关切换到备份路由器。RA和RB可以说是相辅相成的。</p>
+<p><a href="/../pic/resize,m_fixed,w_1184-169912381015421.webp" title="虚拟路由器冗余协议【原理篇】VRRP详解_虚拟路由器冗余协议_10" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/resize,m_fixed,w_1184-169912381015421.webp" alt="虚拟路由器冗余协议【原理篇】VRRP详解_虚拟路由器冗余协议_10"></a></p>
+<h2 id="VRRP工作过程总结"><a href="#VRRP工作过程总结" class="headerlink" title="VRRP工作过程总结"></a>VRRP工作过程总结</h2><ol>
+<li><p>路由器使能VRRP 功能后，会根据优先级确定自己在备份组中的角色。优先级高的路由器成为Master 路由器，优先级低的成为Backup 路由器。Master 路由器定期发送VRRP通告报文，通知备份组内的其他设备自己工作正常；Backup 路由器则启动定时器等待通告报文的到来。</p>
+</li>
+<li><p>在抢占方式下，当Backup 路由器收到VRRP 通告报文后，会将自己的优先级与通告报 文中的优先级进行比较。如果大于通告报文中的优先级，则成为Master 路由器；否则将保持Backup状态。</p>
+</li>
+<li><p>在非抢占方式下，只要Master 路由器没有出现故障，备份组中的路由器始终保持Master 或Backup 状态，Backup 路由器即使随后被配置了更高的优先级也不会成为Master 路由器。</p>
+</li>
+<li><p>如果Backup 路由器的定时器超时后仍未收到Master 路由器发送来的VRRP 通告报文，则认为Master 路由器已经无法正常工作，此时Backup 路由器会认为Master路由器故障，自身将对外发送VRRP 通告报文。备份组内的路由器根据优先级选举出Master 路由 器，承担报文的转发功能。</p>
+</li>
+</ol>
+<hr>
+<p>转载自：<a target="_blank" rel="noopener" href="https://blog.51cto.com/zhaoyuqiang/1166840">https://blog.51cto.com/zhaoyuqiang/1166840</a></p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-05</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E6%8B%93%E5%B1%95%E8%A7%86%E9%87%8E/'>
+                            拓展视野
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

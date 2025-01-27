@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Nginx之Rewrite" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Nginx之Rewrite
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="post-toc-text">相关概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BC%AA%E9%9D%99%E6%80%81%E7%BD%91%E9%A1%B5"><span class="post-toc-text">伪静态网页</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Rewrite"><span class="post-toc-text">Rewrite</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="post-toc-text">示例</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E9%9C%80%E6%B1%82"><span class="post-toc-text">相关需求</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#if%E7%A4%BA%E4%BE%8B"><span class="post-toc-text">if示例</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#set%E7%A4%BA%E4%BE%8B"><span class="post-toc-text">set示例</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#return%E7%A4%BA%E4%BE%8B"><span class="post-toc-text">return示例</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rewrite%E7%A4%BA%E4%BE%8B"><span class="post-toc-text">rewrite示例</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="伪静态网页"><a href="#伪静态网页" class="headerlink" title="伪静态网页"></a>伪静态网页</h3><p>伪静态就是通过某些技术（如rewrite）把动态网页的URL伪装成静态网页的URL地址。伪静态网页实质上用户访问的还是动态网页，只不过给用户看起来的URL地址时符合静态网页地址特征的，因此，用户和搜索引擎会误以为是静态网页。</p>
+<p>伪静态网页的特点:</p>
+<ol>
+<li><p>从网站的URL地址来看，伪静态表面上看起来是静态内容（如地址后缀是html）,实质上访问的还是通过rewrite规则重写URL地址之后的动态网页。</p>
+</li>
+<li><p>从性能上来说，伪静态功能不但没有提升网站性能，反而会降低网站的性能；要提高性能，应当尽可能将动态网页转为真正的静态页面。</p>
+</li>
+<li><p>但是从用户体验角度来看，改写后的URL地址规范美观，有利于搜索引擎抓取以及提升用户访问体验。</p>
+</li>
+<li><p>伪静态网页的实现过程，一般是SEO运行产品提出需求，由开发和运维共同实现。</p>
+</li>
+</ol>
+<h3 id="Rewrite"><a href="#Rewrite" class="headerlink" title="Rewrite"></a>Rewrite</h3><p>Rewrite的主要功能是实现对URL地址的重写，就是把传入Web的请求重定向到其他URL。</p>
+<p>Rewrite的功能：</p>
+<ol>
+<li>URL Rewrite最常见的应用是URL伪静态化，是将动态页面显示为静态页面方式的一种技术。比如<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=http://www.123.com/news/index.php?id=123">http://www.123.com/news/index.php?id=123</a> 使用URLRewrite 转换后可以显示为 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=http://www.123.com/news/123.html">http://www.123.com/news/123.html</a>。Rewrite可以让我们网站的网页更容易被搜索引擎所收录。</li>
+<li>从安全角度上讲，如果在URL中暴露太多的参数，无疑会造成一定量的信息泄漏，可能会被一些黑客利用，对你的系统造成一定的破坏，所以静态化的URL地址可以给我们带来更高的安全性。</li>
+<li>实现网站地址跳转，例如用户访问360buy.com，将其跳转到jd.com。例如当用户访问test.com的  80 端口时，将其跳转到 443 端口。</li>
+</ol>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>Nginx的Rewrite规则需要PCRE软件的支持，即通过Perl兼容正则表达式语法进行规则匹配的，前文在安装Nginx软件时就已经安装了这个PCRE软件，以及让Nginx支持Rewrite的功能，默认参数编译Nginx就会安装支持Rewrite的模块，但是，也必须要PCRE软件的支持。</p>
+<p>Nginx实现rewrite的模块：<code>Module ngx_http_rewrite_module</code></p>
+<p>官方示例：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="variable">$http_user_agent</span> ~ MSIE) &#123;</span><br><span class="line">    rewrite ^(.*)$ /msie/<span class="variable">$1</span> <span class="built_in">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$http_cookie</span> ~* <span class="string">&quot;id=([^;]+)(?:;|$)&quot;</span>) &#123;</span><br><span class="line">    <span class="built_in">set</span> <span class="variable">$id</span> <span class="variable">$1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$request_method</span> = POST) &#123;</span><br><span class="line">    <span class="built_in">return</span> 405;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$slow</span>) &#123;</span><br><span class="line">    limit_rate 10k;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$invalid_referer</span>) &#123;</span><br><span class="line">    <span class="built_in">return</span> 403;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>拓展：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/LiuYanYGZ/p/5903946.html">https://www.cnblogs.com/LiuYanYGZ/p/5903946.html</a></p>
+<h2 id="相关需求"><a href="#相关需求" class="headerlink" title="相关需求"></a>相关需求</h2><h3 id="if示例"><a href="#if示例" class="headerlink" title="if示例"></a>if示例</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	if (condition) &#123; ... &#125;</span><br><span class="line">Default:	—</span><br><span class="line">Context:	server, location</span><br></pre></td></tr></table></figure>
+
+<p>需求1：过滤请求nginx的URL中包含id&#x3D;520的请求，转到172.16.1.7的80端口处理</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name www.etiantian.org;</span><br><span class="line">	root /data/www;</span><br><span class="line">	location / &#123;</span><br><span class="line">		index index.html;</span><br><span class="line">		proxy_set_header Host <span class="variable">$http_host</span>;</span><br><span class="line">		<span class="comment"># 如果请求的uri含有id=520，则执行proxy_pass的动作，否则什么都不管</span></span><br><span class="line">		<span class="keyword">if</span> (<span class="variable">$request_uri</span> ~* <span class="string">&#x27;id=520&#x27;</span>) &#123;</span><br><span class="line">		proxy_pass http://172.16.1.7:80;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="set示例"><a href="#set示例" class="headerlink" title="set示例"></a>set示例</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	set $variable value<span class="comment">;</span></span><br><span class="line">Default:	—</span><br><span class="line">Context:	server, location, if</span><br></pre></td></tr></table></figure>
+
+<p>需求2：将用户请求url.etiantian.org.zh跳转到url.etiantian.org&#x2F;zh，将用户请求url.etiantian.org.en跳转到url.etiantian.org&#x2F;en</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 负责跳转,请求中文页面会跳转到中文URL，请求英文页面会跳转到英文URL</span></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name url.etiantian.org.zh url.etiantian.org.en;</span><br><span class="line">	location / &#123;</span><br><span class="line">		<span class="built_in">set</span> <span class="variable">$lang</span> zh;</span><br><span class="line">		<span class="keyword">if</span> (<span class="variable">$http_host</span> ~* <span class="string">&quot;en&quot;</span>)&#123;</span><br><span class="line">			<span class="built_in">set</span> <span class="variable">$lang</span> en;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="comment"># 这个跳转会执行，lang这个变量是什么取决于用户请求的是什么域名</span></span><br><span class="line">	rewrite ^/$ http://url.etiantian.org/<span class="variable">$lang</span>/ permanent;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 正式的网站内容</span></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name url.etiantian.org;</span><br><span class="line">	root /data/www;</span><br><span class="line">	location / &#123;</span><br><span class="line">		index index.html;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="return示例"><a href="#return示例" class="headerlink" title="return示例"></a>return示例</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	return code <span class="section">[text]</span><span class="comment">; return code URL; return URL;</span></span><br><span class="line">Default:	—</span><br><span class="line">Context:	server, location, if</span><br></pre></td></tr></table></figure>
+
+<p>需求3：根据访问设备跳转</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name www.etiantian.org;</span><br><span class="line">	root /data/www;</span><br><span class="line">	location / &#123;</span><br><span class="line">		index index.html;</span><br><span class="line">	&#125;               </span><br><span class="line">        default_type text/html;</span><br><span class="line">        charset utf-8;</span><br><span class="line">        if ($http_user_agent ~* &quot;chrome|MSIE|firefox&quot;) &#123;</span><br><span class="line">		#return 200 &#x27;请更换浏览器\n&#x27;;</span><br><span class="line">		#return 520;</span><br><span class="line">		return 301 http://www.oldboyedu.com;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="rewrite示例"><a href="#rewrite示例" class="headerlink" title="rewrite示例"></a>rewrite示例</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	rewrite regex replacement <span class="section">[flag]</span><span class="comment">;</span></span><br><span class="line">Default:	—</span><br><span class="line">Context:	server, location, if</span><br></pre></td></tr></table></figure>
+
+<p>需求3：实现访问<a target="_blank" rel="noopener" href="http://blog.etiantian.org跳转到http//www.etiantian.org/blog/oldboy.html%E3%80%82">http://blog.etiantian.org跳转到http://www.etiantian.org/blog/oldboy.html。</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  blog.etiantian.org;</span><br><span class="line">    <span class="keyword">if</span> ( <span class="variable">$http_host</span> ~* <span class="string">&quot;^(.*)\.etiantian\.org$&quot;</span>) &#123; </span><br><span class="line">       <span class="built_in">set</span> <span class="variable">$domain</span> <span class="variable">$1</span>; </span><br><span class="line">       rewrite ^(.*) http://www.etiantian.org/<span class="variable">$domain</span>/oldboy.html <span class="built_in">break</span>; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">          </span><br><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name www.etiantian.org;</span><br><span class="line">	root /data/www;</span><br><span class="line">	location / &#123;</span><br><span class="line">	index index.html;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需求4：防盗链，发现有外站请求本站的图片URL，就返回一张盗链提示图片</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name www.etiantian.org;</span><br><span class="line">	root /data/www;</span><br><span class="line">	charset utf-8;</span><br><span class="line">	default_type text/html;</span><br><span class="line">	location / &#123;</span><br><span class="line">		index index.html;</span><br><span class="line">	&#125;</span><br><span class="line">	location ~* ^.+\.(gif|jpg|png|swf|flv|rar|zip)$ &#123;</span><br><span class="line">		valid_referers none blocked server_names *.etiantian.org etiantian.org;</span><br><span class="line">		<span class="keyword">if</span> (<span class="variable">$invalid_referer</span>) &#123;</span><br><span class="line">			rewrite ^/ http://test.oldboy.com/img/nolink.jpg;</span><br><span class="line">		&#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里是用来显示指定返回的盗链提示图片</span></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name test.oldboy.com;</span><br><span class="line">        root /data/test;</span><br><span class="line">        charset utf-8;</span><br><span class="line">        location / &#123;</span><br><span class="line">                index index.html;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需求5: 用户通过手机设备访问<a target="_blank" rel="noopener" href="http://www.etiantian.org跳转至/">www.etiantian.org跳转至</a> m.etiantian.org </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name www.etiantian.org;</span><br><span class="line">    root /code;</span><br><span class="line">	location / &#123;</span><br><span class="line">		index index.html;</span><br><span class="line">		<span class="keyword">if</span> (<span class="variable">$http_user_agent</span> ~* <span class="string">&quot;android|phone|iphone&quot;</span>) &#123;</span><br><span class="line">			rewrite ^(.*)$ http://m.etiantian.org permanent;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需求6: 用户通过http协议请求，能自动跳转至https协议</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name www.etiantian.org;</span><br><span class="line">    rewrite ^(.*)$ https://$http_host<span class="variable">$1</span>;</span><br><span class="line">    <span class="comment">#return 301 https://$http_host$request_uri;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>需求7: 错误页面优雅显示，当访问服务器遇到403 404 502等错误时，自动转到临时维护的静态页<a target="_blank" rel="noopener" href="https://404.life/">https://404.life/</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name url.etiantian.org;</span><br><span class="line">    root /code;</span><br><span class="line">    charset utf-8;</span><br><span class="line">	location / &#123;</span><br><span class="line">		index index.html;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 接收返回的错误信息，定向到@error_status,或者重定向到一个网址</span></span><br><span class="line">	<span class="comment">#error_page 403 404 500 502 @error_status;</span></span><br><span class="line">	error_page 403 404 500 502 http://www.etiantian.org;</span><br><span class="line">	location @error_status &#123;</span><br><span class="line">		rewrite ^(.*)$ /404.html <span class="built_in">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Nginx关于如何处理error page的介绍：<a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_core_module.html#error_page">http://nginx.org/en/docs/http/ngx_http_core_module.html#error_page</a></p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-10</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Nginx/'>
+                            Nginx
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

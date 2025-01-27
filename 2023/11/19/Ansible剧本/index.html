@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Ansible剧本" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Ansible剧本
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Playbooks%E6%A0%B8%E5%BF%83%E5%85%83%E7%B4%A0"><span class="post-toc-text">Playbooks核心元素</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#hosts"><span class="post-toc-text">hosts</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#tasks"><span class="post-toc-text">tasks</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#variables"><span class="post-toc-text">variables</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#templates"><span class="post-toc-text">templates</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#handlers"><span class="post-toc-text">handlers</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Ansible-Roles"><span class="post-toc-text">Ansible Roles</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#include"><span class="post-toc-text">include</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#role"><span class="post-toc-text">role</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B"><span class="post-toc-text">自动部署案例</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#nfs%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B"><span class="post-toc-text">nfs部署案例</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#lnp%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B"><span class="post-toc-text">lnp部署案例</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>使用ad-hoc命令可以执行一些简单的任务，但是有时一个任务过于复杂，需要大量的操作时候，执行的ad-hoc命令是不适合的，这时最好使用playbook。Ansible的任务配置文件被称为playbook，我们可以称之为“剧本”，也可以理解为批处理任务。</p>
+<blockquote>
+<p><strong>YAML语言</strong></p>
+</blockquote>
+<p>Playbook采用YAML语法编写，该语言被开发的时候，它的意思是：yet another markup language (仍是一种标记语言)。详见：<a target="_blank" rel="noopener" href="https://dengjinjun.site/2023/11/20/YAML%E8%AF%AD%E8%A8%80%E6%95%99%E7%A8%8B/">YAML语言教程</a></p>
+<p>YAML语言的优点：</p>
+<ul>
+<li>具有很好的可读性，易于实现</li>
+<li>表达能力强，扩展性好</li>
+<li>和脚本语言的交互性好</li>
+<li>有一个一致的信息模型</li>
+<li>可以基于流程来处理</li>
+</ul>
+<h2 id="Playbooks核心元素"><a href="#Playbooks核心元素" class="headerlink" title="Playbooks核心元素"></a>Playbooks核心元素</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Explainhosts：主机组；</span><br><span class="line">tasks：任务列表；</span><br><span class="line">variables：变量，设置方式有四种；</span><br><span class="line">templates：包含了模板语法的文本文件；</span><br><span class="line">handlers：由特定条件触发的任务</span><br></pre></td></tr></table></figure>
+
+<h3 id="hosts"><a href="#hosts" class="headerlink" title="hosts"></a>hosts</h3><p>对于playbook中的每一个play，使用hosts选项可以定义inventory中要执行这些任务的主机或主机组，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Explain---</span><br><span class="line">    - hosts: centos6,centos7,192.168.100.59			# hosts处可以使用&quot;,&quot;分隔主机或主机组</span><br><span class="line">      tasks: XXXXXX</span><br><span class="line">        - name: run a command</span><br><span class="line">          shell: /bin/date</span><br></pre></td></tr></table></figure>
+
+<p>其他指定主机和主机组的方式：</p>
+<ul>
+<li><code>all</code>或<code>*</code>：表示inventory中的所有主机。</li>
+<li><code>:</code>：取并集。例如<code>host1:host2:group1</code>表示2台主机加一个主机组。</li>
+<li><code>:&amp;</code>：取交集。例如<code>group1:&amp;group2</code>表示两个主机组中都有的主机。</li>
+<li><code>:!</code>：排除。例如<code>group1:!host1</code>表示group1中排除host1主机的剩余主机。</li>
+<li><code>通配符</code>：例如<code>web*.baidu.com</code>。</li>
+<li><code>数字范围</code>：例如<code>web[0-5].baidu.com</code>。</li>
+<li><code>字母范围</code>：例如<code>web[a-d].baidu.com</code>。</li>
+<li><code>正则表达式</code></li>
+</ul>
+<blockquote>
+<p><strong>remote_user</strong></p>
+</blockquote>
+<p>使用<code>remote_user</code>指定在远程主机上执行任务的用户，默认<code>remote_user</code>是ssh连接到被控主机上的用户。</p>
+<p>此外，还可以在某个task上单独定义执行该task的身份，这将覆盖全局的定义。比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Explain---</span><br><span class="line">    - hosts: centos6,centos7,192.168.100.59</span><br><span class="line">      remote_user: root</span><br><span class="line">      tasks: </span><br><span class="line">        - name: run a command</span><br><span class="line">          shell: /bin/date</span><br><span class="line">        - name: copy a file to /tmp</span><br><span class="line">          copy: src=/etc/fstab dest=/tmp</span><br><span class="line">          remote_user: myuser</span><br></pre></td></tr></table></figure>
+
+<p><code>remote_user</code>实际上并不是执行任务的绝对身份，它只是ssh连接过去的身份，如果ssh连接的是普通用户，可以通过<code>become</code>来指定<code>root</code>，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Explain---</span><br><span class="line">    - hosts: centos6,centos7,192.168.100.59</span><br><span class="line">      remote_user: yourname</span><br><span class="line">      tasks: </span><br><span class="line">        - name: copy a file to /tmp</span><br><span class="line">          copy: src=/etc/fstab dest=/tmp</span><br><span class="line">          become: yes</span><br><span class="line">          become_method: sudo</span><br><span class="line">          become_user: root    # 此项默认值就是为root，可省略</span><br></pre></td></tr></table></figure>
+
+<h3 id="tasks"><a href="#tasks" class="headerlink" title="tasks"></a>tasks</h3><p>tasks下定义的是一系列task任务列表，比如调用各个模块。这些task按顺序一次执行一个，直到所有被筛选出来的主机都执行了这个task之后才会移动到下一个task上进行同样的操作。</p>
+<p>任务执行时，hosts选项所指定的那些主机都会收到相同的task指令，临时任务文件会通过sftp发送到所有的被控主机上，所有主机收到指令后，ansible主控端会筛选某些主机(如果进行了筛选)，并通过ssh在远程执行任务。对于某主机来说，某任务执行失败，后续的所有任务都不会再去执行。当然，这不会影响其他的主机执行任务(除非主机的任务之间有依赖关系)。</p>
+<p>最重要的是，ansible中的task是幂等性的，多次执行不会影响那些成功执行过的任务。另外幂等性还表现在执行失败后如果修正了playbook再次执行，将不会影响那些原本已经执行成功的任务，即使是不同主机也不会影响。仅这方面而言，ansible对于排错来说是极其友好的。当然，某些特殊的模块或者特殊定义的task并不一定总是幂等的，例如最简单的，执行一个command或者shell模块的命令，它会重复执行。但也有办法使其变得幂等，以command和shell模块为例，它们有两个选项：creates和removes，它们分别表示被控主机上指定的文件存在(不存在)时就不执行命令。</p>
+<p>task中有其要执行的一个或多个任务，大部分情况下 action 是作为一个列表来提供的。在playbook中，每调用的一个模块都称为一个action，其本质是加载并执行ansible对应的模块。</p>
+<blockquote>
+<p><strong>name</strong></p>
+</blockquote>
+<p>可以为每个task加上name项，也可以不加，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Explain# 这个task有两个action，第一个action定义了name进行描述，调用了file模块；第二个action没有定义name，调用了shell模块</span><br><span class="line">tasks: </span><br><span class="line">    - name: do something to initialize mariadb</span><br><span class="line">      file: path=/mydata/data state=directory owner=mysql group=mysql mode=0755</span><br><span class="line">    - shell: /usr/bin/mysql_install_db --datadir=/mydata/data --user=mysql creates=/mydata/data/ibdata1</span><br></pre></td></tr></table></figure>
+
+<p>实际上name只是一种描述性语句，它可以定义在任何地方。</p>
+<blockquote>
+<p><strong>action</strong></p>
+</blockquote>
+<p>action不需要显式地定义出来，这只是一个理解性地概念，表示调用了一个模块的动作，有以下三种方法可以传递模块参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Explain# 下面的task是要启动ssh服务</span><br><span class="line"></span><br><span class="line"># 方法一： 定义为key=value，直接传递参数给模块</span><br><span class="line">tasks: </span><br><span class="line">  - service: name=sshd state=started     </span><br><span class="line"></span><br><span class="line"># 方法二： 定义为key: value方式</span><br><span class="line">tasks: </span><br><span class="line">  - service:                            </span><br><span class="line">      name: sshd</span><br><span class="line">      state: started</span><br><span class="line"></span><br><span class="line"># 方法三： 使用args内置关键字，然后定义为key: value方式</span><br><span class="line">tasks: </span><br><span class="line">  - service:                  </span><br><span class="line">    args: </span><br><span class="line">      name: sshd</span><br><span class="line">      state: started</span><br></pre></td></tr></table></figure>
+
+<p><code>ping</code>模块、<code>command</code>和<code>shell</code>模块是不需要<code>key=value</code>格式的。</p>
+<ul>
+<li><p>对于ping命令，可以直接省略<code>key=value</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tasks: </span><br><span class="line">    - name: ping host</span><br><span class="line">      ping:</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对于command和shell，只需要给定命令路径和要接上去的选项或参数即可，且无法使用上面的方法二。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Explaintasks: </span><br><span class="line">    - name: execute command ntpdate</span><br><span class="line">      shell: /usr/sbin/ntpdate ntp1.aliyun.com</span><br><span class="line">      ignore_errors: true		# 表示忽略非0状态码继续执行任务，有时需要考虑</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p><strong>条件判断</strong></p>
+</blockquote>
+<p>在task中可以使用<code>when</code>语句进行条件判断，是否执行这条action。<code>when</code>语句符合Jinja语法。比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Explain# 配合facts变量根据centos版本号分发不同的配置文件</span><br><span class="line">tasks:</span><br><span class="line">- name: install conf file to centos7</span><br><span class="line">  template: src=files/nginx.conf.c7.j2</span><br><span class="line">  when: ansible_distribution_major_version == &quot;7&quot;</span><br><span class="line">- name: install conf file to centos6</span><br><span class="line">  template: src=files/nginx.conf.c6.j2</span><br><span class="line">  when: ansible_distribution_major_version == &quot;6&quot;</span><br><span class="line">  </span><br><span class="line"># 配合register变量根据上一步执行结果判断下一步是否执行</span><br><span class="line">tasks:</span><br><span class="line">- name: Get the list of installed packages</span><br><span class="line">  shell: rpm -qa</span><br><span class="line">  register: installed_packages</span><br><span class="line"></span><br><span class="line">- name: Install a package if it&#x27;s not already installed</span><br><span class="line">  yum:</span><br><span class="line">    name: mypackage</span><br><span class="line">    state: present</span><br><span class="line">  when: &quot;&#x27;mypackage&#x27; not in installed_packages.stdout&quot;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>循环</strong></p>
+</blockquote>
+<p>对于需要重复执行的action，可以使用循环来实现。</p>
+<p>对循环项的引用，固定变量名为<code>item</code>，而后，要在task中使用<code>with_items</code>给定要循环的元素列表。比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Explain# 批量安装软件</span><br><span class="line">tasks:</span><br><span class="line">- name: unstall web packages</span><br><span class="line">  yum: name=&#123;&#123; item &#125;&#125; state=absent</span><br><span class="line">  with_items:</span><br><span class="line">  - httpd</span><br><span class="line">  - php</span><br><span class="line">  - php-mysql</span><br></pre></td></tr></table></figure>
+
+<p>如果要指定的内容较多，<code>with_items</code>中的列表项也支持字典的形式。比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Explaintasks:</span><br><span class="line">- name: add some users</span><br><span class="line">  user: name=&#123;&#123; item.name &#125;&#125; group=&#123;&#123; item.group &#125;&#125; state=present</span><br><span class="line">  with_items:</span><br><span class="line">    - &#123; name: &#x27;user11&#x27;, group: &#x27;group11&#x27; &#125;</span><br><span class="line">    - &#123; name: &#x27;user12&#x27;, group: &#x27;group12&#x27; &#125;</span><br><span class="line">    - &#123; name: &#x27;user13&#x27;, group: &#x27;group13&#x27; &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>tag</strong></p>
+</blockquote>
+<p>可以为playbook中的每个action都打上标签，标签的主要作用是可以在ansible-playbook中设置只执行哪些被打上tag的任务或忽略被打上tag的任务。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Explain# 给启动apache的任务打上了apache标签，给启动mysql的任务打上了mysql标签</span><br><span class="line">tasks: </span><br><span class="line">   - name: make sure apache is running</span><br><span class="line">     service: name=httpd state=started</span><br><span class="line">     tags: apache</span><br><span class="line">   - name: make sure mysql is running</span><br><span class="line">     service: name=mysqld state=started</span><br><span class="line">     tags: mysql</span><br></pre></td></tr></table></figure>
+
+<p>执行剧本时可以根据tag来选择执行的action，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i hosts -t mysql test.yml 		# 只执行启动mysql的任务</span><br></pre></td></tr></table></figure>
+
+<p>其他tag相关的选项</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--list-tags           	# 显示剧本中所有已定义的标签</span><br><span class="line">-t TAGS, --tags=TAGS  	# 仅执行指定的标签</span><br><span class="line">--skip-tags=SKIP_TAGS 	# 跳过这个标签，执行其他所有任务</span><br></pre></td></tr></table></figure>
+
+<h3 id="variables"><a href="#variables" class="headerlink" title="variables"></a>variables</h3><p>变量的设置方式有四种</p>
+<blockquote>
+<p><strong>在剧本中书写变量</strong></p>
+</blockquote>
+<ul>
+<li><p>剧本中通过<code>vars</code>指定变量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Explain- hosts: all</span><br><span class="line">  vars:				# 指定变量，以列表的形式</span><br><span class="line">    - name1: nc 	# 变量1</span><br><span class="line">    - name2: nmap 	# 变量2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>剧本中通过<code>vars_files</code>指定变量文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- hosts: all</span><br><span class="line">  vars_files: vars.yml	# 指定一个变量文件，可自定义命名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行剧本时通过命令行传入</p>
+<p>通过<code>ansible-playbook</code>命令的命令行中的<code>-e</code>选项，后面跟<code>var=xxx</code>，这样就可以直接把自定义的变量传入。比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook nginx.yml -e rpmname=keepalived</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p><strong>在主机清单中定义</strong></p>
+</blockquote>
+<ul>
+<li><p>直接在<code>/etc/ansible/hosts</code>中写变量，不太推荐这种方式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Explain[webservers]</span><br><span class="line">www[01:50].example.com</span><br><span class="line"> </span><br><span class="line">[webservers:vars]			# 定义组变量，用 [组名:vars] 表示</span><br><span class="line">ansible_ssh_pass=&#x27;root&#x27;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在主机清单文件的同目录下创建变量的目录，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Explain|root@m01 ansible|$ tree -F</span><br><span class="line"></span><br><span class="line">.</span><br><span class="line">├── ansible.cfg</span><br><span class="line">├── group_vars/			# 组变量目录</span><br><span class="line">│   ├── db/					# db组变量目录</span><br><span class="line">│   │   └── vars.yml			# db组变量文件</span><br><span class="line">│   └── web/				# web组变量目录</span><br><span class="line">│       └── vars.yml/			# web组变量文件</span><br><span class="line">└── hosts				# 主机清单</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p><strong>直接调用facts变量</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Explain#常用必备的facts </span><br><span class="line"></span><br><span class="line">ansible_default_ipv4.address 	# 默认的网卡ip eth0</span><br><span class="line">ansible_distribution            # 系统发行版本名字 CentOS  Ubuntu  Debian ...</span><br><span class="line">ansible_memtotal_mb          	# 内存大小</span><br><span class="line">ansible_processor_vcpus      	# cpu数量 </span><br><span class="line">ansible_processor_cores      	# cpu 核心数</span><br><span class="line">ansible_date_time.date   		# 时间</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>通过roles传递变量</strong></p>
+</blockquote>
+<p>本文后续详细讲解</p>
+<h3 id="templates"><a href="#templates" class="headerlink" title="templates"></a>templates</h3><p>Templates模板是一个嵌套有脚本的文本文件，使用<code>Jinja2</code>模板编程语言编写，常用于含有脚本或变量的配置文件的编写，以<code>.j2</code>结尾。<br>Jinja2是python的一种模板语言，以Django的模板语言为原本。详见 <a target="_blank" rel="noopener" href="https://dengjinjun.site/2023/12/02/Jinja%E8%AF%AD%E8%A8%80%E6%95%99%E7%A8%8B/">Jinja语言教程</a></p>
+<h3 id="handlers"><a href="#handlers" class="headerlink" title="handlers"></a>handlers</h3><p>Handler可以理解为触发器，需要notify来触发。Handler主要用于重启服务或者触发系统重启，除此之外很少使用Handler。</p>
+<p>ansible中几乎所有的模块都具有幂等性，这意味着被控主机的状态是否发生改变是能被捕捉的，即每个action的changed&#x3D;true或changed&#x3D;false。ansible在捕捉到changed&#x3D;true时，可以触发notify组件(如果定义了该组件)。</p>
+<p>需要在Handler中定义任务，然后可以在剧本中使用notify来触发handler中定义的action。notify是一个组件，其主要目的是调用handler。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Explain# 这表示当执行template模块的任务时，如果捕捉到changed=true，即nginx配置文件发生了变化，那么就会触发notify，执行handler中定义的start nginx 和 test web page两个action</span><br><span class="line">tasks: </span><br><span class="line">  - name: copy template file to remote host</span><br><span class="line">    template: src=/etc/ansible/nginx.conf.j2 dest=/etc/nginx/nginx.conf</span><br><span class="line">    notify: </span><br><span class="line">      - restart nginx</span><br><span class="line">      - test web page</span><br><span class="line">handlers: 		# handlers与tasks平级。定义了两个action：start nginx 和 test web page</span><br><span class="line">  - name: restart nginx						# action一定要带有name描述</span><br><span class="line">    service: name=nginx state=restarted</span><br><span class="line">  - name: test web page						# action一定要带有name描述</span><br><span class="line">    shell: curl -I http://192.168.100.10/index.html | grep 200 || /bin/false</span><br></pre></td></tr></table></figure>
+
+<p>当一个任务通过 <code>notify</code> 触发了一个handler，handler并不会立即执行，而是会在本次playbook的所有任务执行完成后，按照定义的顺序执行。这意味着当触发了多个handler时，它们会在当前剧本的所有任务执行完成后按照其在剧本中的定义顺序依次执行。</p>
+<p>这种行为确保了在一个剧本中所有任务执行完成后再执行一些共同的操作，从而允许对多个任务的结果进行整合或者基于这些任务的结果执行其他操作。</p>
+<h2 id="Ansible-Roles"><a href="#Ansible-Roles" class="headerlink" title="Ansible Roles"></a>Ansible Roles</h2><p>role是一种ansible剧本目录的编排方式，目的是分割庞大的playbook，以及复用某些细化的play甚至是task。</p>
+<p>介绍role之前，需要先了解<code>include</code></p>
+<h3 id="include"><a href="#include" class="headerlink" title="include"></a>include</h3><p>如果将所有的play都写在一个playbook中，很容易导致这个playbook文件变得臃肿庞大，且不易读。因此，可以将多个不同任务分别写在不同的playbook中，然后使用<code>include</code>将其包含进去即可。</p>
+<p>include可以在一个playbook中导入另一个playbook文件，也可以更细分地导入task文件。</p>
+<ul>
+<li><p>导入playbook</p>
+<p>在此处，<code>include</code>的动作是在playbook中加载一个或多个playbook，所以写在顶级列表的层次</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Explain- name: this is a play at the top level of a file</span><br><span class="line">  hosts: all</span><br><span class="line">  tasks:</span><br><span class="line">  - name: say hi</span><br><span class="line">    shell: echo &quot;hi...&quot;</span><br><span class="line"></span><br><span class="line">- include: load_balancers.yml  sayhi=&quot;hello world&quot;</span><br><span class="line">- include: webservers.yml</span><br><span class="line">- include: dbservers.yml</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导入task</p>
+<p>先编写一个task文件<code>a.yml</code>，其实就是多个action的列表。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Explain- name: restart nginx</span><br><span class="line">  service: name=nginx state=restarted</span><br><span class="line">- name: test web page</span><br><span class="line">  shell: curl -I http://192.168.100.10/index.html | grep 200 || /bin/false</span><br></pre></td></tr></table></figure>
+
+<p>playbook中，在tasks指令的子选项处使用include包含。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Explain- hosts: centos7</span><br><span class="line">  tasks:</span><br><span class="line">    - include: a.yml		# 在同目录中才可以这样写相对路径</span><br><span class="line">      vars: 				# 如果a.yml中含有变量，可以在此处添加，也可以直接在include行中添加`var=xxx`</span><br><span class="line">           sayhi: &quot;hi&quot;</span><br></pre></td></tr></table></figure>
+
+<p>handlers中也可以使用include包含</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">handlers:</span><br><span class="line">  - include: a.yml			# 在同目录中才可以这样写相对路径</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="role"><a href="#role" class="headerlink" title="role"></a>role</h3><p>通过<code>include</code>可以对臃肿的playbook实现分割，但是还很难实现灵活地调用。</p>
+<p>roles 用于层次性、结构化地组织playbook。roles 能够根据层次型结构自动装载变量文件、tasks以及handlers等。要使用roles只需要在playbook中使用include指令即可。简单来讲，roles就是通过分别将变量(vars)、文件(file)、任务(tasks)、模板(templates)及触发器(handlers)放置于单独的目录中，并可以便捷地include它们的一种机制。</p>
+<blockquote>
+<p><strong>roles要素</strong></p>
+</blockquote>
+<ul>
+<li>default&#x2F;：此目录中至少应该有一个名为main.yml的文件，用于设定默认变量；</li>
+<li>files&#x2F;：存储由copy或script等模块调用的文件；</li>
+<li>tasks&#x2F;：此目录中至少应该有一个名为main.yml的文件，用于定义各task；其它的文件需要由main.yml进行“包含”调用；</li>
+<li>handlers&#x2F;：此目录中至少应该有一个名为main.yml的文件，用于定义各handler；其它的文件需要由main.yml进行“包含”调用；</li>
+<li>vars&#x2F;：此目录中至少应该有一个名为main.yml的文件，用于定义各variable；其它的文件需要由main.yml进行“包含”调用；</li>
+<li>templates&#x2F;：存储由template模块调用的模板文本；</li>
+<li>meta&#x2F;：此目录中至少应该有一个名为main.yml的文件，定义当前角色的特殊设定及其依赖关系；其它的文件需要由main.yml进行“包含”调用；</li>
+</ul>
+<blockquote>
+<p><strong>目录结构</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Explain[root@server yaml]# tree</span><br><span class="line">.</span><br><span class="line">├── site.yml			# 入口文件，ansible执行的剧本文件</span><br><span class="line">├── roles					# roles目录，所有的role都放在这个目录中</span><br><span class="line">    ├── httpd					# 部署apache服务的role</span><br><span class="line">    │   ├── default</span><br><span class="line">    │   ├── files</span><br><span class="line">    │   ├── handlers</span><br><span class="line">    │   ├── meta</span><br><span class="line">    │   ├── tasks</span><br><span class="line">    │   ├── templates</span><br><span class="line">    │   └── vars</span><br><span class="line">    ├── mysql					# 部署mysql服务的role</span><br><span class="line">    │   ├── default</span><br><span class="line">    │   ├── files</span><br><span class="line">    │   ├── handlers</span><br><span class="line">    │   ├── meta</span><br><span class="line">    │   ├── tasks</span><br><span class="line">    │   ├── templates</span><br><span class="line">    │   └── vars</span><br><span class="line">    └── nginx					# 部署nginx服务的role</span><br><span class="line">        ├── default</span><br><span class="line">        ├── files</span><br><span class="line">        ├── handlers</span><br><span class="line">        ├── meta</span><br><span class="line">        ├── tasks</span><br><span class="line">        ├── templates</span><br><span class="line">        └── vars</span><br></pre></td></tr></table></figure>
+
+<p>Ansible有一个网站专门存放了一大堆的playbook，可以下载下来稍作修改就能使用：<a target="_blank" rel="noopener" href="https://galaxy.ansible.com/ui/">Ansible官方playbook仓库</a></p>
+<h2 id="自动部署案例"><a href="#自动部署案例" class="headerlink" title="自动部署案例"></a>自动部署案例</h2><h3 id="nfs部署案例"><a href="#nfs部署案例" class="headerlink" title="nfs部署案例"></a>nfs部署案例</h3><p>在目标主机上部署nfs服务，并且挂载到本机目录中</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /scripts/playbook/nfs.yml			<span class="comment"># 编辑剧本任务文件</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">backup</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">install</span> <span class="string">nfs</span> <span class="string">rpcbind</span></span><br><span class="line">      <span class="attr">yum:</span>  <span class="string">name=nfs-utils</span> <span class="string">state=installed</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">configure</span> <span class="string">nfs</span> <span class="string">exports</span> <span class="string">file</span></span><br><span class="line">      <span class="attr">copy:</span> <span class="string">dest=/etc/exports</span>   <span class="string">content=&quot;/playbook-backup/</span>  <span class="number">172.16</span><span class="number">.1</span><span class="number">.0</span><span class="string">/24(rw,sync,all_squash)&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">mkdir</span> <span class="string">chown</span></span><br><span class="line">      <span class="attr">file:</span> <span class="string">path=/playbook-backup</span>  <span class="string">state=directory</span> <span class="string">owner=nfsnobody</span>  <span class="string">group=nfsnobody</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">start</span> <span class="string">&amp;&amp;</span> <span class="string">enable</span>  <span class="string">rpc</span></span><br><span class="line">      <span class="attr">systemd:</span>  <span class="string">name=rpcbind</span> <span class="string">enabled=yes</span> <span class="string">state=started</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">start</span> <span class="string">&amp;&amp;</span> <span class="string">enable</span>  <span class="string">nfs</span></span><br><span class="line">      <span class="attr">systemd:</span>  <span class="string">name=nfs</span>  <span class="string">enabled=yes</span> <span class="string">state=started</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">mount</span> <span class="string">test</span></span><br><span class="line">      <span class="attr">mount:</span> <span class="string">fstype=nfs</span> <span class="string">src=172.16.1.41:/playbook-backup</span>   <span class="string">path=/mnt</span>  <span class="string">state=mounted</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="lnp部署案例"><a href="#lnp部署案例" class="headerlink" title="lnp部署案例"></a>lnp部署案例</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /scripts/playbook/lnp.yml		<span class="comment"># 编辑剧本任务文件</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">backup</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">add</span> <span class="string">nginx</span> <span class="string">repo</span> 		<span class="comment"># 添加nginx源</span></span><br><span class="line">      <span class="attr">yum_repository:</span>  </span><br><span class="line">        <span class="attr">file:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">nginx</span>  </span><br><span class="line">        <span class="attr">description:</span> <span class="string">&quot;ngx repo&quot;</span>  </span><br><span class="line">        <span class="attr">baseurl:</span> <span class="string">&quot;http://nginx.org/packages/centos/$releasever/$basearch/&quot;</span>  </span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">yes</span> </span><br><span class="line">        <span class="attr">gpgcheck:</span> <span class="literal">no</span></span><br><span class="line">        <span class="attr">state:</span> <span class="string">present</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">add</span> <span class="string">php</span> <span class="string">repo</span> 		<span class="comment"># 添加php源</span></span><br><span class="line">      <span class="attr">yum_repository:</span></span><br><span class="line">        <span class="attr">file:</span> <span class="string">php</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">php</span> </span><br><span class="line">        <span class="attr">description:</span> <span class="string">&quot;php repo&quot;</span> </span><br><span class="line">        <span class="attr">baseurl:</span> <span class="string">&quot;http://us-east.repo.webtatic.com/yum/el7/x86_64/&quot;</span>      </span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">no</span> 			<span class="comment"># 默认关闭，因为这个源只在安装php时使用 </span></span><br><span class="line">        <span class="attr">gpgcheck:</span> <span class="literal">no</span></span><br><span class="line">        <span class="attr">state:</span> <span class="string">present</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">install</span> <span class="string">nginx</span> <span class="string">&amp;&amp;</span> <span class="string">php</span> <span class="string">pack</span> 	<span class="comment"># 安装nginx和php</span></span><br><span class="line">      <span class="attr">yum:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">nginx,php71w,php71w-cli,php71w-common,php71w-devel,php71w-embedded,php71w-gd,php71w-mcrypt,php71w-mbstring,php71w-pdo,php71w-xml,php71w-fpm,php71w-mysqlnd,php71w-opcache,php71w-pecl-memcached,php71w-pecl-redis,php71w-pecl-mongodb</span></span><br><span class="line">        <span class="attr">enablerepo:</span> <span class="string">php</span>			<span class="comment"># 这里需要打开</span></span><br><span class="line">        <span class="attr">state:</span> <span class="string">installed</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">copy</span> <span class="string">nginx</span> <span class="string">conf</span> 			<span class="comment"># 把nginx配置文件复制过去</span></span><br><span class="line">      <span class="attr">copy:</span> </span><br><span class="line">        <span class="attr">src:</span> <span class="string">nginx-php-www.conf</span></span><br><span class="line">        <span class="attr">dest:</span> <span class="string">/etc/nginx/conf.d/www.conf</span></span><br><span class="line">        <span class="attr">backup:</span> <span class="literal">yes</span> </span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">copy</span> <span class="string">php</span> <span class="string">conf</span> 				<span class="comment"># 把php配置文件复制过去</span></span><br><span class="line">      <span class="attr">copy:</span> </span><br><span class="line">        <span class="attr">src:</span> <span class="string">php-www.conf</span></span><br><span class="line">        <span class="attr">dest:</span> <span class="string">/etc/php-fpm.d/www.conf</span></span><br><span class="line">        <span class="attr">backup:</span> <span class="literal">yes</span>       </span><br><span class="line">    </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">create</span> <span class="string">code</span>  <span class="string">dir</span> 			<span class="comment"># 创建nginx的网站目录</span></span><br><span class="line">      <span class="attr">file:</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">/data/www-play/</span> </span><br><span class="line">        <span class="attr">owner:</span> <span class="string">nginx</span> </span><br><span class="line">        <span class="attr">group:</span> <span class="string">nginx</span> </span><br><span class="line">        <span class="attr">state:</span> <span class="string">directory</span> </span><br><span class="line">       </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">copy</span> <span class="string">code</span>  					<span class="comment"># 把网站首页文件复制过去</span></span><br><span class="line">      <span class="attr">copy:</span> </span><br><span class="line">        <span class="attr">src:</span> <span class="string">web-index.php</span></span><br><span class="line">        <span class="attr">dest:</span> <span class="string">/data/www-play/index.php</span></span><br><span class="line">        <span class="attr">owner:</span> <span class="string">nginx</span> </span><br><span class="line">        <span class="attr">group:</span> <span class="string">nginx</span> </span><br><span class="line">        <span class="attr">backup:</span> <span class="literal">yes</span></span><br><span class="line">        </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">start</span> <span class="string">nginx</span> 				<span class="comment"># 启动nginx</span></span><br><span class="line">      <span class="attr">systemd:</span> </span><br><span class="line">        <span class="attr">name:</span> <span class="string">nginx</span> </span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">yes</span> </span><br><span class="line">        <span class="attr">state:</span> <span class="string">restarted</span></span><br><span class="line">        </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">start</span> <span class="string">php</span>  					<span class="comment"># 启动php</span></span><br><span class="line">      <span class="attr">systemd:</span> </span><br><span class="line">        <span class="attr">name:</span> <span class="string">php-fpm</span>  </span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">yes</span> </span><br><span class="line">        <span class="attr">state:</span> <span class="string">restarted</span>      </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 本机的nginx配置文件</span></span><br><span class="line">server  &#123;</span><br><span class="line">   listen 80 default_server;</span><br><span class="line">   server_name www.etiantian.org;</span><br><span class="line">   root /data/www-play;</span><br><span class="line">   location  /  &#123;</span><br><span class="line">   index index.php  index.html;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   location  ~*  \.php$  &#123;</span><br><span class="line">   fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">   fastcgi_index index.php;</span><br><span class="line">   fastcgi_param SCRIPT_FILENAME $document_root<span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">   include fastcgi_params;	</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 本机的php配置文件</span></span><br><span class="line">[www]</span><br><span class="line">user = nginx</span><br><span class="line">group = nginx </span><br><span class="line">listen = 127.0.0.1:9000</span><br><span class="line">listen.allowed_clients = 127.0.0.1</span><br><span class="line">pm = dynamic</span><br><span class="line">pm.max_children = 50</span><br><span class="line">pm.start_servers = 5</span><br><span class="line">pm.min_spare_servers = 5</span><br><span class="line">pm.max_spare_servers = 35</span><br><span class="line">slowlog = /var/log/php-fpm/www-slow.log</span><br><span class="line">php_admin_value[error_log] = /var/log/php-fpm/www-error.log</span><br><span class="line">php_admin_flag[log_errors] = on</span><br><span class="line">php_value[soap.wsdl_cache_dir]  = /var/lib/php/wsdlcache</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 网站首页文件</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">phpinfo</span>();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-19</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Ansible/'>
+                            Ansible
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

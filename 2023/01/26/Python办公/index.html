@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Python办公" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Python办公
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Excel%E5%92%8CWord%E6%93%8D%E4%BD%9C"><span class="post-toc-text">Excel和Word操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Excel%E6%93%8D%E4%BD%9C"><span class="post-toc-text">Excel操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AF%BB%E5%8F%96%E6%93%8D%E4%BD%9C"><span class="post-toc-text">读取操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%86%99%E5%85%A5%E6%93%8D%E4%BD%9C"><span class="post-toc-text">写入操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%B8%A4%E7%A7%8D%E5%86%99%E5%85%A5%E6%96%B9%E5%BC%8F"><span class="post-toc-text">两种写入方式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%83%BD%E5%A4%9F%E5%86%99%E5%85%A5%E4%BB%80%E4%B9%88"><span class="post-toc-text">能够写入什么</span></a></li></ol></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="Excel和Word操作"><a href="#Excel和Word操作" class="headerlink" title="Excel和Word操作"></a>Excel和Word操作</h1><p>什么是对象？</p>
+<ul>
+<li><p>内部包含了很多值和功能的“包裹”</p>
+</li>
+<li><p>归类概念，把同一类打包在一起</p>
+</li>
+</ul>
+<h2 id="Excel操作"><a href="#Excel操作" class="headerlink" title="Excel操作"></a>Excel操作</h2><p>使用python操作Excel需要用到第三方模块，比如<code>openpyxl</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install openpyxl</span><br></pre></td></tr></table></figure>
+
+<h3 id="读取操作"><a href="#读取操作" class="headerlink" title="读取操作"></a>读取操作</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> load_workbook</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取workbook对象</span></span><br><span class="line">work_book_object = load_workbook(<span class="string">&quot;文件路径&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取所有sheet的名字</span></span><br><span class="line">sheet_name_list = work_book_object.sheetnames</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取所有的sheet对象</span></span><br><span class="line">sheet_object_list = work_book_object.worksheets</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取某个sheet对象，两种方式</span></span><br><span class="line">sheet_object = sheet_object_list[索引值]			<span class="comment"># sheet_object_list[0]，就是第一个sheet</span></span><br><span class="line">sheet_object = work_book_object[<span class="string">&quot;sheet名&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取sheet名</span></span><br><span class="line">sheet_object.title</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取sheet中的某个单元格对象，两种方式</span></span><br><span class="line">cell_object = sheet_object.cell(<span class="number">2</span>,<span class="number">5</span>)	<span class="comment"># 获取第2行第5列的单元格对象</span></span><br><span class="line">cell_object = sheet_object[<span class="string">&quot;E2&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取单元格的文本</span></span><br><span class="line">text = cell_object.value</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取单元格的坐标位置</span></span><br><span class="line">cell_object.coordinate		<span class="comment"># 如A1,E3等</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取sheet中的某一行(sheet中的行数从1开始)</span></span><br><span class="line">row_list = sheet_object[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取sheet中的所有行，常用于for循环</span></span><br><span class="line">sheet_object.rows</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从第n行开始读取某一列，通过其他语句实现</span></span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> sheet_object.iter_rows(min_row = <span class="number">2</span>, maxrow = <span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(row[<span class="number">0</span>].value)			<span class="comment"># 读取第2行到第10行的第一列数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 普通单元格是cell对象，被合并的单元格是Mergedcell对象，不含值</span></span><br><span class="line"><span class="comment"># 获取所有被合并的单元格范围</span></span><br><span class="line">sheet_object.merged_cells</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取到sheet中的最高行数或最高列数，int类型</span></span><br><span class="line">sheet_object.max_row		<span class="comment"># 最高行数</span></span><br><span class="line">sheet_object.max_cloumn		<span class="comment"># 最高列数</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="写入操作"><a href="#写入操作" class="headerlink" title="写入操作"></a>写入操作</h3><h4 id="两种写入方式"><a href="#两种写入方式" class="headerlink" title="两种写入方式"></a>两种写入方式</h4><ul>
+<li><p>修改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> load_workbook</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取，将所有内容读取到内存，同上节内容</span></span><br><span class="line">work_book_object = load_workbook(<span class="string">&quot;p1.xlsx&quot;</span>)</span><br><span class="line">sheet_object = work_book_object.worksheets[<span class="number">0</span>]</span><br><span class="line">cell_object = sheet_object.cell(<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改，都是在内存中修改，比如</span></span><br><span class="line">cell_object.value = <span class="string">&quot;几点回家&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存，可以保存到原文件，也可以保存到新文件</span></span><br><span class="line">work_book_object.save(<span class="string">&quot;p1.xlsx&quot;</span>)	<span class="comment"># 保存到原文件</span></span><br><span class="line">work_book_object.save(<span class="string">&quot;p2.xlsx&quot;</span>)	<span class="comment"># 保存到新文件</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> openpyxl.workbook <span class="keyword">import</span> Workbook</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取(空内容)</span></span><br><span class="line">work_book_object = Workbook()	<span class="comment"># 新建workbook，默认有一个sheet</span></span><br><span class="line">sheet_object = work_book_object.worksheets[<span class="number">0</span>]</span><br><span class="line">cell_object = sheet_object.cell(<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在内存中修改操作</span></span><br><span class="line">cell_object.value = <span class="string">&quot;该吃饭了&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存</span></span><br><span class="line">work_book_object.save(<span class="string">&quot;p2.xlsx&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="能够写入什么"><a href="#能够写入什么" class="headerlink" title="能够写入什么"></a>能够写入什么</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> openpyxl.workbook <span class="keyword">import</span> Workbook</span><br><span class="line"></span><br><span class="line">wb = Workbook()</span><br><span class="line"></span><br><span class="line"><span class="comment"># sheet名</span></span><br><span class="line">sheet0 = wb.worksheets[<span class="number">0</span>]</span><br><span class="line">sheet0.title = <span class="string">&quot;西太湖&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建sheet</span></span><br><span class="line">sheet1 = wb.creat_sheet(<span class="string">&quot;武进&quot;</span>,<span class="number">1</span>)		<span class="comment"># 括号里是sheet名和sheet序号（从0开始） </span></span><br><span class="line">sheet2 = wb.creat_sheet(<span class="string">&quot;白云&quot;</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝sheet</span></span><br><span class="line">sheet_object = wb.worksheets[<span class="number">0</span>]</span><br><span class="line">new_sheet = wb.copy_worksheet(sheet_object)</span><br><span class="line">new_sheet.title = <span class="string">&quot;备份&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除sheet</span></span><br><span class="line"><span class="keyword">del</span> wb[<span class="string">&quot;sheet名&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入单元格的值</span></span><br><span class="line">sheet0.cell(<span class="number">1</span>,<span class="number">1</span>).value = <span class="string">&quot;学生&quot;</span></span><br><span class="line">sheet0[<span class="string">&quot;A1&quot;</span>].value = <span class="string">&quot;学生&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 单元格文本居中格式,自动换行 </span></span><br><span class="line"><span class="comment"># 需要导入from openpyxl.styles import Alignment</span></span><br><span class="line">cell_object = sheet0.cell(<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">cell_object.alignment = Alignment(horizontal=<span class="string">&quot;center&quot;</span>, vertical=<span class="string">&quot;center&quot;</span>,warp_text=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实现一行的文本居中，自动换行</span></span><br><span class="line">text_list = [<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;王五&quot;</span>, <span class="string">&quot;赵六&quot;</span>, <span class="string">&quot;吴七&quot;</span>] </span><br><span class="line"><span class="keyword">for</span> col,text <span class="keyword">in</span> <span class="built_in">enumerate</span>(text_list,<span class="number">1</span>):</span><br><span class="line">    cell = sheet0.cell(<span class="number">1</span>,col)</span><br><span class="line">    cell.value = text</span><br><span class="line">    cell.alignment = Alignment(horizontal=<span class="string">&quot;center&quot;</span>,vertical=<span class="string">&quot;center&quot;</span>,warp_text=<span class="literal">True</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 单元格边框</span></span><br><span class="line"><span class="comment"># 需要导入from openpyxl.styles import Border, Side</span></span><br><span class="line">cell.border = Border(</span><br><span class="line">	top=Side(style=<span class="string">&quot;thin&quot;</span>,color=<span class="string">&quot;0000FF&quot;</span>)</span><br><span class="line">	bottom=Side(style=<span class="string">&quot;medium&quot;</span>,color=<span class="string">&quot;0000FF&quot;</span>)</span><br><span class="line">    right=Side(style=<span class="string">&quot;thin&quot;</span>,color=<span class="string">&quot;0000FF&quot;</span>)</span><br><span class="line">    left=Side(style=<span class="string">&quot;thin&quot;</span>,color=<span class="string">&quot;0000FF&quot;</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置字体大小、颜色、样式</span></span><br><span class="line"><span class="comment"># 需要导入from openpyxl.styles import Font</span></span><br><span class="line">cell.font = Font(size=<span class="string">&quot;40&quot;</span>, color=<span class="string">&quot;FF0000&quot;</span>,name=<span class="string">&quot;微软雅黑&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置宽高(单元格都是呈行列排布的，所以要从行列的维度来设置)</span></span><br><span class="line">sheet0.column_dimensions[<span class="string">&quot;A&quot;</span>].height = <span class="number">100</span>	<span class="comment"># 第一列宽设为100</span></span><br><span class="line">sheet0.row_dimensions[<span class="number">1</span>].height = <span class="number">50</span>		<span class="comment"># 第一行高设为50</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置背景色</span></span><br><span class="line"><span class="comment"># 需要导入from openpyxl.styles import PatternFill</span></span><br><span class="line">cell.fill = PatternFill(<span class="string">&quot;solid&quot;</span>, fgcolor=<span class="string">&quot;FF0000&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>P18 1:17:xx</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-01-26</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Python/'>
+                            Python
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

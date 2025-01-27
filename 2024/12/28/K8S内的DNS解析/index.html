@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="K8S的DNS解析" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            K8S的DNS解析
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Pod%E7%9A%84DNS%E7%AD%96%E7%95%A5"><span class="post-toc-text">Pod的DNS策略</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Pod%E8%87%AA%E5%AE%9A%E4%B9%89DNS"><span class="post-toc-text">Pod自定义DNS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#coredns%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AE%B0%E5%BD%95"><span class="post-toc-text">coredns添加自定义记录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NodeLocal-DNSCache"><span class="post-toc-text">NodeLocal DNSCache</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>coredns 是用 go 语言写的高性能，高扩展性的 DNS 服务，是Kubernetes集群内负责域名解析的组件，集群内主要有两种资源拥有域名(FQDN域名)</p>
+<ol>
+<li><p>Service资源</p>
+<p>访问FQDN域名，coredns会把该域名解析成service的Cluster IP</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Service Name&gt;.&lt;namespace&gt;.svc.cluster.local.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拥有固定名字的Pod + Headless Service</p>
+<p>访问FQDN域名，coredns会把该域名解析成Pod IP</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># statefulset创建的Pod拥有固定的名字，手动定义的裸Pod也拥有固定的名字</span><br><span class="line">&lt;Pod_name&gt;.&lt;Headless Service Name&gt;.&lt;namespace&gt;.svc.cluster.local</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Pod的DNS策略"><a href="#Pod的DNS策略" class="headerlink" title="Pod的DNS策略"></a>Pod的DNS策略</h2><p>DNS 策略可以单独对 Pod 进行设定，目前 Kubernetes 支持以下特定 Pod 的 DNS 策略。这些策略可以 在 Pod 规范中的  dnsPolicy 字段设置：</p>
+<ul>
+<li><p>Default</p>
+<p>Pod中的<code>/etc/resolv.conf</code>的内容与自己所在的宿主机上的<code>/etc/resolv.conf</code>内容一致，coredns组件的Pod一般会采用这种配置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">注意：说 Default 策略是使用宿主机的配置，这种说法并不准确。其实决定 Defalut 策略使用哪个文件的是宿主机的 kubelet 组件，而 kubelet 默认的方式，就是使用宿主机的 /etc/resolv.conf 文件。</span><br><span class="line">需要了解的是，kubelet 可以根据 –resolv-conf= 参数来灵活配置使用什么文件作为默认的DNS配置文件。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ClusterFirst</p>
+<p>优先使用集群内的dns，就是用coredns来解析，这是默认的方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这种方式表示 Pod 内的 DNS 使用集群中配置的 DNS 服务，简单来说，就是使用 coredns 服务进行域名解析。coredns如果解析不成功，coredns会使用宿主机的 DNS 配置进行解析。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ClusterFirstWithHostNet</p>
+<p>对于使用HostNet网络的Pod，依然采用clusterfirst策略</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在某些场景下，我们的 Pod 是用 HostNetwork 模式启动的，一旦用 HostNetwork 模式，表示这个 Pod 中的所有容器，都要使用宿主机的 `/etc/resolv.conf` 配置进行 DNS 查询，但如果还想继续使用 Kubernetes 的 DNS 服务，那就将 dnsPolicy 设置为 ClusterFirstWithHostNet</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>None</p>
+<p>不需要k8s自动生成<code>/etc/resolv.conf</code>文件，我会自己在Pod的yaml中定义</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这种方式一般用于想要自定义 DNS 配置的场景，往往需要和 dnsConfig 配合一起使用达到自定义 DNS 的目的。dnsConfig详见下一小节</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Pod自定义DNS"><a href="#Pod自定义DNS" class="headerlink" title="Pod自定义DNS"></a>Pod自定义DNS</h2><p>Pod的资源清单中，<code>dnsConfig</code> 字段是可选的，它可以与任何  <code>dnsPolicy</code> 设置一起使用。 但是，当 Pod 的 <code>dnsPolicy</code> 设 置为 “None” 时，则必须指定 <code>dnsConfig</code> 字段。</p>
+<p>以下是具有自定义 DNS 设置的 Pod 示例：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dns-example</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">dnsPolicy:</span> <span class="string">&#x27;None&#x27;</span>   <span class="comment"># 表示不使用集群的DNS设置，而是使用自定义的</span></span><br><span class="line">  <span class="attr">dnsConfig:</span></span><br><span class="line">    <span class="attr">nameservers:</span>   <span class="comment"># 指定dns查询时应该使用的DNS服务器ip地址</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">1.2</span><span class="number">.3</span><span class="number">.4</span></span><br><span class="line">    <span class="attr">searches:</span> </span><br><span class="line">    <span class="bullet">-</span> <span class="string">ns1.svc.cluster-domain.example</span>   <span class="comment"># 指定搜索域列表，当只提供主机名而不是完整域名时</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">my.dns.search.suffix</span>		       <span class="comment"># 这些搜索域会被用来补全完整域名</span></span><br><span class="line">    <span class="attr">options:</span>   <span class="comment"># 设置额外的选项</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">edns0</span>     <span class="comment"># 启用选项 edns0，这通常用于启用 DNS 扩展协议</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">ndots</span>  </span><br><span class="line">      <span class="attr">value:</span> <span class="string">&#x27;5&#x27;</span>  </span><br></pre></td></tr></table></figure>
+
+<p>创建上面的 Pod 后，容器 test 会在其  &#x2F;etc&#x2F;resolv.conf 文件中生成以下内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nameserver 1.2.3.4</span><br><span class="line">search ns1.svc.cluster-domain.example my.dns.search.suffix</span><br><span class="line">options ndots:5 edns0</span><br><span class="line"><span class="comment"># ndots:5 的意思是，如果域名中点的数量少于 ndots 指定的值，DNS 客户端将按照 search 选项中指定的搜索域名后缀顺序，依次尝试将这些后缀加到域名的末尾，并进行 DNS 查询。如果本身就有五个点，则直接搜索，一个完整的fqdn域名正好5个点：kube-dns.kube-system.svc.cluster.local.  末尾还有一个点。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="coredns添加自定义记录"><a href="#coredns添加自定义记录" class="headerlink" title="coredns添加自定义记录"></a>coredns添加自定义记录</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑coredns的configmap，然后重启coredns</span></span><br><span class="line"></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">coredns</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="attr">labels:</span></span><br><span class="line">  <span class="attr">addonmanager.kubernetes.io/mode:</span> <span class="string">EnsureExists</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">Corefile:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    .:53 &#123;</span></span><br><span class="line"><span class="string">        errors</span></span><br><span class="line"><span class="string">        health</span></span><br><span class="line"><span class="string">        kubernetes cluster.local. in-addr.arpa ip6.arpa &#123;</span></span><br><span class="line"><span class="string">            pods insecure</span></span><br><span class="line"><span class="string">            upstream</span></span><br><span class="line"><span class="string">            fallthrough in-addr.arpa ip6.arpa</span></span><br><span class="line"><span class="string">        &#125;        </span></span><br><span class="line"><span class="string">        # 手动添加上两条解析记录</span></span><br><span class="line"><span class="string">        hosts &#123;</span></span><br><span class="line"><span class="string">            2.2.2.88 www.egon99.com</span></span><br><span class="line"><span class="string">            2.2.2.88 www.egon98.com</span></span><br><span class="line"><span class="string">            fallthrough   # 这条必须加上，代表本处查询失败，继续传递给下一个插件进行处理</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        prometheus :9153</span></span><br><span class="line"><span class="string">        proxy . /etc/resolv.conf</span></span><br><span class="line"><span class="string">        cache 30</span></span><br><span class="line"><span class="string">    &#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="NodeLocal-DNSCache"><a href="#NodeLocal-DNSCache" class="headerlink" title="NodeLocal DNSCache"></a>NodeLocal DNSCache</h2><p>集群规模大的情况，codedns 可能会出现超时5s的情况（dns请求超时，客户端默认策略时等待5s自动重试，如果重试成功，我们看到的现象就是dns请求有5s的延时），这对我们影响很大。</p>
+<p>超时的原因是因为：无论你用的是iptables模式还是ipvs模式，它们的底层都会用到 conntrack内核模块 来组织dns的udp查询包，高并发场景，会出现conntrack冲突问题，导致一些dns请求包被丢掉，从而导致超时。</p>
+<p>一个解决办法是在每个物理节点上缓存 DNS 解析记录，这可以缩短 DNS 查找的延迟时间，使  DNS 查找时间更加一致，以及减少发送到 coredns 的 DNS 查询次数。这就是 NodeLocal DNSCache 服务的作用，它采用的是DaemonSet控制器，确保每个节点都有一个NodeLocal  DNSCache实例，使用HostNetwork网络模式，每个物理节点上启动起来的pod都监听在 169.254.20.10，当 Pod 尝试解析一个域名时，它将按照 &#x2F;etc&#x2F;resolv.conf 中的配置发送 DNS 查询到  169.254.20.10， Daemonset 会在每个节点创建一个网卡来绑这个 IP，Pod 向本节点这个 IP 发 DNS 请求， 由于 NodeLocal DNSCache 已经在该地址上监听，它会接收到查询并相应地处理。 如果 NodeLocal DNSCache 有缓存的响应或者知道答案，它将直接响应； 如果没有，它会将请求转发到集群的上游 DNS 服务器，例如 CoreDNS，然后再将响应返回给请求者。 这种方法可以减少 DNS 查询的延迟，并提高集群的整体性能。</p>
+<p>部署NodeLocal DNSCache</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载官方提供的资源清单文件</span></span><br><span class="line">https://github.com/kubernetes/kubernetes/raw/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改自定义的参数，先自定义几个变量</span></span><br><span class="line">kubedns=10.96.0.10		<span class="comment"># 自己集群中coredns的地址</span></span><br><span class="line">domain=cluster.local	<span class="comment"># 集群域，模式是cluster.local</span></span><br><span class="line">localdns=169.254.20.10	<span class="comment"># 表示 DNSCache 本地的 IP，默认为169.254.20.10</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果 kube-proxy 运行在 IPTABLES 模式：</span></span><br><span class="line">sed -i <span class="string">&quot;s/__PILLAR__LOCAL__DNS__/<span class="variable">$localdns</span>/g; s/__PILLAR__DNS__DOMAIN__/<span class="variable">$domain</span>/g; s/__PILLAR__DNS__SERVER__/<span class="variable">$kubedns</span>/g&quot;</span>  nodelocaldns.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果 kube-proxy 运行在 IPVS 模式：</span></span><br><span class="line">sed -ri <span class="string">&quot;s/__PILLAR__LOCAL__DNS__/<span class="variable">$localdns</span>/g;  s/__PILLAR__DNS__DOMAIN__/<span class="variable">$domain</span>/g; s/,?__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/<span class="variable">$kubedns</span>/g&quot;</span>  nodelocaldns.yaml</span><br></pre></td></tr></table></figure>
+
+<p>部署成功后，会占用宿主机的8080端口，需要提前保证该端口未被占用。</p>
+<p>在IPVS模式下，此时还需要修改 kubelet 的 <code>--cluster-dns</code> 参数，将其指向 <code>169.254.20.10</code>，然后重启kubelet 即可。</p>
+<p>如果是iptables模式， Pod 还是向原来的集群 DNS 请求，节点上有这个 IP 监听，会被本机拦截，再请求集群 上游 DNS，所以不需要更改 <code>--cluster-dns</code> 参数。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-12-28</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8S/'>
+                            K8S
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

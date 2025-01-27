@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="云服务器ECS管理" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            云服务器ECS管理
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7"><span class="post-toc-text">指标监控</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E4%BA%91%E7%9B%91%E6%8E%A7%E6%8F%92%E4%BB%B6"><span class="post-toc-text">安装云监控插件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%9B%91%E6%8E%A7%E5%9B%BE%E8%A1%A8"><span class="post-toc-text">查看监控图表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%8A%A5%E8%AD%A6%E8%A7%84%E5%88%99"><span class="post-toc-text">设置报警规则</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8F%98%E6%9B%B4"><span class="post-toc-text">配置变更</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BF%AE%E6%94%B9%E5%AE%9E%E4%BE%8B%E8%A7%84%E6%A0%BC"><span class="post-toc-text">修改实例规格</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BF%AE%E6%94%B9%E7%BD%91%E7%BB%9C%E5%B8%A6%E5%AE%BD"><span class="post-toc-text">修改网络带宽</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="post-toc-text">存储管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E7%9B%98"><span class="post-toc-text">添加数据盘</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%9B%B4%E6%8D%A2%E7%B3%BB%E7%BB%9F%E7%9B%98"><span class="post-toc-text">更换系统盘</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%BA%91%E7%9B%98%E6%89%A9%E5%AE%B9"><span class="post-toc-text">云盘扩容</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%BA%91%E7%9B%98%E5%8F%98%E9%85%8D"><span class="post-toc-text">云盘变配</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%81%BE%E5%A4%87%E7%AE%A1%E7%90%86"><span class="post-toc-text">灾备管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86"><span class="post-toc-text">镜像管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F"><span class="post-toc-text">创建自定义镜像</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86"><span class="post-toc-text">自定义镜像管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BF%AB%E7%85%A7%E7%AE%A1%E7%90%86"><span class="post-toc-text">快照管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA%E5%BF%AB%E7%85%A7"><span class="post-toc-text">手动创建快照</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%E5%BF%AB%E7%85%A7"><span class="post-toc-text">自动创建快照</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%BF%AB%E7%85%A7%E7%AE%A1%E7%90%86-1"><span class="post-toc-text">快照管理</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA"><span class="post-toc-text">安全加固</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BF%AE%E6%94%B9ECS%E5%AE%9E%E4%BE%8B%E7%99%BB%E5%BD%95%E5%AF%86%E7%A0%81"><span class="post-toc-text">修改ECS实例登录密码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E9%87%8D%E7%BD%AEECS%E5%AE%9E%E4%BE%8B%E5%AF%86%E7%A0%81"><span class="post-toc-text">重置ECS实例密码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%9C%A8%E5%AE%9E%E4%BE%8B%E5%86%85%E9%83%A8%E4%BF%AE%E6%94%B9%E7%99%BB%E5%BD%95%E5%AF%86%E7%A0%81"><span class="post-toc-text">在实例内部修改登录密码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95ECS%E5%AE%9E%E4%BE%8B"><span class="post-toc-text">使用密钥登录ECS实例</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E5%AE%89%E5%85%A8%E7%BB%84%E7%AD%96%E7%95%A5"><span class="post-toc-text">配置安全组策略</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F%E8%A1%A5%E4%B8%81"><span class="post-toc-text">安装系统补丁</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>一般来说，对于云服务ECS实例有如下管理需求：</p>
+<ol>
+<li><p><strong>指标监控</strong></p>
+<p>可通过云监控完成对ECS实例重要指标的<strong>监控</strong>，比如CPU、内存等，并配置短信和邮件等方式的<strong>监控告警</strong>，从而<strong>实时掌握ECS实例的运行状态</strong>。如果CPU、内存占用过高，则要检查网站的访问量，并确定导致CPU、内存占用过高的原因。如果是由于网站访问量大导致正常升高，那么就需要提升ECS实例的规格配置。如果是不是访问量大导致，那么需要检查是否遭到DDoS攻击或者一些其他原因造成CPU负载过高。</p>
+</li>
+<li><p><strong>配置变更</strong></p>
+<p>包括ECS实例的<strong>规格变更</strong>，<strong>块存储扩容</strong>等，确保ECS实例的配置能够满足高峰时段用户的访问且没有过多的资源浪费。比如随着网站运行时间积累，网站的数据不断增加，一旦存储空间不足，可能会导致网站无法正常运行，所以定期检查存储空间并根据需要进行存储清理和扩容。</p>
+</li>
+<li><p><strong>灾备管理</strong></p>
+<p>定期生成<strong>快照</strong>，定期对<strong>云服务器数据</strong>做好备份。网站的运行过程中不可避免的会出现一些问题，所以定期做好备份，对于网站故障后的恢复将会变得非常重要。如原网站不可用，能够基于快照及时进行恢复；或者通过<strong>构建自定义镜像</strong>，快速基于镜像创建新的同配置ECS实例；</p>
+</li>
+<li><p><strong>安全加固</strong></p>
+<p>可通过定期变更<strong>ECS实例登录密码、安全组规则配置、 系统补丁</strong>管理等方式，保护ECS实例安全和ECS实例中运行的网站安全；定期检查云服务器的<strong>安全运行</strong>情况。比如云服务器的操作系统是否有安全漏洞，是否有未经允许的端口与外界在通信，密码是否需要更新等等，从而有效降低网站遭到入侵攻击的可能性。</p>
+</li>
+</ol>
+<p><a href="/../pic/swlhlymdnxjvbephfmuc.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/swlhlymdnxjvbephfmuc.png" alt="img"></a></p>
+<h2 id="指标监控"><a href="#指标监控" class="headerlink" title="指标监控"></a>指标监控</h2><p><strong>云监控（CloudMonitor）</strong> 是一项针对阿里云资源和互联网应用进行监控的服务。云监控服务可用于收集获取阿里云资源的监控指标，探测互联网服务可用性，以及针对指标设置警报。</p>
+<p><a href="/../pic/ftwsiorktwyoxxiahnht.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/ftwsiorktwyoxxiahnht.png" alt="img"></a></p>
+<h3 id="安装云监控插件"><a href="#安装云监控插件" class="headerlink" title="安装云监控插件"></a><strong>安装云监控插件</strong></h3><ol>
+<li><p>登录<a target="_blank" rel="noopener" href="https://cloudmonitornext.console.aliyun.com/">云监控控制台</a>。在左侧导航栏，单击<strong>主机监控</strong>。</p>
+</li>
+<li><p>在<strong>主机监控</strong>页面，选中待安装或升级插件的阿里云主机，单击左下角的<strong>批量安装或升级插件</strong>。</p>
+</li>
+<li><p>单击<strong>确定</strong>。当<strong>插件状态</strong>由<strong>安装中</strong>变为<strong>运行中</strong>时，表示插件安装或升级成功。</p>
+<p>提示：对于新购阿里云主机，可以先单击左上角的<strong>安装&#x2F;更新Agent</strong>，然后打开<strong>新购ECS自动安装云监控</strong>开关。打开开关后，新购买的ECS主机将自动安装云监控插件。</p>
+</li>
+</ol>
+<h3 id="查看监控图表"><a href="#查看监控图表" class="headerlink" title="查看监控图表"></a><strong>查看监控图表</strong></h3><p>查看监控图标有两个入口：</p>
+<p><strong>1. 云监控控制台</strong></p>
+<p>登录<a target="_blank" rel="noopener" href="https://cloudmonitornext.console.aliyun.com/">云监控控制台</a>。在左侧导航栏，选择<strong>主机监控</strong>。</p>
+<p>在<strong>主机监控</strong>页面，单击目标主机的实例名称链接，或单击目标主机对应<strong>操作</strong>列的<strong>监控图表</strong>。</p>
+<p><a href="/../pic/gvegotyywxmboqmdmqrd.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/gvegotyywxmboqmdmqrd.png" alt="img"></a><strong>2. 云服务器ECS控制台</strong></p>
+<p>登录<a target="_blank" rel="noopener" href="https://ecs.console.aliyun.com/">ECS管理控制台</a>。在左侧导航栏，选择<strong>实例与镜像 &gt; 实例</strong>。在顶部菜单栏左上角处，选择地域。</p>
+<p>找到要监控的实例，进入<strong>实例详情</strong>，并点击<strong>监控</strong>页签</p>
+<p><a href="/../pic/hnvkuotaacsjiznhxmgn.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/hnvkuotaacsjiznhxmgn.png" alt="img"></a></p>
+<h3 id="设置报警规则"><a href="#设置报警规则" class="headerlink" title="设置报警规则"></a><strong>设置报警规则</strong></h3><ol>
+<li>登录<a target="_blank" rel="noopener" href="https://cloudmonitornext.console.aliyun.com/">云监控控制台</a>。</li>
+<li>在左侧导航栏，单击<strong>主机监控</strong>。</li>
+<li>在<strong>主机监控</strong>页面，单击右上角的<strong>创建报警规则</strong>。</li>
+</ol>
+<h2 id="配置变更"><a href="#配置变更" class="headerlink" title="配置变更"></a>配置变更</h2><p>一般来说网站的并发访问能力受到服务器的性能影响，而服务器的性能主要受到CPU、内存、网络、存储的影响，其中：</p>
+<ol>
+<li><p><strong>CPU核心数越高、内存越大</strong>，并发处理能力越强</p>
+</li>
+<li><p><strong>网络带宽越高</strong>，并发响应速率越高</p>
+</li>
+<li><p><strong>存储的读写速度和IOPS</strong>(每秒的读写次数)<strong>越高</strong>，数据处理速度也越快</p>
+</li>
+</ol>
+<p>云服务器ECS实例可以通过ECS管理控制台在线修改实例规格（vCPU和内存）、存储和公网带宽的配置，来增强服务器性能，从而增加并发处理能力。</p>
+<h3 id="修改实例规格"><a href="#修改实例规格" class="headerlink" title="修改实例规格"></a><strong>修改实例规格</strong></h3><p>一般来说，一个实例的规格在购买时已经预定义vCPU（虚拟CPU核心数）和内存。比如 ecs.c6.large，其中c6表示计算型第6代实例，其处理器与内存配比为1:2，large表示vCPU个数为2。当ECS实例的规格（vCPU和内存）无法满足业务需求或配置过高时，可以使用<strong>更改实例规格</strong>功能<strong>升配或降配</strong>实例规格。</p>
+<p><strong>修改实例规格时，需要选择目标实例规格，不能单独修改vCPU或内存。</strong></p>
+<p><strong>修改实例规格操作步骤：</strong></p>
+<ol>
+<li><p>登录<strong>ECS管理控制台</strong>。在左侧导航栏，选择<strong>实例与镜像 &gt; 实例</strong>。</p>
+</li>
+<li><p>查看实例状态，如果处于运行中，则要停止该实例。（停止实例可能导致业务中断，建议在非业务高峰期时执行该操作）</p>
+</li>
+<li><p>在操作列，单击<strong>更改实例规格</strong>。</p>
+<p><a href="/../pic/rkjxacnrrmnfgxtahbdb.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/rkjxacnrrmnfgxtahbdb.png" alt="img"></a></p>
+</li>
+<li><p>在<strong>更改实例规格</strong>页面中，通过筛选指定<strong>虚拟CPU核心数</strong>和<strong>内存大小</strong>，点击<strong>立即变更</strong>即可完成实例规格的更改。</p>
+<p><a href="/../pic/gnrchuzclagggpzhdozb.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/gnrchuzclagggpzhdozb.png" alt="img"></a></p>
+</li>
+<li><p>返回<strong>实例管理</strong>页面，确认变更后的实例规格，并启动已停止的实例。</p>
+<p><a href="/../pic/turqcizwagdynilnledp.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/turqcizwagdynilnledp.png" alt="img"></a></p>
+</li>
+</ol>
+<h3 id="修改网络带宽"><a href="#修改网络带宽" class="headerlink" title="修改网络带宽"></a><strong>修改网络带宽</strong></h3><p>对于使用固定公网IP的按量付费或包年包月实例，如果发现公网带宽无法满足或者超出业务需求，可以修改公网带宽。</p>
+<p><strong>修改网络带宽操作步骤</strong>：</p>
+<ol>
+<li><p>登录<a target="_blank" rel="noopener" href="https://ecs.console.aliyun.com/">ECS管理控制台</a>。在左侧导航栏，选择<strong>实例与镜像 &gt; 实例</strong>。</p>
+</li>
+<li><p>找到要升级带宽的实例，在<strong>操作</strong>列，单击<strong>更多 &gt; 资源变配 &gt; 实例更改带宽</strong>。</p>
+<p><a href="/../pic/pukxobvhsbygxoseydvy.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/pukxobvhsbygxoseydvy.png" alt="img"></a></p>
+</li>
+<li><p>在<strong>带宽变更</strong>页面找到公网带宽对应的配置项，根据需要升级带宽大小，并点击<strong>确认变更</strong>完成带宽调整。</p>
+<ul>
+<li><p><strong>按使用流量</strong>：是按<strong>公网出方向</strong>的实际发生的网络流量进行收费，适用于业务场景对网络<strong>带宽需求变化较大</strong>的场景。例如：平时带宽使用较低但间歇性的出现网络访问高峰的场景；或为了<strong>防止突然爆发的流量</strong>产生较高的费用，可以指定容许的最大网络带宽进行限制。</p>
+</li>
+<li><p><strong>按固定带宽</strong>：需指定公网出方向的带宽的大小，如 10Mbps，适用于业务场景对于网络带宽要求比较稳定的客户，费用较低。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="存储管理"><a href="#存储管理" class="headerlink" title="存储管理"></a>存储管理</h3><p><strong>块存储</strong>是阿里云为云服务器ECS提供的块设备产品，类似计算机中的硬盘，可以像使用物理硬盘一样挂载至云服务器、格式化并建立文件系统来使用块存储。块存储可分为<strong>系统盘</strong>和<strong>数据盘</strong>，可<strong>独立购买、分别挂载</strong>至云服务器ECS实例。</p>
+<p>在ECS的管理中，可能涉及的块存储的操作包括以下这些：</p>
+<ol>
+<li>创建ECS实例时，会自动创建并挂载系统盘，之后可能根据需要<strong>创建数据盘以及添加更多数据盘</strong>并挂载到ECS实例使用。</li>
+<li>如果发现某个<strong>数据盘</strong>上的数据都不要了，可以通过格式化数据盘，将其变成一块空盘后继续使用；</li>
+<li>如果发现ECS实例的<strong>系统盘</strong>或<strong>数据盘</strong>的存储空间不够了（比如系统盘），可以扩容该盘的容量；</li>
+<li>如果ECS实例中的数据非常重要，可以通过<strong>创建快照</strong>方式<strong>备份数据</strong>，当重要数据被误删除时，可以通过<strong>快照回滚</strong>，快速恢复原来的数据；</li>
+</ol>
+<h4 id="添加数据盘"><a href="#添加数据盘" class="headerlink" title="添加数据盘"></a>添加数据盘</h4><p><strong>添加数据盘操作步骤</strong>：</p>
+<p>登录<a target="_blank" rel="noopener" href="https://ecs.console.aliyun.com/">ECS管理控制台</a>，在左侧导航栏，选择<strong>存储与快照 &gt; 云盘</strong>，在<strong>云盘</strong>页面，单击<strong>创建云盘</strong>，在创建云盘页面中，设置云盘的配置参数：</p>
+<ul>
+<li><strong>是否挂载</strong>：创建云盘后是否挂载到指定的ECS实例</li>
+<li><strong>存储</strong>：选择云盘类型和大小</li>
+<li><strong>购买量</strong>：可输入数字，批量创建云盘</li>
+</ul>
+<p>创建云盘后，需要将云盘<strong>挂载到ECS实例</strong>（如果配置参数中已经选择了挂载可以忽略此步），后续还需要<strong>分区格式化</strong>。</p>
+<ul>
+<li>挂载数据盘请参见：<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/25446.htm#concept-llz-b4c-ydb">挂载数据盘</a></li>
+<li>分区格式化，具体操作如下：<ul>
+<li>使用GPT分区（支持2 TiB以上容量），请参见<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/34377.htm#concept-i15-qpc-ydb">分区格式化大于2 TiB数据盘</a>。</li>
+<li>使用MBR分区（不支持2 TiB以上容量），请参见<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/25426.htm#concept-jl1-qzd-wdb">分区格式化数据盘（Linux）</a>或<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/25418.htm#concept-a3f-mg2-wdb">分区格式化数据盘（Windows）</a>。</li>
+<li>云盘为MBR分区但希望扩容至大于2 TiB，请参见<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/470069.htm#task-2262938">转换MBR分区为GPT分区</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="更换系统盘"><a href="#更换系统盘" class="headerlink" title="更换系统盘"></a>更换系统盘</h4><p>如果在创建ECS实例时选错了操作系统，或者当前使用的操作系统不能满足业务需求，可以为ECS实例更换新的操作系统。</p>
+<p><strong>更换操作系统是高风险操作，</strong>更换操作系统的本质是更换系统盘。更换操作系统后，原来的旧系统盘会被释放且所有数据会被清空，需要在新系统盘中重新部署业务运行环境，所以务必在更换操作系统前为系统盘创建快照备份数据。</p>
+<p><strong>注意：</strong></p>
+<ol>
+<li>系统盘ID会变更，但是云盘类型、实例IP地址以及弹性网卡MAC地址保持不变。</li>
+<li>更换操作系统不影响数据盘数据。</li>
+<li>基于旧系统盘创建的快照，不能用于回滚新系统盘，但可以用于创建自定义镜像。</li>
+</ol>
+<p><strong>更换系统盘操作步骤：</strong></p>
+<p>进入ECS实例列表页面。找到目标实例，<strong>停止</strong>目标实例。在目标实例的<strong>操作</strong>列：<strong>更多</strong> <strong>&gt; 云盘和镜像 &gt; 更换操作系统</strong>。</p>
+<p>在<strong>更换操作系统</strong>对话框，<strong>重新输入变更后的系统盘容量</strong>，完成操作系统安装的同时将<strong>更换新的系统盘</strong>。</p>
+<h4 id="云盘扩容"><a href="#云盘扩容" class="headerlink" title="云盘扩容"></a>云盘扩容</h4><ol>
+<li><p>登录<a target="_blank" rel="noopener" href="https://ecs.console.aliyun.com/?spm=a2cwt.28120018.317247.24.5e031ee9DgdNsu">ECS管理控制台</a>。在左侧导航栏，选择<strong>实例与镜像 &gt; 实例</strong>。找到待扩容云盘所在的实例，单击实例ID。在<strong>实例详情</strong>页面，单击<strong>云盘</strong>页签。找到待扩容的目标云盘，在<strong>操作</strong>列选择<code>⋮ </code><strong>&gt; 扩容</strong>。</p>
+</li>
+<li><p>在<strong>确定目标云盘与须知</strong>向导页面，单击<strong>已知晓并备份，继续扩容</strong>。</p>
+</li>
+<li><p>在<strong>配置扩容方式与容量</strong>向导页面，设置扩容参数。</p>
+<p><strong>扩容后容量</strong>：扩容后容量不允许小于当前容量。</p>
+<p><strong>扩容方式</strong>：</p>
+<ul>
+<li><strong>在线扩容</strong>：是默认推荐的扩容方式，扩容后无需重启实例即可生效。</li>
+<li><strong>离线扩容</strong>：扩容后，需要重启实例才能生效。（部分早期实例规格不支持在线扩容，通过离线方式进行扩容）</li>
+</ul>
+</li>
+<li><p>在<strong>确认扩容结果</strong>向导页面，待<strong>扩容结果</strong>列显示为<strong>成功</strong>时，继续单击<strong>下一步，扩容分区和文件系统</strong>。</p>
+</li>
+<li><p>下图中发现<strong>操作系统未扩容分区</strong>，向下滑动页面，找到并点击<strong>执行上述远程命令。</strong></p>
+<p><a href="/../pic/btqflqevukonufqfvwgg.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/btqflqevukonufqfvwgg.png" alt="img"></a></p>
+<p><a href="/../pic/befjwrlaxfaqdxtzzcbi.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/befjwrlaxfaqdxtzzcbi.png" alt="img"></a></p>
+<p>注意：请确认<strong>设备名</strong>和<strong>分区</strong>信息后正确后再执行远程命令。</p>
+</li>
+<li><p>点击<strong>执行</strong>，<strong>执行成功</strong>后，点击<strong>取消</strong>退出页面。</p>
+<p><a href="/../pic/proimcpxsdjfxmeoknfl.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/proimcpxsdjfxmeoknfl.png" alt="img"></a></p>
+</li>
+<li><p>刷新后显示<strong>操作系统扩容分区成功</strong></p>
+</li>
+</ol>
+<h4 id="云盘变配"><a href="#云盘变配" class="headerlink" title="云盘变配"></a>云盘变配</h4><p>不同类型的块存储提供了不同的磁盘性能，其分类主要有<strong>ESSD 云盘、SSD云盘、高效云盘</strong>等，云盘的存储读写速度和IOPS越高，数据处理速度也越快，以满足不同业务场景需求，其中：</p>
+<ul>
+<li><strong>高效云盘</strong>：具备<strong>高性价比</strong>、中等随机读写性能、高可靠性的云盘产品。建议在开发与测试业务和系统盘等场景中使用。</li>
+<li><strong>SSD云盘</strong>（固态云盘）：具备稳定的高随机读写性能、高可靠性的高性能云盘产品。建议在I&#x2F;O密集型应用、中小型关系数据库和NoSQL数据库等场景中使用。</li>
+<li><strong>ESSD云盘</strong>（Enhanced SSD）：基于新一代分布式块存储架构的超高性能云盘产品，结合25GE网络和RDMA技术，单盘可提供高达100万的随机读写能力和更低的单路时延能力。建议在大型OLTP数据库、NoSQL数据库和ELK分布式日志等场景中使用。</li>
+</ul>
+<p><strong>云盘变配操作步骤：</strong></p>
+<ol>
+<li><p>登录<a target="_blank" rel="noopener" href="https://ecs.console.aliyun.com/?spm=a2cwt.28120018.317247.31.5e031ee9DgdNsu">ECS管理控制台</a>。在左侧导航栏，选择<strong>实例与镜像 &gt; 实例</strong></p>
+</li>
+<li><p>找到待扩容云盘所在的实例，单击实例ID。在<strong>实例详情</strong>页面，单击<strong>云盘</strong>页签。</p>
+</li>
+<li><p>找到待扩容的目标云盘，在<strong>操作</strong>列选择<code>⋮ </code> <strong>&gt; 变配</strong>。</p>
+</li>
+<li><p>弹出的对话框中选择需要变更的云盘类型和配置，点击<strong>确认</strong>后完成云盘变配。</p>
+<p>提示：云盘变配前，建议为云盘创建快照备份数据。</p>
+</li>
+</ol>
+<h2 id="灾备管理"><a href="#灾备管理" class="headerlink" title="灾备管理"></a>灾备管理</h2><h3 id="镜像管理"><a href="#镜像管理" class="headerlink" title="镜像管理"></a>镜像管理</h3><p>企业应用中，某些服务需要多台配置一模一样的ECS实例，所以创建一个<strong>“模板机”</strong>，称为镜像（包含了预装的操作系统、初始化应用数据、预装的软件等）。通过镜像复制“模板机”的配置从而创建新的ECS实例将变得非常便捷。</p>
+<p>可以通过ECS实例或者快照来创建自定义镜像，镜像组件本身的使用是免费的，但是需要承担镜像所占用的存储空间的费用。</p>
+<p><a href="/../pic/wrawcotvfhsqethlwwep.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/wrawcotvfhsqethlwwep.png" alt="img"></a></p>
+<p>镜像的基本功能：</p>
+<p><a href="/../pic/eejiwjsvqbdayrcxqsnn.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/eejiwjsvqbdayrcxqsnn.png" alt="img"></a></p>
+<h4 id="创建自定义镜像"><a href="#创建自定义镜像" class="headerlink" title="创建自定义镜像"></a>创建自定义镜像</h4><p><strong>创建自定义镜像操作步骤</strong>：</p>
+<ol>
+<li><p>登录<a target="_blank" rel="noopener" href="https://ecs.console.aliyun.com/">ECS管理控制台</a>。在左侧导航栏，选择<strong>实例与镜像 &gt; 镜像</strong>。在顶部菜单栏左上角处，选择地域。在<strong>创建镜像</strong>区域单击<strong>创建自定义镜像</strong>。</p>
+<p><a href="/../pic/jerpcoqiqyjltfhlwagg.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/jerpcoqiqyjltfhlwagg.png" alt="img"></a></p>
+</li>
+<li><p>在<strong>创建自定义镜像</strong>对话框中，完成以下配置，点击<strong>确认</strong>完成自定义镜像创建：</p>
+</li>
+<li><p>创建方式：<strong>实例</strong>（通过已有实例创建自定义镜像）、<strong>快照</strong>（通过已有系统盘快照创建自定义镜像）</p>
+</li>
+<li><p>实例&#x2F;快照：根据创建方式，选择对应实例或快照</p>
+</li>
+<li><p>镜像名称：输入自定义镜像的名称</p>
+</li>
+<li><p>镜像检测（可选）：镜像检测功能主要检测导入的自定义镜像是否为有效镜像、自定义镜像是否可以创建出功能齐全的ECS实例等。</p>
+</li>
+<li><p>镜像族系（可选）：您可以在创建自定义镜像时选择镜像族系。设置了镜像族系功能的自定义镜像可以被设置为弃用或者恢复可用，来实现镜像的平滑更新与回滚。</p>
+</li>
+<li><p>高级配置（可选）：镜像描述、标签、资源组配置。</p>
+</li>
+<li><p>创建镜像所需时间取决于实例云盘的大小，需要等待每块云盘的快照创建完成，镜像才可以使用。</p>
+</li>
+</ol>
+<p>注意：</p>
+<ul>
+<li>生成自定义镜像的过程中，系统会自动生成一份快照，系统会<strong>根据快照的存储空间大小计费</strong>。</li>
+<li>果自定义镜像的最终来源为付费镜像且您使用了该自定义镜像，则需要收取镜像费用。</li>
+</ul>
+<h4 id="自定义镜像管理"><a href="#自定义镜像管理" class="headerlink" title="自定义镜像管理"></a>自定义镜像管理</h4><p>当成功创建或成功导入自定义镜像后，检查镜像的状态是否为<strong>可用</strong>。此时可以对镜像进行以下管理：</p>
+<p><a href="/../pic/lgfubclybhgpfsvdrbhs.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/lgfubclybhgpfsvdrbhs.png" alt="img"></a></p>
+<p><strong>自定义镜像管理操作步骤</strong>：</p>
+<p>登录<a target="_blank" rel="noopener" href="https://ecs.console.aliyun.com/">ECS管理控制台</a>。在左侧导航栏，选择<strong>实例与镜像 &gt; 镜像</strong>。在顶部菜单栏左上角处，选择地域。单击<strong>自定义镜像</strong>，在操作列选择<code>⋮ </code>并点击相关<strong>镜像操作</strong>。</p>
+<p><a href="/../pic/jynbkufdoqwrkhyriofm.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/jynbkufdoqwrkhyriofm.png" alt="img"></a></p>
+<ol>
+<li>创建实例：通过自定义镜像快速创建ECS实例</li>
+<li>复制镜像：将镜像复制到指定地域</li>
+<li>共享镜像：共享镜像可用于跨账号部署ECS实例，您可以将镜像共享给其他阿里云账号使用</li>
+<li>删除镜像：删除自定义镜像</li>
+<li>导出镜像：导出自定义镜像到OSS存储，并可从OSS存储下载镜像到本地，用于本地镜像分析、本地备份等</li>
+<li>弃用镜像：弃用后该镜像将不可以被共享和复制。该镜像不会被删除，您可以将镜像再次恢复可用</li>
+</ol>
+<h3 id="快照管理"><a href="#快照管理" class="headerlink" title="快照管理"></a>快照管理</h3><p><strong>快照</strong>是磁盘数据在某一个时间点的拷贝，可以方便的创建实例的快照，保留某个时间点上的系统数据状态，作为数据备份，或者制作镜像。</p>
+<p>阿里云的云服务器ECS自带<strong>快照</strong>组件，可以在ECS管理控制台一键对云盘的数据进行备份，也可以利用备份一键恢复数据或创建新云盘，从而避免因为误删除等行为导致重要数据丢失。快照组件本身的使用是完全免费的，你只需要承担快照所占用的存储空间的费用。</p>
+<p><a href="/../pic/opdrdbbgugpzxhcpagux.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/opdrdbbgugpzxhcpagux.png" alt="img"></a></p>
+<p><strong>快照原理：</strong></p>
+<p>云盘格式化后会在逻辑块地址LBA（Logical Block Address）的基础上划分数据块（Block）。云盘<strong>第一份快照</strong>是实际使用量的<strong>全量快照</strong>，不备份空数据块。<strong>后续快照</strong>均是<strong>增量快照</strong>，备份自上一个快照以来的增量业务数据。</p>
+<p><strong>创建方式：</strong></p>
+<ul>
+<li><strong>手动快照</strong>：手动创建快照，作为重大操作的准备工作，提高操作容错率。支持创建单个云盘快照或者快照一致性组（一台或多台ECS实例上多个云盘的快照）。</li>
+<li><strong>自动快照</strong>：将自动快照策略应用到云盘上，在设置的时间点自动为云盘创建的快照。通过自动备份云盘数据，提高业务数据安全性。</li>
+</ul>
+<h4 id="手动创建快照"><a href="#手动创建快照" class="headerlink" title="手动创建快照"></a>手动创建快照</h4><p><strong>手动创建快照操作步骤</strong>：</p>
+<ol>
+<li><p>登录<a target="_blank" rel="noopener" href="https://ecs.console.aliyun.com/">ECS管理控制台</a>。在左侧导航栏，选择<strong>实例与镜像 &gt; 实例</strong>。在顶部菜单栏左上角处，选择地域。找到需要创建快照的实例，单击实例ID。在<strong>实例详情</strong>页，单击<strong>云盘</strong>页签。找到要创建快照的云盘，在<strong>操作</strong>列单击<strong>创建快照</strong>。</p>
+<p><a href="/../pic/sgebqezhwcbllnzyothy.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/sgebqezhwcbllnzyothy.png" alt="img"></a></p>
+</li>
+<li><p>在弹出的<strong>创建云盘快照</strong>对话框中，设置快照参数，然后单击<strong>确定</strong>。</p>
+</li>
+<li><p><strong>云盘快照名称</strong>：设置快照的名称。</p>
+</li>
+<li><p><strong>快照类型</strong>：选择创建标准快照或者创建极速可用快照。</p>
+<ul>
+<li><p>创建标准快照：分钟级创建时间，取决于容量大小，首次创建耗时较久。创建快照后，系统根据快照容量大小、按每个地域单独结算费用</p>
+</li>
+<li><p>创建极速可用快照：秒级创建快照，仅支持ESSD云盘。极速可用快照除了快照存储费用，还会产生快照极速可用费用。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>保留时间</strong>：设置快照的保留天数，永久保留或者自定义保留天数。</p>
+</li>
+<li><p>快照极速可用：设置快照极速可用的使用天数，到期后自动关闭快照极速使用功能。仅在快照类型选择创建极速可用快照时需要设置。</p>
+</li>
+<li><p>标签：设置标签，将快照归类，便于搜索与批量操作。</p>
+</li>
+<li><p>资源组：设置资源组，对快照进行分级管理。</p>
+</li>
+</ol>
+<h4 id="自动创建快照"><a href="#自动创建快照" class="headerlink" title="自动创建快照"></a>自动创建快照</h4><p><strong>自动创建快照操作步骤</strong>：</p>
+<ol>
+<li><p>登录<a target="_blank" rel="noopener" href="https://ecs.console.aliyun.com/?spm=a2cwt.28120018.317247.33.5e031ee9DgdNsu">ECS管理控制台</a>。在左侧导航栏，选择<strong>实例与镜像 &gt; 实例</strong>。在顶部菜单栏左上角处，选择地域。找到需要创建快照的实例，单击实例ID。在<strong>实例详情</strong>页，单击<strong>云盘</strong>页签。找到要创建快照的云盘，在<strong>操作</strong>列单击<strong>设置快照策略</strong>。</p>
+<p><a href="/../pic/bcxrsgoeztytbnteqxiz.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/bcxrsgoeztytbnteqxiz.png" alt="img"></a></p>
+</li>
+<li><p>在弹出的<strong>设置自动快照策略</strong>对话框中，设置自动快照策略，然后单击<strong>确定</strong>。</p>
+<ul>
+<li><p><strong>重复日期</strong>：创建自动快照的日期，支持在周一至周日之间选择一个或多个日期。</p>
+</li>
+<li><p><strong>创建时间</strong>：一天内创建自动快照的时间点，支持在00:00~23:00共24个整点中选择一个或多个时间点。</p>
+</li>
+<li><p><strong>快照保留时间</strong>：自动快照的保留时间，默认保留30天，支持以下选项：</p>
+<ul>
+<li>自定义时长：保留天数范围为1~65535天。</li>
+<li>持续保留，直至快照数量达到额度上限后被自动删除：在自动快照数量达到上限后，系统会删除最早创建的自动快照。</li>
+</ul>
+<p><a href="/../pic/wdvjeqkwsiizamhryqvc.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/wdvjeqkwsiizamhryqvc.png" alt="img"></a></p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="快照管理-1"><a href="#快照管理-1" class="headerlink" title="快照管理"></a>快照管理</h4><p><strong>快照管理的操作步骤：</strong></p>
+<ol>
+<li><p>登录<a target="_blank" rel="noopener" href="https://ecs.console.aliyun.com/?spm=a2cwt.28120018.317247.34.5e031ee9DgdNsu">ECS管理控制台</a>。在左侧导航栏，选择<strong>实例与镜像 &gt; 实例</strong>。在顶部菜单栏左上角处，选择地域。找到需要创建快照的实例，单击实例ID。在<strong>实例详情</strong>页，单击<strong>云盘</strong>页签。找到要管理快照的云盘，在<strong>关联快照</strong>列单击<strong>快照</strong>。</p>
+<p><a href="/../pic/rzqaopucmoxvopdtydka.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/rzqaopucmoxvopdtydka.png" alt="img"></a></p>
+</li>
+<li><p>跳转至快照管理页面，找到要操作的快照，即可使用和管理快照，快照的主要操作有：</p>
+<p><a href="/../pic/hjhwzihvqtkuxpmourhu.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/hjhwzihvqtkuxpmourhu.png" alt="img"></a></p>
+</li>
+<li><p>当创建好云盘快照以后，就可以对快照进行以下管理：</p>
+<ul>
+<li><p><strong>回滚云盘</strong>：发生系统故障或错误操作时，如果云盘在此之前已经创建了快照，您可以使用该快照来回滚云盘，实现应用版本回退。如果回滚的是系统盘，默认自动绑定实例当前的SSH密钥对或用户名密码。</p>
+<p>注意：回滚云盘是不可逆操作，从快照的创建日期到回滚云盘时这段时间内的数据会丢失。为避免误操作，建议在回滚前为云盘创建一份快照备份数据。</p>
+</li>
+<li><p><strong>创建自定义镜像</strong>：基于已有的<strong>系统盘快照</strong>创建自定义镜像，可以将一台ECS实例的操作系统、数据制作成环境副本，再通过自定义镜像创建多台ECS实例，快速复制系统环境。</p>
+</li>
+<li><p><strong>创建云盘</strong>：基于已有快照创建新云盘</p>
+</li>
+<li><p><strong>复制快照</strong>：将快照从一个地域复制到另一个地域，另一个地域将创建一个快照副本，从而实现跨地域备份数据</p>
+</li>
+<li><p><strong>删除快照</strong>：当不再需要某份快照或者快照数超出额度时，可以删除一部分快照释放空间</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="安全加固"><a href="#安全加固" class="headerlink" title="安全加固"></a>安全加固</h2><p>常见的云服务器ECS实例的安全加固方法有：</p>
+<ul>
+<li><strong>定期变更登录密码</strong>或<strong>使用密钥</strong>方式访问ECS实例，并保护密码&#x2F;密钥安全不泄露</li>
+<li><strong>配置安全组规则，</strong>关闭危险端口，仅开放必要的端口，并限制访问IP</li>
+<li><strong>定期安装系统补丁，</strong>避免操作系统漏洞导致系统被入侵</li>
+</ul>
+<h3 id="修改ECS实例登录密码"><a href="#修改ECS实例登录密码" class="headerlink" title="修改ECS实例登录密码"></a>修改ECS实例登录密码</h3><h4 id="重置ECS实例密码"><a href="#重置ECS实例密码" class="headerlink" title="重置ECS实例密码"></a>重置ECS实例密码</h4><p>登录<a target="_blank" rel="noopener" href="https://ecs.console.aliyun.com/">ECS管理控制台</a>。在左侧导航栏，选择<strong>实例与镜像 &gt; 实例</strong>。在顶部菜单栏左上角处，选择地域。选择要操作的实例，在<strong>操作</strong>列中，选择<a href="/../pic/tvxrviaxrcgxekfiqtqb.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/tvxrviaxrcgxekfiqtqb.png" alt="img"></a> <strong>&gt; 实例属性 &gt; 重置实例密码</strong>。在弹出的<strong>重置实例密码</strong>对话框中，根据实例情况，选择<strong>重置密码的方式</strong>为<strong>在线重置密码</strong>或<strong>离线重置密码</strong>。输入并确认新登录密码，然后单击<strong>重置密码</strong>。</p>
+<p><a href="/../pic/eooffdcykuoskwqktfmp-170507991380259.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/eooffdcykuoskwqktfmp-170507991380259.png" alt="img"></a></p>
+<h4 id="在实例内部修改登录密码"><a href="#在实例内部修改登录密码" class="headerlink" title="在实例内部修改登录密码"></a>在实例内部修改登录密码</h4><blockquote>
+<p><strong>修改Linux实例的登录密码</strong>（以CentOS 7.6为例）</p>
+</blockquote>
+<ol>
+<li>登录实例。</li>
+<li>执行命令<strong>passwd username</strong>，例如<strong>passwd ecs-user</strong>。</li>
+<li>输入新密码。</li>
+<li>重新输入确认密码。</li>
+</ol>
+<blockquote>
+<p><strong>修改Windows实例的登录密码</strong>（以Windows Server 2012为例）</p>
+</blockquote>
+<ol>
+<li>登录实例。</li>
+<li>单击<strong>开始</strong> <strong>&gt;</strong> <strong>运行</strong>，输入<strong>compmgmt.msc</strong>并回车。</li>
+<li>在<strong>计算机管理</strong>界面中，单击<strong>计算机管理</strong> <strong>&gt;</strong> <strong>本地用户和组</strong> <strong>&gt;</strong> <strong>用户</strong>。</li>
+<li>右键单击待修改的用户名，例如<strong>Administrator</strong>。</li>
+<li>单击<strong>设置密码</strong>。</li>
+<li>在<strong>为 Administrator 设置密码</strong>对话框中，单击<strong>继续</strong>，输入<strong>新密码</strong>和<strong>确认密码</strong>，然后单击<strong>确定</strong>。</li>
+</ol>
+<h4 id="使用密钥登录ECS实例"><a href="#使用密钥登录ECS实例" class="headerlink" title="使用密钥登录ECS实例"></a>使用密钥登录ECS实例</h4><p>阿里云SSH密钥对是一种安全便捷的登录认证方式，由公钥和私钥组成，<strong>仅支持Linux实例</strong>。SSH密钥对登录认证更为安全可靠。在维护多台Linux实例时更为便捷，不需要输入密码，便于批量登录。</p>
+<p><strong>使用SSH密钥登录ECS实例主要有以下三步：</strong></p>
+<ol>
+<li>创建SSH密钥对</li>
+<li>绑定密钥对至ECS实例</li>
+<li>通过密钥认证登录Linux实例</li>
+</ol>
+<blockquote>
+<p><strong>创建SSH密钥对</strong></p>
+</blockquote>
+<ol>
+<li><p>登录<a target="_blank" rel="noopener" href="https://ecs.console.aliyun.com/">ECS管理控制台</a>。在左侧导航栏，选择<strong>网络与安全 &gt; 密钥对</strong>。在顶部菜单栏左上角处，选择地域。单击<strong>创建密钥对</strong>。</p>
+</li>
+<li><p>在<strong>创建密钥对</strong>页面，完成以下配置：</p>
+<p><strong>密钥对名称</strong>：密钥对名称不能和已有密钥对重复。</p>
+<p><strong>创建类型</strong>：可以选择以下任一类型创建密钥对。建议选择自动新建密钥对，并及时保存私钥。</p>
+<ul>
+<li>自动新建密钥对：系统会自动创建密钥对。创建完成后将自动下载私钥，只有一次下载私钥的机会，因此请妥善保存私钥文件。</li>
+<li>导入已有密钥对：可以自行导入Base64编码的公钥内容。</li>
+</ul>
+<p>资源组：您可以为密钥对指定一个资源组，实现对资源的分组管理。</p>
+<p>标签：您可以为密钥对绑定一个或多个标签，便于搜索和资源聚合。</p>
+<p><a href="/../pic/asiwppgcwvzagaeouwop.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/asiwppgcwvzagaeouwop.png" alt="img"></a></p>
+</li>
+<li><p>创建成功后，浏览器自动下载私钥文件（<em>密钥对名称</em>.pem）到本地电脑。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>绑定密钥对至ECS实例</strong></p>
+</blockquote>
+<ol>
+<li><p>登录<a target="_blank" rel="noopener" href="https://ecs.console.aliyun.com/">ECS管理控制台</a>。在左侧导航栏，选择<strong>网络与安全 &gt; 密钥对</strong>。在顶部菜单栏左上角处，选择地域。找到需要操作的密钥对，在<strong>操作</strong>列中，单击<strong>绑定密钥对</strong>。</p>
+<p><a href="/../pic/defsptbshgkvtjecwxci.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/defsptbshgkvtjecwxci.png" alt="img"></a></p>
+</li>
+<li><p>在<strong>选择ECS实例</strong>栏中，选中需要绑定该密钥对的ECS实例名称，单击**&gt;<strong>图标，移入</strong>已选择<strong>栏中。单击</strong>确定**。</p>
+<p><a href="/../pic/hamfoccdjetekhuqebtv.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/hamfoccdjetekhuqebtv.png" alt="img"></a></p>
+</li>
+<li><p>重启或启动ECS实例。</p>
+<p>如果ECS实例处于<strong>运行中</strong>（<em>Running</em>）状态，重启实例使操作生效</p>
+<p>如果ECS实例处于<strong>停止中</strong>（<em>Stopped</em>）状态，启动实例使操作生效</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>通过密钥认证登录Linux实例</strong></p>
+</blockquote>
+<p>登录<strong>ECS管理控制台</strong>。在左侧导航栏，选择<strong>实例与镜像 &gt; 实例</strong>。在顶部菜单栏左上角处，选择地域。找到需要操作的ECS实例，在<strong>操作</strong>列中，单击<strong>远程连接</strong>。勾选<strong>证书认证</strong>，上传浏览器自动下载私钥文件（<em>密钥对名称</em>.pem），点击确定，即可成功登录ECS实例。</p>
+<h3 id="配置安全组策略"><a href="#配置安全组策略" class="headerlink" title="配置安全组策略"></a>配置安全组策略</h3><p><strong>安全组</strong>是阿里云上的虚拟防火墙。用于控制安全组内ECS实例的入流量和出流量，从而提高ECS实例的安全性。安全组具备状态检测和数据包过滤能力。</p>
+<p><strong>安全组规则</strong>指定了一个或多个防火墙规则，规则包含容许&#x2F;拒绝访问的IP、端口等。</p>
+<p><strong>ECS实例加入安全组的规则如下：</strong></p>
+<ul>
+<li>实例至少加入一个安全组，可以同时加入多个安全组。</li>
+<li>实例上挂载的弹性网卡中，辅助网卡可以加入和实例不同的安全组。</li>
+<li>实例不支持同时加入普通安全组和企业安全组。</li>
+<li>安全组具备默认规则，可以根据需要灵活维护规则。</li>
+</ul>
+<p><strong>安全组使用建议：</strong></p>
+<p><a href="/../pic/dbheavpxeoevtdzflenx.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/dbheavpxeoevtdzflenx.png" alt="img"></a></p>
+<p><strong>配置安全组操作步骤：</strong></p>
+<p>登录<a target="_blank" rel="noopener" href="https://ecs.console.aliyun.com/">ECS管理控制台</a>。在左侧导航栏，选择<strong>网络与安全 &gt; 安全组</strong>。在顶部菜单栏左上角处，选择地域。点击左上角<strong>创建安全组</strong>，可新建安全组。找到需要操作的安全组，在<strong>操作</strong>列中，可进行安全组管理。</p>
+<p><a href="/../pic/rrsohowohqxmixgyesfs.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/rrsohowohqxmixgyesfs.png" alt="img"></a></p>
+<h3 id="安装系统补丁"><a href="#安装系统补丁" class="headerlink" title="安装系统补丁"></a>安装系统补丁</h3><p><strong>如果希望ECS实例的系统漏洞尽快修复从而避免受到安全攻击，或者需要所使用的一些软件包的版本始终保持到最新版本，这个时候需要用到补丁管理。</strong>用户可以通过云服务器ECS中免费的<strong>自动升级补丁</strong>工具来自动扫描实例内的系统补丁，并完成补丁的下载和安装。</p>
+<p>注意：系统补丁升级可能会导致实例重启，请选择合适的运维窗口进行系统补丁升级。</p>
+<p><strong>安装系统补丁操作步骤：</strong></p>
+<p><strong>云服务器控制台</strong> &gt; <strong>实例</strong> &gt; 进入要操作的<strong>实例详情</strong> &gt; <strong>定时与自动化任务</strong>页签 &gt; <strong>自动升级补丁</strong>页签 &gt; 管理和升级补丁</p>
+<p><a href="/../pic/mseerhhlmiqiwcjklmag.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/mseerhhlmiqiwcjklmag.png" alt="img"></a></p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-19</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E9%98%BF%E9%87%8C%E4%BA%91/'>
+                            阿里云
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

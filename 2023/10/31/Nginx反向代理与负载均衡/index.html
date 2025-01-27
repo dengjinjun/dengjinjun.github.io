@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Nginx反向代理与负载均衡概述" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Nginx反向代理与负载均衡概述
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="post-toc-text">相关概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="post-toc-text">正向代理和反向代理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="post-toc-text">反向代理的作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">负载均衡</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="post-toc-text">负载均衡的作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="post-toc-text">负载均衡的调度算法</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%83%A8%E7%BD%B2%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="post-toc-text">部署反向代理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%90%AD%E5%BB%BA%E7%A4%BA%E4%BE%8B"><span class="post-toc-text">搭建示例</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="post-toc-text">配置参数</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%83%A8%E7%BD%B2%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">部署负载均衡</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%90%AD%E5%BB%BA%E7%A4%BA%E4%BE%8B-1"><span class="post-toc-text">搭建示例</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0-1"><span class="post-toc-text">配置参数</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>Nginx可以作为反向代理和负载均衡服务器</p>
+<h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="正向代理和反向代理"><a href="#正向代理和反向代理" class="headerlink" title="正向代理和反向代理"></a>正向代理和反向代理</h3><blockquote>
+<p>正向代理</p>
+</blockquote>
+<p>在如今的网络环境下，我们如果由于技术需要要去访问国外的某些网站，此时你会发现位于国外的某网站我们通过浏览器是没有办法访问的，此时大家可能都会用一个操作FQ进行访问，FQ的方式主要是找到一个可以访问国外网站的代理服务器，我们将请求发送给代理服务器，代理服务器去访问国外的网站，然后将访问到的数据传递给我们！</p>
+<p>上述这样的代理模式称为正向代理，这里是我们<strong>通过正向代理服务器向外访问</strong>。正向代理最大的特点是客户端非常明确要访问的服务器地址；服务器只清楚请求来自哪个代理服务器，而不清楚来自哪个具体的客户端；正向代理模式屏蔽或者隐藏了真实客户端信息。</p>
+<p><a href="/../pic/1360293-20190814001954972-508067874.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1360293-20190814001954972-508067874.png" alt="img"></a></p>
+<blockquote>
+<p>反向代理</p>
+</blockquote>
+<p>多个客户端给服务器发送的请求，nginx服务器接收到之后，按照一定的规则分发给了后端的业务处理服务器进行处理了。此时请求的来源也就是客户端是明确的，但是请求具体由哪台服务器处理的并不明确了，nginx扮演的就是一个反向代理角色。</p>
+<p><a href="/../pic/1360293-20190814001909520-670723045.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1360293-20190814001909520-670723045.png" alt="img"></a></p>
+<p>反向代理，主要用于服务器集群分布式部署的情况下，<strong>服务器通过反向代理接收访问请求</strong>，并且隐藏了自己的信息。</p>
+<h3 id="反向代理的作用"><a href="#反向代理的作用" class="headerlink" title="反向代理的作用"></a>反向代理的作用</h3><ul>
+<li><p>隐藏服务器真实 IP</p>
+<p>反向代理服务器位于用户与目标服务器之间，但是对于用户而言，反向代理服务器就相当于目标服务器，即用户直接访问反向代理服务器就可以获得目标服务器的资源。客户端只需要于代理服务器打交道，统一的入口使得<strong>后端服务器的IP不会暴露在公网上</strong>。</p>
+</li>
+<li><p>负载均衡</p>
+<p>让代理服务器将请求 均匀转发给多台内部Web服务器之一上,从而达到负载均衡的目的。<strong>反向代理是手段，负载均衡是目的。</strong></p>
+</li>
+<li><p>通过缓存加速访问资源</p>
+<p>当nginx作为反向代理时，可以将只有动态的请求交由上游服务器处理，但是有些内容可能是一段时间内是不会变化的，这个时候为了减轻上游服务器的压力，那么就让nginx把上游返回的内容缓存一段时间，比如缓存一天，在一天之内即是上游服务器内容发生了变化也不管，nginx之返回缓存到的内容给用户。</p>
+</li>
+<li><p>提供安全保障</p>
+<p>Nginx反向代理的隐藏服务器的IP地址和端口号可以增加服务器的安全性和稳定性。DDos攻击的处理、IP黑名单等交给反向代理负责，反向代理可以从源头限制后端服务器可以接收的连接数量。</p>
+</li>
+</ul>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p><strong>负载均衡</strong>（Load Balance）是由<strong>多台服务器组成一个服务器集群</strong>，每台服务器都具有等价的地位，都可以单独对外提供服务而无须其他服务器的辅助。通过某种策略，将外部发送来的中央请求分配到集群中的某一台服务器上。</p>
+<p><a href="/../pic/timg-1601278769063.jpg" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/timg-1601278769063.jpg" alt="img"></a></p>
+<p>负载均衡器通常称为四层交换机（L4 switch）或七层交换机（L7 switch）。四层交换机主要分析IP层及TCP&#x2F;UDP层，实现四层流量负载均衡，实现方法有比如：F5，LVS等。七层交换机除了支持四层负载均衡以外，还有分析应用层的信息，如HTTP协议URI或Cookie信息，实现方法有  haproxy，MySQL Proxy等。有些Load Balancer既可以做四层交换，也可以做七层交换，比如F5，Nginx。</p>
+<h3 id="负载均衡的作用"><a href="#负载均衡的作用" class="headerlink" title="负载均衡的作用"></a>负载均衡的作用</h3><p><strong>负载均衡器是为了分配请求，解决单点问题而生的，因此负载均衡器必须是两个或者以上才有意义。而反向代理一个服务器也可以</strong></p>
+<p>负载均衡器（Load Balance，下文简称 LB）像是一个请求调度中心，主要是为了<strong>分发请求</strong>，这一角色使得它可以：</p>
+<ul>
+<li><strong>避免请求分配到不可用的服务器</strong>，比如发送心跳感知服务器在线情况</li>
+<li><strong>避免服务器过载</strong>：例如实现一个简单的请求计数器或者统计请求的响应时间等</li>
+<li><strong>解决单点问题</strong>：实现水平扩展</li>
+<li><strong>根据请求类型分配指定的服务器</strong>：比如静态文件分配给CDN，读写或者冷热分离等</li>
+</ul>
+<h3 id="负载均衡的调度算法"><a href="#负载均衡的调度算法" class="headerlink" title="负载均衡的调度算法"></a>负载均衡的调度算法</h3><p>nginx支持的负载均衡调度算法方式如下：</p>
+<blockquote>
+<p>轮询算法（rr）</p>
+</blockquote>
+<p>根据请求，均匀分配到资源池的各个节点。特点是平均分配，用于配置相同的服务器。</p>
+<blockquote>
+<p>加权轮询（wrr）</p>
+</blockquote>
+<p>接收到的请求按照顺序逐一分配到不同的后端服务器，即使在使用过程中，某一台后端服务器宕机，nginx会自动将该服务器剔除出队列，请求受理情况不会受到任何影响。 这种方式下，可以给不同的后端服务器设置一个权重值（weight），用于调整不同的服务器上请求的分配率；权重数据越大，被分配到请求的几率越大；该权重值，主要是针对实际工作环境中不同的后端服务器硬件配置进行调整的。</p>
+<blockquote>
+<p>IP地址哈希（ip_hash）</p>
+</blockquote>
+<p>每个请求按照发起客户端的ip的hash结果进行匹配，这样的算法下一个固定ip地址的客户端总会访问到同一个后端服务器，这也在一定程度上解决了集群部署环境下会话保持的问题。弊端是可能会导致某一个节点压力过大，而其他节点没有流量。</p>
+<p><strong>如果既想使用轮询负载算法，又不想某个节点压力过大，同时解决会话保持的问题，可以使用redis缓存，存储所有节点的session会话信息。</strong></p>
+<blockquote>
+<p>智能调整调度算法（fair）</p>
+</blockquote>
+<p>智能调整调度算法，动态的根据后端服务器的请求处理到响应的时间进行均衡分配，响应时间短处理效率高的服务器分配到请求的概率高，响应时间长处理效率低的服务器分配到的请求少；结合了前两者的优点的一种调度算法。但是需要注意的是nginx默认不支持fair算法，如果要使用这种调度算法，请安装upstream_fair模块</p>
+<blockquote>
+<p>URL哈希（url_hash）</p>
+</blockquote>
+<p>按照访问的url的hash结果分配请求，每个请求的url会指向后端固定的某个服务器，可以在nginx作为静态服务器的情况下提高缓存效率。同样要注意nginx默认不支持这种调度算法，要使用的话需要安装nginx的hash软件包。URL哈希主要用于缓存服务器集群，缺点是当节点宕机或增加节点时容易出现缓存数据大面积动荡。解决方式是<strong>一致性哈希算法</strong>（Nginx默认不支持一致性哈希算法，淘宝的tengine支持）。</p>
+<h2 id="部署反向代理"><a href="#部署反向代理" class="headerlink" title="部署反向代理"></a>部署反向代理</h2><p>Nginx官网提供了部署反向代理的操作文档：</p>
+<p>official document of proxy : <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html">http://nginx.org/en/docs/http/ngx_http_proxy_module.html</a></p>
+<p>反向代理功能由<code>ngx_http_proxy_module</code>模块实现：</p>
+<p>The <code>ngx_http_proxy_module</code> module allows passing requests to another server.</p>
+<h3 id="搭建示例"><a href="#搭建示例" class="headerlink" title="搭建示例"></a>搭建示例</h3><p>Example Configuration :</p>
+<blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line"> listen       80;				<span class="comment"># 监听80端口</span></span><br><span class="line"> server_name  192.168.17.129;	<span class="comment"># 监听的访问IP或者域名</span></span><br><span class="line"></span><br><span class="line"> location ~ /edu/ &#123;							<span class="comment"># 当用户访问的URL包含/edu/时，由此location处理请求</span></span><br><span class="line">  proxy_pass  http://192.168.11.135:80		<span class="comment"># proxy_pass 后面跟一个需要转发到的主机节点地址及端口</span></span><br><span class="line">  proxy_set_header Host      <span class="variable">$host</span>;			<span class="comment"># 转发时携带主机头字段</span></span><br><span class="line">  proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;	<span class="comment"># 转发时携带远端IP地址</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> location ~ /vod/ &#123;							<span class="comment"># 当用户访问的URL包含/vod/时，由此location处理请求</span></span><br><span class="line">  proxy_pass  http://192.168.11.136:80		<span class="comment"># 转发到192.168.11.136节点进行处理</span></span><br><span class="line">  proxy_set_header Host      <span class="variable">$host</span>;			</span><br><span class="line">  proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">proxy_method get;    			<span class="comment"># 支持客户端的请求方法。post/get；</span></span><br><span class="line">proxy_http_version 1.0 ; 		<span class="comment"># Nginx服务器提供代理服务的http协议版本1.0，1.1，默认设置为1.0版本</span></span><br><span class="line">proxy_connect_timeout 1;		<span class="comment"># nginx服务器与后端节点建立连接的超时时间，默认60秒</span></span><br><span class="line">proxy_read_timeout 1; 			<span class="comment"># nginx服务器向后端节点发出read请求后，等待响应的超时间，默认为60秒。</span></span><br><span class="line">proxy_send_timeout 1; 			<span class="comment"># nginx服务器向后端节点发出write请求后，等待响应的超时间，默认为60秒。</span></span><br><span class="line">proxy_ignore_client_abort on;	<span class="comment"># 客户端断网时，nginx服务器是否中断对后端节点的请求。默认为off。</span></span><br><span class="line">proxy_next_upstream <span class="built_in">timeout</span>;  	<span class="comment"># upstream中设置的服务器组出现故障时，返回的状态值。可以是以下几种</span></span><br><span class="line">	<span class="comment"># error：建立连接或向被代理的服务器发送请求或读取响应信息时服务器发生错误。</span></span><br><span class="line">	<span class="comment"># timeout：建立连接，想被代理服务器发送请求或读取响应信息时服务器发生超时。</span></span><br><span class="line">	<span class="comment"># invalid_header:被代理服务器返回的响应头异常。</span></span><br><span class="line">	<span class="comment"># off:无法将请求分发给被代理的服务器。</span></span><br><span class="line">	<span class="comment"># http_400，....:被代理服务器返回的状态码为400，500，502，等</span></span><br><span class="line">proxy_set_header Host <span class="variable">$host</span>; 	<span class="comment"># 通过 $Host 来获取域名和端口</span></span><br><span class="line">proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;  <span class="comment"># 通过 $X-Real-IP 来获取源IP地址</span></span><br><span class="line">proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;	<span class="comment"># 记录代理IP和源IP，中间用 , 隔开</span></span><br><span class="line">	<span class="comment"># 代码中也可以用 echo $x-forwarded-for |awk -F, &#x27;&#123;print $1&#125;&#x27; 来获取源IP</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="部署负载均衡"><a href="#部署负载均衡" class="headerlink" title="部署负载均衡"></a>部署负载均衡</h2><p>Nginx官网提供了部署负载均衡的操作文档：</p>
+<p>offical document of upstream : <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_upstream_module.html">Module ngx_http_upstream_module (nginx.org)</a></p>
+<p>负载均衡功能由<code>ngx_http_upstream_module</code>模块实现：</p>
+<p>The <code>ngx_http_upstream_module</code> module is used to define groups of servers that can be referenced by the <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass">proxy_pass</a>, <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_pass">fastcgi_pass</a>, <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_uwsgi_module.html#uwsgi_pass">uwsgi_pass</a>, <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_scgi_module.html#scgi_pass">scgi_pass</a>, <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_memcached_module.html#memcached_pass">memcached_pass</a>, and <a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_grpc_module.html#grpc_pass">grpc_pass</a> directives.</p>
+<h3 id="搭建示例-1"><a href="#搭建示例-1" class="headerlink" title="搭建示例"></a>搭建示例</h3><p>Example Configuration : </p>
+<blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">upstream backend &#123;						<span class="comment"># upstream固定字段，代表负载均衡，backend是自定义区段名</span></span><br><span class="line"> server backend1.example.com       weight=5;		<span class="comment"># 配置一个服务器节点，默认端口80，权重为5</span></span><br><span class="line"> server backend2.example.com:8080;</span><br><span class="line"> server unix:/tmp/backend3;</span><br><span class="line"></span><br><span class="line"> server backup1.example.com:8080   backup;		<span class="comment"># backup是热备节点</span></span><br><span class="line"> server backup2.example.com:8080   backup;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line"> location / &#123;</span><br><span class="line">     proxy_pass http://backend;		<span class="comment"># 通过反向代理将请求转向backend定义的负载均衡服务器组</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="配置参数-1"><a href="#配置参数-1" class="headerlink" title="配置参数"></a>配置参数</h3><p>upstream模块的内容应该放置在nignx.conf配置的http区段内，默认调度算法是权重轮询wrr(Weighted Round-Robin)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server			<span class="comment"># 承担负载均衡的节点，后面可以是IP地址或者域名，可以指定端口，默认是80端口。IP换成域名可以通过DNS做负载均衡</span></span><br><span class="line">weight=1		<span class="comment"># 代表服务器权重，默认值是1，权重数字越大代表接受请求比例越大。用于节点硬件比例不一致的情况。</span></span><br><span class="line">backup			<span class="comment"># 热备节点。当前面的负载均衡服务器全部宕机后，会自动启动热备节点。</span></span><br><span class="line">down			<span class="comment"># 标志着服务器永远不可用。可以基于url_hash做缓存服务，宕机的节点标记为down</span></span><br><span class="line">max_fails=1		<span class="comment"># 尝试连接后端服务器失败的次数达到这个值之后，将踢出分发池。企业场景建议2~3次。次数越少，用户体验越好，但服务端压力更大。</span></span><br><span class="line">fail_timeout=10s	<span class="comment"># 踢出分发池之后，距离下一次健康检查的时间</span></span><br><span class="line">maxcoon			<span class="comment"># 指定可并发到该服务器的最大并发连接数。</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-31</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Nginx/'>
+                            Nginx
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="containerd的客户端命令" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            containerd的客户端命令
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#containerd%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%91%BD%E4%BB%A4"><span class="post-toc-text">containerd的客户端命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">客户端介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%89%E7%A7%8D%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%91%BD%E4%BB%A4%E5%AF%B9%E6%AF%94"><span class="post-toc-text">三种客户端命令对比</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="containerd的客户端命令"><a href="#containerd的客户端命令" class="headerlink" title="containerd的客户端命令"></a>containerd的客户端命令</h2><h3 id="客户端介绍"><a href="#客户端介绍" class="headerlink" title="客户端介绍"></a>客户端介绍</h3><blockquote>
+<p><strong>ctr</strong></p>
+</blockquote>
+<p>更换 containerd 后，以往我们常用的 docker 命令也不再使用，取而代之的是 ctr 命令客户端。</p>
+<p>ctr 是 containerd 提供的一个客户端工具，<code>ctr -v</code> 输出的是 containerd 的版本。</p>
+<p>ctr支持命名空间，<code>ctr ns ls </code>命令查看命名空间，k8s相关的镜像和容器都在k8s.io命名空间下</p>
+<p>补充：如果containerd配置了镜像加速，需要在命令中指定<code>--hosts-dir=/etc/containerd/certs.d</code>，如果要确定此命令是否真的使用了镜像加速，可以增加<code>--debug=true</code>参数。对于nerdctl命令来说，会自动使用&#x2F;etc&#x2F;containerd&#x2F;certs.d目录下的配置。</p>
+<blockquote>
+<p><strong>crictl</strong></p>
+</blockquote>
+<p>crictl 是 k8s 提供的一个客户端工具，遵循 CRI 接口规范，通常用它来检査和管理kubelet节点上的容器运行时和镜像，<code>crictl -v</code> 输出的是当前 k8s 的版本。</p>
+<p>使用crictl命令之前，需要先配置<code>/etc/crictl.yaml</code>， (不配置的话，使用命令会一直报warn警告)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/crictl.yam1 &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">runtime-endpoint: unix:///run/containerd/containerd.sock</span><br><span class="line">image-endpoint: unix:///run/containerd/containerd.sock</span><br><span class="line"><span class="built_in">timeout</span>: 10</span><br><span class="line">debug: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p>也可以通过命令进行设置，自动生成<code>/etc/crictl.yaml</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">crictl config runtime-endpoint unix:///run/containerd/containerd.sock</span><br><span class="line">crictl config image-endpoint unix:///run/containerd/containerd.sock</span><br></pre></td></tr></table></figure>
+
+<p>相比ctr来说，crictl不支持名称空间，或者说crictl所有的操作都在k8s.io命名空间下。</p>
+<blockquote>
+<p><strong>nerdctl</strong></p>
+</blockquote>
+<p>在习惯了使用docker-cli的情况下，很多人并不习惯使用 ctr 管理 containerd 镜像容器，于是开源社区提供了一个客户端工具nerdctl，nerdctl 与 docker-cli 风格相似，而且直接兼容 docker compose 的语法。</p>
+<p>nerdctl需要额外安装，安装过程：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/containerd/nerdctl/releases/download/v1.7.6/nerdct1-1.7.6-linux-amd64.tar.gz</span><br><span class="line"><span class="built_in">mkdir</span> -p /usr/local/containerd/bin/ &amp;&amp; tar -zxvf nerdct1-1.7.6-1inux-amd64.tar.gz nerdctl</span><br><span class="line"><span class="built_in">mv</span> nerdctl /usr/local/containerd/bin/</span><br><span class="line"><span class="built_in">ln</span> -s /usr/local/containerd/bin/nerdct1 /usr/1oca1/bin/nerdct1</span><br></pre></td></tr></table></figure>
+
+<p>补充：安装完成之后使用 <code>nerdctl version</code> 会有warn警告，提示 buildkit 未安装，可以到这里下载一个工具包 <a target="_blank" rel="noopener" href="https://github.com/moby/buildkit/releases/">buildkit仓库</a>，解压后得到一个bin目录，把这个bin目录添加到 $PATH 里去。<br>buildkit的详细用法参考 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/366671300">用buildkit和containerd构建镜像</a></p>
+<p>nerdctl也支持名称空间，k8s相关的镜像和容器都在k8s.io命名空间下。</p>
+<h3 id="三种客户端命令对比"><a href="#三种客户端命令对比" class="headerlink" title="三种客户端命令对比"></a>三种客户端命令对比</h3><blockquote>
+<p><strong>镜像相关</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>docker</th>
+<th>nerdctl</th>
+<th>ctr（containerd）</th>
+<th>crictl（kubernetes）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查看镜像</td>
+<td>docker images</td>
+<td>同docker命令</td>
+<td>ctr image ls</td>
+<td>crictl images</td>
+</tr>
+<tr>
+<td>拉取镜像</td>
+<td>docker pull</td>
+<td>同docker命令</td>
+<td>ctr image pull</td>
+<td>ctictl pull</td>
+</tr>
+<tr>
+<td>推送镜像</td>
+<td>docker push</td>
+<td>同docker命令</td>
+<td>ctr image push</td>
+<td>无</td>
+</tr>
+<tr>
+<td>打标签</td>
+<td>docker tag</td>
+<td>同docker命令</td>
+<td>ctr image tag</td>
+<td>无</td>
+</tr>
+<tr>
+<td>导入镜像</td>
+<td>docker load</td>
+<td>同docker命令</td>
+<td>ctr image import</td>
+<td>无</td>
+</tr>
+<tr>
+<td>导出镜像</td>
+<td>docker save</td>
+<td>同docker命令</td>
+<td>ctr image export</td>
+<td>无</td>
+</tr>
+<tr>
+<td>删除镜像</td>
+<td>docker rmi</td>
+<td>同docker命令</td>
+<td>ctr image rm</td>
+<td>crictl rmi</td>
+</tr>
+<tr>
+<td>查看镜像详情</td>
+<td>docker inspect</td>
+<td>同docker命令</td>
+<td>无</td>
+<td>crictl inspecti</td>
+</tr>
+<tr>
+<td>登陆镜像仓库</td>
+<td>docker login</td>
+<td>同docker命令</td>
+<td>不支持</td>
+<td>不支持</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>容器相关</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>docker</th>
+<th>nerdctl</th>
+<th>ctr（containerd）</th>
+<th>crictl（kubernetes）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查看运行的容器</td>
+<td>docker ps</td>
+<td>同docker命令</td>
+<td>ctr task ls&#x2F;ctr container ls</td>
+<td>crictl ps</td>
+</tr>
+<tr>
+<td>创建一个新的容器</td>
+<td>docker create</td>
+<td>同docker命令</td>
+<td>ctr container create</td>
+<td>crictl create</td>
+</tr>
+<tr>
+<td>运行一个新的容器</td>
+<td>docker run</td>
+<td>同docker命令</td>
+<td>ctr run</td>
+<td>无（最小单元为 pod）</td>
+</tr>
+<tr>
+<td>启动已有的容器</td>
+<td>docker start</td>
+<td>同docker命令</td>
+<td>ctr task start</td>
+<td>crictl start</td>
+</tr>
+<tr>
+<td>关闭已有的容器</td>
+<td>docker stop</td>
+<td>同docker命令</td>
+<td>ctr task kill</td>
+<td>crictl stop</td>
+</tr>
+<tr>
+<td>删除容器</td>
+<td>docker rm</td>
+<td>同docker命令</td>
+<td>ctr container rm</td>
+<td>crictl rm</td>
+</tr>
+<tr>
+<td>查看容器详情</td>
+<td>docker inspect</td>
+<td>同docker命令</td>
+<td>ctr container info</td>
+<td>crictl inspect</td>
+</tr>
+<tr>
+<td>查看容器日志</td>
+<td>docker logs</td>
+<td>同docker命令</td>
+<td>无</td>
+<td>crictl logs</td>
+</tr>
+<tr>
+<td>查看容器资源</td>
+<td>docker stats</td>
+<td>同docker命令</td>
+<td>无</td>
+<td>crictl stats</td>
+</tr>
+<tr>
+<td>登录或在容器内部执行命令</td>
+<td>docker exec</td>
+<td>同docker命令</td>
+<td>无</td>
+<td>crictl exec</td>
+</tr>
+<tr>
+<td>清空不用的容器</td>
+<td>docker image prune</td>
+<td>同docker命令</td>
+<td>无</td>
+<td>crictl rmi –prune</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>pod相关</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>docker</th>
+<th>nerdctl</th>
+<th>ctr（containerd）</th>
+<th>crictl（kubernetes）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>显示pod列表</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>crictl pods</td>
+</tr>
+<tr>
+<td>查看pod详情</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>crictl inspectp pod的id号</td>
+</tr>
+</tbody></table>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-12-19</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/containerd/'>
+                            containerd
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

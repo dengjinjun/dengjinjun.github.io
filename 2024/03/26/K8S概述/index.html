@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="K8s概述" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            K8s概述
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#K8s%E6%9E%B6%E6%9E%84"><span class="post-toc-text">K8s架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Master-Node"><span class="post-toc-text">Master Node</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Worker-Node"><span class="post-toc-text">Worker Node</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#K8s%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="post-toc-text">K8s基本工作流程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#K8s%E9%83%A8%E7%BD%B2"><span class="post-toc-text">K8s部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Master%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Master部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Node%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Node部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BD%91%E7%BB%9C%E6%8F%92%E4%BB%B6%E9%83%A8%E7%BD%B2"><span class="post-toc-text">网络插件部署</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>Kubernetes简称k8s，是用于管理容器化应用程序集群的工具，是一个容器编排工具。</p>
+<p>说起容器编排，像Docker的Compose或者是Docker-Swarm都提供了简单的容器编排的能力，它们的通病就是过于以Docker核心，提供的能力也过于简单比如定义谁先启动谁后启动，无法满足比较复杂的场景。而K8S的容器编排设计是站在更高的维度，可以协调地将许多微服务组合在一起构成了应用程序，并且自动且持续地监视集群并对其组成进行调整。</p>
+<h2 id="K8s架构"><a href="#K8s架构" class="headerlink" title="K8s架构"></a>K8s架构</h2><p><strong>很重要的架构图</strong></p>
+<p>Master Node是主节点，它负责管理Worker Node（工作节点）。Master Node 通过API Server从CLI（命令行界面）或UI（用户界面）接收命令输入。在生产中通常会有多个Master Node以实现K8s系统服务高可用。</p>
+<p>其实K8s官方并没有Master Node这一说，只是大多数安装工具（kubeadm）或者脚本为了架构更明了会把所有组件安装到一台机器上即Master机器，并且不会在此机器上运行用户容器。 这不是强制性的，所以也可以对这些控制组件实行分布式部署，不过这样的话高可用会是一个不小的挑战。</p>
+<p><a href="/../pic/1460000022973860.png" title="标准kubernetes集群的架构图" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1460000022973860.png" alt="标准kubernetes集群的架构图"></a></p>
+<h3 id="Master-Node"><a href="#Master-Node" class="headerlink" title="Master Node"></a>Master Node</h3><p>在Master Node上通常包括 API Server、etcd 存储、Controller-manager、Scheduler、cloud-controller-manager（云控制中心，可选，用于云产品）和用于 K8s 服务的 DNS 服务器（插件）。</p>
+<blockquote>
+<p><strong>API Server</strong></p>
+</blockquote>
+<p>API Server是用户唯一可以直接进行交互的K8s组件，它为K8s集群资源操作提供唯一入口，并提供认证、授权、访问控制、API 注册和发现机制。</p>
+<blockquote>
+<p><strong>ControllerManager</strong></p>
+</blockquote>
+<p>ControllerManager是控制器，它可以实时监控集群中如Service等各种资源的状态变化，不断尝试将它们维持在一个期望的状态。</p>
+<p>k8s在后台运行许多不同的控制器进程，包括：</p>
+<ul>
+<li><p>节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应</p>
+</li>
+<li><p>任务控制器（Job controller）: 监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成</p>
+</li>
+<li><p>端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)</p>
+</li>
+<li><p>服务帐户和令牌控制器（Service Account &amp; Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌</p>
+</li>
+</ul>
+<p>从逻辑上讲，每个控制器都是一个单独的进程， 但是为了降低复杂性，它们都被编译到同一个可执行文件，并在一个进程中运行。</p>
+<blockquote>
+<p><strong>cloud-controller-manager</strong></p>
+</blockquote>
+<p>cloud-controller-manager是云控制器，是可选的组件，它可以将集群连接到云提供商的 API 之上，大多数非混合的云环境是用不到这个组件的。它与ControllerManager类似，将若干逻辑上独立的控制回路组合到同一个可执行文件中，以同一进程的方式运行。</p>
+<blockquote>
+<p><strong>kube-scheduler</strong></p>
+</blockquote>
+<p>kube-scheduler是调度器， 负责监视新创建、未指定运行Node的 Pods，决策出一个让pod运行的节点。</p>
+<p>例如，如果应用程序需要 1GB 内存和 2 个 CPU 内核，那么该应用程序的 pod 将被安排在至少具有这些资源的节点上。每次需要调度 pod 时，调度程序都会运行。调度程序必须知道可用的总资源以及分配给每个节点上现有工作负载的资源。</p>
+<p>调度决策考虑的因素包括单个 Pod 和 Pod 集合的资源需求、硬件&#x2F;软件&#x2F;策略约束、亲和性和反亲和性规范、数据位置、工作负载间的干扰和最后时限。</p>
+<blockquote>
+<p><strong>etcd</strong></p>
+</blockquote>
+<p>etcd 是兼具一致性和高可用性的键值数据库，可以作为保存 K8s 所有集群数据的后台数据库。 在生产级k8s中的etcd通常会以集群的方式存在，安全原因，它只能从 API 服务器访问。</p>
+<h3 id="Worker-Node"><a href="#Worker-Node" class="headerlink" title="Worker Node"></a>Worker Node</h3><p>和MasterNode类似，WorkerNode本质也并不是一个独立的应用程序，它包含 Kubelet 、kube-porxy 以及服务于pod的容器运行时(runtime)。当然也会有外部storage与registry用于为容器提供存储与镜像仓库服务。</p>
+<blockquote>
+<p><strong>kubelet</strong></p>
+</blockquote>
+<p>kubelet是集群中每个Worker Node上都运行的代理。它监视从API Server发送来的任务，执行任务并报告给主节点。它还会监视Pod，确保 pod 及容器健康并以所需状态运行。该组件还向 API Server 报告运行它的主机的健康状况。</p>
+<p>kubelet 不会管理不是由 K8s 创建的容器。</p>
+<blockquote>
+<p><strong>kube-proxy</strong></p>
+</blockquote>
+<p>kube-proxy是集群中每个Worker Node上都运行的网络代理。它用于处理单个主机子网划分并向外部公开服务。</p>
+<p>kube-proxy 维护节点上的网络规则。这些网络规则允许从集群内部或外部的网络会话与 Pod 进行网络通信。</p>
+<blockquote>
+<p><strong>容器运行时（Container Runtime）</strong></p>
+</blockquote>
+<p>容器运行时负责创建容器运行环境。</p>
+<p>Kubernetes 支持多个容器运行时: Docker（即将被废弃）、containerd、CRI-O以及任何实现 <a href="https://link.juejin.cn/?target=https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md">Kubernetes CRI (容器运行环境接口)</a>的runtime。</p>
+<h3 id="K8s基本工作流程"><a href="#K8s基本工作流程" class="headerlink" title="K8s基本工作流程"></a>K8s基本工作流程</h3><ol>
+<li><p>kubectl 客户端首先将CLI命令转化为RESTful的API调用，然后发送到kube-apiserver。</p>
+</li>
+<li><p>kube-apiserver 在验证这些 API 调用后，将任务元信息并存储到etcd，接着调用 kube-scheduler 开始决策一个用于作业的Node节点。</p>
+</li>
+<li><p>一旦 kube-scheduler 返回一个适合调度的目标节点后，kube-apiserver 就把任务的节点信息存入etcd，并创建任务。</p>
+</li>
+<li><p>此时目标节点中的 kubelet正监听apiserver，当监听到有新任务需要调度到本节点后，kubelet通过本地runtime创建任务容器，执行作业。</p>
+</li>
+<li><p>接着kubelet将任务状态等信息返回给apiserver存储到etcd。</p>
+</li>
+<li><p>这样我们的任务已经在运行了，此时control-manager发挥作用保证任务一直是我们期望的状态</p>
+</li>
+</ol>
+<h2 id="K8s部署"><a href="#K8s部署" class="headerlink" title="K8s部署"></a>K8s部署</h2><h3 id="Master部署"><a href="#Master部署" class="headerlink" title="Master部署"></a>Master部署</h3><blockquote>
+<p><strong>etcd部署</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">[root@master ~]$ yum install etcd -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看文件</span></span><br><span class="line">[root@master ~]$ rpm -ql etcd</span><br><span class="line">/etc/etcd</span><br><span class="line">/etc/etcd/etcd.conf</span><br><span class="line">/usr/bin/etcd</span><br><span class="line">/usr/bin/etcdctl</span><br><span class="line">/usr/lib/systemd/system/etcd.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改配置文件，主要是修改etcd的客户端监听地址，以便之后安装的网络插件flannel组件可以访问</span></span><br><span class="line">[root@master etcd]$ vim etcd.conf</span><br><span class="line"></span><br><span class="line">ETCD_LISTEN_CLIENT_URLS=<span class="string">&quot;http://0.0.0.0:2379&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@master ~]$ systemctl <span class="built_in">enable</span> etcd</span><br><span class="line">[root@master ~]$ systemctl start etcd</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">etcdctl --<span class="built_in">help</span>		<span class="comment"># etcdctl是etcd数据库的命令行工具</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意：etcd是一个key/value型的数据库，里面的key被抽象为两种形式：文件和目录</span></span><br><span class="line"></span><br><span class="line">	 backup          备份一个etcd数据库</span><br><span class="line">     cluster-health  检查数据库的健康状况</span><br><span class="line">     mk              创建一个新的键值对：etcdctl mk &lt;key&gt; &lt;value&gt;</span><br><span class="line">     <span class="built_in">mkdir</span>           创建一个新的目录：etcdctl <span class="built_in">mkdir</span> &lt;key&gt;</span><br><span class="line">     <span class="built_in">rm</span>              移除一个键值对或目录： etcdctl <span class="built_in">rm</span> &lt;key&gt;</span><br><span class="line">     <span class="built_in">rmdir</span>           移除一个空目录或者键值对：etcdctl <span class="built_in">rmdir</span> &lt;key&gt;</span><br><span class="line">     get             根据键名检索键值：etcdctl get &lt;key&gt;</span><br><span class="line">     <span class="built_in">ls</span>              检索目录</span><br><span class="line">     <span class="built_in">set</span>             给键名设置一个键值：etcdctl <span class="built_in">set</span> &lt;key&gt; &lt;value&gt;</span><br><span class="line">     update          更新一个已存在的键名的键值：etcdctl update &lt;key&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>master部署</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装kubernetes-master，会附带kubernetes-client(即kube-ctl)</span></span><br><span class="line">[root@master kubernetes]$ yum install -y kubernetes-master</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看文件，发现包含了apiserver、controller-manager、scheduler三部分</span></span><br><span class="line">[root@master kubernetes]$ rpm -ql kubernetes-master </span><br><span class="line">/etc/kubernetes</span><br><span class="line">/etc/kubernetes/apiserver</span><br><span class="line">/etc/kubernetes/config</span><br><span class="line">/etc/kubernetes/controller-manager</span><br><span class="line">/etc/kubernetes/scheduler</span><br><span class="line">/run/kubernetes</span><br><span class="line">/usr/bin/hyperkube</span><br><span class="line">/usr/bin/kube-apiserver</span><br><span class="line">/usr/bin/kube-controller-manager</span><br><span class="line">/usr/bin/kube-scheduler</span><br><span class="line">/usr/lib/systemd/system/kube-apiserver.service</span><br><span class="line">/usr/lib/systemd/system/kube-controller-manager.service</span><br><span class="line">/usr/lib/systemd/system/kube-scheduler.service</span><br><span class="line">/usr/lib/tmpfiles.d/kubernetes.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑apisever的配置文件，主要修改以下内容</span></span><br><span class="line">[root@master kubernetes]$ vim apiserver </span><br><span class="line"></span><br><span class="line"><span class="comment"># apiserver监听的地址</span></span><br><span class="line">KUBE_API_ADDRESS=<span class="string">&quot;--insecure-bind-address=0.0.0.0&quot;</span></span><br><span class="line"><span class="comment"># 本地apiserver的监听端口，默认值无需改动</span></span><br><span class="line"><span class="comment"># KUBE_API_PORT=&quot;--port=8080&quot;</span></span><br><span class="line"><span class="comment"># etcd集群的地址</span></span><br><span class="line">KUBE_ETCD_SERVERS=<span class="string">&quot;--etcd-servers=http://127.0.0.1:2379&quot;</span></span><br><span class="line"><span class="comment"># 集群服务资源的地址范围</span></span><br><span class="line">KUBE_SERVICE_ADDRESSES=<span class="string">&quot;--service-cluster-ip-range=10.254.0.0/16&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑master的配置文件，主要修改以下内容</span></span><br><span class="line">[root@master kubernetes]$ vim config </span><br><span class="line"></span><br><span class="line"><span class="comment"># 将错误使出追加到系统日志</span></span><br><span class="line">KUBE_LOGTOSTDERR=<span class="string">&quot;--logtostderr=true&quot;</span></span><br><span class="line"><span class="comment"># 日志级别，0代表debug级别</span></span><br><span class="line">KUBE_LOG_LEVEL=<span class="string">&quot;--v=0&quot;</span></span><br><span class="line"><span class="comment"># 是否允许集群容器以特权模式运行</span></span><br><span class="line">KUBE_ALLOW_PRIV=<span class="string">&quot;--allow-privileged=false&quot;</span></span><br><span class="line"><span class="comment"># 本地的master组件怎么发现apiserver，此处是apisever的地址</span></span><br><span class="line">KUBE_MASTER=<span class="string">&quot;--master=http://127.0.0.1:8080&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">[root@master kubernetes]$ systemctl <span class="built_in">enable</span> kube-apiserver kube-controller-manager kube-scheduler</span><br><span class="line">[root@master kubernetes]$ systemctl start kube-apiserver kube-controller-manager kube-scheduler</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看健康状态，cs的意思是componentstatuses，组件状态，有返回说明apisever组件的状态也是健康的</span></span><br><span class="line">[root@master kubernetes]$ kubectl get cs</span><br><span class="line">NAME                 STATUS    MESSAGE             ERROR</span><br><span class="line">etcd-0               Healthy   &#123;<span class="string">&quot;health&quot;</span>:<span class="string">&quot;true&quot;</span>&#125;   </span><br><span class="line">scheduler            Healthy   ok                  </span><br><span class="line">controller-manager   Healthy   ok  </span><br></pre></td></tr></table></figure>
+
+<h3 id="Node部署"><a href="#Node部署" class="headerlink" title="Node部署"></a>Node部署</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装kubernetes-node，会附带kubernetes-client(即kube-ctl)</span></span><br><span class="line">[root@node1 ~]$ yum install kubernetes-node -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看软件包，分为kubenet、proxy两部分</span></span><br><span class="line">[root@node1 ~]$ rpm -ql kubernetes-node </span><br><span class="line">/etc/kubernetes</span><br><span class="line">/etc/kubernetes/config</span><br><span class="line">/etc/kubernetes/kubelet</span><br><span class="line">/etc/kubernetes/proxy</span><br><span class="line">/etc/systemd/system.conf.d/kubernetes-accounting.conf</span><br><span class="line">/run/kubernetes</span><br><span class="line">/usr/bin/hyperkube</span><br><span class="line">/usr/bin/kube-proxy</span><br><span class="line">/usr/bin/kubelet</span><br><span class="line">/usr/lib/systemd/system/kube-proxy.service</span><br><span class="line">/usr/lib/systemd/system/kubelet.service</span><br><span class="line">/usr/lib/tmpfiles.d/kubernetes.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑node的配置文件，主要修改apiserver的地址</span></span><br><span class="line">[root@node1 kubernetes]$ vim config </span><br><span class="line"></span><br><span class="line"><span class="comment"># apiserver的地址</span></span><br><span class="line">KUBE_MASTER=<span class="string">&quot;--master=http://192.168.110.160:8080&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑kubelet的配置文件</span></span><br><span class="line">[root@node1 kubernetes]$ vim kubelet </span><br><span class="line"></span><br><span class="line"><span class="comment"># kubelet的地址，此处是本地</span></span><br><span class="line">KUBELET_ADDRESS=<span class="string">&quot;--address=127.0.0.1&quot;</span></span><br><span class="line"><span class="comment"># kubelet的端口，默认无需修改</span></span><br><span class="line"><span class="comment"># KUBELET_PORT=&quot;--port=10250&quot;</span></span><br><span class="line"><span class="comment"># 使用IP地址覆盖主机名，也可以留空，使用真实主机名</span></span><br><span class="line">KUBELET_HOSTNAME=<span class="string">&quot;--hostname-override=192.168.110.161&quot;</span></span><br><span class="line"><span class="comment"># apiserver的地址</span></span><br><span class="line">KUBELET_API_SERVER=<span class="string">&quot;--api-servers=http://192.168.110.160:8080&quot;</span></span><br><span class="line"><span class="comment"># pod infrastructure container</span></span><br><span class="line">KUBELET_POD_INFRA_CONTAINER=<span class="string">&quot;--pod-infra-container-image=registry.access.redhat.com/rhel7/pod-infrastructure:latest&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">[root@node1 kubernetes]$ systemctl <span class="built_in">enable</span> kubelet kube-proxy</span><br><span class="line">[root@node1 kubernetes]$ systemctl start kubelet kube-proxy</span><br><span class="line"></span><br><span class="line"><span class="comment"># master节点可以查看node节点信息</span></span><br><span class="line">[root@master kubernetes]$ kubectl get node</span><br><span class="line">NAME              STATUS    AGE</span><br><span class="line">192.168.110.161   Ready     14m</span><br><span class="line">192.168.110.162   Ready     2m</span><br><span class="line">192.168.110.163   Ready     1m</span><br><span class="line">192.168.110.164   Ready     49s</span><br></pre></td></tr></table></figure>
+
+<p>补充：上面说到kubelet可以监控容器的健康状态，这是因为kubelet中内置了cadvisor，浏览器访问<code>http://node节点IP:4194</code>可以查看</p>
+<h3 id="网络插件部署"><a href="#网络插件部署" class="headerlink" title="网络插件部署"></a>网络插件部署</h3><p>网络插件使用的是flannel，所有节点都需要安装并启动</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">[root@node1 kubernetes]$ yum install -y flannel</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看文件</span></span><br><span class="line">[root@node1 kubernetes]$ rpm -ql flannel</span><br><span class="line">/etc/sysconfig/flanneld</span><br><span class="line">/run/flannel</span><br><span class="line">/usr/bin/flanneld</span><br><span class="line">/usr/bin/flanneld-start</span><br><span class="line">/usr/lib/systemd/system/docker.service.d/flannel.conf</span><br><span class="line">/usr/lib/systemd/system/flanneld.service</span><br><span class="line">/usr/lib/tmpfiles.d/flannel.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改配置文件，主要是两行内容</span></span><br><span class="line">[root@node1 sysconfig]$ vim flanneld </span><br><span class="line"></span><br><span class="line"><span class="comment"># etcd 数据库的地址</span></span><br><span class="line">FLANNEL_ETCD_ENDPOINTS=<span class="string">&quot;http://192.168.110.160:2379&quot;</span></span><br><span class="line"><span class="comment"># etcd数据库中要存储网络相关的配置，所以要创建键值对，此处是指定键值对的键名的前缀</span></span><br><span class="line">FLANNEL_ETCD_PREFIX=<span class="string">&quot;/atomic.io/network&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在master节点创建etcd的键值对，配置网络</span></span><br><span class="line">etcdctl mk /atomic.io/network/config <span class="string">&#x27;&#123;&quot;Network&quot;:&quot;172.18.0.0/16&quot;,&quot;Backend&quot;:&#123;&quot;Type&quot;:&quot;vxlan&quot;&#125;&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动，注意：工作节点需要重启docker才能更新网络配置</span></span><br><span class="line">[root@master etcd]$ systemctl <span class="built_in">enable</span> flanneld.service </span><br><span class="line">[root@master etcd]$ systemctl start flanneld.service </span><br></pre></td></tr></table></figure>
+
+<p>注意：部署网络插件之后，在不同节点运行容器可能无法互相ping通，这可能是因为默认的转发策略是DROP，需要修改为ACCEPT，解决方法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 修改宿主机的转发规则</span></span><br><span class="line">iptables -P FORWARD ACCEPT</span><br><span class="line">iptables-save &gt; /etc/sysconfig/iptables</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 修改docker的启动脚本，在[Service]区域内增加一行，在启动前执行一条iptables命令，修改转发规则</span></span><br><span class="line">vim /usr/lib/systemd/system/docker.service</span><br><span class="line">ExecStartPost=/usr/sbin/iptables -P FORWARD ACCEPT</span><br><span class="line">systemctl daemon-reload &amp;&amp; systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-03-26</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8S/'>
+                            K8S
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Django" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Django
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%88%9D%E8%AF%86Django"><span class="post-toc-text">初识Django</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85Django"><span class="post-toc-text">安装Django</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="post-toc-text">创建项目</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AE%A4%E8%AF%86%E9%A1%B9%E7%9B%AE"><span class="post-toc-text">认识项目</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%BB%98%E8%AE%A4%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">默认项目中的文件介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#APP"><span class="post-toc-text">APP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%90%AF%E5%8A%A8Django%E9%A1%B9%E7%9B%AE"><span class="post-toc-text">启动Django项目</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#templates%E7%9B%AE%E5%BD%95"><span class="post-toc-text">templates目录</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#static%E7%9B%AE%E5%BD%95"><span class="post-toc-text">static目录</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%A8%A1%E6%9D%BF%E8%AF%AD%E6%B3%95"><span class="post-toc-text">模板语法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%85%B3%E4%BA%8E%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82"><span class="post-toc-text">关于网络请求</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%EF%BC%88ORM%EF%BC%89"><span class="post-toc-text">数据库操作（ORM）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E5%92%8C%E8%BF%9E%E6%8E%A5"><span class="post-toc-text">安装和连接</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="post-toc-text">操作数据表</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%93%8D%E4%BD%9C%E8%A1%A8%E7%BB%93%E6%9E%84"><span class="post-toc-text">操作表结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%BF%9E%E8%A1%A8%E6%93%8D%E4%BD%9C"><span class="post-toc-text">连表操作</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%93%8D%E4%BD%9C%E8%A1%A8%E4%B8%AD%E6%95%B0%E6%8D%AE"><span class="post-toc-text">操作表中数据</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%A8%A1%E6%9D%BF%E7%9A%84%E7%BB%A7%E6%89%BF"><span class="post-toc-text">模板的继承</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="初识Django"><a href="#初识Django" class="headerlink" title="初识Django"></a>初识Django</h1><h2 id="安装Django"><a href="#安装Django" class="headerlink" title="安装Django"></a>安装Django</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install django</span><br></pre></td></tr></table></figure>
+
+<p>安装好Django模块之后，python目录下会增加几个文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Python</span><br><span class="line">	-python.exe</span><br><span class="line">	-Scripts</span><br><span class="line">		-pip.exe</span><br><span class="line">		-django-admin.exe		工具，用于创建Django项目中的文件和文件夹</span><br><span class="line">	-Lib</span><br><span class="line">		-内置模块</span><br><span class="line">		-site-packages</span><br><span class="line">			-openpyxl</span><br><span class="line">			-flask</span><br><span class="line">			-django				框架的源码</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>Django项目中会有一些默认的文件和文件夹,需要利用工具去生成</p>
+<ul>
+<li><p>在终端创建</p>
+<ul>
+<li><p>打开终端</p>
+</li>
+<li><p>进入项目想要存放的目录</p>
+</li>
+<li><p>执行命令创建</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;django-admin.exe的文件地址&quot; startproject 新建项目的名称</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>使用pycharm创建</p>
+<p>存在一些问题，需要修改</p>
+</li>
+</ul>
+<h2 id="认识项目"><a href="#认识项目" class="headerlink" title="认识项目"></a>认识项目</h2><h3 id="默认项目中的文件介绍"><a href="#默认项目中的文件介绍" class="headerlink" title="默认项目中的文件介绍"></a>默认项目中的文件介绍</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysite</span><br><span class="line">	-manage.py				【项目的管理、启动项目、创建app、数据管理】(经常用到，需要修改)</span><br><span class="line">	-mysite</span><br><span class="line">		-__init__.py</span><br><span class="line">		-settings.py		【项目配置】(常常修改)</span><br><span class="line">		-urls.py			【建立url和函数的对应关系】(常常修改)</span><br><span class="line">		-asgi.py			【接收网络请求】(不修改)</span><br><span class="line">		-wsgi.py			【接收网络请求】(不修改)</span><br></pre></td></tr></table></figure>
+
+<h3 id="APP"><a href="#APP" class="headerlink" title="APP"></a>APP</h3><p>APP是Django项目中的一个独立结构，可以分管不同的功能，开发大型Django项目时，需要创建多个独立APP。</p>
+<ul>
+<li><p>创建APP</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py startapp app01</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>认识项目目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">├─app01</span><br><span class="line">│  │  admin.py				【不用动】django默认提供了admin后台管理</span><br><span class="line">│  │  apps.py				【不用动】app启动类</span><br><span class="line">│  │  models.py				【重要】对数据库进行操作</span><br><span class="line">│  │  tests.py				【不用动】单元测试</span><br><span class="line">│  │  views.py				【重要】函数相关</span><br><span class="line">│  │  __init__.py</span><br><span class="line">│  └─migrations				【不用动】数据库变更记录</span><br><span class="line">          __init__.py</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注册APP</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">需要在项目的settings.py文件中INSTALLED_APPS变量列表中写入app01.apps.App01Config</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写url和视图函数的对应关系</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">需要在项目的urls.py文件中的urlpatterns变量列表中写入url和视图函数的对应关系（确保views已导入）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写视图函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将函数写入views.py文件中，注意函数存在默认参数request</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="启动Django项目"><a href="#启动Django项目" class="headerlink" title="启动Django项目"></a>启动Django项目</h3><ul>
+<li><p>命令行启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pycharm启动</p>
+</li>
+</ul>
+<h3 id="templates目录"><a href="#templates目录" class="headerlink" title="templates目录"></a>templates目录</h3><p>Django项目中的HTML模板文件需要放在app目录下的templates目录中，这样才能被函数找到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return render(request, &quot;index.html&quot;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="static目录"><a href="#static目录" class="headerlink" title="static目录"></a>static目录</h3><p>Django项目中的静态文件（img，css, js, plugins）需要放在app目录下的static目录中</p>
+<p>HTML页面引入静态文件时，需要在文件头写上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% load static %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在具体引入位置的url中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% static &#x27;url地址&#x27; %&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="模板语法"><a href="#模板语法" class="headerlink" title="模板语法"></a>模板语法</h1><p>模板语法是Django框架提供给python的编程规则，浏览器并不能解析含有模板语法的HTML文件。Django中视图函数的render内部会先读取到含有模板语法的HTML文件，在内部进行渲染（执行模板语法并替换数据），最终得到只含有HTML标签的字符串，再返还给浏览器。本质上是在HTML文件中写一些占位符，由数据对这些占位符进行替换和处理。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">n1 = &quot;张三&quot;</span><br><span class="line">n2 = [&quot;张三&quot;, &quot;李四&quot;, &quot;王五&quot;]</span><br><span class="line">n3 = &#123;&quot;id&quot;:1, &quot;name&quot;:&quot;邓胖胖&quot;, &quot;pwd&quot;:&quot;111&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>单个变量</strong></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123; n1 &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span>			&quot;张三&quot;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123; n2 &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span>			[&quot;张三&quot;, &quot;李四&quot;, &quot;王五&quot;]</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123; n2.0 &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span>		&quot;张三&quot;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123; id &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span>			1</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123; n3.name &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span>	&quot;邓胖胖&quot;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>循环</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for item in n2 %&#125;</span><br><span class="line">	&lt;span&gt;&#123;&#123;item&#125;&#125;&lt;/span&gt;</span><br><span class="line">&#123;&#123;% endfor %&#125;&#125;				张三 李四 王五</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">    &#123;% for k,v in n3 %&#125;</span><br><span class="line">    &lt;li&gt;&#123;&#123; k &#125;&#125;,&#123;&#123; v &#125;&#125;&lt;/li&gt;</span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">id,1</span><br><span class="line">name,邓胖胖</span><br><span class="line">pwd,111</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>条件语句</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if n1 == &quot;张三&quot; %&#125;</span><br><span class="line">	&lt;p&gt;1&lt;/p&gt;</span><br><span class="line">&#123;% elif n1 == &quot;李四&quot; %&#125;</span><br><span class="line">	&lt;p&gt;2&lt;/p&gt;</span><br><span class="line">&#123;% else %&#125;</span><br><span class="line">	&lt;p&gt;3&lt;/p&gt;</span><br><span class="line">&#123;% endif %&#125;	</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<p>HTML文件中使用python语句要用到模板，但是模板语法跟正常python语法有一些不同, 比如：</p>
+<ol>
+<li><p>不能出现<code>()</code>,模板语法会自动添加</p>
+</li>
+<li><p>时间转换，datetime类型的时间转换为字符串：<code>t1|date:&quot;Y-m-d H:i:s&quot;</code></p>
+</li>
+</ol>
+<h1 id="关于网络请求"><a href="#关于网络请求" class="headerlink" title="关于网络请求"></a>关于网络请求</h1><p>request是一个对象，封装了用户发送的所有请求相关数据</p>
+<ul>
+<li>请求</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(request.method)	<span class="comment"># 获取请求方式</span></span><br><span class="line"><span class="built_in">print</span>(request.GET)		<span class="comment"># 获取url上传递的值</span></span><br><span class="line"><span class="built_in">print</span>(request.POST)		<span class="comment"># 获取请求体中传递的值</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>响应</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> HttpResponse(<span class="string">&quot;返回内容&quot;</span>)						<span class="comment"># HttpResponse方式返还给请求者一个字符串</span></span><br><span class="line"><span class="keyword">return</span> render(request, <span class="string">&quot;index.html&quot;</span>, &#123;<span class="string">&quot;title&quot;</span>:<span class="string">&quot;标题&quot;</span>&#125;)	<span class="comment"># render方式返还给请求者一个渲染过的HTML文本</span></span><br><span class="line"><span class="keyword">return</span> redirect(<span class="string">&quot;https://www.baidu.com&quot;</span>)				<span class="comment"># 让浏览器重定向到其他页面</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Django框架对于获取请求体传递的值时，有一层保护机制</p>
+<p>在HTML文件的表单中添加<code>&#123;% csrf_token %&#125;</code>可以解决</p>
+</blockquote>
+<h1 id="数据库操作（ORM）"><a href="#数据库操作（ORM）" class="headerlink" title="数据库操作（ORM）"></a>数据库操作（ORM）</h1><p>python代码通过数据库相关的模块（如pymysql）可以操作数据库，但是在Django框架中显得繁琐，Django框架内部提供了操作数据库的框架：ORM框架。</p>
+<p>ORM的作用相当于在python代码和数据库相关的模块（mysqlclient等）之间桥梁，或是充当翻译，可以使沟通更加便捷，从而使代码编写更简单。</p>
+<p>ORM可以做两件事：</p>
+<blockquote>
+<p>创建、修改、删除数据库中的表。[不能创建数据库]</p>
+<p>操作表中的数据</p>
+</blockquote>
+<p>所以使用ORM时，必须要有提前创建好的数据库。</p>
+<h2 id="安装和连接"><a href="#安装和连接" class="headerlink" title="安装和连接"></a>安装和连接</h2><ul>
+<li><p>安装数据库模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install mysqlclient</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Django连接MySQL</p>
+<p>在settings.py文件中配置和修改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DATABASES =&#123;</span><br><span class="line">	<span class="string">&#x27;default&#x27;</span>: &#123;					<span class="comment"># 默认连接的数据库</span></span><br><span class="line">		<span class="string">&#x27;ENGINE&#x27;</span>: <span class="string">&#x27;django.db.backends.mysql&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;NAME&#x27;</span>: <span class="string">&#x27;db_1&#x27;</span>, 			<span class="comment"># 数据库名字</span></span><br><span class="line">		<span class="string">&#x27;USER&#x27;</span>: <span class="string">&#x27;root&#x27;</span>,				<span class="comment"># 用户名</span></span><br><span class="line">		<span class="string">&#x27;PASSWORD&#x27;</span>: <span class="string">&#x27;root123&#x27;</span>,		<span class="comment"># 密码</span></span><br><span class="line">		<span class="string">&#x27;HOST&#x27;</span>: <span class="string">&#x27;127.0.0.1&#x27;</span>, 		<span class="comment"># 哪台机器安装了MySQL</span></span><br><span class="line">		<span class="string">&#x27;PORT&#x27;</span>: <span class="number">3306</span>,				<span class="comment"># 端口号</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="操作数据表"><a href="#操作数据表" class="headerlink" title="操作数据表"></a>操作数据表</h2><h3 id="操作表结构"><a href="#操作表结构" class="headerlink" title="操作表结构"></a>操作表结构</h3><blockquote>
+<p>首先，需要在models.py文件中进行操作</p>
+<p>其次，需要在终端执行更新命令</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations</span><br><span class="line">python manage.py migrate</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在models.py中添加类</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UserInfo</span>(models.Model):</span><br><span class="line">	name = models.CharField(max_length=<span class="number">32</span>)			<span class="comment"># 字段名 = 数据类型(最大长度)</span></span><br><span class="line">	password = models.CharField(max_length=<span class="number">64</span>)</span><br><span class="line">	age = models.IntegerField()</span><br><span class="line"><span class="comment"># 这样可以创建一个数据表，表名为 APP名称_类名的小写，如app01_userinfo</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在终端中输入命令用于更新数据库(app需要提前注册)</li>
+</ul>
+<blockquote>
+<p>删除表和删除字段时，在models.py文件中把类给注释掉，然后执行终端执行两行命令就可以</p>
+<p>添加字段时，要考虑到新增字段的数据问题</p>
+<ul>
+<li>可以选择默认值</li>
+</ul>
+<p> age &#x3D; models.IntegerField(default&#x3D;18)</p>
+<ul>
+<li>可以允许为空</li>
+</ul>
+<p> age &#x3D; models.IntegerField(null&#x3D;True, blank&#x3D;True)</p>
+<p>否则在终端输入命令时，会让再次选择手动输入默认值或者退出</p>
+</blockquote>
+<h3 id="连表操作"><a href="#连表操作" class="headerlink" title="连表操作"></a>连表操作</h3><p>数据库中的两张表有关联，比如已经存在的用户表<code>userinfo</code>，包含<code>id</code>，<code>用户名</code>，<code>密码</code>，<code>年龄</code>四个字段。</p>
+<p>另要新建一张关注表，要求其中一个字段<code>关注人</code>,必须是用户表中的用户，可以与用户表的<code>id</code>相关联</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">concern_er=models.ForeignKey(to=<span class="string">&#x27;userinfo&#x27;</span>, to_filed=<span class="string">&#x27;id&#x27;</span>, on_delete=models.CASCADE)</span><br><span class="line"><span class="comment"># to代表与哪张表关联,to_filed代表与哪个字段相关联，models.CASCADE代表级联删除</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以不采用级联删除的方式，若用户被删除，则与其相关的这条字段置空</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">concern_er=models.ForeignKey(to=<span class="string">&#x27;userinfo&#x27;</span>, to_filed=<span class="string">&#x27;id&#x27;</span>,null=<span class="literal">True</span>,blank=<span class="literal">True</span>, on_delete=models.SET_NULL)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="操作表中数据"><a href="#操作表中数据" class="headerlink" title="操作表中数据"></a>操作表中数据</h2><blockquote>
+<p>注意：在函数中操作表中数据时，需要先导入类 </p>
+</blockquote>
+<ul>
+<li><p>新增数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">表名.objects.create(字段名=值,字段名=值,字段名=值)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 比如：</span></span><br><span class="line">userinfo.objects.create(name=<span class="string">&quot;张三&quot;</span>, password=<span class="string">&quot;123&quot;</span>,age=<span class="number">18</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">表名.objects.<span class="built_in">filter</span>(条件).delete()		<span class="comment"># 删除指定数据，条件一般是id</span></span><br><span class="line">表名.objects.<span class="built_in">all</span>().delete()			<span class="comment"># 删除全部数据</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 比如：</span></span><br><span class="line">userinfo.<span class="built_in">object</span>.<span class="built_in">filter</span>(<span class="built_in">id</span>=<span class="number">3</span>).delete()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data_list = 表名.objects.<span class="built_in">filter</span>(条件)</span><br><span class="line">data_list = 表名.objects.<span class="built_in">all</span>()</span><br><span class="line"><span class="comment"># 得到的是一个Queryset类型的对象，形式类似于列表，列表中也是多个对象，封装了每一行的数据</span></span><br><span class="line"><span class="comment"># 如果加上.exists()就可以获得一个布尔值，存在为True，不存在为False</span></span><br><span class="line"><span class="comment"># 如果加上.count()就可以获得数字，搜索出来的总条目数</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># data_list里面封装的对象可以通过循环获得，比如：</span></span><br><span class="line"><span class="keyword">for</span> obj <span class="keyword">in</span> data_list:</span><br><span class="line">    <span class="built_in">print</span>(obj.<span class="built_in">id</span>, obj.name, obj.age)</span><br><span class="line">   </span><br><span class="line"><span class="comment"># 如果加上.first()就可以获得列表里的第一个对象</span></span><br><span class="line">row_obj = 表名.objects.<span class="built_in">filter</span>(条件).first()</span><br><span class="line"><span class="built_in">print</span>(row_obj.name, row_obj.age)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>排序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">表名.objects.all().order_by(&quot;字段名&quot;)	# 正向排序，从小到大</span><br><span class="line">表名.objects.all().order_by(&quot;-字段名&quot;)	# 逆向排序</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>修改数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">表名.objects.<span class="built_in">all</span>().update(字段名=值)</span><br><span class="line">表名.objects.<span class="built_in">filter</span>(条件).update(字段名=值)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 比如</span></span><br><span class="line">userinfo.<span class="built_in">object</span>.<span class="built_in">filter</span>(name=<span class="string">&quot;张三&quot;</span>).update(age=<span class="number">10</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="模板的继承"><a href="#模板的继承" class="headerlink" title="模板的继承"></a>模板的继承</h1><ul>
+<li><p>定义母版</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--母版的文件名：xx.html--&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>发帖页面<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	&#123;% block content %&#125;	&#123;% endblock %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>继承母版</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;% extend &#x27;xx.html&#x27; %&#125;</span><br><span class="line">	&#123;% block content %&#125;</span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>写入自定义内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-06-02</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Python/'>
+                            Python
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

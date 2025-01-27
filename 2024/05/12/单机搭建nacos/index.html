@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="单机搭建nacos" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            单机搭建nacos
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nacos%E7%AE%80%E4%BB%8B"><span class="post-toc-text">Nacos简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85JDK"><span class="post-toc-text">安装JDK</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85MySQL"><span class="post-toc-text">安装MySQL</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85nacos"><span class="post-toc-text">安装nacos</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="Nacos简介"><a href="#Nacos简介" class="headerlink" title="Nacos简介"></a>Nacos简介</h2><p>Nacos的全称是Dynamic Naming and Configuration Service，Na为naming&#x2F;nameServer即注册中心,co为configuration即注册中心，service是指该注册&#x2F;配置中心都是以服务为核心。Nacos是阿里旗下的一款开源产品，它主要针对微服务架构中的服务发现和配置管理。简单来说 Nacos 就是注册中心 + 配置中心的组合。</p>
+<blockquote>
+<p><strong>单体架构</strong></p>
+</blockquote>
+<p>单体架构所有的模块全都耦合在一块，所有的模块开发所使用的技术一样，所有的模块都共用一个数据库，存储方式比较单一代码量大，维护困难。</p>
+<blockquote>
+<p><strong>微服务</strong></p>
+</blockquote>
+<p>微服务架构就是把一个单体项目拆分为多个微小的服务,每个微服务可以在自己的进程中运行并与HTTP资源API进行通信。</p>
+<p>微服务每个模块都可以使用不同的存储方式（比如有的用redis，有的用mysql等），数据库也是单个模块对应自己的数据库。<br>单体架构微服务每个模块都可以使用不同的开发技术，开发模式更灵活。</p>
+<p><strong>微服务架构只是一个样式，一种风格；可以将一个项目，拆分成多个模块去开发；每一个模块都是单独运行在自己的容器中的；每个模块需要相互通讯（HTTP、MQ）；每一个模块之间没有依赖关系，都是单独部署；可以使用多种语言去开发不同模块；</strong></p>
+<blockquote>
+<p><strong>nacos架构</strong></p>
+</blockquote>
+<p>三个Nacos Server 组成一个集群，通过MySQL实现数据的持久化，Nacos的客户端通过Nginx负载均衡来访问到Nacos节点。</p>
+<p><a href="/../pic/7c43e30d96104c128e401007ee099a9d.png" title="在这里插入图片描述" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/7c43e30d96104c128e401007ee099a9d.png" alt="在这里插入图片描述"></a></p>
+<h2 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#  下载华为云镜像的jdk压缩包</span><br><span class="line">cd /opt &amp;&amp; wget https://repo.huaweicloud.com/java/jdk/8u202-b08/jdk-8u202-linux-x64.tar.gz</span><br><span class="line"></span><br><span class="line"># 创建jdk目录</span><br><span class="line">mkdir /usr/local/java &amp;&amp; cd /usr/local/java/</span><br><span class="line"></span><br><span class="line"># 解压到jdk目录</span><br><span class="line">tar -xf /opt/jdk-8u202-linux-x64.tar.gz -C /usr/local/java</span><br><span class="line"></span><br><span class="line"># 把解压文件移动到jdk目录</span><br><span class="line">mv jdk1.8.0_202/* ./ &amp;&amp; rmdir jdk1.8.0_202</span><br><span class="line"></span><br><span class="line"># 创建环境变量</span><br><span class="line">cat &gt;&gt; /etc/profile &lt;&lt; &#x27;EOF&#x27;</span><br><span class="line">export JAVA_HOME=/usr/local/java</span><br><span class="line">export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH</span><br><span class="line">export CLASSPATH=.$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib:$JAVA_HOME/lib/tools.jar</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">#  激活配置</span><br><span class="line">. /etc/profile</span><br><span class="line"></span><br><span class="line"># 验证jdk已经安装</span><br><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载mysql8.0的rpm包</span></span><br><span class="line"><span class="built_in">cd</span> /opt &amp;&amp; wget https://repo.mysql.com//mysql80-community-release-el7-7.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装rpm</span></span><br><span class="line">rpm -Uvh mysql80-community-release-el7-7.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># yum安装</span></span><br><span class="line">yum install mysql-community-server -y --nogpgcheck</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改MySQL配置文件，在[mysqld]下增加`loose_polar_log_bin = ON`</span></span><br><span class="line">vim /etc/my.cnf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动并查看MySQL</span></span><br><span class="line">systemctl <span class="built_in">enable</span> mysqld.service </span><br><span class="line">systemctl start mysqld.service </span><br><span class="line">systemctl status mysqld.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看MySQL临时密码</span></span><br><span class="line">grep <span class="string">&#x27;temporary password&#x27;</span> /var/log/mysqld.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 登入mysql</span></span><br><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--修改root用户的密码</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;xxxxxxxx&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--设置用户密码策略的安全强度</span></span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> validate_password.policy<span class="operator">=</span>LOW;</span><br><span class="line"></span><br><span class="line"><span class="comment">--设置密码长度不少于4</span></span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> validate_password.length<span class="operator">=</span><span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--查看密码策略</span></span><br><span class="line"><span class="keyword">SHOW</span> VARIABLES <span class="keyword">LIKE</span> <span class="string">&#x27;validate_password%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--创建canal用户</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> nacos IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;nacos&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--授权</span></span><br><span class="line"><span class="keyword">GRANT</span> REPLICATION SLAVE, REPLICATION CLIENT <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;nacos&#x27;</span>@<span class="string">&#x27;%&#x27;</span>; </span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> PRIVILEGES <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;nacos&#x27;</span>@<span class="string">&#x27;%&#x27;</span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">--创建nacos_config数据库</span></span><br><span class="line"><span class="keyword">create</span> database nacos_config <span class="type">character</span> <span class="keyword">set</span> utf8mb4 <span class="keyword">collate</span> utf8mb4_unicode_ci;</span><br><span class="line"></span><br><span class="line"><span class="comment">--刷新</span></span><br><span class="line">FLUSH PRIVILEGES; </span><br><span class="line"></span><br><span class="line"><span class="comment">--进入nacos_config数据库</span></span><br><span class="line">use nacos_config;</span><br><span class="line"></span><br><span class="line"><span class="comment">--执行脚本,脚本需要提前放到/opt目录下</span></span><br><span class="line">source <span class="operator">/</span>opt<span class="operator">/</span>nacos_mysql.sql</span><br><span class="line"></span><br><span class="line"><span class="comment">--刷新</span></span><br><span class="line">FLUSH PRIVILEGES; </span><br><span class="line"></span><br><span class="line"><span class="comment">--退出</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装nacos"><a href="#安装nacos" class="headerlink" title="安装nacos"></a>安装nacos</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nacos压缩文件提前放到/opt目录下</span></span><br><span class="line"><span class="built_in">mkdir</span> /usr/local/nacos &amp;&amp; <span class="built_in">cd</span> /usr/local/nacos</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压到当前目录</span></span><br><span class="line">tar -xf /opt/nacos-server-1.4.2.tar.gz -C  ./</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把解压文件移动到nacos目录</span></span><br><span class="line"><span class="built_in">mv</span> nacos/* ./ &amp;&amp; <span class="built_in">rmdir</span> nacos</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取消注释配置文件中db开头的行，修改数据库的地址，数据库名，数据库密码，其他默认就行</span></span><br><span class="line">vim conf/application.properties</span><br><span class="line"></span><br><span class="line">需要注意的是db.url开头的哪一行，行尾可以加上`&amp;allowPublicKeyRetriev`，不然可能报错</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改集群文件，把`本机地址:8848`添加进去，如果有其他服务器部署了nacos，也要加上</span></span><br><span class="line">vim conf/cd cluster.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑nacos系统服务脚本，添加一下内容</span></span><br><span class="line">vim /lib/systemd/system/nacos.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=nacos</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">Environment=<span class="string">&quot;JAVA_HOME=/usr/local/java&quot;</span></span><br><span class="line">ExecStart=/usr/local/nacos/bin/startup.sh</span><br><span class="line">ExecReload=/usr/local/nacos/bin/shutdown.sh</span><br><span class="line">ExecStop=/usr/local/nacos/bin/shutdown.sh</span><br><span class="line">PrivateTmp=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载系统配置文件</span></span><br><span class="line">systemctl daemon-reload</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动nacos</span></span><br><span class="line">systemctl <span class="built_in">enable</span> nacos &amp;&amp; systemctl start nacos</span><br></pre></td></tr></table></figure>
+
+<p>浏览器访问<code>http://服务器IP/nacos</code>，用户名和密码默认都是nacos</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-05-12</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

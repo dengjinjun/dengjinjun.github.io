@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="传统网络存储——NAS" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            传统网络存储——NAS
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AD%98%E5%82%A8%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="post-toc-text">存储基本概念</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#FTP"><span class="post-toc-text">FTP</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FTP%E7%9A%84%E4%B8%BB%E5%8A%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E8%A2%AB%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">FTP的主动模式和被动模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="post-toc-text">安装部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6"><span class="post-toc-text">相关文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FTP%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="post-toc-text">FTP客户端常用命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%99%9A%E6%8B%9F%E7%94%A8%E6%88%B7"><span class="post-toc-text">虚拟用户</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Samba"><span class="post-toc-text">Samba</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Samba%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Samba部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Samba%E7%94%A8%E6%88%B7"><span class="post-toc-text">Samba用户</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NFS"><span class="post-toc-text">NFS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NFS%E9%83%A8%E7%BD%B2"><span class="post-toc-text">NFS部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-1"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8C%82%E8%BD%BD"><span class="post-toc-text">客户端挂载</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%93%8D%E4%BD%9C"><span class="post-toc-text">客户端操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%9F%A5%E7%9C%8B%E6%8C%82%E8%BD%BD"><span class="post-toc-text">服务端查看挂载</span></a></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="存储基本概念"><a href="#存储基本概念" class="headerlink" title="存储基本概念"></a>存储基本概念</h2><p>在介绍传统网络存储之前，需要先介绍网络存储的几种不同的系统以及不同的存储方式。</p>
+<blockquote>
+<p>存储方式</p>
+</blockquote>
+<p>基本概念：扇区→物理块→逻辑块→文件系统</p>
+<ol>
+<li><p>块级存储</p>
+<p>块级是指以扇区为基础，一个或几个连续的扇区组成一个块，也叫物理块。它在块设备（例如：磁盘驱动器）与文件系统之间。</p>
+<p>块级备份是指物理块复制，效率高，实时性强，备份时间短，且增量备份时，只备份修改过的物理块。</p>
+<p>DAS、SAN等</p>
+</li>
+<li><p>文件级存储</p>
+<p>文件级是指文件系统，单个文件可能由于一个或多个逻辑块组成，且逻辑块之间是不连续分布。</p>
+<p>文件级备份是指在指定某些文件进行备份时，首先会查找每个文件逻辑块，其次物理块，由于逻辑块是分散在物理块上，而物理块也是分散在不同扇区上。需要一层一 层往下查找，最后才完成整个文件复制。文件级备份时比较费时间，效率不高，实时性不强，备份时间长，且增量备份时，单文件某一小部份修改，不会只备份修改部份，而整个文件都备份。</p>
+<p>FTP、NFS服务器，SamBa等。</p>
+</li>
+<li><p>对象存储</p>
+<p>对象存储也就是通常意义的键值存储，它将数据组织为对象而不是传统的文件层次结构。在对象存储中，每个对象都具包含了数据本身以及与该对象相关的元数据。</p>
+<p>它适用于存储海量数据、进行数据备份和恢复，以及支持分布式应用程序的数据存储需求。</p>
+</li>
+</ol>
+<blockquote>
+<p>存储架构</p>
+</blockquote>
+<ol>
+<li><p>传统网络存储系统</p>
+<p>传统网络存储系统采用单点存储服务器存放所有数据，当数据量和并发量比较大时，存储服务器就会成为系统性能的瓶颈，但是在小型架构和局域网内仍然有很多应用。传统网络存储系统支持块级的存储和文件级的存储。</p>
+<p>常见的传统网络存储系统有NAS、DAS、SAN等。</p>
+</li>
+<li><p>分布式存储系统</p>
+<p>分布式存储系统是将数据存储在多台独立设备上，采用可扩展的系统结构，利用堕胎存储服务器分担存储负荷，提高存储系统的可靠性和存取效率。支持块级存储、文件级存储和对象存储。</p>
+<p>常见的分布式存储系统有：MFS、FastDFS、Ceph等。</p>
+</li>
+<li><p>对象存储系统</p>
+<p>对象存储系统和基于对象存储是两个概念，前者是服务，后者是底层原理。对象存储系统的底层原理是键值存储，其接口是简单的Get、PUT、DEL和其他扩展，不受时间、地点和文件类型的限制。代表主要有Swift、S3、Gluster等。</p>
+<p>常见的提供对象存储（OSS）的厂商有阿里云、七牛云等。</p>
+</li>
+</ol>
+<blockquote>
+<p>传统网络存储分类</p>
+</blockquote>
+<p>常见的传统网络存储系统有三种：</p>
+<p>直连式存储：DAS（Direct Attached Storage），基于物理块存储</p>
+<p>网络附加存储：NAS（Network Attached Storage），基于文件存储</p>
+<p>存储区域网：SAN（Storage Area Network），基于物理块存储</p>
+<p>以下是三种常见的基于文件方式进行存储的网络存储服务（NAS类型）：</p>
+<ol>
+<li>FTP：文件服务器，适合单纯的文件上传下载</li>
+<li>samba：不同系统间的文件夹或设备共享，适合系统集成间的共享</li>
+<li>NFS：网络文件系统，适合作为网络存储服务器</li>
+</ol>
+<h2 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h2><p>FTP(File Transfer Protocol)：文件传输协议，是一个TCP协议。FTP是一个C&#x2F;S类型的软件，FTP监听TCP端口号是21，数据端口为20。</p>
+<p>FTP的功能是在客户端与服务端之间进行文件的传输，即实现两台计算机之间文件的上传和下载。最初的FTP协议使用明文传输，现今使用较多是更为安全的 VSFTP (Very Secure File Transfer Protocol)。</p>
+<h3 id="FTP的主动模式和被动模式"><a href="#FTP的主动模式和被动模式" class="headerlink" title="FTP的主动模式和被动模式"></a>FTP的主动模式和被动模式</h3><blockquote>
+<p>PORT（主动模式）</p>
+</blockquote>
+<p>在主动模式下，FTP客户端随机开启一个大于1024的端口N向服务器的21号端口发起连接，发送FTP用户名和密码，然后开放N+1号端口进行监听，并向服务器发出PORT N+1命令，告诉服务端客户端采用主动模式并开放了端口。FTP服务器接收到PORT命令后，会用其本地的FTP数据端口（通常是20）来连接客户端指定的端口N+1，进行数据传输。</p>
+<blockquote>
+<p>PASV（被动模式）</p>
+</blockquote>
+<p>在被动模式下，FTP客户端随机开启一个大于1024的端口N向服务器的21号端口发起连接，发送用户名和密码进行登陆，同时会开启N+1端口。然后向服务器发送PASV命令，通知服务器自己处于被动模式。服务器收到命令后，会开放一个大于1024的端口P（端口P的范围是可以设置的，后面会说到这个是很重要的）进行监听，然后用PORT P命令通知客户端，自己的数据端口是P。客户端收到命令后，会通过N+1号端口连接服务器的端口P，然后在两个端口之间进行数据传输。</p>
+<blockquote>
+<p>区别和比较</p>
+</blockquote>
+<p>绝大部分互联网应用都是被动模式，因为大部分客户端都是在路由器后面，没有独立的公网IP地址，服务器想要主动连接客户端，难度太大，在现在真实的互联网环境里面几乎是不可能完成的任务。在 FTP服务器部署的时候，其默认采用的是主动操作模式。如果企业FTP服务器的用户都是在内部网络中的，即不用像外部网络的用户提供FTP连接的需求，那么采用这个默认操作方式就可以了。但是如果一些出差在外的员工或者员工在家庭办公时也需要访问企业内部的FTP服务器，而此时出于安全的考虑或者公网IP地址数量的限制，企业往往会把FTP服务器部署在防火墙或者NAT服务器的后面，此时这个主动操作模式就不行了。</p>
+<h3 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum install vsftpd -y				# 安装</span><br><span class="line"></span><br><span class="line">systemctl enable vsftpd				# 设置开机启动</span><br><span class="line"></span><br><span class="line">systemctl start vsftpd				# 启动服务</span><br><span class="line"></span><br><span class="line">lsof -i :21							# 验证启动</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="相关文件"><a href="#相关文件" class="headerlink" title="相关文件"></a>相关文件</h3><blockquote>
+<p>配置文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/vsftpd/vsftpd.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Example config file /etc/vsftpd/vsftpd.conf</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">匿名用户访问,YES是允许，NO是拒绝</span></span><br><span class="line">anonymous_enable=NO</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">本地用户登录,YES是允许，NO是拒绝.默认访问的是本地用户家目录，如果你开启了selinux</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果selinux是开启状态，那么请设置开启ftp_home_dir为ON</span></span><br><span class="line">local_enable=YES</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">允许本地用户上传</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Uncomment this to <span class="built_in">enable</span> any form of FTP write <span class="built_in">command</span>.</span></span><br><span class="line">write_enable=YES</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置本地用户上传的<span class="built_in">umask</span>权限是022。对应的目录是755，文件是644</span></span><br><span class="line">local_umask=022</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开启匿名用户上传功能，默认是拒绝的</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">anon_upload_enable=YES</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开启匿名用户创建文件或文件夹权限，默认是拒绝的</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">anon_mkdir_write_enable=YES</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开启上传和下载日志记录功能</span></span><br><span class="line">xferlog_enable=YES</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使用标准端口模式</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Make sure PORT transfer connections originate from port 20 (ftp-data).</span></span><br><span class="line">connect_from_port_20=YES</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">允许更改匿名用户上传文件的所有者</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">chown_uploads=YES</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果允许匿名用户上传，更改匿名用户上传文件的所有者，但是所有者不能是root</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">chown_username=whoever</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">日志文件路径，不修改就是默认下面的路径</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">xferlog_file=/var/log/xferlog</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">日志文件采用标准格式</span></span><br><span class="line">xferlog_std_format=YES</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置会话超时时间</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">idle_session_timeout=600</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置数据传输超时时间</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">data_connection_timeout=120</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">是否允许客户端发起“async ABOR”请求，该操作是不安全的默认禁止。</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">async_abor_enable=YES</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">该选项用于指定是否允许上传时以ASCII模式传输数据</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">ascii_upload_enable=YES</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">该选项用于指定是否允许下载时以ASCII模式传输数据</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">ascii_download_enable=YES</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">You may specify a file of disallowed anonymous e-mail addresses. Apparently</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">useful <span class="keyword">for</span> combatting certain DoS attacks.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">是否开启拒绝的Email功能</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">deny_email_enable=YES</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">(default follows)</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定保存被拒接的Email地址的文件</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">banned_email_file=/etc/vsftpd/banned_emails</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">是否开启对本地用户<span class="built_in">chroot</span>的限制，YES为默认所有用户都不能切出家目录，NO代表默认用户都可以切出家目录</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置方法类似于：YES 拒绝所有，允许个别    NO 允许所有拒绝个别</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">chroot_local_user=YES</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">开启特例列表，如果chroot_local_user的值是YES则该文件中的用户是可以切出家目录，如果是NO，该文件中的用户则不能切出家目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">chroot_list_enable=YES</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">特例列表的文件路径，一行一个用户。</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">chroot_list_file=/etc/vsftpd/chroot_list</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">允许具有写权限的家目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">allow_writeable_chroot=YES</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">是否开启<span class="built_in">ls</span> 递归查询功能 <span class="built_in">ls</span> -R</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">ls_recurse_enable=YES</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">是否开启ftp独立模式在IPV4，开了之后只能在ipv4模式运行</span></span><br><span class="line">listen=NO</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">是否开启ftp在ipv6模式运行，开了之后可以同时监听ipv4和ipv6</span></span><br><span class="line">listen_ipv6=YES</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">启用pam模块验证，对本地用户登录做验证用的,pam验证的配置文件在/etc/pam.d/vsftpd</span></span><br><span class="line">pam_service_name=vsftpd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">是否启用用户列表功能</span></span><br><span class="line">userlist_enable=YES</span><br><span class="line">userlist_file=/etc/vsftpd/user_list</span><br><span class="line">userlist_deny=YES		# 设置为YES，代表此列表中的用户都不能访问；设置为NO，代表仅允许该列表中的用户访问。</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>共享文件目录</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/var/ftp				# 匿名用户的下载目录，本地用户的下载目录在本地用户的家目录</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>FTP日志</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/var/log/xferlog</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="FTP客户端常用命令"><a href="#FTP客户端常用命令" class="headerlink" title="FTP客户端常用命令"></a>FTP客户端常用命令</h3><p>FTP是一个C&#x2F;S类型的软件,连接服务端需要FTP客户端才能完成，常见的FTP客户端有以下几种:</p>
+<ol>
+<li><p>浏览器：可以通过浏览器中输入 <a href="ftp://ip或者ftp//%E5%9F%9F%E5%90%8D%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9D%A5%E8%AE%BF%E9%97%AEFTP">ftp://ip或者ftp://域名的方式来访问FTP</a></p>
+</li>
+<li><p>自带客户端：命令行下可以使用ftp命令去连接</p>
+</li>
+<li><p>三方客户端：FileZilla、8uftp 图形软件或者文本界面的lftp等</p>
+</li>
+</ol>
+<p>三种方式中，命令行下无法鼠标流，所以需要使用到一些命令。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ftp [IP或域名]				# 访问FTP服务端，有本地系统用户访问、guest访问和匿名访问三种</span><br><span class="line"></span><br><span class="line">help					# 打印帮助菜单</span><br><span class="line">!+Linux命令				# 执行Linux命令</span><br><span class="line">lcd	[目录]					# 切换Linux系统中的当前目录</span><br><span class="line">put/mput				# 上传/批量上传</span><br><span class="line">get/mget				# 下载/批量下载</span><br><span class="line">ls/dir					# 列出目录内容</span><br><span class="line">mkdir/cd/delete/rmdir	# 创建目录/进入目录/删除文件/删除目录</span><br><span class="line">pwd						# 显示FTP当前目录</span><br><span class="line">open/close/bye			# 开启/关闭/退出FTP连接</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="虚拟用户"><a href="#虚拟用户" class="headerlink" title="虚拟用户"></a>虚拟用户</h3><p>在FTP中不论是匿名用户还是实名用户都是系统中真实存在的用户，或多或少都会有一些安全方面的风险，为了避免这个风险，开发者在ftp中加入了一个虚拟用户的概念，所有虚拟用户都会被统一映射为一个系统账号，免去了管理过多账户的麻烦。</p>
+<h2 id="Samba"><a href="#Samba" class="headerlink" title="Samba"></a>Samba</h2><p>Samba是在Linux系统中实现SMB（Server Message Block）协议，即信息服务块协议的软件，由服务器&#x2F;客户端软件组成，为局域网内的不同计算机之间提供文件及打印机等资源的共享服务。</p>
+<h3 id="Samba部署"><a href="#Samba部署" class="headerlink" title="Samba部署"></a>Samba部署</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装软件包</span></span><br><span class="line">yum install samba samba-client -y			# samba是服务端，samba-client提供了smbclient命令</span><br><span class="line"></span><br><span class="line">systemctl enable nmb smb					# 设置开机启动</span><br><span class="line"></span><br><span class="line">systemctl start nmb smb						# 开启服务</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/samba/smb.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">See smb.conf.example <span class="keyword">for</span> a more detailed config file or</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">read</span> the smb.conf manpage.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Run <span class="string">&#x27;testparm&#x27;</span> to verify the config is correct after</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">you modified it.</span></span><br><span class="line"></span><br><span class="line">[global]										# 全局设置，具体设置项可以在smb.conf.example文件中浏览</span><br><span class="line">        workgroup = SAMBA						# 工作组</span><br><span class="line">        security = user							# 安全级别，有share，user，server，domain四种，一般为user即可</span><br><span class="line">		netbios name = samba					# Samba服务器的NetBios主机名。设置以后局域网内Windows才能通过网络邻居发现Samba服务器。</span><br><span class="line">        passdb backend = tdbsam</span><br><span class="line"></span><br><span class="line">        printing = cups</span><br><span class="line">        printcap name = cups</span><br><span class="line">        load printers = yes</span><br><span class="line">        cups options = raw</span><br><span class="line">        </span><br><span class="line">        interfaces = lo ens33						# 网卡接口</span><br><span class="line">        host allow = 127. 192.168.110. 192.168.3.	# 允许访问共享资源的网络。一般设置为服务器和客户机所在的网段即可</span><br><span class="line"></span><br><span class="line">[homes]											# 对用户家目录的共享</span><br><span class="line">        comment = Home Directories					# 自定义段的注释说明</span><br><span class="line">        public = No									# 是否开放访问，类似于guest ok</span><br><span class="line">        valid users = %S, %D%w%S					# 允许访问的用户，不能与public同时使用，否则public设置会失效。</span><br><span class="line">        browseable = No								# 是否可见，即是否在共享名列表显示该段。</span><br><span class="line">        read only = No								# 是否只读访问</span><br><span class="line">        read list = @组名 用户名						# 上一项设置为No，则这一项允许一部分用户和组读取</span><br><span class="line">        inherit acls = Yes</span><br><span class="line">		writable = Yes								# 是否允许向共享目录内写入</span><br><span class="line">		write list = @组名 用户名					# 上一项设置为No，则这一项允许一部分用户和组写入</span><br><span class="line">[printers]										# 打印机的共享</span><br><span class="line">        comment = All Printers</span><br><span class="line">        path = /var/tmp								# 共享资源所在目录</span><br><span class="line">        printable = Yes</span><br><span class="line">        create mask = 0600</span><br><span class="line">        browseable = No</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">[print$</span><span class="language-bash">]</span></span><br><span class="line">        comment = Printer Drivers</span><br><span class="line">        path = /var/lib/samba/drivers</span><br><span class="line">        write list = @printadmin root</span><br><span class="line">        force group = @printadmin</span><br><span class="line">        create mask = 0664</span><br><span class="line"></span><br><span class="line">[samba]											# 如果想共享一个目录，可以像这样添加一个共享块</span><br><span class="line">	comment = test</span><br><span class="line">	path = /samba</span><br><span class="line">	browseable = yes</span><br><span class="line">	host allow = 192.168.110.0/24 192.168.3.0/24</span><br><span class="line">	valid users = samba_user						# 此处的用户需要是Samba用户</span><br></pre></td></tr></table></figure>
+
+<h3 id="Samba用户"><a href="#Samba用户" class="headerlink" title="Samba用户"></a>Samba用户</h3><p>由于系统本地用户无法直接登录Samba，必须是Samba用户才可以登录，所有需要创建Samba用户：</p>
+<ol>
+<li>创建系统用户</li>
+<li>将系统用户转为Samba用户</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建系统用户</span></span><br><span class="line">useradd [用户名]</span><br><span class="line">passwd [用户名]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建Samba用户的指令</span></span><br><span class="line">smbpassed -a [用户名]			# 添加用户</span><br><span class="line">smbpassed -x [用户名]			# 删除用户</span><br><span class="line">smbpassed -d [用户名]			# 禁用用户</span><br><span class="line">smbpassed -e [用户名]			# 取消禁用</span><br><span class="line">smbpassed -n [用户名]			# 清除密码</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="NFS"><a href="#NFS" class="headerlink" title="NFS"></a>NFS</h2><p>NFS(Network File System)：网络文件系统。允许网络中的计算机通过TCP&#x2F;IP网络来共享资源，在NFS的应用中，本地NFS的客户端应用可以透明地读写位于远端NFS服务器上的文件，就像访问本地文件一样，节省本地存储空间。在Web服务中，通常会将常用的音视频等文件数据放在一台NFS服务器上且可以通过网络访问。</p>
+<p>NFS体系分为两个部分：</p>
+<ol>
+<li>NFS服务端机器：通过NFS协议将文件共享到网络。</li>
+<li>NFS客户端机器：通过网络挂载NFS共享目录，在本地进行访问。</li>
+</ol>
+<p>NFS应用场景：</p>
+<ol>
+<li>共享存储服务器：图片服务器、视频服务器等</li>
+<li>家目录漫游：域用户家目录服务器</li>
+<li>文件服务器：内容文件存储服务器</li>
+</ol>
+<p><a href="/../pic/image-20231014230600796.png" title="image-20231014230600796" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20231014230600796.png" alt="image-20231014230600796"></a></p>
+<h3 id="NFS部署"><a href="#NFS部署" class="headerlink" title="NFS部署"></a>NFS部署</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">nfs-utils 是NFS服务的主程序，包括 rpc.nfsd 和 rpc.mountd 这两个daemons以及相关文档、执行命令文件等</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">npcbind 是CentOS 6/7中RPC的主程序，负责NFS服务的端口映射工作。NFS可以视为一个RPC程序，所以必须先启动RPC服务。</span></span><br><span class="line">yum install nfs-utils rpcbind -y			# 安装软件包</span><br><span class="line"></span><br><span class="line">systemctl enable nfs-server			# 设置开机自启</span><br><span class="line"></span><br><span class="line">systemctl is-active rpcbind			# 启动NFS之前要确保rpcbind服务启动</span><br><span class="line">systemctl start nfs					# 启动NFS</span><br><span class="line">systemctl is-active nfs				# 验证启动</span><br><span class="line">rpcinfo -p 127.0.0.1				# 查询rpcbind的端口，查看nfs是否启动</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="配置文件-1"><a href="#配置文件-1" class="headerlink" title="配置文件"></a>配置文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/etc/exports			# 此文件中指定需要共享出去的目录，共享格式为：[绝对路径] 授权访问的IP或网段(权限1,权限2),比如:</span><br><span class="line"></span><br><span class="line">vim /etc/exports		# 编辑配置文件，添加以下内容</span><br><span class="line">/test 192.168.110.0/24(ro)		# 将/test文件夹共享出去，允许192.168.110.网段访问，权限为只读</span><br><span class="line">/projects 182.168.10.135(rw) 182.168.10/24(ro)	# 将/projects文件夹共享出去，允许192.168.10.网段只读访问，182.168.10.135可读写</span><br><span class="line"></span><br><span class="line">cat /var/lib/nfs/etab	# 在此文件可以查看其他默认的权限参数</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>权限说明</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ro				read only 只读模式，用户无法修改文件或目录</span><br><span class="line">rw				read write 读写模式，用户可以修改文件或目录，写入时默认是写到远程缓冲区。</span><br><span class="line">sync			客户端请求写入时，数据写入到服务端的内存和磁盘中，优点是数据安全，缺点是性能降低。</span><br><span class="line">async			客户端请求写入时，数据暂存于服务端的内存中。提升了工作效率，但是数据可能会丢失。</span><br><span class="line">no_root_squash	客户端的root用户访问NFS时，它对该共享目录同样具有root权限！（避免使用，这是为无盘客户端准备的）</span><br><span class="line">root_squash		客户端的root用户访问NFS时，权限被压缩成匿名用户，默认是nfsnobody账号身份</span><br><span class="line">all_squash		客户端的任何用户访问NFS时，权限都被压缩成匿名用户，	默认是nfsnobody账号身份</span><br><span class="line">anonuid			如果不想使用nfsnobody账号作为匿名用户，可以自己指定用户uid。</span><br><span class="line">anongid			如果不想使用nfsnobody组作为匿名组，可以自己指定用户gid。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>相关指令</p>
+</blockquote>
+<p>NFS服务中，主要通过<code>exportfs</code>命令来设置，以下是<code>exportfs</code>命令的相关选项</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-a		打开或取消所有目录共享</span><br><span class="line">-i		忽略/etc/exports文件，只是用默认的和命令行指定的选项</span><br><span class="line">-u		取消一个或多个目录的共享</span><br><span class="line">-r		重新共享所有目录，即重新加载/etc/exports文件</span><br><span class="line">-v		输出详细信息</span><br></pre></td></tr></table></figure>
+
+<p>补充</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">showmount -e 本机IP			# 查看本机共享出去的目录</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>创建目录</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /test 			# 创建配置文件中指定的要共享出去的目录</span><br><span class="line">chown -R nfsnobody.nfsnobody /test		# 客户端会使用nfsnobody用户访问，因此需要将共享目录更改属主和属组</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果不更改共享目录的属主和属组，那么客户端会以其他人的身份访问共享目录，那么如果想要拥有读写权限，服务端中的共享目录需要设置757的权限，如果是只读的话，需要设置755的权限。</span></span><br><span class="line"></span><br><span class="line">systemctl reload nfs	# 平滑重启</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="客户端挂载"><a href="#客户端挂载" class="headerlink" title="客户端挂载"></a>客户端挂载</h3><p>服务端查看挂载</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">showmount -e nfs服务器IP			# 查看nfs服务器共享出去的目录</span><br><span class="line">ls /var/lib/nfs/rpc_pipefs/nfsd4_cb/		# 查看有几个客户机已经挂载了本机的共享目录</span><br></pre></td></tr></table></figure>
+
+<h4 id="客户端操作"><a href="#客户端操作" class="headerlink" title="客户端操作"></a>客户端操作</h4><blockquote>
+<p>临时挂载</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mount -t nfs 服务端IP:共享目录 本地挂载目录					# 比如</span><br><span class="line">mount -t nfs 192.168.110.135:/test /mnt/nfs_test		# 将服务端的共享目录/test，挂载到本地的/mnt/nfs_test目录</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>永久挂载</p>
+</blockquote>
+<ul>
+<li><p>编辑&#x2F;etc&#x2F;rc.local</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /etc/rc.d/rc.local			# 给所有用户增加执行权限</span><br><span class="line">echo &quot;/bin/mount -t nfs 192.168.110.135:/test /mnt/nfs_test&quot; &gt;&gt; /etc/rc.local		# 添加挂载信息</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑&#x2F;etc&#x2F;fstab</p>
+<p>此处有坑，nfs是网络文件系统，若把nfs的挂载信息写入Linux的设备挂载文件&#x2F;etc&#x2F;fstab中，每次开机后并不会自动挂载。</p>
+<p>原因是系统的启动流程中，加载&#x2F;etc&#x2F;fstab的顺序在加载网卡之前，所以此时网络不通无法挂载网络文件系统。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">解决方法1：设置开机自启remote-fs.target服务，CentOS 6中是netfs</span></span><br><span class="line">systemctl enable remote-fs.target </span><br><span class="line">vim /etc/fstab			# 编辑挂载文件，写入以下内容</span><br><span class="line">IP:[服务端共享目录] [本地挂载目录] nfs default 0 0 </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">解决方法2：在挂载时写入_netdev参数，可以实现延迟挂载，跟remote-fs.target服务同样效果</span></span><br><span class="line">vim /etc/fstab			# 编辑挂载文件，写入以下内容</span><br><span class="line">IP:[服务端共享目录] [本地挂载目录] nfs default,_netdev 0 0 </span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><a href="/../pic/image-20231014222859193.png" title="image-20231014222859193" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20231014222859193.png" alt="image-20231014222859193"></a></p>
+<h4 id="服务端查看挂载"><a href="#服务端查看挂载" class="headerlink" title="服务端查看挂载"></a>服务端查看挂载</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">showmount -e nfs服务器IP					# 查看nfs服务器共享出去的目录</span><br><span class="line">ls /var/lib/nfs/rpc_pipefs/nfsd4_cb/		# 查看有几个客户机已经挂载了本机的共享目录</span><br></pre></td></tr></table></figure>
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-09-30</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

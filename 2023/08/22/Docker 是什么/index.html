@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Docker是什么" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Docker是什么
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%80%E3%80%81Docker-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="post-toc-text">一、Docker 是什么？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%8C%E3%80%81Docker-%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="post-toc-text">二、Docker 容器技术与虚拟机的区别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="post-toc-text">虚拟机</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%B9%E5%99%A8"><span class="post-toc-text">容器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AF%B9%E6%AF%94"><span class="post-toc-text">对比</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%9B%B8%E5%90%8C%E7%82%B9"><span class="post-toc-text">相同点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%8D%E5%90%8C%E7%82%B9"><span class="post-toc-text">不同点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker-%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="post-toc-text">Docker 的优势</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker%E5%B1%80%E9%99%90%E6%80%A7"><span class="post-toc-text">Docker局限性</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%89%E3%80%81Docker-%E7%89%B9%E6%80%A7"><span class="post-toc-text">三、Docker 特性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9B%9B%E3%80%81Docker-%E7%9A%84%E4%B8%89%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="post-toc-text">四、Docker 的三个基本概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Image%EF%BC%88%E9%95%9C%E5%83%8F%EF%BC%89"><span class="post-toc-text">Image（镜像）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Container%EF%BC%88%E5%AE%B9%E5%99%A8%EF%BC%89"><span class="post-toc-text">Container（容器）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Repository%EF%BC%88%E4%BB%93%E5%BA%93%EF%BC%89"><span class="post-toc-text">Repository（仓库）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%94%E3%80%81Docker-%E6%9E%B6%E6%9E%84"><span class="post-toc-text">五、Docker 架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="post-toc-text">工作原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker-Client"><span class="post-toc-text">Docker Client</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker-Daemon"><span class="post-toc-text">Docker Daemon</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker-Image"><span class="post-toc-text">Docker Image</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker-Container"><span class="post-toc-text">Docker Container</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker-Registry"><span class="post-toc-text">Docker Registry</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%AD%E3%80%81Docker-%E7%BD%91%E7%BB%9C"><span class="post-toc-text">六、Docker 网络</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-%E6%9C%AC%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%90%86%E8%A7%A3"><span class="post-toc-text">1.本机网络理解</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-%E6%B8%85%E7%A9%BA%E6%9C%AC%E6%9C%BAdocker%E7%8E%AF%E5%A2%83"><span class="post-toc-text">2.清空本机docker环境</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-veth-pair%E6%8A%80%E6%9C%AF"><span class="post-toc-text">3.veth-pair技术</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-docker%E7%BD%91%E7%BB%9C%E8%AF%A6%E8%A7%A3"><span class="post-toc-text">4.docker网络详解</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-docker%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">5.docker网络模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-docker%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F%E6%9C%89%E4%BB%A5%E4%B8%8B%E5%87%A0%E7%A7%8D%EF%BC%9A"><span class="post-toc-text">1)docker网络模式有以下几种：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AE%B9%E5%99%A8%EF%BC%9A"><span class="post-toc-text">2)创建自定义网络的容器：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-%E5%8F%91%E5%B8%83%E4%B8%A4%E4%B8%AA%E5%9C%A8%E8%87%AA%E5%B7%B1%E5%88%9B%E5%BB%BA%E7%9A%84%E7%BD%91%E7%BB%9C%E9%87%8C%E7%9A%84%E5%AE%B9%E5%99%A8%E3%80%82"><span class="post-toc-text">3)发布两个在自己创建的网络里的容器。</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%83%E3%80%81Docker-%E5%AE%89%E8%A3%85"><span class="post-toc-text">七、Docker 安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E5%9B%BD%E5%86%85yum%E6%BA%90"><span class="post-toc-text">配置国内yum源</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker-%E7%9A%84%E7%AE%80%E5%8D%95%E8%BF%90%E7%94%A8-Hello-World"><span class="post-toc-text">Docker 的简单运用 Hello World</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker-%E9%85%8D%E7%BD%AE%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E5%99%A8"><span class="post-toc-text">Docker 配置镜像加速器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker-%E7%BB%84%E4%BB%B6%E6%98%AF%E5%A6%82%E4%BD%95%E5%8D%8F%E4%BD%9C%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="post-toc-text">Docker 组件是如何协作运行容器</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%AB%E3%80%81Docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="post-toc-text">八、Docker 常用命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-%E5%B8%AE%E5%8A%A9%E5%90%AF%E5%8A%A8%E7%B1%BB%E5%91%BD%E4%BB%A4"><span class="post-toc-text">1.帮助启动类命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-%E9%95%9C%E5%83%8F%E5%91%BD%E4%BB%A4"><span class="post-toc-text">2.镜像命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-%E5%88%97%E5%87%BA%E6%9C%AC%E5%9C%B0%E4%B8%BB%E6%9C%BA%E4%B8%8A%E7%9A%84%E9%95%9C%E5%83%8F"><span class="post-toc-text">1)列出本地主机上的镜像</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-%E5%9C%A8%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E4%B8%AD%E6%90%9C%E7%B4%A2%E9%95%9C%E5%83%8F"><span class="post-toc-text">2)在远程仓库中搜索镜像</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F"><span class="post-toc-text">3)下载镜像</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-%E6%9F%A5%E7%9C%8B%E5%8D%A0%E6%8D%AE%E7%9A%84%E7%A9%BA%E9%97%B4"><span class="post-toc-text">4)查看占据的空间</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F"><span class="post-toc-text">5)删除镜像</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-%E8%99%9A%E6%82%AC%E9%95%9C%E5%83%8F"><span class="post-toc-text">6)虚悬镜像</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4"><span class="post-toc-text">3.容器命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-%E6%96%B0%E5%BB%BA-%E5%90%AF%E5%8A%A8%E5%AE%B9%E5%99%A8"><span class="post-toc-text">1)新建+启动容器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-%E5%90%AF%E5%8A%A8%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%AE%B9%E5%99%A8-%E5%89%8D%E5%8F%B0%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="post-toc-text">2)启动交互式容器(前台命令行)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-%E5%88%97%E5%87%BA%E5%BD%93%E5%89%8D%E6%89%80%E6%9C%89%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8"><span class="post-toc-text">3)列出当前所有正在运行的容器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-%E5%90%AF%E5%8A%A8%E5%AE%88%E6%8A%A4%E5%BC%8F%E5%AE%B9%E5%99%A8"><span class="post-toc-text">4)启动守护式容器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-%E5%AE%B9%E5%99%A8%E5%92%8C%E5%AE%BF%E4%B8%BB%E6%9C%BA%E6%96%87%E4%BB%B6%E6%8B%B7%E8%B4%9D"><span class="post-toc-text">5)容器和宿主机文件拷贝</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-%E5%AF%BC%E5%85%A5%E5%92%8C%E5%AF%BC%E5%87%BA%E5%AE%B9%E5%99%A8"><span class="post-toc-text">6)导入和导出容器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-%E5%B0%86%E5%AE%B9%E5%99%A8%E7%94%9F%E6%88%90%E6%96%B0%E9%95%9C%E5%83%8F"><span class="post-toc-text">7)将容器生成新镜像</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8-%E5%B0%86%E5%AE%B9%E5%99%A8%E7%94%9F%E6%88%90%E6%96%B0%E9%95%9C%E5%83%8F"><span class="post-toc-text">8)将容器生成新镜像</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4"><span class="post-toc-text">9)其他命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B9%9D%E3%80%81%E5%AE%9E%E6%88%98%E6%B5%8B%E8%AF%95%EF%BC%9A%E9%83%A8%E7%BD%B2Nginx"><span class="post-toc-text">九、实战测试：部署Nginx</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-%E6%90%9C%E7%B4%A2%E9%95%9C%E5%83%8F"><span class="post-toc-text">1.搜索镜像</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F"><span class="post-toc-text">2.下载镜像</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E9%95%9C%E5%83%8F"><span class="post-toc-text">3.查看镜像</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-%E5%90%AF%E5%8A%A8%E5%AE%B9%E5%99%A8"><span class="post-toc-text">4.启动容器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8"><span class="post-toc-text">5.查看容器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-%E6%B5%8B%E8%AF%95%E8%AE%BF%E9%97%AE"><span class="post-toc-text">6.测试访问</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8%E4%BF%AE%E6%94%B9%E9%A1%B5%E9%9D%A2"><span class="post-toc-text">7.进入容器修改页面</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8D%81%E3%80%81Dockerfile-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="post-toc-text">十、Dockerfile 是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81Dockerfile-%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="post-toc-text">十一、Dockerfile 常用的指令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FROM"><span class="post-toc-text">FROM</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MAINTAINER"><span class="post-toc-text">MAINTAINER</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#COPY"><span class="post-toc-text">COPY</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#WORKDIR"><span class="post-toc-text">WORKDIR</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RUN"><span class="post-toc-text">RUN</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#EXPOSE"><span class="post-toc-text">EXPOSE</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ENTRYPOINT"><span class="post-toc-text">ENTRYPOINT</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CMD"><span class="post-toc-text">CMD</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E6%9E%84%E5%BB%BA-Dockerfile"><span class="post-toc-text">十二、构建 Dockerfile</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E5%AE%9E%E6%88%98%E6%B5%8B%E8%AF%95%EF%BC%9A%E5%88%B6%E4%BD%9C%E9%95%9C%E5%83%8F%E5%B9%B6%E4%B8%94%E6%8F%90%E4%BA%A4%E5%88%B0%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93"><span class="post-toc-text">十三、实战测试：制作镜像并且提交到镜像仓库</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%AC%E6%9C%89%E4%BA%91%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93"><span class="post-toc-text">公有云镜像仓库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker-Hub%E4%BB%93%E5%BA%93"><span class="post-toc-text">Docker Hub仓库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91%E4%BB%93%E5%BA%93"><span class="post-toc-text">阿里云仓库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93"><span class="post-toc-text">私有化部署镜像仓库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker-Register"><span class="post-toc-text">Docker Register</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Nexus"><span class="post-toc-text">Nexus</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Harbor"><span class="post-toc-text">Harbor</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><blockquote>
+<p>转载来自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/600034612">Docker入门，这一篇就够了，建议收藏 - 知乎 (zhihu.com)</a></p>
+</blockquote>
+<h2 id="一、Docker-是什么？"><a href="#一、Docker-是什么？" class="headerlink" title="一、Docker 是什么？"></a>一、Docker 是什么？</h2><p>Docker，翻译过来就是码头工人</p>
+<p>Docker是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可抑制的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化。容器完全使用沙盒机制，相互之间不会存在任何接口。几乎没有性能开销，可以很容易的在机器和数据中心运行。最重要的是，他们不依赖于任何语言、框架或者包装系统。</p>
+<p>小知识：沙盒也叫沙箱（sandbox）。在计算机领域指一种虚拟技术，而且多用于计算机安全技术。安全软件可以让它在沙盒中运行，如果含有恶意行为，则禁止程序的进一步运行，而这不会对系统造成任何危害。</p>
+<p>Docker是dotCloud公司开源的一个基于LXC的高级容器引擎，源码托管在Github上，基于go语言并且遵从Apache2.0协议开源。GitHub地址：<a href="https://link.zhihu.com/?target=https://github.com/moby/moby">https://github.com/moby/moby</a></p>
+<p>小知识：LXC为Linux Container的简写。Linux Container 容器是一种内核虚拟化技术，可以提供轻量级的虚拟化，以便隔离进程和资源，而且不需要提供指令解释机制以及全虚拟化的其他复杂性。LXC主要通过Kernel的namespace实现每个用户实例之间的项目隔离，通过cgroup实现对资源的配额和调度。</p>
+<p>docker官网：<a href="https://link.zhihu.com/?target=https://www.docker.com">https://www.docker.com</a><br>docker中文库:<a href="https://link.zhihu.com/?target=https://www.docker.org.cn/">https://www.docker.org.cn/</a></p>
+<h2 id="二、Docker-容器技术与虚拟机的区别"><a href="#二、Docker-容器技术与虚拟机的区别" class="headerlink" title="二、Docker 容器技术与虚拟机的区别"></a>二、Docker 容器技术与虚拟机的区别</h2><p>Docker 到底是个什么东西呢？我们在理解 Docker 之前，首先得先区分清楚两个概念，容器和虚拟机。</p>
+<h3 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h3><p>虚拟机（Virtual Machine）指通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统。在实体计算机中能够完成的工作在虚拟机中都能够实现。在计算机中创建虚拟机时，需要将实体机的部分硬盘和内存容量作为虚拟机的硬盘和内存容量。每个虚拟机都有独立的CMOS、硬盘和操作系统，可以像使用实体机一样对虚拟机进行操作。</p>
+<p>可能很多读者朋友都用过虚拟机，而对容器这个概念比较的陌生。我们用的传统虚拟机如 VMware ， VisualBox 之类的需要模拟整台机器包括硬件。</p>
+<p>每台虚拟机都需要有自己的操作系统，虚拟机一旦被开启，预分配给它的资源将全部被占用。</p>
+<p>每一台虚拟机包括应用，必要的二进制和库，以及一个完整的用户操作系统。</p>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>Docker 容器是一个开源的应用容器引擎，让开发者可以以统一的方式打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何安装了docker引擎的服务器上（包括流行的Linux机器、windows机器），也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）。几乎没有性能开销,可以很容易地在机器和数据中心中运行。最重要的是,他们不依赖于任何语言、框架包括系统。</p>
+<p>而容器技术是和我们的宿主机共享硬件资源及操作系统，可以实现资源的动态分配。</p>
+<p>容器包含应用和其所有的依赖包，但是与其他容器共享内核。容器在宿主机操作系统中，在用户空间以分离的进程运行。</p>
+<p>容器技术是实现操作系统虚拟化的一种途径，可以让您在资源受到隔离的进程中运行应用程序及其依赖关系。</p>
+<p>通过使用容器，我们可以轻松打包应用程序的代码、配置和依赖关系，将其变成容易使用的构建块，从而实现环境一致性、运营效率、开发人员生产力和版本控制等诸多目标。</p>
+<p>容器可以帮助保证应用程序快速、可靠、一致地部署，其间不受部署环境的影响。</p>
+<p>容器还赋予我们对资源更多的精细化控制能力，让我们的基础设施效率更高。</p>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><h3 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h3><p>docker和容器技术和虚拟机技术，都是虚拟化技术。</p>
+<h3 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h3><p>通过下面这幅图，我们可以很直观的反映出这两者的区别所在：</p>
+<p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-6853a212bedce0ec265fc5ee23f3fb84_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-6853a212bedce0ec265fc5ee23f3fb84_720w.webp" alt="img"></a></p>
+<p>Docker 属于 Linux 容器的一种封装，提供简单易用的容器使用接口。它是目前最流行的 Linux 容器解决方案。</p>
+<p>而 Linux 容器是 Linux 发展出的另一种虚拟化技术，简单来讲， Linux 容器不是模拟一个完整的操作系统，而是对进程进行隔离，相当于是在正常进程的外面套了一个保护层。</p>
+<p>对于容器里面的进程来说，它接触到的各种资源都是虚拟的，从而实现与底层系统的隔离。</p>
+<p>Docker 将应用程序与该程序的依赖，打包在一个文件里面。运行这个文件，就会生成一个虚拟容器。</p>
+<p>程序在这个虚拟容器里运行，就好像在真实的物理机上运行一样。有了 Docker ，就不用担心环境问题。</p>
+<p>总体来说，Docker 的接口相当简单，用户可以方便地创建和使用容器，把自己的应用放入容器。容器还可以进行版本管理、复制、分享、修改，就像管理普通的代码一样。</p>
+<h3 id="Docker-的优势"><a href="#Docker-的优势" class="headerlink" title="Docker 的优势"></a>Docker 的优势</h3><p>Docker 相比于传统虚拟化方式具有更多的优势：</p>
+<ul>
+<li>Docker 启动快速属于秒级别。虚拟机通常需要几分钟去启动。</li>
+<li>Docker 需要的资源更少。Docker 在操作系统级别进行虚拟化，Docker 容器和内核交互，几乎没有性能损耗，性能优于通过 Hypervisor 层与内核层的虚拟化。</li>
+<li>Docker 更轻量。Docker 的架构可以共用一个内核与共享应用程序库，所占内存极小。同样的硬件环境，Docker 运行的镜像数远多于虚拟机数量，对系统的利用率非常高。</li>
+<li>与虚拟机相比，Docker 隔离性更弱。Docker 属于进程之间的隔离，虚拟机可实现系统级别隔离。</li>
+<li>安全性。Docker 的安全性也更弱，Docker 的租户 Root 和宿主机 Root 等同，一旦容器内的用户从普通用户权限提升为 Root 权限，它就直接具备了宿主机的 Root 权限，进而可进行无限制的操作。</li>
+<li>虚拟机租户 Root 权限和宿主机的 Root 虚拟机权限是分离的，并且虚拟机利用如 Intel 的 VT-d 和 VT-x 的 ring-1 硬件隔离技术。</li>
+<li>这种隔离技术可以防止虚拟机突破和彼此交互，而容器至今还没有任何形式的硬件隔离，这使得容器容易受到攻击。</li>
+<li>可管理性。Docker 的集中化管理工具还不算成熟。各种虚拟化技术都有成熟的管理工具，例如 VMware vCenter 提供完备的虚拟机管理能力。</li>
+<li>高可用和可恢复性。Docker 对业务的高可用支持是通过快速重新部署实现的。</li>
+<li>虚拟化具备负载均衡，高可用，容错，迁移和数据保护等经过生产实践检验的成熟保障机制， VMware 可承诺虚拟机 99.999% 高可用，保证业务连续性。</li>
+<li>快速创建、删除。虚拟化创建是分钟级别的，Docker 容器创建是秒级别的，Docker 的快速迭代性，决定了无论是开发、测试、部署都可以节约大量时间</li>
+<li>交付、部署。虚拟机可以通过镜像实现环境交付的一致性，但镜像分发无法体系化。Docker 在 Dockerfile 中记录了容器构建过程，可在集群中实现快速分发和快速部署。</li>
+</ul>
+<p>我们可以从下面这张表格很清楚地看到容器相比于传统虚拟机的特性的优势所在：</p>
+<p><a target="_blank" rel="noopener" href="https://pic2.zhimg.com/80/v2-414f81ee0d658d166d49ab34ba9ff7e9_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic2.zhimg.com/80/v2-414f81ee0d658d166d49ab34ba9ff7e9_720w.webp" alt="img"></a></p>
+<h3 id="Docker局限性"><a href="#Docker局限性" class="headerlink" title="Docker局限性"></a>Docker局限性</h3><p>Docker用于应用程序时是最有用的，但并不包含数据。日志、数据库等通常放在Docker容器外。一个容器的镜像通常都很小，不用和存储大量数据，存储可以通过外部挂载等方式使用，比如：NFS、ipsan、MFS等 ，或者docker命令 ，-v映射磁盘分区。总之，docker只用于计算，存储交给别人。</p>
+<h2 id="三、Docker-特性"><a href="#三、Docker-特性" class="headerlink" title="三、Docker 特性"></a>三、Docker 特性</h2><ul>
+<li>文件系统隔离：每个进程容器运行在一个完全独立的根文件系统里。</li>
+<li>资源隔离：系统资源，像CPU和内存等可以分配到不同的容器中，使用cgroup。</li>
+<li>网络隔离：每个进程容器运行在自己的网路空间，虚拟接口和IP地址。</li>
+<li>日志记录：Docker将收集到和记录的每个进程容器的标准流（stdout&#x2F;stderr&#x2F;stdin），用于实时检索或者批量检索</li>
+<li>变更管理：容器文件系统的变更可以提交到新的镜像中，并可重复使用以创建更多的容器。无需使用模板或者手动配置。</li>
+<li>交互式shell：Docker可以分配一个虚拟终端并且关联到任何容器的标准输出上，例如运行一个一次性交互shell。</li>
+</ul>
+<h2 id="四、Docker-的三个基本概念"><a href="#四、Docker-的三个基本概念" class="headerlink" title="四、Docker 的三个基本概念"></a>四、Docker 的三个基本概念</h2><p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-23079ba3781de762c9275466934a15c8_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-23079ba3781de762c9275466934a15c8_720w.webp" alt="img"></a></p>
+<p>从上图我们可以看到，Docker 中包括三个基本的概念：</p>
+<ul>
+<li>Image（镜像）</li>
+<li>Container（容器）</li>
+<li>Repository（仓库）</li>
+</ul>
+<p>镜像是 Docker 运行容器的前提，仓库是存放镜像的场所，可见镜像更是 Docker 的核心。</p>
+<h3 id="Image（镜像）"><a href="#Image（镜像）" class="headerlink" title="Image（镜像）"></a>Image（镜像）</h3><p>那么镜像到底是什么呢？Docker 镜像可以看作是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。</p>
+<p>镜像不包含任何动态数据，其内容在构建之后也不会被改变。镜像（Image）就是一堆只读层（read-only layer）的统一视角，也许这个定义有些难以理解，下面的这张图能够帮助读者理解镜像的定义：</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-da825ff61be86c0dd28a3ed27308e0b8_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-da825ff61be86c0dd28a3ed27308e0b8_720w.webp" alt="img"></a></p>
+<p>从左边我们看到了多个只读层，它们重叠在一起。除了最下面一层，其他层都会有一个指针指向下一层。这些层是 Docker 内部的实现细节，并且能够在主机的文件系统上访问到。</p>
+<p>统一文件系统（Union File System）技术能够将不同的层整合成一个文件系统，为这些层提供了一个统一的视角。</p>
+<p>这样就隐藏了多层的存在，在用户的角度看来，只存在一个文件系统。我们可以在图片的右边看到这个视角的形式。</p>
+<h3 id="Container（容器）"><a href="#Container（容器）" class="headerlink" title="Container（容器）"></a>Container（容器）</h3><p>容器（Container）的定义和镜像（Image）几乎一模一样，也是一堆层的统一视角，唯一区别在于容器的最上面那一层是可读可写的。</p>
+<p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-94f4032aa4a9ed69959cb837cd12bf9c_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-94f4032aa4a9ed69959cb837cd12bf9c_720w.webp" alt="img"></a></p>
+<p>由于容器的定义并没有提及是否要运行容器，所以实际上，容器 &#x3D; 镜像 + 读写层。</p>
+<h3 id="Repository（仓库）"><a href="#Repository（仓库）" class="headerlink" title="Repository（仓库）"></a>Repository（仓库）</h3><p>Docker 仓库是集中存放镜像文件的场所。镜像构建完成后，可以很容易的在当前宿主上运行。</p>
+<p>但是， 如果需要在其他服务器上使用这个镜像，我们就需要一个集中的存储、分发镜像的服务，Docker Registry（仓库注册服务器）就是这样的服务。</p>
+<p>有时候会把仓库（Repository）和仓库注册服务器（Registry）混为一谈，并不严格区分。</p>
+<p>Docker 仓库的概念跟 Git 类似，注册服务器可以理解为 GitHub 这样的托管服务。</p>
+<p>实际上，一个 Docker Registry 中可以包含多个仓库（Repository），每个仓库可以包含多个标签（Tag），每个标签对应着一个镜像。</p>
+<p>所以说，镜像仓库是 Docker 用来集中存放镜像文件的地方，类似于我们之前常用的代码仓库。</p>
+<p>通常，一个仓库会包含同一个软件不同版本的镜像，而标签就常用于对应该软件的各个版本 。</p>
+<p>我们可以通过&lt;仓库名&gt;:&lt;标签&gt;的格式来指定具体是这个软件哪个版本的镜像。如果不给出标签，将以 Latest 作为默认标签。</p>
+<p>仓库又可以分为两种形式：</p>
+<ul>
+<li>Public（公有仓库）</li>
+<li>Private（私有仓库）</li>
+</ul>
+<p>Docker Registry 公有仓库是开放给用户使用、允许用户管理镜像的 Registry 服务。</p>
+<p>一般这类公开服务允许用户免费上传、下载公开的镜像，并可能提供收费服务供用户管理私有镜像。</p>
+<p>除了使用公开服务外，用户还可以在本地搭建私有 Docker Registry。Docker 官方提供了 Docker Registry 镜像，可以直接使用做为私有 Registry 服务。</p>
+<p>当用户创建了自己的镜像之后就可以使用 Push 命令将它上传到公有或者私有仓库，这样下次在另外一台机器上使用这个镜像时候，只需要从仓库上 Pull 下来就可以了。最大的公开仓库是 Docker Hub(<a href="https://link.zhihu.com/?target=https://hub.docker.com/">https://hub.docker.com/</a>)，存放了数量庞大的镜像供用户下载。国内的公开仓库包括阿里云 、网易云等。</p>
+<p>我们主要把 Docker 的一些常见概念如 Image，Container，Repository 做了详细的阐述，也从传统虚拟化方式的角度阐述了 Docker 的优势。</p>
+<h2 id="五、Docker-架构"><a href="#五、Docker-架构" class="headerlink" title="五、Docker 架构"></a>五、Docker 架构</h2><p>我们从下图可以直观地看到 Docker 的架构：</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-8eabc999ad931aec2f0c5c4d43af76f0_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-8eabc999ad931aec2f0c5c4d43af76f0_720w.webp" alt="img"></a></p>
+<p>Docker 使用 C&#x2F;S 结构，即客户端&#x2F;服务器体系结构。Docker 客户端与 Docker 服务器进行交互，Docker服务端负责构建、运行和分发 Docker 镜像。</p>
+<p>Docker 客户端和服务端可以运行在一台机器上，也可以通过 RESTful 、 Stock 或网络接口与远程 Docker 服务端进行通信。</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-6a44343b0199266ffe341c22c428d11a_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-6a44343b0199266ffe341c22c428d11a_720w.webp" alt="img"></a></p>
+<p>这张图展示了 Docker 客户端、服务端和 Docker 仓库（即 Docker Hub 和 Docker Cloud ），默认情况下 Docker 会在 Docker 中央仓库寻找镜像文件。</p>
+<p>这种利用仓库管理镜像的设计理念类似于 Git ，当然这个仓库是可以通过修改配置来指定的，甚至我们可以创建我们自己的私有仓库。</p>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><p>Docker是一个Client-Server结构的系统，Docker守护进程运行在主机上， 然后通过Socket连接从客户端访问，守护进程从客户端接受命令并管理运行在主机上的容器。容器，是一个运行时环境，就是我们前面说到的集装箱。</p>
+<p><a target="_blank" rel="noopener" href="https://pic4.zhimg.com/80/v2-8bd6a06d156c6b7b0e21bbae83b8bc73_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic4.zhimg.com/80/v2-8bd6a06d156c6b7b0e21bbae83b8bc73_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-c5e9bfed680b6ef0a05630fc33ee3ddf_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-c5e9bfed680b6ef0a05630fc33ee3ddf_720w.webp" alt="img"></a></p>
+<p>Docker 的核心组件包括：</p>
+<ul>
+<li>Docker Client</li>
+<li>Docker Daemon</li>
+<li>Docker Image</li>
+<li>Docker Registry</li>
+<li>Docker Container</li>
+</ul>
+<p>Docker 采用的是 Client&#x2F;Server 架构。客户端向服务器发送请求，服务器负责构建、运行和分发容器。</p>
+<p>客户端和服务器可以运行在同一个 Host 上，客户端也可以通过 Socket 或 REST API 与远程的服务器通信。</p>
+<p>可能很多朋友暂时不太理解一些东西，比如 REST API 是什么东西等，不过没关系，在后面的文章中会一一给大家讲解清楚。</p>
+<h3 id="Docker-Client"><a href="#Docker-Client" class="headerlink" title="Docker Client"></a>Docker Client</h3><p>Docker Client ，也称 Docker 客户端。它其实就是 Docker 提供命令行界面（CLI）工具，是许多 Docker 用户与 Docker 进行交互的主要方式。</p>
+<p>客户端可以构建，运行和停止应用程序，还可以远程与 Docker_Host 进行交互。</p>
+<p>最常用的 Docker 客户端就是 Docker 命令，我们可以通过 Docker 命令很方便地在 Host 上构建和运行 Docker 容器。</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-d0773e8b5d97c5ee3905f8b597a5f318_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-d0773e8b5d97c5ee3905f8b597a5f318_720w.webp" alt="img"></a></p>
+<h3 id="Docker-Daemon"><a href="#Docker-Daemon" class="headerlink" title="Docker Daemon"></a>Docker Daemon</h3><p>Docker Daemon 是服务器组件，以 Linux 后台服务的方式运行，是 Docker 最核心的后台进程，我们也把它称为守护进程。</p>
+<p>它负责响应来自 Docker Client 的请求，然后将这些请求翻译成系统调用完成容器管理操作。</p>
+<p>该进程会在后台启动一个 API Server ，负责接收由 Docker Client 发送的请求，接收到的请求将通过 Docker Daemon 内部的一个路由分发调度，由具体的函数来执行请求。</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-8ac4ff3ea5b898d1ee8f6922b2a5226b_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-8ac4ff3ea5b898d1ee8f6922b2a5226b_720w.webp" alt="img"></a></p>
+<p>我们大致可以将其分为以下三部分：</p>
+<ul>
+<li>Docker Server</li>
+<li>Engine</li>
+<li>Job</li>
+</ul>
+<p>Docker Daemon 的架构如下所示：</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-29ff015d0d2a505586a743c13f97ff96_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-29ff015d0d2a505586a743c13f97ff96_720w.webp" alt="img"></a></p>
+<p>Docker Daemon 可以认为是通过 Docker Server 模块接受 Docker Client 的请求，并在 Engine 中处理请求，然后根据请求类型，创建出指定的 Job 并运行。</p>
+<p>Docker Daemon 运行在 Docker Host 上，负责创建、运行、监控容器，构建、存储镜像。</p>
+<p>运行过程的作用有以下几种可能：</p>
+<ul>
+<li>向 Docker Registry 获取镜像。</li>
+<li>通过 GraphDriver 执行容器镜像的本地化操作。</li>
+<li>通过 NetworkDriver 执行容器网络环境的配置。</li>
+<li>通过 ExecDriver 执行容器内部运行的执行工作。</li>
+</ul>
+<p>由于 Docker Daemon 和 Docker Client 的启动都是通过可执行文件 Docker 来完成的，因此两者的启动流程非常相似。</p>
+<p>Docker 可执行文件运行时，运行代码通过不同的命令行 Flag 参数，区分两者，并最终运行两者各自相应的部分。</p>
+<p>启动 Docker Daemon 时，一般可以使用以下命令来完成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker --daemon = truedocker –d</span><br><span class="line">docker –d = true</span><br></pre></td></tr></table></figure>
+
+<p>再由 Docker 的 main() 函数来解析以上命令的相应 Flag 参数，并最终完成 Docker Daemon 的启动。</p>
+<p>下图可以很直观地看到 Docker Daemon 的启动流程：</p>
+<p><a target="_blank" rel="noopener" href="https://pic3.zhimg.com/80/v2-d63fbbb1fb91fc0faa15efb677098abe_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic3.zhimg.com/80/v2-d63fbbb1fb91fc0faa15efb677098abe_720w.webp" alt="img"></a></p>
+<p>默认配置下，Docker Daemon 只能响应来自本地 Host 的客户端请求。如果要允许远程客户端请求，需要在配置文件中打开 TCP 监听。</p>
+<p>我们可以照着如下步骤进行配置：</p>
+<p>1、编辑配置文件&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;multi-user.target.wants&#x2F;docker.service，在环境变量 ExecStart 后面添加 -H tcp:&#x2F;&#x2F;0.0.0.0，允许来自任意 IP 的客户端连接。</p>
+<p><a target="_blank" rel="noopener" href="https://pic2.zhimg.com/80/v2-8f9b76a5542f37586f04ca1819f2bae9_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic2.zhimg.com/80/v2-8f9b76a5542f37586f04ca1819f2bae9_720w.webp" alt="img"></a></p>
+<p>2、重启 Docker Daemon：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker.service</span><br></pre></td></tr></table></figure>
+
+<p>3、我们通过以下命令即可实现与远程服务器通信：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker </span><br><span class="line">-</span><br><span class="line">H </span><br><span class="line">服务器</span><br><span class="line">IP</span><br><span class="line">地址</span><br><span class="line"> info</span><br></pre></td></tr></table></figure>
+
+<p>-H 是用来指定服务器主机，info 子命令用于查看 Docker 服务器的信息。</p>
+<h3 id="Docker-Image"><a href="#Docker-Image" class="headerlink" title="Docker Image"></a>Docker Image</h3><p>Docker 镜像可以看作是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。</p>
+<p>镜像不包含任何动态数据，其内容在构建之后也不会被改变。我们可将 Docker 镜像看成只读模板，通过它可以创建 Docker 容器。</p>
+<p>镜像有多种生成方法：</p>
+<ul>
+<li>从无到有开始创建镜像</li>
+<li>下载并使用别人创建好的现成的镜像</li>
+<li>在现有镜像上创建新的镜像</li>
+</ul>
+<p>我们可以将镜像的内容和创建步骤描述在一个文本文件中，这个文件被称作 Dockerfile ，通过执行 docker build命令可以构建出 Docker 镜像。</p>
+<h3 id="Docker-Container"><a href="#Docker-Container" class="headerlink" title="Docker Container"></a>Docker Container</h3><p>Docker 容器就是 Docker 镜像的运行实例，是真正运行项目程序、消耗系统资源、提供服务的地方。</p>
+<p>Docker Container 提供了系统硬件环境，我们可以使用 Docker Images 这些制作好的系统盘，再加上我们所编写好的项目代码，Run 一下就可以提供服务啦。</p>
+<h3 id="Docker-Registry"><a href="#Docker-Registry" class="headerlink" title="Docker Registry"></a>Docker Registry</h3><p>Docker Registry 是存储 Docker Image 的仓库，它在 Docker 生态环境中的位置如下图所示：</p>
+<p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-7f3288874a609cf8618f8370edb34e2c_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-7f3288874a609cf8618f8370edb34e2c_720w.webp" alt="img"></a></p>
+<p>运行 docker push、docker pull、docker search 时，实际上是通过 Docker Daemon 与 Docker Registry 通信。</p>
+<h2 id="六、Docker-网络"><a href="#六、Docker-网络" class="headerlink" title="六、Docker 网络"></a>六、Docker 网络</h2><h3 id="1-本机网络理解"><a href="#1-本机网络理解" class="headerlink" title="1.本机网络理解"></a>1.本机网络理解</h3><p>我们使用ifconfig可以看到三组网络。首先是docker0，这是我们本节的重点，docker的网络。之后是eth0，本机的外网地址。lo口，本地环回地址，可以代表localhost。</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-a32633ec34220f4e6c111e6e63658641_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-a32633ec34220f4e6c111e6e63658641_720w.webp" alt="img"></a></p>
+<p>关于docker0呢，其实就是一个叫docker0的虚拟网桥。我们使用brctl命令来查看一下。（没有这个命令的下载<strong>yum -y install bridge-utils</strong>）</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brctl show</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-a8bb60530a15234ed3996e457509354c_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-a8bb60530a15234ed3996e457509354c_720w.webp" alt="img"></a></p>
+<h3 id="2-清空本机docker环境"><a href="#2-清空本机docker环境" class="headerlink" title="2.清空本机docker环境"></a>2.清空本机docker环境</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker rm -f $(docker ps -aq)</span><br><span class="line">docker rmi -f $(docker images -aq)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-veth-pair技术"><a href="#3-veth-pair技术" class="headerlink" title="3.veth-pair技术"></a>3.veth-pair技术</h3><p>什么是veth-pair技术？要理解它，我们首先来启动两个tomcat容器。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -P --name=tomcat01 tomcat:7</span><br><span class="line">docker run -d -P --name=tomcat02 tomcat:7</span><br><span class="line">#提示：选择tomcat7是因为这个镜像包含了ip addr 等常用命令！</span><br></pre></td></tr></table></figure>
+
+<p>启动机器之后，我们查看容器ip，通过容器的ip 去ping宿主机ip，发现是通的。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker </span><br><span class="line">exec</span><br><span class="line"> </span><br><span class="line">-</span><br><span class="line">it tomcat01 ip addr</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://pic4.zhimg.com/80/v2-e0c9716f3a54b961c111376bf9aed7f7_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic4.zhimg.com/80/v2-e0c9716f3a54b961c111376bf9aed7f7_720w.webp" alt="img"></a></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ping </span><br><span class="line">172.17</span><br><span class="line">.</span><br><span class="line">0.3</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://pic2.zhimg.com/80/v2-3cf06b8e8e26e962ceccf3ae17a07b2d_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic2.zhimg.com/80/v2-3cf06b8e8e26e962ceccf3ae17a07b2d_720w.webp" alt="img"></a></p>
+<p>理解：我们每启动一个docker容器，docker就会给docker容器分配一个ip，安装docker之后，会产生一个叫docker0的网卡，这里使用的就是<strong>veth-pair技术</strong>。</p>
+<p>使用ip addr命令，查看我们的网卡。</p>
+<p><a target="_blank" rel="noopener" href="https://pic2.zhimg.com/80/v2-76006ceda7959cb3b7b3d87a6a31cc1d_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic2.zhimg.com/80/v2-76006ceda7959cb3b7b3d87a6a31cc1d_720w.webp" alt="img"></a></p>
+<p>我们发现多出来了两个网卡，到了这里，你已经知道这两张网卡是那里来的了吧。没错，是启动容器之后产生的！我们回过头来查看我们在启动的容器IP，就会很清晰的发现，这个网卡是成对存在的！容器内的64对应着宿主机的65，容器内的66对应宿主机的67。</p>
+<p>什么是veth-pair？veth-pair 就是一堆的虚拟设备接口，他们都是成对出现的，一端连接着协议，一端连接着彼此。使得它充当了一个桥梁的作用。</p>
+<p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-475b072da50160ab2dc9356ae7c44f08_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-475b072da50160ab2dc9356ae7c44f08_720w.webp" alt="img"></a></p>
+<h3 id="4-docker网络详解"><a href="#4-docker网络详解" class="headerlink" title="4.docker网络详解"></a>4.docker网络详解</h3><p>我们来绘制一个简单的网络模型，这样veth-pair的作用就清晰明了了。</p>
+<p><a target="_blank" rel="noopener" href="https://pic4.zhimg.com/80/v2-5261a58a2488899b4252b1c41cebd00f_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic4.zhimg.com/80/v2-5261a58a2488899b4252b1c41cebd00f_720w.webp" alt="img"></a></p>
+<p>不难看出，tomcat01和tomcat02是共用的同一个路由器，即docker0。所有的容器在不指定我网络的情况下，都是docker0路由的，docekr会给我们的容器分配一个默认IP。docker网络就是下面这个网络模型所描述的。（docker所有的网络接口都是虚拟的，虚拟的转发效率高）</p>
+<p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-edfa680148aaa4d2afffab92d73f4f08_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-edfa680148aaa4d2afffab92d73f4f08_720w.webp" alt="img"></a></p>
+<h3 id="5-docker网络模式"><a href="#5-docker网络模式" class="headerlink" title="5.docker网络模式"></a>5.docker网络模式</h3><h3 id="1-docker网络模式有以下几种："><a href="#1-docker网络模式有以下几种：" class="headerlink" title="1)docker网络模式有以下几种："></a>1)docker网络模式有以下几种：</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Host：容器不会虚拟出自己的网卡，配置主机的IP等,而是使用宿主机的IP和端口</span><br><span class="line"></span><br><span class="line">Container: 创建的容器不会创建自己的网卡，配置自己的IP，而是和一个指定的容器共享IP。（一般不用）</span><br><span class="line"></span><br><span class="line">None: 该模式关闭了容器的网络功能。（一般不用）</span><br><span class="line"></span><br><span class="line">Bridge：默认为该模式（桥接，自己创建也是用它），此模式会为每一个容器分配，设置IP等，并将容器连接到一个docker0 的虚拟网桥，通过docker 0 网桥以及iptables nat 表配置与宿主机通信。</span><br><span class="line">docker network ls   </span><br><span class="line">#列出docker网卡</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-创建自定义网络的容器："><a href="#2-创建自定义网络的容器：" class="headerlink" title="2)创建自定义网络的容器："></a>2)创建自定义网络的容器：</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#我们直接启动命令， --net bridge，就是docker0（默认）</span><br><span class="line">docker run -d -P --name=tomcat01 --net bridge tomcat</span><br><span class="line"></span><br><span class="line">#docker0特点：默认，域名不能访问，--link不建议使用</span><br></pre></td></tr></table></figure>
+
+<p>下面我们自己来创建一个bridge。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker network create --driver bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 testnet</span><br><span class="line"></span><br><span class="line">docekr network ls</span><br></pre></td></tr></table></figure>
+
+<p>只需要两条命令，你就创建完了自己的网络！</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-e8f1417c07cbe2c612668ef21b819dea_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-e8f1417c07cbe2c612668ef21b819dea_720w.webp" alt="img"></a></p>
+<p>这里在教大家一条命令：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network inspect 网卡名字  #查看网卡详细信息</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-63cf40fce7e53f579a6c9ed0b2c48945_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-63cf40fce7e53f579a6c9ed0b2c48945_720w.webp" alt="img"></a></p>
+<h3 id="3-发布两个在自己创建的网络里的容器。"><a href="#3-发布两个在自己创建的网络里的容器。" class="headerlink" title="3)发布两个在自己创建的网络里的容器。"></a>3)发布两个在自己创建的网络里的容器。</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -P --name=tomcat01-net --net=testnet tomcat:7</span><br><span class="line">docker run -d -P --name=tomcat02-net --net testnet tomcat:7</span><br></pre></td></tr></table></figure>
+
+<p>然后使用docker network inspect testnet，就可以看到刚才创建的这两个容器的IP了。</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-ce52a66133220082707b540f919dccb9_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-ce52a66133220082707b540f919dccb9_720w.webp" alt="img"></a></p>
+<p>还记得我们前面说的docker0的缺点之一，不能通过域名访问吗？而我们自定义的网络，就修复了这个功能！</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it tomcat01-net ping -c 3 IP</span><br><span class="line">docker exec -it tomcat01-net ping -c 3 tomcat02-net</span><br><span class="line"></span><br><span class="line">#提示，ping -c可以自定义ping的次数</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-5975199d1496ebe3a3d90671ab51252e_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-5975199d1496ebe3a3d90671ab51252e_720w.webp" alt="img"></a></p>
+<h2 id="七、Docker-安装"><a href="#七、Docker-安装" class="headerlink" title="七、Docker 安装"></a>七、Docker 安装</h2><p>Docker 的安装和使用有一些前提条件，主要体现在体系架构和内核的支持上。</p>
+<p>对于体系架构，除了 Docker 一开始就支持的 X86-64 ，其他体系架构的支持则一直在不断地完善和推进中。</p>
+<p>2017年初，docker公司将原先的docker开源项目改名为<strong>moby。</strong></p>
+<p>moby是集成了原先的docker项目，是社区维护的开源项目，谁都可以在moby的基础打造自己的容器产品。</p>
+<p>Docker 分为 CE 和 EE 两大版本。CE 即社区版，免费支持周期 7 个月；EE 即企业版，强调安全，付费使用，支持周期 24 个月。我们经常使用的版本当然是docker-ce啦！</p>
+<p>我们在安装前可以参看官方文档获取最新的 Docker 支持情况，官方文档在这里：</p>
+<p><a href="https://link.zhihu.com/?target=https://docs.docker.com/install/">https://docs.docker.com/install/</a></p>
+<p>Docker 对于内核支持的功能，即内核的配置选项也有一定的要求（比如必须开启 Cgroup 和 Namespace 相关选项，以及其他的网络和存储驱动等）。</p>
+<p>Docker CE 的安装请参考官方文档：</p>
+<ul>
+<li>MacOS：<a href="https://link.zhihu.com/?target=https://docs.docker.com/docker-for-mac/install/">https://docs.docker.com/docker-for-mac/install/</a></li>
+<li>Windows：<a href="https://link.zhihu.com/?target=https://docs.docker.com/docker-for-windows/install/">https://docs.docker.com/docker-for-windows/install/</a></li>
+<li>Ubuntu：<a href="https://link.zhihu.com/?target=https://docs.docker.com/install/linux/docker-ce/ubuntu/">https://docs.docker.com/install/linux/docker-ce/ubuntu/</a></li>
+<li>Debian：<a href="https://link.zhihu.com/?target=https://docs.docker.com/install/linux/docker-ce/debian/">https://docs.docker.com/install/linux/docker-ce/debian/</a></li>
+<li>CentOS：<a href="https://link.zhihu.com/?target=https://docs.docker.com/install/linux/docker-ce/centos/">https://docs.docker.com/install/linux/docker-ce/centos/</a></li>
+<li>Fedora：<a href="https://link.zhihu.com/?target=https://docs.docker.com/install/linux/docker-ce/fedora/">https://docs.docker.com/install/linux/docker-ce/fedora/</a></li>
+<li>其他 Linux 发行版：<a href="https://link.zhihu.com/?target=https://docs.docker.com/install/linux/docker-ce/binaries/">https://docs.docker.com/install/linux/docker-ce/binaries/</a></li>
+</ul>
+<p><a href="https://link.zhihu.com/?target=http://mp.weixin.qq.com/s?__biz=Mzk0MDI0NzgxNA==&mid=2247494091&idx=1&sn=871bdb8a21d16efd262ba7e379276b3e&chksm=c2e637a2f591beb40ecc7595c6632cc693c8e2ea3e01beef953bb146b31897fd5f0f0057f5a3&scene=21%23wechat_redirect">CentOS&#x2F;Ubuntu安装Docker和Docker Compose</a>，这里我们以 CentOS 7 作为演示。</p>
+<p>环境准备：</p>
+<ul>
+<li>阿里云服务器（1 核 2G，1M 带宽）</li>
+<li>CentOS 7.4 64 位</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-c55e1cb0fa8105dbf9e64b07ad31e8e5_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-c55e1cb0fa8105dbf9e64b07ad31e8e5_720w.webp" alt="img"></a></p>
+<p>由于 Docker-CE 支持 64 位版本的 CentOS 7 ，并且要求内核版本不低于 3.10，首先我们需要卸载掉旧版本的 Docker：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum remove docker \</span><br><span class="line">              docker-client \</span><br><span class="line">              docker-client-latest \</span><br><span class="line">              docker-common \</span><br><span class="line">              docker-latest \</span><br><span class="line">              docker-latest-logrotate \</span><br><span class="line">              docker-logrotate \</span><br><span class="line">              docker-selinux \</span><br><span class="line">              docker-engine-selinux \</span><br><span class="line">              docker-engine</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://pic3.zhimg.com/80/v2-8d64244f57974ae097dd86cc826a9b1e_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic3.zhimg.com/80/v2-8d64244f57974ae097dd86cc826a9b1e_720w.webp" alt="img"></a></p>
+<p>我们执行以下安装命令去安装依赖包：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-cb19c78c9cc1e4f9be0a54365b1fcc32_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-cb19c78c9cc1e4f9be0a54365b1fcc32_720w.webp" alt="img"></a></p>
+<p>这里已经安装过了，所以提示Nothing to do。</p>
+<h3 id="配置国内yum源"><a href="#配置国内yum源" class="headerlink" title="配置国内yum源"></a>配置国内yum源</h3><p>这里采用的是阿里云</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<p>yum-config-manager命令作用是添加yum源。敲完命令之后大家执行一下命令去看一下有没有配置成功。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cat </span><br><span class="line">/</span><br><span class="line">etc</span><br><span class="line">/</span><br><span class="line">yum</span><br><span class="line">.</span><br><span class="line">repos</span><br><span class="line">.</span><br><span class="line">d</span><br><span class="line">/</span><br><span class="line">docker</span><br><span class="line">-</span><br><span class="line">ce</span><br><span class="line">.</span><br><span class="line">repo</span><br></pre></td></tr></table></figure>
+
+<p>更新yum软件包索引</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum makecache fast</span><br></pre></td></tr></table></figure>
+
+<p>列出并排序您存储库中可用的版本。此示例按版本号（从高到低）对结果进行排序。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list docker-ce --showduplicates | sort -r</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Docker 软件包已经包括在默认的 CentOS-Extras 软件源里。因此想要安装 Docker，只需要运行下面的 yum 命令进行安装：</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install </span><br><span class="line">-</span><br><span class="line">y docker</span><br><span class="line">-</span><br><span class="line">ce</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当然在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，CentOS 系统上可以使用这套脚本安装：</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">## 一键安装 docker</span><br><span class="line">curl -fsSL get.docker.com -o get-docker.sh &amp;&amp; sh get-docker.sh</span><br><span class="line"># 或</span><br><span class="line">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</span><br><span class="line"># 或</span><br><span class="line">curl -sSL https://get.docker.com/ | sh</span><br><span class="line"># 或</span><br><span class="line">wget -qO- https://get.docker.com/ | sh</span><br></pre></td></tr></table></figure>
+
+<p>具体可以参看 docker-install 的脚本：</p>
+<p><a href="https://link.zhihu.com/?target=https://github.com/docker/docker-install">https://github.com/docker/docker-install</a></p>
+<p>执行这个命令后，脚本就会自动的将一切准备工作做好，并且把 Docker CE 的 Edge 版本安装在系统中。更多详见<a href="https://link.zhihu.com/?target=http://mp.weixin.qq.com/s?__biz=Mzk0MDI0NzgxNA==&mid=2247494091&idx=1&sn=871bdb8a21d16efd262ba7e379276b3e&chksm=c2e637a2f591beb40ecc7595c6632cc693c8e2ea3e01beef953bb146b31897fd5f0f0057f5a3&scene=21%23wechat_redirect">CentOS&#x2F;Ubuntu安装Docker和Docker Compose</a>。</p>
+<p>安装完成后，运行下面的命令，验证是否安装成功：</p>
+<p>启动 Docker-CE：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start docker</span><br><span class="line">sudo systemctl enable docker  #设置开机自启</span><br></pre></td></tr></table></figure>
+
+<p>验证</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker -v 或 docker version 或 docker --version</span><br><span class="line"># 或</span><br><span class="line">docker info</span><br></pre></td></tr></table></figure>
+
+<p>返回 Docker 的版本相关信息，证明 Docker 安装成功：</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-9d00c79ec213c84cd4b6aa057ef7ef8b_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-9d00c79ec213c84cd4b6aa057ef7ef8b_720w.webp" alt="img"></a></p>
+<h3 id="Docker-的简单运用-Hello-World"><a href="#Docker-的简单运用-Hello-World" class="headerlink" title="Docker 的简单运用 Hello World"></a>Docker 的简单运用 Hello World</h3><p>我们通过最简单的 Image 文件 Hello World，感受一下 Docker 的魅力吧！</p>
+<p>我们直接运行下面的命令，将名为 hello-world 的 image 文件从仓库抓取到本地：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull hello</span><br><span class="line">-</span><br><span class="line">world</span><br></pre></td></tr></table></figure>
+
+<p>docker pull images 是抓取 image 文件，library&#x2F;hello-world 是 image 文件在仓库里面的位置，其中 library 是 image 文件所在的组，hello-world 是 image 文件的名字。</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-5e7133c11bac3489a74ca3e1ddbd4c15_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-5e7133c11bac3489a74ca3e1ddbd4c15_720w.webp" alt="img"></a></p>
+<p>抓取成功以后，就可以在本机看到这个 image 文件了：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到如下结果：</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-e9f4664afab5c55abcd524121b65155e_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-e9f4664afab5c55abcd524121b65155e_720w.webp" alt="img"></a></p>
+<p>现在，我们可以运行 hello-world 这个 image 文件：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run hello</span><br><span class="line">-</span><br><span class="line">world</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到如下结果：</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-3211d862ee4b07a3eaae0d2ab0d69b47_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-3211d862ee4b07a3eaae0d2ab0d69b47_720w.webp" alt="img"></a></p>
+<p>输出这段提示以后，hello world 就会停止运行，容器自动终止。有些容器不会自动终止，因为提供的是服务，比如 Nginx镜像等。</p>
+<p>我们从上面可以看出，Docker 的功能是十分强大的，除此之外，我们还可以拉取一些 Centos，Ubuntu，Alpine等镜像，在未来的教程中我们将会一一提到。</p>
+<p>Docker 提供了一套简单实用的命令来创建和更新镜像，我们可以通过网络直接下载一个已经创建好了的应用镜像，并通过 Docker RUN 命令就可以直接使用。</p>
+<p>当镜像通过 RUN 命令运行成功后，这个运行的镜像就是一个 Docker 容器啦。</p>
+<p>容器可以理解为一个轻量级的沙箱，Docker 利用容器来运行和隔离应用，容器是可以被启动、停止、删除的，这并不会影响 Docker 镜像。</p>
+<p>我们可以看看下面这幅图：</p>
+<p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-d9ec8bf9f53ec749269e544a7e43a9e0_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-d9ec8bf9f53ec749269e544a7e43a9e0_720w.webp" alt="img"></a></p>
+<p>Docker 客户端是 Docker 用户与 Docker 交互的主要方式。当您使用 Docker 命令行运行命令时，Docker 客户端将这些命令发送给服务器端，服务端将执行这些命令。</p>
+<p>Docker 命令使用 Docker API 。Docker 客户端可以与多个服务端进行通信。</p>
+<p>我们将剖析一下 Docker 容器是如何工作的，学习好 Docker 容器工作的原理，我们就可以自己去管理我们的容器了。</p>
+<h3 id="Docker-配置镜像加速器"><a href="#Docker-配置镜像加速器" class="headerlink" title="Docker 配置镜像加速器"></a>Docker 配置镜像加速器</h3><p>这是使用阿里云docker镜像加速器。控制台地址:<a href="https://link.zhihu.com/?target=https://cr.console.aliyun.com">https://cr.console.aliyun.com</a>，登录后，左侧-镜像工具-镜像加速器，加速器帮助页面会为你显示<strong>独立的加速地址</strong>，这个加速地址每个人的都不同。</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-5edf67a347611a21ca56fc8272fa9853_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-5edf67a347611a21ca56fc8272fa9853_720w.webp" alt="img"></a></p>
+<p>针对Docker客户端版本大于 1.10.0 的用户</p>
+<p>您可以通过修改daemon配置文件&#x2F;etc&#x2F;docker&#x2F;daemon.json来使用加速器</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://zjj1c410.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="Docker-组件是如何协作运行容器"><a href="#Docker-组件是如何协作运行容器" class="headerlink" title="Docker 组件是如何协作运行容器"></a>Docker 组件是如何协作运行容器</h3><p>看到这里，我相信各位读者朋友们应该已经对 Docker 基础架构熟悉的差不多了，我们还记得运行的第一个容器吗？</p>
+<p>现在我们再通过 hello-world 这个例子来体会一下 Docker 各个组件是如何协作的。</p>
+<p>容器启动过程如下：</p>
+<ul>
+<li>Docker 客户端执行 docker run 命令。</li>
+<li>Docker Daemon 发现本地没有 hello-world 镜像。</li>
+<li>Daemon 从 Docker Hub 下载镜像。</li>
+<li>下载完成，镜像 hello-world 被保存到本地。</li>
+<li>Docker Daemon 启动容器。</li>
+</ul>
+<p>具体过程可以看如下这幅演示图：</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-61ee39b51c97e00f39eed6861d88d74d_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-61ee39b51c97e00f39eed6861d88d74d_720w.webp" alt="img"></a></p>
+<p>我们可以通过 Docker Images 可以查看到 hello-world 已经下载到本地：</p>
+<p><a target="_blank" rel="noopener" href="https://pic2.zhimg.com/80/v2-f11d13e417ecd3c82e611bb53abb84cd_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic2.zhimg.com/80/v2-f11d13e417ecd3c82e611bb53abb84cd_720w.webp" alt="img"></a></p>
+<p>我们可以通过 Docker Ps 或者 Docker Container ls 显示正在运行的容器，我们可以看到，hello-world 在输出提示信息以后就会停止运行，容器自动终止，所以我们在查看的时候没有发现有容器在运行。</p>
+<p><a target="_blank" rel="noopener" href="https://pic4.zhimg.com/80/v2-bf2bcf35150fdc0605f186ec13e9641b_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic4.zhimg.com/80/v2-bf2bcf35150fdc0605f186ec13e9641b_720w.webp" alt="img"></a></p>
+<p>我们把 Docker 容器的工作流程剖析的十分清楚了，我们大体可以知道 Docker 组件协作运行容器可以分为以下几个过程：</p>
+<ul>
+<li>Docker 客户端执行 docker run 命令。</li>
+<li>Docker Daemon 发现本地没有我们需要的镜像。</li>
+<li>Daemon 从 Docker Hub 下载镜像。</li>
+<li>下载完成后，镜像被保存到本地。</li>
+<li>Docker Daemon 启动容器。</li>
+</ul>
+<p>了解了这些过程以后，我们再来理解这些命令就不会觉得很突兀了，下面我来给大家讲讲 Docker 常用的一些命令操作吧。</p>
+<h2 id="八、Docker-常用命令"><a href="#八、Docker-常用命令" class="headerlink" title="八、Docker 常用命令"></a>八、Docker 常用命令</h2><p>我们可以通过 docker -h 去查看命令的详细的帮助文档。在这里我只会讲一些日常我们可能会用的比较多的一些命令。</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-ca37702e3b27c530e0a02bcef774ea97_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-ca37702e3b27c530e0a02bcef774ea97_720w.webp" alt="img"></a></p>
+<h3 id="1-帮助启动类命令"><a href="#1-帮助启动类命令" class="headerlink" title="1.帮助启动类命令"></a>1.帮助启动类命令</h3><ul>
+<li>[ 查看版本] <code>docker version</code></li>
+<li>[ 查看Docker概要信息] <code>docker info</code></li>
+<li>[ 查看Docker总体帮助文档] <code>docker--help</code></li>
+<li>[ 查看docker具体命令帮助文档] <code>docker具体命令--help</code></li>
+<li>[ 启动Docker] <code>systemctl start docker</code></li>
+<li>[ 停止Docker] <code>systemctl stop docker</code></li>
+<li>[ 重启Docker] <code>systemctl restart docker</code></li>
+<li>[ 查看状态] <code>systemctl status docker</code></li>
+<li>[ 开机启动] <code>systemctl enable docker</code></li>
+</ul>
+<h3 id="2-镜像命令"><a href="#2-镜像命令" class="headerlink" title="2.镜像命令"></a>2.镜像命令</h3><h3 id="1-列出本地主机上的镜像"><a href="#1-列出本地主机上的镜像" class="headerlink" title="1)列出本地主机上的镜像"></a>1)列出本地主机上的镜像</h3><blockquote>
+<p>docker images</p>
+</blockquote>
+<p>参数说明：</p>
+<blockquote>
+<p>-a：列出所有镜像（含历史镜像）<br>-q：只显示镜像ID<br>-f：过滤</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://pic4.zhimg.com/80/v2-8129677fa3a1c27f4e217299eb6c319b_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic4.zhimg.com/80/v2-8129677fa3a1c27f4e217299eb6c319b_720w.webp" alt="img"></a></p>
+<p>各个选项说明：</p>
+<blockquote>
+<p>REPOSITORY：表示镜像的仓库源<br>TAG：镜像的标签版本号<br>IMAGE ID：镜像ID<br>CREATED：镜像创建时间<br>SIZE：镜像大小</p>
+</blockquote>
+<h3 id="2-在远程仓库中搜索镜像"><a href="#2-在远程仓库中搜索镜像" class="headerlink" title="2)在远程仓库中搜索镜像"></a>2)在远程仓库中搜索镜像</h3><p>执行命令，默认去docker hub中搜索</p>
+<blockquote>
+<p>docker search 镜像名称</p>
+</blockquote>
+<p>参数说明：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-f：过滤</span><br><span class="line">--limit 数量：只列出N个镜像，默认25个</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-a1fd33d4015a5a037cb96b7e8d647674_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-a1fd33d4015a5a037cb96b7e8d647674_720w.webp" alt="img"></a></p>
+<h3 id="3-下载镜像"><a href="#3-下载镜像" class="headerlink" title="3)下载镜像"></a>3)下载镜像</h3><blockquote>
+<p>docker pull 镜像名称[:tag]</p>
+</blockquote>
+<p>不加 tag 时，默认下载最新的镜像（即tag为latest）。</p>
+<h3 id="4-查看占据的空间"><a href="#4-查看占据的空间" class="headerlink" title="4)查看占据的空间"></a>4)查看占据的空间</h3><p>查看镜像&#x2F;容器&#x2F;数据卷所占的空间：</p>
+<blockquote>
+<p>docker system df</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://pic4.zhimg.com/80/v2-090f9f397873dae78241a00597e0a8a7_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic4.zhimg.com/80/v2-090f9f397873dae78241a00597e0a8a7_720w.webp" alt="img"></a></p>
+<h3 id="5-删除镜像"><a href="#5-删除镜像" class="headerlink" title="5)删除镜像"></a>5)删除镜像</h3><blockquote>
+<p>docker rmi 镜像名称&#x2F;ID</p>
+</blockquote>
+<p>可以使用空格分隔，删除多个镜像：</p>
+<blockquote>
+<p>docker rmi 镜像1 镜像2 镜像3</p>
+</blockquote>
+<p>删除全部镜像：</p>
+<blockquote>
+<p>docker rmi -f ${docker images -qa}</p>
+</blockquote>
+<h3 id="6-虚悬镜像"><a href="#6-虚悬镜像" class="headerlink" title="6)虚悬镜像"></a>6)虚悬镜像</h3><p>仓库名、标签都是的镜像，俗称虚悬镜像（dangling image）。</p>
+<h3 id="3-容器命令"><a href="#3-容器命令" class="headerlink" title="3.容器命令"></a>3.容器命令</h3><h3 id="1-新建-启动容器"><a href="#1-新建-启动容器" class="headerlink" title="1)新建+启动容器"></a>1)新建+启动容器</h3><p>新建容器，需要先下载镜像 <code>docker pull ubuntu</code>。</p>
+<p>执行命令 <code>docker run[OPTIONS]IMAGE[COMMAND][ARG...]</code></p>
+<p><strong>参数【OPTIONS】说明：</strong></p>
+<ul>
+<li><code>--name</code>：为容器指定一个名称</li>
+<li><code>-d</code>：后台运行容器并返回容器ID，也即启动守护式容器</li>
+<li><code>-i</code>：以交互模式（interactive）运行容器，通常与-t同时使用</li>
+<li><code>-t</code>：为容器重新分配一个伪输入终端（tty），通常与-i同时使用。也即启动交互式容器（前台有伪终端，等待交互）</li>
+<li><code>-e</code>：为容器添加环境变量</li>
+<li><code>-P</code>：随机端口映射。将容器内暴露的所有端口映射到宿主机随机端口</li>
+<li><code>-p</code>：指定端口映射</li>
+</ul>
+<p><strong>-p指定端口映射的几种不同形式</strong>：</p>
+<ul>
+<li><code>-p hostPort:containerPort</code>：端口映射，例如-p 8080:80</li>
+<li><code>-p ip:hostPort:containerPort</code>：配置监听地址，例如 -p 10.0.0.1:8080:80</li>
+<li><code>-p ip::containerPort</code>：随机分配端口，例如 -p 10.0.0.1::80</li>
+<li><code>-p hostPort1:containerPort1-p hostPort2:containerPort2</code>：指定多个端口映射，例如-p 8080:80 -p 8888:3306</li>
+</ul>
+<h3 id="2-启动交互式容器-前台命令行"><a href="#2-启动交互式容器-前台命令行" class="headerlink" title="2)启动交互式容器(前台命令行)"></a>2)启动交互式容器(前台命令行)</h3><p>执行命令，以交互方式启动ubuntu镜像</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run </span><br><span class="line">-</span><br><span class="line">it ubuntu </span><br><span class="line">/</span><br><span class="line">bin</span><br><span class="line">/</span><br><span class="line">bash</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数说明：</strong></p>
+<blockquote>
+<p>-i: 交互式操作。-t: 终端。ubuntu : ubuntu 镜像。&#x2F;bin&#x2F;bash：放在镜像名后的是命令，这里我们希望有个交互式 Shell，因此用的是 &#x2F;bin&#x2F;bash。要退出终端，直接输入 exit:</p>
+</blockquote>
+<p><strong>两种方式退出交互模式</strong>：</p>
+<ol>
+<li><code>exit;</code> run进去容器，exit退出，容器停止</li>
+<li>使用快捷键 <code>ctrl+P+Q</code> run进去容器，ctrl+p+q退出，容器不停止</li>
+</ol>
+<h3 id="3-列出当前所有正在运行的容器"><a href="#3-列出当前所有正在运行的容器" class="headerlink" title="3)列出当前所有正在运行的容器"></a>3)列出当前所有正在运行的容器</h3><blockquote>
+<p>docker ps [OPTIONS]</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://pic2.zhimg.com/80/v2-df736995ed9d398307890cdd852c5321_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic2.zhimg.com/80/v2-df736995ed9d398307890cdd852c5321_720w.webp" alt="img"></a></p>
+<p><strong>常用参数说明：</strong></p>
+<blockquote>
+<p>-a：列出当前所有正在运行的容器+历史上运行过的<br>-l：显示最近创建的容器。-n：显示最近n个创建的容器。-q：静默模式，只显示容器编号。</p>
+</blockquote>
+<h3 id="4-启动守护式容器"><a href="#4-启动守护式容器" class="headerlink" title="4)启动守护式容器"></a>4)启动守护式容器</h3><p>大部分情况下，我们系统docker容器服务是在后台运行的，可以通过-d指定容器的后台运行模式：</p>
+<blockquote>
+<p>docker run -d 容器名</p>
+</blockquote>
+<p><strong>注意事项：</strong>如果使用 <code>docker run-d ubuntu</code>尝试启动守护式的ubuntu，然后 <code>docker ps-a</code> 进行查看, 会发现容器已经退出了。</p>
+<p>因为Docker容器如果在后台运行，就必须要有一个前台进程。容器运行的命令如果不是那些一直挂起的命令（例如 <code>top</code>、 <code>tail</code>），就会自动退出。</p>
+<blockquote>
+<p>这个是docker的机制问题。比如你的web容器，我们以nginx为例，正常情况下,我们配置启动服务只需要启动响应的service即可。例如<strong>service nginx start</strong>但是这样做，nginx为后台进程模式运行，就导致docker前台没有运行的应用，这样的容器后台启动后，会立即自杀因为他觉得他没事可做了。所以最佳的解决方案是，将你要运行的程序以前台进程的形式运行，常见就是命令行模式，表示还有交互操作。</p>
+</blockquote>
+<h3 id="5-容器和宿主机文件拷贝"><a href="#5-容器和宿主机文件拷贝" class="headerlink" title="5)容器和宿主机文件拷贝"></a>5)容器和宿主机文件拷贝</h3><p>容器内文件拷贝到宿主机：</p>
+<blockquote>
+<p>docker cp 容器ID:容器内路径 目的主机路径</p>
+</blockquote>
+<p>宿主机文件拷贝到容器中：</p>
+<blockquote>
+<p>docker cp 主机路径 容器ID:容器内路径</p>
+</blockquote>
+<h3 id="6-导入和导出容器"><a href="#6-导入和导出容器" class="headerlink" title="6)导入和导出容器"></a>6)导入和导出容器</h3><p><code>export</code>：导出容器的内容流作为一个tar归档文件（对应import命令）；</p>
+<p><code>import</code>：从tar包中的内容创建一个新的文件系统再导入为镜像（对应export命令）；</p>
+<p>示例：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 导出</span><br><span class="line"># docker export 容器ID &gt; tar文件名</span><br><span class="line">docker export abc &gt; aaa.tar</span><br><span class="line"></span><br><span class="line"># 导入</span><br><span class="line"># cat tar文件 | docker import - 自定义镜像用户/自定义镜像名:自定义镜像版本号</span><br><span class="line">docker aaa.tar | docker import - test/mytest:1.0.1</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-将容器生成新镜像"><a href="#7-将容器生成新镜像" class="headerlink" title="7)将容器生成新镜像"></a>7)将容器生成新镜像</h3><p><code>docker commit</code>提交容器副本使之成为一个新的镜像。</p>
+<blockquote>
+<p>docker 启动一个镜像容器后， 可以在里面执行一些命令操作，然后使用docker commit将新的这个容器快照生成一个镜像。</p>
+</blockquote>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit -m=&quot;提交的描述信息&quot; -a=&quot;作者&quot; 容器ID 要创建的目标镜像名:[tag]</span><br></pre></td></tr></table></figure>
+
+<p>Docker挂载主机目录，可能会出现报错：<code>cannot open directory.:Perissiondenied。</code></p>
+<p>解决方案：在命令中加入参数 <code>--privileged=true</code>。</p>
+<p>CentOS7安全模块比之前系统版本加强，不安全的会先禁止，目录挂载的情况被默认为不安全的行为，在SELinux里面挂载目录被禁止掉了。如果要开启，一般使用 <code>--privileged=true</code>，扩大容器的权限解决挂载没有权限的问题。也即使用该参数，容器内的root才拥有真正的root权限，否则容器内的root只是外部的一个普通用户权限。</p>
+<h3 id="8-将容器生成新镜像"><a href="#8-将容器生成新镜像" class="headerlink" title="8)将容器生成新镜像"></a>8)将容器生成新镜像</h3><p>卷就是目录或文件，存在于一个或多个容器中，由docker挂载到容器，但不属于联合文件系统，因此能够绕过UnionFS，提供一些用于持续存储或共享数据。</p>
+<p>特性：卷设计的目的就是数据的持久化，完全独立于容器的生存周期，因此Docker不会在容器删除时删除其挂载的数据卷。</p>
+<p>特点：</p>
+<ul>
+<li>数据卷可以在容器之间共享或重用数据</li>
+<li>卷中的更改可以直接实施生效</li>
+<li>数据卷中的更改不会包含在镜像的更新中</li>
+<li>数据卷的生命周期一直持续到没有容器使用它为止</li>
+</ul>
+<p>运行一个带有容器卷存储功能的容器实例：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --privileged=true -v 宿主机绝对路径目录:容器内目录[rw | ro] 镜像名</span><br></pre></td></tr></table></figure>
+
+<p>可以使用docker inspect查看容器绑定的数据卷。</p>
+<p>权限：</p>
+<ul>
+<li>rw：读写</li>
+<li>ro：只读。如果宿主机写入内容，可以同步给容器内，容器内可以读取。</li>
+</ul>
+<p>容器卷的继承：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 启动一个容器</span><br><span class="line">docker run -it --privileged=true /tmp/test:/tmp/docker --name u1 ubuntu /bin/bash</span><br><span class="line"></span><br><span class="line"># 使用 --volumes-from 继承 u1的容器卷映射配置</span><br><span class="line">docker run -it --privileged=true --volumes-from u1 --name u2 ubuntu</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-其他命令"><a href="#9-其他命令" class="headerlink" title="9)其他命令"></a>9)其他命令</h3><ul>
+<li>[ 启动已停止运行的容器] <code>docker start容器ID或者容器名</code></li>
+<li>[ 重启容器] <code>docker restart容器ID或容器名</code></li>
+<li>[ 停止容器] <code>docker stop容器ID或容器名</code></li>
+<li>[ 强制停止容器] <code>docker kill容器ID或容器名</code></li>
+<li>[ 删除已经停止的容器] <code>docker rm容器ID或容器名</code></li>
+<li>[ 强制删除正在运行的容器] <code>docker rm-f容器ID或容器名</code></li>
+<li>[ 一次删除多个容器实例] <code>docker rm-f $&#123;docker ps-a-q&#125;</code> 或者 <code>docker ps-a-q|xargs docker rm</code></li>
+<li>[ 查看容器日志] <code>docker logs容器ID或容器名</code>，更多查看容器日志使用技巧，<a href="https://link.zhihu.com/?target=http://mp.weixin.qq.com/s?__biz=Mzk0MDI0NzgxNA==&mid=2247490580&idx=1&sn=5e5aa8adecf4b3307b4c85de5befb864&chksm=c2e5c27df5924b6b4b4a4046a8ee64d34e072e5c4e48635ec35084752caae404e8ccae5e4e5e&scene=21%23wechat_redirect">docker logs 查看日志</a></li>
+<li>[ 查看容器内部细节] <code>docker inspect容器ID或容器名</code></li>
+<li>[ 进入正在运行的容器] <code>dockerexec-it容器ID bashShell</code></li>
+<li>[ 重新进入] <code>docker attach容器ID</code></li>
+</ul>
+<p><strong>docker exec 和 docker attach 区别</strong>：</p>
+<ul>
+<li>attach直接进入容器启动命令的终端，不会启动新的进程，用exit退出会导致容器的停止</li>
+<li>exec是在容器中打开新的终端，并且可以启动新的进程，用exit退出不会导致容器的停止</li>
+</ul>
+<p>如果有多个终端，都对同一个容器执行了 docker attach，就会出现类似投屏显示的效果。一个终端中输入输出的内容，在其他终端上也会同步的显示。</p>
+<h2 id="九、实战测试：部署Nginx"><a href="#九、实战测试：部署Nginx" class="headerlink" title="九、实战测试：部署Nginx"></a>九、实战测试：部署Nginx</h2><p><strong>Alpine介绍</strong></p>
+<p>社区开发的面向安全应用的轻量级Linux发行版，Alpine 的意思是“高山的”，比如 Alpine plants高山植物，Alpine skiing高山滑雪、the alpine resort阿尔卑斯山胜地。</p>
+<p>Alpine Linux 网站首页注明“Small！Simple！Secure！Alpine Linux is a security-oriented, lightweight Linux distribution based on musl libc and busybox.”概括了以下特点：</p>
+<p>1、小巧：基于Musl libc和busybox，和busybox一样小巧，最小的Docker镜像只有5MB；</p>
+<p>2、安全：面向安全的轻量发行版；</p>
+<p>3、简单：提供APK包管理工具，软件的搜索、安装、删除、升级都非常方便。</p>
+<p>4、适合容器使用：由于小巧、功能完备，非常适合作为容器的基础镜像。</p>
+<h3 id="1-搜索镜像"><a href="#1-搜索镜像" class="headerlink" title="1.搜索镜像"></a>1.搜索镜像</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker search nginx</span><br><span class="line">:</span><br><span class="line">alpine</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-7f63fc781b72d42644f1c918f337b467_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-7f63fc781b72d42644f1c918f337b467_720w.webp" alt="img"></a></p>
+<h3 id="2-下载镜像"><a href="#2-下载镜像" class="headerlink" title="2.下载镜像"></a>2.下载镜像</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx</span><br><span class="line">:</span><br><span class="line">alpine</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://pic3.zhimg.com/80/v2-8390c8fe04887659731f7782fd355652_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic3.zhimg.com/80/v2-8390c8fe04887659731f7782fd355652_720w.webp" alt="img"></a></p>
+<h3 id="3-查看镜像"><a href="#3-查看镜像" class="headerlink" title="3.查看镜像"></a>3.查看镜像</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://pic4.zhimg.com/80/v2-465645e4014cc946ff13ec32ea5831ef_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic4.zhimg.com/80/v2-465645e4014cc946ff13ec32ea5831ef_720w.webp" alt="img"></a></p>
+<p>nginx镜像不到24M。</p>
+<h3 id="4-启动容器"><a href="#4-启动容器" class="headerlink" title="4.启动容器"></a>4.启动容器</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name nginxd -p 80:80 nginx:alpine</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://pic2.zhimg.com/80/v2-cbc8c0edc7e34d246e8486c6bbb15ae1_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic2.zhimg.com/80/v2-cbc8c0edc7e34d246e8486c6bbb15ae1_720w.webp" alt="img"></a></p>
+<h3 id="5-查看容器"><a href="#5-查看容器" class="headerlink" title="5.查看容器"></a>5.查看容器</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-452128f17485c9e9f973007d1b54cb6a_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-452128f17485c9e9f973007d1b54cb6a_720w.webp" alt="img"></a></p>
+<h3 id="6-测试访问"><a href="#6-测试访问" class="headerlink" title="6.测试访问"></a>6.测试访问</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl </span><br><span class="line">127.0</span><br><span class="line">.</span><br><span class="line">0.1</span><br><span class="line">:</span><br><span class="line">80</span><br></pre></td></tr></table></figure>
+
+<p>127.0.0.1是本地回环ip，就是本机啦，可以用localhost代替。</p>
+<p><a target="_blank" rel="noopener" href="https://pic2.zhimg.com/80/v2-8a56d7b2fa4a64ddc3821fed03fe6f95_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic2.zhimg.com/80/v2-8a56d7b2fa4a64ddc3821fed03fe6f95_720w.webp" alt="img"></a></p>
+<h3 id="7-进入容器修改页面"><a href="#7-进入容器修改页面" class="headerlink" title="7.进入容器修改页面"></a>7.进入容器修改页面</h3><p>docker exec -it 容器名称&#x2F;容器ID&#x2F;容器ID简写</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it nginxd ash</span><br><span class="line">#或</span><br><span class="line">docker exec -it de15a5e4c614 ash</span><br><span class="line">#或，容器ID太长，我们用容器ID的前2位即可</span><br><span class="line">docker exec -it de ash</span><br></pre></td></tr></table></figure>
+
+<p>alpine是轻量级的操作系统，默认没有安装whereis，这是使用find来查找nginx安装目录。</p>
+<p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-5bb3b33830a492168214f18b9c266930_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-5bb3b33830a492168214f18b9c266930_720w.webp" alt="img"></a></p>
+<p><strong>验证：</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl </span><br><span class="line">127.0</span><br><span class="line">.</span><br><span class="line">0.1</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://pic2.zhimg.com/80/v2-c6dfe043c0cef97eb3fb170b987f0e25_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic2.zhimg.com/80/v2-c6dfe043c0cef97eb3fb170b987f0e25_720w.webp" alt="img"></a></p>
+<h2 id="十、Dockerfile-是什么"><a href="#十、Dockerfile-是什么" class="headerlink" title="十、Dockerfile 是什么"></a>十、Dockerfile 是什么</h2><p>前面我们已经提到了 Docker 的一些基本概念。以 CTF 的角度来看，我们可以去使用 Dockerfile 定义镜像，依赖镜像来运行容器，可以去模拟出一个真实的漏洞场景。</p>
+<p>因此毫无疑问的说， Dockerfile 是镜像和容器的关键，并且 Dockerfile 还可以很轻易的去定义镜像内容，说了这么多，那么 Dockerfile 到底是个什么东西呢？</p>
+<p>Dockerfile 是自动构建 Docker 镜像的配置文件，用户可以使用 Dockerfile 快速创建自定义的镜像。Dockerfile 中的命令非常类似于 Linux 下的 Shell 命令。</p>
+<p>我们可以通过下面这幅图来直观地感受下 Docker 镜像、容器和 Dockerfile 三者之间的关系：</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-1819c7543c2367fa1b186ddea2abdf65_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-1819c7543c2367fa1b186ddea2abdf65_720w.webp" alt="img"></a></p>
+<p>我们从上图中可以看到，Dockerfile 可以自定义镜像，通过 Docker 命令去运行镜像，从而达到启动容器的目的。Dockerfile 是由一行行命令语句组成，并且支持已 # 开头的注释行。</p>
+<p>一般来说，我们可以将 Dockerfile 分为四个部分：</p>
+<ul>
+<li>基础镜像（父镜像）信息指令 FROM。</li>
+<li>维护者信息指令 MAINTAINER。</li>
+<li>镜像操作指令 RUN 、EVN 、ADD 和 WORKDIR 等。</li>
+<li>容器启动指令 CMD 、ENTRYPOINT 和 USER 等。</li>
+</ul>
+<p>下面是一段简单的 Dockerfile 的例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM python:2.7</span><br><span class="line">MAINTAINER 大技术 &lt;test@gmail.com&gt;</span><br><span class="line">COPY . /app</span><br><span class="line">WORKDIR /app</span><br><span class="line">RUN pip install -r requirements.txt</span><br><span class="line">EXPOSE 5000ENTRYPOINT [&quot;python&quot;]CMD [&quot;app.py&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>我们可以分析一下上面这个过程：</p>
+<ul>
+<li>从 Docker Hub 上 Pull 下 Python 2.7 的基础镜像。</li>
+<li>显示维护者的信息。</li>
+<li>Copy 当前目录到容器中的 &#x2F;App 目录下 复制本地主机的 ( Dockerfile 所在目录的相对路径)到容器里 。</li>
+<li>指定工作路径为 &#x2F;App。</li>
+<li>安装依赖包。</li>
+<li>暴露 5000 端口。</li>
+<li>启动 App。</li>
+</ul>
+<p>这个例子是启动一个 Python Flask App 的 Dockerfile（Flask 是 Python 的一个轻量的 Web 框架），相信大家从这个例子中能够稍微理解了 Dockfile 的组成以及指令的编写过程。</p>
+<h2 id="十一、Dockerfile-常用的指令"><a href="#十一、Dockerfile-常用的指令" class="headerlink" title="十一、Dockerfile 常用的指令"></a>十一、Dockerfile 常用的指令</h2><p>根据上面的例子，我们已经差不多知道了 Dockerfile 的组成以及指令的编写过程，我们再来理解一下这些常用命令就会得心应手了。</p>
+<p>由于 Dockerfile 中所有的命令都是以下格式：INSTRUCTION argument ，指令（INSTRUCTION）不分大小写，但是推荐大写和 SQL 语句是不是很相似呢？下面我们正式来讲解一下这些指令集吧。</p>
+<h3 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h3><p>FROM 是用于指定基础的 images ，一般格式为 FROM or FORM :。</p>
+<p>所有的 Dockerfile 都应该以 FROM 开头，FROM 命令指明 Dockerfile 所创建的镜像文件以什么镜像为基础，FROM 以后的所有指令都会在 FROM 的基础上进行创建镜像。</p>
+<p>可以在同一个 Dockerfile 中多次使用 FROM 命令用于创建多个镜像。比如我们要指定 Python 2.7 的基础镜像，我们可以像如下写法一样：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM python</span><br><span class="line">:</span><br><span class="line">2.7</span><br></pre></td></tr></table></figure>
+
+<h3 id="MAINTAINER"><a href="#MAINTAINER" class="headerlink" title="MAINTAINER"></a>MAINTAINER</h3><p>MAINTAINER 是用于指定镜像创建者和联系方式，一般格式为 MAINTAINER。</p>
+<p>这里我设置成我的 ID 和邮箱：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MAINTAINER </span><br><span class="line">大技术</span><br><span class="line"> </span><br><span class="line">&lt;</span><br><span class="line">test@gmail</span><br><span class="line">.</span><br><span class="line">com</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h3><p>COPY 是用于复制本地主机的(为 Dockerfile 所在目录的相对路径)到容器中的。</p>
+<p>当使用本地目录为源目录时，推荐使用 COPY 。一般格式为 COPY。</p>
+<p>例如我们要拷贝当前目录到容器中的 &#x2F;app 目录下，我们可以这样操作：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">COPY </span><br><span class="line">.</span><br><span class="line"> </span><br><span class="line">/</span><br><span class="line">app</span><br></pre></td></tr></table></figure>
+
+<h3 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h3><p>WORKDIR 用于配合 RUN，CMD，ENTRYPOINT 命令设置当前工作路径。</p>
+<p>可以设置多次，如果是相对路径，则相对前一个 WORKDIR 命令。默认路径为&#x2F;。一般格式为 WORKDIR &#x2F;path&#x2F;to&#x2F;work&#x2F;dir。</p>
+<p>例如我们设置 &#x2F;app 路径，我们可以进行如下操作：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WORKDIR </span><br><span class="line">/</span><br><span class="line">app</span><br></pre></td></tr></table></figure>
+
+<h3 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h3><p>RUN 用于容器内部执行命令。每个 RUN 命令相当于在原有的镜像基础上添加了一个改动层，原有的镜像不会有变化。一般格式为 RUN。</p>
+<p>例如我们要安装 Python 依赖包，我们做法如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RUN pip install </span><br><span class="line">-</span><br><span class="line">r requirements</span><br><span class="line">.</span><br><span class="line">txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h3><p>EXPOSE 命令用来指定对外开放的端口。一般格式为 EXPOSE[…]。</p>
+<p>例如上面那个例子，开放5000端口：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EXPOSE </span><br><span class="line">5000</span><br></pre></td></tr></table></figure>
+
+<h3 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h3><p>ENTRYPOINT 可以让你的容器表现得像一个可执行程序一样。一个 Dockerfile 中只能有一个 ENTRYPOINT，如果有多个，则最后一个生效。</p>
+<p>ENTRYPOINT 命令也有两种格式：</p>
+<ul>
+<li>ENTRYPOINT [“executable”, “param1”, “param2”] ：推荐使用的 Exec 形式。</li>
+<li>ENTRYPOINT command param1 param2 ：Shell 形式。</li>
+</ul>
+<p>例如下面这个，我们要将 Python 镜像变成可执行的程序，我们可以这样去做：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ENTRYPOINT </span><br><span class="line">[</span><br><span class="line">&quot;python&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><p>CMD 命令用于启动容器时默认执行的命令，CMD 命令可以包含可执行文件，也可以不包含可执行文件。</p>
+<p>不包含可执行文件的情况下就要用 ENTRYPOINT 指定一个，然后 CMD 命令的参数就会作为 ENTRYPOINT 的参数。</p>
+<p>CMD 命令有三种格式：</p>
+<ul>
+<li>CMD [“executable”,”param1”,”param2”]：推荐使用的 exec 形式。</li>
+<li>CMD [“param1”,”param2”]：无可执行程序形式。</li>
+<li>CMD command param1 param2：Shell 形式。</li>
+</ul>
+<p>一个 Dockerfile 中只能有一个 CMD，如果有多个，则最后一个生效。而 CMD 的 Shell 形式默认调用 &#x2F;bin&#x2F;sh -c 执行命令。</p>
+<p>CMD 命令会被 Docker 命令行传入的参数覆盖：docker run busybox &#x2F;bin&#x2F;echo Hello Docker 会把 CMD 里的命令覆盖。</p>
+<p>例如我们要启动 &#x2F;app ，我们可以用如下命令实现：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CMD </span><br><span class="line">[</span><br><span class="line">&quot;app.py&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>当然还有一些其他的命令，我们在用到的时候再去一一讲解一下。</p>
+<h2 id="十二、构建-Dockerfile"><a href="#十二、构建-Dockerfile" class="headerlink" title="十二、构建 Dockerfile"></a>十二、构建 Dockerfile</h2><p>我们大体已经把 Dockerfile 的写法讲述完毕，我们可以自己动手写一个例子：</p>
+<p>vi Dockerfile 开始编辑该文件，输入 i 开始编辑。以下是我们构建的 Dockerfile 内容：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM nginx:alpine</span><br><span class="line">MAINTAINER 大技术&lt;test@qq.com&gt;</span><br><span class="line">RUN echo &#x27;&lt;h1&gt;hello docker nginx&lt;/h1&gt;&#x27; &gt; /usr/share/nginx/html/index.html</span><br></pre></td></tr></table></figure>
+
+<p>编辑完后按 esc 退出编辑，然后 ：wq写入，退出。</p>
+<p>我们在 Dockerfile 文件所在目录执行：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker build </span><br><span class="line">-</span><br><span class="line">t mynginx</span><br><span class="line">:</span><br><span class="line">1.0</span><br><span class="line"> </span><br><span class="line">.</span><br></pre></td></tr></table></figure>
+
+<p>我们解释一下：</p>
+<ul>
+<li>-t 是为新镜像设置仓库和名称</li>
+<li>mynginx 为镜像名</li>
+<li>:1.0 为标签（不添加为默认 latest ）</li>
+</ul>
+<p>我们构建完成之后，使用 Docker Images 命令查看所有镜像，如果存在 REPOSITORY 为 Nginx 和 TAG 是 1.0 的信息，就表示构建成功。</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-2e0fcd810a414de82cd4a8d819cf36e4_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-2e0fcd810a414de82cd4a8d819cf36e4_720w.webp" alt="img"></a></p>
+<p>接下来使用 docker run 命令来启动容器：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mynginx -d -p 8080:80 mynginx:1.0</span><br></pre></td></tr></table></figure>
+
+<p>这条命令会用 Nginx 镜像启动一个容器，命名为 mynginx ，并且映射了 8080 端口。</p>
+<p>这样我们可以用浏览器去访问这个 Nginx 服务器：</p>
+<p><a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080/</a></p>
+<p>或者 http:&#x2F;&#x2F;本机的 IP 地址：8080&#x2F;，页面返回信息：</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-1a09c14a77a59e5c12096aa6415aa546_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-1a09c14a77a59e5c12096aa6415aa546_720w.webp" alt="img"></a></p>
+<h2 id="十三、实战测试：制作镜像并且提交到镜像仓库"><a href="#十三、实战测试：制作镜像并且提交到镜像仓库" class="headerlink" title="十三、实战测试：制作镜像并且提交到镜像仓库"></a>十三、实战测试：制作镜像并且提交到镜像仓库</h2><h3 id="公有云镜像仓库"><a href="#公有云镜像仓库" class="headerlink" title="公有云镜像仓库"></a>公有云镜像仓库</h3><h3 id="Docker-Hub仓库"><a href="#Docker-Hub仓库" class="headerlink" title="Docker Hub仓库"></a>Docker Hub仓库</h3><p>1.注册docker hub 账号</p>
+<p>网址：<a href="https://link.zhihu.com/?target=https://hub.docker.com/">https://hub.docker.com/</a></p>
+<p>2.服务器上使用命令行登录</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker login -u [账号名字]   #登陆命令</span><br><span class="line">docker out                  #退出命令</span><br><span class="line">docker push 账号/容器名字：版本号</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-391b8d6438e40f5cbb533521e0000094_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-391b8d6438e40f5cbb533521e0000094_720w.webp" alt="img"></a></p>
+<p>看到Lgin Succeeded，就表示登录成功了。</p>
+<p>3.构建镜像1)编写dockerfile</p>
+<p>alpine官方默认镜像，没有vim命令，我们就基于此，创建一个镜像。</p>
+<p><a target="_blank" rel="noopener" href="https://pic3.zhimg.com/80/v2-35314104e597555789c28239b203406e_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic3.zhimg.com/80/v2-35314104e597555789c28239b203406e_720w.webp" alt="img"></a></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim </span><br><span class="line">Dockerfile</span><br><span class="line">FROM alpine</span><br><span class="line">MAINTAINER 大技术&lt;test@qq.com&gt;</span><br><span class="line">#更新Alpine的软件源为阿里云，默认官源拉取实在太慢</span><br><span class="line">RUN echo http://mirrors.aliyun.com/alpine/v3.10/main/ &gt; /etc/apk/repositories &amp;&amp; echo http://mirrors.aliyun.com/alpine/v3.10/community/ &gt;&gt; /etc/apk/repositories</span><br><span class="line">RUN apk update &amp;&amp; apk upgrade</span><br><span class="line">RUN apk --no-cache add vim</span><br><span class="line">CMD vim --version</span><br></pre></td></tr></table></figure>
+
+<p>2)构建dockerfile</p>
+<p>docker build 命令：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker build -t myalpine:1.0 .</span><br><span class="line">#或</span><br><span class="line">docker build -f myDockerfile -t myalpine:1.0 .</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-1586c500738be5b68eb4b9f08d3a66eb_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-1586c500738be5b68eb4b9f08d3a66eb_720w.webp" alt="img"></a></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#查看刚构建的镜像</span><br><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://pic2.zhimg.com/80/v2-e98f2b44c7449dadca898c9507dacfdd_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic2.zhimg.com/80/v2-e98f2b44c7449dadca898c9507dacfdd_720w.webp" alt="img"></a></p>
+<p>到这里，我们就制作好了我们自己的镜像，虽然它并没有什么用。这里我们再启动我们自己制作的镜像，进去看看我们写的dockerfile都生效了没有。注：不加标签<strong>默认是latest</strong>，所以docker run的时候要带上镜像标签。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run </span><br><span class="line">-</span><br><span class="line">it myalpine</span><br><span class="line">:</span><br><span class="line">1.0</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-ef26cd493ed14dd7137fd16d9c5ba6ef_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-ef26cd493ed14dd7137fd16d9c5ba6ef_720w.webp" alt="img"></a></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#查看dockerfile的构建过程</span><br><span class="line">docker history myalpine:1.0</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-40f5528e7b03ec2591d864526c167667_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-40f5528e7b03ec2591d864526c167667_720w.webp" alt="img"></a></p>
+<p>4.推送镜像至docker hub</p>
+<p>需要先登录(根据提示输入用户名和密码即可)，已登录请忽略。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://pic3.zhimg.com/80/v2-3152a030e607ce288d3bfe3270d7822a_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic3.zhimg.com/80/v2-3152a030e607ce288d3bfe3270d7822a_720w.webp" alt="img"></a></p>
+<p>看到Lgin Succeeded，就表示登录成功了。</p>
+<p>官方文档要求，我们推送的镜像名字必须是<strong>YOURDOCKERHUB_ID&#x2F;XXXX</strong>，所以我们需要给镜像换一个名字</p>
+<p>docker tag local-image:tagname new-repo:tagname</p>
+<p>docker push new-repo:tagname</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker tag  myalpine:1.0 dhdemo/myalpine:1.0</span><br><span class="line">docker push dhdemo/myalpine:1.0</span><br></pre></td></tr></table></figure>
+
+<p>等了一会之后，就推送到docker hub</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-c3ba1a5ed78da60ab7e705603224d701_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-c3ba1a5ed78da60ab7e705603224d701_720w.webp" alt="img"></a></p>
+<p>我们登陆docker hub就可以看到我们刚刚推送上去的镜像啦，这个镜像可是全世界人民都看得到的哦，是不是有点小激动呢！</p>
+<p><a target="_blank" rel="noopener" href="https://pic4.zhimg.com/80/v2-d104bf21b6cc22c724090bedaacbc913_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic4.zhimg.com/80/v2-d104bf21b6cc22c724090bedaacbc913_720w.webp" alt="img"></a></p>
+<h3 id="阿里云仓库"><a href="#阿里云仓库" class="headerlink" title="阿里云仓库"></a>阿里云仓库</h3><p>国内镜像仓库有阿里云 、网易云等，这里以阿里云为例。</p>
+<p>1.登入阿里云地址并创建镜像仓库</p>
+<p><a href="https://link.zhihu.com/?target=https://aliyun.com">https://aliyun.com</a></p>
+<p><strong>搜索 “容器镜像服务”，找到镜像仓库，创建镜像仓库</strong></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-5fcd436855cd5b6ba97d051e49624dfb_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-5fcd436855cd5b6ba97d051e49624dfb_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://pic2.zhimg.com/80/v2-d1fca62213ecf5bbbc310cb007be3a0d_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic2.zhimg.com/80/v2-d1fca62213ecf5bbbc310cb007be3a0d_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-5b33c70e29fea7b44951e7f34dea7620_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-5b33c70e29fea7b44951e7f34dea7620_720w.webp" alt="img"></a></p>
+<p><strong>进入仓库查看创建后的镜像仓库信息</strong></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-f621d0d45f8cdafd0bb08821e6946431_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-f621d0d45f8cdafd0bb08821e6946431_720w.webp" alt="img"></a></p>
+<p>2.推送镜像到阿里云仓库</p>
+<ul>
+<li>登录</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login --username=你的用户名 registry.cn-beijing.aliyuncs.com</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<p>username 你的用户名</p>
+<p><a href="https://link.zhihu.com/?target=http://registry.cn-beijing.aliyuncs.com">http://registry.cn-beijing.aliyuncs.com</a> 仓库地域，不同地区不一样，创建镜像时选择的是北京，这里就是北京地域的仓库地址。</p>
+<p>登录成功提示如下：</p>
+<p><a target="_blank" rel="noopener" href="https://pic3.zhimg.com/80/v2-e44082187758cc48a3bdd34f55ac3106_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic3.zhimg.com/80/v2-e44082187758cc48a3bdd34f55ac3106_720w.webp" alt="img"></a></p>
+<ul>
+<li>使用上面的镜像myalpine:1.0，将镜像推送到Registry</li>
+</ul>
+<p>docker tag [ImageId] <a href="https://link.zhihu.com/?target=http://registry.cn-beijing.aliyuncs.com/0101/myalpine:">http://registry.cn-beijing.aliyuncs.com/0101/myalpine:</a>[镜像版本号]</p>
+<p>docker push <a href="https://link.zhihu.com/?target=http://registry.cn-beijing.aliyuncs.com/0101/myalpine:">http://registry.cn-beijing.aliyuncs.com/0101/myalpine:</a>[镜像版本号]</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker tag 4220608af837 registry.cn-beijing.aliyuncs.com/0101/myalpine:1.0</span><br><span class="line">docker push registry.cn-beijing.aliyuncs.com/0101/myalpine:1.0</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-a411385059010777fd1956f1f0e926f0_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-a411385059010777fd1956f1f0e926f0_720w.webp" alt="img"></a></p>
+<ul>
+<li>查看阿里云镜像是否上传成功</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://pic3.zhimg.com/80/v2-c0a441e698c44efdd9e8bed7e897707a_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic3.zhimg.com/80/v2-c0a441e698c44efdd9e8bed7e897707a_720w.webp" alt="img"></a></p>
+<h3 id="私有化部署镜像仓库"><a href="#私有化部署镜像仓库" class="headerlink" title="私有化部署镜像仓库"></a>私有化部署镜像仓库</h3><blockquote>
+<p>Docker 仓库是用来包含镜像的位置，Docker提供一个注册服务器（Register）来保存多个仓库，每个仓库又可以包含多个具备不同tag的镜像。Docker运行中使用的默认仓库是 Docker Hub 公共仓库。</p>
+</blockquote>
+<p>私有化部署镜像仓库，一般使用Docker Register、Nexus、Harbor，下面分别介绍一下。</p>
+<h3 id="Docker-Register"><a href="#Docker-Register" class="headerlink" title="Docker Register"></a>Docker Register</h3><blockquote>
+<p>Docker Registry是一个集中存储与分发镜像的服务。构建完 Docker镜像后，就可在当前宿主机上运行。但如果想要在其他机器上运行这个镜像，就需要手动复制。此时可借助Docker Registry来避免镜像的手动复制。一个 Docker Registry可包含多个 Docker仓库，每个仓库可包含多个镜像标签，每个标签对应一个 Docker镜像。这跟 Maven的仓库有点类似，如果把 Docker Registry比作Maven仓库的话，那么 Docker仓库就可理解为某jar包的路径，而镜像标签则可理解为jar包的版本号。</p>
+</blockquote>
+<p>1.Registry本地私有仓库的搭建以及上传</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker pull registry #拉取官方私有仓库容器使得其可以进行搭载</span><br><span class="line">docker run -d -p 5000:5000 --restart=always --name demo registry #运行镜像--restart=always表示重启docker后仍旧运行该镜像不会被退出</span><br><span class="line">docker tag nginx:latest localhost:5000/nginx:new #更改镜像的TAG标签</span><br><span class="line">docekr push localhost:5000/nginx:new #上传更改过的镜像到私有仓库</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-89ea8dfa5e87801bde923d19f09d187b_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-89ea8dfa5e87801bde923d19f09d187b_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-e242e84eb67e14a30fc1756363c24d2b_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-e242e84eb67e14a30fc1756363c24d2b_720w.webp" alt="img"></a></p>
+<p>2.本地Reegistry镜像仓库证书加密</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install openssl11 -y #需要epel源将本地名令进行升级使其可以支持</span><br><span class="line">openssl11 req -newkey rsa:4096 -nodes -sha256 -keyout certs/www.registry.org.key -addext &quot;subjectAltName = DNS:www.registry.org&quot; -x509 -days 365 -out certs/www.registry.org.crt</span><br><span class="line">Generating a RSA private key #使用openssl11生成软件仓库的证书使其可以进行certs/www.registry,irg,crt使用的是相对路径注意下自己的所在位置</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-fb7b4a154ac08baf6fec1e1fff9301a4_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-fb7b4a154ac08baf6fec1e1fff9301a4_720w.webp" alt="img"></a></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p  /etc/docker/certs.d/www.registry.org/  #建立存放证书的使得容器运行后自动读取证书</span><br><span class="line">cp certs/www.registry.org.crt /etc/docker/certs.d/www.registry.org/ca.crt #证书必须为ca.crt否则不会识别</span><br><span class="line">docker run -d -p 443:443 --name registry --restart=always -v /root/certs:/certs/ -v /opt/registry:/var/lib/registry/ -e REGISTRY_HTTP_ADDR=0.0.0.0:443   -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/www.registry.org.crt   -e REGISTRY_HTTP_TLS_KEY=/certs/www.registry.org.key registry</span><br><span class="line">#运行容器使得容器可以在后台自动运行同时将证书添加上去使得容器可以进行加密访问-v表示挂载目录目录未创建则自动创建-e表示添加证书</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-c1fe9503aecf9c2d40452d7d4e5a0769_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-c1fe9503aecf9c2d40452d7d4e5a0769_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-faaba77ee89b4828b1e15e800873b144_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-faaba77ee89b4828b1e15e800873b144_720w.webp" alt="img"></a></p>
+<p>3.Registry私有仓库http加密1)用户名和密码生成</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir auth        #建立存放认证的目录</span><br><span class="line">htpasswd -Bc auth/htpasswd uset1    #-B表示安全-c表示创建二次创建时不要加-c否则会覆盖之前的</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-25ed27c77bef7eba8319eefcf099461f_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-25ed27c77bef7eba8319eefcf099461f_720w.webp" alt="img"></a></p>
+<p>2)运行仓库</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 443:443 --restart=always --name registry \</span><br><span class="line">&gt; -v /root/auth:/auth/ \          #挂载认证</span><br><span class="line">&gt; -v /root/certs:/certs/ \          #挂载证书</span><br><span class="line">&gt; -v /opt/registry:/var/lib/registry \    #挂载数据卷</span><br><span class="line">&gt; -e &quot;REGISTRY_AUTH=htpasswd&quot; \</span><br><span class="line">&gt; -e &quot;REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm&quot; \</span><br><span class="line">&gt; -e &quot;REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd&quot; \</span><br><span class="line">&gt; -e &quot;REGISTRY_HTTP_ADDR=0.0.0.0:443&quot; \</span><br><span class="line">&gt; -e &quot;REGISTRY_HTTP_TLS_CERTIFICATE=/certs/www.registry.org.crt&quot; \</span><br><span class="line">&gt; -e &quot;REGISTRY_HTTP_TLS_KEY=/certs/www.registry.org.key&quot; \</span><br><span class="line">&gt; registry</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-5553c2539f527d40c016efc3f9e23bcc_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-5553c2539f527d40c016efc3f9e23bcc_720w.webp" alt="img"></a></p>
+<p>3)上传镜像到私服</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker tag yakexi007/game2018 www.registry.org/game2048      #更改tag标签准备上传</span><br><span class="line">docker login www.registry.org                   #登陆私有仓库</span><br><span class="line">docker push www.registry.org/game2048              #上传镜像</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-bb128e301f26100ad19f8f15115cba99_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-bb128e301f26100ad19f8f15115cba99_720w.webp" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-d2343d6a03c3f61278e6489d2e58ff06_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-d2343d6a03c3f61278e6489d2e58ff06_720w.webp" alt="img"></a></p>
+<h3 id="Nexus"><a href="#Nexus" class="headerlink" title="Nexus"></a>Nexus</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nexus默认只有maven和nuget的镜像，但是他本身支持各种私有镜像，如linux软件包镜像：apt、yum，还有语言库镜像如：npm、conada、pypi、go，当然也包括docker的镜像。</span><br></pre></td></tr></table></figure>
+
+<p>前置条件：已安装docker</p>
+<p>1.Nexus安装及配置</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name nexus3  --restart=always -p 8085:8081 -p 8086:8086 -v ~/docker/nexus/data:/nexus-data  --privileged=true -d sonatype/nexus3</span><br></pre></td></tr></table></figure>
+
+<p>其中8086端口是本文要使用的作为docker私有库的端口;</p>
+<p>登录后，创建docker镜像。</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-4e68de059cd2e371292b7748fdd5449a_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-4e68de059cd2e371292b7748fdd5449a_720w.webp" alt="img"></a></p>
+<p>镜像类型有点多，仔细观察</p>
+<p><strong><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-549808896a148835e01484d185950d6d_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-549808896a148835e01484d185950d6d_720w.webp" alt="img"></a></strong></p>
+<p>可以发现docker的镜像类型有三个：group、host、proxy，他们的关系</p>
+<p>proxy：官方源的镜像代理</p>
+<p>host：自己创建的一些源，一般是私有的不公开的,<strong>本文主要创建的就是host类型的私有镜像</strong></p>
+<p>group：对这些镜像进行分组</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-47d4cb91cbd513f20636b5014cb70f9e_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-47d4cb91cbd513f20636b5014cb70f9e_720w.webp" alt="img"></a></p>
+<p>在创建docker库之前，需要做一个授权的设置，否则无法创建仓库</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-b188db52ea740cdf84af2dddaef3d986_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-b188db52ea740cdf84af2dddaef3d986_720w.webp" alt="img"></a></p>
+<p>下面就开始创建docker的仓库了，本文选择的是host类型，下面是录入的表单界面</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-0893e2fe3b7a4d1a78e0253f253625d0_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-0893e2fe3b7a4d1a78e0253f253625d0_720w.webp" alt="img"></a></p>
+<p>创建完查看仓库列表，多了刚才见的cs仓库</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-5d1df5efa57f497d8d0aa909af967680_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-5d1df5efa57f497d8d0aa909af967680_720w.webp" alt="img"></a></p>
+<p>仓库创建完以后，就可以使用一个测试的docker镜像来执行docker push了。</p>
+<p><strong>说明：</strong></p>
+<p>1)因为我的nexus3也是通过docker容器创建的，容器所在的机器上的IP地址是172.17.0.1，那么172.17.0.1:8086就是nexus3下私有docker镜像的地址；</p>
+<p>2)我现在已经自己做了一个镜像：172.17.0.1:8086&#x2F;app:v1.0.1 说明：要通过docker tag 把172.17.0.1:8086作为镜像名称的前缀。</p>
+<p>要先通过docker login登录,但是会有一个错误</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker login -u admin 172.17.0.1:8086</span><br><span class="line">Password:</span><br><span class="line">Error response from daemon: Get https://172.17.0.1:8086/v2/: http: server gave HTTP response to HTTPS client</span><br></pre></td></tr></table></figure>
+
+<p>解决这个错误需要如下处理</p>
+<p>1.打开：vi &#x2F;etc&#x2F;docker&#x2F;daemon.json<br>2.添加：”insecure-registries”:[“172.17.0.1:8086”]<br>3.重启：systemctl restart docker</p>
+<p>再重新登录就可以成功了</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker login -u admin 172.17.0.1:8086</span><br><span class="line">Password:</span><br><span class="line">WARNING! Your password will be stored unencrypted in /root/.docker/config.json.</span><br><span class="line">Configure a credential helper to remove this warning. See</span><br><span class="line">https://docs.docker.com/engine/reference/commandline/login/#credentials-store</span><br><span class="line"></span><br><span class="line">Login Succeeded</span><br></pre></td></tr></table></figure>
+
+<p>2.上传镜像到私服</p>
+<p>下面执行docker push</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker push 172.17.0.1:8086/app:v1.0.1</span><br><span class="line">The push refers to repository [172.17.0.1:8086/app]</span><br><span class="line">7eab7e4c2e5d: Pushed</span><br><span class="line">0c746c7a2bd6: Pushed</span><br><span class="line">9675b67121e6: Pushed</span><br><span class="line">f1dd685eb59e: Pushed</span><br><span class="line">v1.0.1: digest: sha256:1f1a27db80d7823d3dc08731732e7a935930a23e682b7ed6e2aaff2ff7d78743 size: 1153</span><br></pre></td></tr></table></figure>
+
+<p>在nexus3中查看push的镜像</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-60fbf9c9aa8749f1691429ef5e1531f2_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-60fbf9c9aa8749f1691429ef5e1531f2_720w.webp" alt="img"></a></p>
+<h3 id="Harbor"><a href="#Harbor" class="headerlink" title="Harbor"></a>Harbor</h3><p>Harbor 是由 VMware 公司中国团队为企业用户设计的 Registry server 开源项目，包括了权限管理 (RBAC)、LDAP、审计、管理界面、自我注册、HA 等企业必需的功能，同时针对中国用户的特点，设计镜像复制和中文支持等功能。</p>
+<p><a target="_blank" rel="noopener" href="https://pic1.zhimg.com/80/v2-1d9db01e73b2835ac4476f05943fc338_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://pic1.zhimg.com/80/v2-1d9db01e73b2835ac4476f05943fc338_720w.webp" alt="img"></a></p>
+<p>作为一个企业级私有 Registry 服务器，Harbor 提供了更好的性能和安全。提升用户使用 Registry 构建和运行环境传输镜像的效率。Harbor 支持安装在多个 Registry 节点的镜像资源复制，镜像全部保存在私有 Registry 中， 确保数据和知识产权在公司内部网络中管控。另外，Harbor 也提供了高级的安全特性，诸如用户管理，访问控制和活动审计等。</p>
+<ul>
+<li><strong>基于角色的访问控制</strong> - 用户与 Docker 镜像仓库通过 “项目” 进行组织管理，一个用户可以对多个镜像仓库在同一命名空间（project）里有不同的权限。</li>
+<li><strong>镜像复制</strong> - 镜像可以在多个 Registry 实例中复制（同步）。尤其适合于负载均衡，高可用，混合云和多云的场景。</li>
+<li><strong>图形化用户界面</strong> - 用户可以通过浏览器来浏览，检索当前 Docker 镜像仓库，管理项目和命名空间。</li>
+<li><strong>AD&#x2F;LDAP 支持</strong> - Harbor 可以集成企业内部已有的 AD&#x2F;LDAP，用于鉴权认证管理。</li>
+<li><strong>审计管理</strong> - 所有针对镜像仓库的操作都可以被记录追溯，用于审计管理。</li>
+<li><strong>国际化</strong> - 已拥有英文、中文、德文、日文和俄文的本地化版本。更多的语言将会添加进来。</li>
+<li><strong>RESTful API</strong> - RESTful API 提供给管理员对于 Harbor 更多的操控，使得与其它管理软件集成变得更容易。</li>
+<li><strong>部署简单</strong> - 提供在线和离线两种安装工具， 也可以安装到 vSphere 平台 (OVA 方式) 虚拟设备。</li>
+</ul>
+<p>前置条件：已安装docker、Docker Compose</p>
+<p>1.harbor安装及配置</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/goharbor/harbor/releases/download/v2.3.4/harbor-offline-installer-v2.3.4.tgz</span><br><span class="line">tar xf harbor-offline-installer-v2.3.4.tgz -C /usr/local/</span><br><span class="line">cd /usr/local/harbor</span><br><span class="line"></span><br><span class="line">#修改配置文件</span><br><span class="line"></span><br><span class="line">[root@localhost harbor]# ll</span><br><span class="line">总用量 596292</span><br><span class="line">-rw-r--r-- 1 root root      3361 11月  9 2021 common.sh</span><br><span class="line">-rw-r--r-- 1 root root 610560420 11月  9 2021 harbor.v2.3.4.tar.gz</span><br><span class="line">-rw-r--r-- 1 root root      7844 6月  13 12:31 harbor.yml</span><br><span class="line">-rw-r--r-- 1 root root      7840 11月  9 2021 harbor.yml.tmpl</span><br><span class="line">-rwxr-xr-x 1 root root      2500 11月  9 2021 install.sh</span><br><span class="line">-rw-r--r-- 1 root root     11347 11月  9 2021 LICENSE</span><br><span class="line">-rwxr-xr-x 1 root root      1881 11月  9 2021 prepare</span><br><span class="line"></span><br><span class="line">cp harbor.yml.tmpl harbor.yml</span><br><span class="line"></span><br><span class="line">#修改hostname、harbor登录密码、关闭https。</span><br><span class="line"></span><br><span class="line">vim harbor.yml</span><br><span class="line">hostname: www.myharbor.com</span><br><span class="line">harbor_admin_password: harbor12345</span><br><span class="line">#https:</span><br><span class="line">  # https port for harbor, default is 443</span><br><span class="line">  #  port: 443</span><br><span class="line">  # The path of cert and key files for nginx</span><br><span class="line">  #  certificate: /your/certificate/path</span><br><span class="line">  # private_key: /your/private/key/path</span><br><span class="line">data_volume: /data  #这个路径是宿主机的路径，根据实际情况修改成空间大的地方</span><br></pre></td></tr></table></figure>
+
+<p>完成以上操作后，保存退出</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#执行安装程序，只安装harbor</span><br><span class="line">./install.sh  (前提条件：docker需要启动)</span><br><span class="line"></span><br><span class="line"># 除了安装harbor外，还安装公正服务 notary 以及漏洞扫描器 trivy，</span><br><span class="line">./install.sh --with-notary --with-trivy --with-chartmuseum</span><br><span class="line"></span><br><span class="line">[root@localhost harbor]# ll</span><br><span class="line">总用量 596300</span><br><span class="line">drwxr-xr-x 3 root root        20 6月  13 12:34 common</span><br><span class="line">-rw-r--r-- 1 root root      3361 11月  9 2021 common.sh</span><br><span class="line">-rw-r--r-- 1 root root      5996 6月  13 12:34 docker-compose.yml</span><br><span class="line">-rw-r--r-- 1 root root 610560420 11月  9 2021 harbor.v2.3.4.tar.gz</span><br><span class="line">-rw-r--r-- 1 root root      7844 6月  13 12:31 harbor.yml</span><br><span class="line">-rw-r--r-- 1 root root      7840 11月  9 2021 harbor.yml.tmpl</span><br><span class="line">-rwxr-xr-x 1 root root      2500 11月  9 2021 install.sh</span><br><span class="line">-rw-r--r-- 1 root root     11347 11月  9 2021 LICENSE</span><br><span class="line">-rwxr-xr-x 1 root root      1881 11月  9 2021 prepare</span><br></pre></td></tr></table></figure>
+
+<p>这时候已经安装完成了！</p>
+<p><strong>用docker-compose查看Harbor容器的运行状态</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost harbor]# docker-compose ps</span><br><span class="line">      Name                     Command                  State                      Ports                </span><br><span class="line">--------------------------------------------------------------------------------------------------------</span><br><span class="line">harbor-core         /harbor/entrypoint.sh            Up (healthy)                                       </span><br><span class="line">harbor-db           /docker-entrypoint.sh 96 13      Up (healthy)                                       </span><br><span class="line">harbor-jobservice   /harbor/entrypoint.sh            Up (healthy)                                       </span><br><span class="line">harbor-log          /bin/sh -c /usr/local/bin/ ...   Up (healthy)   127.0.0.1:1514-&gt;10514/tcp</span><br><span class="line">harbor-portal       nginx -g daemon off;             Up (healthy)                                       </span><br><span class="line">nginx               nginx -g daemon off;             Up (healthy)   0.0.0.0:80-&gt;8080/tcp,:::80-&gt;8080/tcp</span><br><span class="line">redis               redis-server /etc/redis.conf     Up (healthy)                                       </span><br><span class="line">registry            /home/harbor/entrypoint.sh       Up (healthy)                                       </span><br><span class="line">registryctl         /home/harbor/start.sh            Up (healthy) </span><br><span class="line"></span><br><span class="line">docker-compose基本命令</span><br><span class="line"></span><br><span class="line"># 启动Harbor容器</span><br><span class="line">docker-compose start</span><br><span class="line"></span><br><span class="line"># 停止Harbor容器</span><br><span class="line">docker-compose stop</span><br><span class="line"></span><br><span class="line"># 暂停Harbor容器</span><br><span class="line">docker-compose pause</span><br><span class="line"></span><br><span class="line"># 继续运行Harbor容器</span><br><span class="line">docker-compose unpause</span><br><span class="line"></span><br><span class="line"># 重启Harbor容器</span><br><span class="line">docker-compose restart</span><br><span class="line"></span><br><span class="line"># 停止并删除Harbor容器，加上-v参数可以同时移除挂载在容器上的目录</span><br><span class="line">docker-compose down</span><br><span class="line"></span><br><span class="line"># 创建并启动Harbo容器，参数“-d”表示后台运行命令</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p><strong>Harbor访问测试</strong></p>
+<p>浏览器输入以下地址或者域名访问Harbor的Web界面，账号密码：admin&#x2F;harbor12345</p>
+<blockquote>
+<p>本机设置hosts解析</p>
+</blockquote>
+<p><a href="https://link.zhihu.com/?target=http://www.myharbor.com">http://www.myharbor.com</a></p>
+<p>创建用户账号并测试上传镜像</p>
+<p>创建test用户，新建项目mytest</p>
+<p>test：Test123456</p>
+<p>在该项目中添加成员：test，开发者角色</p>
+<p>在docker客户端机器上设置&#x2F;etc&#x2F;docker&#x2F;daemon.json文件，指向harbor服务器地址</p>
+<p><strong>修改为http方式访问（非加密方式）</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&quot;insecure-registries&quot;:[&quot;www.myharbor.com&quot;]</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;registry-mirrors&quot;: [&quot;https://y9lmbx5j.mirror.aliyuncs.com&quot;],</span><br><span class="line">    &quot;log-driver&quot;:&quot;json-file&quot;,</span><br><span class="line">    &quot;log-opts&quot;:&#123;</span><br><span class="line">        &quot;max-size&quot; :&quot;50m&quot;,</span><br><span class="line">        &quot;max-file&quot;:&quot;1&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;insecure-registries&quot;:[&quot;www.myharbor.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line"># 启动harbor后再修改docker配置文件添加日志，重启harbor会报错，可以在创建harbor之前，修改docker配置文件添加日志</span><br><span class="line">[root@localhost harbor]# docker-compose restart</span><br><span class="line">Restarting harbor-jobservice ... done</span><br><span class="line">Restarting nginx             ... done</span><br><span class="line">Restarting harbor-core       ... error</span><br><span class="line">Restarting redis             ... done</span><br><span class="line">Restarting harbor-db         ... done</span><br><span class="line">Restarting registry          ... error</span><br><span class="line">Restarting harbor-portal     ... done</span><br><span class="line">Restarting registryctl       ... error</span><br><span class="line">Restarting harbor-log        ... done</span><br><span class="line"></span><br><span class="line">ERROR: for registry  Cannot restart container 784741e36027bf192a4fcd7f55a87c3c46a5edb2d260bbe6c99b1539667e4b77: failed to initialize logging driver: dial tcp [::1]:1514: connect: connection refused</span><br><span class="line"></span><br><span class="line">ERROR: for registryctl  Cannot restart container 1e0e79c308e72ea81a24fa3cdf8eeb38722d5fa59a9115d9ca95c37f29a7417d: failed to initialize logging driver: dial tcp [::1]:1514: connect: connection refused</span><br><span class="line"></span><br><span class="line">ERROR: for harbor-core  Cannot restart container f447ea4319f63e8991efd34c6c0cff0b477321897ed8706e9dcd66ab8e2fa281: failed to initialize logging driver: dial tcp [::1]:1514: connect: connection refused</span><br></pre></td></tr></table></figure>
+
+<p>2.上传镜像到Harbor服务器(私服)</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#打标签</span><br><span class="line">docker tag busybox:latest www.myharbor.com/mytest/busybox:v0.1</span><br><span class="line"></span><br><span class="line">#登录Harbor服务器</span><br><span class="line">docker login www.myharbor.com</span><br><span class="line"></span><br><span class="line">#输入我们在harbor新创建的用户名密码进行登录</span><br><span class="line"></span><br><span class="line">#上传镜像</span><br><span class="line"># docker push  www.myharbor.com/mytest/busybox:v0.1</span><br><span class="line">The push refers to repository [www.myharbor.com/mytest/busybox]</span><br><span class="line">01fd6df81c8e: Pushed </span><br><span class="line">v0.1: digest: sha256:62ffc2ed7554e4c6d360bce40bbcf196573dd27c4ce080641a2c59867e732dee size: 527</span><br></pre></td></tr></table></figure>
+
+<p>在Harbor上可以看到我们上传的镜像。</p>
+<p>3.Harbor配置HTTPS</p>
+<p>生成TSL证书</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"># 创建存放证书的临时目录</span><br><span class="line">mkdir -p /data/harbor/cert</span><br><span class="line">cd /data/harbor/cert</span><br><span class="line"></span><br><span class="line"># 创建自签名根证书</span><br><span class="line">openssl genrsa -out ca.key 4096</span><br><span class="line">openssl req -x509 -new -nodes -sha512 -days 3650 -subj &quot;/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=www.myharbor.com&quot; -key ca.key -out ca.crt</span><br><span class="line"></span><br><span class="line"># 查看创建的证书</span><br><span class="line">ca.crt  ca.key</span><br><span class="line"></span><br><span class="line"># 产生证书签名请求</span><br><span class="line">openssl genrsa -out www.myharbor.com.key 4096</span><br><span class="line">openssl req -sha512 -new -subj &quot;/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=www.myharbor.com&quot; -key www.myharbor.com.key -out www.myharbor.com.csr</span><br><span class="line"></span><br><span class="line"># 查看证书</span><br><span class="line"># ll</span><br><span class="line">总用量 16</span><br><span class="line">-rw-r--r-- 1 root root 2041 6月  13 12:53 ca.crt</span><br><span class="line">-rw-r--r-- 1 root root 3243 6月  13 12:53 ca.key</span><br><span class="line">-rw-r--r-- 1 root root 1712 6月  13 12:54 www.myharbor.com.csr</span><br><span class="line">-rw-r--r-- 1 root root 3247 6月  13 12:54 www.myharbor.com.key</span><br><span class="line"></span><br><span class="line"># 为Registry主机产生证书</span><br><span class="line">cat &gt; v3.ext &lt;&lt;-EOF</span><br><span class="line">authorityKeyIdentifier=keyid,issuer</span><br><span class="line">basicConstraints=CA:FALSE</span><br><span class="line">keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment</span><br><span class="line">extendedKeyUsage = serverAuth</span><br><span class="line">subjectAltName = @alt_names</span><br><span class="line"></span><br><span class="line">[alt_names]</span><br><span class="line">DNS.1=www.myharbor.com</span><br><span class="line">DNS.2=localhost</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">openssl x509 -req -sha512 -days 3650 -extfile v3.ext -CA ca.crt -CAkey ca.key -CAcreateserial -in www.myharbor.com.csr -out www.myharbor.com.crt</span><br><span class="line">openssl x509 -inform PEM -in www.myharbor.com.crt -out www.myharbor.com..cert</span><br><span class="line"></span><br><span class="line"># 查看证书</span><br><span class="line"># ll</span><br><span class="line">总用量 32</span><br><span class="line">-rw-r--r-- 1 root root 2041 6月  13 12:53 ca.crt</span><br><span class="line">-rw-r--r-- 1 root root 3243 6月  13 12:53 ca.key</span><br><span class="line">-rw-r--r-- 1 root root   17 6月  13 12:55 ca.srl</span><br><span class="line">-rw-r--r-- 1 root root  251 6月  13 12:55 v3.ext</span><br><span class="line">-rw-r--r-- 1 root root 2094 6月  13 12:55 www.myharbor.com..cert</span><br><span class="line">-rw-r--r-- 1 root root 2094 6月  13 12:55 www.myharbor.com.crt</span><br><span class="line">-rw-r--r-- 1 root root 1712 6月  13 12:54 www.myharbor.com.csr</span><br><span class="line">-rw-r--r-- 1 root root 3247 6月  13 12:54 www.myharbor.com.key</span><br><span class="line"></span><br><span class="line"># 创建Harbor的证书目录</span><br><span class="line">mkdir -p /data/harbor/harbor-cert</span><br><span class="line"></span><br><span class="line"># 拷贝harbor-registry证书到Harbor的证书目录</span><br><span class="line">cp www.myharbor.com.crt /data/harbor/harbor-cert</span><br><span class="line">cp www.myharbor.com.key /data/harbor/harbor-cert</span><br><span class="line"></span><br><span class="line"># 进入Harbor的安装目录</span><br><span class="line">cd /usr/local/harbor</span><br><span class="line"></span><br><span class="line"># 停止并删除Harbor容器，加上-v参数可以同时移除挂载在容器上的目录</span><br><span class="line">docker-compose down</span><br><span class="line"></span><br><span class="line"># 修改harbor.yml配置文件</span><br><span class="line">## 打开https配置</span><br><span class="line"># https related config</span><br><span class="line">https:</span><br><span class="line">  # https port for harbor, default is 443</span><br><span class="line">  port: 443</span><br><span class="line">  # The path of cert and key files for nginx</span><br><span class="line">  certificate: /data/harbor/harbor-cert/www.myharbor.com.crt</span><br><span class="line">  private_key: /data/harbor/harbor-cert/www.myharbor.com.key</span><br><span class="line"># 重新生成配置文件</span><br><span class="line">./prepare</span><br><span class="line"># 让Docker客户端默认使用Https协议访问Registry，需要去掉“insecure-registries”相关配置项</span><br><span class="line"># 查看daemon.json文件中是否有&quot;insecure-registries&quot;:[&quot;harbor.test.com&quot;]，如果有则将其删除掉</span><br><span class="line"></span><br><span class="line"># 重新加载Docker的配置文件</span><br><span class="line">systemctl daemon-reload</span><br><span class="line"></span><br><span class="line"># 重启Docker</span><br><span class="line">systemctl restart docker</span><br><span class="line"></span><br><span class="line"># 创建并启动Harbor容器</span><br><span class="line">docker-compose up -d</span><br><span class="line"># docker-compose ps</span><br><span class="line">      Name                     Command                  State                          Ports                   </span><br><span class="line">---------------------------------------------------------------------------------------------------------------</span><br><span class="line">chartmuseum         ./docker-entrypoint.sh           Up (healthy)                                              </span><br><span class="line">harbor-core         /harbor/entrypoint.sh            Up (healthy)                                              </span><br><span class="line">harbor-db           /docker-entrypoint.sh 96 13      Up (healthy)                                              </span><br><span class="line">harbor-jobservice   /harbor/entrypoint.sh            Up (healthy)                                              </span><br><span class="line">harbor-log          /bin/sh -c /usr/local/bin/ ...   Up (healthy)   127.0.0.1:1514-&gt;10514/tcp                  </span><br><span class="line">harbor-portal       nginx -g daemon off;             Up (healthy)                                              </span><br><span class="line">nginx               nginx -g daemon off;             Up (healthy)   0.0.0.0:80-&gt;8080/tcp, 0.0.0.0:443-&gt;8443/tcp</span><br><span class="line">redis               redis-server /etc/redis.conf     Up (healthy)                                              </span><br><span class="line">registry            /home/harbor/entrypoint.sh       Up (healthy)                                              </span><br><span class="line">registryctl         /home/harbor/start.sh            Up (healthy)                                              </span><br><span class="line">trivy-adapter       /home/scanner/entrypoint.sh      Up (healthy)</span><br></pre></td></tr></table></figure>
+
+<p>问题：原先harbor.yml文件中使用的端口是80，现在把80端口给注释掉，使用443端口了，但是harbor程序还在监听80端口，原因是使用的docker-compose.yml中nginx容器中有个如下的配置：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ports:</span><br><span class="line">  - 80:8080</span><br><span class="line">  - 443:8443</span><br></pre></td></tr></table></figure>
+
+<p>把80端口的注释掉，然后重启，就只监听443端口了</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">docker-compose down</span><br><span class="line">docker-compose up -d</span><br><span class="line"></span><br><span class="line"># docker-compose ps</span><br><span class="line">      Name                     Command                  State                 Ports          </span><br><span class="line">---------------------------------------------------------------------------------------------</span><br><span class="line">chartmuseum         ./docker-entrypoint.sh           Up (healthy)                            </span><br><span class="line">harbor-core         /harbor/entrypoint.sh            Up (healthy)                            </span><br><span class="line">harbor-db           /docker-entrypoint.sh 96 13      Up (healthy)                            </span><br><span class="line">harbor-jobservice   /harbor/entrypoint.sh            Up (healthy)                            </span><br><span class="line">harbor-log          /bin/sh -c /usr/local/bin/ ...   Up (healthy)   127.0.0.1:1514-&gt;10514/tcp</span><br><span class="line">harbor-portal       nginx -g daemon off;             Up (healthy)                            </span><br><span class="line">nginx               nginx -g daemon off;             Up (healthy)   0.0.0.0:443-&gt;8443/tcp    </span><br><span class="line">redis               redis-server /etc/redis.conf     Up (healthy)                            </span><br><span class="line">registry            /home/harbor/entrypoint.sh       Up (healthy)                            </span><br><span class="line">registryctl         /home/harbor/start.sh            Up (healthy)                            </span><br><span class="line">trivy-adapter       /home/scanner/entrypoint.sh      Up (healthy)</span><br></pre></td></tr></table></figure>
+
+<p>4.上传镜像以https方式推送到私服</p>
+<p><strong>浏览器访问Harbor,通过HTTPS协议访问</strong></p>
+<p>通过Docker命令来访问</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># 在harbor主机或内网其他机器上</span><br><span class="line"></span><br><span class="line">mkdir -p /etc/docker/certs.d/www.myharbor.com</span><br><span class="line"></span><br><span class="line">scp ca.crt root@yzg01.com:///etc/docker/certs.d/www.myharbor.com/</span><br><span class="line"></span><br><span class="line"># 实践操作：只需要ca.crt文件就行了</span><br><span class="line">#scp www.myharbor.com.cert root@yzg01.com:///etc/docker/certs.d/www.myharbor.com/</span><br><span class="line">#scp www.myharbor.com.key root@yzg01.com:///etc/docker/certs.d/www.myharbor.com/</span><br><span class="line"></span><br><span class="line"># 无需重启docker即可生效</span><br><span class="line"></span><br><span class="line">docker login www.myharbor.com</span><br><span class="line"></span><br><span class="line">Authenticating with existing credentials...</span><br><span class="line">WARNING! Your password will be stored unencrypted in /root/.docker/config.json.</span><br><span class="line">Configure a credential helper to remove this warning. See</span><br><span class="line">https://docs.docker.com/engine/reference/commandline/login/#credentials-store</span><br><span class="line"></span><br><span class="line">Login Succeeded</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker tag busybox:latest www.myharbor.com/mytest/busybox:v0.2</span><br><span class="line"></span><br><span class="line">docker push  www.myharbor.com/mytest/busybox:v0.2</span><br><span class="line">The push refers to repository [www.myharbor.com/mytest/busybox]</span><br><span class="line">01fd6df81c8e: Layer already exists </span><br><span class="line">v0.2: digest: sha256:62ffc2ed7554e4c6d360bce40bbcf196573dd27c4ce080641a2c59867e732dee size: 527</span><br></pre></td></tr></table></figure>
+
+<p>5.Harbor仓库忘记管理员密码如何重置</p>
+<p>1)通过 <code>dockerexec-it harbor-db/bin/bash</code>命令进入harbor-db容器内部</p>
+<p>2)执行如下postgresql命令行</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">psql -h postgresql -d postgres -U postgres        # 这要输入默认密码：root123</span><br><span class="line">psql -U postgres -d postgres -h 127.0.0.1 -p 5432 # 或者用这个可以不输入密码</span><br></pre></td></tr></table></figure>
+
+<p>3)然后切换到harbor所在的数据库,执行 <code>\c registry</code> 命令</p>
+<p>4)执行SQL语句 <code>select*fromharbor_user;</code>查看harbor_user表</p>
+<p>5)例如修改admin的密码，修改为初始化密码 Harbor12345 修改好了之后再可以从web ui上再改一次。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 如下此方法不行</span><br><span class="line">update harbor_user set password=&#x27;a71a7d0df981a61cbb53a97ed8d78f3e&#x27;,salt=&#x27;ah3fdh5b7yxepalg9z45bu8zb36sszmr&#x27; where username=&#x27;admin&#x27;;</span><br><span class="line"></span><br><span class="line"># 正确做法</span><br><span class="line">update harbor_user set salt=&#x27;&#x27;, password=&#x27;&#x27; where username=&#x27;admin&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>6)执行 <code>\q</code> 退出postgresql，再执行 exit 退出容器。</p>
+<p>7)重启harbor服务，以配置中的默认密码进行登陆。</p>
+<p><a target="_blank" rel="noopener" href="http://qny.oss.dengjinjun.site/v2-3f785d52310e363bdc3e94fa63fb64f3_720w.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="http://qny.oss.dengjinjun.site/v2-3f785d52310e363bdc3e94fa63fb64f3_720w.webp" alt="img"></a></p>
+<blockquote>
+<p><strong>参考链接：</strong><br><a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E8%99%9A%E6%8B%9F%E6%9C%BA/104440?fr=aladdin">https://baike.baidu.com/item/%E8%99%9A%E6%8B%9F%E6%9C%BA/104440?fr=aladdin</a><br><a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/Docker%E5%AE%B9%E5%99%A8?fromModule=search-resultlemma">https://baike.baidu.com/item/Docker%E5%AE%B9%E5%99%A8?fromModule=search-resultlemma</a><br><a href="https://link.zhihu.com/?target=http://dockone.io/article/8350">http://dockone.io/article/8350</a><br><a href="https://link.zhihu.com/?target=https://blog.csdn.net/m061503020/article/details/125456520">https://blog.csdn.net/m061503020/article/details/125456520</a><br><a href="https://link.zhihu.com/?target=https://blog.csdn.net/weixin_46560589/article/details/125184387">https://blog.csdn.net/weixin_46560589&#x2F;article&#x2F;details&#x2F;125184387</a><br><a href="https://link.zhihu.com/?target=https://www.cnblogs.com/kire-cat/p/16471962.html">https://www.cnblogs.com/kire-cat/p/16471962.html</a><br><a href="https://link.zhihu.com/?target=https://www.pudn.com/news/6273ff5c8dbc4529de3d3dd7.html">https://www.pudn.com/news/6273ff5c8dbc4529de3d3dd7.html</a><br><a href="https://link.zhihu.com/?target=https://blog.csdn.net/u012632105/article/details/107110243">https://blog.csdn.net/u012632105/article/details/107110243</a><br><a href="https://link.zhihu.com/?target=https://www.cnblogs.com/Netsharp/p/15459481.html">https://www.cnblogs.com/Netsharp/p/15459481.html</a><br><a href="https://link.zhihu.com/?target=https://www.oschina.net/p/harbor?hmsr=aladdin1e1">https://www.oschina.net/p/harbor?hmsr=aladdin1e1</a><br><a href="https://link.zhihu.com/?target=https://www.cnblogs.com/hahaha111122222/p/16370495.html">https://www.cnblogs.com/hahaha111122222/p/16370495.html</a></p>
+</blockquote>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-22</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Docker/'>
+                            Docker
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Ansible模块补充" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Ansible模块补充
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#lineinfile%E6%A8%A1%E5%9D%97"><span class="post-toc-text">lineinfile模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#get-url%E6%A8%A1%E5%9D%97"><span class="post-toc-text">get_url模块</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="lineinfile模块"><a href="#lineinfile模块" class="headerlink" title="lineinfile模块"></a>lineinfile模块</h2><p>Ansible 的 lineinfile 模块用于在文件中添加、修改或删除特定行。这对于在配置文件中添加或修改特定配置项非常有用。以下是 lineinfile 模块的一些常见用法和选项</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>path</strong><br />required</td>
+<td>The file to modify.Before Ansible 2.3 this option was only usable as <code>[dest]</code>, <code>[destfile]</code> and <code>[name]</code>.</td>
+</tr>
+<tr>
+<td><strong>line</strong> aliases: valuestring</td>
+<td>The line to insert&#x2F;replace into the file.Required for <code>state=present</code>.</td>
+</tr>
+<tr>
+<td><strong>backup</strong> boolean</td>
+<td>Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly. Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>create</strong> boolean</td>
+<td>Used with <code>state=present</code>.If specified, the file will be created if it does not already exist. Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>regexp</strong> aliases: regexstring</td>
+<td>The regular expression to look for in every line of the file.<br />For <code>state=present</code>, the pattern to replace if found. Only the last line found will be replaced.<br />For <code>state=absent</code>, the pattern of the line(s) to remove.<br />If the regular expression is not matched, the line will be added to the file in keeping with <code>[insertbefore]</code> or <code>[insertafter]</code> settings.<br />When modifying a line the regexp should typically match both the initial state of the line as well as its state after replacement by <code>[line]</code> to ensure idempotence.Uses Python regular expressions.</td>
+</tr>
+<tr>
+<td><strong>insertafter</strong> string</td>
+<td>Used with <code>state=present</code>.<br />If specified, the line will be inserted after the last match of specified regular expression.<br />If the first match is required, use(firstmatch&#x3D;yes).A special value is available; <code>EOF</code> for inserting the line at the end of the file.If specified regular expression has no matches, EOF will be used instead.If <code>[insertbefore]</code> is set, default value <code>EOF</code> will be ignored.<strong>Choices:</strong><code>&quot;EOF&quot;</code> ← (default)<code>regex&quot;</code></td>
+</tr>
+<tr>
+<td><strong>insertbefore</strong> string</td>
+<td>Used with <code>state=present</code>.<br />If specified, the line will be inserted before the last match of specified regular expression.<br />If the first match is required, use <code>firstmatch=yes</code>.A value is available; <code>BOF</code> for inserting the line at the beginning of the file.If specified regular expression has no matches, the line will be inserted at the end of the file.<br /><strong>Choices:</strong><code>&quot;BOF&quot;``&quot;regex&quot;</code></td>
+</tr>
+<tr>
+<td><strong>state</strong> string</td>
+<td>Whether the line should be there or not. **Choices: **<code>absent</code>，<code>present</code> ← (default)</td>
+</tr>
+<tr>
+<td><strong>firstmatch</strong> boolean</td>
+<td>Used with <code>[insertafter]</code> or <code>[insertbefore]</code>.If set, <code>[insertafter]</code> and <code>[insertbefore]</code> will work with the first line that matches the given regular expression. Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>group</strong> string</td>
+<td>Name of the group that should own the filesystem object, as would be fed to <em>chown</em>.When left unspecified, it uses the current group of the current user unless you are root, in which case it can preserve the previous ownership.</td>
+</tr>
+<tr>
+<td><strong>owner</strong> string</td>
+<td>Name of the user that should own the filesystem object, as would be fed to <em>chown</em>.When left unspecified, it uses the current user unless you are root, in which case it can preserve the previous ownership.Specifying a numeric username will be assumed to be a user ID and not a username. Avoid numeric usernames to avoid this confusion.</td>
+</tr>
+<tr>
+<td><strong>mode</strong> any</td>
+<td>The permissions the resulting filesystem object should have.For those used to <em>&#x2F;usr&#x2F;bin&#x2F;chmod</em> remember that modes are actually octal numbers. You must give Ansible enough information to parse them correctly. For consistent results, quote octal numbers (for example, <code>&#39;644&#39;</code> or <code>&#39;1777&#39;</code>) so Ansible receives a string and can do its own conversion from string into number.</td>
+</tr>
+<tr>
+<td><strong>search_string</strong> string<em>added in ansible-core 2.11</em></td>
+<td>The literal string to look for in every line of the file. This does not have to match the entire line.<br />For <code>state=present</code>, the line to replace if the string is found in the file. Only the last line found will be replaced.<br />For <code>state=absent</code>, the line(s) to remove if the string is in the line.<br />If the literal expression is not matched, the line will be added to the file in keeping with <code>[insertbefore]</code> or <code>[insertafter]</code> settings.<br />Mutually exclusive with <code>[backrefs]</code> and <code>[regexp]</code>.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>示例</strong></p>
+</blockquote>
+<ol>
+<li><p><strong>添加一行到文件中</strong>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- name: Add a line to a file</span><br><span class="line">  lineinfile:</span><br><span class="line">    path: /path/to/file</span><br><span class="line">    line: &#x27;new line to add&#x27;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>确保特定文本存在于文件中</strong>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- name: Ensure a line is in the file</span><br><span class="line">  lineinfile:</span><br><span class="line">    path: /path/to/file</span><br><span class="line">    line: &#x27;required line&#x27;</span><br><span class="line">    state: present</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>在特定行之前或之后添加文本</strong>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- name: Add a line before or after a matching line</span><br><span class="line">  lineinfile:</span><br><span class="line">    path: /path/to/file</span><br><span class="line">    line: &#x27;new line&#x27;</span><br><span class="line">    insertbefore: &#x27;some line&#x27;</span><br><span class="line">    insertafter: &#x27;some other line&#x27;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>修改文件中的特定行</strong>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- name: Change a line in the file</span><br><span class="line">  lineinfile:</span><br><span class="line">    path: /path/to/file</span><br><span class="line">    line: &#x27;modified line&#x27;</span><br><span class="line">    regexp: &#x27;pattern to match the line to be replaced&#x27;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>删除文件中的特定行</strong>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- name: Remove a line from the file</span><br><span class="line">  lineinfile:</span><br><span class="line">    path: /path/to/file</span><br><span class="line">    state: absent</span><br><span class="line">    regexp: &#x27;line to remove&#x27;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>这些是 lineinfile 模块的一些常见使用方法。该模块允许您对文件进行精确的行级操作，非常适合用于自动化配置文件的管理。</p>
+<h2 id="get-url模块"><a href="#get-url模块" class="headerlink" title="get_url模块"></a>get_url模块</h2><p>从提供的url中下载文件</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>url</strong> string &#x2F; required</td>
+<td>HTTP, HTTPS, or FTP URL in the form (http|https|ftp):&#x2F;&#x2F;[user[:pass]]@host.domain[:port]&#x2F;path</td>
+</tr>
+<tr>
+<td><strong>dest</strong> path &#x2F; required</td>
+<td>Absolute path of where to download the file to.<br />If <code>[dest]</code> is a directory, either the server provided filename or, if none provided, the base name of the URL on the remote server will be used.<br /> If a directory, <code>[force]</code> has no effect.<br />If <code>[dest]</code> is a directory, the file will always be downloaded (regardless of the <code>[force]</code> and <code>[checksum]</code> option), but replaced only if the contents changed.</td>
+</tr>
+<tr>
+<td><strong>backup</strong> boolean</td>
+<td>Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly. Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>force</strong> boolean</td>
+<td>If <code>true</code> and <code>[dest]</code> is not a directory, will download the file every time and replace the file if the contents change.<br /> If <code>false</code>, the file will only be downloaded if the destination does not exist. <br />Generally should be <code>true</code> only for small local files. Default choice is <code>false</code></td>
+</tr>
+<tr>
+<td><strong>decompress</strong> boolean</td>
+<td>Whether to attempt to decompress gzip content-encoded responses. Default choice is <code>true</code></td>
+</tr>
+<tr>
+<td><strong>owner</strong> string</td>
+<td>Name of the user that should own the filesystem object, as would be fed to <em>chown</em>.When left unspecified, it uses the current user unless you are root, in which case it can preserve the previous ownership.</td>
+</tr>
+<tr>
+<td><strong>group</strong> string</td>
+<td>Name of the group that should own the filesystem object, as would be fed to <em>chown</em>.When left unspecified, it uses the current group of the current user unless you are root, in which case it can preserve the previous ownership.</td>
+</tr>
+<tr>
+<td><strong>mode</strong> any</td>
+<td>The permissions the resulting filesystem object should have.For those used to <em>&#x2F;usr&#x2F;bin&#x2F;chmod</em> remember that modes are actually octal numbers. You must give Ansible enough information to parse them correctly. For consistent results, quote octal numbers (for example, <code>&#39;644&#39;</code> or <code>&#39;1777&#39;</code>) so Ansible receives a string and can do its own conversion from string into number.</td>
+</tr>
+<tr>
+<td><strong>url_password</strong> aliases: passwordstring</td>
+<td>The password for use in HTTP basic authentication.</td>
+</tr>
+<tr>
+<td><strong>url_username</strong> aliases: usernamestring</td>
+<td>The username for use in HTTP basic authentication.This parameter can be used without <code>[url_password]</code> for sites that allow empty passwords.</td>
+</tr>
+</tbody></table>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-07</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Ansible/'>
+                            Ansible
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

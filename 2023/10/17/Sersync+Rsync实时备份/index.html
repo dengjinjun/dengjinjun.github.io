@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Sersync+Rsync实时备份" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Sersync+Rsync实时备份
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Sersync%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">Sersync介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%83%A8%E7%BD%B2Sersync-Rsync"><span class="post-toc-text">部署Sersync+Rsync</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="post-toc-text">前期准备</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%83%A8%E7%BD%B2Sersync"><span class="post-toc-text">部署Sersync</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85Sersync"><span class="post-toc-text">安装Sersync</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E7%BC%96%E8%BE%91%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">编辑配置文件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%90%AF%E5%8A%A8Sersync"><span class="post-toc-text">启动Sersync</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AEsystemctl%E5%90%AF%E5%8A%A8%E6%96%B9%E6%A1%88"><span class="post-toc-text">配置systemctl启动方案</span></a></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="Sersync介绍"><a href="#Sersync介绍" class="headerlink" title="Sersync介绍"></a>Sersync介绍</h2><p>Sersync是结合inotify机制和rsync技术实现的对服务器数据实时复制的解决方案，inotify用于监控服务器上文件系统 的事件变化，rsync将变化的数据复制到远端备份服务器上。</p>
+<blockquote>
+<p>sersync的特点</p>
+</blockquote>
+<ol>
+<li>支持对监控的事件的过滤功能</li>
+<li>采用xml配置文件，由守护进程启动，配置起来比inotify简单</li>
+<li>使用多线程进行复制，可以并发复制多个不同文件</li>
+<li>自带出错处理机制，通过失败队列对出错的文件重新复制</li>
+<li>自带crontab功能，可实现对失败队列中的文件定时整体复制</li>
+<li>自带socket与http的协议扩展，可以满足有特殊需求的公司二次开发</li>
+</ol>
+<blockquote>
+<p>sersync原理图</p>
+</blockquote>
+<p><a href="/../pic/44620-20200301173023911-930981230.png" title="Linux集群架构" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/44620-20200301173023911-930981230.png" alt="Linux集群架构"></a></p>
+<h2 id="部署Sersync-Rsync"><a href="#部署Sersync-Rsync" class="headerlink" title="部署Sersync+Rsync"></a>部署Sersync+Rsync</h2><h3 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h3><blockquote>
+<p>确保rsync环境部署完成</p>
+</blockquote>
+<p>参考rsync部分内容</p>
+<blockquote>
+<p>检查Linux系统支持inotify实时监控</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uname -r			# 检查操作系统内核版本是否超过2.6.13</span><br><span class="line">ll /proc/sys/fs/inotify		# 检查inotif文件是否存在（应包含三个文件）</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>文件名称</th>
+<th>作用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>max_queued_events</td>
+<td>设置inotify实例事件队列可容纳的事件数量</td>
+</tr>
+<tr>
+<td>max_user_instances</td>
+<td>设置每个用户最多可以运行的inotify命令的进程数</td>
+</tr>
+<tr>
+<td>max_user_watches</td>
+<td>设置inotify命令最多可以监视的文件数量（单进程）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>安装inotify工具</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install inotify-tools -y			# 安装</span><br><span class="line">rpm -ql inotify-tools					# 查看包含的文件</span><br><span class="line">/usr/bin/inotifywait		# 在被监控的目录中等待特定事件的发生（open、close、delete）等，执行后处于阻塞状态，是实现监控的重点。</span><br><span class="line">/user/bin/inotifywatch		# 收集被监控的文件系统的使用数据，指文件系统事件发生的次数统计。</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署Sersync"><a href="#部署Sersync" class="headerlink" title="部署Sersync"></a>部署Sersync</h3><h4 id="安装Sersync"><a href="#安装Sersync" class="headerlink" title="安装Sersync"></a>安装Sersync</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /server/tools			<span class="comment"># 创建目录存放sersync</span></span><br><span class="line"><span class="built_in">cd</span> /server/tools				<span class="comment"># 进入目录</span></span><br><span class="line">wget https://github.com/wsgzao/sersync/blob/master/sersync2.5.4_64bit_binary_stable_final.tar.gz		<span class="comment"># 下载</span></span><br><span class="line">tar -xvf sersync2.5.4_64bit_binary_stable_final.tar.gz		<span class="comment"># 解压</span></span><br><span class="line"><span class="built_in">ls</span> GNU-Linux-x86				<span class="comment"># 进入解压目录，查看文件</span></span><br><span class="line"><span class="built_in">cat</span> confxml.xml					<span class="comment"># 配置文件</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;ISO-8859-1&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">version</span>=<span class="string">&quot;2.5&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">host</span> <span class="attr">hostip</span>=<span class="string">&quot;localhost&quot;</span> <span class="attr">port</span>=<span class="string">&quot;8008&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">host</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">debug</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fileSystem</span> <span class="attr">xfs</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line"><span class="comment">&lt;!--过滤功能，排除指定的文件不进行复制--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">exclude</span> <span class="attr">expression</span>=<span class="string">&quot;(.*)\.svn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">exclude</span> <span class="attr">expression</span>=<span class="string">&quot;(.*)\.gz&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">exclude</span> <span class="attr">expression</span>=<span class="string">&quot;^info/*&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">exclude</span> <span class="attr">expression</span>=<span class="string">&quot;^static/*&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--过滤功能结束--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--监控指定事件信息--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">inotify</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">delete</span> <span class="attr">start</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">createFolder</span> <span class="attr">start</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">createFile</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">closeWrite</span> <span class="attr">start</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">moveFrom</span> <span class="attr">start</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">moveTo</span> <span class="attr">start</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">attrib</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modify</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">inotify</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--监控指定事件信息结束--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--sersync主要参数配置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sersync</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">localpath</span> <span class="attr">watch</span>=<span class="string">&quot;/data1&quot;</span>&gt;</span>								<span class="comment">&lt;!--监控的本地目录--&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">remote</span> <span class="attr">ip</span>=<span class="string">&quot;1192.168.110.142&quot;</span> <span class="attr">name</span>=<span class="string">&quot;/data1&quot;</span>/&gt;</span>		<span class="comment">&lt;!--远程备份服务器的IP和模块名，下面可以添加多台--&gt;</span></span><br><span class="line">	    <span class="comment">&lt;!--&lt;remote ip=&quot;192.168.8.39&quot; name=&quot;tongbu&quot;/&gt;--&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">localpath</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">rsync</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">commonParams</span> <span class="attr">params</span>=<span class="string">&quot;-artuz&quot;</span>/&gt;</span>					<span class="comment">&lt;!--rsync的命令行参数--&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">auth</span> <span class="attr">start</span>=<span class="string">&quot;true&quot;</span> <span class="attr">users</span>=<span class="string">&quot;rsync&quot;</span> <span class="attr">passwordfile</span>=<span class="string">&quot;/etc/rsyncd.password&quot;</span>/&gt;</span>	<span class="comment">&lt;!--认证用户和密码文件--&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">userDefinedPort</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span> <span class="attr">port</span>=<span class="string">&quot;874&quot;</span>/&gt;</span>		<span class="comment">&lt;!-- 支持修改端口 --&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">timeout</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span> <span class="attr">time</span>=<span class="string">&quot;100&quot;</span>/&gt;</span>				<span class="comment">&lt;!-- 超时时间t=100 --&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">ssh</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>/&gt;</span>							<span class="comment">&lt;!--支持ssh通道--&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">rsync</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">failLog</span> <span class="attr">path</span>=<span class="string">&quot;/tmp/rsync_fail_log.sh&quot;</span> <span class="attr">timeToExecute</span>=<span class="string">&quot;60&quot;</span>/&gt;</span><span class="comment">&lt;!--default every 60mins execute once--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">crontab</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span> <span class="attr">schedule</span>=<span class="string">&quot;600&quot;</span>&gt;</span>				<span class="comment">&lt;!--定时任务部分配置--&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">crontabfilter</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">exclude</span> <span class="attr">expression</span>=<span class="string">&quot;*.php&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">exclude</span> <span class="attr">expression</span>=<span class="string">&quot;info/*&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;/<span class="name">crontabfilter</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">crontab</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">plugin</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span> <span class="attr">name</span>=<span class="string">&quot;command&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">sersync</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--sersync主要参数配置结束--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span> <span class="attr">name</span>=<span class="string">&quot;command&quot;</span>&gt;</span>			<span class="comment">&lt;!--脚本部分配置--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">param</span> <span class="attr">prefix</span>=<span class="string">&quot;/bin/sh&quot;</span> <span class="attr">suffix</span>=<span class="string">&quot;&quot;</span> <span class="attr">ignoreError</span>=<span class="string">&quot;true&quot;</span>/&gt;</span>	<span class="comment">&lt;!--prefix /opt/tongbu/mmm.sh suffix--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">filter</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">include</span> <span class="attr">expression</span>=<span class="string">&quot;(.*)\.php&quot;</span>/&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">include</span> <span class="attr">expression</span>=<span class="string">&quot;(.*)\.sh&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span> <span class="attr">name</span>=<span class="string">&quot;socket&quot;</span>&gt;</span>			<span class="comment">&lt;!--socket部分配置--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">localpath</span> <span class="attr">watch</span>=<span class="string">&quot;/opt/tongbu&quot;</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">deshost</span> <span class="attr">ip</span>=<span class="string">&quot;192.168.138.20&quot;</span> <span class="attr">port</span>=<span class="string">&quot;8009&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">localpath</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span> <span class="attr">name</span>=<span class="string">&quot;refreshCDN&quot;</span>&gt;</span>		<span class="comment">&lt;!--CDN部分配置--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">localpath</span> <span class="attr">watch</span>=<span class="string">&quot;/data0/htdocs/cms.xoyo.com/site/&quot;</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">cdninfo</span> <span class="attr">domainname</span>=<span class="string">&quot;ccms.chinacache.com&quot;</span> <span class="attr">port</span>=<span class="string">&quot;80&quot;</span> <span class="attr">username</span>=<span class="string">&quot;xxxx&quot;</span> <span class="attr">passwd</span>=<span class="string">&quot;xxxx&quot;</span>/&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">sendurl</span> <span class="attr">base</span>=<span class="string">&quot;http://pic.xoyo.com/cms&quot;</span>/&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">regexurl</span> <span class="attr">regex</span>=<span class="string">&quot;false&quot;</span> <span class="attr">match</span>=<span class="string">&quot;cms.xoyo.com/site([/a-zA-Z0-9]*).xoyo.com/images&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">localpath</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="启动Sersync"><a href="#启动Sersync" class="headerlink" title="启动Sersync"></a>启动Sersync</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/server/tools/GNU-Linux-x86/sersync2 -h		# 查看命令帮助，要使用 [绝对路径] -h</span><br><span class="line">参数-d:启用守护进程模式</span><br><span class="line">参数-r:在监控前，将监控目录与远程主机用rsync命令推送一遍</span><br><span class="line">c参数-n: 指定开启守护线程的数量，默认为10个</span><br><span class="line">参数-o:指定配置文件，默认使用confxml.xml文件</span><br><span class="line">参数-m:单独启用其他模块，使用 -m refreshCDN 开启刷新CDN模块</span><br><span class="line">参数-m:单独启用其他模块，使用 -m socket 开启socket模块</span><br><span class="line">参数-m:单独启用其他模块，使用 -m http 开启http模块</span><br><span class="line">不加-m参数，则默认执行同步程序</span><br><span class="line"></span><br><span class="line">/server/tools/GNU-Linux-x86/sersync2 -r -o /server/tools/GNU-Linux-x86/confxml.xml -d 		# 开启Sersync</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置systemctl启动方案"><a href="#配置systemctl启动方案" class="headerlink" title="配置systemctl启动方案"></a>配置<code>systemctl</code>启动方案</h4><p><strong>兼容Cent OS 6</strong></p>
+<p>因为Sersync不是本地服务，所以默认不能使用<code>systemctl</code>的方式来控制进程。关闭必须要使用<code>ps -ef | grep sersync</code>来找到进程id，通过kill命令来停止。每次开启都要使用这条命令，<code>/server/tools/GNU-Linux-x86/sersync2 -r -d</code>，把这条命令写入<code>rc.local</code>实现开机自启，比较繁琐。</p>
+<p>配置<code>systemctl</code>启动方案的步骤：</p>
+<p><strong>1. 写启动脚本</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/rc.d/init.d/sersync		# 编辑系统启动的脚本</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">chkconfig: 2345 21 81		centos6实现开机启动顺序以及在哪些级别上开机启动</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">description: rsync service start and stop scripts</span></span><br><span class="line"></span><br><span class="line">start()&#123;</span><br><span class="line">	/server/tools/GNU-Linux-x86/sersync2 -d &amp;&gt;/dev/null</span><br><span class="line">&#125;</span><br><span class="line">stop()&#123;</span><br><span class="line">	killall sersync2 2&gt;/dev/null</span><br><span class="line">&#125;</span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">	start)</span><br><span class="line">		start</span><br><span class="line">		;;</span><br><span class="line">	stop)</span><br><span class="line">		stop</span><br><span class="line">		;;</span><br><span class="line">	restart)</span><br><span class="line">		stop</span><br><span class="line">		sleep 2</span><br><span class="line">		start</span><br><span class="line">		;;</span><br><span class="line">	*)</span><br><span class="line">		echo $&quot;Usage:$0 &#123;start|stop|restart&#125;&quot;</span><br><span class="line">		exit 1		</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /etc/rc.d/init.d/sersync			# 增加执行权限</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">此时已经能够通过脚本来控制程序启动和停止,可以通过ps -ef | grep sersync验证是否成功</span></span><br><span class="line">/etc/init.d/sersync start		</span><br><span class="line">/etc/init.d/sersync stop</span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 通过service来控制</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chkconfig sersync on		# 输入这条指令，可以使用下面的命令来控制程序启动关闭</span><br><span class="line"></span><br><span class="line">service sersync start</span><br><span class="line">service sersync stop</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>3. 使用systemctl来控制</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/lib/systemd/system/sersyncd.service			# 编辑系统服务的脚本（除此之外还有/etc/systemd/system）</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=sersyncd service</span><br><span class="line">After=network.target</span><br><span class="line"> </span><br><span class="line">[Service]</span><br><span class="line">Type=forking            </span><br><span class="line">ExecStart=/etc/rc.d/init.d/sersync start</span><br><span class="line">ExecReload=/etc/rc.d/init.d/sersync restart</span><br><span class="line">ExecStop=/etc/rc.d/init.d/sersync stop</span><br><span class="line">PrivateTmp=true</span><br><span class="line"> </span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">此时已经能够通过systemctl来控制程序启动关闭以及开机自启</span></span><br><span class="line">systemctl start sersyncd</span><br><span class="line">systemctl restart sersyncd</span><br><span class="line">systemctl stop sersyncd</span><br><span class="line">systemctl enable sersyncd</span><br><span class="line">systemctl disable sersyncd</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-17</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

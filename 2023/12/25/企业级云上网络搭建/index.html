@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="企业级云上网络搭建" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            企业级云上网络搭建
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BC%A0%E7%BB%9F%E7%BD%91%E7%BB%9C%E5%92%8C%E4%BA%91%E4%B8%8A%E7%BD%91%E7%BB%9C"><span class="post-toc-text">传统网络和云上网络</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VPC%E5%92%8C%E4%BA%A4%E6%8D%A2%E6%9C%BA%E8%A7%84%E5%88%92"><span class="post-toc-text">VPC和交换机规划</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#VPC%E8%A7%84%E5%88%92"><span class="post-toc-text">VPC规划</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E8%A7%84%E5%88%92"><span class="post-toc-text">交换机规划</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%91%E4%B8%8A%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%80%A7%E8%A7%84%E5%88%92"><span class="post-toc-text">云上网络安全性规划</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%91%E4%B8%8A%E7%BD%91%E7%BB%9C%E8%BF%9E%E9%80%9A%E6%80%A7%E8%A7%84%E5%88%92"><span class="post-toc-text">云上网络连通性规划</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#VPC%E5%86%85%E8%BF%9E%E9%80%9A%E6%80%A7%E8%A7%84%E5%88%92"><span class="post-toc-text">VPC内连通性规划</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B7%A8VPC%E8%BF%9E%E9%80%9A%E6%80%A7%E8%A7%84%E5%88%92"><span class="post-toc-text">跨VPC连通性规划</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BA%91%E4%B8%8A%E7%BD%91%E7%BB%9C%E5%AE%9E%E8%B7%B5"><span class="post-toc-text">企业级云上网络实践</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="传统网络和云上网络"><a href="#传统网络和云上网络" class="headerlink" title="传统网络和云上网络"></a>传统网络和云上网络</h2><blockquote>
+<p><strong>传统企业网络</strong></p>
+</blockquote>
+<p><strong>传统企业网络</strong>是指企业在自己的数据中心等线下场所搭建的网络环境。按照企业规模的大小，所搭建的网络环境架构也有所不同。</p>
+<p>一般来说，小型企业网络通常采用扁平网络结构，一般<strong>只需要一台路由器和少量几台交换机</strong>，以及一些网线、无线AP等，集成一些基本的安全功能，如防火墙、VPN、DHCP等，为网络提供一定的保护。扩展性和可靠性都比较弱。</p>
+<p>大型企业网络往往采用层次化结构，分为<strong>核心层、汇聚层和接入层</strong>，实施了更多的策略控制，比如：虚拟局域网（VLAN）、访问控制列表（ACL）、负载均衡、流量监控、数据加密等，支持复杂的业务和部门结构，同时提供多层防护和安全检测，可靠性方面采用冗余设计和备份技术，避免单点故障。缺点是配置复杂以及维护昂贵等。</p>
+<blockquote>
+<p><strong>云上企业网络</strong></p>
+</blockquote>
+<p><strong>企业级云上网络</strong>是指在云计算平台上，利用云网络产品和服务，构建一个支持多业务部署、安全、高可靠的网络环境，实现企业内部和外部的网络互通。</p>
+<p>阿里云为企业提供了两种云上网络：<strong>经典网络</strong>和<strong>专有网络</strong></p>
+<p><strong>经典网络</strong>是由阿里云为所有租户在云上构建的一张大网，包含小云在内的所有租户都从这张大网中获得地址，经典网络的安全性和私密性上需要用户做好各种措施，安全手段单一，网络分配不能自定义。目前在阿里云上，专有网络VPC是主要的网络使用方式，经典网络已经不支持新用户购买，用户旧有的经典网络也正在逐步迁移至专有网络。</p>
+<p><strong>专有网络</strong>，即VPC，为用户提供高度隔离的网络环境，配合安全组、网络ACL等其他安全手段，实现更为安全，更为灵活的网络管理方式。云上大部分的产品都需要放入到VPC中才能工作，都需要从VPC 中获得所需的IP地址，将云资源放入不同的VPC，将会获得不同网段的IP地址，并由于VPC的隔离特性，资源放入到不同的VPC之后，将无法互联互通，小云在使用云上产品时，一定要做好规划网络规划。</p>
+<h2 id="VPC和交换机规划"><a href="#VPC和交换机规划" class="headerlink" title="VPC和交换机规划"></a>VPC和交换机规划</h2><p>根据业务特点，选择不同的规划方式</p>
+<h3 id="VPC规划"><a href="#VPC规划" class="headerlink" title="VPC规划"></a>VPC规划</h3><blockquote>
+<p><strong>单VPC</strong></p>
+</blockquote>
+<p>如果<strong>业务系统非常简单</strong>，只是需要一个简单的网络提供IP即可，<strong>不需要网络隔离</strong>，<strong>也不需要多地域部署业务</strong>，只使用一个VPC就可以了</p>
+<p><a href="/../pic/xmfmndmysidiehdwdwav-17056518712189.png" title="xmfmndmysidiehdwdwav" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/xmfmndmysidiehdwdwav-17056518712189.png" alt="xmfmndmysidiehdwdwav"></a></p>
+<blockquote>
+<p><strong>单地域多VPC</strong></p>
+</blockquote>
+<p>如果希望某一部分业务和其他的业务要有<strong>网络隔离</strong>，此时就需要在云上规划<strong>多个VPC</strong></p>
+<p><a href="/../pic/zqztsjwjikcgxgyayoqw-170565196255615.png" title="zqztsjwjikcgxgyayoqw" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/zqztsjwjikcgxgyayoqw-170565196255615.png" alt="zqztsjwjikcgxgyayoqw"></a></p>
+<blockquote>
+<p><strong>多地域多VPC</strong></p>
+</blockquote>
+<p>如果打算把业务系统分布在<strong>不同的地域</strong>，此时就需要规划<strong>多个VPC</strong></p>
+<p><a href="/../pic/zyywyyvixobyifjeyzbo.png" title="zyywyyvixobyifjeyzbo" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/zyywyyvixobyifjeyzbo.png" alt="zyywyyvixobyifjeyzbo"></a></p>
+<h3 id="交换机规划"><a href="#交换机规划" class="headerlink" title="交换机规划"></a>交换机规划</h3><blockquote>
+<p><strong>单个交换机</strong></p>
+</blockquote>
+<p>当构建测试、开发等<strong>非关键业务</strong>网络时，可以选择在VPC内<strong>使用单交换机</strong>，并在该交换机内创建ECS服务器，此时所有的业务都工作在单一的可用区中的单一交换机上，在可用区故障时，所有业务会失去访问能力。</p>
+<blockquote>
+<p><strong>多个交换机</strong></p>
+</blockquote>
+<p>当在云上构建<strong>复杂且关键的业务</strong>时，就需要选择<strong>使用多个交换机</strong>，每个交换机可以绑定不同的可用区，然后在多个交换机内部署<strong>多台ECS云服务器</strong>，且这些ECS云服务器都可以<strong>实现跨可用区</strong>的业务部署模式，规避单机房故障的风险。</p>
+<p>当需要<strong>通过子网的网段来做业务分类</strong>，提升可管理性时，就需要<strong>多个交换机</strong>，例如A业务使用192.168.1.0&#x2F;24子网，使用交换机A。B业务使用192.168.2.0&#x2F;24子网，使用交换机B。</p>
+<p>当需要某一部分服务器不能直接访问互联网，如有互联网需求时，需要通过NAT网关等网络服务代理上网，就需要多个交换机来实现，将不能直接访问公网的服务器单独放在一个交换机中。</p>
+<h2 id="云上网络安全性规划"><a href="#云上网络安全性规划" class="headerlink" title="云上网络安全性规划"></a>云上网络安全性规划</h2><p>保障云上网络中相关业务以及服务器的安全性，需要用到<strong>VPC访问控制</strong>。通常有两种做法：<strong>安全组</strong>和<strong>网络ACL</strong></p>
+<p><a href="/../pic/vhlesofousppjpbxfpkz.png" title="vhlesofousppjpbxfpkz" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/vhlesofousppjpbxfpkz.png" alt="vhlesofousppjpbxfpkz"></a></p>
+<blockquote>
+<p><strong>安全组</strong></p>
+</blockquote>
+<p><strong>安全组</strong>是一种<strong>实例级别的虚拟防火墙，安全组必须与实例进行关联才能控制实例的出入站流量</strong>。安全组的入方向规则控制ECS云服务器的入站流量，出方向规则控制ECS云服务器的出站流量。由于<strong>安全组是有状态防火墙</strong>，用户<strong>只需要在入站方向设置允许或拒绝规则</strong>即可，例如只需要允许安全组入方向的TCP 协议的80端口，安全组会自动发现，<strong>出站的流量和入站的流量相关</strong>，会自动放通，不需要主动允许出方向的TCP协议的 80端口。</p>
+<blockquote>
+<p><strong>网络ACL</strong></p>
+</blockquote>
+<p><strong>ACL</strong>（网络访问控制列表）是 VPC 中<strong>子网级别的虚拟防火墙</strong>，<strong>网络 ACL 必须与交换机进行关联才能对子网内的实例产生影响</strong>，实现对一个或多个子网流量的访问控制。网络ACL在入和出两个方向都可以自主设置允许和拒绝规则，其规则与安全组相似。网络 ACL 的规则是<strong>无状态</strong>的，设置入站规则允许某些请求后，<strong>需要同时设置相应的出站规则</strong>，<strong>否则可能会导致某些请求无法响应</strong>，必须同时设置入站和出站规则才能正常通信的情况，称为无状态流量管控。例如小云只在入方向设置了允许TCP协议的80端口通过，但是没有在出方向设置允许TCP协议的80端口通过， 此时外部将无法访问到小云的80端口。</p>
+<blockquote>
+<p><strong>安全组和网络ACL对比</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>安全组</th>
+<th>网络ACL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>级别</td>
+<td>ECS等云资源实例级别管控</td>
+<td>特定子网级别的流量管控</td>
+</tr>
+<tr>
+<td>功能</td>
+<td>支持允许规则和拒绝规则</td>
+<td>支持允许规则和拒绝规则</td>
+</tr>
+<tr>
+<td>是否有状态</td>
+<td>有，返回数据流会被自动允许，不受任何规则影响</td>
+<td>无，返回数据流必须被规则明确允许</td>
+</tr>
+<tr>
+<td>何时生效</td>
+<td>只有云资源绑定了安全组才会受到影响，可以为不同的实例绑定不同的安全组，实现更精细化配置</td>
+<td>只要子网绑定了网络ACL，整个子网中的所有云资源都会受到影响</td>
+</tr>
+</tbody></table>
+<h2 id="云上网络连通性规划"><a href="#云上网络连通性规划" class="headerlink" title="云上网络连通性规划"></a>云上网络连通性规划</h2><h3 id="VPC内连通性规划"><a href="#VPC内连通性规划" class="headerlink" title="VPC内连通性规划"></a>VPC内连通性规划</h3><blockquote>
+<p><strong>路由器、路由表、路由</strong></p>
+</blockquote>
+<p><strong>路由器</strong>（vRouter）是专有网络的枢纽，它可以连接专有网络内的各个交换机，同时也是连接专有网络和其他网络的网关设备。每个专有网络创建成功后，系统会自动创建一个路由器。每个路由器至少关联一张路由表。</p>
+<p><strong>路由表</strong>是存储在路由器或联网计算机中的<strong>电子表</strong>。路由表存储着指向特定网络地址的路径（<strong>路由条目</strong>）。每一个路由条目包含目的网段地址 &#x2F; 子网掩码、路由协议、出接口、下一跳 IP 地址、路由优先级和度量值等信息。<strong>路由表记录 IP 包在下一跳应该发给谁</strong>。</p>
+<p><strong>路由</strong>：是路由器根据 IP 地址对数据进行转发的操作。当路由器收到一个数据包时，它根据数据包的目的 IP 地址<strong>查询路由表</strong>，如果有匹配的路由条目，就根据查询结果将数据包转发出去，如果没有任何匹配的路由条目，则将数据包丢弃。</p>
+<blockquote>
+<p><strong>系统路由表</strong></p>
+</blockquote>
+<p>在创建专有网络VPC后，系统会默认创建一个路由表控制VPC的路由，所有VPC内的vSwitch默认使用该路由表。</p>
+<p>可以通过访问<a target="_blank" rel="noopener" href="https://vpc.console.aliyun.com/overview">专有网络VPC控制台</a>，并点击左侧菜单中的<strong>路由表</strong>按钮查看已创建的路由表，路由表类型为<strong>系统</strong>的就是创建VPC后系统自动创建的<strong>默认路由表</strong>，同一个VPC内互联互通的秘密就在于<strong>路由表中的路由条目</strong>，VPC中所有交换机的网段默认都会自动添加至<strong>系统路由条目</strong>中，点击路由表<strong>实例ID</strong>可以看到路由表的详细信息，点击<strong>路由条目列表</strong>页签中的<strong>系统路由条目</strong>，可以看见系统自动创建的路由条目。</p>
+<p><a href="/../pic/1688114783839-0e880dca-f532-472f-8c6e-cdaa44b8d209.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1688114783839-0e880dca-f532-472f-8c6e-cdaa44b8d209.png" alt="img"></a></p>
+<p>如上图所示：</p>
+<ul>
+<li>以<strong>100.64.0.0&#x2F;10</strong>为目标网段的路由条目，用于地域（Region）内的云产品通信</li>
+<li>以<strong>vSwitch网段</strong>（如192.168.1.0&#x2F;24、192.168.2.0&#x2F;24）为目标网段的路由条目，用于vSwitch内的云产品通信</li>
+</ul>
+<blockquote>
+<p><strong>自定义路由表</strong></p>
+</blockquote>
+<p>用户也可以创建<strong>自定义路由表</strong>，将其和vSwitch绑定，控制vSwitch的路由，更灵活的进行网络管理，称为“子网路由”。</p>
+<p><a href="/../pic/1689573811104-74abdf26-723e-4ed9-a731-5755d41452c4.png" title="1689573811104-74abdf26-723e-4ed9-a731-5755d41452c4" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1689573811104-74abdf26-723e-4ed9-a731-5755d41452c4.png" alt="1689573811104-74abdf26-723e-4ed9-a731-5755d41452c4"></a></p>
+<h3 id="跨VPC连通性规划"><a href="#跨VPC连通性规划" class="headerlink" title="跨VPC连通性规划"></a>跨VPC连通性规划</h3><p> VPC 天然提供了隔离性，不同的VPC之间，无论是否是同地域，默认都无法通信。</p>
+<p>如果需要连通不同VPC中的业务，可以通过 <strong>VPC对等连接</strong> 在不同的VPC之间搭建桥梁，实现网络的互联互通。</p>
+<p>VPC对等连接支持以下几种类型的VPC网络打通：同账号同地域、同账号跨地域、跨账号同地域、跨账号跨地域。</p>
+<blockquote>
+<p><strong>操作实例</strong></p>
+</blockquote>
+<p>同一账号下创建一个VPC对等连接连通<strong>杭州地域的VPC-HZ-1</strong>与<strong>北京地域的VPC-BJ-1</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>地域</strong></th>
+<th><strong>VPC名称</strong></th>
+<th><strong>VPC网段</strong></th>
+<th><strong>交换机名称</strong></th>
+<th><strong>交换机网段</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>杭州</td>
+<td>VPC-HZ-1</td>
+<td>192.168.0.0&#x2F;16</td>
+<td>VSW-HZ-1</td>
+<td>192.168.1.0&#x2F;24</td>
+</tr>
+<tr>
+<td>北京</td>
+<td>VPC-BJ-1</td>
+<td>172.16.0.0&#x2F;12</td>
+<td>VSW-BJ-1</td>
+<td>172.16.1.0&#x2F;24</td>
+</tr>
+</tbody></table>
+<p><strong>具体操作步骤如下：</strong></p>
+<ol>
+<li><p>创建对等连接</p>
+<p>访问<a target="_blank" rel="noopener" href="https://vpc.console.aliyun.com/vpcpeer/cn-hangzhou/vpcpeers">VPC对等连接控制台</a>，点击<strong>开通CDT功能</strong>权限，后点击旁边的<strong>刷新</strong>按钮，即可<strong>创建对等连接</strong></p>
+</li>
+<li><p>填写创建配置</p>
+<ul>
+<li>对等连接名称：（自定义）</li>
+<li>发起端VPC实例：<strong>VPC-HZ-1</strong></li>
+<li>接收端账号类型：<strong>同账号</strong></li>
+<li>接收端地域类型：<strong>跨地域</strong></li>
+<li>接收端地域：<strong>华北2（北京）</strong></li>
+<li>接收端VPC实例：<strong>VPC-BJ-1</strong></li>
+</ul>
+</li>
+<li><p>配置路由表</p>
+<p>在完成创建对等连接后，还需要配置路由条目才可以联通不同VPC内的不同子网。点击左侧<strong>VPC对等连接</strong>，回到VPC对等连接的列表页面，找到刚刚创建的VPC对等连接，<strong>分别配置发起端和接收端的路由条目</strong></p>
+<p><a href="/../pic/1688117676354-62914424-3284-47ea-8c3c-7d3883a8792f.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1688117676354-62914424-3284-47ea-8c3c-7d3883a8792f.png" alt="img"></a></p>
+<ul>
+<li><p>在<strong>发起端的路由条目配置</strong>中，要设置去往接收端网段的路由，下一跳经过对等连接</p>
+<p><a href="/../pic/1688118744145-cc68362d-fe07-4ad2-b3ed-4254e0946434.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1688118744145-cc68362d-fe07-4ad2-b3ed-4254e0946434.png" alt="img"></a></p>
+</li>
+<li><p>反之一样，在<strong>接收端的路由条目配置</strong>中，要设置去往发起端网段的路由，下一跳经过对等连接，这样<strong>VPC对等连接</strong>就在两者之间搭建了一座互联互通的桥梁。</p>
+<p><a href="/../pic/1688118809117-2fad3572-cd6c-4744-9070-560343ace197.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1688118809117-2fad3572-cd6c-4744-9070-560343ace197.png" alt="img"></a></p>
+</li>
+</ul>
+</li>
+<li><p><code>ping</code>连接测试</p>
+</li>
+</ol>
+<h2 id="企业级云上网络实践"><a href="#企业级云上网络实践" class="headerlink" title="企业级云上网络实践"></a>企业级云上网络实践</h2><p>小云所在公司的业务主要集中在<strong>杭州地区</strong>，公司决定将总部地点设在杭州。同时，公司为了更好地吸引北京各高校的科技人才，特在<strong>北京设立了远程研发中心</strong>。因此分别在北京和杭州的本地机房部署了开发环境和生产环境，具体环境描述如下：</p>
+<ul>
+<li><strong>开发环境：</strong>开发环境在北京本地机房，比较简单，仅包含几个<strong>开发服务器</strong>供开发人员使用， 方便开发团队协作进行<strong>代码开发上传</strong>，版本发布的流程如下：<ol>
+<li>当正式版本的代码需要<strong>发布到生产环境时</strong>，会先从<strong>开发服务器****上传到杭州的文件服务器</strong></li>
+<li>运维人员再将文件服务器的代码包<strong>分发至所有生产环境中的Web服务器</strong>上，并分批<strong>完成代码的部署、发布和测试工作</strong>，确保版本发布过程中的稳定安全</li>
+</ol>
+</li>
+<li><strong>生产环境：</strong>生产环境部署在杭州本地机房，因为生产环境承载的是核心线上业务，进行了<strong>前后端分离</strong>、<strong>高可用</strong>、<strong>访问权限管理</strong>等管控，具体如下：<ol>
+<li>为了<strong>便于扩展和更新</strong>，做了<strong>前后端分离架构</strong>，即将Web服务器和数据库服务器分开部署，运维人员会根据开发人员提交的版本，对前端Web服务器进行变更</li>
+<li>为了<strong>提升整体业务的可用性</strong>，前端Web服务器和后端数据库服务器需要<strong>多机房部署</strong>，规避了单一机房故障造成业务中断</li>
+<li>为了<strong>提升整体业务的安全性</strong>，在开发环境、文件服务器和Web服务器上，都做了<strong>严格的访问规则配置</strong>，其中：<ul>
+<li><strong>文件服务器</strong>允许北京开发环境中的开发服务器通过22端口上传文件</li>
+<li><strong>Web服务器</strong>允许所有人通过Web服务访问80端口，也允许文件服务器通过22端口上传和配置文件</li>
+<li><strong>数据库的服务器只允许生产环境的Web服务器来连接</strong>，其他的所有连接都会拒绝</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><strong>开发环境与生产环境通过VPN方式打通，网络带宽较小。</strong></li>
+</ul>
+<p>思考：以上为小云目前在本地机房的业务逻辑，小云要如何基于本地业务架构设计云上网络架构？如何在阿里云上规划地域、交换机、VPC、安全组、网络ACL，小云应该如何规划云上路由走向，才能连通不同的企业网络环境？</p>
+<p><strong>小云根据现有业务情况，在阿里云上设计了如下图所示的网络架构：</strong></p>
+<p><a href="/../pic/bnxbkfphrqcqqmdyhmqp.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/bnxbkfphrqcqqmdyhmqp.png" alt="img"></a></p>
+<p><strong>其中网络架构为：</strong></p>
+<ul>
+<li><p><strong>北京开发环境</strong>有<strong>一个VPC</strong>：VPC-DEV(172.16.0.0&#x2F;16)，该VPC下有<strong>一个开发环境交换机</strong>：VSW-DEV(172.16.1.0&#x2F;24)，交换机中部署了两台研发服务器ECS-DEV01、ECS-DEV02，互为主备，避免单点故障导致代码等重要文件丢失。</p>
+</li>
+<li><p><strong>杭州生产环境</strong>有<strong>一个VPC</strong>：VPC-PRD(192.168.0.0&#x2F;16)，该VPC下有<strong>五个交换机</strong>，分别为：</p>
+<ul>
+<li><strong>两个WEB服务交换机</strong>VSW-WEB1(192.168.1.0&#x2F;24)和VSW-WEB2(192.168.2.0&#x2F;24)，用于<strong>跨可用区部署Web业务</strong>，避免可用区故障导致整个业务不可用，大大提升Web服务的可用性；</li>
+<li><strong>两个数据库DB服务交换机</strong>VSW-DB1(192.168.100.0&#x2F;24)和VSW-DB2(192.168.101.0&#x2F;24)，用于<strong>跨可用区部署数据库服务</strong>，避免可用区故障导致整个业务不可用，大大提升数据库服务的可用性；</li>
+<li><strong>一个文件服务器交换机</strong>VSW-FS(192.168.200.0&#x2F;24)，用于从北京开发环境获取最新版本的软件包，并将软件包分发至生产环境中的Web服务器，该<strong>文件服务器因为与Web服务器在一个VPC中</strong>，因此可以通过<strong>内网传输文件</strong>，速度快且无需带宽费用的支出，Web服务器越多，其优势越明显。</li>
+</ul>
+</li>
+<li><p><strong>杭州和北京</strong>两个VPC需要通过<strong>VPC对等连接</strong>完成网络打通，并手动添加路由完成从<strong>开发环境交换机</strong>VSW-DEV到<strong>文件服务器交换机</strong>VSW-FS的联通。</p>
+</li>
+<li><p>各个区域安全组访问权限控制：</p>
+<table style="border-collapse: collapse; width: 100%; height: 339px;" border="1">
+<tbody>
+<tr style="height: 36px;">
+<td style="width: 5.15974%; height: 36px; text-align: center;"><strong><span style="font-size: 12pt;">访问控制资源</span></strong></td>
+<td style="width: 1.55533%; height: 36px; text-align: center;"><strong><span style="font-size: 12pt;">源/目标IP</span></strong></td>
+<td style="width: 2.73146%; text-align: center; height: 36px;"><strong><span style="font-size: 12pt;">方向</span></strong></td>
+<td style="width: 3.06929%; height: 36px; text-align: center;"><strong><span style="font-size: 12pt;">访问权限</span></strong></td>
+<td style="width: 3.24494%; height: 36px; text-align: center;" data-spm-anchor-id="a2cwt.28120018.3113600.i0.1f661ee9FmnMzK"><strong><span style="font-size: 12pt;">协议和端口</span></strong></td>
+<td style="width: 8.75949%; height: 36px; text-align: center;"><strong><span style="font-size: 12pt;">作用说明</span></strong></td>
+</tr>
+<tr style="height: 36px;">
+<td style="width: 5.15974%; height: 36px; text-align: center;"><span style="font-size: 12pt;">北京开发安全组SG-DEV</span></td>
+<td style="width: 1.55533%; height: 36px; text-align: center;">VSW-FS(192.168.200.0/24)</td>
+<td style="width: 2.73146%; height: 36px; text-align: center;"><span style="font-size: 12pt;">入方向</span></td>
+<td style="width: 3.06929%; height: 36px; text-align: center;"><span style="font-size: 12pt;">允许</span></td>
+<td style="width: 3.24494%; height: 36px; text-align: center;"><span style="font-size: 12pt;">TCP 22端口</span></td>
+<td style="width: 8.75949%; height: 36px; text-align: center;"><span style="font-size: 12pt;">文件服务器可以从北京开发环境拉取文件</span></td>
+</tr>
+<tr style="height: 40px;">
+<td style="width: 5.15974%; height: 40px; text-align: center;" rowspan="2"><span style="font-size: 12pt;">文件服务器安全组SG-FS</span></td>
+<td style="width: 1.55533%; height: 40px; text-align: center;"><span style="font-size: 12pt;">VSW-DEV(172.16.1.0/24)</span></td>
+<td style="width: 2.73146%; height: 40px; text-align: center;"><span style="font-size: 12pt;">入方向</span></td>
+<td style="width: 3.06929%; height: 40px; text-align: center;"><span style="font-size: 12pt;">允许</span></td>
+<td style="width: 3.24494%; height: 40px; text-align: center;"><span style="font-size: 12pt;">TCP 22端口</span></td>
+<td style="width: 8.75949%; height: 40px; text-align: center;"><span style="font-size: 12pt;">北京开发环境可以向文件服务器推送文件</span></td>
+</tr>
+<tr style="height: 36px;">
+<td style="width: 1.55533%; height: 36px; text-align: center;">
+<span style="font-size: 12pt;">VSW-WEB1(192.168.1.0/24)、VSW-WEB2(192.168.2.0/24)</span>
+</td>
+<td style="width: 2.73146%; height: 36px; text-align: center;"><span style="font-size: 12pt;">入方向</span></td>
+<td style="width: 3.06929%; height: 36px; text-align: center;"><span style="font-size: 12pt;">允许</span></td>
+<td style="width: 3.24494%; height: 36px; text-align: center;"><span style="font-size: 12pt;">TCP 22端口</span></td>
+<td style="width: 8.75949%; height: 36px; text-align: center;"><span style="font-size: 12pt;">WEB生产环境服务器可以从文件服务器拉取文件</span></td>
+</tr>
+<tr style="height: 36px;">
+<td style="width: 5.15974%; height: 36px; text-align: center;" rowspan="2">WEB服务安全组SG-WEB</td>
+<td style="width: 1.55533%; height: 36px; text-align: center;">0.0.0.0/0</td>
+<td style="width: 2.73146%; height: 36px; text-align: center;"><span style="font-size: 12pt;">入方向</span></td>
+<td style="width: 3.06929%; height: 36px; text-align: center;"><span style="font-size: 12pt;">允许</span></td>
+<td style="width: 3.24494%; height: 36px; text-align: center;"><span style="font-size: 12pt;">TCP 80端口</span></td>
+<td style="width: 8.75949%; height: 36px; text-align: center;">对外开放WEB服务（HTTP 80）</td>
+</tr>
+<tr style="height: 36px;">
+<td style="width: 1.55533%; height: 36px; text-align: center;">VSW-FS(192.168.200.0/24)</td>
+<td style="width: 2.73146%; height: 36px; text-align: center;"><span style="font-size: 12pt;">入方向</span></td>
+<td style="width: 3.06929%; height: 36px; text-align: center;"><span style="font-size: 12pt;">允许</span></td>
+<td style="width: 3.24494%; height: 36px; text-align: center;"><span style="font-size: 12pt;">TCP 22端口</span></td>
+<td style="width: 8.75949%; height: 36px; text-align: center;"><span style="font-size: 12pt;">文件服务器可以向WEB生产环境服务器推送文件</span></td>
+</tr>
+<tr style="height: 36px;">
+<td style="width: 5.15974%; height: 36px; text-align: center;">数据库服务安全组SG-DB01</td>
+<td style="width: 1.55533%; height: 36px; text-align: center;" rowspan="2"><span style="font-size: 12pt;">VSW-WEB1(192.168.1.0/24)、</span><span style="font-size: 12pt;">VSW-WEB2(192.168.2.0/24)</span></td>
+<td style="width: 2.73146%; height: 36px; text-align: center;" rowspan="2"><span style="font-size: 12pt;">入方向</span></td>
+<td style="width: 3.06929%; height: 36px; text-align: center;" rowspan="2"><span style="font-size: 12pt;">允许</span></td>
+<td style="width: 3.24494%; height: 36px; text-align: center;" rowspan="2"><span style="font-size: 12pt;">TCP 3306端口</span></td>
+<td style="width: 8.75949%; height: 36px; text-align: center;" rowspan="2"><span style="font-size: 12pt;">WEB生产环境服务器可以从数据库服务器获取数据</span></td>
+</tr>
+<tr style="height: 36px;">
+<td style="width: 5.15974%; height: 36px; text-align: center;">数据库服务安全组SG-DB02</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<table>
+<tbody>
+<tr>
+<td>访问控制资源</td>
+<td>源/目标IP</td>
+<td>方向</td>
+<td>访问权限</td>
+<td>协议和端口</td>
+<td>作用说明</td>
+</tr>
+<tr>
+<td>北京开发安全组SG-DEV</td>
+<td>VSW-FS(192.168.200.0/24)</td>
+<td>入方向</td>
+<td>允许</td>
+<td>TCP 22端口</td>
+<td>文件服务器可以从北京开发环境拉取文件</td>
+</tr>
+<tr>
+<td rowspan="2">文件服务器安全组SG-FS</td>
+<td>VSW-DEV(172.16.1.0/24)</td>
+<td>入方向</td>
+<td>允许</td>
+<td>TCP 22端口</td>
+<td>北京开发环境可以向文件服务器推送文件</td>
+</tr>
+<tr>
+<td>VSW-WEB1(192.168.1.0/24)、VSW-WEB2(192.168.2.0/24)</td>
+<td>入方向</td>
+<td>允许</td>
+<td>TCP 22端口</td>
+<td>WEB生产环境服务器可以从文件服务器拉取文件</td>
+</tr>
+<tr>
+<td rowspan="2">WEB服务安全组SG-WEB</td>
+<td>0.0.0.0/0</td>
+<td>入方向</td>
+<td>允许</td>
+<td>TCP 80端口</td>
+<td>对外开放WEB服务（HTTP 80）</td>
+</tr>
+<tr>
+<td>VSW-FS(192.168.200.0/24)</td>
+<td>入方向</td>
+<td>允许</td>
+<td>TCP 22端口</td>
+<td>文件服务器可以向WEB生产环境服务器推送文件</td>
+</tr>
+<tr>
+<td>数据库服务安全组SG-DB01</td>
+<td rowspan="2">VSW-WEB1(192.168.1.0/24)、VSW-WEB2(192.168.2.0/24)</td>
+<td rowspan="2">入方向</td>
+<td rowspan="2">允许</td>
+<td rowspan="2">TCP 3306端口</td>
+<td rowspan="2">WEB生产环境服务器可以从数据库服务器获取数据</td>
+</tr>
+<tr>
+<td>数据库服务安全组SG-DB02</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+</li>
+<li><p>数据库所在交换机的网络ACL规则配置如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong>出&#x2F;入方向规则</strong></th>
+<th><strong>优先级</strong></th>
+<th><strong>策略</strong></th>
+<th><strong>协议类型</strong></th>
+<th><strong>源地址&#x2F;目的地址</strong></th>
+<th><strong>目的端口</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>入方向</td>
+<td>1</td>
+<td>允许</td>
+<td>TCP</td>
+<td>VSW-WEB1(192.168.1.0&#x2F;24)、VSW-WEB2(192.168.2.0&#x2F;24)</td>
+<td>3306&#x2F;3306</td>
+</tr>
+<tr>
+<td>入方向</td>
+<td>2</td>
+<td>拒绝</td>
+<td>ALL</td>
+<td>0.0.0.0&#x2F;0</td>
+<td>-1&#x2F;-1</td>
+</tr>
+<tr>
+<td>出方向</td>
+<td>1</td>
+<td>允许</td>
+<td>TCP</td>
+<td>VSW-WEB1(192.168.1.0&#x2F;24)、VSW-WEB2(192.168.2.0&#x2F;24)</td>
+<td>1&#x2F;65535</td>
+</tr>
+<tr>
+<td>出方向</td>
+<td>2</td>
+<td>拒绝</td>
+<td>ALL</td>
+<td>0.0.0.0&#x2F;0</td>
+<td>-1&#x2F;-1</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-25</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E9%98%BF%E9%87%8C%E4%BA%91/'>
+                            阿里云
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

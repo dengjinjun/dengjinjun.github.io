@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="DNS篇" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            DNS篇
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9F%9F%E5%90%8D%E6%9F%A5%E6%89%BE"><span class="post-toc-text">域名查找</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%9F%E5%90%8D%E7%BB%93%E6%9E%84"><span class="post-toc-text">域名结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DNS%E7%9A%84%E5%9F%9F%E5%90%8D%E6%9F%A5%E6%89%BE%E6%B5%81%E7%A8%8B"><span class="post-toc-text">DNS的域名查找流程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%9E%E8%B7%B5%E6%B7%BB%E5%8A%A0%E8%85%BE%E8%AE%AF%E4%BA%91A%E8%AE%B0%E5%BD%95%E4%B8%89%E7%BA%A7%E5%9F%9F%E5%90%8D"><span class="post-toc-text">实践添加腾讯云A记录三级域名</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%9F%E5%90%8D%E8%AE%B0%E5%BD%95%E7%B1%BB%E5%9E%8B"><span class="post-toc-text">域名记录类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%B5%81%E7%A8%8B"><span class="post-toc-text">添加流程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%90%AD%E5%BB%BAdns%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="post-toc-text">搭建dns服务器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#bind%E8%BD%AF%E4%BB%B6"><span class="post-toc-text">bind软件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#dnsmasq%E8%BD%AF%E4%BB%B6"><span class="post-toc-text">dnsmasq软件</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="域名查找"><a href="#域名查找" class="headerlink" title="域名查找"></a>域名查找</h2><h3 id="域名结构"><a href="#域名结构" class="headerlink" title="域名结构"></a>域名结构</h3><blockquote>
+<p>根域名：</p>
+</blockquote>
+<p>根域名：<code>.</code>		全世界一共有13台根域服务器，记录了所有的顶级域信息</p>
+<blockquote>
+<p>顶级域</p>
+</blockquote>
+<p>也称为一级域名，常见顶级域：<code>.com  .cn  .edu  .cc  .us  .top</code>等</p>
+<blockquote>
+<p>主域名</p>
+</blockquote>
+<p>也成为二级域名，比如：<code>aliyun.com  huya.com  cczu.edu</code>等，需要购买</p>
+<blockquote>
+<p>子域名</p>
+</blockquote>
+<p>也称为三级域名，比如：<code>api.aliyun.com  docs.qq.com</code>等，三级域名根据主域名注册的服务商来决定数量有多少</p>
+<h3 id="DNS的域名查找流程"><a href="#DNS的域名查找流程" class="headerlink" title="DNS的域名查找流程"></a>DNS的域名查找流程</h3><blockquote>
+<p>关于&#x2F;etc&#x2F;hosts文件</p>
+</blockquote>
+<p>&#x2F;etc&#x2F;hosts文件是一个用于本地域名解析的操作系统文件，该文件用于将特定的IP地址与域名进行映射，从而允许在本地系统上进行域名解析，而无需依赖DNS服务器。查找域名对应IP时，优先查找hosts文件解析，如果hosts文件中不存在此条记录，再按以下dns查找顺序来找。</p>
+<p>假设我们要查找网址<code>www.example.com</code>的IP地址，那么域名查找的示例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">用户在浏览器中输入网址www.example.com。</span><br><span class="line"></span><br><span class="line">优先查找本机hosts文件和本地DNS解析器，hosts文件以及本地DNS缓存中不存在此条记录</span><br><span class="line"></span><br><span class="line">操作系统的客户端将该查询发送给本地域名服务器。</span><br><span class="line"></span><br><span class="line">本地域名服务器检查缓存文件，没有找到对应的解析结果。</span><br><span class="line"></span><br><span class="line">本地域名服务器发送一个迭代查询给根域名服务器，询问.com域的顶级域名服务器的地址。</span><br><span class="line"></span><br><span class="line">根域名服务器返回一个指向.com顶级域名服务器的地址。</span><br><span class="line"></span><br><span class="line">本地域名服务器发送一个迭代查询给.com顶级域名服务器，询问example.com的权威域名服务器的地址。</span><br><span class="line"></span><br><span class="line">.com顶级域名服务器返回一个指向example.com权威域名服务器的地址。</span><br><span class="line"></span><br><span class="line">本地域名服务器发送一个迭代查询给example.com权威域名服务器。</span><br><span class="line"></span><br><span class="line">example.com权威域名服务器返回www.example.com的IP地址。</span><br><span class="line"></span><br><span class="line">本地域名服务器将IP地址返回给DNS客户端，并将解析结果保存到缓存中。</span><br><span class="line"></span><br><span class="line">DNS客户端将IP地址返回给操作系统和浏览器。</span><br><span class="line"></span><br><span class="line">浏览器通过IP地址连接到服务器www.example.com。</span><br></pre></td></tr></table></figure>
+
+<p><a href="/../pic/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAc2t5ZV9mbHk=,size_20,color_FFFFFF,t_70,g_se,x_16.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAc2t5ZV9mbHk=,size_20,color_FFFFFF,t_70,g_se,x_16.png" alt="img"></a></p>
+<blockquote>
+<p>查看DNS域名查找路径</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dig +trace  www.dengjinjun.site			# 展示一个简单的从域名到ip的查找过程，dig命令用来查看域名解析关系，很重要</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<h2 id="实践添加腾讯云A记录三级域名"><a href="#实践添加腾讯云A记录三级域名" class="headerlink" title="实践添加腾讯云A记录三级域名"></a>实践添加腾讯云A记录三级域名</h2><h3 id="域名记录类型"><a href="#域名记录类型" class="headerlink" title="域名记录类型"></a>域名记录类型</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">记录类型		使用目的</span><br><span class="line">A 记录		将域名指向一个 IP 地址（外网地址）。A记录类型是用的最频繁的，因为他是直接指向了一个ip地址</span><br><span class="line">CNAME 记录	将域名指向另一个域名，再由另一个域名提供 IP 地址（外网地址）。将当前要访问的域名，转发给另一个域名，用在CDN部署上</span><br><span class="line">MX 记录		设置邮箱，让邮箱能收到邮件。</span><br><span class="line">NS 记录		将子域名交给其他 DNS 服务商解析。</span><br><span class="line">AAAA 记录		将域名指向一个 IPv6 地址。</span><br><span class="line">SRV 记录		用来标识某台服务器使用了某个服务，常见于微软系统的目录管理。</span><br><span class="line">TXT 记录		对域名进行标识和说明，绝大多数的 TXT 记录是用来做 SPF 记录（反垃圾邮件）。</span><br><span class="line">隐/显性URL		记录将一个域名指向另外一个已经存在的站点。</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="添加流程"><a href="#添加流程" class="headerlink" title="添加流程"></a>添加流程</h3><p>在域名提供商官网进行操作，添加解析记录，填写三级域名，指定记录类型，记录值一般填写自己的服务器IP地址，也可以指定其他IP地址，保存即可。</p>
+<p>详细可参考阿里云官方手册：<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/29716.html">https://help.aliyun.com/document_detail/29716.html</a></p>
+<h2 id="搭建dns服务器"><a href="#搭建dns服务器" class="headerlink" title="搭建dns服务器"></a>搭建dns服务器</h2><p>当前使用云服务器的公司大多使用云厂商提供的DNS服务器，一般很少自己搭建。这部分知识点便于理解原理，部署不难。</p>
+<h3 id="bind软件"><a href="#bind软件" class="headerlink" title="bind软件"></a>bind软件</h3><p>使用bind软件搭建一台DNS服务器，作为权威域名服务器，把二级域名<code>dengjinjun.site</code>添加到DNS服务器中，并添加三级域名。</p>
+<blockquote>
+<p>准备两台机器</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">172.16.1.61机器	服务端</span><br><span class="line">172.16.1.7机器	客户端</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>服务器端安装bind软件包</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install bind bind-utils -y		# bind软件是dns服务器的主软件  bind-utils 是提供dns解析的命令，如dig命令</span><br><span class="line">getenforce							# 检查selinux</span><br><span class="line">iptables -L 						# 检查防火墙规则不要禁用DNS</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>修改DNS服务器主配置文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/named.conf  				# 修改主配置文件</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">允许dns服务端，运行在0.0.0.0:53 上</span></span><br><span class="line"> 12 options &#123;</span><br><span class="line"> 13         listen-on port 53 &#123; 127.0.0.1; any; &#125;;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">允许所有客户端的访问</span></span><br><span class="line"> 21         allow-query     &#123; localhost;any; &#125;;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">主配置文件导入了子配置文件(域配置文件)</span></span><br><span class="line"> 59 include &quot;/etc/named.rfc1912.zones&quot;;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>创建DNS服务器的子配置文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/named.rfc1912.zones			# 修改子配置文件,文件末尾添加如下内容,定义一个二级域名dengjinjun.site</span><br><span class="line"></span><br><span class="line">zone &quot;dengjinjun.site&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;dengjinjun.site.zone&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>创建该二级域名的主机记录配置文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装<span class="built_in">bind</span>时已经准备好了二级域名的模板文件，从模板文件中迁移子配置文件，# <span class="built_in">cp</span> -p 保持原文件的属性，命名为  [主域名].zone</span></span><br><span class="line">cp -p /var/named/named.localhost /var/named/dengjinjun.site.zone	</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改为如下内容</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">TTL 1D										<span class="comment"># 表示记录的缓存时间</span></span></span><br><span class="line">@	IN SOA	@ rname.invalid. (</span><br><span class="line">					0	; serial</span><br><span class="line">					1D	; refresh</span><br><span class="line">					1H	; retry</span><br><span class="line">					1W	; expire</span><br><span class="line">					3H )	; minimum</span><br><span class="line">	NS	@</span><br><span class="line">	A	172.16.1.61							# 表示二级域名的解析记录，要把原本的127.0.0.1改为主机IP</span><br><span class="line">	AAAA	::1</span><br><span class="line"></span><br><span class="line">www   A   172.16.1.61  						# 添加三级域名的解析记录，指定记录类型和IP地址</span><br><span class="line">linux A   172.16.1.61						# 再添加一个</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>启动bind程序</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start named			# 启动服务</span><br><span class="line">netstat -tunlp |grep named		# 检查named程序状态</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>在客户端指定DNS服务器地址</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/resolv.conf 			# 编辑DNS的配置文件，添加以下内容</span><br><span class="line"></span><br><span class="line">nameserver 172.16.1.61</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果访问DNS服务器中的域名，可以直接返回地址。如果访问的是互联网中的域名，该<span class="built_in">bind</span>软件，默认会递归查询，继续向上， 从dns解析流程走一遍</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="dnsmasq软件"><a href="#dnsmasq软件" class="headerlink" title="dnsmasq软件"></a>dnsmasq软件</h3><p>dnsmasq是一个轻量级的服务，很容易实现DNS服务器功能，部署简单，许多集群环境内部部署DNS服务器，都是使用dnsmasq</p>
+<p>部署dnsmasq之前注意停掉bind服务，并且恢复dns设置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop named</span><br><span class="line">vim /etc/resolv.conf </span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>服务端安装dnsmasq软件包</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install dnsmasq -y</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>修改dnsmasq配置文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/dnsmasq.conf						# 修改配置文件，设置以下内容</span><br><span class="line"></span><br><span class="line">resolv-file=/etc/resolv.dnsmasq.conf		# 指定保存上游dns服务器地址的文件，默认是/etc/resolv.conf，也可以自定义（需要自己创建）</span><br><span class="line">listen-address=172.16.1.61					# 指定DNS服务的IP地址，一般是本机的IP</span><br><span class="line">addn-hosts=/etc/hosts.dnsmasq.conf			# 指定本地的域名解析记录文件，默认是/etc/hosts文件，也可以自定义（需要自己创建）</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>创建对应的数据文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;nameserver 223.5.5.5&quot; &gt; /etc/resolv.dnsmasq.conf		# 创建指定上游DNS服务器的文件（如上文中定义了则需要创建）</span><br><span class="line"></span><br><span class="line">cat &gt;/etc/hosts.dnsmasq.conf &lt;&lt;EOF</span><br><span class="line">172.16.1.7 web-7</span><br><span class="line">172.16.1.8 web-8</span><br><span class="line">172.16.1.9 web-9</span><br><span class="line">EOF											# 创建本地的域名解析记录文件，并添加几条记录（如上文中定义了则需要创建）</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>启动dnsmasq服务</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start dnsmasq </span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>客户端测试</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/resolv.conf					# 编辑dns配置文件，使用上文中创建的DNS服务器地址</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果访问DNS服务器域名解析文件中的域名，可以直接返回地址。如果访问的是互联网中的域名，该<span class="built_in">bind</span>软件，默认会递归查询，继续向上， 从dns解析流程走一遍</span></span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-09-26</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

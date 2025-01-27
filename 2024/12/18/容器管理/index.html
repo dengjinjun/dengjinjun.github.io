@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="容器管理" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            容器管理
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86"><span class="post-toc-text">容器管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%B9%E5%99%A8%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="post-toc-text">容器进程管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B"><span class="post-toc-text">僵尸进程和孤儿进程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%AE%B9%E5%99%A8%E7%9A%841%E5%8F%B7%E8%BF%9B%E7%A8%8B%E5%92%8C0%E5%8F%B7%E8%BF%9B%E7%A8%8B"><span class="post-toc-text">容器的1号进程和0号进程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%AE%B9%E5%99%A8%E5%86%85%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%B4%AF%E7%A7%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="post-toc-text">容器内僵尸进程累积的解决方案</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86"><span class="post-toc-text">容器网络管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#none%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">none网络模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#host%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">host网络模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#bridge%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">bridge网络模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#container%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">container网络模式</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%B9%E5%99%A8%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="post-toc-text">容器存储管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%AF%B9%E5%AE%B9%E5%99%A8%E5%8F%AF%E7%94%A8%E7%A3%81%E7%9B%98%E8%BF%9B%E8%A1%8C%E9%85%8D%E9%A2%9D"><span class="post-toc-text">对容器可用磁盘进行配额</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%8E%A7%E5%88%B6%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="post-toc-text">控制容器日志的大小</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%BF%81%E7%A7%BBdocker%E6%95%B0%E6%8D%AE%E7%9B%AE%E5%BD%95"><span class="post-toc-text">迁移docker数据目录</span></a></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="容器管理"><a href="#容器管理" class="headerlink" title="容器管理"></a>容器管理</h2><h3 id="容器进程管理"><a href="#容器进程管理" class="headerlink" title="容器进程管理"></a>容器进程管理</h3><h4 id="僵尸进程和孤儿进程"><a href="#僵尸进程和孤儿进程" class="headerlink" title="僵尸进程和孤儿进程"></a>僵尸进程和孤儿进程</h4><blockquote>
+<p><strong>僵尸进程</strong></p>
+</blockquote>
+<p> linux操作系统的设计规定：父进程应该具备随时获取子进程状态的能力。 如果子进程先于父进程运行完毕，linux系统会将子进程占用的重型资源都释放掉(比如占用的内存空间、cpu资源、打开的文件等)，但是会保留一部分子进程的关键状态信息，比如进程号，退出状态，运行时间等，此时子进程就相当于死了但是没死干净，因而得名”僵尸进程”，需要父进程查阅并回收。</p>
+<p>如果存在大量的僵尸进程，会导致大量pid号被占用，可能无法创建新的进程，此时只能够杀掉父进程，让这些僵尸进程会被linux系统中pid为1的顶级进程（init或systemd）接管，顶级进程会定期发起系统调用wait&#x2F;waitpid来通知操作系统清理僵尸儿子。</p>
+<p>注意：父进程发起的wait或waitpid调用只能回收僵尸儿子，无法回收孙子辈。</p>
+<blockquote>
+<p><strong>孤儿进程</strong></p>
+</blockquote>
+<p>父进程先死掉，而它的一个或多个子进程还在运行，那么那些子进程将成为孤儿进程。孤儿进程将被进程号为1的顶级进程（init或systemd）所收养，并由顶级进程对它们完成状态收集工作。</p>
+<p>注意：孤儿只会被1号进程收养，而不是被它爷爷进程、或者太爷爷进程收养，这一点很关键。</p>
+<h4 id="容器的1号进程和0号进程"><a href="#容器的1号进程和0号进程" class="headerlink" title="容器的1号进程和0号进程"></a>容器的1号进程和0号进程</h4><p>容器正常启动后，使用<code>docker exec contaienrID bash</code>进入容器后，使用<code>ps</code>命令，可以发现容器的1号进程。</p>
+<p><a href="/../pic/image-20241202011516913.png" title="image-20241202011516913" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20241202011516913.png" alt="image-20241202011516913"></a></p>
+<p>1号进程是容器的首启动进程，容器的pid namespcae就是由1号进创建的，容内其余进程基本都是首启动进程的子孙进程。只要1号进程挂掉那容器便会关闭，pid namespace会被回收。</p>
+<p>但是仔细查看会发现，1号进程存在父进程，它的父进程pid号是0，这个进程称为0号进程。</p>
+<p>0号进程其实是一个docker-shim进程，每启动一个容器都会在宿主机产生一个docker-shim进程，当容器已经running之后，我们exec进入容器里执行命令产生的新进程，都是0号进程的儿子，而不是1号进程的儿子。所以说容器中的1号进程并不会像宿主机的1号进程那样直接或间接地领导所有其它进程。</p>
+<p><a href="/../pic/image-20241202011917133.png" title="image-20241202011917133" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20241202011917133.png" alt="image-20241202011917133"></a></p>
+<p>上面的图中就是一个容器的docker-shim进程，如果这个进程挂掉，那么这个容器内的所有进程都会被回收。</p>
+<p>另外如果用<code>ps -ef</code>查看这个docker-shim进程，会发现其实它也有父进程，它的父进程是宿主机的1号进程，就是systemd进程。按道理来说，containerd进程会为每个容器创建docker-shim进程，那么docker-shim进程的父进程应该是containerd进程才对，事实上这是因为containerd进程使用了setsid的方法，将docker-shim进程的父进程设置为了宿主机操作系统的1号进程，相当于把自己的子进程交给了宿主机的1号进程来收养和管理，这样只要宿主机操作系统还在运行，宿主机1号进程在运行，容器就能被正常的运行和管理。</p>
+<p>这也是docker配置文件中<code> &quot;live-restore&quot;: true</code>的实现原理，即便docker守护进程重启或挂掉了，容器也不会挂掉。</p>
+<p>综上所述，容器里的1号进程应该具备下面的能力：</p>
+<ul>
+<li><p><strong>1号进程需要在前台一直运行</strong>。只要容器里的1号进程停止，容器就会结束。</p>
+</li>
+<li><p>由于容器里的1号进程并不是init或者systemd，而是开发者自己写的，<strong>1号进程应该具备回收僵尸儿子的能力</strong>。</p>
+</li>
+<li><p>Containerd在停止容器的时候，会向容器的1号进程发送一个-15信号，如果容器内的1号进程没有信号转发能力，那在回收pid namespce时会向该namespace里的所有其他进程发送SIGKILL信号信号强制杀死。这通常会带来一些副作用，造成数据丢失或者终端无法恢复到正常状态等，所以容器的<strong>1号进程应该具备信号转发的能力</strong>。</p>
+</li>
+</ul>
+<h4 id="容器内僵尸进程累积的解决方案"><a href="#容器内僵尸进程累积的解决方案" class="headerlink" title="容器内僵尸进程累积的解决方案"></a>容器内僵尸进程累积的解决方案</h4><p>要解决容器内的僵尸进程，最简单粗暴的方式就是杀掉容器内的1号进程，这样容器内的僵尸进程会由容器的0号进程containerd-shim回收，但这并不是生产环境中的解决方案，因为1号进程一般是容器的业务进程，杀掉1号进程，容器会挂掉，业务就中断了。在一些情况下，我们必须要在容器的1号进程活着的情况下，解决僵尸进程累积的问题。</p>
+<ul>
+<li><p>设置pid cgroup限制容器进程上限</p>
+<p>这种方式并不能彻底解决僵尸进程的问题，只能避免单个容器内僵尸进程累积，占用全部的宿主机的pid号，对其他容器造成影响。</p>
+<p>了解即可，一般是在k8s中配置</p>
+</li>
+<li><p>改进代码，使得1号进程具备回收僵尸进程的能力</p>
+<p>改进代码，需要不只能让1号进程能够回收自己的儿子进程，当自己的儿子进程被回收之后，1号进程会接管自己的孙子进程，从pid号上来看，孙子进程变成了自己的儿子进程，但是在代码里面，1号进程可能并不具备这种能力，需要增加逻辑来实现这一功能，让1号进程也具有回收自己孙子进程的能力。</p>
+</li>
+<li><p>改变容器内的1号进程</p>
+<ul>
+<li><p>让bash充当容器内的1号进程</p>
+<p>可以编写一个bash脚本，把1号进程的启动命令放到bash脚本里面，然后把这个bash脚本作为容器的启动命令，这样bash进程就变成了容器的1号进程，bash进程肯定是具有完善的回收僵尸进程的能力的。</p>
+<p>这个方案的缺点是bash不具备信号转发的能力，当停止容器的时候，无法做到平滑关闭子进程。</p>
+</li>
+<li><p>引入tini作为容器内的1号进程</p>
+<p>tini是一个轻量级的init解决方案，具备收养孤儿，并定期回收僵尸儿子和信号转发的能力。</p>
+<p>在Docker1.13及以后的版本中，tini已经集成进Docker-ce中，我们可以非常简便的在<strong>docker run</strong>的时候用<strong>–init</strong>参数来使用 tini，不需要在镜像中安装 tini，会自动注入tini程式 (<strong>&#x2F;sbin&#x2F;docker-init</strong>) 到容器中</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --init --name test1 image:lastest</span><br></pre></td></tr></table></figure>
+
+<p>如果是在k8s中，建议从镜像的角度解决，在制作镜像的时候加入tini，并改造容器的启动命令</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ADD</span><span class="language-bash"> tini /tini</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">chmod</span> +x /tini</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> test.py /opt    </span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;/tini&quot;</span>,<span class="string">&quot;--&quot;</span>]</span></span><br><span class="line"><span class="comment"># Run your program under Tini</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;/your/program&quot;</span>, <span class="string">&quot;-and&quot;</span>, <span class="string">&quot;-its&quot;</span>, <span class="string">&quot;arguments&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：tini默认是只给自己的儿子进程转发平滑关闭的信号（kill -15）,要实现儿子进程的所有子孙进程都能够平滑关闭，还是需要业务代码里面注册并处理自己接收到的平滑关闭信号，然后转发给子孙进程的。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="容器网络管理"><a href="#容器网络管理" class="headerlink" title="容器网络管理"></a>容器网络管理</h3><p>Docker网络模式有四种：Bridge模式、Host模式、Container模式、None模式。</p>
+<p>通过命令可以查看到三种网络模式：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@test03 ~]# docker network <span class="built_in">ls</span></span><br><span class="line">NETWORK ID     NAME      DRIVER    SCOPE</span><br><span class="line">bb6f9777d802   bridge    bridge    <span class="built_in">local</span></span><br><span class="line">a6a863914c7c   host      host      <span class="built_in">local</span></span><br><span class="line">a95325176837   none      null      <span class="built_in">local</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="none网络模式"><a href="#none网络模式" class="headerlink" title="none网络模式"></a>none网络模式</h4><p>使用none模式，Docker容器拥有自己的Network Namespace，但是，并不为Docker容器进行任何网络配置。也就是说，这个Docker容器没有网卡、IP、路由等信息。需要我们自己为Docker容器添加网卡、配置IP等，了解即可。</p>
+<h4 id="host网络模式"><a href="#host网络模式" class="headerlink" title="host网络模式"></a>host网络模式</h4><p>如果启动容器的时候使用host模式，那么这个容器将不会获取一个独立的Network Namespace，而是和宿主机共用一个Network Namespace。</p>
+<p>这里和我们平常使用的虚拟机的仅主机模式不一样，容器将不会虚拟出自己的网卡，配置自己的IP等，而是使用宿主机的ip地址，包括主机名，端口等网络相关部分与宿主机是完全一致的。但是，容器的其他方面，如文件系统、系统进程等还是和宿主机或者其他容器隔离的。</p>
+<p>注意：host模式下，容器内启端口占用的直接就是宿主机的端口，不需要做端口映射，同一个物理机上的多个容器都采用host网络直接监听物理机的端口容易发生冲突。</p>
+<h4 id="bridge网络模式"><a href="#bridge网络模式" class="headerlink" title="bridge网络模式"></a>bridge网络模式</h4><p>当Docker守护进程或者叫引擎启动时，会在主机上创建一个名为Docker0的虚拟网桥，该网桥就相当于一台虚拟的二层交换机</p>
+<p>docker启动的容器如果指定为bridge网络模式（默认就是这种网络模式），则会连接到这个虚拟网桥上，相当于接入了一台二层交换机。</p>
+<p>接入时，docker引擎会在主机上创建一对虚拟网卡veth pair设备，veth对成对出现且一一对应，相当于构建了一根网线，docker引擎会将veth pair设备的一端放在新创建的容器中，并命名为eth0(容器内部网卡)，另一端在放在主机中，以vethxxx这样类似的名称命名，并将这个网络设备加入到docker0网桥中（可以使用brctl show命令查看,yum install -y bridge-utils。可以执行brctl showmacs docker0查看网桥里维护的mac地址表）。</p>
+<p>如下图多个容器通过虚拟机交互机docker0接入了一个二层网络中，接入docker0时，docker引擎会从docker0子网中分配一个IP给容器使用，并设置docker0的IP地址为容器的<strong>默认网关</strong>。类似于vmware workstation里的NAT模式。</p>
+<p><a href="/../pic/23.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/23.png" alt="img"></a></p>
+<p>注意：bridge模式下，容器无法直接跨主机通信，映射本机端口才可以，所以跨主机互联比较麻烦。</p>
+<h4 id="container网络模式"><a href="#container网络模式" class="headerlink" title="container网络模式"></a>container网络模式</h4><p>这个模式指定新创建的容器和已经存在的容器共享一个Network Namespace，而不是和宿主机共享。新创建的容器也不会自己创建网卡，IP等。而是和一个指定的容器共享IP、端口范围等。同样，两个容器除了网络方面，其他的还都是属于隔离。两个容器的进程可以通过宿主机的lo网卡设备进行通信。</p>
+<p><a href="/../pic/25.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/25.png" alt="img"></a></p>
+<p>注意：container网络模式是多个容器共用一个隔离的网络，k8s中启动一个pod时会先拉起一个pause容器初始化网络环境、存储等，然后再拉起业务容器与pause容器共享网络，采用的就是类似原理。</p>
+<h3 id="容器存储管理"><a href="#容器存储管理" class="headerlink" title="容器存储管理"></a>容器存储管理</h3><p>因为容器里的文件系统是overlayFS，容器内发起的写操作到overlayFS之后，到操作系统之后还需要转换成操作系统的文件系统（例如ext4、xfs）的写操作。所以如果容器内涉及到频繁的写操作，建议给容器挂载单独的volume。</p>
+<p>默认情况容器内的可用磁盘空间是没有限制的，在没有挂载任何外部存储卷的情况下，容器内的写操作，无论是写文件，还是输出到标准输出，其实都是写到了upperdir层，也就是写到的宿主机上，所以如果不加以限制，很有可能会发宿主机磁盘空间写满。为了避免这种情况发生，有必要对容器的磁盘配额进行限制，同时控制容器的日志大小。</p>
+<h4 id="对容器可用磁盘进行配额"><a href="#对容器可用磁盘进行配额" class="headerlink" title="对容器可用磁盘进行配额"></a>对容器可用磁盘进行配额</h4><ul>
+<li><p>单独限制某个一个容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name <span class="built_in">test</span> --storage-opt size=100M centos:7 <span class="built_in">tail</span> -f /dev/null	<span class="comment"># 限制100M</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置全局的默认值，编辑<code>/etc/docker/daemon.json</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;storage-driver&quot;: &quot;overlay2&quot;,</span><br><span class="line">	&quot;storage-opts&quot;: [</span><br><span class="line">	  &quot;overlay2.override_kernel_check=true&quot;,</span><br><span class="line">	  &quot;overlay2.size=1G&quot;	# 设置1G的磁盘配额</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="控制容器日志的大小"><a href="#控制容器日志的大小" class="headerlink" title="控制容器日志的大小"></a>控制容器日志的大小</h4><p>每个容器都有自己的日志，用来接收标准输出的内容，查看路径：<code>docker inspect container_name | grep -i logpath</code></p>
+<ul>
+<li><p>单独限制某个容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --log-opt max-size=10m --log-opt max-file=3 redis	<span class="comment"># 单个日志最大数值和最大日志数目</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置全局的默认值，编辑<code>/etc/docker/daemon.json</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;log-driver&quot;:&quot;json-file&quot;,</span><br><span class="line">	&quot;log-opts&quot;:&#123;</span><br><span class="line">		&quot;max-size&quot; :&quot;50m&quot;,		# 一个容器日志大小上限是50M</span><br><span class="line">		&quot;max-file&quot;:&quot;3&quot;		# 可以存在的最大日志文件数，超过最大值会删除最旧的文件。仅在max-size设置时有效。默认为5。</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：需要重启docker服务，已存在的容器不会生效，需要重建才可以</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>补充：k8s使用containerd作为容器运行时，通过kubelet参数控制静态pod日志大小</strong></p>
+</blockquote>
+<p>k8s中kubelet负责管理一些静态pod，如果想要控制这些静态pod的日志大小，可以通过调整kubelet的启动参数来实现，具体做法是：</p>
+<p>在具体的某个节点上，通过<code>systemctl status kubelet</code>查看kubelet系统服务的配置路径</p>
+<p><a href="/../pic/image-20241214234429242.png" title="image-20241214234429242" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20241214234429242.png" alt="image-20241214234429242"></a></p>
+<p>查看<code>/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf</code>，获取kubelet进程的参数文件</p>
+<p><a href="/../pic/image-20241214234601509.png" title="image-20241214234601509" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20241214234601509.png" alt="image-20241214234601509"></a></p>
+<p>编辑参数文件<code>/var/lib/kubelet/kubeadm-flags.env</code>，新增启动参数<code>--container-log-max-files=5 --container-log-max-size=&#39;5Ki&#39;</code>，重启kubelet即可。</p>
+<h4 id="迁移docker数据目录"><a href="#迁移docker数据目录" class="headerlink" title="迁移docker数据目录"></a>迁移docker数据目录</h4><pre><code>1、停掉当前主机运行的容器
+2、停掉docker服务
+3、新增一块大盘，制作文件系统，挂载到一个新目录/data（做成lvm之后再挂载）
+4、迁移数据（cp -ra /var/lib/docker /data/docker）
+5、修改docker的配置文件，将数据目录执行新目录/data/docker
+6、重新启动docker服务
+7、启动容器
+</code></pre>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-12-18</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Docker/'>
+                            Docker
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

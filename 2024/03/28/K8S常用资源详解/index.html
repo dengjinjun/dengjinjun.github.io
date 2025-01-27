@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="K8S常用资源详解" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            K8S常用资源详解
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ReplicationController%E8%B5%84%E6%BA%90"><span class="post-toc-text">ReplicationController资源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rc%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="post-toc-text">rc相关命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BArc%E6%B5%81%E7%A8%8B"><span class="post-toc-text">创建rc流程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rc%E6%BB%9A%E5%8A%A8%E5%8D%87%E7%BA%A7"><span class="post-toc-text">rc滚动升级</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Service%E8%B5%84%E6%BA%90"><span class="post-toc-text">Service资源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#svc%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">svc介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BAsvc%E6%B5%81%E7%A8%8B"><span class="post-toc-text">创建svc流程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Replicaset%E8%B5%84%E6%BA%90"><span class="post-toc-text">Replicaset资源</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Deployment%E8%B5%84%E6%BA%90"><span class="post-toc-text">Deployment资源</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="ReplicationController资源"><a href="#ReplicationController资源" class="headerlink" title="ReplicationController资源"></a>ReplicationController资源</h2><p><code>Replicationcontroller</code>是k8s的一种副本控制器，简称rc，它有一个单独的模板文件，通过标签选择器来关联pod，可以保证指定数量的pod始终存活。</p>
+<p><code>ReplicationController</code>是k8s早期版本的控制器(比如K8S 1.7)，现在K8S都更新到K8S 1.22版本了，因此这种控制器早已被废弃，仅作了解。</p>
+<h3 id="rc相关命令"><a href="#rc相关命令" class="headerlink" title="rc相关命令"></a>rc相关命令</h3><blockquote>
+<p><strong>创建rc</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f rc模板文件		<span class="comment"># 创建rc资源</span></span><br><span class="line">kubectl apply -f rc模板文件		<span class="comment"># 更新rc资源</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>修改rc</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit -f rc模板文件		<span class="comment"># 通过文件名编辑rc资源</span></span><br><span class="line">kubectl edit rc/rc名称		<span class="comment"># 通过rc名称编辑rc资源</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>删除rc</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete rc rc名称</span><br><span class="line">kubectl delete -f rc模板文件</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>查看rc</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get rc</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建rc流程"><a href="#创建rc流程" class="headerlink" title="创建rc流程"></a>创建rc流程</h3><p>跟创建pod的流程类似，通过rc模板来创建，此处仅给出一个简单的rc模板</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicationController</span>		<span class="comment"># 资源类型需要指定为rc类型</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">rc-nginx</span>		<span class="comment"># rc资源名</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">5</span>		<span class="comment"># 定义副本数量</span></span><br><span class="line">  <span class="attr">selector:</span>		<span class="comment"># 标签选择器</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">web</span></span><br><span class="line">    <span class="attr">version:</span> <span class="string">v1</span></span><br><span class="line">  <span class="attr">template:</span>		<span class="comment"># template的内容就是pod的模板，在下面给出</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span>		<span class="comment"># 这个labels一定要写，因为rc就是根据标签选择器来关联pod的</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">web</span></span><br><span class="line">        <span class="attr">version:</span> <span class="string">v1</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">linux-web</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">registry:80/nginx:1.14</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+<p>创建了一个rc资源之后，rc资源会根据模板文件中的配置拉起5个容器，通过<code>kubectl get all</code>查看所有资源</p>
+<p><a href="/../pic/image-20240406144125849.png" title="image-20240406144125849" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240406144125849.png" alt="image-20240406144125849"></a></p>
+<p>此时删除任意数量的pod，rc资源都会立刻再拉起5个pod资源。删除掉rc资源，pod会被删除。</p>
+<h3 id="rc滚动升级"><a href="#rc滚动升级" class="headerlink" title="rc滚动升级"></a>rc滚动升级</h3><p>在k8s中可以实现pod的滚动升级，可以使用此条命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl rolling-update 旧的控制器名称 --image=新的容器镜像</span><br><span class="line">kubectl rolling-update 旧的控制器名称 -f 新的控制器定义文件</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，使用rc资源中的pod进行滚动升级，将nginx版本升级到1.16，大致的流程是先建立一个新版本的pod，然后删除一个旧版本的pod，直到新版本的pod达到期望的数量。下面是两种方式的详细解释：</p>
+<blockquote>
+<p><strong>基于定义文件</strong></p>
+</blockquote>
+<p>对pod进行升级，依赖rc中的标签选择器，旧的rc资源和新的rc资源，标签中的key必须是相同的，但是value必须至少有一个不同，这样才能区分不同的rc资源。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看新的rc资源的定义文件</span></span><br><span class="line">[<span class="string">root@master</span> <span class="string">rc</span>]<span class="string">$</span> <span class="string">cat</span> <span class="string">nginx.rc.update.yaml</span> </span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicationController</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">rc-nginx-update</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">5</span>           </span><br><span class="line">  <span class="attr">selector:</span>             </span><br><span class="line">    <span class="attr">app:</span> <span class="string">web</span></span><br><span class="line">    <span class="attr">version:</span> <span class="string">v2</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span>           </span><br><span class="line">        <span class="attr">app:</span> <span class="string">web</span></span><br><span class="line">        <span class="attr">version:</span> <span class="string">v2</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">linux-web</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">registry:80/nginx:1.16</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">          </span><br><span class="line"><span class="comment"># 执行升级</span></span><br><span class="line">[<span class="string">root@master</span> <span class="string">rc</span>]<span class="string">$</span> <span class="string">kubectl</span> <span class="string">rolling-update</span> <span class="string">rc-nginx</span> <span class="string">-f</span> <span class="string">nginx.rc.update.yaml</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>基于镜像</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只需要指定镜像即可</span></span><br><span class="line">kubectl rolling-update rc-nginx --image=registry:80/nginx:1.16</span><br></pre></td></tr></table></figure>
+
+<p>这种方式不需要编写新的rc文件，只需要指定镜像即可。至于它是如何区分新旧两种rc资源的，在滚动更新的过程中可以看出：</p>
+<p><a href="/../pic/image-20240406164924961.png" title="image-20240406164924961" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240406164924961.png" alt="image-20240406164924961"></a></p>
+<p>它自动创建了一个rc资源，资源名是在旧rc资源名上增加了一串序列号，同时给新旧两种资源的标签选择器都自动增加了一个<code>deployment</code>的key，并且分别赋了不同的value，它们创建的pod也自动增加了这样的一个标签，以此来实现区分。</p>
+<p><a href="/../pic/image-20240406165224185.png" title="image-20240406165224185" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240406165224185.png" alt="image-20240406165224185"></a></p>
+<h2 id="Service资源"><a href="#Service资源" class="headerlink" title="Service资源"></a>Service资源</h2><h3 id="svc介绍"><a href="#svc介绍" class="headerlink" title="svc介绍"></a>svc介绍</h3><p>rc资源只能实现副本数量的控制，仅仅有rc资源是远远达不到管理集群的要求的，还需要<code>Service</code>资源（简称svc）的介入。</p>
+<p><a href="/../pic/image-20240406004520181.png" title="image-20240406004520181" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240406004520181.png" alt="image-20240406004520181"></a></p>
+<p><code>Service</code>资源可以为一组Pod提供对外提供统一访问入口和负载均衡的能力，<code>Service</code>通过标签关联一组Pod，当有客户端访问工作节点的<code>Service</code>时，它会根据相应的负载均衡策略找到后端的Pod以提供服务。</p>
+<p><code>Service</code>使用iptable或者ipvs为一组Pod提供负载均衡能力，在早期版本中，默认使用的是iptables规则，优点是灵活且功能强大，缺点是需要从上至下遍历匹配和更新规则，因此在集群规模过大时，每次都需要遍历大量的规则，导致性能降低。k8s的1.8+版本中推荐使用lvs规则，它工作在内核态，有更好的性能，并且调度算法丰富:”rr”，”wrr”，”lc”，”wlc”，”ip hash”等;</p>
+<p>svc相关命令不再赘述</p>
+<h3 id="创建svc流程"><a href="#创建svc流程" class="headerlink" title="创建svc流程"></a>创建svc流程</h3><p>svc也是根据标签选择器来关联一组pod的，创建方式与创建pod类似，此处仅给出svc模板文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span>		<span class="comment"># 资源类型指定为Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-svc</span>		<span class="comment"># svc资源的名称</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">NodePort</span>		<span class="comment"># 三种类型可选，ClusterIP(仅提供VIP)、NodePort、LoadBalancer(云厂商)，默认类型为ClusterIP</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">8888</span>		<span class="comment"># 指定service监听的端口，可自定义</span></span><br><span class="line">      <span class="attr">protocol:</span> <span class="string">TCP</span>		<span class="comment"># 指定协议</span></span><br><span class="line">      <span class="attr">nodePort:</span> <span class="number">30000</span>	<span class="comment"># 指定基于Node对外暴露的端口，若不指定，则会在&quot;30000-32767&quot;端口访问内随机选择一个</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">80</span>	<span class="comment"># 指定后端Pod服务监听的端口，根据服务需求指定端口</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">web</span>		<span class="comment"># 指定匹配的Pod对应的标签</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的情况中，使用的是svc的NodePort类型，这种类型适用于对K8S集群外部暴露应用，svc会在每个Node上启用一个端口来暴露服务，此处是30000端口，在集群外部访问<code>http://任意Node节点IP:30000</code>，会先访问到svc资源，它有一个VIP，相当于访问了VIP的8888端口，然后根据负载均衡策略，将请求分配到某个节点的80端口。</p>
+<p>在实际情况中，对外暴露所有Node的IP是不合适的，需要在Node集群前加一个公网负载均衡器为项目提供统一访问入口，可以使用主流开源的负载均衡器Nginx、Lvs等，也可以使用公有云类似SLB的解决方案。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基于命令行的方式创建svc用于暴露一些端口或资源</span></span><br><span class="line">kubectl expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP] [--target-port=number-or-name]</span><br><span class="line">[--name=name] [--external-ip=external-ip-of-service] [--<span class="built_in">type</span>=<span class="built_in">type</span>] [options]</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Replicaset资源"><a href="#Replicaset资源" class="headerlink" title="Replicaset资源"></a>Replicaset资源</h2><p><code>ReplicaSet</code>是kubernetes中的另一种副本控制器，简称<code>rs</code>，是k8s较新的版本中使用的控制器，主要作用跟rc相似，保证一定数量的Pod能够在集群中正常运行。</p>
+<p><code>ReplicaSet</code>也是通过标签选择器来关联pod的，下面给出一个Replicaset定义文件(仅作了解)</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicaSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">frontend</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">guestbook</span></span><br><span class="line">    <span class="attr">tier:</span> <span class="string">frontend</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">tier:</span> <span class="string">frontend</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">tier:</span> <span class="string">frontend</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">php-redis</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">yecc/gcr.io-google_samples-gb-frontend:v3</span></span><br><span class="line">        <span class="attr">imagePullPolicy:</span>  <span class="string">IfNotPresent</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>官方推荐不要直接使用ReplicaSet，而是用Deployments取而代之</strong>，Deployments是比ReplicaSet更高级的概念，它会管理ReplicaSet并提供很多其它有用的特性，最重要的是Deployments支持<strong>声明式更新</strong>，声明式更新的好处是不会丢失历史变更。所以Deployment控制器不直接管理Pod对象，而是由 Deployment 管理ReplicaSet，再由ReplicaSet负责管理Pod对象。</p>
+<p><strong>声明式定义</strong>：指直接修改资源清单yaml文件，然后通过<code>kubectl apply -f 资源定义文件</code>，就可以更改资源</p>
+<h2 id="Deployment资源"><a href="#Deployment资源" class="headerlink" title="Deployment资源"></a>Deployment资源</h2><p>无论是rc还是rs，它们的作用只是确保指定数量的 Pod 始终在运行，缺乏更高级的功能，如滚动更新、版本回滚等，并且ReplicationController 使用基本的标签选择器来匹配 Pod，并不支持高级选择器，使得它在某些部署场景下显得不够灵活。此时需要引入Deployment资源(简称deploy)。</p>
+<p>Deployment控制器会创建一个新的ReplicaSet控制器，通过ReplicaSet创建pod，删除Deployment控制器，也会删除Deployment控制器下对应的ReplicaSet控制器和pod资源</p>
+<p>相关命令不再赘述，下面给出一个简单的Deployment模板文件，与rc的模板文件很相似</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span>		<span class="comment"># 注意观察这个API的版本编号，在后期的版本中其是有变化的!</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span>		<span class="comment"># 指定资源类型为deploy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-deploy</span>		<span class="comment"># 指定deploy资源名称</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">5</span>		<span class="comment"># 副本数量</span></span><br><span class="line">  <span class="attr">strategy:</span>		<span class="comment"># 滚动更新的策略</span></span><br><span class="line">    <span class="attr">rollingUpdate:</span></span><br><span class="line">      <span class="attr">maxSurge:</span> <span class="number">2</span></span><br><span class="line">      <span class="attr">maxUnavailable:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">template:</span>		<span class="comment"># template的内容就是pod的模板，在下面给出</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">web</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">registry:80/nginx:1.14</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+<p>使用<code>kubectl apply -f deploy文件</code>创建一个deploy资源之后，查看：</p>
+<p><a href="/../pic/image-20240406210231217.png" title="image-20240406210231217" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240406210231217.png" alt="image-20240406210231217"></a></p>
+<p>另一种方式，通过命令行快速创建一个deployment资源</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl run NAME --image=image [--<span class="built_in">env</span>=<span class="string">&quot;key=value&quot;</span>] [--port=port] [--replicas=replicas] [--dry-run=bool]</span><br><span class="line">[--overrides=inline-json] [--<span class="built_in">command</span>] -- [COMMAND] [args...] [options]</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>pod扩缩容</strong></p>
+</blockquote>
+<p>因为Deployment资源支持声明式更新，所以直接修改资源定义文件并应用就可以实现资源更新</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方式1</span></span><br><span class="line">修改yaml文件中replicas的值，然后`kubectl apply -f deploy文件`即可</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方式2</span></span><br><span class="line">`kubectl edit deploy 资源名`，直接修改replicas的值</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>弹性伸缩</strong></p>
+</blockquote>
+<p>K8S把弹性伸缩分为两类：垂直伸缩（VPA）和水平伸缩（HPA），在pod的维度上，垂直伸缩是指自动调整应用的资源分配（增大&#x2F;减少pod的cpu、内存占用等），水平伸缩是指自动调整Pod的副本集数量，目前比较成熟的是水平伸缩（HPA）。</p>
+<p>HPA是使用巡检（Control Loop）的机制来采集Pod资源使用情况的，默认采集间隔为15s，通过CPU的使用率作为监控指标，当Pod的平均CPU使用率达到预设的值，就会触发扩缩容机制，命令如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]</span><br><span class="line">[options]</span><br><span class="line"></span><br><span class="line"><span class="comment"># --min 指定最小的Pod数量</span></span><br><span class="line"><span class="comment"># --max 指定最大的Pod数量</span></span><br><span class="line"><span class="comment"># --cpu-percent 指定预设的CPU百分比</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调整到多少pod数量有一个计算机制，`Pod数量 = 向上取整(当前副本数量*(当前CPU使用率/期望CPU使用率)`，比如下面这个命令 `kubectl autoscale deployment nginx-web --max=5 --min=2 --cpu-percent=25`，当前的Pod副本数量是4，CPU使用率为50%，那么调整到的pod数量将会是 4*（50/25）= 8个 </span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>滚动升级</strong></p>
+</blockquote>
+<p>与扩缩容的方式类似</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方式1</span></span><br><span class="line">修改yaml文件中image名称，然后`kubectl apply -f deploy文件`即可</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方式2</span></span><br><span class="line">`kubectl edit deploy 资源名`直接修改image名称</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方式3，不常用</span></span><br><span class="line">kubectl <span class="built_in">set</span> image deployment 资源名 容器名=image名称</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>自定义滚动更新策略</strong></p>
+</blockquote>
+<p>滚动更新的策略主要是两个参数：<code>maxSurge</code>和<code>maxUnavailable</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">maxSurge: 2		<span class="comment"># 和期望的副本数相比，超过期望副本数最大值），这个值调的越大，副本更新速度越快。</span></span><br><span class="line">maxUnavailable: 1		<span class="comment"># 和期望的副本数相比，不可用副本数最大值，这个值越小，越能保证服务稳定，更新越平滑；</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>回滚</strong></p>
+</blockquote>
+<p>每次deploy资源的变更都会留有变更记录，支持回滚到历史版本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@master deploy]$ kubectl rollout <span class="built_in">history</span> deployment deploy资源名		<span class="comment"># 此处的资源名是nginx-delpoy</span></span><br><span class="line">deployments <span class="string">&quot;nginx-deploy&quot;</span></span><br><span class="line">REVISION	CHANGE-CAUSE</span><br><span class="line">1		&lt;none&gt;</span><br><span class="line">2		&lt;none&gt;</span><br><span class="line"></span><br><span class="line">[root@master deploy]$ kubectl rollout undo deployment deploy资源名 --to-revision=1		<span class="comment"># 此处回滚到版本1</span></span><br><span class="line">deployment <span class="string">&quot;nginx-deploy&quot;</span> rolled back</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-03-28</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8S/'>
+                            K8S
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

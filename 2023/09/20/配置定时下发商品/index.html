@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="配置定时下发商品" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            配置定时下发商品
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E5%95%86%E5%93%81%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="post-toc-text">配置商品数据源</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%94%B5%E5%AD%90%E7%A7%A4%E4%BF%A1%E6%81%AF"><span class="post-toc-text">添加电子秤信息</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%9A%E6%97%B6%E4%B8%8B%E5%8F%91%E5%95%86%E5%93%81%E4%BB%BB%E5%8A%A1"><span class="post-toc-text">创建定时下发商品任务</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h3 id="配置商品数据源"><a href="#配置商品数据源" class="headerlink" title="配置商品数据源"></a>配置商品数据源</h3><p>打开传称工具 <strong>wmdigit-scale-manager</strong>，选择上方设置项中的<strong>数据源配置</strong>，此处以选择MySQL为例。</p>
+<p><a href="/image-20230920155937667.png" title="image-20230920155937667" class="gallery-item" style="box-shadow: none;"> <img src="/image-20230920155937667.png" alt="image-20230920155937667"></a></p>
+<p>在上图中指定位置填入相关信息，数据库连接指数据库地址，数据库名称指保存有商品信息的数据库，传称时间段建议如上图所示，调度间隔指每隔多久的时间更新一次商品信息。点击保存即可。</p>
+<p>数据源配置完成之后会立即拉取一次商品信息，点击上方设置项中的<strong>数据管理</strong>，选择子选项<strong>商品信息</strong>，即可看到商品信息，如下图所示。</p>
+<p><a href="/image-20230920160941730.png" title="image-20230920160941730" class="gallery-item" style="box-shadow: none;"> <img src="/image-20230920160941730.png" alt="image-20230920160941730"></a></p>
+<h3 id="添加电子秤信息"><a href="#添加电子秤信息" class="headerlink" title="添加电子秤信息"></a>添加电子秤信息</h3><p>界面左侧的侧边栏，会显示添加的<strong>电子秤信息</strong>，包括名称、编号、在线状态和IP地址。</p>
+<p>点击<strong>新增</strong>按钮可以添加电子秤，如下图所示。</p>
+<p><a href="/image-20230920161302627.png" title="image-20230920161302627" class="gallery-item" style="box-shadow: none;"> <img src="/image-20230920161302627.png" alt="image-20230920161302627"></a></p>
+<p>名称和编号可以自定义，IP地址需要根据 <strong>i识别 APP</strong>中设置页显示的IP地址来填写，i识别APP显示IP地址的页面如下图所示。</p>
+<p><a href="/image-20230920161622422.png" title="image-20230920161622422" class="gallery-item" style="box-shadow: none;"> <img src="/image-20230920161622422.png" alt="image-20230920161622422"></a></p>
+<p>如无特殊需求，称型号可以不填。点击确定保存之后，侧边栏可以看到刚刚添加的电子秤信息。</p>
+<p>注意：</p>
+<p>需要确保传称设备和电子秤设备在同一局域网下，电子秤状态才会显示在线。</p>
+<p>为保证电子秤能够接收到商品信息，需要提前设置传输协议。选择电子秤设置进入称重管理，下拉至传输设置，<strong>选择传称协议为元芒。</strong>如下图所示。</p>
+<p><a href="/image-20230920164250275.png" title="image-20230920164250275" class="gallery-item" style="box-shadow: none;"> <img src="/image-20230920164250275.png" alt="image-20230920164250275"></a></p>
+<h3 id="创建定时下发商品任务"><a href="#创建定时下发商品任务" class="headerlink" title="创建定时下发商品任务"></a>创建定时下发商品任务</h3><p>上方设置项中的<strong>数据管理</strong>，选择子选项<strong>定时下发商品</strong>，可以看到下图所示界面。</p>
+<p><a href="/image-20230920162159273.png" title="image-20230920162159273" class="gallery-item" style="box-shadow: none;"> <img src="/image-20230920162159273.png" alt="image-20230920162159273"></a></p>
+<p>红框处可以查看已创建的定时任务，也可以点击<strong>新增</strong>按钮创建新的定时任务。如下图所示</p>
+<p><a href="/image-20230920162357233.png" title="image-20230920162357233" class="gallery-item" style="box-shadow: none;"> <img src="/image-20230920162357233.png" alt="image-20230920162357233"></a></p>
+<p>任务编号可以自定义，任务名称处可以填写此项任务的描述信息，也可以为空。下发时间段建议如上图所示填写，调度间隔指每隔多久下发一次商品信息。</p>
+<p>勾选选择需要接收商品信息的电子秤设备，点击确定即可。根据传输的商品信息量大小，传输时间大概数十秒至数分钟，在电子秤上即可搜索到相关商品。</p>
+<p>除新增外，也可勾选某项定时任务进行<strong>暂停</strong>，<strong>删除</strong>等操作。</p>
+<p>对于暂停的定时任务，可以点击箭头所示的<strong>编辑</strong>按钮进行编辑间隔时间、下发设备等。</p>
+<p>点击<strong>开始</strong>可以恢复暂停的定时任务；</p>
+<p>点击<strong>立即执行</strong>可以立刻下发一次商品信息。</p>
+<p><a href="/image-20230920163509694.png" title="image-20230920163509694" class="gallery-item" style="box-shadow: none;"> <img src="/image-20230920163509694.png" alt="image-20230920163509694"></a></p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-09-20</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

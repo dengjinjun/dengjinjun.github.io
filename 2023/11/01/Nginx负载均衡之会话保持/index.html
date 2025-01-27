@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Nginx负载均衡之会话保持" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Nginx负载均衡之会话保持
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="post-toc-text">相关概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BC%9A%E8%AF%9D%E5%92%8C%E4%BC%9A%E8%AF%9D%E4%BF%9D%E6%8C%81"><span class="post-toc-text">会话和会话保持</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cookie%E5%92%8Csession"><span class="post-toc-text">cookie和session</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#session%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="post-toc-text">session实现原理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BC%9A%E8%AF%9D%E4%BF%9D%E6%8C%81%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="post-toc-text">会话保持的实现方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#session%E5%85%B1%E4%BA%AB%EF%BC%88%E6%99%AE%E9%81%8D%EF%BC%89"><span class="post-toc-text">session共享（普遍）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cookie%E6%8F%92%E5%85%A5%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">cookie插入方式实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%BA%E4%BA%8Eip-hash%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">基于ip_hash实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%BA%E4%BA%8E%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">基于连接超时实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%A9%E7%94%A8session%E5%A4%8D%E5%88%B6"><span class="post-toc-text">利用session复制</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="会话和会话保持"><a href="#会话和会话保持" class="headerlink" title="会话和会话保持"></a>会话和会话保持</h3><blockquote>
+<p>会话</p>
+</blockquote>
+<p>Http协议是无状态的协议，在网络传输中的每次连接断开后，需要重新再去连接，因此服务器端是无法判断此次连接的客户端是谁。如果每次数据传输都需要进行连接和断开，那造成的开销是很巨大的。并且网站有会员和非会员区别，同时，有浏览网站和登录账户购物等需求，因此就需要一种方法区别不同访问的用户是谁，于是会话就应运而生。<strong>会话是通过cookie和session实现的</strong>。</p>
+<blockquote>
+<p>会话保持</p>
+</blockquote>
+<p>负载均衡集群后面有多个节点，如果一个用户的多次请求被分配到多个不同节点，就会导致用户登录了网站后（假如分配到A节点），然后在点击进入其它页面后，就会出现未登录状态的问题，这显然是不行的。会话保持就是运行负载均衡集群时需要的一种机制，在负载均衡的同时还保证一系列相关连的访问请求都会分配到同一台机器上。一句话说明就是<strong>在一次会话过程中发起的多个请求都会落到同一台机器上</strong>。</p>
+<h3 id="cookie和session"><a href="#cookie和session" class="headerlink" title="cookie和session"></a>cookie和session</h3><blockquote>
+<p>cookie</p>
+</blockquote>
+<p>为了解决网络访问的用户是谁的问题，因此cookie应运而生，当用户登陆成功后，服务器会在返回响应数据的同时也携带着cookie信息给到客户端浏览器，之后客户端每次发起请求只要携带着这个cookie信息，服务端就会验证这个cookie信息，进而判断用户是谁，用户则会处于登录的状态，无需再登录，同时也改善了网络传输效率。</p>
+<p>但是由于cookie是保存在客户端浏览器的数据，因此也很容易被获取，存在安全方面隐患。</p>
+<blockquote>
+<p>session</p>
+</blockquote>
+<p>session本质是通过以cookie的方式向客户端发送随机字符串，每次客户端发起请求时只要携带</p>
+<p>该随机字符串便可被服务端获取进而验证用户登录的身份。session的实现依赖于cookie。</p>
+<p>session信息是保存在服务端的数据。</p>
+<blockquote>
+<p>session和cookie的区别</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>cookie</th>
+<th>session</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存放位置</td>
+<td>客户端</td>
+<td>服务端</td>
+</tr>
+<tr>
+<td>作用</td>
+<td>存放服务端下发的信息，sessionid等。</td>
+<td>存放用户登录信息，用户名、密码、sessionid、购物车信息等</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>不安全，容易被伪造</td>
+<td>安全</td>
+</tr>
+<tr>
+<td>生产应用</td>
+<td>其他信息可存放在cookie中</td>
+<td>登录信息等重要信息放在session中</td>
+</tr>
+</tbody></table>
+<h3 id="session实现原理"><a href="#session实现原理" class="headerlink" title="session实现原理"></a>session实现原理</h3><ol>
+<li>用户发出登录请求。</li>
+<li>服务端判断用户账户密码是否正确</li>
+<li>如正确，则返回数据并在cookie中写随机字符串（session ID），并且在服务端以{随机字符串：{‘k’:’v’}}的形式存储用户相关数据。</li>
+<li>客户端接收服务端在cookie中写随机字符串（session ID），并且保留在浏览器本地。</li>
+<li>下次同一个客户发送请求，携带cookie（包含session ID）信息在请求报文里。</li>
+<li>服务端会判断客户端提交的cookie信息是否包含session ID，如有再去服务器中查询该session ID 是否有对应的session数据，如果有则说明是登录过的用户，返回请求的数据。</li>
+</ol>
+<p><a href="/../pic/koyvmr7bdujv2_41ee359cbd4e4cbe8a2c5b8cd3a8467c.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/koyvmr7bdujv2_41ee359cbd4e4cbe8a2c5b8cd3a8467c.png" alt="img"></a></p>
+<h2 id="会话保持的实现方式"><a href="#会话保持的实现方式" class="headerlink" title="会话保持的实现方式"></a>会话保持的实现方式</h2><h3 id="session共享（普遍）"><a href="#session共享（普遍）" class="headerlink" title="session共享（普遍）"></a>session共享（普遍）</h3><p>即采用将session集中存储到某一固定地点：</p>
+<p>a.文件中存放（PHP服务默认）。</p>
+<p>b.数据库中存放即采用将session存储至MySQL数据库中（例如：discuz论坛）</p>
+<p>c.内存数据库（memcache,redis）中存放（推荐）</p>
+<p>即采用统一的内存数据库存储方式，将session存储到redis或memcached中。中小企业推荐使用内存数据库实现。</p>
+<p>优点：速度快。缺点：<strong>需要配置内存数据库，并且要配置Nginx动态服务配置文件</strong>。</p>
+<h3 id="cookie插入方式实现"><a href="#cookie插入方式实现" class="headerlink" title="cookie插入方式实现"></a>cookie插入方式实现</h3><p>在基于cookie模式下负载均衡器负责插入cookie，后端服务器无需作出任何修改。当客户端进行第一次请求时，客户端的HTTP request（不带cookie）进入负载均衡器， CLB根据负载平衡算法策略选择后端一台服务器，并将请求发送至该服务器；后端服务器的HTTP response（不带cookie）被发回给负载均衡器。接下来负载均衡器将向该会话插入cookie并将HTTP response返回到客户端。</p>
+<p>当客户请求再次发生时，客户HTTP request（带有上次负载均衡器插入的cookie）进入CLB，然后CLB读出cookie里的会话保持数值，将HTTP request（带有与上面同样的cookie）发到指定的服务器，然后后端服务器进行请求回复；由于服务器并不写入cookie，HTTP response将不带cookie，该HTTP response再次经过进入CLB时，CLB将写入更新后的会话保持cookie。<strong>腾讯云CLB的7层会话保持能力，就是基于这样的cookie插入的方式实现的</strong>。Haproxy也支持cookie插入的方式，但是Nginx默认不支持此种方式。</p>
+<p>优点：不需要后端服务和程序支持，只在负载均衡器配置即可（需要负载均衡器支持）。缺点：<strong>消耗负载均衡资源</strong></p>
+<h3 id="基于ip-hash实现"><a href="#基于ip-hash实现" class="headerlink" title="基于ip_hash实现"></a>基于ip_hash实现</h3><p>即使用nginx ip_hash的调度算法，将同一用户的请求始终分配至同一服务器上。</p>
+<p>优点：实现简单。缺点：导致负载失衡（特别是NAT上网的情况下）。</p>
+<h3 id="基于连接超时实现"><a href="#基于连接超时实现" class="headerlink" title="基于连接超时实现"></a>基于连接超时实现</h3><p>负载均衡器会为每一个处于保持状态中的会话设定一个时间值。若一个会话从上一次完成到下次再来之间的间隔时间小于超时值时，负载均衡器将会将新的连接进行会话保持；但如果这个间隔大于该超时值，负载均衡器会将新来的连接认为是新的会话然后进行负载平衡。</p>
+<p>优点：实现简单。缺点：也会导致负载有一定的失衡，<strong>仅LVS等少数软件支持</strong>。</p>
+<h3 id="利用session复制"><a href="#利用session复制" class="headerlink" title="利用session复制"></a>利用session复制</h3><p>即采用复制的方法，当产生session时，同步复制到所有集群节点，比如<strong>tomcat集群功能</strong>。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-01</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Nginx/'>
+                            Nginx
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

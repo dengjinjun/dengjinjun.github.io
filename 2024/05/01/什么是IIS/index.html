@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="什么是IIS" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            什么是IIS
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFMicrosoft-IIS%EF%BC%9F"><span class="post-toc-text">什么是Microsoft IIS？</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Microsoft-IIS%E4%B8%8E%E5%85%B6%E4%BB%96Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C%EF%BC%9F"><span class="post-toc-text">Microsoft IIS与其他Web服务器有何不同？</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Microsoft-IIS-Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%EF%BC%9F"><span class="post-toc-text">Microsoft IIS Web服务器如何工作？</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%A6%82%E4%BD%95%E7%A1%AE%E5%AE%9A%E6%82%A8%E7%9A%84Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%98%AF%E5%90%A6%E4%BD%BF%E7%94%A8Microsoft-IIS"><span class="post-toc-text">如何确定您的Web服务器是否使用Microsoft IIS</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Microsoft-IIS%E4%BC%98%E7%82%B9%E4%B8%8E%E7%BC%BA%E7%82%B9"><span class="post-toc-text">Microsoft IIS优点与缺点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9C%A8Microsoft-IIS%E4%B8%8A%E8%BF%90%E8%A1%8CWordPress"><span class="post-toc-text">在Microsoft IIS上运行WordPress</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="post-toc-text">小结</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p><a target="_blank" rel="noopener" href="https://static.wbolt.com/wp-content/uploads/2022/06/microsoft-iis-1024x576.png" title="什么是Microsoft IIS Web服务器软件？" class="gallery-item" style="box-shadow: none;"> <img src="https://static.wbolt.com/wp-content/uploads/2022/06/microsoft-iis-1024x576.png" alt="什么是Microsoft IIS Web服务器软件？"></a></p>
+<p>Web服务器有助于为Internet提供动力，并且有许多不同的选项可用于托管您的网站或应用程序。您可能考虑使用的一种解决方案是<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=9900fdd8edaHR0cHM6Ly93d3cuaWlzLm5ldC8=">Microsoft IIS (Internet Information Services)</a>。但是，要确定它是否是正确的选择，必须了解Web服务器软件的工作原理并与其他选项进行比较。</p>
+<p>在这篇文章中，我们将解释什么是Microsoft IIS以及它与其他Web服务器的不同之处。我们将介绍如何确定您的服务器是否使用Microsoft IIS、其优缺点以及如何在其上运行WordPress。</p>
+<h3 id="什么是Microsoft-IIS？"><a href="#什么是Microsoft-IIS？" class="headerlink" title="什么是Microsoft IIS？"></a>什么是Microsoft IIS？</h3><p>Microsoft IIS是Microsoft为Windows系统提供的Web服务器软件产品。它是继<a target="_blank" rel="noopener" href="https://www.wbolt.com/apache-vs-nginx.html">Apache HTTP Server</a>、<a target="_blank" rel="noopener" href="https://www.wbolt.com/apache-vs-nginx.html">NGINX</a>、<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=e1fd1006bfaHR0cHM6Ly93d3cuY2xvdWRmbGFyZS5jb20v">Cloudflare Server</a>和<a target="_blank" rel="noopener" href="https://www.wbolt.com/lighttpd-web-server.html">LiteSpeed</a>之后<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=46b0d3e801aHR0cHM6Ly93M3RlY2hzLmNvbS8=">最受欢迎的Web服务器</a>之一：</p>
+<p><a target="_blank" rel="noopener" href="https://static.wbolt.com/wp-content/uploads/2022/06/microsoft-iis-web-server.png" title="Microsoft IIS官网" class="gallery-item" style="box-shadow: none;"> <img src="https://static.wbolt.com/wp-content/uploads/2022/06/microsoft-iis-web-server.png" alt="Microsoft IIS官网"></a></p>
+<p>您可以使用这个安全且灵活的服务器来托管Web上的任何内容，从应用程序到媒体流。它具有开放式架构，使其具有可扩展性和多功能性。</p>
+<p>IIS支持以下协议：</p>
+<ul>
+<li>超文本传输协议 (HTTP)</li>
+<li>安全超文本传输协议 (HTTPS)</li>
+<li>文件传输协议 (FTP)</li>
+<li>安全文件传输协议 (FTPS)</li>
+<li>简单邮件传输协议 (SMTP)</li>
+<li>网络新闻传输协议 (NNTP)</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=3dd7bd4d39aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvcHJldmlvdXMtdmVyc2lvbnMvd2luZG93cy9pdC1wcm8vd2luZG93cy1zZXJ2ZXItMjAxMi1yMi1hbmQtMjAxMi9oaDgzMTcyNSh2PXdzLjExKQ==">IIS Web Server</a>是一个集成了IIS、FTP服务、PHP、ASP.NET和Windows Communication Foundation (WCF) 的统一Web平台。由于自动应用程序隔离、默认沙箱配置和减少的服务器占用空间，您可以使用它以最大的安全性托管您的站点和服务。</p>
+<p>它还包括动态缓存和增强压缩，以提高您网站的速度。此外，模块化平台使开发人员能够创建自定义模块以扩展其功能。</p>
+<h4 id="Microsoft-IIS与其他Web服务器有何不同？"><a href="#Microsoft-IIS与其他Web服务器有何不同？" class="headerlink" title="Microsoft IIS与其他Web服务器有何不同？"></a>Microsoft IIS与其他Web服务器有何不同？</h4><p>IIS是一种流行的Web服务器软件。据W3Techs称，<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=d3f778a2cbaHR0cHM6Ly93M3RlY2hzLmNvbS90ZWNobm9sb2dpZXMvZGV0YWlscy93cy1taWNyb3NvZnRpaXM=">它为6%的拥有已知网络服务器的网站提供支持</a>。许多小型企业和组织都使用它，因为它易于设置和使用。</p>
+<p>IIS与其他Web服务器不同，因为它与Windows操作系统 (OS) 紧密集成。这意味着IIS可以利用Windows中内置的所有安全功能，例如<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=54d75d0fb1aHR0cHM6Ly9henVyZS5taWNyb3NvZnQuY29tL3NlcnZpY2VzL2FjdGl2ZS1kaXJlY3Rvcnkv">Active Directory</a>和<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=724c07a5e9aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvcHJldmlvdXMtdmVyc2lvbnMvd2luZG93cy9pdC1wcm8vd2luZG93cy1zZXJ2ZXItMjAxMi1yMi1hbmQtMjAxMi9oaDgzMTc5MSh2PXdzLjExKQ==">组策略</a>。</p>
+<p>IIS还包括用于部署和管理网站的各种管理工具。其中包括Internet服务管理器 (ISM)，一个用于管理IIS设置的图形用户界面 (GUI)。</p>
+<p>此外，IIS 8具有<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=6593ed5318aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvcHJldmlvdXMtdmVyc2lvbnMvd2luZG93cy9pdC1wcm8vd2luZG93cy1zZXJ2ZXItMjAxMi1yMi1hbmQtMjAxMi9qajYzNTg0Nyh2PXdzLjExKQ==">IIS管理器</a>，这是ISM的更新版本，可简化网站和服务器设置的管理。Web服务器还包括命令行工具<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=b8fbc067c2aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvcHJldmlvdXMtdmVyc2lvbnMvd2luZG93cy9pdC1wcm8vd2luZG93cy1zZXJ2ZXItMjAxMi1yMi1hbmQtMjAxMi9qajYzNTg1Mih2PXdzLjExKQ==">AppCdmd.exe</a>和<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=d57ae0910caHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvcHJldmlvdXMtdmVyc2lvbnMvd2luZG93cy9pdC1wcm8vd2luZG93cy1zZXJ2ZXItMjAxMi1yMi1hbmQtMjAxMi9qajcxNzI2OCh2PXdzLjExKQ==">PowerShell cmdlet</a>。</p>
+<p>使用IIS最显着的优势之一是它可以承载<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=c5faa424d0aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvYXNwbmV0L292ZXJ2aWV3">ASP.NET应用程序</a>。ASP.NET是一项Microsoft技术，使开发人员能够创建动态Web应用程序。IIS是唯一无需额外软件即可托管ASP.NET应用程序的Web服务器。</p>
+<h3 id="Microsoft-IIS-Web服务器如何工作？"><a href="#Microsoft-IIS-Web服务器如何工作？" class="headerlink" title="Microsoft IIS Web服务器如何工作？"></a>Microsoft IIS Web服务器如何工作？</h3><p>IIS Web服务器在Windows操作系统的Microsoft .NET平台上运行。虽然您可以通过<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=af84e2a6d4aHR0cHM6Ly93d3cubW9uby1wcm9qZWN0LmNvbS8=">Mono</a>在Linux和Mac上运行IIS ，但它不稳定或不推荐使用。</p>
+<p>您可以将IIS配置为在单台计算机上托管多个网站。每个站点都可以有一个唯一的Internet 协议 (IP) 地址或共享一个公共IP地址。IIS还可以托管Intranet网站、Extranet网站和公共Internet站点。</p>
+<p>当客户端计算机从IIS上托管的网站请求页面时，服务器会从站点的文档根文件夹中检索该页面并将其发送到客户端计算机。IIS还可以提供动态内容，例如<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=a85c37847faHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvcHJldmlvdXMtdmVyc2lvbnMvaWlzLzYuMC1zZGsvbXM1MjYwNjQodj12cy45MCk=">Active Server Pages (ASP)</a>或PHP页面。</p>
+<p>您可以使用多个模块扩展IIS，为服务器添加功能。这些模块可以由Microsoft或第三方公司开发。一些最流行的选项包括ASP.NET、<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=ceb00a2cb8aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvcHJldmlvdXMtdmVyc2lvbnMvaWlzLzYuMC1zZGsvbXM1MjUxNzIodj12cy45MCkjOn46dGV4dD1JU0FQSSUyMGV4dGVuc2lvbnMlMjBhcmUlMjB0cnVlJTIwYXBwbGljYXRpb25zLGRsbC4=">ISAPI Extensions</a>和<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=632c9b3846aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvcHJldmlvdXMtdmVyc2lvbnMvaWlzLzYuMC1zZGsvbXM1MjQ2MTAodj12cy45MCk=">ISAPI Filters</a>。</p>
+<h4 id="如何确定您的Web服务器是否使用Microsoft-IIS"><a href="#如何确定您的Web服务器是否使用Microsoft-IIS" class="headerlink" title="如何确定您的Web服务器是否使用Microsoft IIS"></a>如何确定您的Web服务器是否使用Microsoft IIS</h4><p>IIS包含在自Windows NT 4.0以来的所有Windows版本中，但默认情况下不包含。要确定您的计算机上是否安装了IIS，您可以按<em>Windows</em>键 + <em>R</em>。然后输入“intemgr”并选择<em>OK</em>：</p>
+<p><a target="_blank" rel="noopener" href="https://static.wbolt.com/wp-content/uploads/2022/06/inetmgr-windows.png" title="intemgr" class="gallery-item" style="box-shadow: none;"> <img src="https://static.wbolt.com/wp-content/uploads/2022/06/inetmgr-windows.png" alt="intemgr"></a></p>
+<p>如果您看到IIS配置屏幕，则说明它已安装。否则，您可能会收到以下消息：</p>
+<p><a target="_blank" rel="noopener" href="https://static.wbolt.com/wp-content/uploads/2022/06/windows-no-iis.png" title="windows no iis" class="gallery-item" style="box-shadow: none;"> <img src="https://static.wbolt.com/wp-content/uploads/2022/06/windows-no-iis.png" alt="windows no iis"></a></p>
+<p>另一种方法是查看已安装程序的列表以查看IIS是否存在。打开<em>控制面板</em>并选择<em>程序 &gt; 打开或关闭Windows功能</em>：</p>
+<p><a target="_blank" rel="noopener" href="https://static.wbolt.com/wp-content/uploads/2022/06/windows-programs.jpg" title="打开或关闭Windows功能" class="gallery-item" style="box-shadow: none;"> <img src="https://static.wbolt.com/wp-content/uploads/2022/06/windows-programs.jpg" alt="打开或关闭Windows功能"></a></p>
+<p>在以下窗口中，查找<em>Internet Information Services</em>并选择它旁边的框：</p>
+<p><a target="_blank" rel="noopener" href="https://static.wbolt.com/wp-content/uploads/2022/06/iis-windows-programs.jpg" title="Internet Information Services" class="gallery-item" style="box-shadow: none;"> <img src="https://static.wbolt.com/wp-content/uploads/2022/06/iis-windows-programs.jpg" alt="Internet Information Services"></a></p>
+<p>完成后，单击<em>OK</em>。</p>
+<p>您还可以检查Web服务器日志以查看是否向IIS发出请求。这些日志位于大多数Windows机器上的<em>C:\inetpub\logs\LogFiles文件夹中。</em>如果您在这些日志中看到对IIS的引用，则您的Web服务器可能正在使用IIS。</p>
+<p>如果您确定您的Web服务器正在使用IIS，您将需要采取一些步骤来配置它以满足您的特定需求。在大多数情况下，您需要安装其他软件，例如<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=ca78793ffeaHR0cHM6Ly9kb3RuZXQubWljcm9zb2Z0LmNvbS9lbi11cy9hcHBzL2FzcG5ldA==">ASP.NET</a>，并更改IIS处理请求的方式。此外，您可以从Microsoft购买许可证以在生产环境中使用IIS。</p>
+<h3 id="Microsoft-IIS优点与缺点"><a href="#Microsoft-IIS优点与缺点" class="headerlink" title="Microsoft IIS优点与缺点"></a>Microsoft IIS优点与缺点</h3><p>使用IIS的最大优势之一是它是免费的。它也很容易设置和使用。</p>
+<p>此外，IIS与其他Microsoft产品（如Active Directory、Exchange Server和SharePoint）很好地集成在一起。用户还可以使用<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=5ac3448ac0aHR0cHM6Ly93d3cubWljcm9zb2Z0LmNvbS9lbi11cy9kb3dubG9hZC9kZXRhaWxzLmFzcHg/aWQ9NDU1MjA=">远程管理工具 (RAT)</a>或<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=cc8fcb4fb1aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvdHJvdWJsZXNob290L3dpbmRvd3Mtc2VydmVyL3N5c3RlbS1tYW5hZ2VtZW50LWNvbXBvbmVudHMvd2hhdC1pcy1taWNyb3NvZnQtbWFuYWdlbWVudC1jb25zb2xl">Microsoft管理控制台 (MMC)</a>远程管理IIS 。</p>
+<p>然而，虽然IIS是一个功能非常丰富的Web服务器，但它也有一些缺点。例如，IIS不像Apache等其他Web服务器那样受到广泛支持。因此，查找IIS的帮助和文档可能相对其他Web服务器软件来说会困难不少。</p>
+<p>它也不像其他一些Web服务器那样灵活。为某些类型的部署进行配置可能具有挑战性。此外，您只能在Windows操作系统中使用它。</p>
+<p>尽管有这些缺点，IIS仍然是许多企业和组织的流行Web服务器选择。如果您正在考虑将IIS用于您的网站或Web应用程序，您应该首先评估您的特定需求，以确保IIS能够满足您的要求。</p>
+<h3 id="在Microsoft-IIS上运行WordPress"><a href="#在Microsoft-IIS上运行WordPress" class="headerlink" title="在Microsoft IIS上运行WordPress"></a>在Microsoft IIS上运行WordPress</h3><p>可以在Microsoft IIS上运行WordPress。WordPress有官方文档，其中概述了<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=bc0ee68698aHR0cHM6Ly9jb2RleC53b3JkcHJlc3Mub3JnL0luc3RhbGxpbmdfb25fTWljcm9zb2Z0X0lJUw==">在IIS上安装和运行WordPress</a>所需的步骤。你也可以参考微软关于<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=9990554853aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvaWlzL2FwcGxpY2F0aW9uLWZyYW1ld29ya3MvaW5zdGFsbC1hbmQtY29uZmlndXJlLXBocC1hcHBsaWNhdGlvbnMtb24taWlzL2luc3RhbGwtd29yZHByZXNzLW9uLWlpcw==">在IIS上安装WordPress</a>的文档。</p>
+<p>要开始使用，您首先需要从Microsoft网站下载<a target="_blank" rel="noopener" href="https://www.wbolt.com/go?_=fcdc64f246aHR0cHM6Ly93d3cubWljcm9zb2Z0LmNvbS93ZWIvZG93bmxvYWRzL3BsYXRmb3JtLmFzcHg=">Web平台安装程序</a>。安装完成后，您可以按照提示运行设置向导：</p>
+<p><a target="_blank" rel="noopener" href="https://static.wbolt.com/wp-content/uploads/2022/06/web-platform-installer.jpg" title="微软Web平台安装程序" class="gallery-item" style="box-shadow: none;"> <img src="https://static.wbolt.com/wp-content/uploads/2022/06/web-platform-installer.jpg" alt="微软Web平台安装程序"></a></p>
+<p>接下来，您可以启动安装程序。在<strong>Applications选项卡 (1)<strong>下，找到WordPress，然后单击</strong>Add按钮 (2)</strong> ，然后单击**Install (3)**：</p>
+<p><a target="_blank" rel="noopener" href="https://static.wbolt.com/wp-content/uploads/2022/06/wordpress-applications-install.png" title="wordpress应用安装" class="gallery-item" style="box-shadow: none;"> <img src="https://static.wbolt.com/wp-content/uploads/2022/06/wordpress-applications-install.png" alt="wordpress应用安装"></a></p>
+<p>接下来，您可以查看并配置安装以完成设置：</p>
+<p><a target="_blank" rel="noopener" href="https://static.wbolt.com/wp-content/uploads/2022/06/wordpress-iis-prerequistes.jpg" title="wordpress iis数据库安装" class="gallery-item" style="box-shadow: none;"> <img src="https://static.wbolt.com/wp-content/uploads/2022/06/wordpress-iis-prerequistes.jpg" alt="wordpress iis数据库安装"></a></p>
+<p>例如，您需要选择一个数据库并创建您的凭据。然后，继续按照提示完成设置过程。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>Web服务器是使浏览器可以访问您的网站内容和应用程序所必需的。但是，有许多不同的选项可供选择。您可能会考虑使用Microsoft IIS。</p>
+<p>正如我们在这篇文章中所讨论的，IIS是一个多功能的Web服务器，可以托管各种规模的网站，从小型个人网站到大型企业网站。IIS支持广泛的协议和全面的管理工具，使部署和管理安全、可靠的网站变得容易。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-05-01</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Windows/'>
+                            Windows
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

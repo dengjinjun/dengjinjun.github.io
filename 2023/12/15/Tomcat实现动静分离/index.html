@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Nginx+Tomcat实现动静分离" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Nginx+Tomcat实现动静分离
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tomcat%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB%E7%AE%80%E4%BB%8B"><span class="post-toc-text">Tomcat动静分离简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tomcat%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">Tomcat动静分离实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%89%8D%E6%9C%9F%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="post-toc-text">前期环境准备</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Nginx%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">Nginx虚拟主机配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Nginx%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">Nginx主配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B5%8B%E8%AF%95%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="post-toc-text">测试动静分离</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">负载均衡</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="Tomcat动静分离简介"><a href="#Tomcat动静分离简介" class="headerlink" title="Tomcat动静分离简介"></a>Tomcat动静分离简介</h2><p>Tomcat是一个比较全面的web容器，对静态网页的处理，还是比较费资源的，特别是每次都要从磁盘读取静态页面，然后返回，这中间会消耗Tomcat的资源，可能会使那些动态页面解析性能受到影响。将静态资源和动态资源隔离开、能够有效的减轻Tomcat服务器的压力，提升网站整体性能。Nginx + Tomcat 动静分离简单来说就是使用 Nginx 把动态和静态请求分开，可以理解成使用Nginx处理静态页面，Tomcat处理动态页面。</p>
+<p>动静分离从目前实现角度来讲大致分为两种，一种是纯粹的把静态文件放在独立的服务器上，独立出来用域名访问，也是目前主流推崇的方案；另外一种方法就是动态跟静态文件混合在一起部署，通过Nginx来分开。</p>
+<h2 id="Tomcat动静分离实现"><a href="#Tomcat动静分离实现" class="headerlink" title="Tomcat动静分离实现"></a>Tomcat动静分离实现</h2><h3 id="前期环境准备"><a href="#前期环境准备" class="headerlink" title="前期环境准备"></a>前期环境准备</h3><p><code>Nginx</code>和<code>Tomcat</code>的安装部署步骤省略。</p>
+<h3 id="Nginx虚拟主机配置文件"><a href="#Nginx虚拟主机配置文件" class="headerlink" title="Nginx虚拟主机配置文件"></a>Nginx虚拟主机配置文件</h3><p>通过在Nginx的配置文件中的server段代码配置不同的location实现动静分离：<code>vim /etc/nginx/conf.d/default.conf</code></p>
+<p><em>（如果想把新的配置单独写出来也是可以的，比如，新建一个文件<code> vim /etc/nginx/conf.d/tomcat</code>，将配置写入，在 <code>/etc/nginx/conf.d/default.conf </code> 中用include引入：<code>include /etc/nginx/conf.d/tomcat;</code>)</em></p>
+<p>写入以下配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">静态请求通过Nginx访问本地web应用目录中的静态资源</span></span><br><span class="line">location ~.*\.(html|htm|css|js|gif|jpg|jpeg|bmp|png|ico|txt|eot|svg|ttf|woff|woff2)$ &#123;</span><br><span class="line">	root   /usr/local/tomcat8-1/webapps/;</span><br><span class="line">	expires 30d;		# 定义浏览器缓存时间</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">动态资源通过负载均衡转发给tomcat主机组，后面upstream&#123;&#125;模块处会有配置。</span></span><br><span class="line">location ~.*$ &#123;</span><br><span class="line">	proxy_pass http://tomcat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Nginx主配置文件"><a href="#Nginx主配置文件" class="headerlink" title="Nginx主配置文件"></a>Nginx主配置文件</h3><p>负载均衡功能是将接收到的请求分配到后端的多台服务器上，Nginx里需要 upstream{} 模块来配合使用</p>
+<p>打开Nginx主配置文件，<code>vim /etc/nginx/nginx.conf</code></p>
+<p>先修改nginx运行默认的用户：第一行 <code>user nginx</code> 改为 <code>user root</code></p>
+<p>再写入以下配置：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream tomcat &#123;</span><br><span class="line">    ip_hash;	<span class="comment"># 代表使用ip地址方式分配跳转后端服务器，可以解决session的问题，一般用于登录会话。</span></span><br><span class="line">    server 127.0.0.1:8080 weight=1;</span><br><span class="line">    server 127.0.0.1:8081 weight=1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置完毕后，重启Nginx：<code>systemctl restart nginx</code></p>
+<h3 id="测试动静分离"><a href="#测试动静分离" class="headerlink" title="测试动静分离"></a>测试动静分离</h3><p>将打成war包的项目上传到tomcat的webapps目录下，启动Tomcat，在浏览器通过Nginx访问项目，Nginx的默认端口为80，Tomcat的默认端口为8080。</p>
+<p>Ctrl+F5刷新页面，查看Nginx和Tomcat的日志。查看Nginx的日志</p>
+<p><a href="/../pic/1404518-20191201230628355-476124343.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1404518-20191201230628355-476124343.png" alt="img"></a></p>
+<p>查看Tomcat的日志</p>
+<p><a href="/../pic/1404518-20191201230533577-263757351.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1404518-20191201230533577-263757351.png" alt="img"></a></p>
+<p>可以看到静态请求和动态请求成功分离了。</p>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>部署tomcat多实例：tomcat_1，tomcat_2，参考部署tomcat多实例部分。</p>
+<p><em>注意：这里为了验证负载均衡效果，需要注释掉 &#x2F;etc&#x2F;nginx&#x2F;nginx.conf 配置文件里的 ip_hash;</em></p>
+<p>重启Nginx和tomcat，在浏览器访问项目</p>
+<p>用tail命令查看Tomcat的日志，多次刷新页面，可以看到两个Tomcat都会响应请求 </p>
+<p><a href="/../pic/1404518-20191201210838958-406808779.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1404518-20191201210838958-406808779.png" alt="img"></a></p>
+<p><a href="/../pic/1404518-20191201210915862-374850995.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1404518-20191201210915862-374850995.png" alt="img"></a></p>
+<p>Nginx+Tomcat的负载功能就配置完成了，这只是简单设置了一下，生产环境中还有很多详细的调整，比如，反向代理，防盗链，压缩，缓存策略等等，后续再逐渐增加。</p>
+<p>本文参考自：</p>
+<p>（1）h<a target="_blank" rel="noopener" href="https://www.cnblogs.com/taiyonghai/p/6728707.html">ttps:&#x2F;&#x2F;www.cnblogs.com/taiyonghai/p/6728707.html</a></p>
+<p>（2）<a target="_blank" rel="noopener" href="https://www.cnblogs.com/taiyonghai/p/5610112.html">https://www.cnblogs.com/taiyonghai/p/5610112.html</a></p>
+<p>（3）<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiangyang/p/8485046.html">https://www.cnblogs.com/jiangyang/p/8485046.html</a></p>
+<hr>
+<p>本文引自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/opsprobe/p/11966919.html">https://www.cnblogs.com/opsprobe/p/11966919.html</a></p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-15</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Tomcat/'>
+                            Tomcat
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

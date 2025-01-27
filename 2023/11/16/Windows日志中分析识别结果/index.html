@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Windows日志中分析识别结果" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Windows日志中分析识别结果
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>商品的推荐算法要做优化，我需要针对日志中的商品编码和相似度，模拟新算法的推荐数量和准确率。所以此次脚本的核心就是从复杂的日志信息中获取每一次商品识别结果的商品编码和相似度，然后用新算法处理。</p>
+<blockquote>
+<p><strong>这是一部分日志，截取了一次识别</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">[2023-11-07 08:29:13.662] [daily_logger] [info] now mode is WM_MODE_50</span><br><span class="line">[2023-11-07 08:29:13.721] [daily_logger] [info] camera load elapsed 58ms</span><br><span class="line"></span><br><span class="line">[2023-11-07 08:29:13.722] [daily_logger] [info] check img elapsed 0ms</span><br><span class="line"></span><br><span class="line">[2023-11-07 08:29:13.724] [daily_logger] [info] camera all elapsed 62ms</span><br><span class="line"></span><br><span class="line">[2023-11-07 08:29:13.724] [daily_logger] [info] 进入图像加速库</span><br><span class="line">[2023-11-07 08:29:13.892] [daily_logger] [info] 图形加速库耗时：167ms</span><br><span class="line"></span><br><span class="line">[2023-11-07 08:29:13.892] [daily_logger] [info] category elapsed 168ms</span><br><span class="line"></span><br><span class="line">[2023-11-07 08:29:13.899] [daily_logger] [info] res[0]=1064 20.089664 normal</span><br><span class="line"></span><br><span class="line">[2023-11-07 08:29:13.900] [daily_logger] [info] id:1065,code:10080230,table:normal,sim:0.9524129</span><br><span class="line">[2023-11-07 08:29:13.900] [daily_logger] [info] res[1]=961 25.035732 normal</span><br><span class="line"></span><br><span class="line">[2023-11-07 08:29:13.901] [daily_logger] [info] id:962,code:10080230,table:normal,sim:0.9388329</span><br><span class="line">[2023-11-07 08:29:13.901] [daily_logger] [info] res[2]=1492 32.777805 normal</span><br><span class="line"></span><br><span class="line">[2023-11-07 08:29:13.902] [daily_logger] [info] id:1493,code:10080230,table:normal,sim:0.91854596</span><br><span class="line">[2023-11-07 08:29:13.902] [daily_logger] [info] res[3]=1038 39.11579 normal</span><br><span class="line"></span><br><span class="line">[2023-11-07 08:29:13.903] [daily_logger] [info] id:1039,code:10080230,table:normal,sim:0.90450937</span><br><span class="line">[2023-11-07 08:29:13.903] [daily_logger] [info] res[4]=338 44.66648 normal</span><br><span class="line"></span><br><span class="line">[2023-11-07 08:29:13.904] [daily_logger] [info] id:339,code:10080230,table:normal,sim:0.8938664</span><br><span class="line">[2023-11-07 08:29:13.904] [daily_logger] [info] res[5]=3703 44.845665 normal</span><br><span class="line"></span><br><span class="line">[2023-11-07 08:29:13.904] [daily_logger] [info] id:3704,code:10080230,table:normal,sim:0.8988863</span><br><span class="line">[2023-11-07 08:29:13.905] [daily_logger] [info] index time : elapsed 10ms</span><br><span class="line"></span><br><span class="line">[2023-11-07 08:29:13.905] [daily_logger] [info] return productcodes:10080230,,sessionId:73625842023117162913843498924</span><br><span class="line">[2023-11-07 08:29:13.919] [daily_logger] [info] save record elapsed 14ms</span><br><span class="line"></span><br><span class="line">[2023-11-07 08:29:13.919] [daily_logger] [info] all time elapsed -257ms</span><br><span class="line"></span><br><span class="line">[2023-11-07 08:29:14.730] [daily_logger] [info] code is 10080230 sessionId is 73625842023117162913843498924 hit is true productName(utf-8) is ?????????</span><br><span class="line">[2023-11-07 08:29:14.730] [daily_logger] [info] start feed back</span><br><span class="line">[2023-11-07 08:29:14.742] [daily_logger] [info] sessionId is 73625842023117162913843498924,hit top 1,real hit top is 1</span><br><span class="line">[2023-11-07 08:29:14.743] [daily_logger] [info] upload url is se.wmdigit.com/lsym/newretail/api/dfs/upload3,imagePath is C:\jpos\device\aiscale\WmAceKg\WMphoto\2023117162913.jpg</span><br><span class="line">[2023-11-07 08:29:15.109] [daily_logger] [info] url2:se.wmdigit.com/lsym/newretail/api/search/product/saveImageIdentify</span><br><span class="line">[2023-11-07 08:29:15.264] [daily_logger] [info] response2:&#123;&quot;code&quot;:0,&quot;message&quot;:&quot;操作成功&quot;,&quot;timestamp&quot;:&quot;1699316955338&quot;,&quot;id&quot;:&quot;1721686213229813762&quot;,&quot;data&quot;:&quot;1721686213292732418&quot;&#125;</span><br><span class="line">[2023-11-07 08:29:15.265] [daily_logger] [info] end feed back</span><br><span class="line">[2023-11-07 08:29:15.265] [daily_logger] [info] setfeedback time is 535ms</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>脚本</strong></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> openpyxl</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">log = <span class="string">&quot;3.txt&quot;</span></span><br><span class="line">filename = <span class="string">&quot;tmp.txt&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 清除无用日志信息</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">process_log</span>():</span><br><span class="line">    <span class="comment"># 打开文件并读取数据</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(log, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;GBK&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        lines = file.readlines()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 保留满足特定条件的行</span></span><br><span class="line">    required_lines = [line <span class="keyword">for</span> line <span class="keyword">in</span> lines <span class="keyword">if</span> <span class="string">&#x27;sim&#x27;</span> <span class="keyword">in</span> line <span class="keyword">or</span> <span class="string">&#x27;return productcodes&#x27;</span> <span class="keyword">in</span> line <span class="keyword">or</span> <span class="string">&#x27;hit&#x27;</span> <span class="keyword">in</span> line <span class="keyword">or</span> <span class="string">&#x27;start&#x27;</span> <span class="keyword">in</span> line]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将结果写回文件</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;tmp.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;GBK&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        file.writelines(required_lines)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;日志预处理完成&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 传入一行内容，返回一个字典</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_dict_from_line</span>(<span class="params">line</span>):</span><br><span class="line">    <span class="keyword">match</span> = re.search(<span class="string">r&#x27;code:(\d+),.*sim:(\d+(\.\d+)?)&#x27;</span>, line)</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="keyword">match</span>.group(<span class="number">1</span>): <span class="keyword">match</span>.group(<span class="number">2</span>)&#125; <span class="keyword">if</span> <span class="keyword">match</span> <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分析单次识别，得到命中序号和一个列表</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_list_from_per_identify</span>(<span class="params">lines,start_position</span>):</span><br><span class="line">    <span class="comment"># 记录单次识别结果的列表</span></span><br><span class="line">    processed_list = []</span><br><span class="line">    <span class="comment"># 将原方案推荐的商品数量放入列表第一个位置</span></span><br><span class="line">    num = <span class="built_in">len</span>(lines[start_position - <span class="number">2</span>].split(<span class="string">&quot;,&quot;</span>)) - <span class="number">2</span></span><br><span class="line">    processed_list.append(num)</span><br><span class="line">    <span class="comment"># 将正确的商品编码放入列表第二个位置</span></span><br><span class="line">    code = lines[start_position - <span class="number">1</span>].split(<span class="string">&quot; &quot;</span>)[<span class="number">6</span>]</span><br><span class="line">    processed_list.append(code)</span><br><span class="line">    <span class="comment"># 原方案命中的序号</span></span><br><span class="line">    hit = lines[start_position + <span class="number">1</span>].split(<span class="string">&quot;,&quot;</span>)[<span class="number">1</span>][-<span class="number">2</span>:].strip()</span><br><span class="line">    <span class="comment"># 将六个键值对放在列表后面的位置</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(start_position - <span class="number">3</span>, start_position - <span class="number">9</span>, -<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> i &gt;= <span class="number">0</span>:</span><br><span class="line">            new_dict = get_dict_from_line(lines[i])</span><br><span class="line">            <span class="keyword">if</span> new_dict:</span><br><span class="line">                processed_list.append(new_dict)</span><br><span class="line">    <span class="keyword">return</span> hit, processed_list</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二种算法(推荐最高置信值0.03范围内的结果)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">recommend_product_2</span>(<span class="params">data</span>):</span><br><span class="line">    <span class="comment"># 获取置信值最高的商品编码和置信值</span></span><br><span class="line">    <span class="comment"># max_confidence_item = max(data, key=lambda x: float(list(x.values())[0]))</span></span><br><span class="line">    <span class="comment"># max_confidence_code = list(max_confidence_item.keys())[0]</span></span><br><span class="line">    <span class="comment"># max_confidence = float(list(max_confidence_item.values())[0])</span></span><br><span class="line">    max_confidence = <span class="built_in">float</span>(<span class="built_in">list</span>(data[<span class="number">0</span>].values())[<span class="number">0</span>])</span><br><span class="line">    <span class="comment"># 根据规则推荐商品编码</span></span><br><span class="line">    recommended_codes = [<span class="built_in">list</span>(item.keys())[<span class="number">0</span>] <span class="keyword">for</span> item <span class="keyword">in</span> data <span class="keyword">if</span></span><br><span class="line">                         max_confidence - <span class="number">0.03</span> &lt;= <span class="built_in">float</span>(<span class="built_in">list</span>(item.values())[<span class="number">0</span>]) &lt;= max_confidence + <span class="number">0.03</span>]</span><br><span class="line">    <span class="comment"># 去除重复的商品编码</span></span><br><span class="line">    recommended_codes = <span class="built_in">list</span>(<span class="built_in">set</span>(recommended_codes))</span><br><span class="line">    <span class="keyword">return</span> recommended_codes</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第三种算法(0.96, 0.88, 0.8)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">recommend_product_3</span>(<span class="params">data</span>):</span><br><span class="line">    max_confidence = <span class="built_in">float</span>(<span class="built_in">list</span>(data[<span class="number">0</span>].values())[<span class="number">0</span>])</span><br><span class="line">    max_confidence_code = <span class="built_in">list</span>(data[<span class="number">0</span>].keys())[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 一，最大置信值&gt;=0.96</span></span><br><span class="line">    <span class="keyword">if</span> max_confidence &gt;= <span class="number">0.96</span>:</span><br><span class="line">        result = [max_confidence_code]</span><br><span class="line">    <span class="comment"># 二，0.96 &gt; 最大的置信值&gt;=0.88,返回两个</span></span><br><span class="line">    <span class="keyword">elif</span> max_confidence &gt;= <span class="number">0.88</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">float</span>(<span class="built_in">list</span>(data[<span class="number">1</span>].values())[<span class="number">0</span>]) &gt;= <span class="number">0.88</span>:</span><br><span class="line">            result = [max_confidence_code, <span class="built_in">list</span>(data[<span class="number">1</span>].keys())[<span class="number">0</span>]]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            result = [max_confidence_code]</span><br><span class="line">    <span class="comment"># 三，最大的置信值&gt;=0.8</span></span><br><span class="line">    <span class="keyword">elif</span> max_confidence &gt;= <span class="number">0.8</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">float</span>(<span class="built_in">list</span>(data[<span class="number">2</span>].values())[<span class="number">0</span>]) &gt;= <span class="number">0.8</span>:</span><br><span class="line">            result = [max_confidence_code, <span class="built_in">list</span>(data[<span class="number">1</span>].keys())[<span class="number">0</span>], <span class="built_in">list</span>(data[<span class="number">2</span>].keys())[<span class="number">0</span>]]</span><br><span class="line">        <span class="keyword">elif</span> <span class="built_in">float</span>(<span class="built_in">list</span>(data[<span class="number">1</span>].values())[<span class="number">0</span>]) &gt;= <span class="number">0.8</span>:</span><br><span class="line">            result =[max_confidence_code, <span class="built_in">list</span>(data[<span class="number">1</span>].keys())[<span class="number">0</span>]]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            result = [max_confidence_code]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;未推荐出商品&quot;</span>, data)</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">list</span>(<span class="built_in">set</span>(result))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle_file</span>(<span class="params">filename</span>):</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&quot;GBK&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        lines = file.readlines()</span><br><span class="line">        <span class="comment"># 打开Excel文件</span></span><br><span class="line">        workbook = openpyxl.load_workbook(<span class="string">&quot;aa.xlsx&quot;</span>)</span><br><span class="line">        <span class="comment"># 选择要写入的工作表（这里选择第一个工作表，索引从0开始）</span></span><br><span class="line">        worksheet = workbook.worksheets[<span class="number">2</span>]</span><br><span class="line">        count = <span class="number">1</span></span><br><span class="line">        <span class="comment"># 找到 &#x27;start feed back&#x27; 所在的行，并记录它们在原始列表中的索引位置。</span></span><br><span class="line">        start_positions = [idx <span class="keyword">for</span> idx, line <span class="keyword">in</span> <span class="built_in">enumerate</span>(lines) <span class="keyword">if</span> <span class="string">&#x27;start feed back&#x27;</span> <span class="keyword">in</span> line]</span><br><span class="line">        <span class="keyword">for</span> start_position <span class="keyword">in</span> start_positions:</span><br><span class="line">            <span class="comment"># count = count + 1</span></span><br><span class="line">            <span class="comment"># 单次识别结果的列表</span></span><br><span class="line">            hit, identify_list = get_list_from_per_identify(lines, start_position)</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(identify_list) == <span class="number">8</span>:</span><br><span class="line">                count = count + <span class="number">1</span></span><br><span class="line">                <span class="built_in">print</span>(count)</span><br><span class="line">                num_0 = identify_list[<span class="number">0</span>]</span><br><span class="line">                <span class="keyword">if</span> hit != <span class="string">&quot;-1&quot;</span>:</span><br><span class="line">                    result_0 = <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    result_0 = <span class="number">0</span></span><br><span class="line">                <span class="comment"># 只包含字典的列表</span></span><br><span class="line">                <span class="comment"># result_list = identify_list[2:]</span></span><br><span class="line">                result_list = <span class="built_in">sorted</span>(identify_list[<span class="number">2</span>:], key=<span class="keyword">lambda</span> x: <span class="built_in">list</span>(x.values())[<span class="number">0</span>], reverse=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 得到算法2的推荐数量和结果</span></span><br><span class="line">                code_list_2 = recommend_product_2(result_list)</span><br><span class="line">                num_2 = <span class="built_in">len</span>(code_list_2)</span><br><span class="line">                <span class="keyword">if</span> identify_list[<span class="number">1</span>] <span class="keyword">in</span> code_list_2:</span><br><span class="line">                    result_2 = <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    result_2 = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 得到算法3的推荐数量和结果</span></span><br><span class="line">                code_list_3 = recommend_product_3(result_list)</span><br><span class="line">                num_3 = <span class="built_in">len</span>(code_list_3)</span><br><span class="line">                <span class="keyword">if</span> identify_list[<span class="number">1</span>] <span class="keyword">in</span> code_list_3:</span><br><span class="line">                    result_3 = <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    result_3 = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 在指定单元格写入数据</span></span><br><span class="line">                worksheet[<span class="string">&quot;A&#123;&#125;&quot;</span>.<span class="built_in">format</span>(count)] = <span class="built_in">str</span>(identify_list[<span class="number">0</span>:<span class="number">2</span>]+result_list)</span><br><span class="line">                worksheet[<span class="string">&quot;B&#123;&#125;&quot;</span>.<span class="built_in">format</span>(count)] = num_0</span><br><span class="line">                worksheet[<span class="string">&quot;C&#123;&#125;&quot;</span>.<span class="built_in">format</span>(count)] = result_0</span><br><span class="line">                worksheet[<span class="string">&quot;D&#123;&#125;&quot;</span>.<span class="built_in">format</span>(count)] = num_2</span><br><span class="line">                worksheet[<span class="string">&quot;E&#123;&#125;&quot;</span>.<span class="built_in">format</span>(count)] = result_2</span><br><span class="line">                worksheet[<span class="string">&quot;F&#123;&#125;&quot;</span>.<span class="built_in">format</span>(count)] = num_3</span><br><span class="line">                worksheet[<span class="string">&quot;G&#123;&#125;&quot;</span>.<span class="built_in">format</span>(count)] = result_3</span><br><span class="line">        <span class="comment"># 统计平均值</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&#x27;E&#x27;</span>, <span class="string">&#x27;F&#x27;</span>, <span class="string">&#x27;G&#x27;</span>]:</span><br><span class="line">            worksheet[<span class="string">&quot;&#123;&#125;&#123;&#125;&quot;</span>.<span class="built_in">format</span>(i, (count + <span class="number">1</span>),)] = <span class="string">&quot;=AVERAGE(&#123;&#125;2:&#123;&#125;&#123;&#125;)&quot;</span>.<span class="built_in">format</span>(i, i, count)</span><br><span class="line">        workbook.save(<span class="string">&quot;aa.xlsx&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;OK&quot;</span>)</span><br><span class="line"></span><br><span class="line">process_log()</span><br><span class="line">handle_file(filename)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-16</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/python%E8%84%9A%E6%9C%AC/'>
+                            python脚本
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

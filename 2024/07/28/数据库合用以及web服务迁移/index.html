@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="数据库合用注意事项" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            数据库合用注意事项
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%88%E7%94%A8%E4%BB%A5%E5%8F%8Aweb%E6%9C%8D%E5%8A%A1%E8%BF%81%E7%A7%BB"><span class="post-toc-text">数据库合用以及web服务迁移</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E9%80%89%E6%8B%A95%E5%AE%B6%E5%AE%A2%E6%88%B7%EF%BC%8C%E5%BB%BA%E7%AB%8B%E5%8F%B0%E8%B4%A6"><span class="post-toc-text">选择5家客户，建立台账</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%96%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E9%95%9C%E5%83%8F%E8%A1%A5%E4%B8%81"><span class="post-toc-text">新数据库镜像补丁</span></a></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>1</p>
+<h2 id="数据库合用以及web服务迁移"><a href="#数据库合用以及web服务迁移" class="headerlink" title="数据库合用以及web服务迁移"></a>数据库合用以及web服务迁移</h2><h4 id="选择5家客户，建立台账"><a href="#选择5家客户，建立台账" class="headerlink" title="选择5家客户，建立台账"></a>选择5家客户，建立台账</h4><table>
+<thead>
+<tr>
+<th>客户名称</th>
+<th>客户简拼</th>
+<th>客户代码</th>
+<th>客户域名</th>
+<th>原数据库服务器IP</th>
+<th>原数据库用户</th>
+<th>原数据库密码</th>
+<th>新数据库地址</th>
+<th>数据库外网IP&#x2F;端口</th>
+<th>新数据库用户</th>
+<th>新数据库密码</th>
+<th>原web服务器IP</th>
+<th>新web服务器IP</th>
+<th>原负载均衡IP</th>
+<th>新负载均衡IP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h4 id="新数据库镜像补丁"><a href="#新数据库镜像补丁" class="headerlink" title="新数据库镜像补丁"></a>新数据库镜像补丁</h4><ul>
+<li><p>Windows SSH套件</p>
+</li>
+<li><p>Windows exporter 监控客户端</p>
+</li>
+<li><p>安装NFS客户端功能，便于使用robocopy(自带的)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">robocopy D:\DBBAK\   \\10.100.3.132\47c7c0ed4292\DBBAK /mir</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>rclone软件及配置（不要了）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rclone sync  -P D:\DBBAK backup:biggeryun-backup-1251252938/DBBAK/vmware --max-age 2d</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p><strong>下载数据库备份文件</strong></p>
+</blockquote>
+<p>远程下载名为<code>XXXX</code>的目录中的所有bak文件，<code>XXXX</code>是客户的简拼，目录的内容类似下面这样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Inroad-XXXX.bak</span><br><span class="line">InroadLowCode2-XXXX.bak</span><br><span class="line">InroadTodoService-XXXX.bak</span><br></pre></td></tr></table></figure>
+
+<p>可能有lowcode或者todo的数据库，也可能没有</p>
+<blockquote>
+<p><strong>还原数据库</strong></p>
+</blockquote>
+<p>数据库名称是下面这样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Inroad-XXXX</span><br><span class="line">InroadLowCode2-XXXX</span><br><span class="line">InroadTodoService-XXXX</span><br></pre></td></tr></table></figure>
+
+<p>数据库文件存放的目录在<code>D:\DB\XXXX\*</code>，这样各家是独立的</p>
+<blockquote>
+<p><strong>数据库作业</strong></p>
+</blockquote>
+<p>数据库历史作业，还有每天创建备份，数据库备份文件放在<code>D:\DBBAK\XXXX\*</code>，这样各家是独立的，下面可以再分inroad,lowcode和todo的单独目录，也可以不分。</p>
+<blockquote>
+<p><strong>定期删除备份文件</strong></p>
+</blockquote>
+<p>递归删除DBBAK目录里面，所有超过7天的备份文件</p>
+<p>bsbmlink打包镜像脚本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /root/link &amp;&amp; wget <span class="variable">$1</span></span><br><span class="line"><span class="built_in">rm</span> -f link.tar</span><br><span class="line">unzip -o *.zip</span><br><span class="line"><span class="built_in">rm</span> -f *.zip</span><br><span class="line">docker build -t bsbm/link:<span class="variable">$2</span> .</span><br><span class="line">docker save bsbm/link:<span class="variable">$2</span> -o link.tar</span><br><span class="line">scp -rp link.tar 10.134.204.14:/root/link_images/</span><br><span class="line">scp -rp link.tar 10.134.204.15:/root/link_images/</span><br><span class="line">ssh root@10.134.204.14 <span class="string">&#x27;docker load -i /root/link_images/link.tar&#x27;</span></span><br><span class="line">ssh root@10.134.204.15 <span class="string">&#x27;docker load -i /root/link_images/link.tar&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -k -H <span class="string">&quot;Content-Type: application/json&quot;</span> -X PUT --data-binary @djdh.json http://127.0.0.1:8081/api/v1/namespaces/djdh/finalize</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">dev </span><br><span class="line">|------V2.5.0 </span><br><span class="line">		 |---- tag v2.5.0-date0</span><br><span class="line">		 |---- tag v2.5.0-date1		 </span><br><span class="line"></span><br><span class="line">git pull ----&gt; bat/shell ----&gt; pnpm run build ----&gt; low-code-platform ----&gt; zip -----&gt; 制品仓库</span><br><span class="line"></span><br><span class="line">147.243.12.105 - - [09/Aug/2024:11:00:10 +0800] &quot;GET /low-code-platform/static/web-control_1.2.5.min.js HTTP/1.1&quot; 404 555 &quot;https://epermit-btbm.basf.com/low-code-platform/&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36&quot; &quot;40.73.95.120&quot; &quot;-&quot; &quot;-&quot; &quot;-&quot; &quot;0.000&quot;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-07-28</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

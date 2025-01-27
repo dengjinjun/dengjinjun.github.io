@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="LVS四层负载均衡理论" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            LVS四层负载均衡理论
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LVS%E6%A6%82%E8%BF%B0"><span class="post-toc-text">LVS概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LVS%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84"><span class="post-toc-text">LVS体系架构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LVS%E5%8E%9F%E7%90%86"><span class="post-toc-text">LVS原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LVS%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="post-toc-text">LVS调度算法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LVS%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="post-toc-text">LVS的优缺点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LVS%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">LVS工作模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DR-%E6%A8%A1%E5%BC%8F%EF%BC%9A%E7%9B%B4%E6%8E%A5%E8%B7%AF%E7%94%B1%EF%BC%88%E5%B8%B8%E7%94%A8%EF%BC%89"><span class="post-toc-text">DR 模式：直接路由（常用）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NAT-%E6%A8%A1%E5%BC%8F%EF%BC%9A%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2"><span class="post-toc-text">NAT 模式：网络地址转换</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FULLNAT%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">FULLNAT模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TUN%E6%A8%A1%E5%BC%8F%EF%BC%9AIP%E9%9A%A7%E9%81%93"><span class="post-toc-text">TUN模式：IP隧道</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="LVS概述"><a href="#LVS概述" class="headerlink" title="LVS概述"></a>LVS概述</h2><p> LVS是Linux Virtual Server的简称，即Linux虚拟服务器，创始人前阿里云首席科学家章文嵩博士，官方网站：<a target="_blank" rel="noopener" href="http://www.linuxvirtualserver.org/">www.linuxvirtualserver.org</a>。</p>
+<p>Linux从内核版本2.4开始，已经完全内置了LVS的各个功能模块，无需给内核打任何补丁，可以直接使用LVS提供的各种功能。通过LVS提供的负载均衡技术和Linux操作系统可实现一个高性能、高可用的服务器群集，它具有良好可靠性、可扩展性和可操作性，以低廉的成本实现最优的服务性能。</p>
+<h3 id="LVS体系架构"><a href="#LVS体系架构" class="headerlink" title="LVS体系架构"></a>LVS体系架构</h3><p>使用LVS架设的服务器集群系统有三个部分组成：</p>
+<p>最前端的<strong>负载均衡层</strong>（Loader Balancer），中间的<strong>服务器群组层</strong>（Server Array），最底层的<strong>数据共享存储层</strong>（Shared Storage）。</p>
+<p><a href="/../pic/image-20231107213044277.png" title="image-20231107213044277" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20231107213044277.png" alt="image-20231107213044277"></a></p>
+<blockquote>
+<p><strong>Load Balancer层</strong></p>
+</blockquote>
+<p>位于整个集群系统的最前端，是LVS体系架构的核心，有一台或者多台负载调度器（Director Server）组成，LVS模块就安装在Director Server上，而Director的主要作用类似于一个路由器，它含有完成LVS功能所设定的路由表，通过这些路由表把用户的请求分发给Server Array层的应用服务器（Real Server）上。同时，在Director Server上还要安装对Real Server服务的监控模块Ldirectord，此模块用于监测各个Real Server服务的健康状况。在Real Server不可用时把它从LVS路由表中剔除，恢复时重新加入。</p>
+<blockquote>
+<p><strong>Server Array层</strong></p>
+</blockquote>
+<p>由一组实际运行应用服务的机器组成，Real Server可以是WEB服务器、MAIL服务器、FTP服务器、DNS服务器、视频服务器中的一个或者多个，每个Real Server之间通过高速的LAN或分布在各地的WAN相连接。在实际的应用中，Director Server也可以同时兼任Real Server的角色。</p>
+<blockquote>
+<p><strong>Shared Storage层</strong></p>
+</blockquote>
+<p>是为所有Real Server提供共享存储空间和内容一致性的存储区域，在物理上，一般有磁盘阵列设备组成，为了提供内容的一致性，一般可以通过NFS网络文件系统共享数 据，但是NFS在繁忙的业务系统中，性能并不是很好，此时可以采用集群文件系统，例如Red hat的GFS文件系统，oracle提供的OCFS2文件系统等。</p>
+<h3 id="LVS原理"><a href="#LVS原理" class="headerlink" title="LVS原理"></a>LVS原理</h3><p>通过将请求报文中的目标IP地址与目标端口修改，来实现报文的传送。</p>
+<blockquote>
+<p><strong>相关术语</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DS：Director Server。指的是前端负载均衡器节点。</span><br><span class="line">RS：Real Server。后端真实的工作服务器。</span><br><span class="line">VIP：向外部直接面向用户请求，作为用户请求的目标的IP地址。</span><br><span class="line">DIP：Director Server IP，主要用于和内部主机通讯的IP地址。</span><br><span class="line">RIP：Real Server IP，后端服务器的IP地址。</span><br><span class="line">CIP：Client IP，访问客户端的IP地址</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>原理图</strong></p>
+</blockquote>
+<p><a href="/../pic/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTA0ODkxNTg=,size_16,color_FFFFFF,t_70-16993643391309.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTA0ODkxNTg=,size_16,color_FFFFFF,t_70-16993643391309.png" alt="img"></a></p>
+<ol>
+<li>当用户向负载均衡调度器（Director Server）发起请求，调度器将请求发往至内核空间。</li>
+<li>PREROUTING链首先会接收到用户请求，判断目标IP确定是本机IP，将数据包发往INPUT链。</li>
+<li>IPVS是工作在INPUT链上的，当用户请求到达INPUT时，IPVS会将用户请求和自己已定义好的集群服务进行比对，如果用户请求的就是定义的集群服务，那么此时IPVS会强行修改数据包里的目标IP地址及端口，并将新的数据包发往POSTROUTING链。</li>
+<li>POSTROUTING链接收数据包后发现目标IP地址刚好是自己的后端服务器，那么此时通过选路，将数据包最终发送给后端的服务器。</li>
+</ol>
+<h3 id="LVS调度算法"><a href="#LVS调度算法" class="headerlink" title="LVS调度算法"></a>LVS调度算法</h3><p>​	LVS在内核中的负载均衡调度是以连接为粒度的。在HTTP协议（非持久）中，每个对象从WEB服务器上获取都需要建立一个TCP连接，同一用户 的不同请求会被调度到不同的服务器上，所以这种细粒度的调度在一定程度上可以避免单个用户访问的突发性引起服务器间的负载不平衡。在内核中的连接调度算法上，IPVS已实现了以下八种调度算法：</p>
+<ul>
+<li><p>轮询调度rr（Round-Robin Scheduling）</p>
+<p>这种是最简单的调度算法，调度器平等地对待每一台服务器节点。</p>
+</li>
+<li><p>加权轮询调度wrr（Weighted Round-Robin Scheduling）</p>
+<p>它用相应的权值表示服务器的分配权重，解决服务器间性能不一的情况。</p>
+</li>
+<li><p>最小连接调度lc（Least-Connection Scheduling）</p>
+<p>一种动态调度算法，通过服务器当前所活跃的连接数来估计服务器的负载情况，把新的连接请求分配到当前连接数最小的服务器。</p>
+</li>
+<li><p>加权最小连接调度wlc（Weighted Least-Connection Scheduling）</p>
+<p>较为理想的算法，结合lc以及wrr的优点。加权最小连接调度在调度新连接时尽可能使服务器的已建立连接数和其权值成比例。 </p>
+</li>
+<li><p>源地址散列调度SH（Source Hashing Scheduling）</p>
+<p>类似与IP哈希，主要是实现将此前的session（会话）绑定。将此前客户的源地址作为散列键，从静态的散列表中找出对应的服务器。</p>
+</li>
+<li><p>基于局部性的最少链接LBLC（Locality-Based Least Connections Scheduling）</p>
+<p>主要用于Cache集群系统，将相同的目标URL地址请求调度到同一台服务器，来提高服务器的访问的局部性和Cache命中率。</p>
+</li>
+<li><p>带复制的基于局部性最少链接LBLCR（Locality-Based Least Connections with Replication Scheduling）</p>
+<p>基于最少链接的，当一个新请求收到后，一定会将请求发给最少连接的那台主机的，同时其他主机可以来这里获取缓存。</p>
+</li>
+<li><p>目标地址散列调度DH（Destination Hashing Scheduling）</p>
+<p>针对目标IP地址的负载均衡，但它是一种静态映射算法，通过一个散列（Hash）函数将一个目标IP地址映射到一台服务器。</p>
+</li>
+</ul>
+<h3 id="LVS的优缺点"><a href="#LVS的优缺点" class="headerlink" title="LVS的优缺点"></a><strong>LVS的优缺点</strong></h3><ul>
+<li>高并发连接：LVS基于内核网络层面工作，有超强的承载能力和并发处理能力。单台LVS负载均衡器，可支持上万并发连接。稳定性强：是工作在网络4层之上仅作分发之用，这个特点也决定了它在负载均衡软件里的性能最强，稳定性最好，对内存和cpu资源消耗极低。</li>
+<li>成本低廉：硬件负载均衡器少则十几万，多则几十万上百万，LVS只需一台服务器和就能免费部署使用，性价比极高。</li>
+<li>配置简单：LVS配置非常简单，仅需几行命令即可完成配置，也可写成脚本进行管理。</li>
+<li>支持多种算法：支持8种负载均衡算法，可根据业务场景灵活调配进行使用。</li>
+<li>支持多种工作模型：可根据业务场景，使用不同的工作模式来解决生产环境请求处理问题。</li>
+<li>应用范围广：因为LVS工作在4层，所以它几乎可以对所有应用做负载均衡，包括http、数据库、DNS、ftp服务等等。</li>
+<li>缺点：工作在4层，不支持7层规则修改，机制过于庞大，不适合小规模应用。</li>
+</ul>
+<h2 id="LVS工作模式"><a href="#LVS工作模式" class="headerlink" title="LVS工作模式"></a>LVS工作模式</h2><p>LVS 的转发主要有四种工作模式：</p>
+<p><strong>DR 模式</strong>（修改目标 MAC）</p>
+<p><strong>NAT 模式</strong>（修改 IP 地址，分为源地址修改 SNAT 和目标地址修改 DNAT）</p>
+<p><strong>FULLNAT模式</strong>（NAT模式扩展）</p>
+<p><strong>TUN模式</strong>（IP隧道）</p>
+<hr>
+<h3 id="DR-模式：直接路由（常用）"><a href="#DR-模式：直接路由（常用）" class="headerlink" title="DR 模式：直接路由（常用）"></a>DR 模式：直接路由（常用）</h3><p>DR 模式（Direct Route）下需要 LB 和 RS 集群绑定同一个 VIP（RS 通过将 VIP 绑定在 lo网卡实现），但与 NAT 的不同点在于：请求由LB接受，由RS直接返回给用户。</p>
+<p>详细来看，一个请求过来时，LB只需要将网络帧的 MAC 地址修改为某一台 RS 的 MAC，该包就会被转发到相应的 RS 处理，注意此时的源 IP 和目标 IP 都没变，LVS 只是做了一下移花接木。RS 收到 LB 转发来的包时，链路层发现 MAC 是自己的，到上面的网络层，发现 IP 也是自己的，于是这个包被合法地接受，RS 感知不到前面有 LB 的存在。而当 RS 返回响应时，只要直接向客户端 IP 返回即可。</p>
+<p><a href="/../pic/v2-0cf532e9df252a4fcab4d81e204106d2_720w.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/v2-0cf532e9df252a4fcab4d81e204106d2_720w.png" alt="img"></a></p>
+<blockquote>
+<p><strong>DR模式的核心</strong></p>
+</blockquote>
+<ol>
+<li>DR模式是LB修改数据包的mac地址实现转发的，源IP和目的IP以及端口都没有变化。</li>
+<li>DR模式也是单臂路由模式，RS将响应报文直接返回给客户端，所以RS最好有一个外网IP地址。。</li>
+<li>所有的RS服务器都要绑定在lo网卡上绑定VIP，并且抑制ARP，防止抢夺客户端发给LB的请求报文。</li>
+<li>由于是通过修改mac地址的方式实现转发，因此LB和RS集群同属一个LAN。</li>
+</ol>
+<h3 id="NAT-模式：网络地址转换"><a href="#NAT-模式：网络地址转换" class="headerlink" title="NAT 模式：网络地址转换"></a>NAT 模式：网络地址转换</h3><p>NAT（Network Address Translation）是一种外网和内网地址映射的技术。</p>
+<p>NAT 模式下，网络数据报的进出都要经过 LVS 的处理。LVS 需要作为 RS（真实服务器）的网关。</p>
+<p>当包到达 LVS 时，LVS 做目标地址转换（DNAT），将目标 IP 改为 RS 的 IP。RS 接收到包以后，仿佛是客户端直接发给它的一样。RS 处理完，返回响应时，源 IP 是 RS IP，目标 IP 是客户端的 IP。这时 RS 的包通过网关（LVS）中转，LVS 会做源地址转换（SNAT），将包的源地址改为 VIP，这样，这个包对客户端看起来就仿佛是 LVS 直接返回给它的。</p>
+<p><a href="/../pic/v2-c3a6556eaeee4491f6acbf2d3397d98e_720w.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/v2-c3a6556eaeee4491f6acbf2d3397d98e_720w.png" alt="img"></a></p>
+<blockquote>
+<p><strong>NAT模式的核心</strong></p>
+</blockquote>
+<ol>
+<li>NAT技术将请求的报文通过DNAT方式改写，将响应的报文通过SNAT的方式改写。</li>
+<li>需要在调度器LB上，配置一个WAN公网IP与外接客户端通信，也要有私有LAN的IP与内部RS节点通信。RS节点只需配置LAN的IP。</li>
+<li>内部RS节点的网关地址，必须要配置为调度器LB的LAN网卡地址，确保响应报文经过调度器。</li>
+<li>请求和响应报文都经过调度器LB，所以存在性能瓶颈，一般最多10~20台节点。</li>
+<li>NAT技术支持对IP以及端口的转换，比如来自公网的10.0.0.8:80请求，转换到RS节点的192.168.1.5：8081请求。（DR模式和TUN模式不具备）</li>
+<li>需要开启内核转发功能：<code>net.ipv4.ip_forward=1</code>，也包括iptables防火墙的forward功能。（DR模式和TUN模式不需要）</li>
+</ol>
+<h3 id="FULLNAT模式"><a href="#FULLNAT模式" class="headerlink" title="FULLNAT模式"></a>FULLNAT模式</h3><p>FULL-NAT模式实际上是根据LVS-NAT模式的一种扩展，能满足更大的并发请求。</p>
+<p>在NAT模式下LB需要先对请求进行目的地址转换(DNAT)，然后对响应包进行源地址转换（SNAT），先后进行两次NAT。而 FULL-NAT则分别对请求进行和响应进行DNAT和SNAT，进行4次NAT，当然这样多次数的NAT会对性能大大削减，但是由于对请求报文的目的地址和源地址都进行了转换，后端的RS可以不在同一个VLAN下。 </p>
+<p>工作流程</p>
+<p><a href="/../pic/1075473-20190116191840240-469445708.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1075473-20190116191840240-469445708.png" alt="img"></a></p>
+<blockquote>
+<p><strong>FULLNAT模式核心</strong></p>
+</blockquote>
+<ol>
+<li>FULL-NAT因为要经过4次NAT，所以单次性能比NAT还要低。</li>
+<li>因为直接指定了LB和RS的IP指向，所以RIP的网关未必需要指向DIP，RIP和DIP可以不再同一个网络中。</li>
+<li>LB也可以做集群。</li>
+</ol>
+<h3 id="TUN模式：IP隧道"><a href="#TUN模式：IP隧道" class="headerlink" title="TUN模式：IP隧道"></a>TUN模式：IP隧道</h3><p>大多数 Internet服务都有这样的特点：请求报文较短而响应报文往往包含大量的数据。如果能将请求和响应分开处理，即在负载调度器中只负责调度请求而响应直 接返回给客户，将极大地提高整个集群系统的吞吐量。</p>
+<p> TUN模式是利用IP隧道（IP tunneling）是将一个IP报文封装在另一个IP报文的技术，这可以使得目标为一个IP地址的数据报文能被封装和转发到另一个IP地址。IP隧道技 术亦称为IP封装技术（IP encapsulation）。IP隧道主要用于移动主机和虚拟私有网络（Virtual Private Network），在其中隧道都是静态建立的，隧道一端有一个IP地址，另一端也有唯一的IP地址。</p>
+<p>  在TUN模式下，客户端将请求发往前端的负载均衡器，请求报文源地址是CIP，目标地址为VIP。负载均衡器收到报文后，发现请求的是在规则里面存在的地址，那么它将在客户端请求报文的首部再封装一层IP报文,将源地址改为DIP，目标地址改为RIP（动态地选择一台服务器）,利用IP隧道技术将此包发送给RS。RS收到请求报文后，会首先拆开第一层封装，然后发现里面还有一层IP首部的目标地址是自己lo接口上的VIP，所以会处理次请求报文，并将响应报文通过lo接口送给eth0网卡直接发送给客户端。</p>
+<p><a href="/../pic/1075473-20190116191747646-1610469180.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1075473-20190116191747646-1610469180.png" alt="img"></a></p>
+<blockquote>
+<p><strong>TUN模式的核心</strong></p>
+</blockquote>
+<ol>
+<li>负载均衡器将原请求的报文封装在另一个IP报文中，通过IP隧道的方式发送给RS。</li>
+<li>TUN是单臂路由模式，RS将响应报文直接返回给客户端，所以RS最好有一个外网IP地址。</li>
+<li>所有的RS服务器都要绑定在lo网卡上绑定VIP，并且抑制ARP，防止抢夺客户端发给LB的请求报文。</li>
+<li>由于LB只处理入站的报文，理论上吞吐量较NAT模式提高10倍以上，但是由于IP隧道带来开销，局域网内并不如DR模式效率高。</li>
+</ol>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-07</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/LVS/'>
+                            LVS
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

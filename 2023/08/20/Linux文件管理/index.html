@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Linux文件管理" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Linux文件管理
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0"><span class="post-toc-text">文件系统概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90"><span class="post-toc-text">文件系统组成</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF"><span class="post-toc-text">查看文件系统相关信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="post-toc-text">读取文件的流程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5"><span class="post-toc-text">软硬链接</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BB%99%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%B7%BB%E5%8A%A0%E7%A1%AC%E7%9B%98"><span class="post-toc-text">给虚拟机添加硬盘</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE-find"><span class="post-toc-text">文件查找: find</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD"><span class="post-toc-text">文件的上传下载</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="post-toc-text">下载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%8A%E4%BC%A0"><span class="post-toc-text">上传</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%BE%93%E5%87%BA%E4%B8%8E%E9%87%8D%E5%AE%9A%E5%90%91"><span class="post-toc-text">输出与重定向</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%BE%93%E5%87%BA"><span class="post-toc-text">输出</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%BE%93%E5%85%A5"><span class="post-toc-text">输入</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C"><span class="post-toc-text">字符串操作</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%89%93%E5%8C%85%E5%8E%8B%E7%BC%A9"><span class="post-toc-text">打包压缩</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80"><span class="post-toc-text">方式一</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C"><span class="post-toc-text">方式二</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="文件系统概述"><a href="#文件系统概述" class="headerlink" title="文件系统概述"></a>文件系统概述</h1><p>文件系统是操作系统中的负责控制硬盘的一个软件。</p>
+<h2 id="文件系统组成"><a href="#文件系统组成" class="headerlink" title="文件系统组成"></a>文件系统组成</h2><p>文件系统的运行主要与三部分有关：<code>inode区</code>、<code>block区</code>、和<code>superblock</code></p>
+<ul>
+<li>superblock：记录此 filesystem 的整体信息，包括inode&#x2F;block的总量、使用量、剩余量， 以及文件系统的格式与相关信息等；</li>
+<li>inode区：以数组的形式存放<code>inode</code>,<code>inode</code>是一种数据结构，记录文件的属性，一个文件占用一个<code>inode</code>，指向存放文件数据的<code>block</code></li>
+<li>block区：实际记录文件的内容，若文件太大时，会占用多个 block</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/ext%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%89%AF%E6%9C%AC.png" title="ext文件系统" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/ext%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%89%AF%E6%9C%AC.png" alt="ext文件系统"></a></p>
+<p>在实际的操作系统中，单一的文件系统区块并不容易管理，所以一个文件系统包含了很多个区块，每个区块包含单独的<code>inode</code>和<code>block</code>以及对照表，形成一个<code>block group</code>。</p>
+<p>文件和目录的数据都是存放在block块中的，文件的block块存放的是文件数据，目录的block块存放的是<code>文件名/目录名</code> 和<code>文件名/目录名</code>所在的<code>inode</code>编号。</p>
+<h2 id="查看文件系统相关信息"><a href="#查看文件系统相关信息" class="headerlink" title="查看文件系统相关信息"></a>查看文件系统相关信息</h2><ul>
+<li>元数据：<code>stat</code></li>
+</ul>
+<p>inode中存放的是文件或目录的属性，即权限，属主，属组，大小，类型等信息，<strong>这些信息也称为元数据</strong>。</p>
+<p>使用 <code>stat [文件/目录]</code> 命令可以查看文件或目录的元数据，其中除了基本属性之外，还包括三种时间属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctime: 无论是修改文件的元数据还是修改文件内容，都会更新。</span><br><span class="line"></span><br><span class="line">mtime: 只有修改文件内容时，才会更新mtime，与ctime对比可以推断出上一次修改的是元数据还是文件内容。</span><br><span class="line"></span><br><span class="line">atime: 访问时会更新，比如cat,包括vim。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看文件系统信息：<code>df</code></li>
+</ul>
+<p>使用 <code>df -Th</code> 命令可以查看文件系统信息，包含文件系统类型，block块总容量、已用容量、可用容量、挂载目录等。(<code>disk-free</code>)</p>
+<p>使用 <code>df -i</code> 命令可以查看inode块的总量和剩余用量。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">while true; do df -i; sleep 0.5; clear; done;			# 动态查看inode块使用变化</span><br></pre></td></tr></table></figure>
+
+<p>磁盘满了有两种情况，一种是inode号用完了，另一种是磁盘空间用完了，可以通过这两个命令查看。</p>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/image-20230825180008073.png" title="image-20230825180008073" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230825180008073.png" alt="image-20230825180008073"></a></p>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/image-20230827225315205.png" title="image-20230827225315205" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230827225315205.png" alt="image-20230827225315205"></a></p>
+<ul>
+<li>查看磁盘及文件系统相关信息：<code>lsblk</code></li>
+</ul>
+<p>使用 <code>lsblk -a</code> 命令可以查看磁盘中目录信息，使用 <code>lsblk -f</code> m命令可以查看磁盘中文件系统相关信息。(<code>list-block</code>)</p>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/image-20230825102814028.png" title="image-20230825102814028" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230825102814028.png" alt="image-20230825102814028"></a></p>
+<ul>
+<li><p>查看文件系统详细信息：<code>dumpe2fs</code></p>
+<p>使用 <code>dumpe2fs -h [路径] </code>命令可以查看文件系统的详细信息，包括超级块的信息，包括文件系统名称、已使用以及未使用的 inode 和 block 的数量、每个 block 和 inode 的大小，文件系统的挂载时间等。<code>-h</code>选项表示只显示超级块的信息。[路径]需要是文件系统的挂载点。</p>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/image-20230825103636036.png" title="image-20230825103636036" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230825103636036.png" alt="image-20230825103636036"></a></p>
+</li>
+<li><p>查看xfs文件系统信息：<code>xfs_info</code></p>
+<p>使用 <code>xfs_info [路径]</code> 可以查看xfs文件系统的详细信息，[路径]需要是文件系统的挂载点。</p>
+</li>
+<li><p>查看设备的UUID：<code>blkid</code></p>
+<p>UUID 是全域单一识别码 （universally unique identifier）,使用<code> blkid</code>可以显示设备的 UUID和文件系统类型</p>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828152501045.png" title="image-20230828152501045" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828152501045.png" alt="image-20230828152501045"></a></p>
+</li>
+<li><p>查看磁盘分区类型及分区信息：<code>parted</code></p>
+<p>使用<code>parted [设备名] print</code> 可以查看磁盘的分区表类型以及分区信息。</p>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828152722067.png" title="image-20230828152722067" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828152722067.png" alt="image-20230828152722067"></a></p>
+</li>
+</ul>
+<h2 id="读取文件的流程"><a href="#读取文件的流程" class="headerlink" title="读取文件的流程"></a>读取文件的流程</h2><p>文件系统读取一个文件数据的流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">先通过挂载点的信息找到根目录的inode编号，然后访问inode, 链接到根目录的block块,访问block得知下一层目录的inode编号，访问inode，链接到再下一层目录的block块,在此block块中找到再下一层目录的inode编号，然后访问inode，再链接到下一层目录的block块…… 直到链接到的block是文件的block块。</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F2.png" title="寻找文件/etc/passwd的流程" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F2.png" alt="寻找文件/etc/passwd的流程"></a></p>
+<h2 id="软硬链接"><a href="#软硬链接" class="headerlink" title="软硬链接"></a>软硬链接</h2><ul>
+<li><p>软链接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s [源路径] [目标路径]</span><br></pre></td></tr></table></figure>
+
+<p>软链接又称为符号链接，相当于Windows系统的快捷方式，有自己的文件属性及权限等。软链接包含原文件的路径信息，指向原文件。</p>
+<p>创建软链接不会增加原文件的链接数。</p>
+<p>删除原文件，则软链接变成了一个死链接。</p>
+</li>
+<li><p>硬链接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln [源路径] [目标路径]</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>​		硬链接相当于给原文件起了一个别名，与原文件具有相同的inode号及data block。</p>
+<p>​		不能对目录创建硬链接，只能对文件创建。</p>
+<p>​		</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>软链接</th>
+<th>硬链接</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>本质</td>
+<td>与原文件不是同一个文件</td>
+<td>与原文件是同一个文件</td>
+</tr>
+<tr>
+<td>跨设备</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>inode</td>
+<td>不同</td>
+<td>相同</td>
+</tr>
+<tr>
+<td>链接数</td>
+<td>不变</td>
+<td>变化</td>
+</tr>
+<tr>
+<td>文件夹</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>删除原文件</td>
+<td>无法访问</td>
+<td>链接数减一，正常访问</td>
+</tr>
+<tr>
+<td>文件类型</td>
+<td>链接文件</td>
+<td>与原文件相同</td>
+</tr>
+<tr>
+<td>文件大小</td>
+<td>文件路径的长度</td>
+<td>和原文件相同</td>
+</tr>
+</tbody></table>
+<h2 id="给虚拟机添加硬盘"><a href="#给虚拟机添加硬盘" class="headerlink" title="给虚拟机添加硬盘"></a>给虚拟机添加硬盘</h2><p>针对磁盘满了的两种情况，如果是inode号用完，需要清理文件。如果磁盘空间用完了，则需要扩容。</p>
+<p>以下是给服务器扩容并且创建文件系统的方法。</p>
+<blockquote>
+<p>给虚拟机添加一块硬盘，使用<code>lsblk</code>命令可以查看到新添加磁盘的设备名,可以看到并没有挂载任何目录</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828155758248.png" title="image-20230828155758248" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828155758248.png" alt="image-20230828155758248"></a></p>
+<blockquote>
+<p>给新分区创建一个文件系统,使用<code>mkfs.文件系统类型 设备名</code>命令可以创建一个新文件系统，<code>. </code>之后接文件系统的类型，比如xfs，ext4等。可设置其他文件系统参数，参照 <code>mkfs</code>的命令手册。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828160746732.png" title="image-20230828160746732" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828160746732.png" alt="image-20230828160746732"></a></p>
+<blockquote>
+<p>使用<code>mount 分区名 目录</code>命令挂载到一个目录上。使用<code>umount 分区名</code>可以解除一个分区的挂载。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828161140422.png" title="image-20230828161140422" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828161140422.png" alt="image-20230828161140422"></a></p>
+<p>​		</p>
+<p>这种情况是给虚拟机添加了一个整体分区，分区表为loop类型，但是实际上很少使用。更加常用的磁盘分区将在后面章节介绍</p>
+<h1 id="文件查找-find"><a href="#文件查找-find" class="headerlink" title="文件查找: find"></a>文件查找: find</h1><p>具体用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find [路径] [-options] &#x27;表达式&#x27;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>按照文件名：<code>-name</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find /etc -name &quot;ifcfg-ens33&quot;		# 在 /etc 目录下寻找文件名为 ifcfg-ens33 的文件</span><br><span class="line">find /etc -iname &quot;ifcfg-ens33&quot;		# -iname 表示忽略大小写</span><br><span class="line">find /etc -iname &quot;ifcfg-*&quot;			# * 代表通配符 </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按照文件大小<code>-size</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">find /etc -size +3M					# 在/etc目录下寻找文件大小大于3M的文件</span><br><span class="line">find /etc -size 3M					# 在/etc目录下寻找文件大小刚好等于3M的文件</span><br><span class="line">find /etc -size -3M					# 在/etc目录下寻找文件大小小于3M的文件</span><br><span class="line">find /etc -size 4b					# 在/etc目录下寻找文件大小占据4个block块的文件</span><br><span class="line">find /etc -size 4b -ls				# 后面加上-ls，表示找到文件之后列出详细文件信息</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指定查找的目录深度：<code>-maxdepth</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -maxdepth 3 -name &quot;ifcfg-ens33&quot;		# 在根目录下寻找文件名为 ifcfg-ens33 的文件，最多寻找三层</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按照时间查找：<code>-mtime，-ctime，-atime</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find /etc -mtime +3			# 修改时间超过三天</span><br><span class="line">find /etc -mtime -3			# 修改时间小于3天</span><br><span class="line">find /etc -mtime 3			# 修改时间等于三天</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按文件的属主、属组找：<code>-user，-group</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">find /etc -user dengpangpang					# 属主是dengpangpang的文件</span><br><span class="line">find /etc -group root							# 属组是root的文件</span><br><span class="line">find /etc -nouser								# 用户还存在，在user/passwd文件中删除了记录</span><br><span class="line">find /etc -nouser								# 群组还存在，在/etc/group中删除了记录</span><br><span class="line">find /etc -nouser -o -nogroup -ok rm -rf &#123;&#125; \;	# 找到文件并删除，-ok表示显示确认提示，可替换为-exec不显示提示</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按文件类型找：<code>-type</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">find /etc -type f			# 普通文件</span><br><span class="line">find /etc -type d			# 目录文件</span><br><span class="line">find /etc -type l			# 链接文件</span><br><span class="line">find /etc -type b			# 块设备</span><br><span class="line">find /etc -type c			# 字符设备</span><br><span class="line">find /etc -type s			# 套接字</span><br><span class="line">find /etc -type p			# 管道文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多条件的”和”与”或”：<code>-a</code>和<code>-o</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">并列的多个条件时，-a表示逻辑与，-o表示逻辑或，没有这两个选项，默认是-a</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>find</code>命令结合<code>xargs</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">find /etc -nouser -o -nogroup | xargs rm -rf	# 利用管道符找到文件并删除, rm-rf 原生并不支持管道符，需要加 xargs</span><br><span class="line">find /etc -name &quot;ifcfg-ens33&quot; | xargs -I &#123;&#125; cp -rv &#123;&#125; /test			# 找到文件并复制到另一文件夹</span><br><span class="line">find /etc -name &quot;ifcfg-ens33&quot; | xargs -I &#123;&#125; mv &#123;&#125; /test				# 找到文件并移动到另一文件夹</span><br><span class="line">find /etc -nouser -o -nogroup | xargs -I &#123;&#125; chown root.root &#123;&#125;		# 找到文件并改变文件所有者和所属群组</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="文件的上传下载"><a href="#文件的上传下载" class="headerlink" title="文件的上传下载"></a>文件的上传下载</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><ul>
+<li><p>下载文件到本地：<code>wget</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O [路径] URL</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试能否下载：<code>curl</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o [路径] URL</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把Linux设备上的文件传输到Windows设备：<code>sz</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sz [路径]			# 需要事先安装lszrz包，receive zmodem，zmodem是一种传输协议</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><ul>
+<li><p>把Windows设备上的文件传输到Linux设备上：<code>rz</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rz [路径]			# send zmodem</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="输出与重定向"><a href="#输出与重定向" class="headerlink" title="输出与重定向"></a>输出与重定向</h1><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><ul>
+<li><p>覆盖输出：<code>内容 &gt; 文件</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">把产生的内容覆盖到文件中</span><br><span class="line">比如：ifconfig &gt; /a.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>追加输出：<code>内容 &gt;&gt; 文件</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">把产生的内容追加到文件中</span><br><span class="line">比如：ifconfig &gt;&gt; /a.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>区分内容是否正确：<code>0:标准输出；1: 标准正确输出；2：标准错误输出</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1和2可以把正确和错误的内容分别输出到不同的文件中</span><br><span class="line">比如：ifconfig ensxx 1&gt;a.txt 2&gt;b.txt		# 正确的内容输出到a.txt中，错误的结果输出到b.txt中。注意：数字和&gt;之间不能有空格</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不区分内容是否正确：<code>&amp;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig ensxx &amp;&gt; a.txt						# 不区分内容是否正确，全都输出到a.txt中</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>输出到文件中并且打印到屏幕上：<code>tee</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig | tee a.txt					</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><ul>
+<li><p>从文件输入：<code>&lt;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; a.txt &lt; /etc/hostname			# 把文件的内容输入到a.txt中</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从键盘输入：<code>&lt;&lt;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; a.txt &lt;&lt; EOF					# 把键盘的内容输入到a.txt中</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h1><ul>
+<li><p>排序 ：<code>sort</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort [文件]					# 按照文本文件的每行首字母的ASCII顺序升序排序</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort -t &quot;:&quot; -k2 [文件]		# -t &quot;:&quot; 表示将文本文件的每行内容按照 : 分段，-k2 代表按照第二段的首字母排序</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort -t &quot;:&quot; -k2 -n [文件]		# -n 表示将每行的第二段看作一个整数，按照整数的自然数大小排序升序排序</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort -t &quot;:&quot; -k2 -n -r [文件]		# -n 表示将每行的第二段看作一个整数，-r 表示按照整数的自然数大小排序降序排序</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>去重：<code>uniq</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uniq [文件]				# 将文本文件中重复的行删除，即去重</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uniq -c [文件]			# -c 表示在每行的行首，将每行重复的次数显示出来</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uniq -d [文件]			# -d 表示只显示重复的行</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uniq -u [文件]			# -u 表示只显示不重复的行</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uniq通常与sort联用，排序后去重</span><br><span class="line">比如：sort [文件] | uniq </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分割文件：<code>cut</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cut -d &quot;:&quot; -f1 [文件]						# -d &quot;:&quot; 表示以 : 为分隔符，-f1 表示显示第一段</span><br><span class="line">head -10 [文件] | cut -d &quot;:&quot; -f1-3		# cut支持管道符，-f1-3表示显示前三段，-f1,3表示显示第一段和第三段</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>替换：<code>tr</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tr [文件] &quot;xxx&quot; &quot;yyy&quot;							# 把文件中的 xxx 替换为 yyy</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tr 支持管道符</span><br><span class="line">比如： echo &quot;123&quot; | tr &quot;123&quot; &quot;456&quot;				# 需要注意的是，tr 并不是整体替换，而是将对应字符分别替换		</span><br><span class="line">比如： head -5 /etc/passwd | tr -d &quot;root&quot;		# -d 表示直接删除</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>统计：<code>wc</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wc -c [文件]			# 统计文件的字符数</span><br><span class="line">wc -l [文件]			# 统计文件的行数</span><br><span class="line">wc -w [文件]			# 统计文件的单词数，默认以空格为分隔符</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wc 支持管道符</span><br><span class="line">比如：ps aux | wc -l	# 统计系统中运行的进程数</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="打包压缩"><a href="#打包压缩" class="headerlink" title="打包压缩"></a>打包压缩</h1><h2 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h2><ul>
+<li><p>打包：<code>tar c</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar cvf [文件名] 文件1 文件2 文件3			# cvf都是选项，c表示新建一个打包文件，v表示显示打包细节，f表示给打包文件命名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解包：<code>tar x</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvf [包名] -C [目录]					# 可以解包，也可以解压，默认解压到当前目录，-C 表示解压到指定目录</span><br></pre></td></tr></table></figure>
+
+<p>了解：<code>tar x</code>的解包分为解压和拆包两个动作，解压的过程会调用<code>gunzip</code>和<code>bunzip2</code>两种解压工具，前者针对<code>gzip</code>压缩包，后者针对<code>bzip2</code>压缩包。</p>
+</li>
+<li><p>压缩：<code>gzip</code>和<code>bzip2</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gizp [文件]								# 生成一个压缩文件，后缀名为gz</span><br><span class="line">打包和压缩可以合并为一个命令：</span><br><span class="line">tar cvzf [文件名] 文件1 文件2 文件3			# gzip 变为 tar 命令的一个选项 z，与其他选项合并为cvzf	</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bzip2 [文件]								# 与 gzip 的用法相同，生成一个后缀名为bz2的压缩文件</span><br><span class="line">与tar合并为一个命令：</span><br><span class="line">tar cvjf [文件名] 文件1 文件2 文件3			# bzip2 变为 tar 命令的一个选项 j，与其他选项合并为cvzf</span><br></pre></td></tr></table></figure>
+
+<p>补充：以当前时间命名压缩包文件名，完成文件打包：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar cvzf `date &quot;+%Y_%m_%d_%H_%M_%S&quot;`_etc_bak.tar.gz  /etc/		# ` ` 表示取其内部的命令结果</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h2><ul>
+<li><p>压缩：<code>zip</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zip [文件名] 文件1 文件2 文件3				# 一般指定 .zip 结尾</span><br><span class="line">zip -r [文件名] [目录]						# -r 表示递归，打包压缩目录中所有内容</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压：<code>unzip</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip [包名] -d [路径]						# -d 表示指定解压后的路径</span><br></pre></td></tr></table></figure></li>
+</ul>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-20</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

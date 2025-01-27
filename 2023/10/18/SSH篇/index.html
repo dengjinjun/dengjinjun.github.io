@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="SSH篇" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            SSH篇
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SSH%E5%9B%BE%E8%A7%A3"><span class="post-toc-text">SSH图解</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="post-toc-text">相关命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AF%86%E9%92%A5%E8%AE%A4%E8%AF%81"><span class="post-toc-text">密钥认证</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%89%B9%E9%87%8F%E7%AE%A1%E7%90%86"><span class="post-toc-text">批量管理</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>SSH：Secure Shell Protocol 。SSH是远程连接，管理Linux机器的服务，属于TCP&#x2F;IP协议簇，传输过程中，数据是加密的，默认端口22。</p>
+<p>SSH服务端的功能包括SSH远程连接和SFTP服务等</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rpm -ql openssh-server			<span class="comment"># 查看ssh服务端的重要内容，以下仅列出常用</span></span><br><span class="line"></span><br><span class="line">/etc/ssh/sshd_config			<span class="comment"># ssh服务端的配置文件</span></span><br><span class="line">/usr/lin/systemd/system/sshd.service		<span class="comment"># sshd服务的启动文件</span></span><br><span class="line">/usr/libexec/openssh/sftp-server	<span class="comment"># sftp服务</span></span><br><span class="line">/usr/sbin/sshd						<span class="comment"># sshd服务</span></span><br><span class="line">/usr/sbin/sshd-keygen				<span class="comment"># 生成密钥的工具</span></span><br></pre></td></tr></table></figure>
+
+<p>SSH客户端包括ssh远程连接命令、scp远程拷贝命令、sftp连接命令等。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rpm -ql openssh-clients			<span class="comment"># 查看ssh客户端命令，以下是常用命令</span></span><br><span class="line"></span><br><span class="line">/etc/ssh/ssh_config		<span class="comment"># ssh客户端的配置文件</span></span><br><span class="line">/usr/bin/scp			<span class="comment"># scp命令，全量加密远程拷贝文件</span></span><br><span class="line">/usr/bin/sftp			<span class="comment"># sftp命令</span></span><br><span class="line">/usr/bin/ssh			<span class="comment"># 远程连接命令</span></span><br><span class="line">/usr/bin/ssh-copy-id	<span class="comment"># 拷贝密钥中的公钥文件命令</span></span><br></pre></td></tr></table></figure>
+
+<p>另外还有openssl软件包，负责加密的相关命令和服务。</p>
+<h3 id="SSH图解"><a href="#SSH图解" class="headerlink" title="SSH图解"></a>SSH图解</h3><p><a href="/../pic/TB1A1DHJVXXXXXMXFXXXXXXXXXX.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/TB1A1DHJVXXXXXMXFXXXXXXXXXX.png" alt="img"></a></p>
+<h3 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h3><blockquote>
+<p>SSH相关命令</p>
+</blockquote>
+<ul>
+<li><p>远程连接主机</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -p 端口号 用户名@主机IP			<span class="comment"># 远程连接主机的命令</span></span><br><span class="line">ssh 主机IP						<span class="comment"># [-p 端口号]可省略，默认使用22端口，[用户名@]省略，默认root</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>远程执行命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh 主机IP 命令						<span class="comment"># 默认root连接</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>SCP相关命令</p>
+</blockquote>
+<p>SCP类似于rsync，分为推和拉两个动作，命令也和rsync比较相似。区别是SCP 是加密和全量。</p>
+<ul>
+<li><p>scp选项</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-P		指定端口</span><br><span class="line">-p		复制属性</span><br><span class="line">-r		递归拷贝</span><br><span class="line">-l		限制速度</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>scp推送</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp -P 22 -rp [本地目录] 用户名@主机IP:[远程目录]</span><br><span class="line">scp -P 22 -rp /data/ root@192.168.1101.35:/backup		<span class="comment"># 举例</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>scp拉取</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp -P 22 -rp 用户名@主机IP:[远程目录] [本地目录]</span><br><span class="line">scp -P 22 -rp root@192.168.110.135:/backup /data		<span class="comment"># 举例</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>SFTP相关命令</p>
+</blockquote>
+<p>SFTP是加密的FTP服务，区别是加密，以及SFTP的缺点是默认不能锁定某个目录。</p>
+<p>常用的图像化sftp软件：winscp，flashftp</p>
+<ul>
+<li><p>sftp连接</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sftp -oPort=端口号 用户名@主机IP		<span class="comment"># SFTP远程连接</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>sftp上传和下载</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">put <span class="string">&quot;/etc/host&quot;</span>			<span class="comment"># 上传本地文件到远端的家目录</span></span><br><span class="line">put /etc/host /tmp		<span class="comment"># 上传本地文件到远端的/tmp目录</span></span><br><span class="line">get /etc/yum.conf		<span class="comment"># 将远端文件下载到本地家目录</span></span><br><span class="line">get /etc/yum.conf /etc	<span class="comment"># 将远端文件下载到本地的/etc目录下</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><blockquote>
+<p>优化ssh配置</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config		<span class="comment"># 编辑ssh服务端配置文件，以下配置可以优化</span></span><br><span class="line"></span><br><span class="line">Port 52113						<span class="comment"># 使用大于10000的端口</span></span><br><span class="line">PermitRootLogin	no				<span class="comment"># 禁止root远程登录</span></span><br><span class="line">PermitEmptyPassword no			<span class="comment"># 禁止空密码登录</span></span><br><span class="line">UseDNS no						<span class="comment"># 不使用DNS解析</span></span><br><span class="line">GSSAPIAuthentication no			<span class="comment"># 提升连接速度</span></span><br><span class="line">ListenAddress 192.168.110.35	<span class="comment"># 只允许特定IP登录 </span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>防止Linux SSH入侵</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1. 使用密钥登录，不用密码登录</span><br><span class="line">2. 防火墙封闭非对外的服务，限制IP访问</span><br><span class="line">3. 更改默认端口，禁止root远程连接</span><br><span class="line">4. 直接禁止SSH直接远程，只能登录VPN再连接</span><br><span class="line">5. 尽量不给Linux服务器外网IP</span><br><span class="line">6. 各种最小化原则（包括软件安装、服务开启、授权等）</span><br><span class="line">7. 给系统的重要文件和命令做指纹，方便随时比对是否被篡改</span><br><span class="line">8. 给核心文件加锁</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="密钥认证"><a href="#密钥认证" class="headerlink" title="密钥认证"></a>密钥认证</h3><p><a href="/../pic/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1Rob21hc19DWVE=,size_16,color_FFFFFF,t_70.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1Rob21hc19DWVE=,size_16,color_FFFFFF,t_70.png" alt="img"></a></p>
+<ul>
+<li><p>客户端</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-kergen					<span class="comment"># 生成私钥和公钥文件，如有必要可设置私钥密码（自定义，加强私钥安全性）</span></span><br><span class="line"><span class="built_in">ls</span> /root/.ssh/				<span class="comment"># 在此查看生成的私钥和公钥文件 id_rsa 和 id_rsa.pub</span></span><br><span class="line">ssh-copy-id -i 服务端IP	  <span class="comment"># 把公钥发送给服务端，需要输入一次服务端root账号的密码</span></span><br><span class="line">ssh root@服务端IP			  <span class="comment"># 连接服务端，可以不登录root，登录其他用户。如果设置的私钥密码需要输入一次私钥密码</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>服务端</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> /root/.ssh				<span class="comment"># 查看客户端发来的公钥文件 authorized_keys，权限为600，/root/.ssh 文件夹权限为700</span></span><br><span class="line">vim /etc/ssh/sshd_config	<span class="comment"># 编辑ssh配置文件</span></span><br><span class="line">PasswordAuthentication no	<span class="comment"># 添加此行，表示不允许使用账号密码登录，只允许使用密钥 登录</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Xshell使用密钥连接服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">工具--&gt;新建用户密钥生成向导--&gt;在服务器的/root/.ssh目录下新建 authorized_keys 文件，将生成的公钥复制进去--&gt;将登录方法改为public key</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="批量管理"><a href="#批量管理" class="headerlink" title="批量管理"></a>批量管理</h3><p>当一台管理机需要管理数量众多的机器时，可以使用ssh远程连接并批量管理，比如：</p>
+<blockquote>
+<p>重启所有机器</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vim /server/scripts/cmd.sh		<span class="comment"># 新建一个脚本文件，添加以下内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> 5 6 7 8 9</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;======192.168.110.<span class="variable">$n</span>======&quot;</span></span><br><span class="line">	ssh 192.168.110.<span class="variable">$n</span> <span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">/server/scripts/cmd.sh reboot		<span class="comment"># 执行此脚本，所有机器将重启</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>分发文件</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">. /etc/init.d/functions</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> -ne 2 ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;usage:sh <span class="variable">$0</span> localfile remotedir&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> $(<span class="built_in">cat</span> /tmp/ip.conf)</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    scp -P 22 -rp <span class="string">&quot;<span class="variable">$1</span>&quot;</span> <span class="string">&quot;root@192.168.110.13<span class="variable">$n</span>:<span class="variable">$2</span>&quot;</span> &amp;&gt;/dev/null</span><br><span class="line">    <span class="keyword">if</span> [ $? -eq 0 ]</span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">        action <span class="string">&quot;192.168.110.13<span class="variable">$n</span>&quot;</span> /bin/true</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        action <span class="string">&quot;192.168.110.13<span class="variable">$n</span>&quot;</span> /bin/false</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-18</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

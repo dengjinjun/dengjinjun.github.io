@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="深入Pod调度机制" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            深入Pod调度机制
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%B7%B1%E5%85%A5Pod%E8%B0%83%E5%BA%A6"><span class="post-toc-text">深入Pod调度</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NodeName"><span class="post-toc-text">NodeName</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NodeSelector"><span class="post-toc-text">NodeSelector</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%B2%E5%92%8C%E6%80%A7%E5%92%8C%E5%8F%8D%E4%BA%B2%E5%92%8C%E6%80%A7"><span class="post-toc-text">亲和性和反亲和性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8A%82%E7%82%B9%E4%BA%B2%E5%92%8CnodeAffinity"><span class="post-toc-text">节点亲和nodeAffinity</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Pod%E4%BA%B2%E5%92%8CpodAffinity"><span class="post-toc-text">Pod亲和podAffinity</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Pod%E5%8F%8D%E4%BA%B2%E5%92%8CpodAntiAffinity"><span class="post-toc-text">Pod反亲和podAntiAffinity</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%8B%93%E6%89%91%E5%9F%9F"><span class="post-toc-text">拓扑域</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D"><span class="post-toc-text">污点和容忍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B1%A1%E7%82%B9taint"><span class="post-toc-text">污点taint</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%B9%E5%BF%8D%E5%BA%A6tolerations"><span class="post-toc-text">容忍度tolerations</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Pod%E9%A9%B1%E9%80%90%E6%97%B6%E9%97%B4"><span class="post-toc-text">Pod驱逐时间</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Pod%E5%9D%87%E5%8C%80%E8%B0%83%E5%BA%A6"><span class="post-toc-text">Pod均匀调度</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9D%87%E5%8C%80%E8%B0%83%E5%BA%A6%E6%96%B9%E6%A1%88"><span class="post-toc-text">均匀调度方案</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#descheduler"><span class="post-toc-text">descheduler</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PDB%E7%AD%96%E7%95%A5"><span class="post-toc-text">PDB策略</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Pod%E6%8A%A2%E5%8D%A0"><span class="post-toc-text">Pod抢占</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Pod%E9%A9%B1%E9%80%90"><span class="post-toc-text">Pod驱逐</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8A%82%E7%82%B9%E4%B8%8D%E5%8F%AF%E7%94%A8%E9%A9%B1%E9%80%90"><span class="post-toc-text">节点不可用驱逐</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8A%82%E7%82%B9%E5%8E%8B%E5%8A%9B%E9%A9%B1%E9%80%90"><span class="post-toc-text">节点压力驱逐</span></a></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="深入Pod调度"><a href="#深入Pod调度" class="headerlink" title="深入Pod调度"></a>深入Pod调度</h1><h2 id="NodeName"><a href="#NodeName" class="headerlink" title="NodeName"></a>NodeName</h2><p>最直白的调度方式，在Pod的资源清单中指定Node的名字，跳过kube-scheduler的调度逻辑，强制将Pod调度到指定的物理节点上。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">nodeName:</span> <span class="string">k8s.node1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="NodeSelector"><a href="#NodeSelector" class="headerlink" title="NodeSelector"></a>NodeSelector</h2><p>节点选择器，首先通过kubernetes的label-selector机制进行节点选择，把Pod调度到指定的具有匹配标签的物理节点上，之后再由kube-scheduler根据调度算法从匹配的Node中挑选一个可用的Node。比如：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">nodeSelector:</span></span><br><span class="line">    <span class="attr">disk:</span> <span class="string">ssd</span></span><br></pre></td></tr></table></figure>
+
+<p>如果没有节点具有指定的标签，将直接调度失败。</p>
+<p>补充：nodeSelector当前还在继续使用，但随着节点亲和性和反亲和性越来越能体现nodeSelector所具备的功能，最终nodeSelector会被遗弃。</p>
+<h2 id="亲和性和反亲和性"><a href="#亲和性和反亲和性" class="headerlink" title="亲和性和反亲和性"></a>亲和性和反亲和性</h2><p>实际业务场景中，总有一些彼此依赖的服务，需要调度到同一个地方，即它们是亲和的，于是有了亲和性；同时考虑到冗余性，也需要将一些服务调度到不同的地方，于是有了反亲和性。</p>
+<p>亲和性和反亲和性都是通过标签选择器实现的。</p>
+<p>有些场景下，有些服务必须是亲和的，即它们<strong>必须在一起</strong>；或者<strong>必须分开</strong>；而有些场景下，并不是硬性要求，只是为了达到更好的效果，它们只要尽量在一起，或者尽量分开一点。于是有了两种策略：</p>
+<ul>
+<li><p>硬策略 </p>
+<p>Pod的调度必须满足规则，如果不满足，Pod将无法调度，一直处于Pending状态。</p>
+</li>
+<li><p>软策略</p>
+<p>在Pod调度时，可以尽量满足其规则，在无法满足规则时，也可以调度到一个不匹配规则的节点上，并且可以设置不同规则的权重。</p>
+</li>
+</ul>
+<p>为了更灵活地满足各种亲和以及反亲和的场景，kubernetes还将亲和性分为两种维度：</p>
+<ul>
+<li><p>节点维度</p>
+<p>标签选择器选择的是节点的标签</p>
+</li>
+<li><p>Pod维度</p>
+<p>标签选择器选择的是Pod的标签</p>
+</li>
+</ul>
+<h3 id="节点亲和nodeAffinity"><a href="#节点亲和nodeAffinity" class="headerlink" title="节点亲和nodeAffinity"></a>节点亲和nodeAffinity</h3><p>软硬策略可以同时存在，也可以只存在于一个，比如：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">affinity:</span></span><br><span class="line">    <span class="attr">nodeAffinity:</span></span><br><span class="line">      <span class="attr">requiredDuringSchedulingIgnoredDuringExecution:</span>	<span class="comment"># 硬策略</span></span><br><span class="line">        <span class="attr">nodeSelectorTerms:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">matchExpressions:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">kubernetes.io/e2e-az-name</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">e2e-az1</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">e2e-az2</span></span><br><span class="line">      <span class="attr">preferredDuringSchedulingIgnoredDuringExecution:</span>	<span class="comment"># 软策略</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">weight:</span> <span class="number">1</span>		<span class="comment"># 软策略可以设置权重，权重值高的规则会优先匹配</span></span><br><span class="line">        <span class="attr">preference:</span></span><br><span class="line">          <span class="attr">matchExpressions:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">another-node-label-key</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">another-node-label-value</span></span><br></pre></td></tr></table></figure>
+
+<p>节点亲和支持以下操作符：</p>
+<ul>
+<li>In：Label值在某个列表中</li>
+<li>NotIn：Label值不在某个列表中</li>
+<li>Gt：Label值大于某个值</li>
+<li>Lt：Label值小于某个值</li>
+<li>Exists：某个Label的key存在即可</li>
+<li>DoesNotExist：某个Label的key不存在</li>
+</ul>
+<p>注意：</p>
+<ol>
+<li><p>无论是软策略( <code>preferredDuringSchedulingIgnoredDuringExecution</code> )还是硬策略( <code>requiredDuringSchedulingIgnoredDuringExecution</code> )，它们的名字后面都有一个 <code>IgnoredDuringExecution</code>：在Pod执行阶段被忽略，意思是亲和性和反亲和性都只是在Pod的调度阶段被考虑，在Pod的执行过程汇总被忽略，意味着在Pod调度到节点后，即使发生了标签变化等事件，导致其他Pod与该Pod的亲和性或反亲和性规则不再满足，Kubernetes也不会因为这些规则而重新调度或迁移该Pod。</p>
+</li>
+<li><p>在nodeAffinity的nodeSelectorTerms中，如果设置了多条matchExpressions，那么只需要满足其一即可；如果是在一条matchExpressions中设置了多条规则，需要同时满足。</p>
+</li>
+<li><p>在节点维度并没有反亲和的字段，因为使用NotIn、DoesNotExist的操作符就可以实现反亲和的功能了。</p>
+</li>
+</ol>
+<h3 id="Pod亲和podAffinity"><a href="#Pod亲和podAffinity" class="headerlink" title="Pod亲和podAffinity"></a>Pod亲和podAffinity</h3><p>Pod亲和与节点亲和大致逻辑相同但略有差别，比如：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">affinity:</span></span><br><span class="line">    <span class="attr">podAffinity:</span></span><br><span class="line">      <span class="attr">requiredDuringSchedulingIgnoredDuringExecution:</span>	<span class="comment"># 硬策略</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">labelSelector:</span></span><br><span class="line">          <span class="attr">matchExpressions:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">security</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">S1</span></span><br><span class="line">        <span class="attr">topologyKey:</span> <span class="string">kubernetes.io/hostname</span>		<span class="comment"># 拓扑域，后文详解</span></span><br><span class="line">        <span class="comment">#namespaces:</span></span><br><span class="line">          <span class="comment">#- kube-system</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li>在podAffinity中可以指定命名空间，意思是在指定的命名空间下去匹配Pod的标签，如果不指定的话，默认在当前Pod的命名空间下匹配。</li>
+<li>上面例子中，表示新Pod会被调度到一个带有security&#x3D;s1标签的Pod的节点。但准确的说法是，新Pod会被调度到一个带有security&#x3D;s1标签的Pod的拓扑域中，此时topologyKey的值kubernetes.io&#x2F;hostname，代表节点，所以上面的说法成立。有些情况下并不一定是以节点为单位的。</li>
+</ol>
+<h3 id="Pod反亲和podAntiAffinity"><a href="#Pod反亲和podAntiAffinity" class="headerlink" title="Pod反亲和podAntiAffinity"></a>Pod反亲和podAntiAffinity</h3><p>Pod的反亲和也很好理解，把上面Pod亲和性例子中的<code>podAffinity</code>字段换成<code>podAntiAffinity</code>即可，代表新Pod一定不会被调度到一个带有security&#x3D;s1标签的Pod的拓扑域中。</p>
+<h3 id="拓扑域"><a href="#拓扑域" class="headerlink" title="拓扑域"></a>拓扑域</h3><p>拓扑域的名号听起来比较高深，本质上也只是一个标签，跟其他的标签并没有什么不同。</p>
+<p>虽然技术上并没有什么本质区别，但我们仍然需要一个拓扑域的概念，因为在集群规模比较大的情况下， 我们需要进行跨集群、跨机房、跨地域的调度，比如集群中有10台节点具有标签zone&#x3D;shanghai，另外10台节点具有标签zone&#x3D;beijing，那么它们组成了两个拓扑域。</p>
+<p>如果在Pod亲和性中指定了<code>topologyKey: zone</code>，代表以zone为拓扑域，恰好shanghai的拓扑域的10台节点中存在符合规则的Pod，而beijing的拓扑域中不存在这样的Pod，那么这个Pod就会被调度的shanghai拓扑域中的这10台节点中的某一台，具体会调度到这10台的哪一台上面，还要根据设置的其他规则来决定。</p>
+<h2 id="污点和容忍"><a href="#污点和容忍" class="headerlink" title="污点和容忍"></a>污点和容忍</h2><p>在有些场景下，我们可能希望专门的节点有专门的用途，也就是说，某些特殊节点专门留给某些特定Pod使用，虽然说通过NodeSelector也可以实现类似的功能，但是NodeSelector只能实现特定Pod能够调度到特殊节点上，并不能保证其他的Pod不会调度到这些特殊节点上。于是有了污点和容忍度的概念。</p>
+<h3 id="污点taint"><a href="#污点taint" class="headerlink" title="污点taint"></a>污点taint</h3><p>污点(taints)是定义在节点上的一组键值型属性数据，污点并不是一个键值，而是一个键值型属性数据，它是依附于键值的（依附于某一标签），用来让节点拒绝Pod调度，除非这些Pod具有容纳相应污点的容忍度(tolerations)。</p>
+<p>为节点打上污点：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl taint nodes &lt;nodeName&gt; key=value:effect</span><br><span class="line">kubectl taint nodes &lt;nodeName&gt; key=:effect		<span class="comment"># value值可以省略，代表空值</span></span><br></pre></td></tr></table></figure>
+
+<p>为节点去除污点</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl taint nodes &lt;nodeName&gt; key=value:effect-</span><br><span class="line">kubectl taint nodes &lt;nodeName&gt; key-		<span class="comment"># 直接删除键名，也包括其污点</span></span><br></pre></td></tr></table></figure>
+
+<p>污点有三种类型：</p>
+<ul>
+<li><p>PreferNoSchedule</p>
+<p>尽量不被调度，属于软策略，如果没有其他满足要求的节点，也可以被调度在上面。</p>
+</li>
+<li><p>NoSchedule</p>
+<p>一定不被调度，除非Pod具备相应的Tolerations，但是现存的Pod不受影响。</p>
+</li>
+<li><p>NoExecute</p>
+<p>不允许运行，只有具有相应Tolerations的Pod可以被调度在上面，并且该节点上没有对应Tolerations的Pod都会被驱逐出去。</p>
+</li>
+</ul>
+<h3 id="容忍度tolerations"><a href="#容忍度tolerations" class="headerlink" title="容忍度tolerations"></a>容忍度tolerations</h3><p>容忍度是定义在Pod的资源清单中的，比如：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">tolerations:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">&quot;node-role.kubernetes.io/master&quot;</span></span><br><span class="line">    <span class="attr">operator:</span> <span class="string">&quot;Equal&quot;</span></span><br><span class="line">    <span class="attr">value:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="attr">effect:</span> <span class="string">&quot;NoSchedule&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>容忍度具有四个字段:</p>
+<ul>
+<li>key：匹配键名，如果key是空值，代表匹配所有的键名</li>
+<li>operator：操作符，有两种：<ul>
+<li>Equal：等值比较，必须完全匹配key、value和effect，如果不指定operator，默认为Equal</li>
+<li>Exists：存在判断，key和effect必须完全匹配，此时value为空值，代表匹配所有的键值</li>
+</ul>
+</li>
+<li>value：键值，为空代表匹配所有的键值</li>
+<li>effect：污点，匹配Node中定义的污点，如果effect为空值，代表匹配所有的污点</li>
+</ul>
+<h3 id="Pod驱逐时间"><a href="#Pod驱逐时间" class="headerlink" title="Pod驱逐时间"></a>Pod驱逐时间</h3><p>在Pod的容忍度字段中，如果effect定义了<code>NoExecute</code>，那么还需要定义一个字段<code>tolerationSeconds</code>，它的意思是驱逐时间，代表在指定的时间过后才会被驱逐。</p>
+<p>此时会有一个疑问，既然Pod具备了相应的容忍度，为什么还会被驱逐呢？既然要驱逐，为什么不是立刻驱逐，反而要设定一个驱逐时间，过了指定的时间后才驱逐？</p>
+<p>这是因为<code>NoExecute</code>这种污点通常并不是我们手动添加的，而是在节点挂掉或者节点上的kubelet挂掉时，kubernetes自动给节点添加的，此时该节点上的Pod一定会被驱逐出去，这就是第一个疑问的答案。</p>
+<p>当上述情况发生之后，Pod会被驱逐到其他节点上，但是仍然可能会有一些具备<code>NoExecute</code>容忍度的Pod，再次被调度到该节点上，然后又会发生驱逐，然后Pod再次被调度到该节点上，陷入死循环。此时设置<code>tolerationSeconds</code>就很有必要了，它可以让Pod不会被快速驱逐，而是在指定的时间内继续留在该节点上，避免因为kubelet挂掉等临时性问题，导致重要服务频繁异常波动。</p>
+<p>基于上面的场景，kubernetes会自动为Pod添加下面两种Toleration:</p>
+<ul>
+<li>key为node.kubernetes.io&#x2F;not-read，并配置tolerationSeconds&#x3D;300</li>
+<li>key为node.kubernetes.io&#x2F;unreachable，并配置tolerationSeconds&#x3D;300</li>
+</ul>
+<p>上面的Pod驱逐时间都是在kube-apiserver中定义的</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">$</span> <span class="string">vim</span> <span class="string">/etc/kubernetes/manifests/kube-apiserver.yam1</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">command:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">kube-apiserver</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--default-not-ready-toleration-seconds=30</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">--default-unreachable-toleration-seconds=30</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Pod均匀调度"><a href="#Pod均匀调度" class="headerlink" title="Pod均匀调度"></a>Pod均匀调度</h2><p><strong>Pod均匀调度</strong>的意思是：让同一服务分散到不同的拓扑域中。之前的所有调度方案，无论是亲和或者反亲和，都是相对极端的方案，要么集中，要么互斥。无法让Pod均匀分布到所有的拓扑域中。</p>
+<p>均匀调度并不是空想出来的需求，相反，同一服务在不同机房或者地域的均匀分布是实现容灾和高可用的核心，将业务 Pod 尽可能均匀的分布在不同可用拓扑域中是非常重要的。</p>
+<h3 id="均匀调度方案"><a href="#均匀调度方案" class="headerlink" title="均匀调度方案"></a>均匀调度方案</h3><p>在kubernetes 1.16版本中首次引入了 Even Pod Spreading 特性，通过识别拓扑域属性，设置参数 <code>topologySpreadConstraints</code>来将Pod调度到不同的拓扑域。该特性在kubernetes 1.18版本中提升到beta阶段并默认启用，在此之前需要手动启用。具体使用方法如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">topologySpreadConstraints:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">maxSkew:</span> <span class="string">&lt;integer&gt;</span></span><br><span class="line">      <span class="attr">topologyKey:</span> <span class="string">&lt;string&gt;</span></span><br><span class="line">      <span class="attr">whenUnsatisfiable:</span> <span class="string">&lt;string&gt;</span></span><br><span class="line">      <span class="attr">labelSelector:</span> <span class="string">&lt;object&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>具体字段的解释如下：</p>
+<ul>
+<li>maxSkew：最大偏离值，<code>skew = 当前拓扑域中存在的具备选定标签的Pod个数 - 所有拓扑域中具备选定标签的Pod的最小个数</code>，所有的拓扑域的skew值都不可以超过这个maxSkew值，达到均匀分布的效果。</li>
+<li>topologyKey：拓扑域，指定以哪个拓扑域作为均匀调度的维度。</li>
+<li>whenUnsatisfiable：当不满足均匀调度策略时，要不要继续调度</li>
+<li>labelSelector：所选标签的键值，会从所有拓扑域中计算符合该标签的Pod个数用于计算skew值。</li>
+</ul>
+<h3 id="descheduler"><a href="#descheduler" class="headerlink" title="descheduler"></a>descheduler</h3><p>虽然kubernetes中提供了均匀调度的机制，但是仍然存在局限性，比如它会把具有污点的节点上运行着的具备对应容忍度的Pod也考虑在内，而实际场景下这种Pod往往是作为特殊情况处理的，再比如均匀调度也只是再新建并调度Pod时生效，如果所见某Deployment中Pod的规模导致分布不再均匀，这时均匀调度机制无法自动调谐；再比如停机维护某个节点，事先驱逐排空了所有的Pod，维护完成之后，Pod并不会自动回到原来的节点上，以上等等场景，都会导致集群在一段时间内处于不均衡的状态。</p>
+<p>为了真正解决上述问题，可以引入一个均衡器 descheduler，它会对集群内的Pod进行调度优化，以解决实际运行过程中集群资源无法充分利用的问题。</p>
+<p>descheduler的核心原理时根据其配置的策略，找到应该被移除的Pod然后驱逐它们，从而触发Pod的重新调度。也就是说，<strong>descheduler本身并不会参与调度，它的作用是驱逐Pod</strong>，被驱逐的Pod会由默认的调度器重新调度。</p>
+<p>部署descheduler</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># helm方式部署，添加descheduler仓库</span></span><br><span class="line">helm repo add descheduler https://kubernetes-sigs.github.io/descheduler/</span><br><span class="line"><span class="comment"># 部署，默认是以cronjob的方式运行，并且会关联一个system-cluster-critical的优先级类</span></span><br><span class="line">helm upgrade --install descheduler/descheduler --<span class="built_in">set</span></span><br><span class="line"><span class="comment"># 查看</span></span><br><span class="line">helm -n kube-system list</span><br></pre></td></tr></table></figure>
+
+<p>查看descheduler的资源清单，可以发现其中定义的一些规则</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">plugins:</span> <span class="comment"># 启用的相关插件/策略</span></span><br><span class="line"><span class="attr">balance:</span></span><br><span class="line">  <span class="attr">enabled:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">RemoveDuplicates</span>  <span class="comment"># 删除调度到同一节点上的相同Pod (通常指具有相同Pod Template Hash的Pod)</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">RemovePodsViolatingTopologySpreadConstraint</span> <span class="comment"># 移除违反拓扑分布约束(Topology Spread Constraints)的Pod，以确保Pod在集群中分布更加均匀。</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">LowNodeUtilization</span> <span class="comment"># 将工作负载从资源利用率低的节点迁移到其他节点，以释放资源或关闭低利用率节点。</span></span><br><span class="line"><span class="attr">deschedule:</span></span><br><span class="line">  <span class="attr">enabled:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">RemovePodsHavingTooManyRestarts</span> 	<span class="comment"># 移除因频繁重启而可能存在问题的 Pod。</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">RemovePodsViolatingNodeTaints</span> 	<span class="comment"># 移除违反节点污点(Node Taints)规则的Pod。</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">RemovePodsViolatingNodeAffinity</span> <span class="comment"># 移除违反节点亲和性(Node Affinity)规则的Pod。</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">RemovePodsViolatingInterPodAntiAffinity</span> <span class="comment"># ：移除违反Pod反亲和性(Anti-Affinity)规则的Pod。</span></span><br></pre></td></tr></table></figure>
+
+<p>使用descheduler的注意事项：</p>
+<ul>
+<li><p>关键性 Pod 不会被驱逐，比如 <code>priorityClassName</code> 设置为 <code>system-cluster-critical</code> 或 <code>system-node-critical</code> 的 Pod。</p>
+</li>
+<li><p>只有 ReplicaSet、Deployment 或 Job 管理的 Pod 会被驱逐，其他控制器比如DaemonSet、StatefulSet管理的Pod不会被驱逐。</p>
+</li>
+<li><p>使用 <code>LocalStorage</code> 的 Pod 不会被驱逐，除非设置了 <code>evictLocalStoragePods: true</code></p>
+</li>
+<li><p>具有 PVC 的 Pods 不会被驱逐，除非设置 <code>ignorePvcPods: true</code></p>
+</li>
+<li><p>Pod是按照优先级进行驱逐的，参考Qos质量等级划分。</p>
+</li>
+<li><p><code>annotations</code> 中带有 <code>descheduler.alpha.kubernetes.io/evict</code> 字段的 Pod 都可以被驱逐，该注释用于覆盖阻止驱逐的检查。</p>
+</li>
+<li><p>如果驱逐违反 PDB 约束，则不会驱逐这类 Pod。如果 Pod 驱逐失败，可以设置 <code>--v=4</code> 从 <code>descheduler</code> 日志中查找原因。</p>
+</li>
+</ul>
+<h3 id="PDB策略"><a href="#PDB策略" class="headerlink" title="PDB策略"></a>PDB策略</h3><p>但凡涉及驱逐，一定是有风险的，比如对于单副本的Pod，一旦被驱逐服务就中断了。即便是多副本的Pod，也仍有可能多个Pod都被驱逐，出现服务中断情况，这时候需要引入PDB策略。</p>
+<p>PDB，<code>Pod Disruption Budget</code> (pod中断预算) ，设置一个最大不可用的Pod数，或者最小可用的Pod数，如果发生终止pod的情况，需要先通过 labelSelector 机制获取正常运行的pod数目，避免所有的Pod同时不可用。比如</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">policy/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PodDisruptionBudget</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">zk-pdb</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">minAvailable:</span> <span class="number">1</span>	<span class="comment"># 设置最小的可用数目，可以使用整数或者百分比</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span>		<span class="comment"># 匹配Pod标签，以此来保护被选中的具备该标签的一组Pod</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">zookeeper</span></span><br></pre></td></tr></table></figure>
+
+<p>如果使用了descheduler来动态平衡集群状态，那么强烈建议给应用创建一个对应的PodDisruptionBudget对象，来对抗descheduler带来的负面效果。</p>
+<h2 id="Pod抢占"><a href="#Pod抢占" class="headerlink" title="Pod抢占"></a>Pod抢占</h2><p>上面介绍了多种Pod调度的策略，实际场景中还会遇到一种情况，就是Pod想要分配到某个节点上，但是该节点的资源不足，然而这些Pod又很重要，不能让它们一直处于Pending状态，此时需要把该节点上一些不太重要的Pod驱逐掉，以便腾出资源给这些重要的Pod使用，为此kubernetes推出了优先级抢占调度。</p>
+<p>抢占(Preemption)：指的是终止低优先级的Pod，以便于高优先级的Pod可以正常调度运行。</p>
+<p>负责优先级抢占调度的组件时kube-scheduler，抢占的依据是Pod的优先级。</p>
+<p>要定义Pod的优先级，需要先定义PriorityClass资源，该资源是跨命名空间的，如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">scheduling.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PriorityClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">high-priority-nonpreempting</span></span><br><span class="line"><span class="attr">value:</span> <span class="number">1000000</span>		<span class="comment"># 优先级，值越大代表优先级越高(超过一亿的数字被保留，用于指派给系统组件)</span></span><br><span class="line"><span class="attr">globalDefault:</span> <span class="literal">false</span>		<span class="comment"># 是否是集群中默认的优先级策略(分配给没有指定优先级的Pod)</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&quot;This priority class will not cause other pods to be preempted.&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>定义了PriorityClass资源之后，在Pod的资源清单中指定<code>priorityClassName</code>即可:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">priorityClassName:</span> <span class="string">high-priority-nonpreempting</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li><p>优先级抢占调度在选择抢占目标时不考虑Qos</p>
+</li>
+<li><p>优先级抢占调度的优先程度高于其他调度规则。</p>
+</li>
+<li><p>如果低优先级的Pod被PDB策略保护，会考虑抢占更高优先级的Pod。</p>
+</li>
+</ol>
+<h2 id="Pod驱逐"><a href="#Pod驱逐" class="headerlink" title="Pod驱逐"></a>Pod驱逐</h2><p>Pod 驱逐（Pod Eviction）是指将 Pod 从当前运行的节点上移除的过程。这个过程可能会导致 Pod 被终止并重新调度到其他节点。 其实在以下两种情况下会发生pod的驱逐：</p>
+<ul>
+<li>节点不可用驱逐</li>
+</ul>
+<p>  节点不可用驱逐是由Kube-controller-manager负责的，Kube-controller-manager会周期性检查所有的节点状态，当节点处于 NotReady 状态超过一段时间后，驱逐该节点上所有 pod。</p>
+<ul>
+<li><p>节点压力驱逐</p>
+<p>节点压力驱逐是由kubelet负责的，kubelet会周期性检查当前节点的资源，当资源不足时，按照pod的Qos等级驱逐部分Pod。</p>
+</li>
+</ul>
+<h3 id="节点不可用驱逐"><a href="#节点不可用驱逐" class="headerlink" title="节点不可用驱逐"></a>节点不可用驱逐</h3><p>节点不可用，可能是由于宕机或者kubelet挂掉引起的，总之一句话就是本节点没有活着的kubelet进程可以上报自己的状态。</p>
+<p>节点不可用判断过程：</p>
+<ol>
+<li><p>每个节点上的 kubelet 定期（默认间隔 10 秒）向 kube-apiserver 上报自身的健康状态、资源使用情况等。</p>
+</li>
+<li><p>节点控制器（node controller，包含在 kube-controller-manager 中）每5秒（node-monitor-period参数）进行一次节点状态检测，主要是通过检查 kube-apiserver 中节点对象的状态信息。</p>
+</li>
+<li><p>当 node 失联一段时间，默认是超过40s（ode-monitor-grace-period 参数）之后，判定该 node 为 Not Ready状态。</p>
+</li>
+<li><p>经过300s的故障自愈时间（ pod-eviction-timeout 参数）之后，node 仍然是失联状态，此时开始触发驱逐。</p>
+<p>注意：在 Kubernetes v1.27 版本中，<code>--pod-eviction-timeout</code> 参数被标记为已弃用，取而代之的是节点挂掉后k8s为节点添加NoExecute的污点，并且在此之前默认为每个pod都添加了容忍且设置了多久后才会驱 逐。</p>
+</li>
+</ol>
+<h3 id="节点压力驱逐"><a href="#节点压力驱逐" class="headerlink" title="节点压力驱逐"></a>节点压力驱逐</h3><p>节点压力驱逐是  kubelet 主动终止 Pod 以回收节点上资源的过程。</p>
+<p>kubelet 会监控集群节点的内存、磁盘空间和文件系统的 inode 等资源。 当这些资源中的一个或者多个达到特定的消耗水平， kubelet 可以主动地使节点上一个或者多个 Pod 失效，以回收资源防止饥饿。</p>
+<p>在k8s集群中，节点最重要的资源包括cpu、内存和磁盘，其中内存和磁盘都属于不可压缩资源，kubelet中设置了一些阈值，比如内存低于多少，磁盘低于多少，就达到了阈值（称为驱逐条件），一旦达到了阈值，kubeket会上报自己的状态，节点控制器会变更这些节点的状态为 <code>MemoryPressure: True</code>或者 <code>DiskPressure: True</code>（称为驱逐信号），然后kubelet会根据自己的驱逐机制，一般是Qos质量等级，来做出驱逐决定和操作。</p>
+<p>驱逐分为软驱逐和硬驱逐：</p>
+<ul>
+<li><p>软驱逐</p>
+<p>软驱逐在 node 的资源达到一定的阈值后，会观察一段时间，如果改善到低于阈值就不进行驱逐，若这段时间一直高于阈值就进行驱逐，软驱逐Kill Pod地时候会设定一个grace-period，等待Pod优雅地退出。软驱逐的一个重要参数是<code>--eviction-pressure-transition-period</code>，也就是宽限期，默认是5分钟，该参数可以防止在某些情况下，避免因短期波动而做出不必要的驱逐决策。</p>
+</li>
+<li><p>硬驱逐简单粗暴，没有宽限期，一旦达到阈值配置，kubelet立马回收关联的短缺资源，将pod kill 掉，而不是优雅终止。</p>
+</li>
+</ul>
+<p>驱逐的优先级：</p>
+<p>当资源紧缺时，驱逐pod的优先级大体为 ： BestEffort &gt; Burstable &gt; Guaranteed，这是大前提</p>
+<ul>
+<li>在 qos&#x3D;BestEffort 的Pod中，消耗最多紧缺资源的 Pod 最先驱逐。</li>
+<li>在 qos&#x3D;Burstable 的Pod中，请求资源量（request值）最多的 Pod 会被驱逐，其次会驱逐资源消耗量最大的 Pod。 </li>
+<li>在 qos&#x3D;Guaranteed 的Pod中，请求资源量（request值）最多的 Pod 会被驱逐，其次会驱逐资源消耗量最大的 Pod。</li>
+<li>当磁盘空间或 inodes 紧缺时，会在 QoS 的等级基础上，选择消耗磁盘空间或 inodes 最多的 Pod 进行驱逐。</li>
+</ul>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-22</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8S/'>
+                            K8S
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

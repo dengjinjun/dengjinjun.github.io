@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="升级openssh" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            升级openssh
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#openssh%E5%8D%87%E7%BA%A7%E5%88%B09-7p1"><span class="post-toc-text">openssh升级到9.7p1</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="post-toc-text">准备工作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8D%87%E7%BA%A7openssl"><span class="post-toc-text">升级openssl</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8D%87%E7%BA%A7openssh"><span class="post-toc-text">升级openssh</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%90%8E%E7%BB%AD"><span class="post-toc-text">后续</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="openssh升级到9-7p1"><a href="#openssh升级到9-7p1" class="headerlink" title="openssh升级到9.7p1"></a>openssh升级到9.7p1</h2><p>本文介绍centos7的ssh版本升级过程，从openssh7.4p1升级到openssh9.7p1。</p>
+<p>因为客户那里扫描出了很多漏洞，需要升级openssh的版本，yum源默认的最高版本只到7.4，所以只能手动升级到较新的版本。</p>
+<p>基础环境</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/redhat-release		<span class="comment"># 查看CentOS系统版本信息</span></span><br><span class="line">CentOS Linux release 7.9.2009 (Core)</span><br><span class="line"></span><br><span class="line">openssl version		<span class="comment"># 查看openssl版本信息</span></span><br><span class="line">OpenSSL 1.0.2k-fips 26 Jan 2017</span><br><span class="line"></span><br><span class="line">ssh -V		<span class="comment"># 查看openssh的版本信息，如果低于7.4建议先yum升级到7.4版本</span></span><br><span class="line">OpenSSH_7.4p1, OpenSSL 1.0.2k-fips 26 Jan 2017</span><br></pre></td></tr></table></figure>
+
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p><a target="_blank" rel="noopener" href="https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.7p1.tar.gz">openssh9.7p1源码包</a></p>
+<p>提前安装相关的依赖项</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc gcc-c++ glibc pam-devel zlib-devel openssl-devel pcre-devel net-tools make autoconf pam* zlib*</span><br></pre></td></tr></table></figure>
+
+<p>由于openssh9.7p1要求openssl版本大于等于1.1.1,因此需要升级安装openssl：<a target="_blank" rel="noopener" href="https://github.com/openssl/openssl/releases/download/OpenSSL_1_1_1w/openssl-1.1.1w.tar.gz">openssl-1.1.1w源码包</a></p>
+<p>避免升级过程中出现意外，提前准备telnet连接方式</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yum install xinetd telnet-server -y</span><br><span class="line">vim /etc/securetty	<span class="comment"># 在末尾增加以下四行</span></span><br><span class="line">    pts/0</span><br><span class="line">    pts/1</span><br><span class="line">    pts/2</span><br><span class="line">    pts/3</span><br><span class="line">systemctl <span class="built_in">enable</span> xinetd telnet.socket </span><br><span class="line">systemctl start xinetd telnet.socket</span><br><span class="line">netstat -lntp|grep 23		<span class="comment"># 出现监听23端口的进程</span></span><br><span class="line">tcp6       0      0 :::23                   :::*                    LISTEN      1/systemd </span><br></pre></td></tr></table></figure>
+
+<p><a href="/../pic/resize,m_fixed,w_1184.webp" title="centos yum升级openssl centos7升级openssh8.6_centos yum升级openssl" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/resize,m_fixed,w_1184.webp" alt="centos yum升级openssl centos7升级openssh8.6_centos yum升级openssl"></a></p>
+<h3 id="升级openssl"><a href="#升级openssl" class="headerlink" title="升级openssl"></a>升级openssl</h3><blockquote>
+<p><strong>编译安装</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将openssl-1.1.1w解压到/usr/local目录下</span></span><br><span class="line">tar xf openssl-1.1.12.tar.gz -C /usr/local/</span><br><span class="line"><span class="comment"># 进入openssl-1.1.1w目录下</span></span><br><span class="line"><span class="built_in">cd</span> /usr/local/openssl-1.1.1w/</span><br><span class="line"><span class="comment"># 创建安装目录</span></span><br><span class="line"><span class="built_in">mkdir</span> /opt/openssl</span><br><span class="line"><span class="comment"># 配置编译和安装过程，&quot;--prefix=&quot; 选项配置安装目录</span></span><br><span class="line">./config --prefix=/opt/openssl</span><br><span class="line"><span class="comment"># 构建程序以及所需的指令和依赖关系</span></span><br><span class="line">make</span><br><span class="line"><span class="comment"># 安装编译好的openssl-1.1.1w，以上三步必须没有出现报错（error），才可以继续下一步，全部三步无报错才能视为安装成功</span></span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>更新lib文件</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查openssl-1.1.1w所需要的函数库</span></span><br><span class="line">ldd /opt/openssl/bin/openssl</span><br><span class="line"><span class="comment"># 添加openssl-1.1.1w的库文件路径到ld.so.conf</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;/opt/openssl/lib&quot;</span> &gt;&gt; /etc/ld.so.conf</span><br><span class="line"><span class="comment"># 更新系统函数库库 </span></span><br><span class="line">ldconfig -v</span><br><span class="line"><span class="comment"># 再次检查</span></span><br><span class="line">lld /opt/openssl/bin/openssl</span><br><span class="line"><span class="comment"># 绝对路径查看openssl版本</span></span><br><span class="line">/opt/openssl/bin/openssl version</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>更新bin文件</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看旧版本的openssl命令路径</span></span><br><span class="line"><span class="built_in">which</span> openssl</span><br><span class="line"><span class="comment"># 重命名为openssl.old</span></span><br><span class="line"><span class="built_in">mv</span> /bin/openssl /bin/openssl.old   <span class="comment">#重命名openssl文件</span></span><br><span class="line"><span class="comment"># 使用软连接的方式更新openssl命令</span></span><br><span class="line"><span class="built_in">ln</span> -s /opt/openssl/bin/openssl /bin/openssl</span><br><span class="line"><span class="comment"># openssl命令查看版本</span></span><br><span class="line">openssl version</span><br></pre></td></tr></table></figure>
+
+<h3 id="升级openssh"><a href="#升级openssh" class="headerlink" title="升级openssh"></a>升级openssh</h3><blockquote>
+<p><strong>编译安装</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先使用telnet登录centos7</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 卸载openssh的rpm包</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(rpm -qa | grep openssh);<span class="keyword">do</span> rpm -e <span class="variable">$i</span> --nodeps;<span class="keyword">done</span></span><br><span class="line"><span class="comment"># 解压缩openssh9.7p1包到目标目录</span></span><br><span class="line">tar zxvf /home/test/openssh9.7p1.tar.gz –C /usr/local</span><br><span class="line"><span class="comment"># 进入openssh9.7p1的源码目录</span></span><br><span class="line"><span class="built_in">cd</span> /usr/local/openssh-9.7p1/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置编译和安装过程，&quot;--prefix=&quot; 配置安装目录，&quot;--sysconfdir=&quot; 配置文件路径，&quot;--with-ssl-dir=&quot; openssl的安装路径</span></span><br><span class="line">./configure --prefix=/usr/local/openssh --sysconfdir=/etc/ssh --with-pam --with-ssl-dir=/opt/openssl --with-md5-passwords --mandir=/usr/share/man --with-zlib=/usr/local/zlib --without-hardening</span><br><span class="line"><span class="comment"># 构建程序以及所需的指令和依赖关系</span></span><br><span class="line">make</span><br><span class="line"><span class="comment"># 安装编译好的openssh9.7p1，以上三步必须没有出现报错（error），才可以继续下一步，全部三步无报错才能视为安装成功</span></span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>修改sshd.init脚本和配置文件</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从源码目录下复制sshd.init到/etc/init.d/</span></span><br><span class="line"><span class="built_in">cp</span> /usr/local/openssh-9.7p1/contrib/redhat/sshd.init /etc/init.d/</span><br><span class="line"></span><br><span class="line"><span class="comment">## 查看并修改SSHD的新路径,将新的openssh安装路径更新</span></span><br><span class="line"><span class="built_in">cat</span> /etc/init.d/sshd.init | grep SSHD</span><br><span class="line">sed -i <span class="string">&quot;s/SSHD=\/usr\/sbin\/sshd/SSHD=\/usr\/local\/openssh\/sbin\/sshd/g&quot;</span> /etc/init.d/sshd.init</span><br><span class="line"><span class="built_in">cat</span> /etc/init.d/sshd.init | grep SSHD</span><br><span class="line"></span><br><span class="line"><span class="comment">## 查看并修改ssh-keygen的新路径，将新的ssh-keygen安装路径更新</span></span><br><span class="line"><span class="built_in">cat</span> -n /etc/init.d/sshd.init | grep ssh-keygen</span><br><span class="line">sed -i <span class="string">&quot;s#/usr/bin/ssh-keygen -A#/usr/local/openssh/bin/ssh-keygen -A#g&quot;</span> /etc/init.d/sshd.init</span><br><span class="line"><span class="built_in">cat</span> -n /etc/init.d/sshd.init | grep ssh-keygen</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启允许X11转发</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;X11Forwarding yes&#x27;</span> &gt;&gt; /etc/ssh/sshd_config </span><br><span class="line"><span class="comment"># 开启允许密码验证</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;PasswordAuthentication yes&quot;</span> &gt;&gt; /etc/ssh/sshd_config </span><br><span class="line"><span class="comment"># 开启允许root登录</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;PermitRootLogin yes&quot;</span> &gt;&gt; /etc/ssh/sshd_config </span><br><span class="line"><span class="comment"># 修改权限</span></span><br><span class="line"><span class="built_in">chmod</span> 600 /etc/ssh/*</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>启动openssh</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 复制ssh的相关命令</span></span><br><span class="line"><span class="built_in">cp</span> -arp /usr/local/openssh/bin/* /usr/bin/</span><br><span class="line"><span class="comment"># 启动sshd服务</span></span><br><span class="line">/etc/init.d/sshd.init start</span><br><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">ssh –V</span><br><span class="line"><span class="comment"># 添加开机启动</span></span><br><span class="line">Chmod +x /etc/rc.d/rc.local</span><br><span class="line"><span class="built_in">echo</span> “/etc/init.d/sshd.init start” &gt;&gt; /etc/rc.d/rc.local  </span><br></pre></td></tr></table></figure>
+
+<h3 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h3><p>因为不是yum升级的，所以systemctl status sshd是找不到unit文件的，可以用<code>/etc/init.d/sshd.init</code>代替。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-06-25</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

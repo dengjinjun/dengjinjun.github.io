@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Pod详解" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Pod详解
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pod%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="post-toc-text">pod基本操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pod%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="post-toc-text">pod相关命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BApod%E6%B5%81%E7%A8%8B"><span class="post-toc-text">创建pod流程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pod%E6%A8%A1%E6%9D%BF%E8%A1%8C%E4%B8%BA"><span class="post-toc-text">pod模板行为</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="post-toc-text">可能遇到的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pod%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="post-toc-text">pod生命周期</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>Pod是Kubernetes中能够创建和部署的最小单元，是Kubernetes集群中的一个应用实例。</p>
+<p>Pod可以包含了一个或多个容器，还包括了存储、网络等各个容器共享的资源。Pod支持多种容器环境，Docker则是最流行的容器环境。</p>
+<h2 id="pod基本操作"><a href="#pod基本操作" class="headerlink" title="pod基本操作"></a>pod基本操作</h2><h3 id="pod相关命令"><a href="#pod相关命令" class="headerlink" title="pod相关命令"></a>pod相关命令</h3><blockquote>
+<p><strong>创建pod</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f pod模板文件		<span class="comment"># 通过yaml文件创建pod，不支持重复创建</span></span><br><span class="line">kubectl apply -f pod模板文件		<span class="comment"># 同样通过yaml文件创建pod，支持重复执行，适合用于更新资源</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>查看pod</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod		<span class="comment"># 查看pod的简短信息</span></span><br><span class="line">kubectl get pod -o wide		<span class="comment"># 查看IP相关信息</span></span><br><span class="line">kubectl get pod -o pod模板文件		<span class="comment"># 查看pod的yaml文件</span></span><br><span class="line">kubectl get pod --show-labels		<span class="comment"># 查看pod的标签</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>删除pod</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete pod pod名称		<span class="comment"># 基于pod名称的方式删除pod</span></span><br><span class="line">kubectl delete -f pod模板文件		<span class="comment"># 通过yaml文件删除pod</span></span><br><span class="line">kubectl delete -f .		<span class="comment"># 删除当前目录下所有yaml文件创建的pod</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建pod流程"><a href="#创建pod流程" class="headerlink" title="创建pod流程"></a>创建pod流程</h3><blockquote>
+<p><strong>创建单容器Pod</strong></p>
+</blockquote>
+<p>单容器Pod是最常见的部署方式</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先编辑一个pod模板</span></span><br><span class="line">[root@master kubernetes]$ vim /pod/nginx.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 资源的类型</span></span><br><span class="line">kind: Pod</span><br><span class="line"><span class="comment"># API的版本号</span></span><br><span class="line">apiVersion: v1</span><br><span class="line"><span class="comment"># 元数据信息</span></span><br><span class="line">metadata:</span><br><span class="line">  <span class="comment"># 资源的名称</span></span><br><span class="line">  name: nginx</span><br><span class="line">  <span class="comment"># 自定义资源的标签,其中的KV由你自定义即可.</span></span><br><span class="line">  labels:</span><br><span class="line">    disk: ssd</span><br><span class="line"><span class="comment"># Pod的定义,主要描述这个Pod运行什么服务</span></span><br><span class="line">spec:</span><br><span class="line">  <span class="comment"># 指定容器相关的配置</span></span><br><span class="line">  containers:</span><br><span class="line">    - name: nginx01  <span class="comment"># 容器的名字</span></span><br><span class="line">      image: registry:80/nginx:v1  <span class="comment"># 指定容器的镜像地址</span></span><br><span class="line">      ports:  <span class="comment"># 指定容器的暴露端口</span></span><br><span class="line">        - containerPort: 80  <span class="comment"># 暴露容器的80端口</span></span><br><span class="line">        </span><br><span class="line"><span class="comment"># 然后创建这个pod即可</span></span><br><span class="line">[root@master kubernetes]$ kubectl create -f /pod/nginx.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看容器状态</span></span><br><span class="line">[root@master kubernetes]$ kubectl get pod</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看容器详细信息</span></span><br><span class="line">[root@master kubernetes]$ kubectl describe pod nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接</span></span><br><span class="line">[root@master kubernetes]$ kubectl <span class="built_in">exec</span> -n 命名空间名称 -it pod名称 -c 容器名称 -- <span class="built_in">command</span> </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>创建多容器pod</strong></p>
+</blockquote>
+<p>多容器Pod是相对高阶的使用方式，一个Pod内的容器共享IP地址和端口范围，容器之间可以通过 localhost 互相访问。除非应用耦合特别严重，一般不推荐使用这种方式。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此处仅给出pod模板，其他操作与创建单容器pod相同</span></span><br><span class="line">[root@master kubernetes]$ vim /pod/nginx.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 资源的类型</span></span><br><span class="line">kind: Pod</span><br><span class="line"><span class="comment"># API的版本号</span></span><br><span class="line">apiVersion: v1</span><br><span class="line"><span class="comment"># 元数据信息</span></span><br><span class="line">metadata:</span><br><span class="line">  <span class="comment"># 资源的名称</span></span><br><span class="line">  name: nginx</span><br><span class="line">  <span class="comment"># 自定义资源的标签,其中的KV由你自定义即可.</span></span><br><span class="line">  labels:</span><br><span class="line">    disk: ssd</span><br><span class="line"><span class="comment"># Pod的定义,主要描述这个Pod运行什么服务</span></span><br><span class="line">spec:</span><br><span class="line">  <span class="comment"># 指定容器相关的配置</span></span><br><span class="line">  containers:</span><br><span class="line">    - name: alpine01</span><br><span class="line">      image: registry:80/alpine:v1</span><br><span class="line">      <span class="built_in">command</span>: [<span class="string">&quot;sleep&quot;</span>,<span class="string">&quot;9999&quot;</span>]</span><br><span class="line">    - name: nginx01  <span class="comment"># 容器的名字</span></span><br><span class="line">      image: registry:80/nginx:v1  <span class="comment"># 指定容器的镜像地址</span></span><br><span class="line">      ports:  <span class="comment"># 指定容器的暴露端口</span></span><br><span class="line">        - containerPort: 80  <span class="comment"># 暴露容器的80端口</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="pod模板行为"><a href="#pod模板行为" class="headerlink" title="pod模板行为"></a>pod模板行为</h3><blockquote>
+<p><strong>指定namespace</strong></p>
+</blockquote>
+<p>命名空间是实现环境隔离的</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看命名空间，ns是namespace的简写</span></span><br><span class="line">kubectl get ns		<span class="comment"># 通过kubectl命令查看</span></span><br><span class="line">etcdctl <span class="built_in">ls</span> /registry/namespaces		<span class="comment"># 在etcd数据库中查看</span></span><br><span class="line">kubectl describe ns</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个命名空间</span></span><br><span class="line">kubectl create ns 命名空间名称		<span class="comment"># 直接创建</span></span><br><span class="line">kubectl create -f yaml文件		<span class="comment"># 还有一种创建命名空间的方式，是通过文件去创建，类似于通过文件创建pod的方式，可以自行了解</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除一个命名空间</span></span><br><span class="line">kubectl delete ns 命名空间名称</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用命名空间</span></span><br><span class="line">namespace: &lt;string&gt;		<span class="comment"># 在pod模板文件中，metadata下级指定`namespace: 命名空间名称`</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>指定node</strong></p>
+</blockquote>
+<p>指定将该pod调度在某个节点运行</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nodeName: &lt;string&gt;			<span class="comment"># 在pod模板文件中，metadata下级指定`nodeName:节点名称`</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>资源限制</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">reousrces: &lt;object&gt;		<span class="comment"># 在pod模板文件中，containers下级指定`resources:资源对象`</span></span><br><span class="line">resources下级可以指定limits对象和requests对象，前者表示最大资源限制，后者表示最少资源需求</span><br><span class="line">resources:</span><br><span class="line">  limits:</span><br><span class="line">    cpu: 500m		<span class="comment"># cpu资源换算是1core=1000m</span></span><br><span class="line">    memory: 500M</span><br><span class="line">  requests:</span><br><span class="line">    cpu: 100m</span><br><span class="line">    memory: 100M</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>指定暴露的端口</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ports: &lt;[]Object&gt;		<span class="comment"># 在pod模板文件中，containers下级指定`ports:资源对象列表`</span></span><br><span class="line">ports下级可以指定五个对象，示例：</span><br><span class="line">ports:</span><br><span class="line">  - containerPort: 80		<span class="comment"># 容器暴露的端口</span></span><br><span class="line">    protocol: TCP		<span class="comment"># 协议，默认是TCP，可选：TCP或者UDP</span></span><br><span class="line">    name: nginx-01		<span class="comment"># 端口名，可以给这个开放的端口命名，后续可以引用</span></span><br><span class="line">    hostPort: 8888		<span class="comment"># 容器的端口绑定到主机的端口，如果指定了使用主机网络，那么要跟容器端口相同</span></span><br><span class="line">    hostIP: 0.0.0.0		<span class="comment"># 绑定到主机的哪个IP地址</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>使用主机网络</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用主机网络类似于docker中的host网络类型，pod跟宿主机共享IP和端口</span></span><br><span class="line">hostNetwork: &lt;boolean&gt;		<span class="comment"># 在pod模板文件中，spec下级指定`hostNetwork: true`即可让pod使用主机网络，默认是false</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>指定主机名</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostname: &lt;string&gt;		<span class="comment"># 在pod模板文件中，spec下级指定`hostname: 自定义主机名`即可指定主机名,如果不指定则是pod名称</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>重启策略</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pod内所有容器的重启策略，可选Always, OnFailure, Never</span></span><br><span class="line">restartPolicy: &lt;string&gt;		<span class="comment"># 在pod模板文件中，spec下级指定`restartPolicy: 重启策略`，如果不指定默认是always</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>镜像拉取策略</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 构建容器时的镜像拉取策略，可选Always, Never, IfNotPresent</span></span><br><span class="line">imagePullPolicy: &lt;string&gt;		<span class="comment"># 在pod模板文件中，containers下级指定`imagePullPolicy: 拉取策略`，默认情况下，如果镜像的tag是latest，拉取策略是Always，其他的情况默认都是IfNotPresent</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h3><p><strong>问题1：创建pod时报错：Error from server (ServerTimeout): error when creating “busybox.yaml”: No API token found for service account “default”, retry after the token is automatically created and added to the service account</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">这是由于apiserver的service account没有设置API token引起的，解决办法：</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成密钥</span></span><br><span class="line">[root@master kubernetes]$ openssl genrsa -out /etc/kubernetes/serviceaccount.key 2048</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑apiserver配置文件</span></span><br><span class="line">[root@master kubernetes]$ vim /etc/kubenetes/apiserver</span><br><span class="line">KUBE_API_ARGS=<span class="string">&quot;--service_account_key_file=/etc/kubernetes/serviceaccount.key&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑controller-manager配置文件</span></span><br><span class="line">[root@master kubernetes]$ vim /etc/kubernetes/controller-manager</span><br><span class="line">KUBE_CONTROLLER_MANAGER_ARGS=<span class="string">&quot;--service_account_private_key_file=/etc/kubernetes/serviceaccount.key&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启所有服务</span></span><br><span class="line">[root@master kubernetes]$ systemctl restart etcd kube-apiserver kube-controller-manager kube-schedule</span><br></pre></td></tr></table></figure>
+
+<p><strong>问题2：容器状态一直是<code>ContainerCreating</code>，查看容器详细信息发现有错误：Error syncing pod, skipping: failed to “StartContainer” for “POD” with ImagePullBackOff: “Back-off pulling image &quot;registry.access.redhat.com&#x2F;rhel7&#x2F;pod-infrastructure:latest&quot;“</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">这是由于创建pod所需的基础镜像拉取失败，需要修改基础镜像的拉取地址</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑所有工作节点上的kubelet配置文件，修改拉取基础镜像的地址，默认的仓库国内访问会有问题，所以需要修改为私有仓库</span></span><br><span class="line"><span class="comment"># `registry:80`是我的私有镜像仓库的地址，`pod-infrastructure:latest`是镜像名，如果私有仓库内还没有这个镜像还需要添加镜像</span></span><br><span class="line">[root@node1 kubernetes]$ vim kubelet </span><br><span class="line">KUBELET_POD_INFRA_CONTAINER=<span class="string">&quot;--pod-infra-container-image=registry:80/pod-infrastructure:latest&quot;</span></span><br><span class="line">[root@node1 kubernetes]$ systemctl restart kubelet</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加镜像，如果私有仓库内已经存在了pod的基础镜像，则不需要此步骤</span></span><br><span class="line">|root@aliyun ~|$ docker search pod-infrastructure		<span class="comment"># 搜索一下有哪些pod基础镜像</span></span><br><span class="line">|root@aliyun ~|$ docker pull tianyebj/pod-infrastructure		<span class="comment"># 选择一个拉取到本地</span></span><br><span class="line">|root@aliyun ~|$ docker tag tianyebj/pod-infrastructure:latest registry:80/pod-infrastructure		<span class="comment"># 打个标签</span></span><br><span class="line">|root@aliyun ~|$ docker push registry:80/pod-infrastructure		<span class="comment"># 推送到私有仓库</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="pod生命周期"><a href="#pod生命周期" class="headerlink" title="pod生命周期"></a>pod生命周期</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Pending：创建了pod资源并存入etcd中，但尚未完成调度。</span><br><span class="line"></span><br><span class="line">ContainerCreating：Pod 的调度完成，被分配到指定 Node 上。处于容器创建的过程中。通常是在拉取镜像的过程中。</span><br><span class="line"></span><br><span class="line">Running：Pod 包含的所有容器都已经成功创建，并且成功运行起来。</span><br><span class="line"></span><br><span class="line">Succeeded：Pod中的所有容器都已经成功终止并且不会被重启</span><br><span class="line"></span><br><span class="line">Failed：所有容器都已经终止，但至少有一个容器终止失败，也就是说容器返回了非0值的退出状态或已经被系统终止。</span><br><span class="line"></span><br><span class="line">Unknown：因为某些原因无法取得 Pod 的状态。这种情况通常是因为与 Pod 所在主机通信失败。</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-03-27</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8S/'>
+                            K8S
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

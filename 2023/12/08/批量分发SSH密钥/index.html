@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="批量分发SSH密钥" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            批量分发SSH密钥
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>多台初始状态虚拟机，已分配IP地址。需要批量分发ssh公钥，使用管理机<code>m01</code>进行连接，且避免首次连接提示。</p>
+<p>首先本机的<code>/etc/hosts</code>文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">192.168.110.144 lb401</span><br><span class="line">192.168.110.145 lb402</span><br><span class="line">192.168.110.135 lb01    </span><br><span class="line">192.168.110.136 lb02</span><br><span class="line">192.168.110.137 web01</span><br><span class="line">192.168.110.138 web02</span><br><span class="line">192.168.110.139 sweb01</span><br><span class="line">192.168.110.140 sweb02</span><br><span class="line">192.168.110.141 nfs</span><br><span class="line">192.168.110.142 backup</span><br><span class="line">192.168.110.143 db01</span><br><span class="line">192.168.110.128 m01</span><br></pre></td></tr></table></figure>
+
+<p>创建一个包含所有远程主机hostname的文件<code>/root/ip.txt</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">192.168.110.144 lb401</span><br><span class="line">192.168.110.145 lb402</span><br><span class="line">192.168.110.135 lb01    </span><br><span class="line">192.168.110.136 lb02</span><br><span class="line">192.168.110.137 web01</span><br><span class="line">192.168.110.138 web02</span><br><span class="line">192.168.110.139 sweb01</span><br><span class="line">192.168.110.140 sweb02</span><br><span class="line">192.168.110.141 nfs</span><br><span class="line">192.168.110.142 backup</span><br><span class="line">192.168.110.143 db01</span><br></pre></td></tr></table></figure>
+
+<p>本机编辑批量分发ssh公钥的脚本<code>/server/script/distribute_ssh_key.sh</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"><span class="comment"># Author: Dengpangpang</span></span><br><span class="line"><span class="comment"># Date: 2023-12-8</span></span><br><span class="line"><span class="comment"># Description: distribute_ssh_id_rsa</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line">[ -f /root/.ssh/id_rsa ] || ssh-keygen -t rsa -f /root/.ssh/id_rsa -P <span class="string">&quot;&quot;</span> &amp;&gt;/dev/null</span><br><span class="line"> </span><br><span class="line">[ -f /usr/bin/sshpass ] || yum -y install sshpass &amp;&gt; /dev/null</span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> <span class="built_in">read</span> line</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    host=`<span class="built_in">echo</span> <span class="variable">$line</span> | <span class="built_in">cut</span> -d  <span class="string">&quot; &quot;</span> -f2`</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;=============host <span class="variable">$ip</span>  pub-key start distribute=============&quot;</span></span><br><span class="line">    sshpass -p <span class="string">&#x27;123456&#x27;</span> ssh-copy-id -i /root/.ssh/id_rsa.pub dengpangpang@<span class="variable">$&#123;host&#125;</span> -o <span class="string">&quot;StrictHostKeyChecking=no&quot;</span>  &amp;&gt; /dev/null</span><br><span class="line">    ssh-keyscan -H <span class="variable">$&#123;host&#125;</span> &gt;&gt; ~/.ssh/known_hosts</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;host <span class="variable">$host</span> distribute success.&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;=============host <span class="variable">$host</span>  pub-key distribute end=============&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">done</span> &lt; /root/ip.txt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sshpass 是一个使用键盘输入密码身份验证模式运行SSH ，以非交互方式运行的ssh工具，这句用于分发公钥</span></span><br><span class="line"><span class="comment">#  -o &quot;StrictHostKeyChecking=no&quot;的含义是禁用SSH连接时的主机密钥检查，安全性低，权宜之计。</span></span><br><span class="line">sshpass -p <span class="string">&#x27;123456&#x27;</span> ssh-copy-id -i /root/.ssh/id_rsa.pub dengpangpang@<span class="variable">$&#123;host&#125;</span> -o <span class="string">&quot;StrictHostKeyChecking=no&quot;</span>  &amp;&gt; /dev/null</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这条命令用于将远程主机的公钥信息添加到管理机的known_hosts文件中，这样可以避免首次连接时出现确认提示</span></span><br><span class="line">ssh-keyscan -H <span class="variable">$&#123;host&#125;</span> &gt;&gt; ~/.ssh/known_hosts</span><br></pre></td></tr></table></figure>
+
+
+
+<p>执行这条脚本之后，所有的主机都添加了管理机的公钥，并且管理机的<code>known_hosts</code>文件保存了所有远程主机的公钥信息，这样连接时无需首次确认。</p>
+<p>测试：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible all -u dengpangpang -m ping</span><br></pre></td></tr></table></figure>
+
+<p>测试结果：全绿。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-08</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/shell%E8%84%9A%E6%9C%AC/'>
+                            shell脚本
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

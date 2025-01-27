@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Zabbix部署" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Zabbix部署
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Zabbix%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Zabbix服务端部署</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Zabbix%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Zabbix客户端部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%BB%E6%9C%BA"><span class="post-toc-text">客户端主机</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87"><span class="post-toc-text">网络设备</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#JMX"><span class="post-toc-text">JMX</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IPMI"><span class="post-toc-text">IPMI</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Zabbix%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">Zabbix配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GUI%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C"><span class="post-toc-text">GUI相关操作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Zabbix%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98"><span class="post-toc-text">Zabbix性能调优</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BC%93%E5%AD%98"><span class="post-toc-text">缓存</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%95%B0"><span class="post-toc-text">进程数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B6%E4%BB%96"><span class="post-toc-text">其他</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="Zabbix服务端部署"><a href="#Zabbix服务端部署" class="headerlink" title="Zabbix服务端部署"></a>Zabbix服务端部署</h2><p>可查看官方文档：<a target="_blank" rel="noopener" href="https://www.zabbix.com/cn/download?zabbix=5.0&os_distribution=centos&os_version=7&components=server_frontend_agent&db=mysql&ws=nginx">zabbix安装手册</a></p>
+<p> zabbix部署环境：nginx 1.24.0、php 7.2、mysql 5.5</p>
+<blockquote>
+<p><strong>nginx</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提前准备好nginx源</span></span><br><span class="line">yum install -y nginx --enablerepo=[nginx-stable]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑站点文件</span></span><br><span class="line">vim /etc/nginx/conf.d/zabbix.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入以下内容</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name vm.zabbix;</span><br><span class="line">    root /code/zabbix;</span><br><span class="line">    location / &#123;</span><br><span class="line">        index index.php;</span><br><span class="line">    &#125;</span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">        fastcgi_index  index.php;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME  $document_root<span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">        include        fastcgi_params;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建站点目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /code/zabbix</span><br><span class="line"><span class="built_in">chown</span> -R nginx.nginx /code/zabbix</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>php</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提前安装好php以及相关插件，更改用户和组</span></span><br><span class="line"><span class="built_in">cd</span> /etc/php-fpm.d/</span><br><span class="line">egrep <span class="string">&#x27;^user|^group&#x27;</span> www.conf				<span class="comment"># 查看用户名和组名</span></span><br><span class="line">sed -i <span class="string">&#x27;/^user/c user = nginx&#x27;</span> www.conf		<span class="comment"># 更改用户名</span></span><br><span class="line">sed -i <span class="string">&#x27;/^group/c group = nginx&#x27;</span> www.conf 	<span class="comment"># 更改组名</span></span><br><span class="line">egrep <span class="string">&#x27;^user|^group&#x27;</span> www.conf				<span class="comment"># 查看用户名和组名</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建session目录，默认应该是/var/lib/php/session</span></span><br><span class="line">grep <span class="string">&#x27;session.save_path&#x27;</span> /etc/php-fpm.d/www.conf</span><br><span class="line"><span class="built_in">mkdir</span> -p /var/lib/php/session</span><br><span class="line"><span class="built_in">chown</span> -R nginx.nginx /var/lib/php/session</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建测试文件</span></span><br><span class="line">vim /code/zabbix/index.php</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入以下内容</span></span><br><span class="line">&lt;?php</span><br><span class="line">phpinfo();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>mariadb</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装数据库</span></span><br><span class="line">yum install mariadc-server;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 登录数据库，创建数据库并添加用户</span></span><br><span class="line">create database zabbix character <span class="built_in">set</span> utf8 collate utf8_bin;</span><br><span class="line">grant all on zabbix.* to zabbix@<span class="string">&#x27;localhost&#x27;</span> identified by <span class="string">&#x27;123456&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>zabbix服务端</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装zabbix的yum源</span></span><br><span class="line">rpm -Uvh https://mirror.tuna.tsinghua.edu.cn/zabbix/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装服务端和客户端</span></span><br><span class="line">yum install -y zabbix-server zabbix-agent2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在数据库中导入数据</span></span><br><span class="line">rpm -ql zabbix-server-mysql		<span class="comment"># 查询rpm包中的文件，找到create.sql.gz文件，里面是建表的sql语句</span></span><br><span class="line">zcat /usr/share/doc/zabbix-server-mysql-5.0.40/create.sql.gz | mysql -uzabbix -p123456		<span class="comment"># 执行</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改zabbix-server配置文件，连接数据库</span></span><br><span class="line">vim /etc/zabbix/zabbix_server.conf		<span class="comment"># 编辑文件的如下配置</span></span><br><span class="line">DBHost=localhost</span><br><span class="line">DBName=zabbix</span><br><span class="line">DBUser=zabbix</span><br><span class="line">DBPassword=123456</span><br><span class="line">grep ^DB /etc/zabbix/zabbix_server.conf		<span class="comment"># 查看确认</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启zabbix服务端</span></span><br><span class="line">systemctl start zabbix-server</span><br><span class="line">systemctl <span class="built_in">enable</span> zabbix-server</span><br><span class="line">ss -tunlp | grep zabbix		<span class="comment"># 查看端口，服务端的端口是10051，客户端端口是10050</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>安装web插件</strong></p>
+</blockquote>
+<p>两种方式，可以根据官方手册通过yum安装；也可以使用源码包的方式安装。此处选择源码方式。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 去官网下载源码包zabbix-5.0.40.tar.gz，解压</span></span><br><span class="line">tar -xf zabbix-5.0.40.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将ui目录中的文件，全部移动到nginx站点目录下</span></span><br><span class="line"><span class="built_in">cd</span> zabbix-5.0.40</span><br><span class="line"><span class="built_in">mv</span> ui/* /code/zabbix/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问站点目录，完成可视化安装。（可能需要修改php.ini文件以及安装扩展）</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>部署成功</strong></p>
+</blockquote>
+<p><a href="/../pic/image-20240127235957993.png" title="image-20240127235957993" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240127235957993.png" alt="image-20240127235957993"></a></p>
+<h2 id="Zabbix客户端部署"><a href="#Zabbix客户端部署" class="headerlink" title="Zabbix客户端部署"></a>Zabbix客户端部署</h2><p>需要提前准备好zabbix源的相关rpm包</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -Uvh https://mirror.tuna.tsinghua.edu.cn/zabbix/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="客户端主机"><a href="#客户端主机" class="headerlink" title="客户端主机"></a>客户端主机</h3><blockquote>
+<p><strong>配置</strong></p>
+</blockquote>
+<p>当需要监控的设备是Linux主机时，客户端需要安装zabbix-agent2程序。以往zabbix的客户端是C语言开发的zabbix agent，以独立进程方式运行，后来在C语言的基础上增加了Go语言的部分，并且引入了多线程技术，能够承受更高的并发，减少CPU资源消耗，称为zabbix agent2。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 按照zabbix客户端</span></span><br><span class="line">yum install -y zabbix-agent2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑zabbix客户端配置文件，客户端需配置Server=服务端IP，服务端本机设置Server=127.0.0.1即可</span></span><br><span class="line">vim /etc/zabbix/zabbix_agent2.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动zabbix-agent2</span></span><br><span class="line">systemctl <span class="built_in">enable</span> zabbix-agent2</span><br><span class="line">systemctl start zabbix-agent2</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>调试</strong></p>
+</blockquote>
+<p>为了确认zabbix服务端与客户端之间能够正常连通，一般服务端需要安装调试工具<code>zabbix-get</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装调试工具</span></span><br><span class="line">yum install -y zabbix-get</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用，一般用到一个命令就行：`zabbix_get -s [客户端IP] -p [客户端端口] -k [状态信息键名]`</span></span><br><span class="line">zabbix_get -s 192.168.110.137 -k system.hostname	<span class="comment"># 此处获取客户端主机名，如果有正常返回说明成功</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="网络设备"><a href="#网络设备" class="headerlink" title="网络设备"></a>网络设备</h3><p>通常来说，我们无法在路由器、交换机这种网络设备上安装agent，但是这些硬件都支持SNMP(simple network management protocol)协议，被译为简单网络管理协议，Zabbix可以通过SNMP协议与被监控对象进行通信。</p>
+<blockquote>
+<p><strong>配置</strong></p>
+</blockquote>
+<p>需要登录网络设备的后台管理应用</p>
+<ol>
+<li><p>启用SNMP功能</p>
+</li>
+<li><p>选择SNMP版本</p>
+<table>
+<thead>
+<tr>
+<th>SNMP版本</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>v1</td>
+<td>很少用</td>
+</tr>
+<tr>
+<td>v2c</td>
+<td>通过<code>团体名</code>访问snmp信息，需要设置团体名。</td>
+</tr>
+<tr>
+<td>v3</td>
+<td>通过用户名和密码访问snmp信息，需要设置用户和用户组。</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>配置团体名及权限（针对v2c版本）</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>调试</strong></p>
+</blockquote>
+<p>为了确认zabbix服务端与网络设备之间能够正常连通，一般服务端需要安装调试工具<code>net-snmp-utils</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装调试工具</span></span><br><span class="line">yum install -y net-snmp-utils</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用，一般用到一个命令就行(针对v2c版本)：` snmpwalk -c [团体名] -v [版本] [网络设备IP] [设备参数/OID]</span></span><br><span class="line">snmpwalk -c public -v 2c 192.168.110.155 sysDesc</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/qzqdy/p/12467614.html">SNMP监控常用的设备参数&#x2F;OID表总结</a></p>
+<h3 id="JMX"><a href="#JMX" class="headerlink" title="JMX"></a>JMX</h3><p>JMX（java management extensions），即java管理扩展。通常来说，java程序都是运行在JVM虚拟机中的，我们只能监控虚拟机的外部信息，而Zabbix可以通过JMX接口监控JVM虚拟机内部的java程序状态。</p>
+<blockquote>
+<p><strong>配置</strong></p>
+</blockquote>
+<ol>
+<li><p>确认Java环境</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -version		<span class="comment"># 确认jdk版本</span></span><br><span class="line">/app/tomcat/bin/version.sh		<span class="comment"># tomcat安装目录下的version.sh脚本，确认tomcat版本</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启tomcat远程监控功能</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vim /app/tomcat/bin/catalina.sh		<span class="comment"># 编辑catalina.sh脚本，添加以下内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意，以下内容应该是一行内容，不应该换行，为了美观可以添加续行符，所以有两种写法：每行添加续行符</span></span><br><span class="line">CATALINA_OPTS=<span class="string">&quot;<span class="variable">$CATALINA_OPTS</span></span></span><br><span class="line"><span class="string">-Dcom.sun.management.jmxremote \					# 开启jmx远程监控功能</span></span><br><span class="line"><span class="string">-Dcom.sun.management.jmxremote.port=12345 \			# 指定一个端口，此处为12345</span></span><br><span class="line"><span class="string">-Dcom.sun.management.jmxremote.authenticate=false \	# 是否开启远程监控认证（用户名密码）</span></span><br><span class="line"><span class="string">-Dcom.sun.management.jmxremote.ssl=false \			# 是否开启https</span></span><br><span class="line"><span class="string">-Djava.rmi.server.hostname=192.168.110.128&quot;</span> \				<span class="comment"># 本机IP</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者写为一行</span></span><br><span class="line">CATALINA_OPTS=<span class="string">&quot;<span class="variable">$CATALINA_OPTS</span> -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=12345 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=192.168.110.128&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>服务端配置</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">yum install -y zabbix-java-gateway		<span class="comment"># 安装zabbix-java-gateway客户端</span></span><br><span class="line">vim /etc/zabbix/zabbix_server.conf		<span class="comment"># 编辑zabbix服务端配置文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 搜索 JavaGateway 相关配置，修改以下三项</span></span><br><span class="line"></span><br><span class="line">JavaGateway=192.168.110.139		<span class="comment"># 监听的客户端IP</span></span><br><span class="line">JavaGatewayPort=10052			<span class="comment"># 端口</span></span><br><span class="line">StartJavaPollers=5				<span class="comment"># 进程数</span></span><br><span class="line"></span><br><span class="line">systemctl <span class="built_in">enable</span> zabbix-java-gateway</span><br><span class="line">systemctl start zabbix-java-gateway</span><br><span class="line">systemctl restart zabbix-server</span><br><span class="line">ss -tunlp | grep java			<span class="comment"># 检查是否有10052端口</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p><strong>调试</strong></p>
+</blockquote>
+<p>首先需要下载一个调试工具，是一个jar包：<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/jmxcmd/">下载地址</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果没有配置java环境变量，需要在jar包所在目录执行下面的命令：`java -jar [jar包名称] - [客户端IP:端口]`</span></span><br><span class="line">java -jar jmxcmd.jar - 192.168.110.139:12345		<span class="comment"># 如果没有报错，显示信息说明成功，或者使用echo $? 查看是否成功</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong></p>
+</blockquote>
+<ol>
+<li><p>使用JMX的接口监控Java程序的好处是简便，但是可能会给服务端带来较大的压力。</p>
+</li>
+<li><p>另外也可以使用客户端主机的方式监控Java程序，上面说过客户端主机的方式无法获取JVM内部Java程序的状态，所以要通过在客户端安装<code>jmap</code>和<code>jstat</code>等工具获取Java状态，然后自定义监控项，获取Java程序的状态，这样的方式比较灵活。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 具体思路：编写脚本，输入脚本参数进程名称（比如tomcat8080或者Java项目目录），找出进程pid，然后根据进程pid使用jmap等命令（比如jmap -heap）导出jvm内部的情况，然后对内容进行过滤，得到指定的信息。</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h3><p>监控物理服务器，通过标准的IPMI硬件接口，监控被监控对象的物理特征，比如电压、温度、风扇状态、电源状态等。</p>
+<p>方式1 是添加IPMI主机</p>
+<p>方式2 是添加客户端主机，使用自定义监控的方式，通过<code>ipmitool</code>和<code>megacli</code>等工具获取监控项的数据</p>
+<h2 id="Zabbix配置文件"><a href="#Zabbix配置文件" class="headerlink" title="Zabbix配置文件"></a>Zabbix配置文件</h2><p><a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/5.0/zh/manual/appendix/config/">官方手册传送门</a></p>
+<blockquote>
+<p><strong>服务端</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">|root@m01 ~|$ grep <span class="string">&#x27;^[a-Z]&#x27;</span> /etc/zabbix/zabbix_server.conf </span><br><span class="line">LogFile=/var/log/zabbix/zabbix_server.log			<span class="comment"># 日志文件</span></span><br><span class="line">LogFileSize=0										<span class="comment"># 日志文件大小，0代表不限制，不自动切割</span></span><br><span class="line">PidFile=/var/run/zabbix/zabbix_server.pid			<span class="comment"># 进程pid文件</span></span><br><span class="line">SocketDir=/var/run/zabbix							<span class="comment"># socket文件</span></span><br><span class="line">DBHost=localhost									<span class="comment"># 数据库主机</span></span><br><span class="line">DBName=zabbix										<span class="comment"># 数据库名</span></span><br><span class="line">DBUser=zabbix										<span class="comment"># 数据库用户名</span></span><br><span class="line">DBPassword=123456									<span class="comment"># 数据库用户密码</span></span><br><span class="line">SNMPTrapperFile=/var/log/snmptrap/snmptrap.log		<span class="comment"># SNMP相关日志</span></span><br><span class="line">Timeout=4											<span class="comment"># 外部检查的超时时间</span></span><br><span class="line">AlertScriptsPath=/usr/lib/zabbix/alertscripts		<span class="comment"># 告警脚本的路径</span></span><br><span class="line">ExternalScripts=/usr/lib/zabbix/externalscripts		<span class="comment"># 外部脚本存放路径，先不管</span></span><br><span class="line">LogSlowQueries=3000									<span class="comment"># 日志慢查询时间，超过3000ms会记入日志</span></span><br><span class="line">StatsAllowedIP=127.0.0.1							<span class="comment"># 谁可以查看服务端的状态</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>客户端</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@web01 ~]$ grep <span class="string">&#x27;^[a-Z]&#x27;</span> /etc/zabbix/zabbix_agent2.conf </span><br><span class="line">PidFile=/var/run/zabbix/zabbix_agent2.pid</span><br><span class="line">LogFile=/var/log/zabbix/zabbix_agent2.<span class="built_in">log</span></span><br><span class="line">LogFileSize=0</span><br><span class="line">Server=192.168.110.128			<span class="comment"># zabbix服务端IP </span></span><br><span class="line">ServerActive=127.0.0.1			<span class="comment"># 主动模式下的服务端IP</span></span><br><span class="line">Hostname=Zabbix server			<span class="comment"># 客户端主机名</span></span><br><span class="line">Include=/etc/zabbix/zabbix_agent2.d/*.conf		<span class="comment"># 包含其他的配置文件，类似于nginx的include</span></span><br><span class="line">ControlSocket=/tmp/agent.sock	<span class="comment"># socket文件</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="GUI相关操作"><a href="#GUI相关操作" class="headerlink" title="GUI相关操作"></a>GUI相关操作</h2><p>初始账号Admin，初始密码zabbix，成功登录。</p>
+<blockquote>
+<p><strong>添加用户群组</strong></p>
+</blockquote>
+<ol>
+<li><p>进入zabbix监控的web界面，点击侧边栏的<strong>管理</strong>&gt;<strong>用户群组</strong>，右上角<strong>创建用户群组</strong>，并填写相关信息</p>
+<p><a href="/../pic/image-20240221044128058.png" title="image-20240221044128058" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221044128058.png" alt="image-20240221044128058"></a></p>
+</li>
+<li><p>选择权限，可以给这个用户群组分配主机群组的权限，可稍后分配。完成后点击添加即可。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>添加一个用户</strong></p>
+</blockquote>
+<ol>
+<li><p>进入zabbix监控的web界面，点击侧边栏的<strong>管理</strong>&gt;<strong>用户</strong>，右上角<strong>创建用户</strong>，并填写相关信息</p>
+<p><a href="/../pic/image-20240221043703720.png" title="image-20240221043703720" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221043703720.png" alt="image-20240221043703720"></a></p>
+</li>
+<li><p>添加完成之后，即可使用此账号登录。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>添加一个主机群组</strong></p>
+</blockquote>
+<ol>
+<li>进入zabbix监控的web界面，点击侧边栏的<strong>配置</strong>&gt;<strong>主机群组</strong>，右上角<strong>创建主机群组</strong>。</li>
+<li>填写群组名称，点击添加即可。</li>
+</ol>
+<blockquote>
+<p><strong>添加一台客户端主机</strong></p>
+</blockquote>
+<ol>
+<li><p>进入zabbix监控的web界面，点击侧边栏的<strong>配置</strong>&gt;<strong>主机</strong>，右上角<strong>创建主机</strong>，进入创建主机页面。</p>
+</li>
+<li><p>输入主机名称（需要与客户端Hostname相同），定义群组（一台主机可属于多个群组），输入客户端IP和端口，连接到IP。</p>
+</li>
+<li><p>点击菜单栏中的模板，在链接新模板中选择一个合适的模板，点击添加。</p>
+</li>
+<li><p>在主机界面的主机列表中，看到刚刚添加的主机的可用性ZBX选项变为绿色即可。回到监测界面的仪表盘，稍后刷新可看到主机数量增加。</p>
+<p><a href="/../pic/image-20240222211642826.png" title="image-20240222211642826" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240222211642826.png" alt="image-20240222211642826"></a></p>
+</li>
+</ol>
+<blockquote>
+<p><strong>添加一台网络设备</strong></p>
+</blockquote>
+<ol>
+<li><p>进入zabbix监控的web界面，点击侧边栏的<strong>配置</strong>&gt;<strong>主机</strong>，右上角<strong>创建主机</strong>，进入创建主机页面。</p>
+</li>
+<li><p>输入主机名称，定义群组（一台主机可属于多个群组），接口处选择添加，选择SNMP类型，输入网络设备IP和端口（默认是161），选择SNMP版本（此处选择v2版本），团体名处需填写一个自定义的变量名，然后移除原有的客户端类型。</p>
+</li>
+<li><p>点击菜单栏中的<strong>宏</strong>，<strong>宏</strong>处填写刚刚定义的变量名，<strong>值</strong>处填写网络设备的团体名。</p>
+</li>
+<li><p>点击菜单栏中的<strong>模板</strong>，在链接新模板中选择一个合适的模板，点击添加即可。</p>
+</li>
+<li><p>在主机界面的主机列表中，看到刚刚添加的主机的可用性SNMP选项变为绿色即可。回到监测界面的仪表盘，稍后刷新可看到主机数量增加。</p>
+<p><a href="/../pic/image-20240222215458659.png" title="image-20240222215458659" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240222215458659.png" alt="image-20240222215458659"></a></p>
+</li>
+</ol>
+<blockquote>
+<p><strong>添加JMX设备</strong></p>
+</blockquote>
+<ol>
+<li><p>进入zabbix监控的web界面，点击侧边栏的<strong>配置</strong>&gt;<strong>主机</strong>，右上角<strong>创建主机</strong>，进入创建主机页面。</p>
+</li>
+<li><p>输入主机名称，定义群组（一台主机可属于多个群组），接口处选择添加，选择JMX类型，输入网络设备IP和端口（默认是12345）。</p>
+</li>
+<li><p>点击菜单栏中的<strong>模板</strong>，在链接新模板中选择合适的模板，点击添加即可。</p>
+</li>
+<li><p>在主机界面的主机列表中，看到刚刚添加的主机的可用性JMX选项变为绿色即可。回到监测界面的仪表盘，稍后刷新可看到主机数量增加。</p>
+<p><a href="/../pic/image-20240224015318077.png" title="image-20240224015318077" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240224015318077.png" alt="image-20240224015318077"></a></p>
+</li>
+</ol>
+<blockquote>
+<p><strong>解决图形界面的中文乱码问题</strong></p>
+</blockquote>
+<p>侧边栏，<strong>监测</strong>&gt;<strong>最新数据</strong>，选择一个监控项的<strong>图形</strong>界面，可能会出现下面的乱码，这是由于zabbix的字体在Windows设备上无法正常显示导致的。</p>
+<p><a href="/../pic/image-20240130045054295.png" title="image-20240130045054295" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240130045054295.png" alt="image-20240130045054295"></a></p>
+<p><strong>解决办法：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这是zabbix下的字体文件</span></span><br><span class="line">|root@m01 ~|$ ll /code/zabbix/assets/fonts</span><br><span class="line">-rw-r--r-- 1 nginx nginx 756072 11月 30 16:41 DejaVuSans.ttf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在Windows设备上找一个字体文件，替换上去就行了，比如Windows设备上的宋体 C:\Windows\Fonts\simsunb.ttf</span></span><br><span class="line">|root@m01 ~|$ <span class="built_in">cp</span> simsunb.ttf /code/zabbix/assets/fonts/DejaVuSans.ttf </span><br><span class="line"></span><br><span class="line"><span class="comment"># 刷新web页面即可</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Zabbix性能调优"><a href="#Zabbix性能调优" class="headerlink" title="Zabbix性能调优"></a>Zabbix性能调优</h2><p>提升zabbix服务端的性能，最有效的方式是从硬件方面解决，使用最快的处理器、更大的内存、更高速的磁盘、更快的网卡等。</p>
+<p>富则火力覆盖，穷则战术穿插，在受限于成本的情况下就要从软件方面解决，调节zabbix服务端的参数来获得最佳的性能。</p>
+<h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><p>Zabbix中的缓存，用于zabbix服务端存储从客户端获得的各类数据（历史数据、趋势数据等）</p>
+<blockquote>
+<p><strong>参数介绍</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看zabbix配置文件中关于缓存的参数</span></span><br><span class="line">|root@m01 zabbix|$ grep Cache /etc/zabbix/zabbix_server.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># VMwareCacheSize=8M		存储VMware数据的共享内存大小</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># CacheSize=8M		用于存储主机、监控项、触发器数据的共享内存大小</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># CacheUpdateFrequency=60		缓存数据更新时间</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># HistoryCacheSize=16M		存储历史数据的共享内存大小</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># HistoryIndexCacheSize=4M		存储历史数据索引的共享内存大小</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># TrendCacheSize=4M		存储趋势数据的共享内存大小</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ValueCacheSize=8M		存储监控项请求的数据的共享内存大小</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>调整方式</strong></p>
+</blockquote>
+<p>在web页面找到zabbix服务端对的监控图形，找到Zabbix cache usage的图形数据</p>
+<p><a href="/../pic/image-20240229095757550.png" title="image-20240229095757550" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240229095757550.png" alt="image-20240229095757550"></a></p>
+<p>观察各项缓存指标是否正常，若不正常则调整配置文件的相应参数到合适的水平</p>
+<p>考虑到硬件中内存是有限的，设置过大的缓存可能会影响到操作系统整体的性能</p>
+<h3 id="进程数"><a href="#进程数" class="headerlink" title="进程数"></a>进程数</h3><p>Zabbix中的进程数，用于zabbix服务端从不同客户端获得数据</p>
+<blockquote>
+<p><strong>参数介绍</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">|root@m01 zabbix|$ grep Poller zabbix_server.conf </span><br><span class="line"></span><br><span class="line"><span class="comment"># StartPollers=5		轮询进程数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># StartIPMIPollers=0		收集IPMI客户端数据的进程数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># StartPollersUnreachable=1		无法连接的主机的轮询进程数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># StartHTTPPollers=1		HTTP轮询进程数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># StartJavaPollers=1		收集JAVA客户端数据的进程数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># StartProxyPollers=1		收集zabbix-proxy代理端数据的进程数</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>调整方式</strong></p>
+</blockquote>
+<p>在web页面找到zabbix服务端对的监控图形，找到Zabbix data gathering process busy的图形数据</p>
+<p><a href="/../pic/image-20240229101211200.png" title="image-20240229101211200" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240229101211200.png" alt="image-20240229101211200"></a></p>
+<p>观察各项进程指标是否正常，若不正常则调整配置文件的相应参数到合适的水平</p>
+<p>设置太多的进程数可能会耗尽进程的文件描述符数量限制，导致服务端挂掉</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><blockquote>
+<p><strong>数据库</strong></p>
+</blockquote>
+<p>zabbix是一个读少写多的业务类型，所以要适当优化数据库的写入性能</p>
+<p>建议使用InnoDB存储引擎或tokuDB存储引擎，适当采取数据库分离或者拆分策略</p>
+<blockquote>
+<p><strong>监控项</strong></p>
+</blockquote>
+<p>增加更新间隔时间：5m或10m</p>
+<p>使用自定义模板：精简监控项</p>
+<p>减少历史数据保留时长，增加趋势数据的保留时长。（仅影响磁盘空间的占用）</p>
+<blockquote>
+<p><strong>触发器</strong></p>
+</blockquote>
+<p>尽量使用<code>.last()</code>、<code>.diff()</code>、<code>.nodata()</code>，避免使用计算型的<code>.max()</code>、<code>.min()</code>、<code>.avg()</code></p>
+<blockquote>
+<p><strong>客户端</strong></p>
+</blockquote>
+<p>使用主动模式</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-01-23</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Zabbix/'>
+                            Zabbix
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

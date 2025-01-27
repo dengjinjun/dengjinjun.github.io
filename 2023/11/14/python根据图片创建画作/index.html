@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="python根据图片创建画作" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            python根据图片创建画作
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>根据一张预设的图片，通过turtle画框，利用贝塞尔算法由点到线到面生成图画。</p>
+<p>注意：</p>
+<ol>
+<li>speed是画画的速度，不能太快，不然会有落笔不见像素的情况出现，画完存在白点。</li>
+<li>图片大小不能太大也不能太小，太大无法处理，如果300K以下会出现涂抹现象。我将图片压缩到100K左右还是出现涂抹。</li>
+<li>K&#x3D;32是颜色数，颜色数越多画的越慢，性能耗费越高。K&#x3D;40的情况下，电脑嗡嗡了三个小时，最好在30左右。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> turtle</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">from</span> win32.win32api <span class="keyword">import</span> GetSystemMetrics</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一些常量，画框的长宽以及迭代的次数</span></span><br><span class="line">WIDTH =<span class="number">600</span></span><br><span class="line">HEIGHT = <span class="number">600</span></span><br><span class="line">NUM_SAMPLE = <span class="number">15</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入为两个点，一阶，生成点</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Bezier_1</span>(<span class="params">p0, p1, t</span>):</span><br><span class="line">	<span class="comment"># (x, y)</span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(p0) == <span class="number">2</span> <span class="keyword">and</span> <span class="built_in">len</span>(p1) == <span class="number">2</span>:</span><br><span class="line">		<span class="keyword">return</span> p0[<span class="number">0</span>] * (<span class="number">1</span> - t) + p1[<span class="number">0</span>] * t, p0[<span class="number">1</span>] * (<span class="number">1</span> - t) + p1[<span class="number">1</span>] * t</span><br><span class="line">	<span class="comment"># (x) or (y)</span></span><br><span class="line">	<span class="keyword">elif</span> <span class="built_in">len</span>(p0) == <span class="number">1</span> <span class="keyword">and</span> <span class="built_in">len</span>(p1) == <span class="number">1</span>:</span><br><span class="line">		<span class="keyword">return</span> p0 * (<span class="number">1</span> - t) + p1 * t</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;[Error]: Bezier_1 parameters error...&#x27;</span>)</span><br><span class="line">		exit(-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 二阶，生成线</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Bezier_2</span>(<span class="params">p0, p1, p2</span>):</span><br><span class="line">	turtle.goto(p0)</span><br><span class="line">	turtle.pendown()</span><br><span class="line">	<span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, NUM_SAMPLE+<span class="number">1</span>):</span><br><span class="line">		p = Bezier_1(Bezier_1(p0, p1, t/NUM_SAMPLE), Bezier_1(p1, p2, t/NUM_SAMPLE), t/NUM_SAMPLE)</span><br><span class="line">		turtle.goto(p)</span><br><span class="line">	turtle.penup()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 三阶，连续扫描生成面</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Bezier_3</span>(<span class="params">p0, p1, p2, p3</span>):</span><br><span class="line">	<span class="comment"># 坐标变换</span></span><br><span class="line">	p0 = -WIDTH/<span class="number">2</span> + p0[<span class="number">0</span>], HEIGHT/<span class="number">2</span> - p0[<span class="number">1</span>]</span><br><span class="line">	p1 = -WIDTH/<span class="number">2</span> + p1[<span class="number">0</span>], HEIGHT/<span class="number">2</span> - p1[<span class="number">1</span>]</span><br><span class="line">	p2 = -WIDTH/<span class="number">2</span> + p2[<span class="number">0</span>], HEIGHT/<span class="number">2</span> - p2[<span class="number">1</span>]</span><br><span class="line">	p3 = -WIDTH/<span class="number">2</span> + p3[<span class="number">0</span>], HEIGHT/<span class="number">2</span> - p3[<span class="number">1</span>]</span><br><span class="line">	turtle.goto(p0)</span><br><span class="line">	turtle.pendown()</span><br><span class="line">	<span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, NUM_SAMPLE+<span class="number">1</span>):</span><br><span class="line">		p = Bezier_1(Bezier_1(Bezier_1(p0, p1, t/NUM_SAMPLE), Bezier_1(p1, p2, t/NUM_SAMPLE), t/NUM_SAMPLE), </span><br><span class="line">					 Bezier_1(Bezier_1(p1, p2, t/NUM_SAMPLE), Bezier_1(p2, p3, t/NUM_SAMPLE), t/NUM_SAMPLE), t/NUM_SAMPLE)</span><br><span class="line">		turtle.goto(p)</span><br><span class="line">	turtle.penup()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Attrs生成器</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">yieldAttrs</span>(<span class="params">attrs</span>):</span><br><span class="line">	<span class="keyword">for</span> attr <span class="keyword">in</span> attrs:</span><br><span class="line">		<span class="keyword">if</span> attr.isdigit():</span><br><span class="line">			<span class="keyword">yield</span> <span class="built_in">float</span>(attr)</span><br><span class="line">		<span class="keyword">elif</span> attr[<span class="number">0</span>].isalpha():</span><br><span class="line">			<span class="keyword">yield</span> attr[<span class="number">0</span>]</span><br><span class="line">			<span class="keyword">yield</span> <span class="built_in">float</span>(attr[<span class="number">1</span>:])</span><br><span class="line">		<span class="keyword">elif</span> attr[-<span class="number">1</span>].isalpha():</span><br><span class="line">			<span class="keyword">yield</span> <span class="built_in">float</span>(attr[<span class="number">0</span>: -<span class="number">1</span>])</span><br><span class="line">		<span class="keyword">elif</span> attr[<span class="number">0</span>] == <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">			<span class="keyword">yield</span> <span class="built_in">float</span>(attr)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 画图(SVG)，文件名，颜色，速度等</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">drawSVG</span>(<span class="params">filename, color, is_first=<span class="literal">True</span>, speed=<span class="number">1000</span></span>):</span><br><span class="line">	svgfile = <span class="built_in">open</span>(filename, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">	soup = BeautifulSoup(svgfile.read(), <span class="string">&#x27;lxml&#x27;</span>)</span><br><span class="line">	height = <span class="built_in">float</span>(soup.svg.attrs[<span class="string">&#x27;height&#x27;</span>][<span class="number">0</span>: -<span class="number">2</span>])</span><br><span class="line">	width = <span class="built_in">float</span>(soup.svg.attrs[<span class="string">&#x27;width&#x27;</span>][<span class="number">0</span>: -<span class="number">2</span>])</span><br><span class="line">	scale = <span class="built_in">tuple</span>(<span class="built_in">map</span>(<span class="built_in">float</span>, re.findall(<span class="string">r&#x27;scale\((.*?)\)&#x27;</span>, soup.g.attrs[<span class="string">&#x27;transform&#x27;</span>])[<span class="number">0</span>].split(<span class="string">&#x27;,&#x27;</span>)))</span><br><span class="line">	scale = scale[<span class="number">0</span>], -scale[<span class="number">1</span>]</span><br><span class="line">	<span class="keyword">if</span> is_first:</span><br><span class="line">		turtle.setup(height=height, width=width)</span><br><span class="line">		<span class="comment"># 设置坐标系(画布左下角的x坐标, 画布左下角的y坐标, 画布右上角的x坐标, 画布右上角的y坐标)</span></span><br><span class="line">		turtle.setworldcoordinates(-width/<span class="number">2</span>, <span class="number">300</span>,width-width/<span class="number">2</span>, -height+<span class="number">300</span>)</span><br><span class="line">	<span class="comment"># 基础设置</span></span><br><span class="line">	turtle.tracer(<span class="number">100</span>)</span><br><span class="line">	turtle.pensize(<span class="number">1</span>)</span><br><span class="line">	turtle.speed(speed)</span><br><span class="line">	turtle.penup()</span><br><span class="line">	turtle.color(color)</span><br><span class="line">	<span class="keyword">for</span> path <span class="keyword">in</span> soup.find_all(<span class="string">&#x27;path&#x27;</span>):</span><br><span class="line">		attrs = path.attrs[<span class="string">&#x27;d&#x27;</span>].replace(<span class="string">&#x27;\n&#x27;</span>, <span class="string">&#x27; &#x27;</span>)</span><br><span class="line">		attrs = attrs.split(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">		attrs_yield = yieldAttrs(attrs)</span><br><span class="line">		endl = <span class="string">&#x27;&#x27;</span></span><br><span class="line">		<span class="keyword">for</span> attr <span class="keyword">in</span> attrs_yield:</span><br><span class="line">			<span class="keyword">if</span> attr == <span class="string">&#x27;M&#x27;</span>:</span><br><span class="line">				turtle.end_fill()</span><br><span class="line">				x, y = attrs_yield.__next__() * scale[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>]</span><br><span class="line">				turtle.penup()</span><br><span class="line">				turtle.goto(-WIDTH/<span class="number">2</span>+x, HEIGHT/<span class="number">2</span>-y)</span><br><span class="line">				turtle.pendown()</span><br><span class="line">				turtle.begin_fill()</span><br><span class="line">			<span class="keyword">elif</span> attr == <span class="string">&#x27;m&#x27;</span>:</span><br><span class="line">				turtle.end_fill()</span><br><span class="line">				dx, dy = attrs_yield.__next__() * scale[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>]</span><br><span class="line">				turtle.penup()</span><br><span class="line">				turtle.goto(turtle.xcor()+dx, turtle.ycor()-dy)</span><br><span class="line">				turtle.pendown()</span><br><span class="line">				turtle.begin_fill()</span><br><span class="line">			<span class="keyword">elif</span> attr == <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">				p1 = attrs_yield.__next__() * scale[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>]</span><br><span class="line">				p2 = attrs_yield.__next__() * scale[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>]</span><br><span class="line">				p3 = attrs_yield.__next__() * scale[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>]</span><br><span class="line">				turtle.penup()</span><br><span class="line">				p0 = turtle.xcor()+WIDTH/<span class="number">2</span>, HEIGHT/<span class="number">2</span>-turtle.ycor()</span><br><span class="line">				Bezier_3(p0, p1, p2, p3)</span><br><span class="line">				endl = attr</span><br><span class="line">			<span class="keyword">elif</span> attr == <span class="string">&#x27;c&#x27;</span>:</span><br><span class="line">				turtle.penup()</span><br><span class="line">				p0 = turtle.xcor()+WIDTH/<span class="number">2</span>, HEIGHT/<span class="number">2</span>-turtle.ycor()</span><br><span class="line">				p1 = attrs_yield.__next__() * scale[<span class="number">0</span>] + p0[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>] + p0[<span class="number">1</span>]</span><br><span class="line">				p2 = attrs_yield.__next__() * scale[<span class="number">0</span>] + p0[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>] + p0[<span class="number">1</span>]</span><br><span class="line">				p3 = attrs_yield.__next__() * scale[<span class="number">0</span>] + p0[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>] + p0[<span class="number">1</span>]</span><br><span class="line">				Bezier_3(p0, p1, p2, p3)</span><br><span class="line">				endl = attr</span><br><span class="line">			<span class="keyword">elif</span> attr == <span class="string">&#x27;L&#x27;</span>:</span><br><span class="line">				x, y = attrs_yield.__next__() * scale[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>]</span><br><span class="line">				turtle.pendown()</span><br><span class="line">				turtle.goto(-WIDTH/<span class="number">2</span>+x, HEIGHT/<span class="number">2</span>-y)</span><br><span class="line">				turtle.penup()</span><br><span class="line">			<span class="keyword">elif</span> attr == <span class="string">&#x27;l&#x27;</span>:</span><br><span class="line">				dx, dy = attrs_yield.__next__() * scale[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>]</span><br><span class="line">				turtle.pendown()</span><br><span class="line">				turtle.goto(turtle.xcor()+dx, turtle.ycor()-dy)</span><br><span class="line">				turtle.penup()</span><br><span class="line">				endl = attr</span><br><span class="line">			<span class="keyword">elif</span> endl == <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">				p1 = attr * scale[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>]</span><br><span class="line">				p2 = attrs_yield.__next__() * scale[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>]</span><br><span class="line">				p3 = attrs_yield.__next__() * scale[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>]</span><br><span class="line">				turtle.penup()</span><br><span class="line">				p0 = turtle.xcor()+WIDTH/<span class="number">2</span>, HEIGHT/<span class="number">2</span>-turtle.ycor()</span><br><span class="line">				Bezier_3(p0, p1, p2, p3)</span><br><span class="line">			<span class="keyword">elif</span> endl == <span class="string">&#x27;c&#x27;</span>:</span><br><span class="line">				turtle.penup()</span><br><span class="line">				p0 = turtle.xcor()+WIDTH/<span class="number">2</span>, HEIGHT/<span class="number">2</span>-turtle.ycor()</span><br><span class="line">				p1 = attr * scale[<span class="number">0</span>] + p0[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>] + p0[<span class="number">1</span>]</span><br><span class="line">				p2 = attrs_yield.__next__() * scale[<span class="number">0</span>] + p0[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>] + p0[<span class="number">1</span>]</span><br><span class="line">				p3 = attrs_yield.__next__() * scale[<span class="number">0</span>] + p0[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>] + p0[<span class="number">1</span>]</span><br><span class="line">				Bezier_3(p0, p1, p2, p3)</span><br><span class="line">			<span class="keyword">elif</span> endl == <span class="string">&#x27;L&#x27;</span>:</span><br><span class="line">				x, y = attr * scale[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>]</span><br><span class="line">				turtle.pendown()</span><br><span class="line">				turtle.goto(-WIDTH/<span class="number">2</span>+x, HEIGHT/<span class="number">2</span>-y)</span><br><span class="line">				turtle.penup()</span><br><span class="line">			<span class="keyword">elif</span> endl == <span class="string">&#x27;l&#x27;</span>:</span><br><span class="line">				dx, dy = attr * scale[<span class="number">0</span>], attrs_yield.__next__() * scale[<span class="number">1</span>]</span><br><span class="line">				turtle.pendown()</span><br><span class="line">				turtle.goto(turtle.xcor()+dx, turtle.ycor()-dy)</span><br><span class="line">				turtle.penup()</span><br><span class="line">	turtle.penup()</span><br><span class="line">	<span class="comment"># turtle.hideturtle()</span></span><br><span class="line">	turtle.update()</span><br><span class="line">	svgfile.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 画图(Bit)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">drawBit</span>(<span class="params">img_bit, K=<span class="number">32</span></span>):</span><br><span class="line">	data = img_bit.reshape((-<span class="number">1</span>, <span class="number">3</span>))</span><br><span class="line">	data = np.float32(data)</span><br><span class="line">	criteria = (cv2.TERM_CRITERIA_EPS, <span class="number">10</span>, <span class="number">1.0</span>)</span><br><span class="line">	compactness, labels, centers = cv2.kmeans(data, K, <span class="literal">None</span>, criteria, <span class="number">10</span>, cv2.KMEANS_RANDOM_CENTERS)</span><br><span class="line">	centers = np.uint8(centers)</span><br><span class="line">	data_compress = centers[labels.flatten()]</span><br><span class="line">	img_new = data_compress.reshape(img_bit.shape)</span><br><span class="line">	count = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> center <span class="keyword">in</span> centers:</span><br><span class="line">		count += <span class="number">1</span></span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;[INFO]: Drawing %dth color...&#x27;</span> % count)</span><br><span class="line">		part = cv2.inRange(img_new, center, center)</span><br><span class="line">		part = cv2.bitwise_not(part)</span><br><span class="line">		cv2.imwrite(<span class="string">&#x27;.tmp.bmp&#x27;</span>, part)</span><br><span class="line">		os.system(<span class="string">&#x27;potrace.exe .tmp.bmp -s --flat&#x27;</span>)</span><br><span class="line">		<span class="keyword">if</span> count == <span class="number">1</span>:</span><br><span class="line">			drawSVG(<span class="string">&#x27;.tmp.svg&#x27;</span>, <span class="string">&#x27;#%02x%02x%02x&#x27;</span> % (center[<span class="number">2</span>], center[<span class="number">1</span>], center[<span class="number">0</span>]), <span class="literal">True</span>)</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			drawSVG(<span class="string">&#x27;.tmp.svg&#x27;</span>, <span class="string">&#x27;#%02x%02x%02x&#x27;</span> % (center[<span class="number">2</span>], center[<span class="number">1</span>], center[<span class="number">0</span>]), <span class="literal">False</span>)</span><br><span class="line">	os.remove(<span class="string">&#x27;.tmp.bmp&#x27;</span>)</span><br><span class="line">	os.remove(<span class="string">&#x27;.tmp.svg&#x27;</span>)</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&#x27;[INFO]: All done!&#x27;</span>)</span><br><span class="line">	turtle.done()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	img_path = <span class="string">&#x27;./wh.jpg&#x27;</span></span><br><span class="line">	img_bit = cv2.imread(img_path)</span><br><span class="line">	<span class="comment"># 画图时的颜色数</span></span><br><span class="line">	K = <span class="number">32</span></span><br><span class="line">	<span class="comment"># 避免照片过大</span></span><br><span class="line">	<span class="keyword">if</span> img_bit.shape[<span class="number">0</span>] &gt; GetSystemMetrics(<span class="number">1</span>):</span><br><span class="line">		width = <span class="built_in">int</span>(img_bit.shape[<span class="number">1</span>] * ((GetSystemMetrics(<span class="number">1</span>) - <span class="number">50</span>) / img_bit.shape[<span class="number">0</span>]))</span><br><span class="line">		height = GetSystemMetrics(<span class="number">1</span>) - <span class="number">50</span></span><br><span class="line">		img_bit = cv2.resize(img_bit, (width, height))</span><br><span class="line">	drawBit(img_bit, K)</span><br></pre></td></tr></table></figure>
+
+<p>有人学python去做web开发、数据分析、爬虫，我本来也是想学了python找工作的，现在在给女孩子画画。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-14</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/'>
+                            奇技淫巧
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

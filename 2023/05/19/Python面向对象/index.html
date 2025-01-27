@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Python面向对象" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Python面向对象
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="post-toc-text">面向对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="post-toc-text">面向对象的方式：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7"><span class="post-toc-text">面向对象三大特性</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h1><ul>
+<li>Java语言，面向对象编程</li>
+<li>python语言<ul>
+<li>面向过程编程（不推荐）</li>
+<li>函数式编程（熟练使用）</li>
+<li>面向对象编程（理解、研究源码）</li>
+</ul>
+</li>
+</ul>
+<h2 id="面向对象的方式："><a href="#面向对象的方式：" class="headerlink" title="面向对象的方式："></a>面向对象的方式：</h2><ul>
+<li><p>定义类和方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 类名(首字母大写)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Message</span> :</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 在类中定义一些方法，比如</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">send_email</span>(<span class="params">self, to_email</span>):		<span class="comment"># self参数是必须添加的</span></span><br><span class="line">        msg = <span class="string">&quot;给&#123;&#125;发送了一封邮件&quot;</span>.<span class="built_in">format</span>(to_email)</span><br><span class="line">        <span class="built_in">print</span>(msg)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用类中的方法</p>
+<ul>
+<li><p>根据类名，实例化一个对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj = Message()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象调用方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 调用方法时，对象.方法名，方法中的第一个参数self不需要传递值，self指对象本身</span></span><br><span class="line">obj.send_email(<span class="string">&quot;dengjinjun0805@126.com&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<p>​				可以把对象理解为一块内存，内存中可以写入变量和数据，通过类名实例化一个对象之后，可以调用类				中的方法，也可以调用对象中的变量和数据</p>
+<ul>
+<li><p>关于<code>__init__</code>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特殊的方法(初始化方法)，实例化一个对象时，python内部会自动调用</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Message</span> :</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="comment"># 默认__init__不用添加任何语句，也可以根据需求添加，将会在实例化对象时自动执行</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象的作用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将很多数据封装到一个对象中，再通过这个对象调用里面的数据</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="面向对象三大特性"><a href="#面向对象三大特性" class="headerlink" title="面向对象三大特性"></a>面向对象三大特性</h2><ul>
+<li><p>封装</p>
+<ul>
+<li><p>将数据打包放在对象中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UserInfo</span>:</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span> (<span class="variable language_">self</span>,name,age,email):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.age = age</span><br><span class="line">        <span class="variable language_">self</span>.email = email</span><br><span class="line"></span><br><span class="line">obj1 = UserInfo(<span class="string">&quot;张三&quot;</span>，<span class="number">18</span>，”xx@qq.com)      </span><br><span class="line">obj2 = UserInfo(<span class="string">&quot;李四&quot;</span>，<span class="number">18</span>，”xx@qq.com) </span><br><span class="line">obj3 = UserInfo(<span class="string">&quot;王五&quot;</span>，<span class="number">18</span>，”xx@qq.com) </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将同一类型的函数归类到一个类中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Message</span>:</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">email</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wechat</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">dingding</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>继承</p>
+<p>提高代码的重用性，子类可以使用父类中的方法。多个类可以把公共的功能提取到父类中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">F1</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">F2</span>(<span class="title class_ inherited__">F1</span>):	<span class="comment"># F2继承F1</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">do</span>(<span class="params">self</span>)</span><br><span class="line">    	<span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">obj = F2()</span><br><span class="line"></span><br><span class="line">obj.do()		<span class="comment"># 子类的实例化对象调用方法时，优先去自身的类中找</span></span><br><span class="line">obj.show()		<span class="comment"># 如果当前类没有，根据继承关系向上找，父类的对象无法去子类中找</span></span><br><span class="line">				<span class="comment"># self本质上是一个参数，由哪个对象调用这个方法，self就代指哪个对象</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python中具有多继承，一个类可以集成多个父类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">F3</span>(F2,F1):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="comment"># 寻找成员时，优先去自身的类中找，如果没有去父类中找，父类的顺序按照从左到右</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多态</p>
+<p>多态指多种形态，多种类型，python中默认支持多态</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># arg类型支持多种类型，即各种各样的对象</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>(<span class="params">arg</span>):</span><br><span class="line">    arg.send()</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 在这个函数中，arg可以时各种实例化对象，只要对象的类中有send方法即可</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-05-19</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Python/'>
+                            Python
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Jinja语言教程" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Jinja语言教程
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="post-toc-text">语法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8F%98%E9%87%8F"><span class="post-toc-text">变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84"><span class="post-toc-text">控制结构</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>Jinja是一种基于 Python 的模板语言。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://jinja.palletsprojects.com/en/3.0.x/templates/">官方文档</a></li>
+<li>由 Flask 的作者开发，最初是模仿 Django 的 DTL 模板语言，处理 HTML 文件，后来推广到处理各种类型的文本文件。</li>
+</ul>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
+<li><p>三种定界符：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; &#125;&#125;    # 用于读取变量的值，并嵌入模板文本中</span><br><span class="line">&#123;% %&#125;    # 用于执行指令</span><br><span class="line">&#123;# #&#125;    # 用于声明单行注释</span><br></pre></td></tr></table></figure>
+
+<p>渲染模板文件时会删除所有注释。</p>
+<p>声明多行注释的方法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% comment %&#125;</span><br><span class="line">This is a comment.</span><br><span class="line">&#123;% endcomment %&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><ul>
+<li><p>简单变量（如果读取的变量不存在，则取值为空字符串。）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="built_in">set</span> a=<span class="string">&#x27;Hello&#x27;</span> %&#125;   <span class="comment"># 创建变量</span></span><br><span class="line">&#123;% <span class="built_in">set</span> b=a %&#125;         <span class="comment"># 将变量赋值给另一个变量</span></span><br><span class="line">&#123;&#123; b &#125;&#125;               <span class="comment"># 读取变量的值</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>变量可以是 Python 中任意类型的对象，可以调用该对象的属性、方法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Explain&#123;&#123; name &#125;&#125;            <span class="comment"># 读取变量</span></span><br><span class="line">&#123;&#123; name.__doc__ &#125;&#125;    <span class="comment"># 调用属性</span></span><br><span class="line">&#123;&#123; name.encode() &#125;&#125;   <span class="comment"># 调用方法</span></span><br><span class="line">&#123;&#123; dict1[<span class="string">&#x27;A&#x27;</span>] &#125;&#125;      <span class="comment"># 读取字典</span></span><br><span class="line">&#123;&#123; list1[0] &#125;&#125;        <span class="comment"># 读取列表</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="控制结构"><a href="#控制结构" class="headerlink" title="控制结构"></a>控制结构</h3><ul>
+<li><p>if 语句：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Explain&#123;% <span class="keyword">if</span> a is defined %&#125;   <span class="comment"># 判断变量是否已定义</span></span><br><span class="line">AAA</span><br><span class="line">&#123;% <span class="keyword">elif</span> not b %&#125;</span><br><span class="line">BBB</span><br><span class="line">&#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">CCC</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; True <span class="keyword">if</span> a <span class="keyword">else</span> False &#125;&#125;</span><br><span class="line">&#123;&#123; a or <span class="string">&#x27;Hello&#x27;</span> &#125;&#125;      <span class="comment"># 为变量设置默认值</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>迭代列表：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Explain&lt;ul&gt;</span><br><span class="line">  &#123;% <span class="keyword">for</span> i <span class="keyword">in</span> list1 %&#125;</span><br><span class="line">  &lt;li&gt;&#123;&#123; i &#125;&#125;&lt;/li&gt;</span><br><span class="line">  &#123;% endfor %&#125;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>迭代字典：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Explain&lt;dl&gt;</span><br><span class="line">  &#123;% <span class="keyword">for</span> k, v <span class="keyword">in</span> dict1.items() %&#125;</span><br><span class="line">  &lt;dt&gt;&#123;&#123; k &#125;&#125;&lt;/dt&gt;</span><br><span class="line">  &lt;<span class="built_in">dd</span>&gt;&#123;&#123; v &#125;&#125;&lt;/dd&gt;</span><br><span class="line">  &#123;% endfor %&#125;</span><br><span class="line">&lt;/dl&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>继承：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Explain&#123;% extends <span class="string">&quot;base.html&quot;</span> %&#125;   <span class="comment"># 继承 base.html 的内容</span></span><br><span class="line"></span><br><span class="line">&#123;% block <span class="built_in">head</span> %&#125;            <span class="comment"># 定义一个 block 块，如果继承的父文件中存在同名的 block ，则会覆盖它</span></span><br><span class="line">    &#123;&#123; super() &#125;&#125;           <span class="comment"># 插入父文件中同名的 block 的内容</span></span><br><span class="line">    &lt;title&gt;Hello&lt;/title&gt;</span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<p>摘自：<a target="_blank" rel="noopener" href="https://leohsiao.com/Python/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/%E5%BA%8F%E5%88%97%E5%8C%96/Jinja.html">LeoHsiao’s Notes</a></p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-02</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E6%8B%93%E5%B1%95%E8%A7%86%E9%87%8E/'>
+                            拓展视野
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

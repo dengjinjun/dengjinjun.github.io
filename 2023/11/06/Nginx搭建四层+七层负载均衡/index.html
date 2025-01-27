@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Nginx搭建四层+七层负载均衡" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Nginx搭建四层+七层负载均衡
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%90%AD%E5%BB%BA%E8%AF%B4%E6%98%8E"><span class="post-toc-text">搭建说明</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9B%9B%E5%B1%82-MySQL%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">四层+MySQL服务器负载均衡</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9B%9B%E5%B1%82-7%E5%B1%82-web%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">四层+7层+web服务器负载均衡</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A4%9A%E5%B1%82%E8%B4%9F%E8%BD%BD%E6%9E%B6%E6%9E%84%E4%B8%8B%E8%8E%B7%E5%8F%96%E7%9C%9F%E5%AE%9E%E5%AE%A2%E6%88%B7%E7%AB%AFIP"><span class="post-toc-text">多层负载架构下获取真实客户端IP</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="搭建说明"><a href="#搭建说明" class="headerlink" title="搭建说明"></a>搭建说明</h2><p>四层负载均衡，只是基于IP+端口的转发，工作在网络层，并不接触到应用层，因此跟以往的七层负载均衡不太相同。</p>
+<p>以往的负载均衡都是工作在应用层，由<code>ngx_http_upstream_module</code>模块实现，实现四层负载均衡的模块是：<code>ngx_stream_core_module</code> 模块，很明显，它工作在http模块之外，所以才能称为四层负载均衡。</p>
+<p>官网说明：<a target="_blank" rel="noopener" href="https://nginx.org/en/docs/stream/ngx_stream_core_module.html">https://nginx.org/en/docs/stream/ngx_stream_core_module.html</a></p>
+<p>本次实践搭建：</p>
+<ol>
+<li>四层+MySQL服务器负载均衡。</li>
+<li>四层+7层+web服务器负载均衡</li>
+</ol>
+<h2 id="四层-MySQL服务器负载均衡"><a href="#四层-MySQL服务器负载均衡" class="headerlink" title="四层+MySQL服务器负载均衡"></a>四层+MySQL服务器负载均衡</h2><p><a href="/../pic/image-20231109012017760.png" title="image-20231109012017760" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20231109012017760.png" alt="image-20231109012017760"></a></p>
+<blockquote>
+<p><strong>环境准备</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>主机</strong></th>
+<th><strong>IP</strong></th>
+<th><strong>角色</strong></th>
+<th><strong>备注</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lb4_01</td>
+<td>192.168.110.144</td>
+<td>四层负载均衡服务器</td>
+<td>在此服务器中搭建</td>
+</tr>
+<tr>
+<td>db01</td>
+<td>192.168.110.137</td>
+<td>数据库服务器1</td>
+<td>配置好数据库</td>
+</tr>
+<tr>
+<td>db02</td>
+<td>192.168.110.143</td>
+<td>数据库服务器2</td>
+<td>配置好数据库</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>在Nginx主配置文件中，添加以下内容：</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/nginx/nginx.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意：必须要在http区段以外添加</span></span><br><span class="line"><span class="comment"># nginx.conf文件中不能有多个stream标签，所以通过这个定义在外部嵌入</span></span><br><span class="line">stream &#123;</span><br><span class="line">        include /etc/nginx/stream_conf.d/*.conf;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>创建stream配置文件</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /etc/nginx/stream_conf.d</span><br><span class="line">cd /etc/nginx/stream_conf.d</span><br><span class="line">vim lb4_db.conf</span><br><span class="line"></span><br><span class="line">upstream mysql&#123;</span><br><span class="line">	server 192.168.110.137:3306;</span><br><span class="line">	server 192.168.110.143:3306;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">	listen 3306;</span><br><span class="line">	proxy_pass mysql;	# 与七层负载均衡不同，此处不加http://</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="四层-7层-web服务器负载均衡"><a href="#四层-7层-web服务器负载均衡" class="headerlink" title="四层+7层+web服务器负载均衡"></a>四层+7层+web服务器负载均衡</h2><p><a href="/../pic/image-20231109012034703.png" title="image-20231109012034703" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20231109012034703.png" alt="image-20231109012034703"></a></p>
+<blockquote>
+<p>环境准备</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>主机</strong></th>
+<th><strong>IP</strong></th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lb4_01</td>
+<td>192.168.110.144</td>
+<td>四层负载均衡服务器</td>
+</tr>
+<tr>
+<td>lb7_01</td>
+<td>192.168.110.135</td>
+<td>七层负载均衡服务器</td>
+</tr>
+<tr>
+<td>lb7_02</td>
+<td>192.168.110.136</td>
+<td>七层负载均衡服务器</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>lb4_01</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/nginx/stream_conf.d</span><br><span class="line">vim lb4_web.conf</span><br><span class="line"></span><br><span class="line">upstream proxy_7 &#123;</span><br><span class="line">	server 192.168.110.135:80;</span><br><span class="line">	server 192.168.110.136:80;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">	listen 80;			# 注意：当Nginx中配置了多个监听事项时，不要造成端口冲突。</span><br><span class="line">	proxy_pass proxy_7;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>lb7_01&#x2F;lb7_02</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">upstream static&#123;</span><br><span class="line">	server sweb01 weight=1;</span><br><span class="line">	server sweb02 weight=1;</span><br><span class="line">&#125;</span><br><span class="line">upstream default&#123;</span><br><span class="line">	server web01 weight=1;</span><br><span class="line">&#125;</span><br><span class="line">upstream dynamic&#123;</span><br><span class="line">	server web02 weight=1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name blog;</span><br><span class="line">	location /&#123;</span><br><span class="line">		proxy_pass http://default;</span><br><span class="line">		proxy_set_header Host $http_host;</span><br><span class="line">	&#125;</span><br><span class="line">	location /static/&#123;</span><br><span class="line">		proxy_pass http://static;</span><br><span class="line">		proxy_set_header Host $http_host;</span><br><span class="line">	&#125;</span><br><span class="line">	location /dynamic/&#123;</span><br><span class="line">		proxy_pass http://dynamic;</span><br><span class="line">		proxy_set_header Host $http_host;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="多层负载架构下获取真实客户端IP"><a href="#多层负载架构下获取真实客户端IP" class="headerlink" title="多层负载架构下获取真实客户端IP"></a>多层负载架构下获取真实客户端IP</h2><blockquote>
+<p><strong>lb4_01</strong></p>
+</blockquote>
+<p>开启proxy_protocol协议。</p>
+<p>proxy protocol是HAProxy的作者Willy Tarreau于2010年开发和设计的一个Internet协议，通过为tcp添加一个很小的头信息，来方便的传递客户端信息（协议栈、源IP、目的IP、源端口、目的端口等)，在网络情况复杂又需要获取用户真实IP时非常有用。其本质是在三次握手结束后由代理在连接中插入了一个携带了原始连接四元组信息的数据包。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">upstream proxy_7 &#123;</span><br><span class="line">	server 192.168.110.135:80;</span><br><span class="line">	server 192.168.110.136:80;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	proxy_pass proxy_7;</span><br><span class="line">	proxy_protocol on;  		<span class="comment"># 开启proxy_protocol协议</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>lb7_01&#x2F;lb7_02</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">upstream www &#123;</span><br><span class="line">	server 172.16.1.7:80;</span><br><span class="line">	server 172.16.1.8:80;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">	<span class="comment"># #需要同时监听proxy_protocol，才能获取到代理协议的信息</span></span><br><span class="line">    listen 80 proxy_protocol;        	</span><br><span class="line">    server_name blog;</span><br><span class="line">    <span class="comment"># 指定Nginx从特定的地址范围获取真实的客户端IP地址</span></span><br><span class="line">    set_real_ip_from 192.168.110.0/24; </span><br><span class="line">    <span class="comment"># 指定Nginx应该从 proxy_protocol 中读取代理协议的信息</span></span><br><span class="line">    real_ip_header proxy_protocol;  	，</span><br><span class="line">    location / &#123;</span><br><span class="line">    proxy_pass http://www;</span><br><span class="line">    <span class="comment"># 主机头赋值</span></span><br><span class="line">    proxy_set_header Host <span class="variable">$http_host</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># $proxy_protocol_server_addr是四层负载均衡器的IP，将其赋值给X-Forwarded-For</span></span><br><span class="line">    proxy_set_header X-Forwarded-For <span class="variable">$proxy_protocol_server_addr</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># $proxy_protocol_addr就是真实客户端IP，将其追加到</span></span><br><span class="line">    proxy_set_header X-Forwarded-For <span class="variable">$proxy_protocol_addr</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># $proxy_add_x_forwarded_for是X-Forwarded-For变量后面追加remote_addr，再将其追加到原本的X-Forwarded-For后面</span></span><br><span class="line">    proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;	</span><br><span class="line">    &#125;</span><br><span class="line">&#125;   </span><br><span class="line">	<span class="comment"># 上述指令多次将值传递给X-Forwarded-For变量，第一次是赋值，后面的都是追加（多次实践得出的结论，暂未找到官方理论依据）。</span></span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-06</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Nginx/'>
+                            Nginx
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

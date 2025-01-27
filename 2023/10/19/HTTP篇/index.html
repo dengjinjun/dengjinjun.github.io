@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="HTTP篇" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            HTTP篇
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HTTP%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95"><span class="post-toc-text">HTTP请求方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HTTP%E7%8A%B6%E6%80%81%E7%A0%81"><span class="post-toc-text">HTTP状态码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HTTP%E6%8A%A5%E6%96%87"><span class="post-toc-text">HTTP报文</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%A4%B4%E9%83%A8%E5%AD%97%E6%AE%B5%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">头部字段详细介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#URL"><span class="post-toc-text">URL</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BD%91%E7%AB%99%E6%B5%81%E9%87%8F%E5%BA%A6%E9%87%8F"><span class="post-toc-text">网站流量度量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#IP"><span class="post-toc-text">IP</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#PV"><span class="post-toc-text">PV</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#UV"><span class="post-toc-text">UV</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%B9%B6%E5%8F%91"><span class="post-toc-text">并发</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>HTTP：全称 Hyper Text Transfer Protocol，超文本传输协议。位于OSI模型第七层，HTTP协议最初的目的就是提供一种发布和接收HTML（超文本标记语言）页面的方法。默认端口为80。</p>
+<p>HTTP的重要应用之一的WWW服务，WWW全称为 World Wide Web，即万维网，用于web浏览器和web服务器之间的通信，即WWW应用或web应用。另外，一种加密的HTTP协议称为HTTPS协议，端口是443。当今，WWW服务、HTTP服务、HTTPS服务的概念经常混淆，通常都认为是一般的网站服务。</p>
+<h3 id="HTTP请求方法"><a href="#HTTP请求方法" class="headerlink" title="HTTP请求方法"></a>HTTP请求方法</h3><p>请求方法是指，用户在请求web服务器时，告诉服务器要执行具体的什么动作。</p>
+<table>
+<thead>
+<tr>
+<th>HTTP方法</th>
+<th>动作描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GET</td>
+<td>客户端请求指定资源信息，服务器返回指定资源</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>将客户端的数据提交到服务器，例如：注册表单</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>从客户端向服务器传送数据，取代指定的文档内容</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>只请求响应报文中的HTTP首部</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>请求服务器删除Request-URI所标识的资源</td>
+</tr>
+<tr>
+<td>MOVE</td>
+<td>请求服务器将指定的页面移至另一个网络地址</td>
+</tr>
+</tbody></table>
+<h3 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h3><p>HTTP状态码是web服务器用来响应HTTP请求状态的数字码</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>详细说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200 — OK</td>
+<td>成功的HTTP请求返回的标准状态码，代表服务器成功返回网页</td>
+</tr>
+<tr>
+<td>301 — Moved Permanently</td>
+<td>永久跳转，代表所请求的网页将永久跳转到被设定的新的位置</td>
+</tr>
+<tr>
+<td>403 — Forbidden</td>
+<td>禁止访问，代表请求是合法的，但是服务端因为预先设置的规则拒绝响应客户端的请求。<br />1. 没有首页文件，index.html、index.php等（并且没有开目录浏览功能）<br />2. 没有站点目录权限以及首页文件权限</td>
+</tr>
+<tr>
+<td>404 — Not Found</td>
+<td>服务端找不到客户端请求的资源</td>
+</tr>
+<tr>
+<td>500 — Internal Server Error</td>
+<td>内部服务器错误，一般为服务器的设置错误或服务端程序问题导致，比如SElinux等。</td>
+</tr>
+<tr>
+<td>502 — Bad Gateway</td>
+<td>网关错误，一般是代理服务器请求后端服务时，后端服务不可用。<br />一般是反向代理服务器下面的节点出问题</td>
+</tr>
+<tr>
+<td>503 — Service Unavailable</td>
+<td>服务不可用，可能是服务器超载或停机维护，或是反向代理服务器后没有可以提供服务的节点</td>
+</tr>
+<tr>
+<td>504 — Gateway Timeout</td>
+<td>网关超时，一般是代理服务器请求后端服务时，后端服务没有在特定时间内完成响应。<br />一般是服务器过载导致没有在指定时间内返回数据给前端代理服务器</td>
+</tr>
+</tbody></table>
+<p>一般HTTP状态码会在响应头的第一行给出，Linux中可以通过以下命令查看：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -I www.baidu.com 2&gt;/dev/null | <span class="built_in">head</span> -1		<span class="comment"># -I 是查看响应头，此处需要将多余信息丢弃</span></span><br><span class="line">curl -s -I www.baidu.com | <span class="built_in">head</span> -1				<span class="comment"># -s 是沉默输出，默认丢弃多余信息		</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h3><p>HTTP报文分为请求报文和响应报文。</p>
+<p>请求报文：HTTP客户端向服务端发送的报文；</p>
+<p>响应报文：HTTP服务端向客户端发送的报文。</p>
+<blockquote>
+<p>HTTP请求报文</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>报文格式</th>
+<th>报文信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>请求行</td>
+<td>请求方法    URL    协议版本</td>
+</tr>
+<tr>
+<td>请求头</td>
+<td>字段名1：值1<br />字段名2：值2<br />……</td>
+</tr>
+<tr>
+<td>空行</td>
+<td>空白无内容</td>
+</tr>
+<tr>
+<td>请求报文主体</td>
+<td>GET方法没有请求报文主体，POST方法才有</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>响应报文</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>报文格式</th>
+<th>报文信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>起始行</td>
+<td>协议及版本号    数字状态码    状态信息</td>
+</tr>
+<tr>
+<td>响应头部</td>
+<td>字段名1：值1<br />字段名2：值2<br />……</td>
+</tr>
+<tr>
+<td>空行</td>
+<td>空白无内容</td>
+</tr>
+<tr>
+<td>响应报文主体</td>
+<td>HTML网页</td>
+</tr>
+</tbody></table>
+<h3 id="头部字段详细介绍"><a href="#头部字段详细介绍" class="headerlink" title="头部字段详细介绍"></a>头部字段详细介绍</h3><p>查看请求报文和响应报文的方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -v 域名</span><br><span class="line">wget --debug 域名</span><br><span class="line">Windows浏览器—F12开发者工具</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>请求报文头部</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">:authority:s2.51cto.com		<span class="comment"># 域名</span></span><br><span class="line">:method:GET			<span class="comment"># 请求方法</span></span><br><span class="line">:path:/images/100/blog/topicbg/topicbg1.png		<span class="comment"># 请求路径</span></span><br><span class="line">:scheme:https		<span class="comment"># https协议的请求</span></span><br><span class="line">Accept:image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8		<span class="comment"># 请求资源类型</span></span><br><span class="line">Accept-Encoding:gzip, deflate, br		<span class="comment"># 是否压缩，这是web服务优化的核心*****</span></span><br><span class="line">Accept-Language:zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6			<span class="comment"># 语言，服务端可以根据语言发送想要的页面</span></span><br><span class="line">Cache-Control:no-cache		<span class="comment"># 是否缓存控制。也是web优化的核心*****</span></span><br><span class="line">Cookie:__gads=ID=b5b3f3171981a84a-226046aa57	<span class="comment"># 客户端会话，session是服务端会话。核心*****</span></span><br><span class="line">Pragma:no-cache		<span class="comment"># 缓存控制相关</span></span><br><span class="line">Referer:https://blog.51cto.com/		<span class="comment"># 引用者地址，作用：1.防盗链 2.统计付费广告价值</span></span><br><span class="line">Sec-Ch-Ua:<span class="string">&quot;Chromium&quot;</span>;v=<span class="string">&quot;118&quot;</span>, <span class="string">&quot;Microsoft Edge&quot;</span>;v=<span class="string">&quot;118&quot;</span>, <span class="string">&quot;Not=A?Brand&quot;</span>;v=<span class="string">&quot;99&quot;</span></span><br><span class="line">Sec-Ch-Ua-Mobile:?0</span><br><span class="line">Sec-Ch-Ua-Platform:<span class="string">&quot;Windows&quot;</span></span><br><span class="line">Sec-Fetch-Dest:image</span><br><span class="line">Sec-Fetch-Mode:no-cors</span><br><span class="line">Sec-Fetch-Site:same-site</span><br><span class="line">User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.46		<span class="comment"># 客户机资源信息，判断客户端设备类型，分发不同服务类型。web优化核心*****</span></span><br><span class="line">Host:www.blog.51cto.com		<span class="comment"># 主机头，主机头携带域名，用于分配主机，如果没有携带主机头，会把第一个虚拟主机的内容返回给客户端*****</span></span><br><span class="line">Connection:Keep-Alive		<span class="comment"># 长链接</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>响应报文头部</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK		<span class="comment"># 协议、状态码、状态信息</span></span><br><span class="line">Server: nginx		<span class="comment"># web服务信息（把版本信息取消了，防止攻击）</span></span><br><span class="line">Date: Thu, 19 Oct 2023 17:54:52 GMT		<span class="comment"># 时间</span></span><br><span class="line">Content-Type: application/javascript	<span class="comment"># 资源类型</span></span><br><span class="line">Content-Length: 28309					<span class="comment"># 资源长度</span></span><br><span class="line">Connection: keep-alive					<span class="comment"># 长链接</span></span><br><span class="line">Last-Modified: Fri, 05 May 2023 06:50:35 GMT	<span class="comment"># 上次修改时间</span></span><br><span class="line">Vary: Accept-Encoding			<span class="comment"># 告诉代理服务器缓存两种版本的资源：压缩和非压缩</span></span><br><span class="line">ETag: W/<span class="string">&quot;6454a73b-1806f&quot;</span></span><br><span class="line">Expires: Fri, 20 Oct 2023 08:56:53 GMT	<span class="comment"># 缓存时间</span></span><br><span class="line">Cache-Control: max-age=172800			<span class="comment"># 缓存相关</span></span><br><span class="line">Content-Encoding: gzip</span><br><span class="line">Age: 118679</span><br><span class="line">Via: http/1.1 ORI-CLOUD-HUZ-MIX-15 (jcs [cRs f ]), http/1.1 JS-UNI-2-MIX-229 (jcs [cRs f ])</span><br><span class="line">Access-Control-Allow-Origin: *</span><br><span class="line">Timing-Allow-Origin: *</span><br><span class="line">X-Trace: 304-1697713466721-0-0-0-1-1;200-1697738092829-0-0-0-1-1</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h3><p>URL：Uniform Resource Location，统一资源定位符。通俗说就是网址，比如：<a target="_blank" rel="noopener" href="https://twitter.com/explore">https://twitter.com/explore</a></p>
+<p>URI：Uniform Resource Identifier，统一资源标识符，比如网址、邮箱地址等。URL是URI的子集。</p>
+<blockquote>
+<p>URL的组成</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>分隔符号</th>
+<th>IP地址域名</th>
+<th>分隔符号</th>
+<th>资源目录地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>http</td>
+<td>:&#x2F;&#x2F;</td>
+<td>twitter.com</td>
+<td>&#x2F;</td>
+<td>explore</td>
+</tr>
+</tbody></table>
+<h3 id="网站流量度量"><a href="#网站流量度量" class="headerlink" title="网站流量度量"></a>网站流量度量</h3><h4 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h4><p>这里的IP不是指IP协议，而是指<strong>独立IP数</strong>：不同IP地址的计算机访问网站时被计算的总次数，独立IP数是衡量网站流量的一个重要指标。</p>
+<p>记录独立IP的时间可为一天或一个月等，目前通用的标准是一天，即一天内，相同IP地址的客户端访问网站页面被计算为一次。</p>
+<p>但是独立IP数的统计并不准确，因为在局域网内可能有很多内网IP，而出口只有一个。局域网内的很多IP访问，只统计为一个独立IP数。</p>
+<p>对IP的统计方法：</p>
+<ol>
+<li><p>分析所有web服务器的访问日志信息，对IP地址去重后计数，这是IT人员的基本计数手段。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> access.log | <span class="built_in">sort</span> | <span class="built_in">uniq</span> | <span class="built_in">wc</span> -l</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在网站的每一个页面结尾，嵌入JS等统计程序代码，用户只要加载网页，就会将IP传给统计IP的服务器，这种方法一般被第三方统计公司或企业内部开发日志分析程序时使用。比如：谷歌的统计，百度，腾讯的统计等</p>
+</li>
+</ol>
+<h4 id="PV"><a href="#PV" class="headerlink" title="PV"></a>PV</h4><p>PV是指page view，通俗来说，一个页面的访问就是一个PV。一般来说一个用户可以对应几十个PV。大型的架构一般对应几百万日PV。</p>
+<p>对PV的统计方法，比如可以通过对Nginx的访问日志access.log统计，其中的<code>.html</code>，<code>.shtml</code>，<code>.php</code>等信息。</p>
+<blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;egrep <span class="string">&#x27;(html|php|shtml)&#x27;</span> access.log | awk <span class="string">&#x27;&#123;print substr($4,2,11)&#125;&#x27;</span> | <span class="built_in">sort</span> | <span class="built_in">uniq</span> -c</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>注意，<strong>使用 <code>uniq -c</code> 命令前，先要进行 <code>sort</code> 排序</strong>，因为 uniq 去重的原理是比较相邻的行，然后除去第二行和该行的后续副本，因此在使用 uniq 命令之前，请使用 sort 命令使所有重复行相邻。</p>
+<h4 id="UV"><a href="#UV" class="headerlink" title="UV"></a>UV</h4><p>UV是指Unique Visitor，独立访客。UV更接近真实的个人。</p>
+<p>对UV的统计方法：</p>
+<ol>
+<li><p>UV是以客户端HTTP<strong>请求报文</strong>或者客户端<strong>Cookie</strong>等技术作为统计依据的，一天内相同的客户端访问同一个网站只计算一次UV。考虑到一台客户端电脑可能会有多人访问的情况，并不一定是独立的自然人访问，所以实际统计会有误差。也可以用「客户端 IP 地址」来近似统计 UV。</p>
+</li>
+<li><p>UV分组，统计每天的UV。这里同样是以客户端IP来近似统计的。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;print substr($4,2,11) &quot; &quot; $1&#125;&#x27;</span> access.log| <span class="built_in">sort</span> | <span class="built_in">uniq</span> | awk <span class="string">&#x27;&#123;uv[$1]++;next&#125;END&#123;for (ip in uv) print ip, uv[ip]&#125;&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h4><p>并发是指单位时间段的连接数或者用户数</p>
+<p>统计当前网络连接数总量</p>
+<blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;grep <span class="string">&#x27;^tcp&#x27;</span> netatat.log | grep ESTABLISH | <span class="built_in">wc</span> -l</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>统计每个状态的总量</p>
+<blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;grep <span class="string">&#x27;^tcp&#x27;</span> netstat.log | awk <span class="string">&#x27;&#123;++S[$NF]&#125;END&#123;for(k in S)print S[k],k&#125;&#x27;</span> | <span class="built_in">sort</span> -rnd</span><br></pre></td></tr></table></figure>
+</blockquote>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-19</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

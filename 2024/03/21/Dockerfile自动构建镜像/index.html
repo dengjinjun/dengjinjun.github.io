@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Dockerfile自动构建镜像" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Dockerfile自动构建镜像
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Dockerfile%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="post-toc-text">Dockerfile常用指令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Dockerfile%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5"><span class="post-toc-text">Dockerfile优化策略</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>在Docker中，手动制作镜像相对来说比较还是比较麻烦的，尤其是在需要对现有镜像进行修改时，制作完成后在传输上也很占用带宽。</p>
+<p>利用Dockerfile可以快速自动地构建需要的镜像。</p>
+<h2 id="Dockerfile常用指令"><a href="#Dockerfile常用指令" class="headerlink" title="Dockerfile常用指令"></a>Dockerfile常用指令</h2><p>Dockerfile 是Docker用于构建镜像的文本文件，它描述了组装镜像的步骤。</p>
+<ul>
+<li><p><strong>FROM</strong></p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> &lt;image&gt;:&lt;tag&gt;</span><br></pre></td></tr></table></figure>
+
+<p>FROM 指令是Dockerfile的第一条构建指令，其功能是为后面的指令提供基础镜像，基础镜像可以选择任何有效的镜像。Dockerfile 中可以有多个FROM 指令，对应的也会构建多个镜像(多阶段构建的应用)。参数tag 如果为空，则默认是latest，如果指定的tag镜像不存在，则直接返回错误。需要注意的是：</p>
+<p>当我们要构建一个操作系统基础镜像的时候，使用FROM scratch表明我们要构建镜像中的第一个文件层，scratch是Docker保留镜像，镜像仓库中的任何镜像都不能使用这个名字。</p>
+</li>
+<li><p><strong>ENV</strong> </p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> &lt;key&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
+
+<p>ENV 指令的作用是为镜像声明环境变量。ENV 所声明的环境变量可以供后面的指令使用(如COPY, ADD, WORKDIR等),使用格式为${var}, $var。</p>
+</li>
+<li><p><strong>WORKDIR</strong> </p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> &lt;path&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>WORKDIR 是为镜像设置当前工作目录。</p>
+<p><strong>需要注意的是：</strong>Dockerfile 与linux shell 有很多相同之处，但是如果单纯将Dockerfile 当成linux shell 来写，可能会犯很多错误，举个例子:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">cd</span> /app</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span> &gt; helloworld.txt</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的Dockerfile 命令将会报错找不到helloworld.txt，或者&#x2F;app&#x2F;helloworld.txt 里面内容根本不是”hello world“。前面我们讲到，每运行一个指令，会生成一个新的中间镜像，上面的例子中，当第一个RUN指令运行cd命令后，仅仅是属于当前进程中的一个内存状态变化。而执行第二个RUN指令时，根据Dockerfile 的分层存储机制，启动的是一个全新的容器进程，自然不可能继承第一层的内存状态变化。所以如果需要改变各层之间的工作目录，则需要使用WORKDIR</p>
+</li>
+<li><p><strong>COPY</strong> </p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COPY</span><span class="language-bash"> &lt;src&gt; &lt;dest&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>COPY 指令用于将主机的资源文件在生成镜像的时候拷贝到镜像中。src 可以是指定多个源，但其路径必须在上下文中。</p>
+<p><strong>需要注意的是：</strong></p>
+<ol>
+<li><p>src可以使用通配符，例如<code>COPY ./home/con* /mydir/</code>，这样以<code>con</code>开头的文件拷贝到都被拷贝到目标目录中。</p>
+</li>
+<li><p>如果源路径是一个目录，那么目录下的内容都会被拷贝到镜像中，但是目录本身不会被拷贝(这点与linux 的cp命令有区别)；</p>
+</li>
+<li><p>dest 必须是目标镜像中的绝对路径和或者基于<strong>WORKDIR</strong> 指令的相对路径，同样目标路径也可以使用通配符。</p>
+</li>
+<li><p>若目标路径是一个目录，则必须以符号 <strong>&#x2F;</strong> 结束，如果目标镜像路径不存在，则在构建时创建完整的路径。</p>
+</li>
+</ol>
+</li>
+<li><p><strong>ADD</strong> </p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ADD</span><span class="language-bash"> &lt;src&gt; &lt;dest&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>ADD 命令与COPY命令很相似。ADD的src可以是一个指向网络文件的URL，也可以是指向本地的压缩归档文件。</p>
+</li>
+<li><p><strong>RUN</strong> </p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="language-bash"> &lt;<span class="built_in">command</span>&gt;		<span class="comment"># shell格式</span></span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="string">&quot;executable&quot;</span>, <span class="string">&quot;param1&quot;</span>, <span class="string">&quot;param2&quot;</span>		<span class="comment"># exec格式：RUN &quot;可执行文件或命令&quot;，&quot;可选参数&quot;，&quot;可选参数&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>RUN命令在容器中有两种运行方式。</p>
+<p>当使用shell 格式的时候，则通过&#x2F;bin&#x2F;sh -c 的方式运行。</p>
+<p>当使用的是exec格式的时候，命令是直接以JSON的方式传递给Docker 解析执行。因为exec不会在shell中执行，故环境变量的参数不会被替换。如果想以exec的方式调用shell程序，可以写成<code>CMD[&quot;sh&quot;,&quot;-c&quot;,&quot;param1&quot;, &quot;param2&quot;</code>。</p>
+<p>如果想利用RUN命令一次运行多条执行，可以利用符号 <strong>&amp;&amp;</strong> 进行连接。如下面的例子:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="language-bash"> sh -c <span class="string">&quot;yum -y install gcc \</span></span></span><br><span class="line"><span class="string"><span class="language-bash">     &amp;&amp; yum -y install gcc-c++\</span></span></span><br><span class="line"><span class="string"><span class="language-bash">     &amp;&amp; yum -y install make&quot;</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>CMD</strong></p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CMD</span><span class="language-bash"> &lt;<span class="built_in">command</span>&gt; 		<span class="comment"># shell格式</span></span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> <span class="string">&quot;executable&quot;</span>, <span class="string">&quot;param1&quot;</span>, <span class="string">&quot;param2&quot;</span>	<span class="comment"># exec格式</span></span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> <span class="string">&quot;param1&quot;</span>, <span class="string">&quot;param2&quot;</span>		<span class="comment"># 只传递参数</span></span></span><br></pre></td></tr></table></figure>
+
+<p>CMD的主要作用看起来也是主要执行一些命令，但CMD指令与RUN指令不同，RUN指令主要是在构建镜像的时候执行命令，CMD在构建的时候并不执行任何命令，而是在启动容器时将CMD指令作为第一条执行的命令。</p>
+<p>需要注意的是：</p>
+<ol>
+<li><p>Dockerfile中虽然可以有多条CMD命令，但是只有最后一条CMD命令会生效。</p>
+</li>
+<li><p>如果用户在命令行运行<code>docker run</code>命令时同时指定了命令参数，则会CMD指令中的命令会被覆盖。</p>
+</li>
+</ol>
+</li>
+<li><p><strong>ENTRYPOINT</strong></p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> &lt;<span class="built_in">command</span>&gt;		<span class="comment"># shell格式</span></span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> <span class="string">&quot;executable&quot;</span>, <span class="string">&quot;param1&quot;</span>, <span class="string">&quot;param2&quot;</span>		<span class="comment"># exec格式</span></span></span><br></pre></td></tr></table></figure>
+
+<p>ENTRYPOINT 与 CMD指令的用途相似，都是在镜像启动时执行命令，但它们又有些不同:</p>
+<ul>
+<li>如果 ENTRYPOINT 使用了 shell 模式，会忽略<code>docker run</code>以及 CMD 所传递的参数，且不能接受Unix信号，即如果执行 <code>docker stop &lt;container&gt;</code>命令时，ENTRYPOINT进程无法无法接收SIGTERM 信号。</li>
+<li>如果 ENTRYPOINT 使用了 exec 模式，CMD 指定的内容被追加为 ENTRYPOINT 指定命令的参数。<code>docker run</code> 传入的命令参数可以覆盖CMD的指令内容，并附加到ENTRYPOINT指令的参数中。</li>
+</ul>
+<p>真实的情况比上面的两点复杂，这是docker官方给出的参考：</p>
+<p><a href="/../pic/952033-20180223131745112-1674454515.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/952033-20180223131745112-1674454515.png" alt="img"></a></p>
+<p>针对CMD和ENTRYPOINT有以下的使用建议:如果Docker镜像的用途是作为应用程序或者服务，例如Mysql 则使用EXEC格式的ENTRYPOINT指令，启动命令相对固定，只需要提供额外的参数进行替换便可启动容器。而如果想为容器设置启动命令，则使用CMD指令，通过docker run 指定命令参数进行替换。<br>除此之外，如果我们使用了ENTRYPOINT，但是我们又想设置启动命令，则可以使用 –entrypoint 参数，可以同时覆盖CMD以及ENTRYPOINT指令.</p>
+</li>
+<li><p><strong>EXPOSE</strong></p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPOSE</span> &lt;port1&gt; &lt;port2&gt; …</span><br></pre></td></tr></table></figure>
+
+<p>EXPOSE指令的作用是声明容器提供服务的端口，这仅仅是一个声明，并不会在运行容器时因为这个声明而开启所声明的端口。使用EXPOSE有两个好处:方便容器的使用者理解容器服务的守护端口，方便做端口映射，另一个则是使用 <code>docker run -P</code> 的时候，能够随机映射EXPOSE声明的端口。</p>
+</li>
+</ul>
+<h2 id="Dockerfile优化策略"><a href="#Dockerfile优化策略" class="headerlink" title="Dockerfile优化策略"></a>Dockerfile优化策略</h2><p>Dockerfile 的指令都是单独执行的。除了<strong>FROM</strong> 指令以外，每一条指令的执行都是在其上一条指令所生成镜像的基础上执行，每一条指令都会基于原来的镜像生成一个新的镜像层。Dockerfile所生成的最终镜像就是在基础镜像叠加一层一层的镜像所组建的。</p>
+<ol>
+<li><p>使用体积小的Linux镜像，比如使用alpine作为基础镜像(仅有5MB大小)，如果alpine无法兼容一些软件时，可以考虑使用Ubuntu18.04镜像，因为其63MB;</p>
+</li>
+<li><p>将多条RUN指令合并成以条指令，这样做的好处就是仅生成一个临时镜像;</p>
+</li>
+<li><p>修改dockerfile的时候，尽可能把修改的内容放在最后，这样可以充分利用缓存镜像;</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关于缓存镜像</span></span><br><span class="line">为了提高构建镜像的速度，Docker daemon会缓存构建中的中间镜像，当一个镜像从基础镜像开始构建时，会将Dockerfile的下一条构建命令与基础镜像的所有子镜像作比较，如果有一个子镜像是由相同的指令生成的，则会命中缓存，直接使用该子镜像，而不会在生成一个中间镜像。</span><br><span class="line">比较特殊的是COPY指令和ADD这两个拷贝指令还会比较拷贝的文件夹内容是否相同，如果只是命令相同，但是文件夹内容不相同，则不会使用缓存镜像，从而生成另外一个新的中间镜像。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以使用”.dockerignore”忽略构建docker镜像时不需要的文件，从而减小镜像体积;</p>
+</li>
+</ol>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-03-21</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Docker/'>
+                            Docker
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Linux系统优化" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Linux系统优化
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96"><span class="post-toc-text">系统优化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#yum%E6%BA%90%E5%A4%84%E7%90%86%E4%B8%8E%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85"><span class="post-toc-text">yum源处理与常用软件包安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0hosts%E6%96%87%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%9B%86%E7%BE%A4%E4%B8%BB%E6%9C%BA%E7%9B%B8%E4%BA%92%E7%94%A8%E4%B8%BB%E6%9C%BA%E5%90%8D%E8%A7%A3%E6%9E%90"><span class="post-toc-text">添加hosts文件实现集群主机相互用主机名解析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ssh%E5%AF%86%E9%92%A5%E7%99%BB%E9%99%86"><span class="post-toc-text">ssh密钥登陆</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B3%E9%97%ADSELinux"><span class="post-toc-text">关闭SELinux</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99%E6%88%96%E5%8F%AA%E5%BC%80%E6%94%BE%E5%AF%B9%E5%BA%94%E7%9A%84%E7%AB%AF%E5%8F%A3"><span class="post-toc-text">关闭防火墙或只开放对应的端口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AEntp%E6%9C%8D%E5%8A%A1%E5%90%8C%E6%AD%A5%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4"><span class="post-toc-text">配置ntp服务同步系统时间</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ulimit%E5%91%BD%E4%BB%A4"><span class="post-toc-text">ulimit命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%80%E5%90%AFVT%E5%92%8CHT"><span class="post-toc-text">开启VT和HT</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B3%E9%97%ADCPU%E8%8A%82%E8%83%BD"><span class="post-toc-text">关闭CPU节能</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B3%E9%97%ADNetworkManager"><span class="post-toc-text">关闭NetworkManager</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E5%85%A8%E4%BC%98%E5%8C%96"><span class="post-toc-text">安全优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%AA%E4%BA%BA%E5%81%8F%E5%A5%BD"><span class="post-toc-text">个人偏好</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="系统优化"><a href="#系统优化" class="headerlink" title="系统优化"></a>系统优化</h2><h3 id="yum源处理与常用软件包安装"><a href="#yum源处理与常用软件包安装" class="headerlink" title="yum源处理与常用软件包安装"></a>yum源处理与常用软件包安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup			<span class="comment"># 备份系统yum源</span></span><br><span class="line"></span><br><span class="line">curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo	<span class="comment"># 下载阿里云的yum源</span></span><br><span class="line">curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo			<span class="comment"># 添加epel源</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 非阿里云ECS产品执行下面的命令，否则会出现阿里云域名无法解析的报错</span></span><br><span class="line">sed -i -e <span class="string">&#x27;/mirrors.cloud.aliyuncs.com/d&#x27;</span> -e <span class="string">&#x27;/mirrors.aliyuncs.com/d&#x27;</span> /etc/yum.repos.d/CentOS-Base.repo</span><br><span class="line">sed -i -e <span class="string">&#x27;/mirrors.cloud.aliyuncs.com/d&#x27;</span> -e <span class="string">&#x27;/mirrors.aliyuncs.com/d&#x27;</span> /etc/yum.repos.d/epel.repo</span><br><span class="line"></span><br><span class="line">yum update -y				<span class="comment"># 升级yum工具，刚装完系统执行，之后就不要更新了</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#开启yum软件包缓存，参考Linux软件包管理</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安装常用软件包然后执行部署</span></span><br><span class="line">yum -y install tree nmap sysstat lrzsz telnet bash-completion bash-completion-extras vim lsof net-tools rsync ntpdate nfs-utils</span><br><span class="line"></span><br><span class="line"><span class="comment">#将所有主机上的软件包汇总到一起做一个自己的yum源来后期使用，参考Linux软件包管理</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="添加hosts文件实现集群主机相互用主机名解析"><a href="#添加hosts文件实现集群主机相互用主机名解析" class="headerlink" title="添加hosts文件实现集群主机相互用主机名解析"></a>添加hosts文件实现集群主机相互用主机名解析</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname [主机名]					<span class="comment"># 规范主机名</span></span><br><span class="line"></span><br><span class="line">vim /etc/hosts									<span class="comment"># 编辑hosts文件</span></span><br><span class="line"></span><br><span class="line">IP地址 主机名</span><br><span class="line">IP地址 主机名</span><br><span class="line">IP地址 主机名</span><br><span class="line">IP地址 主机名</span><br></pre></td></tr></table></figure>
+
+<h3 id="ssh密钥登陆"><a href="#ssh密钥登陆" class="headerlink" title="ssh密钥登陆"></a>ssh密钥登陆</h3><ul>
+<li><p>客户端</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-kergen					<span class="comment"># 生成私钥和公钥文件，如有必要可设置私钥密码（自定义，加强私钥安全性）</span></span><br><span class="line"><span class="built_in">ls</span> /root/.ssh/				<span class="comment"># 在此查看生成的私钥和公钥文件 id_rsa 和 id_rsa.pub</span></span><br><span class="line">ssh-copy-id -i 服务端IP	  <span class="comment"># 把公钥发送给服务端，需要输入一次服务端root账号的密码</span></span><br><span class="line">ssh root@服务端IP			  <span class="comment"># 连接服务端，可以不登录root，登录其他用户。如果设置的私钥密码需要输入一次私钥密码</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>服务端</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> /root/.ssh				<span class="comment"># 查看客户端发来的公钥文件 authorized_keys，权限为600，/root/.ssh 文件夹权限为700</span></span><br><span class="line">vim /etc/ssh/sshd_config	<span class="comment"># 编辑ssh配置文件</span></span><br><span class="line">PasswordAuthentication no	<span class="comment"># 添加此行，表示不允许使用账号密码登录，只允许使用密钥登录</span></span><br></pre></td></tr></table></figure>
+
+<p>初次之外，还可进行一些安全优化，比如，禁止DNS进行反向解析，禁止GSS认证可减少连接时产生的延迟，修改ssh默认端口，禁止root用户远程登录，禁止空密码登录等，以上都在ssh的配置文件<code>/etc/ssh/sshd_config</code>中修改。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">UseDNS no</span><br><span class="line">GSSAPIAuthentication no</span><br><span class="line">Port 6666</span><br><span class="line">PermitRootLogin no</span><br><span class="line">PermitEmptyPassword no</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>Xshell使用密钥连接服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">工具--&gt;新建用户密钥生成向导--&gt;在服务器的/root/.ssh目录下新建 authorized_keys 文件，将生成的公钥复制进去--&gt;将登录方法改为public key</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="关闭SELinux"><a href="#关闭SELinux" class="headerlink" title="关闭SELinux"></a>关闭SELinux</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setenforce 0					<span class="comment"># 临时关闭</span></span><br><span class="line">vim /etc/selinux/config 	SELINUX=disabled		<span class="comment"># 编辑selinux的配置文件，将SELINUX=enforce改为SELINUX=disabled</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="关闭防火墙或只开放对应的端口"><a href="#关闭防火墙或只开放对应的端口" class="headerlink" title="关闭防火墙或只开放对应的端口"></a>关闭防火墙或只开放对应的端口</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld			# 临时关闭</span><br><span class="line">systemctl disable direwalld			# 设置开机不启动</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="配置ntp服务同步系统时间"><a href="#配置ntp服务同步系统时间" class="headerlink" title="配置ntp服务同步系统时间"></a>配置ntp服务同步系统时间</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;0 */1 * * * /usr/sbin/ntpdate ntpl.aliyun.com &amp;&gt; /dev/null&#x27; &gt;&gt; /var/spool/cron/root		# 添加定时任务</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="ulimit命令"><a href="#ulimit命令" class="headerlink" title="ulimit命令"></a>ulimit命令</h3><ul>
+<li><p>设置用户能打开的最大进程数目</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ulimit -u 100			# 设置普通用户最多能运行100个进程，临时配置</span><br><span class="line">ulimit -u				# 查看</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置用户能分配到的文件描述符数量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ulimit -n 300			# 设置普通用户最多能打开300个文件，临时配置</span><br><span class="line">ulimit -n				# 查看</span><br></pre></td></tr></table></figure>
+
+<p>补充：文件描述符：每打开一个文件，操作系统会为这个文件分配一个编号，称为文件描述符，也称为文件句柄，</p>
+</li>
+<li><p>永久配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/security/limits.conf		# 修改配置文件，可以设置最大进程数和最大文件描述符</span><br><span class="line">vim /etc/security/limits.d/20-nproc.conf	# 优先级更高的配置文件，只能设置最大进程数</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="开启VT和HT"><a href="#开启VT和HT" class="headerlink" title="开启VT和HT"></a>开启VT和HT</h3><p>自行谷歌</p>
+<p>VT：Virtual Technology	虚拟化技术</p>
+<p>HT：Hyper-Threading Technology   超线程技术</p>
+<p>云主机无需配置</p>
+<h3 id="关闭CPU节能"><a href="#关闭CPU节能" class="headerlink" title="关闭CPU节能"></a>关闭CPU节能</h3><p>自行谷歌</p>
+<h3 id="关闭NetworkManager"><a href="#关闭NetworkManager" class="headerlink" title="关闭NetworkManager"></a>关闭NetworkManager</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop NetworkManager			# 临时关闭</span><br><span class="line">systemctl distable NetworkManaget		# 永久关闭</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="安全优化"><a href="#安全优化" class="headerlink" title="安全优化"></a>安全优化</h3><p>安装Linux系统最小化，即选包最小化，无用的包不装。</p>
+<p>开机自启动服务最小化，无用的服务不开启</p>
+<p>操作命令最小化，无用的指令或选项不使用</p>
+<p>登录Linux用户最小化，无特殊需求不登录root</p>
+<p>普通用户授权权限最小化，只给用户必需的操作权限</p>
+<h3 id="个人偏好"><a href="#个人偏好" class="headerlink" title="个人偏好"></a>个人偏好</h3><p>普通用户的命令提示符颜色设置为绿色</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;PS1=&quot;\[\e[1;32m\][\u@\h \W]$ \e[m\]&quot;&#x27; &gt;&gt; .bashrc		# 进入用户家目录执行</span><br><span class="line">source .bashrc		# 立即生效，否则下次登录时生效</span><br></pre></td></tr></table></figure>
+
+
+
+<p>root用户的命令提示符颜色设置为红色</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;PS1=&quot;\[\e[1;31m\][\u@\h \W]$ \e[m\]&quot;&#x27; &gt;&gt; .bashrc		# 进入root家目录执行</span><br><span class="line">source .bashrc		# 立即生效，否则下次登录时生效</span><br></pre></td></tr></table></figure>
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-09-22</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

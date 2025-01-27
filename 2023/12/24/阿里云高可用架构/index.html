@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="阿里云高可用架构" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            阿里云高可用架构
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">负载均衡</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%B9%E6%80%A7%E5%85%AC%E7%BD%91IP"><span class="post-toc-text">弹性公网IP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-1"><span class="post-toc-text">负载均衡</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4"><span class="post-toc-text">配置步骤</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%91%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="post-toc-text">云数据库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9"><span class="post-toc-text">弹性伸缩</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>多台ECS示例+负载均衡设备+弹性公网IP实现的高可用架构</p>
+<p><a href="/../pic/vblxasdgiiuknrrfijzq.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/vblxasdgiiuknrrfijzq.png" alt="img"></a></p>
+<h3 id="弹性公网IP"><a href="#弹性公网IP" class="headerlink" title="弹性公网IP"></a>弹性公网IP</h3><p><strong>公网IP</strong>是由公共网络运营商分配的，可让用户通过互联网与其他用户实现数据交流和信息传递的唯一地址。</p>
+<p><strong>普通公网IP</strong>是指在购买云资源时默认配置的公网IP地址，在阿里云平台上购买云服务器时，勾选分配公网IPV4地址按钮，会自动分配公网地址，这类地址通常和<strong>云资源实例强绑定</strong>，在<strong>释放云服务器</strong>时，此IP将会<strong>随之释放</strong>。</p>
+<p><strong>弹性公网IP</strong>（Elastic IP Address），简称EIP，是可以独立购买和持有的公网IP地址资源，EIP是一种NAT IP，通过NAT方式<strong>映射到被绑定的云资源上。当EIP和云资源绑定后，云资源可以通过EIP与公网通信，当云资源被释放后，</strong>EIP会和云资源解绑，EIP会保留在账号内。</p>
+<p>阿里云ECS云服务器可以绑定弹性公网IP来实现灵活的互联网访问，以下是将弹性公网IP绑定到ECS实例的配置流程：</p>
+<p><a href="/../pic/zerekvjazoxsshdipgwq.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/zerekvjazoxsshdipgwq.png" alt="img"></a></p>
+<p>关于NAT技术与弹性公网IP的简单原理，阅读：<a target="_blank" rel="noopener" href="https://news.west.cn/26218.html">https://news.west.cn/26218.html</a></p>
+<h3 id="负载均衡-1"><a href="#负载均衡-1" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>从实现方式来看，企业中的负载均衡通常采用<strong>硬件</strong>设备或是<strong>软件</strong>来实现。通过硬件实现负载均衡，性能和稳定性都会更好，但是整体成本较高，而且设备容易出现单点故障。</p>
+<p>从工作方式来看，企业中的负载均衡通常工作在OSI七层模型的四层（传输层）和七层（应用层），<strong>四层负载均衡通常用于TCP&#x2F;UDP协议</strong>，<strong>七层负载均衡通常用于HTTP&#x2F;HTTPS的Web服务</strong>。</p>
+<p>阿里云负载均衡SLB就是一种典型的<strong>软件负载均衡</strong>产品，提供多种负载均衡类型，包括<strong>传统型负载均衡CLB</strong>（提供四层和七层负载均衡）、<strong>网络型负载均衡NLB</strong>（四层）、<strong>应用型负载均衡ALB</strong>（七层）；</p>
+<p>本次以CLB为例介绍，在阿里云CLB上创建多个监听器在外网<strong>监听多个端口</strong>，并在<strong>每个监听器后端绑定多个服务器</strong>，通过一定的流量分发策略将前端的用户访问调度到具体的服务器上，然后服务器承载监听器传递过来的流量，监听器除了可以配置特定的分发策略之外，还可以配置健康检查，如下图中灰色的云服务器代表该云服务器健康检查失败，流量不会转发到该云服务器上。</p>
+<p><a href="/../pic/mumfkstiiqyjqluyextm.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/mumfkstiiqyjqluyextm.png" alt="img"></a></p>
+<blockquote>
+<p><strong>调度算法</strong></p>
+</blockquote>
+<p>阿里云负载均衡CLB的监听器默认支持的调度算法有三种：轮询、加权轮询和一致性哈希：</p>
+<ul>
+<li><strong>轮询调度：</strong>当所有的ECS云服务器硬件规格和带宽全部相同时，应采用轮询调度算法，避免流量分发不均匀造成服务器压力不均衡的情况发生。</li>
+<li><strong>加权轮询调度：</strong>当ECS云服务器以及带宽并不完全相同时，应采用加权轮询调度算法，给不同配置的ECS云服务器不同的权重值，配置高的机器权重值高，配置低的机器权重指低，以实现整体压力的均衡。</li>
+<li><strong>一致性哈希调度：</strong>当希望通过将用户的公网IP哈希后对服务器匹配时或服务器故障时减少整体架构抖动时，应采用一致性哈希调度算法。</li>
+</ul>
+<blockquote>
+<p><strong>健康检查</strong></p>
+</blockquote>
+<p>在负载均衡上启用了<strong>健康检查功能</strong>之后，可以在后台服务器出现故障无法提供服务时，确保不会再有流量进入此服务器，保障了用户<strong>访问的连续性</strong>，提升了用户体验。</p>
+<blockquote>
+<p><strong>会话保持</strong></p>
+</blockquote>
+<p>开启了<strong>会话保持</strong>之后，可以在一定的时间内，始终由一台机器为某用户完全后续请求，通过把特定的用户在一定时间内留在同一个机器上的方法，<strong>确保了用户体验的一致性</strong>。</p>
+<h3 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h3><p>整体来看，使用和配置传统型负载均衡CLB有以下几个步骤：</p>
+<ol>
+<li><p>购买传统型负载均衡CLB实例</p>
+<p>访问<a target="_blank" rel="noopener" href="https://slb.console.aliyun.com/slb/cn-hangzhou/slbs">传统型负载均衡控制台</a>，点击<strong>创建传统负载均衡</strong>，选择地域、可用区、实例类型为<strong>私网</strong>，与后端ECS实例在同一VPC内。</p>
+</li>
+<li><p>配置监听和后端服务器</p>
+<p><a href="/../pic/image-20240116154807931.png" title="image-20240116154807931" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240116154807931.png" alt="image-20240116154807931"></a></p>
+<blockquote>
+<p><strong>协议&amp;监听</strong>：</p>
+</blockquote>
+<p>负载均衡协议工作在四层则选择TCP协议，工作在七层则选择HTTP协议</p>
+<p>监听端口处输入<strong>80</strong>（Web服务默认端口），点击<strong>下一步</strong></p>
+<blockquote>
+<p><strong>后端服务器</strong></p>
+</blockquote>
+<p>选择默认服务器组，选择添加两台ECS实例；点击下一步，输入权重；点击添加，在端口处输入80，点击下一步。</p>
+<blockquote>
+<p><strong>健康检查</strong></p>
+</blockquote>
+<p>开启，如有需要可进行高级配置。</p>
+<blockquote>
+<p><strong>配置审核</strong></p>
+</blockquote>
+<p>审核确定无误之后提交。</p>
+</li>
+<li><p>EIP绑定CLB</p>
+<p>进入弹性公网IP实例页面，点击绑定资源，<strong>绑定EIP到负载均衡CLB</strong>。</p>
+</li>
+<li><p>测试负载均衡配置</p>
+<p>两台ECS实例安装httpd服务并启动，网站首页写入不同内容，浏览器访问EIP并多次刷新，观察是否显示不同内容。</p>
+</li>
+</ol>
+<h2 id="云数据库"><a href="#云数据库" class="headerlink" title="云数据库"></a>云数据库</h2><p><strong>RDS</strong>（Relational Database Service）是阿里云提供的一种托管式的关系型数据库服务，它为用户提供了一种简单、可靠、安全的方式来部署、操作和扩展数据库。</p>
+<p><strong>创建步骤如下：</strong></p>
+<blockquote>
+<p><strong>创建RDS实例</strong></p>
+</blockquote>
+<ol>
+<li><p>登录RDS控制台，点击<strong>创建实例</strong></p>
+</li>
+<li><p>设置基础资源和实例配置：地域可用区、存储类型、数据库类型、VPC和交换机等，此处以MySQL为例。</p>
+<p>注意：RDS实例购买后，不支持更改地域。尽量让<strong>ECS与RDS内网互通</strong>。否则，ECS实例只能通过外网访问RDS实例，无法发挥最佳性能。</p>
+</li>
+<li><p>支付</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>设置白名单</strong></p>
+</blockquote>
+<p>设置白名单可以限制只有指定的IP地址才能访问数据库，防止未授权的访问。这样可以有效防止黑客和恶意攻击，保护数据库安全。</p>
+<ol>
+<li><p>访问RDS实例列表，然后点击目标<strong>实例ID</strong>，进入实例配置页面。在左侧导航栏中，单击<strong>白名单与安全组</strong>。</p>
+<p>注意：RDS主库实例ID为rm-开头蓝色字体的字符串</p>
+</li>
+<li><p>添加白名单分组</p>
+<ul>
+<li>多个IP地址用英文逗号隔开，且逗号前后不能有空格。</li>
+<li>IP设置为0.0.0.0&#x2F;0意味着对公网开放，IP设置为127.0.0.1意味着禁止所有地址访问。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><strong>创建数据库</strong></p>
+</blockquote>
+<ol>
+<li><p>在左侧导航栏中单击<strong>数据库管理</strong>，然后单击<strong>创建数据库</strong>。</p>
+</li>
+<li><p>设置<strong>库名</strong>和<strong>字符集。</strong></p>
+<p>常见字符集名称：ASCII字符集、GB2312字符集、BIG5字符集、 GB18030字符集、Unicode字符集等。<strong>utf8、utf8mb4是Unicode其中的使用方式</strong>。在跨境电商行业里通常选用utf8就够了，若是表情符场景可选用utf8mb4这样会增加一点存储成本。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>创建账号与授权</strong></p>
+</blockquote>
+<ol>
+<li><p>在左侧导航栏选择<strong>账号管理</strong>，然后单击<strong>创建账号</strong>。</p>
+</li>
+<li><p>设置账号信息</p>
+<p><strong>高权限账号</strong>无需选择要授权的数据库，因为高权限账号拥有实例里所有数据库的权限，一个实例只能有一个；<strong>普通账号</strong>可以有多个，可授读写（DDL+DML）、只读、仅DDL或仅DML中的一个或多个，也可以自定义权限。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>连接RDS</strong></p>
+</blockquote>
+<ol>
+<li>在左侧导航栏选择<strong>基本信息</strong>，然后单击<strong>登录数据库</strong>。</li>
+<li>在弹出的DMS页面中，填写数据库账号名和密码，然后单击<strong>登录</strong>。</li>
+</ol>
+<h2 id="弹性伸缩"><a href="#弹性伸缩" class="headerlink" title="弹性伸缩"></a>弹性伸缩</h2><p>基于传统架构下的按高峰需求买齐云服务器的方式非常的浪费，因为业务低峰时间这些资源大部分都处于闲置状态。</p>
+<p><strong>弹性伸缩</strong>(Elastic Scaling Service)，简称<strong>ESS</strong>，也称为Auto Scaling，是阿里云<strong>根据业务需求和策略自动调整计算能力（即实例数量）的服务</strong>。</p>
+<p>在业务需求增长时，弹性伸缩自动增加指定类型的实例，来保证计算能力；在业务需求下降时，弹性伸缩自动减少指定类型的实例，来节约成本。当业务需求量有波动时，弹性伸缩能够自动调整指定类型的实例数量，满足业务需求。</p>
+<p><strong>操作步骤：</strong></p>
+<p> <a href="/../pic/ubelcqxbrfjdymbarkiy.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/ubelcqxbrfjdymbarkiy.png" alt="img"></a></p>
+<ol>
+<li><p><strong>创建伸缩组：</strong></p>
+<p><strong>伸缩组是弹性伸缩的核心单元，用来管理满足该公司业务需求的一组实例。弹性伸缩将会在该伸缩组内自动增加或减少实例。</strong></p>
+<ul>
+<li><p>伸缩组名称和组内实例配置信息来源：</p>
+<p><a href="/../pic/nzseqruamcpgbgcunlkn.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/nzseqruamcpgbgcunlkn.png" alt="img"></a></p>
+</li>
+<li><p>根据以往业务低峰和高峰所需服务器数量的经验，设置组内最小实例数和最大实例数</p>
+</li>
+</ul>
+<p><a href="/../pic/ezodhycytktusorfgilg.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/ezodhycytktusorfgilg.png" alt="img"></a></p>
+<ul>
+<li><p>选择专有网络和交换机，选择对应的负载均衡</p>
+<p><a href="/../pic/mhxbldxuupuizpfixwmh.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/mhxbldxuupuizpfixwmh.png" alt="img"></a></p>
+</li>
+<li><p>关联RDS数据库实例</p>
+<p><a href="/../pic/vxngrucummthevwkjgqs.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/vxngrucummthevwkjgqs.png" alt="img"></a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>创建伸缩配置</strong></p>
+<p><strong>伸缩配置是扩容ECS实例使用的模板，包括实例规格、存储、公网IP、安全组等信息。弹性伸缩使用该配置创建相同配置的ECS实例</strong></p>
+<p>自定义伸缩配置的名称，付费模式选择按量付费，指定合适的实例规格，使用自定义镜像，选择安全组。</p>
+</li>
+<li><p><strong>使用报警任务实现自动扩缩容</strong></p>
+<p>当业务系统高峰时（cpu使用率&gt;&#x3D;80%时），增加ECS；当业务系统低谷时（CPU使用率&lt;&#x3D;20%），减少ECS;</p>
+<p><a href="/../pic/gghhgqcswgowewiympld.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/gghhgqcswgowewiympld.png" alt="img"></a></p>
+</li>
+<li><p><strong>在配置报警任务时，需要设置伸缩规则</strong></p>
+<p>伸缩规则可以使用<strong>简单规则，</strong>直接增加或者减少具体数量的ECS，也可以选择其他规则。</p>
+<ul>
+<li><strong>步进规则：</strong>基于云监控报警服务的分段扩缩容策略，在简单规则的基础上增加了分步定义；</li>
+<li><strong>目标追踪规则：</strong>选择一项云监控指标，并指定目标值。弹性伸缩会自动计算所需的实例数量并进行扩缩容，从而将云监控指标维持在目标值附近；</li>
+<li><strong>预测规则：</strong>系统可以通过分析伸缩组在至少24小时内的历史监控数据，利用机器学习能力预测未来48小时的监控指标值，然后计算出伸缩组每小时需要的实例数（即预测值），并支持自动创建定时任务，智能设置伸缩组边界值；</li>
+</ul>
+<p><a href="/../pic/wvawltbaowkzjfdjuqiv.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/wvawltbaowkzjfdjuqiv.png" alt="img"></a></p>
+</li>
+</ol>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-24</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E9%98%BF%E9%87%8C%E4%BA%91/'>
+                            阿里云
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

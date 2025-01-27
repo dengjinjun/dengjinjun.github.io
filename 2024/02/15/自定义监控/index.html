@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="自定义监控" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            自定义监控
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9B%91%E6%8E%A7%E5%9F%BA%E7%A1%80"><span class="post-toc-text">自定义监控基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E7%9B%91%E6%8E%A7%E9%A1%B9"><span class="post-toc-text">创建监控项</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="post-toc-text">创建触发器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9B%BE%E5%BD%A2"><span class="post-toc-text">创建图形</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9B%91%E6%8E%A7%E8%BF%9B%E9%98%B6"><span class="post-toc-text">自定义监控进阶</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%84%9A%E6%9C%AC%E8%87%AA%E5%AE%9A%E4%B9%89%E9%94%AE%E5%80%BC"><span class="post-toc-text">脚本自定义键值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="post-toc-text">故障排除</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF"><span class="post-toc-text">自定义模板</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%91%8A%E8%AD%A6"><span class="post-toc-text">自定义告警</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%82%AE%E4%BB%B6%E5%91%8A%E8%AD%A6"><span class="post-toc-text">邮件告警</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6"><span class="post-toc-text">企业微信告警</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="自定义监控基础"><a href="#自定义监控基础" class="headerlink" title="自定义监控基础"></a>自定义监控基础</h2><p>自定义监控的应用场景（为什么要自定义监控）：</p>
+<ol>
+<li>默认的模板中没有我们需要的监控项</li>
+<li>删减不必要的监控项，可以提升zabbix服务端的性能</li>
+</ol>
+<p>自定义监控的关键是定义键值对，键名可以自定义，而键值，是要能够通过命令取出来的内容，都能够做自定义监控。</p>
+<h3 id="创建监控项"><a href="#创建监控项" class="headerlink" title="创建监控项"></a>创建监控项</h3><p>下图所示，web01主机当前的<strong>监控项</strong>有78个，它们被分类到不同的应用集（包含CPU、磁盘、内存等），如果当前的监控项不能满足监控需求，可以创建监控项</p>
+<p><a href="/../pic/image-20240131073032286.png" title="image-20240131073032286" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240131073032286.png" alt="image-20240131073032286"></a></p>
+<p>创建监控项本质上，是zabbix客户端处自定义一个键值对，在zabbix服务端进行配置，获取到这个键值对，经过处理后展示出来。</p>
+<p>在zabbix客户端中内置了一些键值对，可以通过<code>zabbix_agent2 -p | awk &#39;/^[a-z]+\./&#123;print $1&#125;&#39;</code>命令查看（使用awk简单处理）</p>
+<blockquote>
+<p><strong>自定义键值</strong></p>
+</blockquote>
+<p>自定义键值的内容需要写在zabbix客户端的配置文件中</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此处类似于nginx的自定义配置文件目录</span></span><br><span class="line">vim /etc/zabbix/zabbix_agent2.d/xxx.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义键值对的格式：UserParameter=&lt;key&gt;,&lt;shell command&gt; ,比如下面的例子</span></span><br><span class="line">UserParameter=nginx.alive,ss -tunlp | grep -<span class="built_in">wc</span> 80		<span class="comment"># 80端口的监听socket是否存在</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>GUI配置</strong></p>
+</blockquote>
+<ol>
+<li>进入zabbix监控的web界面，<strong>侧边栏</strong>&gt;<strong>配置</strong>&gt;<strong>主机</strong>，点击相应主机的<strong>监控项</strong>按钮，进入监控项页面。</li>
+<li>点击右上角创建监控项，填入相关信息，先测试后添加。</li>
+</ol>
+<h3 id="创建触发器"><a href="#创建触发器" class="headerlink" title="创建触发器"></a>创建触发器</h3><p>创建完监控项之后，需要创建一个触发器，作用是指定一个触发条件，让监控项作出反映。此部分只需要在GUI界面配置</p>
+<ol>
+<li>进入zabbix监控的web界面，<strong>侧边栏</strong>&gt;<strong>配置</strong>&gt;<strong>主机</strong>，点击相应主机的<strong>触发器</strong>按钮，进入触发器页面。</li>
+<li>点击右上角创建触发器，填入相关信息，添加即可。</li>
+</ol>
+<p><a href="/../pic/image-20240220025559958.png" title="image-20240220025559958" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240220025559958.png" alt="image-20240220025559958"></a></p>
+<p>注意：触发器可以在创建监控项的时候创建，也可以在监控项创建完成之后再创建。</p>
+<h3 id="创建图形"><a href="#创建图形" class="headerlink" title="创建图形"></a>创建图形</h3><p>创建完监控项和触发器之后，为了直观地显示监控内容，可以配置一个图形信息。此部分只需要在GUI界面配置</p>
+<ol>
+<li>进入zabbix监控的web界面，<strong>侧边栏</strong>&gt;<strong>配置</strong>&gt;<strong>主机</strong>，点击相应主机的<strong>图形</strong>按钮，进入触发器页面。</li>
+<li>点击右上角创建图形，填入相关信息，添加即可。</li>
+</ol>
+<p>注意：图形可以在创建监控项和触发器的时候创建，也可以在监控项和触发器创建完成之后再创建。</p>
+<h2 id="自定义监控进阶"><a href="#自定义监控进阶" class="headerlink" title="自定义监控进阶"></a>自定义监控进阶</h2><h3 id="脚本自定义键值"><a href="#脚本自定义键值" class="headerlink" title="脚本自定义键值"></a>脚本自定义键值</h3><p>在基础的自定义监控中已经了解到可以通过命令来自定义键值对，然后创建监控项，进阶的用法是还可以通过脚本来自定义键值，并且在执行脚本的过程中，可以传递参数。此处以获取nginx的状态为例。</p>
+<blockquote>
+<p>编辑nginx配置文件</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@web01 ~]$ vim /etc/nginx/conf.d/xxx.conf		<span class="comment"># 在nginx的站点配置文件的server区段中添加下面内容,可查看nginx状态</span></span><br><span class="line"></span><br><span class="line">location /nginx_status &#123;			</span><br><span class="line">        stub_status;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>编写脚本文件</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[root@web01 ~]$ vim /srever/scripts/nginx_status.sh</span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#author: Dengpangpang</span></span><br><span class="line"><span class="comment">#desc : check nginx status</span></span><br><span class="line"></span><br><span class="line">CMD=<span class="string">&#x27;curl -s 127.0.0.1/nginx_status&#x27;</span></span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$1</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">	active)</span><br><span class="line">		<span class="variable">$CMD</span> |awk <span class="string">&#x27;NR==1&#123;print $NF&#125;&#x27;</span></span><br><span class="line">		;;</span><br><span class="line">	accept*)</span><br><span class="line">		<span class="variable">$CMD</span> |awk <span class="string">&#x27;NR==3&#123;print $1&#125;&#x27;</span></span><br><span class="line">		;;</span><br><span class="line">	handle*)</span><br><span class="line">		<span class="variable">$CMD</span> |awk <span class="string">&#x27;NR==3&#123;print $2&#125;&#x27;</span></span><br><span class="line">		;;</span><br><span class="line">	request*)</span><br><span class="line">		<span class="variable">$CMD</span> |awk <span class="string">&#x27;NR==3&#123;print $3&#125;&#x27;</span></span><br><span class="line">		;;</span><br><span class="line">	<span class="built_in">read</span>*)</span><br><span class="line">		<span class="variable">$CMD</span> |awk <span class="string">&#x27;END&#123;print $2&#125;&#x27;</span></span><br><span class="line">		;;</span><br><span class="line">	writ*)</span><br><span class="line">		<span class="variable">$CMD</span> |awk <span class="string">&#x27;END&#123;print $4&#125;&#x27;</span></span><br><span class="line">		;;</span><br><span class="line">	<span class="built_in">wait</span>*)</span><br><span class="line">		<span class="variable">$CMD</span> |awk <span class="string">&#x27;END&#123;print $6&#125;&#x27;</span></span><br><span class="line">		;;</span><br><span class="line">	*)</span><br><span class="line">		<span class="built_in">echo</span> <span class="string">&quot;Usage: <span class="variable">$0</span> &#123;active|accept|handle|request|reading|writing|waiting&#125;&quot;</span></span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line">[root@web01 ~]$ <span class="built_in">chmod</span> +x /srever/scripts/nginx_status.sh</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>自定义键值(传参)</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@web01 ~]$ vim /etc/zabbix/zabbix_agent2.d/nginx.conf		<span class="comment"># 添加以下内容</span></span><br><span class="line">UserParameter=nginx.status[*],sh /server/scripts/nginx_status.sh <span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line">[root@web01 ~]$ systemctl restart zabbix-agent2.service 		<span class="comment"># 重启客户端</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>测试</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在服务端上测试能否获取到值</span></span><br><span class="line">zabbix_get -s web01 -k nginx.status[request]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>GUI操作</p>
+</blockquote>
+<p>创建监控项和图形，不再赘述</p>
+<p>注意：</p>
+<ol>
+<li>当有多个相似的监控项需要添加时，可以使用监控项的克隆功能，更改小部分选项快速添加监控项</li>
+<li>当监控项获取的数值较为复杂时，可以使用预处理功能，添加正则表达式来获取纯净的数据。</li>
+</ol>
+<p><a href="/../pic/image-20240221004414138.png" title="image-20240221004414138" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221004414138.png" alt="image-20240221004414138"></a></p>
+<p><a href="/../pic/image-20240221004522930.png" title="image-20240221004522930" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221004522930.png" alt="image-20240221004522930"></a></p>
+<h3 id="故障排除"><a href="#故障排除" class="headerlink" title="故障排除"></a>故障排除</h3><blockquote>
+<p>zabbix客户端运行的用户是zabbix用户，执行命令时可能出现权限故障： permission denied</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 客户端添加zabbix为授权用户</span></span><br><span class="line">[root@web01 ~]$ visudo		<span class="comment"># 最后一行添加以下内容</span></span><br><span class="line">zabbix ALL=(ALL) NOPASSWD: ALL</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后在配置键值对的文件中，将命令前面加上sudo即可</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>脚本&#x2F;命令执行超时: ZBX_NOTSUPPORTED: Timeout while executing a shell script.</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在服务端的zabbix配置文件修改Timeout参数为30</span></span><br><span class="line">[root@m01 ~]$ vim /etc/zabbix/zabbix_server.conf</span><br><span class="line">[root@m01 ~]$ grep -n ^Timeout /etc/zabbix/zabbix_server.conf</span><br><span class="line">480:Timeout=30</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在客户端的zabbix配置文件修改Timeout参数为30</span></span><br><span class="line">[root@m01 ~]$ vim /etc/zabbix/zabbix_agent2.conf</span><br><span class="line">[root@web01 ~]# grep -n ^Timeout= /etc/zabbix/zabbix_agent2.conf</span><br><span class="line">258:Timeout=30</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义模板"><a href="#自定义模板" class="headerlink" title="自定义模板"></a>自定义模板</h2><p>当有大量的监控项需要从一个主机克隆到另一个主机时，可以自定义模板来快速克隆。</p>
+<blockquote>
+<p>创建模板</p>
+</blockquote>
+<ol>
+<li>进入zabbix监控的web界面，<strong>侧边栏</strong>&gt;<strong>配置</strong>&gt;<strong>模板</strong>，点击右上角<strong>创建模板</strong>，进入创建模板界面。</li>
+<li>填写模板名称和群组，点击<strong>添加</strong>即可。</li>
+</ol>
+<p><a href="/../pic/image-20240221012827652.png" title="image-20240221012827652" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221012827652.png" alt="image-20240221012827652"></a></p>
+<blockquote>
+<p>创建应用集、监控项、触发器、图形</p>
+</blockquote>
+<p>找到刚刚创建的模板，此时为空，依次点击<strong>应用集</strong>、<strong>监控项</strong>、<strong>触发器</strong>、<strong>图形</strong>分别创建。</p>
+<p><a href="/../pic/image-20240221012427357.png" title="image-20240221012427357" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221012427357.png" alt="image-20240221012427357"></a></p>
+<p>注意：如果从未添加过上面内容，需要首次创建，如果在其他机器上已经存在了上面内容，可以直接复制过来，以监控项为例：</p>
+<p><a href="/../pic/image-20240221012726341.png" title="image-20240221012726341" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221012726341.png" alt="image-20240221012726341"></a></p>
+<p><a href="/../pic/image-20240221012746183.png" title="image-20240221012746183" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221012746183.png" alt="image-20240221012746183"></a></p>
+<blockquote>
+<p>将主机与模板关联</p>
+</blockquote>
+<ol>
+<li>进入zabbix监控的web界面，<strong>侧边栏</strong>&gt;<strong>配置</strong>&gt;<strong>主机</strong>，点击需要关联模板的主机名称。</li>
+<li>点击主机旁边的模板，在链接新模板中选择需要关联的模板，点击更新即可。</li>
+</ol>
+<p><a href="/../pic/image-20240221013054762.png" title="image-20240221013054762" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221013054762.png" alt="image-20240221013054762"></a></p>
+<h2 id="自定义告警"><a href="#自定义告警" class="headerlink" title="自定义告警"></a>自定义告警</h2><p>监控告警有以下几种类型</p>
+<table>
+<thead>
+<tr>
+<th>告警方式</th>
+<th>应用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>邮件</td>
+<td>传统告警方式，免费，可以选择个人邮箱或者企业邮箱</td>
+</tr>
+<tr>
+<td>企业微信</td>
+<td>免费，需要配置代码，需要用到企业微信</td>
+</tr>
+<tr>
+<td>OA系统（钉钉）</td>
+<td>免费，需要配置代码</td>
+</tr>
+<tr>
+<td>短信</td>
+<td>收费，需要配置代码</td>
+</tr>
+<tr>
+<td>电话</td>
+<td>收费，需要配置代码</td>
+</tr>
+<tr>
+<td>第三方告警平台</td>
+<td>如one alert ，简单快捷，但是有收费限制</td>
+</tr>
+</tbody></table>
+<h3 id="邮件告警"><a href="#邮件告警" class="headerlink" title="邮件告警"></a>邮件告警</h3><blockquote>
+<p><strong>配置报警媒介</strong></p>
+</blockquote>
+<ol>
+<li><p>进入zabbix监控的web界面，<strong>侧边栏</strong>&gt;<strong>管理</strong>&gt;<strong>报警媒介类型</strong>，点击右上角的<strong>创建媒体类型</strong>（也可以选择已有的类型）</p>
+</li>
+<li><p>填写相关信息</p>
+<p>25端口是SMTP服务开放的端口用于发送邮件。465端口是为SMTP SSL（SMTP-over-SSL）协议服务开放的端口，可防止邮件泄露。</p>
+<p>密码是授权码，可以在邮箱安全设置中的授权密码中添加。</p>
+<p><a href="/../pic/image-20240221035748025.png" title="image-20240221035748025" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221035748025.png" alt="image-20240221035748025"></a></p>
+</li>
+<li><p>配置消息模板</p>
+<p>点击消息模板，点击添加，可以添加不同类型的消息模板，包括问题、问题恢复、问题更新、自动发现、自动注册等。一般添加问题和问题恢复两种即可。</p>
+<p><a href="/../pic/image-20240221040422703.png" title="image-20240221040422703" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221040422703.png" alt="image-20240221040422703"></a></p>
+<p>模板内容解释：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 问题模板</span></span><br><span class="line">Problem started at &#123;EVENT.TIME&#125; on &#123;EVENT.DATE&#125;		<span class="comment"># 时间和日期</span></span><br><span class="line">Problem name: &#123;EVENT.NAME&#125;		<span class="comment"># 故障名称</span></span><br><span class="line">Host: &#123;HOST.NAME&#125;		<span class="comment"># 主机名</span></span><br><span class="line">Severity: &#123;EVENT.SEVERITY&#125;		<span class="comment"># 故障级别</span></span><br><span class="line">Operational data: &#123;EVENT.OPDATA&#125;		<span class="comment"># 额外信息</span></span><br><span class="line">Original problem ID: &#123;EVENT.ID&#125;		<span class="comment"># 故障id</span></span><br><span class="line">&#123;TRIGGER.URL&#125;		<span class="comment"># 触发器的URL</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 问题恢复模板</span></span><br><span class="line">Problem has been resolved at &#123;EVENT.RECOVERY.TIME&#125; on &#123;EVENT.RECOVERY.DATE&#125;		<span class="comment"># 故障解决的时间和日期</span></span><br><span class="line">Problem name: &#123;EVENT.NAME&#125;		<span class="comment"># 故障名称</span></span><br><span class="line">Problem duration: &#123;EVENT.DURATION&#125;		<span class="comment"># 故障持续时间</span></span><br><span class="line">Host: &#123;HOST.NAME&#125;		<span class="comment"># 主机名</span></span><br><span class="line">Severity: &#123;EVENT.SEVERITY&#125;		<span class="comment"># 故障级别</span></span><br><span class="line">Original problem ID: &#123;EVENT.ID&#125;		<span class="comment"># 故障id</span></span><br><span class="line">&#123;TRIGGER.URL&#125;		<span class="comment"># 触发器的URL</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加完成后进行测试。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>配置收件人</strong></p>
+</blockquote>
+<p>配置收件人需要配置已有的用户</p>
+<ol>
+<li><p>进入zabbix监控的web界面，<strong>侧边栏</strong>&gt;<strong>管理</strong>&gt;<strong>用户</strong>，选择一个用户，点击用户名称。</p>
+</li>
+<li><p>点击报警媒介，添加，添加相关信息后点击添加即可。</p>
+<p><a href="/../pic/image-20240221043744780.png" title="image-20240221043744780" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221043744780.png" alt="image-20240221043744780"></a></p>
+</li>
+</ol>
+<blockquote>
+<p><strong>配置动作</strong></p>
+</blockquote>
+<p>有了告警媒介和收件人之后，还需要添加一个告警动作。</p>
+<ol>
+<li><p>进入zabbix监控的web界面，<strong>侧边栏</strong>&gt;<strong>配置</strong>&gt;<strong>动作</strong>，选择一个用户，点击右上角<strong>创建动作</strong>。</p>
+</li>
+<li><p>填写<strong>动作</strong>相关信息，可以添加不同的条件</p>
+<p><a href="/../pic/image-20240221045935511.png" title="image-20240221045935511" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221045935511.png" alt="image-20240221045935511"></a></p>
+</li>
+<li><p>填写操作相关信息，填写操作细节。完成后点击添加即可。</p>
+<p><a href="/../pic/image-20240221050025368.png" title="image-20240221050025368" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221050025368.png" alt="image-20240221050025368"></a></p>
+</li>
+</ol>
+<h3 id="企业微信告警"><a href="#企业微信告警" class="headerlink" title="企业微信告警"></a>企业微信告警</h3><p>企业微信、OA系统、短信、电话等告警的配置方式类似，都是通过脚本调用API，此处以企业微信为例。</p>
+<blockquote>
+<p><strong>使用脚本调用企业微信api接口</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/lib/zabbix/alertscripts/wechat.py</span><br><span class="line"></span><br><span class="line">脚本中需要配置企业微信<span class="built_in">id</span>、告警机器人<span class="built_in">id</span>和密码</span><br><span class="line">登录企业微信后台，可以获取企业微信<span class="built_in">id</span>（企业ID）</span><br><span class="line">在应用管理中添加告警机器人，可以获取告警机器人<span class="built_in">id</span>（AgentId）和密码（Secret）</span><br><span class="line">此处省略脚本内容</span><br></pre></td></tr></table></figure>
+
+<p>配置好脚本之后需要进行测试</p>
+<blockquote>
+<p>配置报警媒介</p>
+</blockquote>
+<p>不再赘述，需要注意：</p>
+<ol>
+<li>类型选择脚本</li>
+<li>参数是脚本需要的参数，此处为三个，分别是发送到人员、主题、信息内容，参数的值填写的是zabbix内置的宏。</li>
+<li>消息模板与邮件相同</li>
+<li>添加后需要进行测试，收件人选择企业微信成员账号</li>
+</ol>
+<p><a href="/../pic/image-20240221054811123.png" title="image-20240221054811123" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240221054811123.png" alt="image-20240221054811123"></a></p>
+<blockquote>
+<p>配置收件人</p>
+</blockquote>
+<p>不再赘述</p>
+<blockquote>
+<p>配置动作</p>
+</blockquote>
+<p>不再赘述</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-02-15</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Zabbix/'>
+                            Zabbix
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

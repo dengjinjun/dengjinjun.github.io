@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Docker常用命令" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Docker常用命令
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="post-toc-text">镜像相关命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%B9%E5%99%A8%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="post-toc-text">容器相关命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B9%B6%E5%90%AF%E5%8A%A8%E5%AE%B9%E5%99%A8%E8%AF%A6%E8%A7%A3"><span class="post-toc-text">创建并启动容器详解</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%B9%E5%99%A8%E7%9A%84%E9%87%8D%E5%90%AF%E7%AD%96%E7%95%A5"><span class="post-toc-text">容器的重启策略</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="post-toc-text">端口映射的方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%8C%87%E5%AE%9A%E5%AD%98%E5%82%A8%E5%8D%B7"><span class="post-toc-text">指定存储卷</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%8C%87%E5%AE%9A%E7%BD%91%E7%BB%9C"><span class="post-toc-text">指定网络</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="镜像相关命令"><a href="#镜像相关命令" class="headerlink" title="镜像相关命令"></a>镜像相关命令</h2><ul>
+<li><p>查看镜像</p>
+<p>注意：本地镜像一般存储在<code>/var/lib/docker</code>目录下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker images		<span class="comment"># 列出宿主机下的所有本地镜像，也可以使用命令`docker image ls`</span></span><br><span class="line"></span><br><span class="line">docker images -f 条件		<span class="comment"># 根据指定条件过滤出想要查看的容器</span></span><br><span class="line">docker images -q		<span class="comment"># 仅显示镜像id</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出信息</span></span><br><span class="line">REPOSITORY：镜像在仓库中的名称，本文中以后都简称镜像名称</span><br><span class="line">TAG：镜像标签</span><br><span class="line">IMAGE ID：镜像 ID</span><br><span class="line">CREATED：镜像的创建日期（不是获取该镜像的日期）</span><br><span class="line">SIZE：镜像大小</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>搜索镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search 镜像名称		<span class="comment"># 在远程仓库中通过名称搜索镜像</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出信息</span></span><br><span class="line"></span><br><span class="line">NAME：镜像名称</span><br><span class="line">DESCRIPTION：镜像描述</span><br><span class="line">STARS：用户评价，反映一个镜像的受欢迎程度</span><br><span class="line">OFFICIAL：是否为官方构建</span><br><span class="line">AUTOMATED：自动构建，表示该镜像由 Docker Hub 自动构建流程创建的。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拉取镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull 镜像名称		<span class="comment"># 从远程仓库中拉取镜像，默认拉取最新版本</span></span><br><span class="line">docker pusll 镜像名称:标签		<span class="comment"># 可加镜像tag信息，拉取指定版本</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上传镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image push 镜像名称:标签		<span class="comment"># 把镜像上传到镜像仓库</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导出镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image save 镜像名称:标签 -o 压缩包名		<span class="comment"># 导出指定的镜像并命名，也可以根据镜像id导出</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导入镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker image load -i 镜像压缩包名		<span class="comment"># 导入一个镜像</span></span><br><span class="line">docker image import 镜像压缩包名		<span class="comment"># 也可以导入一个镜像，但是导入后没有名字和标签,不推荐</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给镜像打上标签</p>
+<p>注意：镜像的标签一个重要作用是指定仓库信息，这在拉取和上传的时候非常关键</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image tag 镜像<span class="built_in">id</span> 镜像名称:命名标签		<span class="comment"># 给镜像命名一个标签，可以多次命名，会显示不同的镜像</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除镜像</p>
+<p>注意：如果通过某个镜像创建了容器，则该镜像无法删除。需要先删除镜像中的容器，再删除该镜像。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker rmi 镜像<span class="built_in">id</span>		<span class="comment"># 通过镜像id删除镜像，可以一次删除多个，以空格分隔不同的镜像id</span></span><br><span class="line">docker rmi `docker images -q`		<span class="comment"># 查询到所有镜像的 ID，通过组合命令可以实现删除所有镜像</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构建镜像</p>
+<p><code>docker build</code> 命令是根据 Dockerfile 和上下文构建镜像，Dockerfile和上下文目录中的全部文件会被发送到Docker的守护进程中，执行解析和分层构建镜像，构建完成之后发送给客户端。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker build 上下文路径		<span class="comment"># 基于Dockerfile构建镜像，默认是上下文路径中的Dockerfile文件</span></span><br><span class="line"></span><br><span class="line">-f dockerfile文件路径	<span class="comment"># 指定dockerfile文件，如果不指定，默认是上下文目录中的`Dockerfile`文件</span></span><br><span class="line">-t 镜像名称:标签 		<span class="comment"># 给标签命名</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看镜像构建历史</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image <span class="built_in">history</span> 镜像名称:标签		<span class="comment"># 输出镜像历史</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看镜像属性</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker image inspect 镜像名称:标签		<span class="comment"># 输出镜像信息是json类型的数据</span></span><br><span class="line"></span><br><span class="line">docker image inspect 镜像名称:标签 -f &#123;&#123;.键名&#125;&#125;		<span class="comment"># 对于输出的json数据，可以使用 -f 选项取值</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="容器相关命令"><a href="#容器相关命令" class="headerlink" title="容器相关命令"></a>容器相关命令</h2><ul>
+<li><p>查看容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker ps		<span class="comment"># 查看正在运行的容器，也可以使用命令`docker container ls`</span></span><br><span class="line"></span><br><span class="line">docker ps -a		<span class="comment"># 查看所有状态的容器</span></span><br><span class="line">docker ps -f 过滤条件		<span class="comment"># 根据指定条件过滤出想要查看的容器，比如`docker ps -f status=exited`</span></span><br><span class="line">docker ps -l		<span class="comment"># 查看最新创建的一个容器</span></span><br><span class="line">docker ps -n 数字		<span class="comment"># 查看最近创建的几个容器，比如`docker ps -n 5`</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出信息</span></span><br><span class="line">CONTAINER ID	IMAGE		COMMAND		CREATED		STATUS		PORTS	NAMES</span><br><span class="line">	容器 ID	  所属镜像		启动命令	  创建时间	   容器状态		 端口	   容器名称</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker create 镜像名称:标签		<span class="comment"># 基于镜像创建一个容器，优先选择本地镜像，如果本地不存在则自动去镜像仓库拉取</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start 容器<span class="built_in">id</span>		<span class="comment"># 基于容器id启动一个容器，也可以根据容器名称启动</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建并启动容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run [OPTIONS] 镜像名称:标签 [COMMAND] [ARG...]		<span class="comment"># 命令格式</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>停止容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop 容器<span class="built_in">id</span>/容器名称</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>强行停止容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">kill</span> 容器名称		<span class="comment"># 不建议使用</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart 容器<span class="built_in">id</span>/容器名称</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>暂停和继续容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pause 容器<span class="built_in">id</span>/容器名称		<span class="comment"># 暂停运行</span></span><br><span class="line">docker unpause 容器<span class="built_in">id</span>/容器名称		<span class="comment"># 继续运行</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">rm</span> 容器<span class="built_in">id</span>/容器名称</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重命名容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rename 原容器名 新容器名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>显示容器信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker inspect 容器<span class="built_in">id</span>/容器名称		<span class="comment"># 同样输出json数据，可以通过 -f 选项根据键值取出</span></span><br><span class="line">docker inspect -f &#123;&#123;.GraphDriver.Data.MergedDir&#125;&#125; 容器<span class="built_in">id</span>/容器名称		<span class="comment"># 查看容器文件系统在宿主机上对应的目录</span></span><br><span class="line">docker inspect -f &#123;&#123;.Mounts&#125;&#125; 容器<span class="built_in">id</span>/容器名称		<span class="comment"># 查看挂载信息</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看容器端口映射关系</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker port 容器<span class="built_in">id</span>/容器名称</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看容器的资源占用情况</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker stats 	<span class="comment"># 查看正在运行的容器的资源占用情况</span></span><br><span class="line">docker stats 容器<span class="built_in">id</span>/容器名称		<span class="comment"># 查看指定容器的资源占用情况</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>登录一个守护式进程</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it 容器<span class="built_in">id</span>/容器名称 /bin/bash</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件拷贝</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将宿主机文件拷贝到容器内</span></span><br><span class="line">docker <span class="built_in">cp</span> 需要拷贝的文件或目录 容器名称:容器目录</span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件从容器内拷贝出来</span></span><br><span class="line">docker <span class="built_in">cp</span> 容器名称:容器目录 需要拷贝到的文件或目录</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看日志</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs 容器<span class="built_in">id</span>/容器名称		<span class="comment"># 查看容器日志，可通过选项控制显示时间戳和控制输出哪部分日志</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导出镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit 容器<span class="built_in">id</span>/容器名称 镜像名称:标签		<span class="comment"># 根据容器导出镜像,通常不用此种方式，而是使用dockerfile</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="创建并启动容器详解"><a href="#创建并启动容器详解" class="headerlink" title="创建并启动容器详解"></a>创建并启动容器详解</h2><p>首次创建并启动容器时，使用<code>docker run</code>命令，可选选项比较多，所以单独拿出来介绍。</p>
+<p>命令格式：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run [OPTIONS] 镜像名称:标签 [COMMAND] [ARG...]</span><br></pre></td></tr></table></figure>
+
+<p>常用选项：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-i 表示运行容器，通常和 -t 搭配使用</span><br><span class="line">-t 表示运行后进入其命令行，通常和 -i 搭配使用</span><br><span class="line">-d 表示创建守护式容器在后台运行，不会自动登录容器</span><br><span class="line">-P 随机使用宿主机的可用端口与容器内暴露的端口映射</span><br><span class="line">-p 表示端口映射，前者是宿主机端口，后者是容器内的映射端口。可以使用多个 -p 做多个端口映射。</span><br><span class="line">-v 表示目录映射关系（前者是宿主机目录，后者是映射到宿主机上的目录），可以使用多个 -v 做多个目录或文件映射。注意：最好做目录映射，在宿主机上做修改，然后共享到容器上</span><br><span class="line">-e 启动容器时传递环境变量，比如`-e CLASS=linux`，可以使用多个 -e 传递多个环境变量</span><br><span class="line">--name 表示为创建的容器命名</span><br><span class="line">--network 指定网络类型</span><br></pre></td></tr></table></figure>
+
+<h3 id="容器的重启策略"><a href="#容器的重启策略" class="headerlink" title="容器的重启策略"></a>容器的重启策略</h3><p>为了保证容器运行时健壮性（自愈），Docker 为容器提供了重启策略，即让容器在退出时自动尝试重启。</p>
+<blockquote>
+<p><strong>实现方式</strong></p>
+</blockquote>
+<p>实现的方式是在运行docker容器时使用参数<code>--restart</code>，注意：当手动执行容器 stop 时， <code>--restart </code>失效，容器不再尝试重启。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd --restart=重启策略 镜像名称:标签</span><br><span class="line"></span><br><span class="line">五种重启策略：</span><br><span class="line">no	默认策略，在容器退出时不重启容器。启动容器时不添加参数 --restart 即可。</span><br><span class="line">on-failure	在容器非正常退出时（退出状态非0），才会重启容器。</span><br><span class="line">on-failure:n	在容器非正常退出时重启容器，并且指定重启次数。n 为正整数。如果不指定次数，则会一直重启。</span><br><span class="line">always	只要容器退出就重启容器。</span><br><span class="line">unless-stopped	在容器退出时总是重启容器，但是 Docker 守护进程启动之前就已经停止运行的容器不算在内。</span><br></pre></td></tr></table></figure>
+
+<p>Docker容器的重启策略是基于容器的退出状态码，类似于Linux命令的退出状态码，具体如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0	表示容器正常退出，例如 stop 容器。非0表示容器退出异常，例如执行 docker run 失败后的容器退出。</span><br><span class="line">125		Docker 守护进程本身有错误。</span><br><span class="line">126		容器启动后，要执行的默认命令无法调用。</span><br><span class="line">127		容器启动后，要执行的默认命令不存在。</span><br><span class="line">其他命令状态码		容器启动后在容器内部执行命令，该命令退出时的返回状态码，就作为容器的退出状态码。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>获取退出状态码</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方式1</span></span><br><span class="line">docker ps -a	<span class="comment"># 找到停止的容器，STATUS项下面的会显示`Exited(状态码) 停止时间`</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 方式2</span></span><br><span class="line">docker inspect 容器<span class="built_in">id</span>/容器名称 --format=<span class="string">&#x27;&#123;&#123;.State.ExitCode&#125;&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 补充其他</span></span><br><span class="line">docker inspect 容器<span class="built_in">id</span>/容器名称 -f <span class="string">&quot;&#123;&#123; .RestartCount &#125;&#125;&quot;</span>		<span class="comment"># 获取重启次数</span></span><br><span class="line">docker inspect 容器<span class="built_in">id</span>/容器名称 -f <span class="string">&quot;&#123;&#123; .State.StartedAt &#125;&#125;&quot;</span>	<span class="comment"># 获取最后一次启动时间</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>容器启动时忘记配置重启策略的解决方法</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方式1</span></span><br><span class="line">docker container update --restart=重启策略 容器<span class="built_in">id</span>/容器名称</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方式2</span></span><br><span class="line">vim /var/lib/docker/containers/容器ID/hostconfig.json		<span class="comment"># 编辑容器的配置文件，找到关键字RestartPolicy，修改此行</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;RestartPolicy:&#123;&quot;</span>Name<span class="string">&quot;:&quot;</span>always<span class="string">&quot;,&quot;</span>MaximumRetryCount<span class="string">&quot;:0&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="端口映射的方式"><a href="#端口映射的方式" class="headerlink" title="端口映射的方式"></a>端口映射的方式</h3><p>当启动了Docker守护进程后，宿主机内部会多一块网卡<code>docker0</code>，并随即分配了一个IP地址（通过NAT实现的），当我们启动一个docker容器之后，又会多出一块随机命名的虚拟网卡，这是通过docker内部的交换机实现的。如果启动容器时，不指定端口映射，那么容器内部是封闭的，无法通过外部网络访问到容器内部，所以启动docker时一般会指定端口映射。</p>
+<p>启动了端口映射之后，docker会自动帮我们写好iptables规则，并且启动一个docker-proxy的进程来监听相应的端口，防止重复配置端口映射信息。</p>
+<p>以下是docker中常见的端口映射写法（将以容器的<code>80</code>端口为例）：</p>
+<ul>
+<li><p>自动随机端口映射</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -P 容器<span class="built_in">id</span>/容器名称		<span class="comment"># 容器和宿主机的端口将随机映射</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指定端口，绑定服务器所有网卡</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8888:80 容器<span class="built_in">id</span>/容器名称		<span class="comment"># 容器的80端口将绑定宿主机所有网卡的8888端口</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>绑定指定网卡的指定端口</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 网卡IP:8888:80 容器<span class="built_in">id</span>/容器名称		<span class="comment"># 容器的80端口将绑定宿主机指定网卡的8888端口，这样的方式可以实现宿主机的多个网卡能够绑定不同容器的80端口。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>绑定指定网卡的随机端口</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 网卡IP::80 容器<span class="built_in">id</span>/容器名称		<span class="comment"># 容器的80端口将绑定宿主机指定网卡的随机端口</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用UDP协议的端口映射</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 网卡IP::80/udp 容器<span class="built_in">id</span>/容器名称		<span class="comment"># 若不指定，默认是TCP协议，在实际工作中，很多服务都是基于udp的，比如DHCP，DNS(TCP/UDP的53d端口)，chrony，SNMP(161端口)</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="指定存储卷"><a href="#指定存储卷" class="headerlink" title="指定存储卷"></a>指定存储卷</h3><blockquote>
+<p><strong>什么是存储卷</strong></p>
+</blockquote>
+<p>卷”是容器上的一个或多个目录，此类目录可绕过docker的UnionFS，与宿主机上的某个目录绑定关联，类似于挂载。这种在宿主机上能够被共享的目录(也可以是文件)就被称为存储卷（volume）。</p>
+<p><a href="/../pic/1216496-20190108094617098-239989581.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1216496-20190108094617098-239989581.png" alt="img"></a></p>
+<p>Docker的存储卷是一种特殊的目录，可用于在容器和主机之间持久化和共享数据。它们允许容器中的数据在容器停止和删除后仍然存在，并允许多个容器共享同一个存储卷，使用存储卷可以使容器中的数据持久化，并且可以在多个容器之间共享相同的数据。这使得容器更加灵活和可靠，同时也简化了容器的管理和部署。</p>
+<blockquote>
+<p><strong>使用存储卷的意义</strong></p>
+</blockquote>
+<p>当我们希望在容器内更新代码时，比如容器运行着nginx业务，我们需要替换到nginx站点目录中的业务代码，应该怎么做？</p>
+<p>我们知道容器中的文件，是可以在宿主机的指定目录中找到的，通过<code>docker inspect -f &#39;&#123;&#123;.GraphDriver.Data.MergedDir&#125;&#125;&#39; 容器id/容器名称	</code>命令可以查看，我们可以将代码文件放置到该目录下的指定文件夹中即可。另一种方式也很容易想到，就是容器的<code>docker cp</code>命令，将宿主机上的文件复制到容器的指定目录。</p>
+<p>使用上面的方法固然可以，但是如果存在多个容器，就需要将同一份数据拷贝到多个不同的容器内部，过于繁琐。所以推荐使用存储卷的方式。</p>
+<p>使用存储卷的好处：</p>
+<ol>
+<li>可以实现多个容器共同挂载宿主机的同一目录，共享同一份数据</li>
+<li>修改宿主机的文件，容器内的文件即时更新，同样容器内的更改也会反映到宿主机内</li>
+<li>删除容器时，宿主机的文件不会删除</li>
+<li>解决了在docker自身的文件系统中数据存取效率较低的问题，提高了I&#x2F;O性能。</li>
+</ol>
+<blockquote>
+<p><strong>使用存储卷的方法</strong></p>
+</blockquote>
+<p>Docker的存储卷有两种挂载方法：匿名挂载和命名挂载。</p>
+<ul>
+<li><p>匿名挂载</p>
+<p>在上面的命令中提到过，在创建并运行容器的时候，可以指定目录挂载：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -v 宿主机目录:容器内目录 镜像<span class="built_in">id</span>/镜像名称		<span class="comment"># 启动时挂载了目录</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>命名挂载</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -v 存储卷名称:容器内目录 镜像<span class="built_in">id</span>/镜像名称		<span class="comment"># 启动时使用存储卷挂载，存储卷需要提前创建</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p><strong>存储卷相关命令</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker volume create 存储卷名称		<span class="comment"># 创建一个存储卷，存储卷的存放位置在`/var/lib/docker/volumes`</span></span><br><span class="line">docker volume inspect 存储卷名称		<span class="comment"># 查看存储卷信息</span></span><br><span class="line">docker volume <span class="built_in">ls</span>		<span class="comment"># 查看所有存储卷，会包含一些自动创建的随机命名的数据卷，存储了容器内部的一些数据</span></span><br><span class="line">docker volume prune		<span class="comment"># 移除所有无用的本地存储卷</span></span><br><span class="line">docker volume <span class="built_in">rm</span> 存储卷名称		<span class="comment"># 删除指定的存储卷</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="指定网络"><a href="#指定网络" class="headerlink" title="指定网络"></a>指定网络</h3><p>Docker 创建一个容器的时候，会执行如下操作：</p>
+<ol>
+<li>创建一对虚拟接口，分别放到本地主机和新容器中；</li>
+<li>本地主机一端桥接到默认的 docker0 或指定网桥上，并具有一个唯一的名字，如 veth65f9；容器一端放到新容器中，并修改名字作为 eth0，这个接口只在容器的命名空间可见；</li>
+<li>从网桥可用地址段中获取一个空闲地址分配给容器的 eth0，并配置默认路由到桥接网卡 veth65f9。</li>
+<li>默认情况下，容器可以主动访问到外部网络的连接，但是外部网络无法访问到容器。想要允许外部访问容器需要指定端口映射。</li>
+</ol>
+<blockquote>
+<p><strong>网络类型</strong></p>
+</blockquote>
+<p>Docker有五种网络类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bridge: 默认类型，桥接到宿主机docker0的网络，类似于VM的Nat模式。</span><br><span class="line">host: 使用宿主机网络并且共享端口，网络性能最高。</span><br><span class="line">none: 没有网络，该容器不能上外网。</span><br><span class="line">container模式: 容器类型，使用其它容器的共享网络，这在K8S中频繁使用。比如同一个Pod中可以有多个容器共存。</span><br><span class="line">用户自定义模式: 用户自己创建网络（bridge、overlay、macvlan）</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>指定网络类型的方法</strong></p>
+</blockquote>
+<p>在容器启动时指定网络类型</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd --network 网络名称 镜像<span class="built_in">id</span>/镜像名称	<span class="comment"># 如果不指定，默认是bridge模式,可选：`none`，`host`，或者用户自定义的网络</span></span><br><span class="line">docker run -itd --network container:容器<span class="built_in">id</span>/容器名称 镜像<span class="built_in">id</span>/镜像名称		<span class="comment"># 与其他容器共享网络和端口</span></span><br></pre></td></tr></table></figure>
+
+<p>在容器创建之后再指定网络类型</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network connect 网络名称 容器名称		<span class="comment"># 如果容器已经建立，可以通过此命令来让这个容器加入网络，重新分配IP地址</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Docker网络常用命令</strong></p>
+</blockquote>
+<p>Docker网络的命令格式为<code>docker network command</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker network connect 网络名称 容器名称	<span class="comment"># 将一个容器连接进网络，如果容器已经建立，可以通过此命令来让这个容器加入网络，重新分配IP地址</span></span><br><span class="line">docker network create 网络名称		<span class="comment"># 创建一个网络，默认是bridge类型，可以使用-d选项指定其他网络类型，--gateway选项指定网关，--subnet选项指定子网</span></span><br><span class="line">disconnect  Disconnect a container from a network</span><br><span class="line">inspect     Display detailed information on one or more networks</span><br><span class="line"><span class="built_in">ls</span>          List networks</span><br><span class="line">prune       Remove all unused networks</span><br><span class="line"><span class="built_in">rm</span>          Remove one or more networks</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-03-19</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Docker/'>
+                            Docker
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

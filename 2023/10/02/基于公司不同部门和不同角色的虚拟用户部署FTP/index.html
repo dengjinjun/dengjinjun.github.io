@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="公司内部基于虚拟用户部署FTP" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            公司内部基于虚拟用户部署FTP
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%83%A8%E7%BD%B2"><span class="post-toc-text">部署</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Windows%E8%AE%BF%E9%97%AE"><span class="post-toc-text">Windows访问</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><blockquote>
+<p>要求</p>
+</blockquote>
+<p>为了解决公司员工文件存储和下载的需求。要求部署内部FTP服务器，员工可以通过自己的账号的权限对FTP进行操作</p>
+<ol>
+<li>公司公共文件可以通过匿名下载</li>
+<li>公司财务部、商务部、行政部、技术部分别拥有自己的部门文件夹，彼此之间相互隔离</li>
+<li>部门之间只有主管才能拥有上传权限，普通员工只能下载</li>
+<li>禁止用户查看家目录以外的数据</li>
+<li>确保FTP账号安全</li>
+</ol>
+<blockquote>
+<p>需求分析</p>
+</blockquote>
+<ol>
+<li>FTP需要开启匿名下载 ——&gt; 默认FTP支持匿名下载</li>
+<li>分析针对不同部分实现目录隔离 ——&gt; 有两种方法 1.同部门共用本地账号 2.虚拟账号</li>
+<li>部门内部员工权限不同 ——&gt; 实现方法 虚拟账号</li>
+<li>禁止用户切出 ——&gt; chroot</li>
+<li>防止本地账号泄露  ——&gt;虚拟账号</li>
+</ol>
+<blockquote>
+<p>部署流程</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建虚拟用户映射的本地账号，非登录式，家目录在 /var/tmp/vuser_ftp，账号名为dengpangpang</span></span><br><span class="line">useradd -s /sbin/nologin -d /var/tmp/vuser_ftp dengpangpang</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">新版vsftpd不允许用户主目录有w权限，因此，用户主目录设置500权限，各部门子目录设置700权限，所有上传下载都在子目录中进行</span></span><br><span class="line">chmod 500 /var/tmp/vuser_ftp</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建不同部门的根文件夹，给予700权限</span></span><br><span class="line">mkdir /var/tmp/vuser_ftp/finance			# 财务部根文件夹</span><br><span class="line">mkdir /var/tmp/vuser_ftp/commerce			# 商务部根文件夹</span><br><span class="line">......</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">给各部门的根目录700权限</span></span><br><span class="line">chmod 700 /var/tmp/vuser_ftp/*</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改部门共享文件夹的所有者和属组为dengpangpang</span></span><br><span class="line">chown dengpangpang.dengpangpang /var/tmp/vuser_ftp -R</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改配置文件 /etc/vsftpd/vsftpd.conf，添加以下内容</span></span><br><span class="line">guest_enable=YES				# 开启虚拟用户</span><br><span class="line">guest_username=dengpangpang		# 指定虚拟用户映射的本地用户</span><br><span class="line">virtual_use_local_privs=NO		# 虚拟用户权限是否和本地用户相同，此处为否，因为要设置不同部门的权限</span><br><span class="line">user_config_dir=/etc/vsftpd/vconf.d/		# 虚拟用户的配置文件</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">建立虚拟用户的账号密码文件，添加各部门的账号和密码</span></span><br><span class="line">vim /etc/vsftpd/vuser</span><br><span class="line"></span><br><span class="line">finance_admin		# 财务部主管账号名</span><br><span class="line">123					# 财务部主管密码</span><br><span class="line">finance_member		# 财务部成员账号</span><br><span class="line">123					# 财务部成员密码</span><br><span class="line">......</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">生成账号密码数据库文件</span></span><br><span class="line">db_load -T -t hash -f /etc/vsftpd/vuser /etc/vsftpd/vuser.db</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更改账号密码数据库文件的权限为600</span></span><br><span class="line">chmod 600 /etc/vsftpd/vuser.db</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置pam验证，将以下内容添加到开头</span></span><br><span class="line">vim /etc/pam.d/vsftpd</span><br><span class="line"></span><br><span class="line">auth sufficient /lib64/security/pam_userdb.so db=/etc/vsftpd/vuser</span><br><span class="line">account sufficient /lib64/security/pam_userdb.so db=/etc/vsftpd/vuser</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">定义上述虚拟用户不允许切出家目录</span></span><br><span class="line">vim /etc/vsftpd/chroot_list</span><br><span class="line"></span><br><span class="line">finance_admin</span><br><span class="line">finance_member</span><br><span class="line">......</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">编辑虚拟用户的配置文件，分为主管和成员两种</span></span><br><span class="line"></span><br><span class="line">vim /etc/vsftpd/vconf.d/a=finance_admin			# 财务部主管的配置文件</span><br><span class="line"></span><br><span class="line">local_root=/var/tmp/vuser_ftp/finance			# 指定根目录</span><br><span class="line">anon_umask=077									# 设置文件和目录权限</span><br><span class="line">anon_world_readable_only=NO						# 开放下载权限</span><br><span class="line">anon_upload_enable=YES							# 开放上传权限</span><br><span class="line">anon_mkdir_write_enable=YES						# 开放创建目录的权限</span><br><span class="line">anon_other_write_enable=YES						# 开放删除和重命名目录的权限</span><br><span class="line"></span><br><span class="line">vim /etc/vsftpd/vconf.d/a=finance_member		# 财务部成员的配置文件</span><br><span class="line"></span><br><span class="line">local_root=/var/tmp/vuser_ftp/finance			# 指定根目录</span><br><span class="line">anon_world_readable_only=NO						# 开放下载权限</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Windows访问"><a href="#Windows访问" class="headerlink" title="Windows访问"></a>Windows访问</h2><p>现今浏览器如edge，chrome等逐渐停止对FTP访问的支持，只能使用其他客户端或者命令行工具来访问FTP。</p>
+<p>就命令行而言，还需要对Windows系统进行设置，打开FTP服务。</p>
+<ol>
+<li>打开<strong>控制面板</strong>，找到<strong>程序</strong>，找到<strong>启用或关闭Windows功能</strong>，点击 <strong>Internet Infomation Services</strong> 选项，勾选**&lt;FTP服务器&gt;<strong>、</strong>&lt;FTP服务&gt;<strong>、</strong>&lt;FTP扩展性&gt;<strong>，</strong>&lt;Web管理工具&gt;<strong>、</strong>&lt;IIS管理控制台&gt;**，然后点击确定。</li>
+</ol>
+<p><a href="/../pic/4d182f8b77e44a56ae0d2ccc9d2a4509.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/4d182f8b77e44a56ae0d2ccc9d2a4509.png" alt="img"></a></p>
+<ol start="2">
+<li>重启计算机后，打开<strong>控制面板</strong>中的<strong>系统和安全</strong>，然后点击<strong>管理工具（Windows工具）</strong>，可以看到 <strong>Internet Infomation Services (IIS)管理器</strong>。<strong>右键左侧栏</strong>(你的系统名)，<strong>添加FTP站点</strong>。</li>
+</ol>
+<p><a href="/../pic/594e7a5c41f442d19aa329a6a8b64d51.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/594e7a5c41f442d19aa329a6a8b64d51.png" alt="img"></a></p>
+<ol start="3">
+<li>添加<strong>FTP站点名</strong>和<strong>物理路径</strong>，FTP站点名称自己起个就行，物理路径(用于存放共享文件)，可以在D盘或者E盘(不建议C盘)新建文件夹，把这个文件夹路径作为FTP站点的物理路径，下一步。</li>
+</ol>
+<p><a href="/../pic/f8aa29bd66ad48aea94e10e1fa4fdb99.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/f8aa29bd66ad48aea94e10e1fa4fdb99.png" alt="img"></a></p>
+<ol start="4">
+<li><strong>选择无SSL，其他保持默认，然后下一步</strong></li>
+</ol>
+<p><a href="/../pic/45f285b9d9b84e0186205d6fa7969f30.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/45f285b9d9b84e0186205d6fa7969f30.png" alt="img"></a></p>
+<ol start="5">
+<li><strong>身份验证选择匿名，授权选择所有用户，勾选读取和写入权限，然后完成</strong></li>
+</ol>
+<p><a href="/../pic/5f070b5204bb4c1fb97a160d39ed604f.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/5f070b5204bb4c1fb97a160d39ed604f.png" alt="img"></a></p>
+<p>然后就可以在命令行中使用FTP访问。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-02</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

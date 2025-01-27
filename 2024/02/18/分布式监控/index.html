@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="分布式监控" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            分布式监控
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>zabbix分布式监控的应用场景是有多个机房或地域的情况下，设置一个proxy代理暂存不同机房的数据，然后发送给服务端进行处理。</p>
+<p><a href="/../pic/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly90aHNvbi5ibG9nLmNzZG4ubmV0,size_16,color_FFFFFF,t_70.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly90aHNvbi5ibG9nLmNzZG4ubmV0,size_16,color_FFFFFF,t_70.png" alt="img"></a></p>
+<p>本次以部署zabbix-agent客户端模式为例，准备一台代理机器和一台客户端</p>
+<p>jmx客户端模式类似，参考jmx的部署方式</p>
+<blockquote>
+<p><strong>部署zabbix-proxy代理端</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装zabbix-proxy程序</span></span><br><span class="line">rpm -ivh https://mirror.tuna.tsinghua.edu.cn/zabbix/zabbix/5.0/rhel/7/x86_64/zabbix-proxy-mysql-5.0.0-1.el7.x86_64.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改zabbix-proxy配置文件，连接数据库</span></span><br><span class="line">vim /etc/zabbix/zabbix_proxy.conf		<span class="comment"># 编辑文件的如下配置</span></span><br><span class="line">Server=192.168.110.128</span><br><span class="line">Hostname=zabbix_proxy</span><br><span class="line">DBName=zabbix_proxy</span><br><span class="line">DBUser=zabbix_proxy</span><br><span class="line">DBPassword=123456</span><br><span class="line"></span><br><span class="line">grep <span class="string">&#x27;^[a-Z]&#x27;</span> <span class="variable">$_</span>			<span class="comment"># 查看确认</span></span><br><span class="line">Server=192.168.110.128</span><br><span class="line">Hostname=zabbix_proxy</span><br><span class="line">LogFile=/var/log/zabbix/zabbix_proxy.log</span><br><span class="line">LogFileSize=0</span><br><span class="line">PidFile=/var/run/zabbix/zabbix_proxy.pid</span><br><span class="line">SocketDir=/var/run/zabbix</span><br><span class="line">DBName=zabbix_proxy</span><br><span class="line">DBUser=zabbix_proxy</span><br><span class="line">DBPassword=123456</span><br><span class="line">SNMPTrapperFile=/var/log/snmptrap/snmptrap.log</span><br><span class="line">Timeout=4</span><br><span class="line">ExternalScripts=/usr/lib/zabbix/externalscripts</span><br><span class="line">LogSlowQueries=3000</span><br><span class="line">StatsAllowedIP=127.0.0.1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启zabbix代理端</span></span><br><span class="line">systemctl start zabbix-proxy</span><br><span class="line">systemctl <span class="built_in">enable</span> zabbix-proxy</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>部署zabbix-agent2客户端</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装zabbix-agent2程序</span></span><br><span class="line">rpm -ivh https://mirror.tuna.tsinghua.edu.cn/zabbix/zabbix/5.0/rhel/7/x86_64/zabbix-agent2-5.0.0-1.el7.x86_64.rpm</span><br><span class="line"></span><br><span class="line">vim /etc/zabbix/zabbix_agent2.conf		<span class="comment"># 编辑客户端配置文件</span></span><br><span class="line">Server=192.168.110.128,192.168.110.132		<span class="comment"># 服务端和代理端的IP</span></span><br><span class="line">ServerActive=192.168.110.128,192.168.110.132		<span class="comment"># 服务端和代理端的IP</span></span><br><span class="line">HostnameItem=system.hostname</span><br><span class="line">HostMetadataItem=system.hostname</span><br><span class="line"></span><br><span class="line">grep <span class="string">&#x27;^[a-Z]&#x27;</span> /etc/zabbix/zabbix_agent2.conf 		<span class="comment"># 查看确认</span></span><br><span class="line">PidFile=/var/run/zabbix/zabbix_agent2.pid</span><br><span class="line">LogFile=/var/log/zabbix/zabbix_agent2.<span class="built_in">log</span></span><br><span class="line">LogFileSize=0</span><br><span class="line">Server=192.168.110.128,192.168.110.132</span><br><span class="line">ServerActive=192.168.110.128,192.168.110.132</span><br><span class="line">HostnameItem=system.hostname</span><br><span class="line">HostMetadataItem=system.hostname</span><br><span class="line">Include=/etc/zabbix/zabbix_agent2.d/*.conf</span><br><span class="line">ControlSocket=/tmp/agent.sock</span><br><span class="line">DenyKey=system.run[*]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启zabbix-agent2客户端</span></span><br><span class="line">systemctl start zabbix-agent2.service </span><br><span class="line">systemctl <span class="built_in">enable</span> zabbix-agent2.service </span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>部署数据库</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yum install -y mariadb mariadb-server		<span class="comment"># 安装数据库</span></span><br><span class="line"></span><br><span class="line">mysql		<span class="comment"># 登录mysql</span></span><br><span class="line">create database zabbix_proxy character <span class="built_in">set</span> utf8 collate utf8_bin;		<span class="comment"># 创建数据库</span></span><br><span class="line">grant all on zabbix_proxy.* to zabbix_proxy@<span class="string">&#x27;localhost&#x27;</span> identified by <span class="string">&#x27;123456&#x27;</span>;		<span class="comment"># 创建用户并授权</span></span><br><span class="line">flush privileges;		<span class="comment"># 刷新权限</span></span><br><span class="line"><span class="built_in">exit</span>;		<span class="comment"># 退出</span></span><br><span class="line"></span><br><span class="line">rpm -ql zabbix-proxy-mysql		<span class="comment"># 查询代理端的建表语句</span></span><br><span class="line">zcat /usr/share/doc/zabbix-proxy-mysql-5.0.0/schema.sql.gz | mysql -uzabbix_proxy -p123456 zabbix_proxy		<span class="comment"># 执行</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>GUI操作</strong></p>
+</blockquote>
+<ol>
+<li><p>进入zabbix监控的web界面，点击侧边栏的<strong>管理</strong>&gt;<strong>agent代理程序</strong>，点击右上角<strong>创建代理</strong>。</p>
+</li>
+<li><p>填入相关信息，点击添加即可。</p>
+<p><a href="/../pic/image-20240226030535386.png" title="image-20240226030535386" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240226030535386.png" alt="image-20240226030535386"></a></p>
+</li>
+</ol>
+<blockquote>
+<p><strong>自动注册</strong></p>
+</blockquote>
+<p>配置一下自动注册的动作就ok了</p>
+<blockquote>
+<p><strong>故障排查</strong></p>
+</blockquote>
+<ol>
+<li>在服务端使用zabbix_get工具进行调试</li>
+<li>查看日志文件<code>zabbix_proxy.conf</code>和<code>zabbix_agent2.conf</code>进行调试</li>
+</ol>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-02-18</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Zabbix/'>
+                            Zabbix
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

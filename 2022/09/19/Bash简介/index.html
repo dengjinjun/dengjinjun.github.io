@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Bash 简介" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Bash 简介
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="post-toc-text">基本概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Shell-%E7%9A%84%E5%90%AB%E4%B9%89"><span class="post-toc-text">Shell 的含义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Bash%E7%9A%84%E5%90%AB%E4%B9%89"><span class="post-toc-text">Bash的含义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BB%88%E7%AB%AF%E6%A8%A1%E6%8B%9F%E5%99%A8"><span class="post-toc-text">终端模拟器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8F%90%E7%A4%BA%E7%AC%A6"><span class="post-toc-text">命令行提示符</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="post-toc-text">基本使用方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%BF%9B%E5%85%A5%E5%92%8C%E9%80%80%E5%87%BA%E6%96%B9%E6%B3%95"><span class="post-toc-text">进入和退出方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="post-toc-text">快捷键</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#bash%E5%91%BD%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="post-toc-text">bash命令格式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%91%BD%E4%BB%A4%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95"><span class="post-toc-text">命令历史记录</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#history-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">history 命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#tpye%E5%91%BD%E4%BB%A4"><span class="post-toc-text">tpye命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#echo%E5%91%BD%E4%BB%A4"><span class="post-toc-text">echo命令</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="Shell-的含义"><a href="#Shell-的含义" class="headerlink" title="Shell 的含义"></a>Shell 的含义</h3><p>学习 Bash，首先需要理解 Shell 是什么。Shell 伴随着 Unix 系统的诞生而诞生。Shell 这个单词的原意是“外壳”，跟 kernel（内核）相对应，比喻内核外面的一层，即用户跟内核交互的对话界面。</p>
+<p><a href="/../pic/shell-17087980773501.jpg" title="shell" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/shell-17087980773501.jpg" alt="shell"></a></p>
+<p>具体来说，Shell 这个词有多种含义。</p>
+<p>首先，<strong>Shell 是一个程序</strong>，提供一个与用户对话的环境。这个环境只有一个命令提示符，让用户从键盘输入命令，所以又称为命令行环境（command line interface，简写为 CLI）。Shell 接收到用户输入的命令，将命令送入操作系统执行，并将结果返回给用户。</p>
+<p>其次，<strong>Shell 是一个命令解释器</strong>，解释用户输入的命令。它支持变量、条件判断、循环操作等语法，所以用户可以用 Shell 命令写出各种小程序，又称为脚本（script）。这些脚本都通过 Shell 的解释执行，而不通过编译。</p>
+<p>最后，<strong>Shell 是一个工具箱</strong>，提供了各种小工具，供用户方便地使用操作系统的功能。</p>
+<h3 id="Bash的含义"><a href="#Bash的含义" class="headerlink" title="Bash的含义"></a>Bash的含义</h3><p>Shell 有很多种，只要能给用户提供命令行环境的程序，都可以看作是 Shell。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前的 Linux 系统安装的所有Shell</span></span><br><span class="line"><span class="built_in">cat</span> /etc/shells</span><br></pre></td></tr></table></figure>
+
+<p>Bash 是 Unix 系统和 Linux 系统的一种 Shell（命令行环境），是目前绝大多数 Linux 发行版的默认 Shell。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前设备的默认 Shell</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$SHELL</span></span><br></pre></td></tr></table></figure>
+
+<p>当前正在使用的Shell不一定是默认Shell。一般来说，<code>ps</code>命令结果的倒数第二行是当前使用的Shell</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">|root@m01 ~|$ ps</span><br><span class="line">  PID TTY          TIME CMD</span><br><span class="line"> 4467 pts/0    00:00:00 bash		<span class="comment"># 可以看到当前的shell进程，使用的是bash</span></span><br><span class="line"> 5379 pts/0    00:00:00 ps</span><br></pre></td></tr></table></figure>
+
+<p>用户可以通过<code>bash</code>命令的<code>--version</code>参数或者环境变量<code>$BASH_VERSION</code>，查看本机的 Bash 版本。</p>
+<h3 id="终端模拟器"><a href="#终端模拟器" class="headerlink" title="终端模拟器"></a>终端模拟器</h3><p>如果是不带有图形环境的 Linux 系统（比如专用于服务器的系统），启动后就直接是命令行环境。</p>
+<p>不过，现在大部分的Linux 发行版都是图形环境。用户登录系统后，自动进入图形环境，需要自己启动终端模拟器，才能进入命令行环境。</p>
+<p>所谓“终端模拟器”（terminal emulator）就是一个模拟命令行窗口的程序，让用户在一个窗口中使用命令行环境，并且提供各种附加功能，比如调整颜色、字体大小、行距等等。</p>
+<p>不同 Linux 发行版（准确地说是不同的桌面环境）带有的终端程序是不一样的，比如 KDE 桌面环境的终端程序是 konsole，Gnome 桌面环境的终端程序是 gnome-terminal，用户也可以安装第三方的终端程序。所有终端程序，尽管名字不同，基本功能都是一样的，就是让用户可以进入命令行环境，使用 Shell。</p>
+<h3 id="命令行提示符"><a href="#命令行提示符" class="headerlink" title="命令行提示符"></a>命令行提示符</h3><p>进入命令行环境以后，用户会看到 Shell 的提示符。提示符往往是一串前缀，最后以一个美元符号<code>$</code>结尾，用户可以在这个符号后面输入各种命令。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[user@hostname] $</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，完整的提示符是<code>[user@hostname] $</code>，其中前缀是用户名（<code>user</code>）加上<code>@</code>，再加主机名（<code>hostname</code>）。比如，用户名是<code>bill</code>，主机名是<code>home-machine</code>，前缀就是<code>bill@home-machine</code>。</p>
+<p>注意：root用户的提示符以 <code>#</code> 结尾，用来提醒用户，现在具有根权限，不要出现误操作。这个符号是可以自己定义的，详见《命令提示符》一章。</p>
+<h2 id="基本使用方法"><a href="#基本使用方法" class="headerlink" title="基本使用方法"></a>基本使用方法</h2><h3 id="进入和退出方法"><a href="#进入和退出方法" class="headerlink" title="进入和退出方法"></a>进入和退出方法</h3><p>进入命令行环境以后，一般就已经打开 Bash 了。如果你的 Shell 不是 Bash，可以输入<code>bash</code>命令启动 Bash。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bash</span><br></pre></td></tr></table></figure>
+
+<p>退出 Bash 环境，可以使用<code>exit</code>命令，也可以同时按下<code>Ctrl + d</code>。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><p>Bash 提供很多快捷键，可以大大方便操作。下面是一些最常用的快捷键。</p>
+<blockquote>
+<p><strong>页面操作</strong></p>
+</blockquote>
+<ul>
+<li><code>Ctrl + L</code>：清除屏幕并将当前行移到页面顶部。</li>
+<li><code>Ctrl + C</code>：中止当前正在执行的命令。</li>
+<li><code>Ctrl + D</code>：关闭 Shell 会话。</li>
+<li><code>Shift + PageUp</code>：向上滚动。</li>
+<li><code>Shift + PageDown</code>：向下滚动。</li>
+</ul>
+<blockquote>
+<p><strong>光标操作</strong></p>
+</blockquote>
+<ul>
+<li><code>ctrl + a</code>：光标移动到行首</li>
+<li><code>ctrl + e</code>：光标移动到行尾</li>
+<li><code>Ctrl + u</code>：从光标位置删除到行首。</li>
+<li><code>Ctrl + k</code>：从光标位置删除到行尾。</li>
+<li><code>Ctrl + w</code>：删除光标位置前一个单词。</li>
+<li><code>Alt + f</code>：移动到当前单词的词尾。</li>
+<li><code>Alt + b</code>：移动到当前单词的词首。</li>
+<li><code>Alt + .</code>：插入上一个命令的最后一个词。对于很长的文件路径，有时会非常方便</li>
+</ul>
+<blockquote>
+<p><strong>编辑操作</strong></p>
+</blockquote>
+<ul>
+<li><code>Ctrl + k</code>：剪切光标位置到行尾的文本。</li>
+<li><code>Ctrl + u</code>：剪切光标位置到行首的文本。</li>
+<li><code>Ctrl + y</code>：在光标位置粘贴文本。</li>
+</ul>
+<p>除了上面的快捷键，Bash 还具有自动补全功能。命令输入到一半的时候，可以按下 Tab 键，Bash 会自动完成剩下的部分。</p>
+<h3 id="bash命令格式"><a href="#bash命令格式" class="headerlink" title="bash命令格式"></a>bash命令格式</h3><p>命令行环境中，主要通过使用 Shell 命令，进行各种操作。Shell 命令基本都是下面的格式。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">command</span> [ arg1 ...  argN]</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，<code>command</code>是具体的命令或者一个可执行文件，<code>arg1 ... argN</code>是传递给命令的参数，它们是可选的。</p>
+<p>Bash 使用空格（或 Tab 键）区分不同的参数。如果参数之间有多个空格，Bash 会自动忽略多余的空格。</p>
+<blockquote>
+<p><strong>参数形式</strong></p>
+</blockquote>
+<p>有些参数是命令的配置项，这些配置项一般都以一个连词线开头，比如<code>ls</code>命令的<code>-l</code>。</p>
+<p>同一个配置项往往有长和短两种形式，比如<code>-l</code>是短形式，<code>--list</code>是长形式，它们的作用完全相同。短形式便于手动输入，长形式一般用在脚本之中，可读性更好，利于解释自身的含义。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 短形式</span></span><br><span class="line">$ <span class="built_in">ls</span> -r</span><br><span class="line"></span><br><span class="line"><span class="comment"># 长形式</span></span><br><span class="line">$ <span class="built_in">ls</span> --reverse</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>多行命令</strong></p>
+</blockquote>
+<p>Bash 单个命令一般都是一行，用户按下回车键，就开始执行。有些命令比较长，写成多行会有利于阅读和编辑，这时可以在每一行的结尾加上反斜杠，Bash 就会将下一行跟当前行放在一起解释。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> foo bar</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等同于</span></span><br><span class="line">$ <span class="built_in">echo</span> foo \</span><br><span class="line">bar</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>命令组合符</strong></p>
+</blockquote>
+<p>正常情况下，分号（<code>;</code>）是命令的结束符，使得一行可以放置多个命令，上一个命令执行结束后，再执行第二个命令。</p>
+<p>同时Bash也提供了两个命令组合符<code>&amp;&amp;</code>和<code>||</code>，允许更好地控制多个命令之间的继发关系。</p>
+<ul>
+<li><p><code>;</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用分号时，第二个命令总是接着第一个命令执行，不管第一个命令执行成功或失败。</span></span><br><span class="line">Command1 ; Command2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>&amp;&amp;</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 &amp;&amp; 时，如果 Command1 命令运行成功，则继续运行 Command2 命令</span></span><br><span class="line">Command1 &amp;&amp; Command2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>||</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 || 时，如果 Command1 命令运行失败，则继续运行 Command2 命令</span></span><br><span class="line">Command1 || Command2</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="命令历史记录"><a href="#命令历史记录" class="headerlink" title="命令历史记录"></a>命令历史记录</h3><p>Bash 会保留用户的操作历史，即用户输入的每一条命令都会记录。退出当前 Shell 的时候，Bash 会将用户在当前 Shell 的操作历史写入<code>~/.bash_history</code>文件，该文件默认储存500个操作。环境变量<code>HISTFILE</code>总是指向这个文件。</p>
+<blockquote>
+<p><strong><code>HISTTIMEFORMAT</code></strong></p>
+</blockquote>
+<p>通过定制环境变量<code>HISTTIMEFORMAT</code>，可以显示每个操作的时间。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> HISTTIMEFORMAT=<span class="string">&#x27;%F %T  &#x27;</span>	<span class="comment"># `%F`相当于`%Y - %m - %d`，`%T`相当于` %H : %M : %S`。</span></span><br><span class="line">$ <span class="built_in">history</span></span><br><span class="line">1  2013-06-09 10:40:12   <span class="built_in">cat</span> /etc/issue</span><br><span class="line">2  2013-06-09 10:40:12   clear</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong><code>HISTSIZE</code></strong></p>
+</blockquote>
+<p>环境变量<code>HISTSIZE</code>设置保存历史操作的数量。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> HISTSIZE=10000		<span class="comment">#  设置保存过去10000条操作历史。</span></span><br></pre></td></tr></table></figure>
+
+<p>如果不希望保存本次操作的历史，可以设置<code>HISTSIZE</code>等于0。如果<code>HISTSIZE=0</code>写入用户主目录的<code>~/.bashrc</code>文件，那么就不会保留该用户的操作历史。如果写入<code>/etc/profile</code>，整个系统都不会保留操作历史。</p>
+<blockquote>
+<p><strong><code>HISTIGNORE</code></strong></p>
+</blockquote>
+<p>环境变量<code>HISTIGNORE</code>可以设置哪些命令不写入操作历史。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HISTIGNORE=<span class="string">&#x27;pwd:ls:exit&#x27;</span>		<span class="comment"># 设置`pwd`、`ls`、`exit`这三个命令不写入操作历史。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="history-命令"><a href="#history-命令" class="headerlink" title="history 命令"></a>history 命令</h3><p><code>history</code>命令会输出<code>.bash_history</code>文件的全部内容。用户可以看到最近执行过的所有命令，每条命令之前都有行号。越近的命令，排在越后面。</p>
+<p>如果想搜索某个以前执行的命令，可以配合<code>grep</code>命令搜索操作历史。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">history</span> | grep /usr/bin		<span class="comment"># 返回`.bash_history`文件里面，那些包含`/usr/bin`的命令。</span></span><br></pre></td></tr></table></figure>
+
+<p>操作历史的每一条记录都有编号。可以用<code>!n</code>执行该命令。 <code>!!</code>代表执行上一个命令。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 指定行号为8的命令</span></span><br><span class="line">$ !8</span><br></pre></td></tr></table></figure>
+
+<p><code>history</code>命令的<code>-c</code>参数可以清除操作历史。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">history</span> -c</span><br></pre></td></tr></table></figure>
+
+<p>输入命令时，按下<code>Ctrl + r</code>快捷键，就可以搜索操作历史，选择以前执行过的命令。这时键入命令的开头部分，Shell 就会自动在历史文件中，查询并显示最近一条匹配的结果，这时按下回车键，就会执行那条命令。</p>
+<p>另外，<code>!string</code>表示找出操作历史之中，最近的那一条以<code>string</code>开头的命令并执行。Bash 会先输出那一条命令，然后直接执行。注意，<code>!string</code>语法只会匹配命令，不会匹配参数。</p>
+<h3 id="tpye命令"><a href="#tpye命令" class="headerlink" title="tpye命令"></a>tpye命令</h3><p>Bash 本身内置了很多命令，同时也可以执行外部程序。通过<code>type</code>命令可以判断命令的来源。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">type</span> <span class="built_in">echo</span></span><br><span class="line"><span class="built_in">echo</span> is a shell <span class="built_in">builtin</span>			<span class="comment"># echo是内置命令</span></span><br><span class="line">$ <span class="built_in">type</span> <span class="built_in">ls</span></span><br><span class="line"><span class="built_in">ls</span> is hashed (/bin/ls)			<span class="comment"># ls是外部程序</span></span><br><span class="line">$ <span class="built_in">type</span> <span class="built_in">type</span></span><br><span class="line"><span class="built_in">type</span> is a shell <span class="built_in">builtin</span>			<span class="comment"># type命令本身也是内置命令</span></span><br></pre></td></tr></table></figure>
+
+<p>使用<code>type</code>命令的<code>-a</code>参数，可以查看一个命令的所有定义</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">type</span> -a <span class="built_in">echo</span></span><br><span class="line"><span class="built_in">echo</span> is shell <span class="built_in">builtin</span></span><br><span class="line"><span class="built_in">echo</span> is /usr/bin/echo</span><br><span class="line"><span class="built_in">echo</span> is /bin/echo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 上面的代码表示，echo命令既是内置命令，也有对应的外部程序</span></span><br></pre></td></tr></table></figure>
+
+<p>使用<code>type</code>命令的<code>-t</code>参数，可以返回一个命令的类型：别名（alias），关键词（keyword），函数（function），内置命令（builtin）和文件（file）。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">type</span> -t bash</span><br><span class="line">file				<span class="comment"># bash 是文件</span></span><br><span class="line">$ <span class="built_in">type</span> -t <span class="keyword">if</span></span><br><span class="line">keyword				<span class="comment"># if 是关键字</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="echo命令"><a href="#echo命令" class="headerlink" title="echo命令"></a>echo命令</h3><p><code>echo</code>命令是Linux中最基本的命令，作用是在屏幕输出一行文本，可以将该命令的参数原样输出。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> hello world</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+
+<p>如果想要输出的是多行文本，即包括换行符。这时就需要把多行文本放在引号里面。</p>
+<blockquote>
+<p><strong><code>-n</code></strong></p>
+</blockquote>
+<p>默认情况下，<code>echo</code>输出的文本末尾会有一个回车符。<code>-n</code>参数可以取消末尾的回车符，使得下一个提示符紧跟在输出内容的后面。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -n 参数可以让两个 echo 命令的输出连在一起，出现在同一行。</span></span><br><span class="line">$ <span class="built_in">echo</span> a;<span class="built_in">echo</span> b</span><br><span class="line">a</span><br><span class="line">b</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> -n a;<span class="built_in">echo</span> b</span><br><span class="line">ab</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong><code>-e</code></strong></p>
+</blockquote>
+<p><code>-e</code>参数会解释引号（双引号和单引号）里面的特殊字符（比如换行符<code>\n</code>）。如果不使用<code>-e</code>参数，即默认情况下，引号会让特殊字符变成普通字符，<code>echo</code>不解释它们，原样输出。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">&quot;Hello\nWorld&quot;</span></span><br><span class="line">Hello\nWorld</span><br><span class="line"></span><br><span class="line"><span class="comment"># 双引号的情况</span></span><br><span class="line">$ <span class="built_in">echo</span> -e <span class="string">&quot;Hello\nWorld&quot;</span></span><br><span class="line">Hello</span><br><span class="line">World</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单引号的情况</span></span><br><span class="line">$ <span class="built_in">echo</span> -e <span class="string">&#x27;Hello\nWorld&#x27;</span></span><br><span class="line">Hello</span><br><span class="line">World</span><br></pre></td></tr></table></figure>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2022-09-19</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Bash/'>
+                            Bash
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

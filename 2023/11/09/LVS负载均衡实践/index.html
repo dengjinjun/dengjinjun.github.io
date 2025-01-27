@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="LVS负载均衡实践" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            LVS负载均衡实践
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LVS%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%89%E8%A3%85"><span class="post-toc-text">LVS负载均衡安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ipvsadm%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0"><span class="post-toc-text">ipvsadm命令参数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%9B%86%E7%BE%A4%E6%9C%8D%E5%8A%A1%E7%9B%B8%E5%85%B3"><span class="post-toc-text">集群服务相关</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%8A%82%E7%82%B9%E7%9B%B8%E5%85%B3"><span class="post-toc-text">服务器节点相关</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%98%BE%E7%A4%BA%E4%BF%A1%E6%81%AF%E7%9B%B8%E5%85%B3"><span class="post-toc-text">显示信息相关</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LVS%E9%85%8D%E7%BD%AEMySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="post-toc-text">LVS配置MySQL数据库负载均衡</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%9E%E7%8E%B0LVS-Keepalived%E9%9B%86%E7%BE%A4%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="post-toc-text">实现LVS+Keepalived集群高可用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LVS%E5%9B%9B%E5%B1%82-Nginx%E4%B8%83%E5%B1%82%E8%B4%9F%E8%BD%BDweb%E6%9C%8D%E5%8A%A1"><span class="post-toc-text">LVS四层+Nginx七层负载web服务</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="LVS负载均衡安装"><a href="#LVS负载均衡安装" class="headerlink" title="LVS负载均衡安装"></a>LVS负载均衡安装</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">yum install ipvsadm -y			<span class="comment"># 安装LVS管理工具ipvsadm</span></span><br><span class="line"></span><br><span class="line">rpm -ql ipvsadm			<span class="comment"># 查看安装文件</span></span><br><span class="line"></span><br><span class="line">/usr/sbin/ipvsadm							<span class="comment"># 主程序</span></span><br><span class="line">/usr/lib/systemd/system/ipvsadm.service		<span class="comment"># UNIT文件</span></span><br><span class="line">/etc/sysconfig/ipvsadm-config				<span class="comment"># 配置文件</span></span><br><span class="line">/usr/sbin/ipvsadm-restore					<span class="comment"># 规则重载工具</span></span><br><span class="line">/usr/sbin/ipvsadm-save						<span class="comment"># 规则保存工具</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是编译安装，还需检查内核中是否有ip_vs模块</span></span><br><span class="line">lsmod|grep ip_vs  		<span class="comment"># 检查内核是否有ip_vs</span></span><br><span class="line">modprobe ip_vs    		<span class="comment"># 把ipvs加入到内核</span></span><br><span class="line"><span class="built_in">uname</span> -r				<span class="comment"># 查看操作系统内核版本</span></span><br><span class="line">ll /usr/src/kernels/	<span class="comment"># 查看Linux内核，如果没有/usr/src/kernels/xx路径,可通过yum install kernel-devel -y安装。</span></span><br><span class="line"><span class="built_in">ln</span> -s /usr/src/kernels/3.10.0-1160.31.1.el7.x86_64 /usr/src/linux	<span class="comment"># 建立软链接，链接路径要和uname -r输出结果内核版本对应。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="ipvsadm命令参数"><a href="#ipvsadm命令参数" class="headerlink" title="ipvsadm命令参数"></a>ipvsadm命令参数</h2><h3 id="集群服务相关"><a href="#集群服务相关" class="headerlink" title="集群服务相关"></a>集群服务相关</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipvsadm -A|E -t|u|f service-address [-s scheduler] [-p [<span class="built_in">timeout</span>]] [-M netmask]</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数（短格式）</th>
+<th>参数（长格式）</th>
+<th><strong>参数说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>-A</strong></td>
+<td>–add-service</td>
+<td>添加集群服务</td>
+</tr>
+<tr>
+<td><strong>-E</strong></td>
+<td>–edit-service</td>
+<td>编辑集群服务</td>
+</tr>
+<tr>
+<td><strong>-D</strong></td>
+<td>–delete-service</td>
+<td>删除集群服务</td>
+</tr>
+<tr>
+<td><strong>-C</strong></td>
+<td>–clear</td>
+<td>清除所有集群服务</td>
+</tr>
+<tr>
+<td><strong>-L&#x2F;-l</strong></td>
+<td>–list</td>
+<td>列出所有集群服务</td>
+</tr>
+<tr>
+<td><strong>-R</strong></td>
+<td>–restore</td>
+<td>重新载入集群服务规则，配合下面的 -S 选项使用</td>
+</tr>
+<tr>
+<td><strong>-S</strong></td>
+<td>–save</td>
+<td>保存集群服务规则，输出为 -R 选项可读的格式</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>-t</strong></td>
+<td>–tcp-service <em>service-address [vip:port] or [real-server-ip:port]</em></td>
+<td>指定LB服务器提供的是tcp 的服务</td>
+</tr>
+<tr>
+<td><strong>-u</strong></td>
+<td>–udp-service <em>service-address [vip:port] or [real-server-ip:port]</em></td>
+<td>指定LB服务器提供的是udp 的服务</td>
+</tr>
+<tr>
+<td><strong>-f</strong></td>
+<td>–fwmark-service <em>fwmark</em></td>
+<td>指定是经过iptables 标记过的服务类型</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>-s</strong></td>
+<td>–scheduler <em>scheduler</em></td>
+<td>定义使用的调度算法，默认的调度算法是： wlc</td>
+</tr>
+<tr>
+<td><strong>-p</strong></td>
+<td>–persistent <em>[timeout]</em></td>
+<td>定义持久连接的时间</td>
+</tr>
+<tr>
+<td><strong>-M</strong></td>
+<td>–netmask netmask</td>
+<td>定义子网掩码</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>-Z</strong></td>
+<td>–zero</td>
+<td>虚拟服务表计数器清零（清空当前的连接数量等）</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>–</strong></td>
+<td>–set <em>tcp tcpfin udp</em></td>
+<td>设置连接超时值</td>
+</tr>
+<tr>
+<td><strong>–</strong></td>
+<td>–start-daemon state</td>
+<td>设置本机主备状态。后面可以跟master 或backup</td>
+</tr>
+<tr>
+<td><strong>–</strong></td>
+<td>–stop-daemon</td>
+<td>停止备服务器</td>
+</tr>
+<tr>
+<td><strong>–</strong></td>
+<td>–mcast-interface interface</td>
+<td>指定使用备服务器时的广播接口</td>
+</tr>
+<tr>
+<td><strong>–</strong></td>
+<td>–syncid syncid</td>
+<td>指定syncid， 用于主备服务器的同步。</td>
+</tr>
+</tbody></table>
+<h3 id="服务器节点相关"><a href="#服务器节点相关" class="headerlink" title="服务器节点相关"></a>服务器节点相关</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipvsadm -a|e -t|u|f service-address -r server-address [-g|i|m] [-w weight]</span><br></pre></td></tr></table></figure>
+
+
+
+<table>
+<thead>
+<tr>
+<th>参数（短格式）</th>
+<th>参数（长格式）</th>
+<th><strong>参数说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>-a</strong></td>
+<td>–add-server</td>
+<td>在一个集群服务中添加一台真实服务器规则</td>
+</tr>
+<tr>
+<td><strong>-e</strong></td>
+<td>–edit-server</td>
+<td>编辑一个集群服务中的某条真实服务器规则</td>
+</tr>
+<tr>
+<td><strong>-d</strong></td>
+<td>–delete-server</td>
+<td>删除一个集群服务中的某条真实服务器规则</td>
+</tr>
+<tr>
+<td><strong>-t|u|f</strong></td>
+<td>–</td>
+<td>指定tcp&#x2F;udp&#x2F;fireewall模式</td>
+</tr>
+<tr>
+<td><strong>-r</strong></td>
+<td>–real-server <em>server-address</em></td>
+<td>指定服务器节点的 IP 和端口号</td>
+</tr>
+<tr>
+<td><strong>-g</strong></td>
+<td>–gatewaying</td>
+<td>指定工作模式为DR模式（默认的模式）</td>
+</tr>
+<tr>
+<td><strong>-i</strong></td>
+<td>–ipip</td>
+<td>指定工作模式为隧道模式</td>
+</tr>
+<tr>
+<td><strong>-m</strong></td>
+<td>–masquerading</td>
+<td>指定工作模式为NAT 模式</td>
+</tr>
+<tr>
+<td><strong>-w</strong></td>
+<td>–weight <em>weight</em></td>
+<td>指定服务器节点的权值</td>
+</tr>
+</tbody></table>
+<h3 id="显示信息相关"><a href="#显示信息相关" class="headerlink" title="显示信息相关"></a><strong>显示信息相关</strong></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipvsadm -L -c|–<span class="built_in">timeout</span>|–daemon</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">参数（短格式）</th>
+<th>参数（长格式）</th>
+<th><strong>参数说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>-c</strong></td>
+<td>–connection</td>
+<td>显示LVS 当前的连接</td>
+</tr>
+<tr>
+<td align="center"><strong>–</strong></td>
+<td>–timeout</td>
+<td>显示tcp tcpfin udp 的timeout 值</td>
+</tr>
+<tr>
+<td align="center"><strong>–</strong></td>
+<td>–daemon</td>
+<td>显示同步守护进程状态</td>
+</tr>
+<tr>
+<td align="center"><strong>–</strong></td>
+<td>–stats</td>
+<td>显示统计信息</td>
+</tr>
+<tr>
+<td align="center"><strong>–</strong></td>
+<td>–rate</td>
+<td>显示速率信息</td>
+</tr>
+<tr>
+<td align="center"><strong>–</strong></td>
+<td>–thresholds</td>
+<td>列出阈值</td>
+</tr>
+<tr>
+<td align="center"><strong>–</strong></td>
+<td>–persistent-conn</td>
+<td>持久连接</td>
+</tr>
+<tr>
+<td align="center"><strong>–</strong></td>
+<td>–sort</td>
+<td>把列表排序</td>
+</tr>
+<tr>
+<td align="center"><strong>–</strong></td>
+<td>–nosort</td>
+<td>不排序</td>
+</tr>
+<tr>
+<td align="center"><strong>–n</strong></td>
+<td>–numeric</td>
+<td>不对ip地址进行dns查询</td>
+</tr>
+<tr>
+<td align="center"><strong>–</strong></td>
+<td>–exact</td>
+<td>单位</td>
+</tr>
+</tbody></table>
+<h2 id="LVS配置MySQL数据库负载均衡"><a href="#LVS配置MySQL数据库负载均衡" class="headerlink" title="LVS配置MySQL数据库负载均衡"></a>LVS配置MySQL数据库负载均衡</h2><blockquote>
+<p><strong>配置LVS虚拟IP（VIP）</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ip addr add 192.168.110.130/24 dev eth0	label eth0:3		<span class="comment"># 添加虚拟IP</span></span><br><span class="line">route add -host 192.168.110.130 dev eth0		<span class="comment"># 添加路由</span></span><br><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> up eth0								<span class="comment"># 启动网卡</span></span><br><span class="line">ifconfig eth1:0									<span class="comment"># 检查</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>配置集群服务</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ipvsadm -C					<span class="comment"># 清除当前的所有规则</span></span><br><span class="line">ipvsadm --<span class="built_in">set</span> 30 5 60 		<span class="comment"># 设置tcp、tcpfin、udp链接超时时间</span></span><br><span class="line">ipvsadm -A -t 192.168.110.130:3306 -s wrr -p 20  <span class="comment"># 添加一个tcp类型的集群服务，并指定了VIP、算法以及链接保持时间</span></span><br><span class="line">ipvsadm -a -t 192.168.110.130:3306 -r 192.168.110.137:3306 -g -w 1		<span class="comment"># 添加一个RS节点，指定为DR模式，权重为1</span></span><br><span class="line">ipvsadm -a -t 192.168.110.130:3306 -r 192.168.110.143:3306 -g -w 1		<span class="comment"># 添加第二个RS节点</span></span><br><span class="line">ipvsadm -Ln			<span class="comment"># 查看配置情况</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除方法</span></span><br><span class="line"><span class="comment"># ipvsadm -D -t 172.16.1.18:3306</span></span><br><span class="line"><span class="comment"># ipvsadm -d -t 172.16.1.18:3306 -r 172.16.1.18:3306</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存与重载规则的方法</span></span><br><span class="line"><span class="comment"># ipvsadm -S &gt; /etc/sysconfig/ipvs_rule_mysql			# 保存规则</span></span><br><span class="line"><span class="comment"># ipvsadm -R &lt; /etc/sysconfig/ipvs_rule_mysql			# 重载规则</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<blockquote>
+<p><strong>在RS端绑定lo网卡及抑制ARP</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ip addr add 192.168.110.130/32 dev lo label lo:2	<span class="comment"># lo网卡绑定VIP</span></span><br><span class="line">route add -host 192.168.110.130 dev lo				<span class="comment"># 添加路由</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 抑制ARP</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;1&quot;</span> &gt;/proc/sys/net/ipv4/conf/lo/arp_ignore</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;2&quot;</span> &gt;/proc/sys/net/ipv4/conf/lo/arp_announce</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;1&quot;</span> &gt;/proc/sys/net/ipv4/conf/all/arp_ignore</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;2&quot;</span> &gt;/proc/sys/net/ipv4/conf/all/arp_announce</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>其他说明</strong></p>
+</blockquote>
+<p><strong>配置lo网卡绑定VIP持久化</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysconfig/network-scripts/ifcfg-lo:2</span><br><span class="line"></span><br><span class="line">TYPE=<span class="string">&quot;Ethernet&quot;</span></span><br><span class="line">PROXY_METHOD=<span class="string">&quot;none&quot;</span></span><br><span class="line">BROWSER_ONLY=<span class="string">&quot;no&quot;</span></span><br><span class="line">BOOTPROTO=<span class="string">&quot;none&quot;</span></span><br><span class="line">DEFROUTE=<span class="string">&quot;yes&quot;</span></span><br><span class="line">NAME=<span class="string">&quot;lo:2&quot;</span></span><br><span class="line">DEVICE=<span class="string">&quot;lo:2&quot;</span></span><br><span class="line">ONBOOT=<span class="string">&quot;yes&quot;</span></span><br><span class="line">IPADDR=<span class="string">&quot;192.168.110.130&quot;</span></span><br><span class="line">PREFIX=<span class="string">&quot;32&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>配置arp抑制持久化</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 持久化方法：修改配置文件/etc/sysctl</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;</span></span><br><span class="line"><span class="string">net.ipv4.conf.ens33.arp_ignore=1</span></span><br><span class="line"><span class="string">net.ipv4.conf.ens33.arp_announce=2</span></span><br><span class="line"><span class="string">net.ipv4.conf.all.arp_ignore=1</span></span><br><span class="line"><span class="string">net.ipv4.conf.all.arp_announce=2&#x27;</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line">sysctl -p		<span class="comment"># 刷新配置</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>LVS配置持久化</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># LVS的配置每次重启机器都会清空规则，但是搭配keepalived使用之后，每次重启就会自动重载keepalived.conf中的lvs配置，将在下面进行配置</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="实现LVS-Keepalived集群高可用"><a href="#实现LVS-Keepalived集群高可用" class="headerlink" title="实现LVS+Keepalived集群高可用"></a><strong>实现LVS+Keepalived集群高可用</strong></h2><blockquote>
+<p><strong>lb4_01配置：</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim keepalived.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">global_defs &#123;</span><br><span class="line">   router_id lb4_02</span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance VI_2 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface eth0</span><br><span class="line">    virtual_router_id 130</span><br><span class="line">    priority 150</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">      192.168.110.130/24 dev eth0 label eth0:3</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">virtual_server 192.168.110.130 3306 &#123;</span><br><span class="line">    delay_loop 6          	</span><br><span class="line">    lb_algo wrr                </span><br><span class="line">    lb_kind DR</span><br><span class="line">    persistence_timeout 20     </span><br><span class="line">    protocol TCP </span><br><span class="line">    </span><br><span class="line">	real_server 192.168.110.137 3306 &#123;</span><br><span class="line">        weight 1              </span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">        connect_timeout 5       </span><br><span class="line">        delay_before_retry 3</span><br><span class="line">        connect_port 3306</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">    real_server 192.168.110.143 3306 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">        connect_timeout 5</span><br><span class="line">        delay_before_retry 3</span><br><span class="line">        connect_port 3306</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>lb4_02配置</strong>       </p>
+</blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">global_defs &#123;</span><br><span class="line">   router_id lb4_01</span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance VI_2 &#123;</span><br><span class="line">    state BACKUP</span><br><span class="line">    interface eth0</span><br><span class="line">    virtual_router_id 130</span><br><span class="line">    priority 50</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">      192.168.110.130/24 dev eth0 label eth0:3</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">virtual_server 192.168.110.130 3306 &#123;</span><br><span class="line">    delay_loop 6          	</span><br><span class="line">    lb_algo wrr                </span><br><span class="line">    lb_kind DR</span><br><span class="line">    persistence_timeout 20     </span><br><span class="line">    protocol TCP  </span><br><span class="line">    </span><br><span class="line">    real_server 192.168.110.137 3306 &#123;</span><br><span class="line">        weight 1              </span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">        connect_timeout 5       </span><br><span class="line">        delay_before_retry 3</span><br><span class="line">        connect_port 3306</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    real_server 192.168.110.143 3306 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">        connect_timeout 5</span><br><span class="line">        delay_before_retry 3</span><br><span class="line">        connect_port 3306</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="LVS四层-Nginx七层负载web服务"><a href="#LVS四层-Nginx七层负载web服务" class="headerlink" title="LVS四层+Nginx七层负载web服务"></a>LVS四层+Nginx七层负载web服务</h2><blockquote>
+<p><strong>环境准备</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>主机</strong></th>
+<th><strong>IP</strong></th>
+<th><strong>角色</strong></th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lb4_01</td>
+<td>192.168.110.144</td>
+<td>负载均衡服务器</td>
+<td>LVS四层负载（主）</td>
+</tr>
+<tr>
+<td>lb4_02</td>
+<td>192.168.110.145</td>
+<td>负载均衡服务器</td>
+<td>LVS四层负载（备）</td>
+</tr>
+<tr>
+<td>lb_01</td>
+<td>192.168.110.135</td>
+<td>负载均衡服务器</td>
+<td>Nginx七层负载1</td>
+</tr>
+<tr>
+<td>lb_02</td>
+<td>192.168.110.136</td>
+<td>负载均衡服务器</td>
+<td>Nginx七层负载2</td>
+</tr>
+<tr>
+<td>web01</td>
+<td>192.168.110.137</td>
+<td>web服务器</td>
+<td>默认web服务器</td>
+</tr>
+<tr>
+<td>web02</td>
+<td>192.168.110.138</td>
+<td>web服务器</td>
+<td>动态web服务器</td>
+</tr>
+<tr>
+<td>sweb01</td>
+<td>192.168.110.139</td>
+<td>web服务器</td>
+<td>静态web服务器1</td>
+</tr>
+<tr>
+<td>sweb02</td>
+<td>192.168.110.140</td>
+<td>web服务器</td>
+<td>静态web服务器2</td>
+</tr>
+</tbody></table>
+<p><a href="/../pic/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0thbmd5dWNoZW5n,size_16,color_FFFFFF,t_70.jpeg" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0thbmd5dWNoZW5n,size_16,color_FFFFFF,t_70.jpeg" alt="img"></a></p>
+<blockquote>
+<p><strong>lb401的Keepalived配置</strong></p>
+</blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">global_defs &#123;</span><br><span class="line">   router_id lb4_01</span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance VI_2 &#123;</span><br><span class="line">    state BACKUP</span><br><span class="line">    interface eth0</span><br><span class="line">    virtual_router_id 130</span><br><span class="line">    priority 50</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">      192.168.110.130/24 dev eth0 label eth0:3</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">virtual_server 192.168.110.130 80 &#123;</span><br><span class="line">    delay_loop 6</span><br><span class="line">    lb_algo wrr</span><br><span class="line">    lb_kind DR</span><br><span class="line">    persistence_timeout 20</span><br><span class="line">    protocol TCP</span><br><span class="line"></span><br><span class="line">        real_server 192.168.110.135 80 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">        connect_timeout 5</span><br><span class="line">        delay_before_retry 3</span><br><span class="line">        connect_port 80</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    real_server 192.168.110.136 80 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">        connect_timeout 5</span><br><span class="line">        delay_before_retry 3</span><br><span class="line">        connect_port 80</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>lb402的Keepalived配置</strong></p>
+</blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">vrrp_instance VI_2 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface eth0</span><br><span class="line">    virtual_router_id 130</span><br><span class="line">    priority 150</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">      192.168.110.130/24 label eth0:3</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">virtual_server 192.168.110.130 80 &#123;</span><br><span class="line">    delay_loop 6</span><br><span class="line">    lb_algo wrr</span><br><span class="line">    lb_kind DR</span><br><span class="line">    persistence_timeout 20</span><br><span class="line">    protocol TCP</span><br><span class="line"></span><br><span class="line">        real_server 192.168.110.135 80 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">        connect_timeout 5</span><br><span class="line">        delay_before_retry 3</span><br><span class="line">        connect_port 80</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    real_server 192.168.110.136 80 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">        connect_timeout 5</span><br><span class="line">        delay_before_retry 3</span><br><span class="line">        connect_port 80</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>lb01&#x2F;lb02的lo网卡需要绑定VIP且抑制ARP</strong></p>
+</blockquote>
+<p>编辑并执行此脚本即可：<code>vim /server/scripts/lvs.sh </code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">VIP=(</span><br><span class="line">        192.168.110.130</span><br><span class="line">     )</span><br><span class="line">. /etc/rc.d/init.d/functions</span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$1</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">start)</span><br><span class="line">        <span class="keyword">for</span> ((i=<span class="number">0</span>; i&lt;`echo <span class="variable">$&#123;#VIP[*]&#125;</span>`; i++))</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">           interface=<span class="string">&quot;lo:`echo <span class="variable">$&#123;VIP[$i]&#125;</span>|awk -F . &#x27;&#123;print <span class="variable">$4</span>&#125;&#x27;`&quot;</span></span><br><span class="line">           /sbin/ifconfig <span class="variable">$interface</span> <span class="variable">$&#123;VIP[$i]&#125;</span> broadcast <span class="variable">$&#123;VIP[$i]&#125;</span> netmask 255.255.255.255 up</span><br><span class="line">        <span class="keyword">done</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;1&quot;</span> &gt;/proc/sys/net/ipv4/conf/lo/arp_ignore</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;2&quot;</span> &gt;/proc/sys/net/ipv4/conf/lo/arp_announce</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;1&quot;</span> &gt;/proc/sys/net/ipv4/conf/all/arp_ignore</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;2&quot;</span> &gt;/proc/sys/net/ipv4/conf/all/arp_announce</span><br><span class="line">           action <span class="string">&quot;Start LVS of RearServer&quot;</span></span><br><span class="line">        ;;</span><br><span class="line">stop)</span><br><span class="line">        <span class="keyword">for</span> ((i=<span class="number">0</span>; i&lt;`echo <span class="variable">$&#123;#VIP[*]&#125;</span>`; i++))</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">            interface=<span class="string">&quot;lo:`echo <span class="variable">$&#123;VIP[$i]&#125;</span>|awk -F . &#x27;&#123;print <span class="variable">$4</span>&#125;&#x27;`&quot;</span></span><br><span class="line">            /sbin/ifconfig <span class="variable">$interface</span> <span class="variable">$&#123;VIP[$i]&#125;</span> broadcast <span class="variable">$&#123;VIP[$i]&#125;</span> netmask 255.255.255.255 down</span><br><span class="line">        <span class="keyword">done</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;close LVS Directorserver&quot;</span></span><br><span class="line">        <span class="keyword">if</span> [ <span class="variable">$&#123;#VIP[*]&#125;</span> -eq 1];<span class="keyword">then</span></span><br><span class="line">          <span class="built_in">echo</span> <span class="string">&quot;0&quot;</span> &gt;/proc/sys/net/ipv4/conf/lo/arp_ignore</span><br><span class="line">          <span class="built_in">echo</span> <span class="string">&quot;0&quot;</span> &gt;/proc/sys/net/ipv4/conf/lo/arp_announce</span><br><span class="line">          <span class="built_in">echo</span> <span class="string">&quot;0&quot;</span> &gt;/proc/sys/net/ipv4/conf/all/arp_ignore</span><br><span class="line">          <span class="built_in">echo</span> <span class="string">&quot;0&quot;</span> &gt;/proc/sys/net/ipv4/conf/all/arp_announce</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">           action <span class="string">&quot;Close LVS of RearServer&quot;</span></span><br><span class="line">        ;;</span><br><span class="line">*)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;Usage: <span class="variable">$0</span> &#123;start|stop&#125;&quot;</span></span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>lb01&#x2F;lb02的Nginx配置</strong></p>
+</blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">upstream static&#123;</span><br><span class="line">	server sweb01 <span class="attr">weight</span>=<span class="number">1</span><span class="comment">;</span></span><br><span class="line">	server sweb02 <span class="attr">weight</span>=<span class="number">1</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line">upstream default&#123;</span><br><span class="line">	server web01 <span class="attr">weight</span>=<span class="number">1</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line">upstream dynamic&#123;</span><br><span class="line">	server web02 <span class="attr">weight</span>=<span class="number">1</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">	<span class="comment">#listen 80 proxy_protocol;</span></span><br><span class="line">	listen 80<span class="comment">;</span></span><br><span class="line">	server_name blog<span class="comment">;</span></span><br><span class="line">	set_real_ip_from 192.168.110.0/24<span class="comment">;</span></span><br><span class="line">	<span class="comment">#real_ip_header proxy_protocol;</span></span><br><span class="line">	location /&#123;</span><br><span class="line">		proxy_pass http://default<span class="comment">;</span></span><br><span class="line">		proxy_set_header Host $http_host<span class="comment">;</span></span><br><span class="line">	&#125;</span><br><span class="line">	location /static/&#123;</span><br><span class="line">		proxy_pass http://static<span class="comment">;</span></span><br><span class="line">		proxy_set_header Host $http_host<span class="comment">;</span></span><br><span class="line">	&#125;</span><br><span class="line">	location /dynamic/&#123;</span><br><span class="line">		proxy_pass http://dynamic<span class="comment">;</span></span><br><span class="line">		proxy_set_header Host $http_host<span class="comment">;</span></span><br><span class="line">		<span class="comment">#proxy_set_header X-Forwarded-For $proxy_protocol_addr;</span></span><br><span class="line">		proxy_set_header X-Forwarded-For $remote_addr<span class="comment">;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-09</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

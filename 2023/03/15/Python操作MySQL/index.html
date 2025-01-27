@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Python操作MySQL" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Python操作MySQL
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%9D%E8%AF%86MySQL"><span class="post-toc-text">初识MySQL</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="post-toc-text">MySQL的安装和配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MySQL%E7%9A%84%E5%85%B3%E9%97%AD%E5%92%8C%E5%90%AF%E5%8A%A8"><span class="post-toc-text">MySQL的关闭和启动</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%B5%8B%E8%AF%95"><span class="post-toc-text">连接测试</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BF%98%E8%AE%B0%E5%AF%86%E7%A0%81%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="post-toc-text">忘记密码的解决办法</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4"><span class="post-toc-text">MySQL基本指令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86"><span class="post-toc-text">数据库管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%AE%A1%E7%90%86"><span class="post-toc-text">数据表管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E8%A1%8C%E6%93%8D%E4%BD%9C"><span class="post-toc-text">数据行操作</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="post-toc-text">MySQL数据类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#python%E9%85%8D%E5%90%88MySQL%E4%BD%BF%E7%94%A8"><span class="post-toc-text">python配合MySQL使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E4%B8%8E%E6%B5%8B%E8%AF%95"><span class="post-toc-text">第三方模块安装与测试</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%96%B0%E5%BB%BA%E6%95%B0%E6%8D%AE"><span class="post-toc-text">新建数据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="post-toc-text">删除数据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE"><span class="post-toc-text">修改数据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE"><span class="post-toc-text">查询数据</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>web框架的作用：</p>
+<ul>
+<li>找到HTML文件，读取所有的内容</li>
+<li>找到内容中的特殊的占位符，将数据替换</li>
+<li>将替换后的内容返还给用户的浏览器</li>
+</ul>
+<p>动态的数据需要存储到一个地方：</p>
+<ul>
+<li><p>txt文件</p>
+</li>
+<li><p>excel文件</p>
+</li>
+<li><p>数据库管理系统:解析指令，对文件和文件夹进行操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MySQL(免费版)</span><br><span class="line">Oracle/SQLServer/DB2/Access...</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="初识MySQL"><a href="#初识MySQL" class="headerlink" title="初识MySQL"></a>初识MySQL</h2><h3 id="MySQL的安装和配置"><a href="#MySQL的安装和配置" class="headerlink" title="MySQL的安装和配置"></a>MySQL的安装和配置</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5.7.31</span><br><span class="line">初始化：&quot;D:\mysql\mysql-5.7.31-winx64\bin\mysqld.exe&quot;  --initialize-insecure</span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL的关闭和启动"><a href="#MySQL的关闭和启动" class="headerlink" title="MySQL的关闭和启动"></a>MySQL的关闭和启动</h3><ul>
+<li><p>临时启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\mysql\mysql-5.7.31-winx64\bin\mysqld.exe</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>制作成windows服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;D:\mysql\mysql-5.7.31-winx64\bin\mysqld.exe&quot;  --install mysql57</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>启动和关闭</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net start mysql57</span><br><span class="line">net stop mysql57</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>任务管理器-服务-mysql57</p>
+</li>
+</ul>
+<h3 id="连接测试"><a href="#连接测试" class="headerlink" title="连接测试"></a>连接测试</h3><p>三种方式连接MySQL服务</p>
+<ul>
+<li><p>MySQL自带服务</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="string">&quot;D:\mysql\mysql-5.7.31-winx64\bin\mysql.exe&quot;</span>  -h <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> -P <span class="number">3306</span> -u root -p</span><br><span class="line"><span class="comment"># -h 后是服务器地址；-P 代表端口；-u是用户；-p是密码</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="string">&quot;D:\mysql\mysql-5.7.31-winx64\bin\mysql.exe&quot;</span> -u root -p</span><br><span class="line"><span class="comment"># 不写-h和-P默认连接本地</span></span><br></pre></td></tr></table></figure>
+
+<p>将mysql.exe的地址添加到环境变量之后</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;mysql.exe -u root -p</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>修改密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set password = password(&#x27;123456&#x27;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看已有数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>第三方工具</p>
+</li>
+<li><p>高级语言代码</p>
+</li>
+</ul>
+<h3 id="忘记密码的解决办法"><a href="#忘记密码的解决办法" class="headerlink" title="忘记密码的解决办法"></a>忘记密码的解决办法</h3><ul>
+<li><p>关闭MySQL服务</p>
+</li>
+<li><p>修改MySQL配置文件（my.ini）,文件中加上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip-grant-tables=1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新启动MySQL，此时是无账号模式，可以直接登录</p>
+</li>
+<li><p>输入指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set authentication_string = password(&#x27;新密码&#x27;),password_last_changed=now() where user=&#x27;root&#x27;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭MySQL服务，修改配置文件，把最后一句删除</p>
+</li>
+<li><p>启动MySQL，使用新密码登录</p>
+</li>
+</ul>
+<h2 id="MySQL基本指令"><a href="#MySQL基本指令" class="headerlink" title="MySQL基本指令"></a>MySQL基本指令</h2><h3 id="数据库管理"><a href="#数据库管理" class="headerlink" title="数据库管理"></a>数据库管理</h3><ul>
+<li><p>查看当前已有的数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database 数据库名字 DEFAULT CHARSET utf8 COLLATE utf8_general_ci;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop database 数据库名字;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use 数据库名;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看数据库下所有数据表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show tables;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="数据表管理"><a href="#数据表管理" class="headerlink" title="数据表管理"></a>数据表管理</h3><ul>
+<li><p>创建数据表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create table 表名称(</span><br><span class="line">	列名称	类型,</span><br><span class="line">	列名称	类型,</span><br><span class="line">	列名称	类型</span><br><span class="line">)default charset=utf8;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>主键(不允许为空，也不允许重复)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">列名称	类型 primary key,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自增的主键</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">列名称	类型 not null auto_increament primary key,		</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非空(不设置默认可以为空)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">列名称	类型 not null,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>默认值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">列名称	类型 default 默认值,</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>删除表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop table 表名称;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>展示表结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">desc 表名;</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据行操作"><a href="#数据行操作" class="headerlink" title="数据行操作"></a>数据行操作</h3></li>
+<li><p>向表中插入数据</p>
+<ul>
+<li>添加单个数据</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into 表名(列名) values(值);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>批量添加</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into 表名(列名) values(值),(值),(值),(值);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>多列添加</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into 表名(列名,列名,列名) values(值,值,值),(值,值,值),(值,值,值);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除数据</p>
+<ul>
+<li>删除所有数据</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete from 表名;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>按条件删除</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete from 表名 where 条件;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改数据</p>
+<ul>
+<li>修改全列</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update 表名 set 列名=值;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>批量修改</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update 表名 set 列名=值,列名=值;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>按条件修改</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update 表名 set 列名=值 where 条件;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>对于值的修改可以更灵活，比如不必是固定值，而是在原来的基础上变化，比如：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update tb1 set age=age+10 where id&gt;5;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询数据</p>
+<ul>
+<li>查询表中全部数据</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from 表名;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>按部分列的查询</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 列名,列名 from 表名;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>按条件查询</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 列名,列名 from 表名 where 条件;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="MySQL数据类型"><a href="#MySQL数据类型" class="headerlink" title="MySQL数据类型"></a>MySQL数据类型</h2><ul>
+<li><p>tinyint</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tinyint是整型的数字，有两种形式：</span><br><span class="line">有符号，可以表示-128~127范围的整数(默认状态)，比如：age tinyint</span><br><span class="line">无符号，也可以表示0~255范围的整数(需要定义)：age tinyint unsigned</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>int</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">与tinyint类似，也分为有符号和无符号两种：</span><br><span class="line">int 			有符号，取值范围-2147483648~2147483647</span><br><span class="line">int unsigned	无符号，取值范围0~4294967295</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>bigint</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">同样分为有符号和无符号，范围更大，不再赘述</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>float(小数，不精准)</p>
+</li>
+<li><p>double(小数，不精准)</p>
+</li>
+<li><p>decimal(精准数)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例如添加薪资字段：</span><br><span class="line">salary <span class="type">decimal</span>(<span class="number">8</span>,<span class="number">2</span>)		表示小数一共有<span class="number">8</span>位，小数点后有两位，小数点前有<span class="number">6</span>位</span><br><span class="line"><span class="type">decimal</span>虽然精准，但是存储的小数小数点前最多<span class="number">65</span>位，小数点后最多<span class="number">30</span>位，支持四舍五入</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>char</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">定长字符串,最多255个字符，比如：</span><br><span class="line">列名 char(11)，	固定用11个字符进行存储，即使不到11个字符，也按照11个字符存储，存在浪费空间的情况</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>varchar</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">变长字符串，最多65535(2**16-1)个字节，比如：</span><br><span class="line">列名 varchar(11),		真实数据有多长就按照多长存储，不超过11个</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>text</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一般用于保存变长的大字符串，最多65535个字符，比如文章，新闻等</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mediumtext(超长文本，2**24-1)</p>
+</li>
+<li><p>longtext(超长文本，2**32-1)</p>
+</li>
+<li><p>datetime</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">时间：年月日时分秒</span><br><span class="line">YYYY-MM-DD HH:MM:SS(2023-03-03 12:23:45)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>date</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">时间：年月日</span><br><span class="line">YYYY-MM-DD(2023-03-03)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="python配合MySQL使用"><a href="#python配合MySQL使用" class="headerlink" title="python配合MySQL使用"></a>python配合MySQL使用</h2><h3 id="第三方模块安装与测试"><a href="#第三方模块安装与测试" class="headerlink" title="第三方模块安装与测试"></a>第三方模块安装与测试</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pymysql</span><br></pre></td></tr></table></figure>
+
+<p>发送指令并获取MySQL返回的结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.连接mysql</span></span><br><span class="line">conn = pymysql.connect(host=<span class="string">&quot;127.0.0.1&quot;</span>, port=<span class="number">3306</span>, user=<span class="string">&quot;root&quot;</span>, password=<span class="string">&quot;123456&quot;</span>, charset=<span class="string">&quot;utf8&quot;</span>, db=<span class="string">&quot;数据库名&quot;</span>)   <span class="comment"># 用于连接</span></span><br><span class="line">cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)     <span class="comment"># 用于发送指令，收发数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 发送指令</span></span><br><span class="line">cursor.execute(<span class="string">&quot;sql语句&quot;</span>)     <span class="comment"># 生成指令</span></span><br><span class="line">conn.commit()               <span class="comment"># 提交指令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.关闭</span></span><br><span class="line">cursor.close()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+
+<h3 id="新建数据"><a href="#新建数据" class="headerlink" title="新建数据"></a>新建数据</h3><p>不能用字符串格式化做sql语句的拼接，因为会有安全隐患（sql注入）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例： 发送指令</span></span><br><span class="line">cursor.execute(<span class="string">&quot;insert into tb1(username,password) values(&quot;</span>张三<span class="string">&quot;, &quot;</span><span class="number">111</span><span class="string">&quot;)&quot;</span>)     <span class="comment"># 生成指令</span></span><br><span class="line">conn.commit()               <span class="comment"># 提交指令</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发送指令</span></span><br><span class="line">sql = <span class="string">&quot;insert into tb1(username,password) values(&quot;</span>张三<span class="string">&quot;, &quot;</span><span class="number">111</span><span class="string">&quot;)&quot;</span></span><br><span class="line">cursor.execute(sql)    </span><br><span class="line">conn.commit()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发送指令</span></span><br><span class="line">sql = <span class="string">&quot;insert into tb1(username,password) values(%s, %s)&quot;</span>	<span class="comment"># %s代表一个占位符</span></span><br><span class="line">cursor.execute(sql,[<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;111&quot;</span>])    					<span class="comment"># 用列表传值</span></span><br><span class="line">conn.commit()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发送指令</span></span><br><span class="line">sql = <span class="string">&quot;insert into tb1(username,password) values(%(n1)s, %(n2)s)&quot;</span>	<span class="comment"># n1,n2代表变量名</span></span><br><span class="line">cursor.execute(sql,&#123;<span class="string">&quot;n1&quot;</span>:<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;n2&quot;</span>:<span class="string">&quot;111&quot;</span>&#125;)    			<span class="comment"># 用字典传值</span></span><br><span class="line">conn.commit()</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发送指令</span></span><br><span class="line">cursor.execute(<span class="string">&quot;sql语句&quot;</span>)    					</span><br><span class="line">conn.commit()</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例：发送指令</span></span><br><span class="line">cursor.execute(<span class="string">&quot;update tb1 set password = %s where username = %s&quot;</span>, [<span class="string">&quot;222&quot;</span>, <span class="string">&quot;张三&quot;</span>])    	</span><br><span class="line">conn.commit()</span><br></pre></td></tr></table></figure>
+
+<h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发送指令</span></span><br><span class="line">cursor.execute(<span class="string">&quot;sql语句&quot;</span>)			<span class="comment"># 生成指令</span></span><br><span class="line">cursor.fetchall()				<span class="comment"># 获取数据</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例： 发送指令</span></span><br><span class="line">cursor.execute(<span class="string">&quot;select * from tb1&quot;</span>)			<span class="comment"># 生成指令</span></span><br><span class="line">data_list= cursor.fetchall()				<span class="comment"># 获取所有数据,这里需要有变量接收数据</span></span><br><span class="line"><span class="comment"># data_dict = cursor.fetchone()				这里是仅过去符合条件的第一条数据,若没有数据，返回None</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> data_list:				<span class="comment"># 此处的data_list是列表嵌套字典的数据类型,若没有数据返回空列表</span></span><br><span class="line">    <span class="built_in">print</span>(item)								<span class="comment"># 输出每个字典</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>新增、删除、修改时，都需要加上<code>conn.commit</code>,不然数据库里不更新数据</li>
+<li>查询时不需要加上<code>conn.commit</code>,需要<code>cursor.fetchall</code>或<code>cursor.fetchone</code></li>
+</ul>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-03-15</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Python/'>
+                            Python
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="资源编排和运维编排" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            资源编排和运维编排
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ROS"><span class="post-toc-text">ROS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#OOS"><span class="post-toc-text">OOS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C%E5%AE%9E%E4%BE%8B"><span class="post-toc-text">批量操作实例</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%89%B9%E9%87%8F%E7%AE%A1%E7%90%86%E8%BD%AF%E4%BB%B6"><span class="post-toc-text">批量管理软件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E9%95%9C%E5%83%8F"><span class="post-toc-text">自动更新镜像</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95"><span class="post-toc-text">创建配置清单</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="ROS"><a href="#ROS" class="headerlink" title="ROS"></a>ROS</h2><p>不同的服务集群往往需要不同的硬件配置，不同的组件所在网络交换机不同，安全组也不同，这些部署工作如果每次都去手动完成，每部署一次至少需要半个小时到一个小时。而且每天要部署很多的次，手动部署会影响业务的测试进度，并且容易出错。</p>
+<p>这里需要引入<strong>Iac</strong>的概念，IaC是<strong>基础设施即代码</strong>的意思，也就是把运维人员复杂的部署工作写成一份配置文件，然后通过配置文件来创建环境。</p>
+<p>在阿里云上有一个专门的产品叫<strong>资源编排服务ROS（Resource Orchestration Service）</strong>，就是负责完成这个工作的。</p>
+<p><a href="/../pic/ncrkvmupkwzhcodkcszr.jpeg" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/ncrkvmupkwzhcodkcszr.jpeg" alt="img"></a></p>
+<p>在ROS中<strong>资源栈</strong>是基本的资源管理单元，资源栈中又包含了<strong>模板文件</strong>和<strong>云上资源</strong>，<strong>运行模板文件可以创建相应的云上资源</strong>。</p>
+<p>ROS资源栈中的模板文件可以使用<strong>ROS模板</strong>或<strong>Terraform模板</strong>，其中<strong>ROS模板</strong>是阿里云特有的文件模板，可以使用<strong>JSON格式</strong>或者<strong>YAML格式</strong>。</p>
+<p><strong>Terraform模板</strong>采用<strong>TF格式</strong>，它的文件解析引擎开源，同时也被多个主流云平台支持，同时其文件格式也比较便于阅读，因此比较推荐使用。</p>
+<p>Terraform格式的配置采用文件和文件夹的方式管理。配置文件的后缀名是<code>.tf</code>，默认配置文件入口是<code>main.tf</code>。</p>
+<p>Terraform配置文件中又包含了：<strong>资源</strong>，<strong>变量</strong>，<strong>输出</strong>等元素</p>
+<ul>
+<li><strong>资源（Resources）</strong>用于描述资源栈中每个资源的属性和资源之间的依赖关系</li>
+<li><strong>变量（variable）</strong>可以为模板提供用户输入参数的界面</li>
+<li><strong>输出（Outputs）</strong>是在调用查询资源栈接口时返回的值</li>
+</ul>
+<p>要想熟练使用ROS和Terraform模板，需要大量的实践。</p>
+<h2 id="OOS"><a href="#OOS" class="headerlink" title="OOS"></a>OOS</h2><p>运维编排服务（简称OOS）是阿里云的自动化运维平台，提供运维任务的管理和执行。典型使用场景包括：事件驱动运维，批量操作运维，定时运维任务，跨地域运维等，也可提供重要运维场景的审批、通知等功能。</p>
+<h3 id="批量操作实例"><a href="#批量操作实例" class="headerlink" title="批量操作实例"></a>批量操作实例</h3><p>批量操作支持的操作类型包括<strong>发送远程命令</strong>，<strong>批量下载文件</strong>以及<strong>基本运维操作</strong>（如启动、停止、重启、初始化系统盘和更换系统盘），也支持<strong>实例属性修改</strong>（如修改实例名称、HostName、实例描述）。此处以<strong>批量分发本地文件到服务器</strong>为例。</p>
+<p><strong>操作步骤：</strong></p>
+<ol>
+<li>进入<strong>系统运维管理OOS控制台</strong>，在左侧栏<strong>自动化任务</strong>中选择<strong>常用运维任务</strong>，选择<strong>批量操作实例</strong>，点击<strong>创建</strong>。</li>
+<li>选择批量下载文件，并选择本地文件，同意将文件存储在阿里云临时OSS中，输入文件路径以及选择实例后，创建。</li>
+<li>创建并执行后，查看执行状态是否为成功。</li>
+</ol>
+<h3 id="批量管理软件"><a href="#批量管理软件" class="headerlink" title="批量管理软件"></a>批量管理软件</h3><p>批量管理软件可以选择三种类型：</p>
+<ul>
+<li><strong>阿里云提供的客户端软件</strong>，这种方式只能在给ECS中安装<strong>云监控agent</strong>和<strong>logtail；</strong></li>
+<li><strong>常见软件包管理系统apt&#x2F;yum</strong>，这种方式可以为连接互联网的ECS安装已在atp&#x2F;yum仓库中的软件；</li>
+<li><strong>扩展程序</strong>，分为公共扩展程序和自定义扩展程序（这种方式需要提前自定义，选择oss中的软件包）；</li>
+</ul>
+<p>此次选择使用<strong>常见软件包管理系统yum</strong>的方式。</p>
+<p><strong>操作步骤：</strong></p>
+<ol>
+<li>进入<strong>系统运维管理OOS控制台</strong>，在左侧栏<strong>自动化任务</strong>中选择<strong>常用运维任务</strong>，选择<strong>批量管理软件</strong>，点击<strong>创建</strong>。</li>
+<li>选择软件类型、操作内容和软件名称（多个软件用空格分开），选择实例后，点击创建。</li>
+<li>创建并执行后，查看执行状态是否为成功。</li>
+</ol>
+<h3 id="自动更新镜像"><a href="#自动更新镜像" class="headerlink" title="自动更新镜像"></a>自动更新镜像</h3><p>处于安全考虑，ECS需要定期安装最新的操作系统补丁，升级中间件软件，或者重新安装最新的第三方软件到镜像里。传统更新镜像的方式是通过原有镜像来创建一台临时ECS，完成更新操作后生成新镜像，再释放掉ECS。费时费力，而且容易出错。<strong>使用OOS可以一键批量更新镜像。</strong></p>
+<p><strong>操作步骤：</strong></p>
+<ol>
+<li><p>进入<strong>系统运维管理OOS控制台</strong>，在左侧栏<strong>自动化任务</strong>中选择<strong>常用运维任务</strong>，选择<strong>创建或更新镜像</strong>，点击<strong>创建</strong>。</p>
+</li>
+<li><p>创建镜像的方式有两种：<strong>从已有实例创建镜像、更新镜像</strong>，本次选择更新镜像。输入镜像名称和权限来源，在选择镜像中选择<strong>自定义镜像</strong>。</p>
+</li>
+<li><p>完成其他设置，之后点击创建。</p>
+<p><strong>配置中转实例的相关参数：</strong>专有网络、交换机、安全组和实例类型；</p>
+<p>本次任务是为centos7 系统安装安全补丁，所以<strong>发送远程命令</strong>中选择<strong>命令类型</strong>为<strong>Linux Shell，</strong>内容为：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">yum --security update-minimal -y</span><br></pre></td></tr></table></figure>
+
+<p>如果需要将创建的镜像复制到其他地域，可以设置<strong>镜像分发</strong>；</p>
+<p>如果需要将镜像更新到伸缩组中，可以设置<strong>伸缩组配置</strong>；</p>
+</li>
+<li><p>创建并执行后，查看执行状态是否为成功。</p>
+</li>
+</ol>
+<h3 id="创建配置清单"><a href="#创建配置清单" class="headerlink" title="创建配置清单"></a>创建配置清单</h3><p>如果用户希望能集中查看所有ECS的应用程序清单信息。并且最好以图表的形式展示，可以使用OOS的<strong>配置清单</strong>功能。</p>
+<p><strong>操作步骤：</strong></p>
+<ol>
+<li><p>进入<strong>系统运维管理OOS控制台</strong>，在左侧栏<strong>服务器管理</strong>中选择<strong>配置清单管理</strong>，选择<strong>清单详情</strong>，点击<strong>创建配置清单</strong>。</p>
+</li>
+<li><p>选择需要收集清单的实例，如果需要查看所有云服务器清单，所以这里使用<strong>选择全部</strong>；如果想查看特定条件的云服务器清单，可以通过<strong>运行状态、付费方式、公网带宽计费方式、网络类型、资源组、标签</strong>等多个条件进行筛选。</p>
+<p><strong>收集计划：</strong>最小时间不能小于30分钟，这里设置<strong>30分钟</strong></p>
+<p><strong>清单信息</strong>：这里选择<strong>应用程序</strong>，如果需要查看<strong>网络配置</strong>或者<strong>服务</strong>，可以选中对应的复选框即可。</p>
+</li>
+<li><p>完成创建后，等待30分钟更新后，通过<strong>清单概览</strong>就可以查看到ECS所安装的应用程序，以及不同平台的分类。</p>
+</li>
+</ol>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-28</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E9%98%BF%E9%87%8C%E4%BA%91/'>
+                            阿里云
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

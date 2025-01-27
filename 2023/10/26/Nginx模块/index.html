@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Nginx模块功能" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Nginx模块功能
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx%E7%AB%99%E7%82%B9%E7%9B%AE%E5%BD%95%E6%B5%8F%E8%A7%88%E5%8A%9F%E8%83%BD"><span class="post-toc-text">Nginx站点目录浏览功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%8A%9F%E8%83%BD"><span class="post-toc-text">Nginx访问控制功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%9D%A5%E6%BA%90IP%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="post-toc-text">基于来源IP访问控制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E5%90%8D%E5%AF%86%E7%A0%81%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="post-toc-text">基于用户名密码身份认证</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx%E8%AF%B7%E6%B1%82%E6%95%B0%E3%80%81%E5%B9%B6%E5%8F%91%E8%BF%9E%E6%8E%A5%E4%BB%A5%E5%8F%8A%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E9%99%90%E5%88%B6"><span class="post-toc-text">Nginx请求数、并发连接以及下载速度限制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%99%90%E5%88%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%B7%E6%B1%82%E9%A2%91%E7%8E%87"><span class="post-toc-text">限制客户端请求频率</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%99%90%E5%88%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%B9%B6%E5%8F%91%E8%BF%9E%E6%8E%A5%E6%95%B0"><span class="post-toc-text">限制客户端并发连接数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%99%90%E5%88%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8B%E8%BD%BD%E8%B5%84%E6%BA%90%E7%9A%84%E9%80%9F%E5%BA%A6"><span class="post-toc-text">限制客户端下载资源的速度</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx%E7%8A%B6%E6%80%81%E7%9B%91%E6%8E%A7"><span class="post-toc-text">Nginx状态监控</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97"><span class="post-toc-text">Nginx访问日志</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F"><span class="post-toc-text">日志格式中的变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Nginx%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2"><span class="post-toc-text">Nginx日志切割</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#yum%E5%AE%89%E8%A3%85%E7%9A%84Nginx%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2"><span class="post-toc-text">yum安装的Nginx实现日志切割</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85Nginx%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2"><span class="post-toc-text">源码安装Nginx实现日志切割</span></a></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>企业场景常用的 Nginx HTTP 功能模块汇总：<a target="_blank" rel="noopener" href="https://nginx.org/en/docs/">nginx documentation</a></p>
+<table>
+<thead>
+<tr>
+<th>Nginx HTTP 功能模块</th>
+<th>模块说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ngx_http_core_module</td>
+<td>包括一些核心的 HTTP 参数配置，对应 Nginx 的配置为 HTTP 区块部分</td>
+</tr>
+<tr>
+<td>ngx_http_access_module</td>
+<td>访问控制模块，用来控制网站用户对 Nginx 的访问</td>
+</tr>
+<tr>
+<td>ngx_http_gzip_module</td>
+<td>压缩模块，对 Nginx 返回的数据压缩，属于性能优化模块</td>
+</tr>
+<tr>
+<td>ngx_http_fastcgi_module</td>
+<td>FastCGI 模块，和动态应用相关，如 PHP</td>
+</tr>
+<tr>
+<td>ngx_http_proxy_module</td>
+<td>proxy 代理模块</td>
+</tr>
+<tr>
+<td>ngx_http_upstream_module</td>
+<td>负载均衡模块，可以实现网站的负载均衡功能及节点的健康检查</td>
+</tr>
+<tr>
+<td>ngx_http_rewrite_module</td>
+<td>URL 地址重写模块（伪静态）</td>
+</tr>
+<tr>
+<td>ngx_http_limit_conn_module</td>
+<td>限制用户并发连接数及请求数模块</td>
+</tr>
+<tr>
+<td>ngx_http_limit_req_module</td>
+<td>根据定义的 key 限制 Nginx 请求过程的速率</td>
+</tr>
+<tr>
+<td>ngx_http_log_module</td>
+<td>访问日志模块，以指定的格式记录 Nginx 客户访问日志等信息</td>
+</tr>
+<tr>
+<td>ngx_http_auth_basic_module</td>
+<td>web 认证模块，设置 Web 用户通过账号索码访问 Nginx</td>
+</tr>
+<tr>
+<td>ngx_http_ssl_module</td>
+<td>ssl模块，用于加密的 HTTP 连接，如 https</td>
+</tr>
+<tr>
+<td>ngx_http_stub_status_module</td>
+<td>记录 Nginx 基本访问状态信息等的模块</td>
+</tr>
+</tbody></table>
+<p>在生产环境中，配置、调整及优化 Nginx 软件，主要就是根据这此模块的功能修改相应的参数来实现的。</p>
+<p>以上都是标准的 HTTP 功能模块，虽然不是 Nginx 软件所必需的，但都是很常用的，因此绝大部分默认情况都会自动安装到 Nginx 软件中。</p>
+<p>拓展：<a target="_blank" rel="noopener" href="https://www.nginx.com/resources/wiki/modules/index.html">nginx第三方模块</a> </p>
+<p><code>nginx -V</code>查看Nginx集成的模块</p>
+<h2 id="Nginx站点目录浏览功能"><a href="#Nginx站点目录浏览功能" class="headerlink" title="Nginx站点目录浏览功能"></a>Nginx站点目录浏览功能</h2><p>实现Nginx站点目录浏览功能的模块：</p>
+<ul>
+<li><code>ngx_http_autoindex_module</code>模块</li>
+</ul>
+<p>Nginx默认是不允许列出整个目录的，如需客户端能够访问整个站点目录，可以打开要启用的站点目录的虚拟主机的配置文件，在server或者location区段中添加<code>autoindex on;</code>，这样就可以启用目录浏览功能。</p>
+<p>这样当Nginx找不到默认索引文件（index.html）的时候，就会将请求传递给 <code>ngx_http_autoindex_module</code>模块，来处理<strong>以斜杠（”&#x2F;“）结尾</strong>的请求，生成目录列表。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment"># autoindex on;			# 也可以在http区段配置，表示所有虚拟主机站点都采用此配置</span></span><br><span class="line">   server &#123;</span><br><span class="line">listen	     80;</span><br><span class="line">server_name  mirrors;</span><br><span class="line">charset utf-8;</span><br><span class="line"><span class="comment"># autoindex on;				# 开启目录浏览功能</span></span><br><span class="line"><span class="comment"># autoindex_exact_size on		# 显示确切的文件大小（off 是以KB显示）</span></span><br><span class="line"><span class="comment"># autoindex_localtime  on		# 显示本地时间（off 是UTC时间）</span></span><br><span class="line">location / &#123;</span><br><span class="line">    root    /mirrors;</span><br><span class="line">&#125;</span><br><span class="line">location / &#123;</span><br><span class="line">    root    /mirrors/share;</span><br><span class="line">    <span class="comment"># autoindex on;			# 也可以在lacation区段配置，表示仅在站点目录某个子目录开启目录浏览功能</span></span><br><span class="line">&#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nginx访问控制功能"><a href="#Nginx访问控制功能" class="headerlink" title="Nginx访问控制功能"></a>Nginx访问控制功能</h2><p>实现Nginx主要有两个模块：</p>
+<ul>
+<li>基于来源IP访问控制，即<code>ngx_http_access_module</code>模块</li>
+<li>基于使用用户密码登录，即<code>ngx_http_auth_basic_module</code>模块</li>
+</ul>
+<h3 id="基于来源IP访问控制"><a href="#基于来源IP访问控制" class="headerlink" title="基于来源IP访问控制"></a>基于来源IP访问控制</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment"># allow 192.168.110.0/24;	# 也可以在http区段配置，表示所有虚拟主机站点都采用此配置</span></span><br><span class="line">   server &#123;</span><br><span class="line">listen	     80;</span><br><span class="line">server_name  mirrors;</span><br><span class="line">charset utf-8;</span><br><span class="line"><span class="comment"># allow 192.168.110.0/24;		# 设置允许访问的单个IP或者网段</span></span><br><span class="line"><span class="comment"># deny all;						# 拒绝所有</span></span><br><span class="line">location / &#123;</span><br><span class="line">    root    /mirrors;</span><br><span class="line">&#125;</span><br><span class="line">location / &#123;</span><br><span class="line">    root    /mirrors/share;</span><br><span class="line">    <span class="comment"># allow 192.168.110.0/24;	# 也可以在lacation区段配置，表示仅在站点目录某个子目录开启访问控制</span></span><br><span class="line">&#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>基于来源IP的访问控制有一个缺陷，就是当使用了网站中间代理的时候，Nginx获取到的是中间代理的IP地址，那么就无法对来源IP进行访问控制。</p>
+<p>解决办法：采用http头信息控制访问，比如：<code>x_forwarded_for</code> 字段，同时获取源IP和代理IP</p>
+<p><a href="/../pic/x-forwarded.jpg" title="Nginx 访问控制模块| W&#39;s Notes" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/x-forwarded.jpg" alt="Nginx 访问控制模块| W&#39;s Notes"></a></p>
+<h3 id="基于用户名密码身份认证"><a href="#基于用户名密码身份认证" class="headerlink" title="基于用户名密码身份认证"></a>基于用户名密码身份认证</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment"># 可以在http区段配置，表示所有虚拟主机站点都采用此配置</span></span><br><span class="line">   server &#123;</span><br><span class="line">listen	     80;</span><br><span class="line">server_name  mirrors;</span><br><span class="line">charset utf-8;</span><br><span class="line"><span class="comment"># auth_basic &quot;请登录&quot;;		# 此字段设置验证提示信息</span></span><br><span class="line"><span class="comment"># auth_basic_user_file /etc/nginx/auth_pass;	# 指定一个认证文件的地址</span></span><br><span class="line">location / &#123;</span><br><span class="line">    root    /mirrors;</span><br><span class="line">&#125;</span><br><span class="line">location / &#123;</span><br><span class="line">    root    /mirrors/share;</span><br><span class="line">    <span class="comment"># 也可以在lacation区段配置</span></span><br><span class="line">&#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>关于认证文件的生成</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum install httpd-tools -y			<span class="comment"># 安装生成认证文件的工具</span></span><br><span class="line">rpm -ql httpd-tools			<span class="comment"># 查看主要命令</span></span><br><span class="line">/usr/bin/ab				<span class="comment"># 用于压力测试</span></span><br><span class="line">/usr/bin/htpasswd		<span class="comment"># 用于生成认证文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成认证文件，指定用户名和密码</span></span><br><span class="line">htpasswd -b -c /etc/nginx/auth_pass dengpangpang 123456		<span class="comment"># -b 非交互模式； -c 指定文件路径</span></span><br></pre></td></tr></table></figure>
+
+<p>基于用户名密码身份认证的局限性是</p>
+<ol>
+<li>用户信息依赖文件</li>
+<li>操作管理机械、效率低</li>
+</ol>
+<p>解决方式：</p>
+<ol>
+<li>nginx结合lua实现高效验证</li>
+<li>nginx配合LDAP打通，利用nginx-auth-ldap模块</li>
+</ol>
+<h2 id="Nginx请求数、并发连接以及下载速度限制"><a href="#Nginx请求数、并发连接以及下载速度限制" class="headerlink" title="Nginx请求数、并发连接以及下载速度限制"></a>Nginx请求数、并发连接以及下载速度限制</h2><p>限制某客户端在单位时间内同时访问的http请求数</p>
+<ul>
+<li><code>ngx_http_limit_req_module</code>模块实现</li>
+</ul>
+<p>限制同一时间的并发连接数</p>
+<ul>
+<li><code>ngx_http_limit_conn_module</code>模块实现</li>
+</ul>
+<p>限制客户端下载资源的速度</p>
+<ul>
+<li><code>ngx_http_core_module</code>模块实现</li>
+</ul>
+<h3 id="限制客户端请求频率"><a href="#限制客户端请求频率" class="headerlink" title="限制客户端请求频率"></a>限制客户端请求频率</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在http区段进行定义，添加语句</span></span><br><span class="line">limit_req_zone <span class="variable">$binary_remote_addr</span> zone=test_req:10m rate= 10r/s</span><br><span class="line"></span><br><span class="line"><span class="comment"># key: key用于定义限制请求的键值。可以使用不同的键值，例如IP地址、用户ID等。这将决定限制请求的依据。例如，使用&quot;$binary_remote_addr&quot;表示使用客户端的IP地址作为键值，&quot;$cookie_key&quot;表示使用cookie中的某个值作为键值。</span></span><br><span class="line"><span class="comment"># zone: zone指定限制请求的存储区域的名称和大小。存储区域是为了存储客户端请求的相关信息，如请求频率、计数等。可以为不同的键值设置不同的存储区域。存储区域的大小可以使用内存单位来指定，如&quot;10m&quot;表示10兆字节大小的存储区域。</span></span><br><span class="line"><span class="comment"># rate: rate用于指定限制请求的速率。它表示在给定时间内允许的请求数量。例如，如果设置为&quot;10r/s&quot;，表示每秒钟允许处理10个请求。</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在http区段定义之后，可以在http区段、server区段、location区段使用，添加语句</span></span><br><span class="line">limit_req zone=test_req burst=5 nodelay;</span><br><span class="line"></span><br><span class="line"><span class="comment"># zone=zone：设置使用哪个配置名来做限制，与上面 limit_req_zone 里的 name 对应</span></span><br><span class="line"><span class="comment"># burst=5 ：这个配置的意思是设置一个大小为5的缓冲区，当有大量请求过来时，超过访问频次限制 rate=1r/s 的请求可以先放到这个缓冲区内等待，但是这个缓冲区只有5个位置，超过这个缓冲区的请求直接报503并返回。</span></span><br><span class="line"><span class="comment"># nodelay：如果设置，会在瞬间提供处理（rate+burst）个请求的能力，请求超时（rat+burst）的时候直接返回503，永远不存在请求需要等待的情况。如果没有设置，则所有请求会依次等待排队；</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="限制客户端并发连接数"><a href="#限制客户端并发连接数" class="headerlink" title="限制客户端并发连接数"></a>限制客户端并发连接数</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在http区段进行定义，添加语句(（nginx 1.18以后用 limit_conn_zone 取代了 limit_conn）)</span></span><br><span class="line">limit_conn_zone <span class="variable">$binary_remote_addr</span> zone=test_conn:10m;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 各参数的配置原理跟limit_req模块的配置原理相同</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在http区段定义之后，可以在http区段、server区段、location区段使用，添加语句</span></span><br><span class="line">limit_conn test_conn 1;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 各参数的配置原理跟limit_req模块的配置原理相同，这里指定了并发连接数为1，即同一IP同时只能存在一个连接</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="限制客户端下载资源的速度"><a href="#限制客户端下载资源的速度" class="headerlink" title="限制客户端下载资源的速度"></a>限制客户端下载资源的速度</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 限制下载速度有两个指令，可以同时用在http区段、server区段、location区段使用，添加语句</span></span><br><span class="line">limit_rate_after 10m;</span><br><span class="line">limit_rate 512k;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 表示，在下载资源的大小超过10M之后，限制下载速率上限为512K</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上面的两个模块都有声明 $binary_remote_addr 远端ip地址进行操作的，而 limit_rate 什么都没规定,所以该限制只是针对一个连接的设定，也就是说，如果同时有2个连接，那么它的速度将会是该指令设置的两倍。</span></span><br><span class="line"><span class="comment"># 比如在迅雷等多种下载软件中，使用多线程的方式下载同一个文件，这个速度就翻倍了。 那这个限速就形同虚设。</span></span><br><span class="line"><span class="comment"># 以下是一个解决办法,当需要进行限速操作时，同时限制并发连接数，需要 limit_rate  和 limit_conn 模块联合起来使用。</span></span><br><span class="line"></span><br><span class="line">limit_conn test_conn 1;</span><br><span class="line">limit_rate_after 10m;</span><br><span class="line">limit_rate 512k;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Nginx状态监控"><a href="#Nginx状态监控" class="headerlink" title="Nginx状态监控"></a>Nginx状态监控</h2><p>监控Nginx的基本状态信息</p>
+<ul>
+<li><code>ngx_http_stub_status_module</code>模块实现</li>
+</ul>
+<p>默认情况下不集成该模块，需要使用<code>--with-http_stub_status_module</code>集成</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以在server、lacation区段配置	</span></span><br><span class="line">	</span><br><span class="line">	location /nginx_status &#123;			<span class="comment"># /nginx_status这个目录不需要创建</span></span><br><span class="line">	    stub_status;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>显示结果</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Active connections: 1 					<span class="comment"># Active为并发连接数</span></span><br><span class="line">server accepts handled requests</span><br><span class="line"> 1 1 7 									<span class="comment"># nginx启动开始到目前，已接收的请求数，已处理的连接数，总的请求数</span></span><br><span class="line">Reading: 0 Writing: 1 Waiting: 0 		</span><br><span class="line"><span class="comment"># Reading 为当前Nginx读取到客户端的Header信息数</span></span><br><span class="line"><span class="comment"># Writing 为当前Nginx返回给客户端的Header信息数</span></span><br><span class="line"><span class="comment"># Waiting 为当前Nginx已经处理完正在等待下一次请求指令的驻留连接。在开启keep-alive的情况下，这个值为 Active-（reading+writing）</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Nginx访问日志"><a href="#Nginx访问日志" class="headerlink" title="Nginx访问日志"></a>Nginx访问日志</h2><p>Nginx软件把每个用户访问网站的 日志信息记录到指定文件里，可以用拉力分析用户浏览行为等</p>
+<ul>
+<li><code>ngx_http_log_module</code>模块实现</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义了一种日志格式，名称为main,写在http区段内</span></span><br><span class="line">   log_format  main  <span class="string">&#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span></span><br><span class="line">                     <span class="string">&#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span></span><br><span class="line">                     <span class="string">&#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;</span>;</span><br><span class="line">   <span class="comment"># 访问日志的路径，以及日志的格式。可以写在http,server,location,if in location,limit_except中</span></span><br><span class="line">   access_log  /var/log/nginx/access.log  main;	</span><br></pre></td></tr></table></figure>
+
+<p>另外除了访问日志<code>access_log</code>，还有错误日志<code>error_log</code>，并不属于这个模块，但是一并在这里做一下说明</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># error_log的格式无需定义，因为错误输出信息有固定级别：debug|info|notice|warn|error|crit|alert|emerg</span></span><br><span class="line"><span class="comment"># 设置越高级别的日志，记录的信息就越少。可以配置在main,http,server,location区段里,建议放在http或main</span></span><br><span class="line"></span><br><span class="line">error_log /var/log/nginx/error.log crit;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果想要关闭error_log,可以这样配置</span></span><br><span class="line">error_log /dev/null;</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li><p>错误日志级别不能开error以下级别，否则会导致大量磁盘I&#x2F;O，性能降低，访问速度变慢。</p>
+</li>
+<li><p>使用Nginx负载均衡，不能开软件防火墙，否则过滤数据包，也会导致访问变慢，可以使用硬件防火墙或者将防火墙开在web主机上。</p>
+</li>
+</ol>
+<h3 id="日志格式中的变量"><a href="#日志格式中的变量" class="headerlink" title="日志格式中的变量"></a>日志格式中的变量</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通用格式</span></span><br><span class="line"><span class="variable">$remote_addr</span> 				<span class="comment"># 记录访问网站的客户端地址（也有可能是代理服务器地址）</span></span><br><span class="line"><span class="variable">$remote_user</span> 				<span class="comment"># 用于HTTP基础认证服务的用户名，没有认证时是&#x27;-&#x27;</span></span><br><span class="line"><span class="variable">$time_local</span>					<span class="comment"># 时间</span></span><br><span class="line"><span class="variable">$request</span> 					<span class="comment"># 请求方法和协议</span></span><br><span class="line"><span class="variable">$status</span>						<span class="comment"># HTTP响应代码</span></span><br><span class="line"><span class="variable">$body_bytes_sent</span> 			<span class="comment"># 传输给客户端的字节数，响应头不计算在内，对应body的大小。</span></span><br><span class="line"><span class="variable">$http_referer</span> 				<span class="comment"># url跳转来源,用来记录从那个页面链接访问过来的，直接域名浏览是&#x27;-&#x27;</span></span><br><span class="line"><span class="variable">$http_user_agent</span>			<span class="comment"># 客户机资源信息，判断客户端设备类型，分发不同服务类型。</span></span><br><span class="line"><span class="variable">$http_x_forwarded_for</span>		<span class="comment"># 无代理时是&#x27;-&#x27;，当前端有代理服务器时，记录真实客户端地址。(也需要代理服务器上进行相关配置)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$arg_NAME</span> <span class="comment">#GET请求中NAME的值</span></span><br><span class="line"><span class="variable">$args</span> <span class="comment">#请求中的参数值</span></span><br><span class="line"><span class="variable">$binary_remote_addr</span> <span class="comment">#客户端地址的二进制形式，固定长度为4个字节</span></span><br><span class="line"><span class="variable">$bytes_sent</span> <span class="comment">#传输给客户端的字节数</span></span><br><span class="line"><span class="variable">$connection_requests</span> <span class="comment">#TCP连接当前的请求数量</span></span><br><span class="line"><span class="variable">$connection</span> <span class="comment">#TCP连接的序列号</span></span><br><span class="line"><span class="variable">$content_length</span> <span class="comment">#&quot;Content-Length&quot; 请求头字段</span></span><br><span class="line"><span class="variable">$content_type</span> <span class="comment">#&quot;Content-Type&quot; 请求头字段</span></span><br><span class="line"><span class="variable">$cookie_name</span> <span class="comment">#cookie名称</span></span><br><span class="line"><span class="variable">$cookie_NAME</span> <span class="comment">#客户端请求Header头中的cookie变量，前缀&quot;$cookie_&quot;加上cookie名称的变量，该变量的值即为cookie名称的值</span></span><br><span class="line"><span class="variable">$document_root</span> <span class="comment">#当前请求的文档根目录或别名</span></span><br><span class="line"><span class="variable">$document_uri</span> <span class="comment">#同 $uri</span></span><br><span class="line"><span class="variable">$hostname</span> <span class="comment">#主机名</span></span><br><span class="line"><span class="variable">$host</span> <span class="comment">#优先级：HTTP请求行的主机名&gt;&quot;HOST&quot;请求头字段&gt;符合请求的服务器名.请求中的主机头字段，如果请求中的主机头不可用，则为服务器处理请求的服务器名称</span></span><br><span class="line"><span class="variable">$http_cookie</span> <span class="comment"># cookie</span></span><br><span class="line"><span class="variable">$http_host</span> <span class="comment">#请求地址，即浏览器中你输入的地址（IP或域名）</span></span><br><span class="line"><span class="variable">$http_NAME</span> <span class="comment">#匹配任意请求头字段；变量名中的后半部分NAME可以替换成任意请求头字段，如在配置文件中需要获取http请求头：&quot;Accept-Language&quot;，$http_accept_language即可</span></span><br><span class="line"><span class="variable">$https</span> <span class="comment">#如果开启了SSL安全模式，值为&quot;on&quot;，否则为空字符串。</span></span><br><span class="line"><span class="variable">$http_user_agent</span> <span class="comment">#用户终端浏览器等信息</span></span><br><span class="line"><span class="variable">$is_args</span> <span class="comment">#如果请求中有参数，值为&quot;?&quot;，否则为空字符串</span></span><br><span class="line"><span class="variable">$limit_rate</span> <span class="comment">#用于设置响应的速度限制</span></span><br><span class="line"><span class="variable">$msec</span> <span class="comment">#当前的Unix时间戳</span></span><br><span class="line"><span class="variable">$nginx_version</span> <span class="comment">#nginx版本</span></span><br><span class="line"><span class="variable">$pid</span> <span class="comment">#工作进程的PID</span></span><br><span class="line"><span class="variable">$pipe</span> <span class="comment">#如果请求来自管道通信，值为&quot;p&quot;，否则为&quot;.&quot;</span></span><br><span class="line"><span class="variable">$proxy_protocol_addr</span> <span class="comment">#获取代理访问服务器的客户端地址，如果是直接访问，该值为空字符串</span></span><br><span class="line"><span class="variable">$query_string</span> <span class="comment">#同 $args</span></span><br><span class="line"><span class="variable">$realpath_root</span> <span class="comment">#当前请求的文档根目录或别名的真实路径，会将所有符号连接转换为真实路径</span></span><br><span class="line"><span class="variable">$remote_port</span> <span class="comment">#客户端端口</span></span><br><span class="line"><span class="variable">$request_body_file</span> <span class="comment">#将客户端请求主体保存在临时文件中。文件处理结束后，此文件需删除。如果需要之一开启此功能，需要设置client_body_in_file_only。如果将次文件传 递给后端的代理服务器，需要禁用request body，即设置proxy_pass_request_body off，fastcgi_pass_request_body off，uwsgi_pass_request_body off，or scgi_pass_request_body off</span></span><br><span class="line"><span class="variable">$request_body</span> <span class="comment">#客户端的请求主体：此变量可在location中使用，将请求主体通过proxy_pass，fastcgi_pass，uwsgi_pass和scgi_pass传递给下一级的代理服务器</span></span><br><span class="line"><span class="variable">$request_completion</span> <span class="comment">#如果请求成功，值为&quot;OK&quot;，如果请求未完成或者请求不是一个范围请求的最后一部分，则为空</span></span><br><span class="line"><span class="variable">$request_filename</span> <span class="comment">#当前连接请求的文件路径，由root或alias指令与URI请求生成</span></span><br><span class="line"><span class="variable">$request_length</span> <span class="comment">#请求的长度 (包括请求的地址，http请求头和请求主体)</span></span><br><span class="line"><span class="variable">$request_method</span> <span class="comment">#HTTP请求方法，通常为&quot;GET&quot;或&quot;POST&quot;</span></span><br><span class="line"><span class="variable">$request_time</span> <span class="comment">#处理客户端请求使用的时间,单位为秒，精度毫秒； 从读入客户端的第一个字节开始，直到把最后一个字符发送给客户端后进行日志写入为止。</span></span><br><span class="line"><span class="variable">$request_uri</span> <span class="comment">#这个变量等于包含一些客户端请求参数的原始URI，它无法修改，请查看$uri更改或重写URI，不包含主机名，例如：&quot;/cnphp/test.php?arg=freemouse&quot;</span></span><br><span class="line"><span class="variable">$scheme</span> <span class="comment">#请求使用的Web协议，&quot;http&quot; 或 &quot;https&quot;</span></span><br><span class="line"><span class="variable">$sent_http_NAME</span> <span class="comment">#可以设置任意http响应头字段；变量名中的后半部分NAME可以替换成任意响应头字段，如需要设置响应头Content-length，$sent_http_content_length即可</span></span><br><span class="line"><span class="variable">$sent_http_transfer_encoding</span></span><br><span class="line"><span class="variable">$server_addr</span> <span class="comment">#服务器端地址，需要注意的是：为了避免访问linux系统内核，应将ip地址提前设置在配置文件中</span></span><br><span class="line"><span class="variable">$server_name</span> <span class="comment">#服务器名</span></span><br><span class="line"><span class="variable">$server_port</span> <span class="comment">#服务器端口</span></span><br><span class="line"><span class="variable">$server_protocol</span> <span class="comment">#服务器的HTTP版本，通常为 &quot;HTTP/1.0&quot; 或 &quot;HTTP/1.1&quot;</span></span><br><span class="line"><span class="variable">$time_iso8601</span> <span class="comment">#服务器时间的ISO 8610格式</span></span><br><span class="line"><span class="variable">$time_local</span> <span class="comment">#服务器时间（LOG Format 格式）</span></span><br><span class="line"><span class="variable">$upstream_addr</span> <span class="comment"># 后台upstream的地址，即真正提供服务的主机地址</span></span><br><span class="line"><span class="variable">$upstream_response_time</span> <span class="comment"># 请求过程中，upstream响应时间</span></span><br><span class="line"><span class="variable">$upstream_status</span> <span class="comment"># upstream状态</span></span><br><span class="line"><span class="variable">$uri</span> <span class="comment">#请求中的当前URI(不带请求参数，参数位于$args)，可以不同于浏览器传递的$request_uri的值，它可以通过内部重定向，或者使用index指令进行修改，$uri不包含主机名，如&quot;/foo/bar.html&quot;。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Nginx日志切割"><a href="#Nginx日志切割" class="headerlink" title="Nginx日志切割"></a>Nginx日志切割</h3><p>nginx会将访问日志写入到access.log日志文件中，错误日志写入到error.log日志文件中。长时间之后，access.log文件的体积就会变得非常大，对于运维工作来说，这是不利的，首先，当我们打开一个非常大的日志文件时，就会比较慢，而且，从一个非常大的日志中找到某个时间段的日志也会比较慢，所以，我们最好将日志按天分割，比如，每天晚上0点5分生成一个新的日志文件，0点5分之后（新的一天）的日志写入到新的日志文件中，之前的日志则保留在老的文件中，这样每天就会生成一个日志文件，而不是将所有日志都写入到同一个日志文件中。</p>
+<p>同样地，yum安装和源码安装的nginx实现日志切割的方式不同，yum安装的nginx默认就有日志滚动的功能，这是因为通过yum源安装nginx后，默认会安装一个日志滚动的配置文件，这个配置文件就是”&#x2F;etc&#x2F;logrotate.d&#x2F;nginx”，可以看出，这是一个logrotate配置文件，通常情况下，Centos系统默认自带logrotate，logrotate是一个日志管理工具。也就是说，nginx借助这个配置文件，使用logrotate完成了日志分割的操作。</p>
+<h4 id="yum安装的Nginx实现日志切割"><a href="#yum安装的Nginx实现日志切割" class="headerlink" title="yum安装的Nginx实现日志切割"></a>yum安装的Nginx实现日志切割</h4><ol>
+<li><p>查看切割方法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/logrotate.d/nginx 			<span class="comment"># 查看nginx的logrotate配置文件</span></span><br><span class="line"></span><br><span class="line">/var/log/nginx/*.<span class="built_in">log</span> &#123;</span><br><span class="line">        daily			<span class="comment"># 日志文件将按天轮循。</span></span><br><span class="line">        missingok		<span class="comment"># 在日志轮循期间，任何错误将被忽略，例如“文件无法找到”之类的错误。</span></span><br><span class="line">        rotate 52		<span class="comment"># 一次存储52个日志文件。对于第53个日志文件，时间最久的那个日志文件将被删除。</span></span><br><span class="line">        compress		<span class="comment"># 在轮循任务完成后，已轮循的归档将使用gzip进行压缩。</span></span><br><span class="line">        delaycompress	<span class="comment"># 总是与compress选项一起用，delaycompress选项指示logrotate不要将最近的归档压缩，压缩将在下一次轮循周期进行。这在你或任何软件仍然需要读取最新归档时很有用。</span></span><br><span class="line">        dateext			<span class="comment"># 定义日志文件后缀是日期格式,也就是切割后文件是:xxx.log-20160402.gz这样的格式。如果该参数被注释掉,切割出来是按数字递增,即前面说的 xxx.log-1这种格式。</span></span><br><span class="line">        notifempty		<span class="comment"># 如果是空文件的话，不进行转储。</span></span><br><span class="line">        create 640 nginx adm		<span class="comment"># 以指定的权限和用户属性，创建全新的日志文件，同时logrotate也会重命名原始日志文件。</span></span><br><span class="line">        sharedscripts</span><br><span class="line">        postrotate</span><br><span class="line">                <span class="keyword">if</span> [ -f /var/run/nginx.pid ]; <span class="keyword">then</span></span><br><span class="line">                        <span class="built_in">kill</span> -USR1 `<span class="built_in">cat</span> /var/run/nginx.pid`</span><br><span class="line">                <span class="keyword">fi</span></span><br><span class="line">        endscript</span><br><span class="line">&#125;	<span class="comment"># 检查 Nginx 进程是否在运行（通过检查 /var/run/nginx.pid 文件是否存在），如果在运行，则向主进程发送 USR1 信号来触发重新加载配置文件的操作。这样做的原因是因为nginx进程读写日志文件时，是通过文件描述符去操作的，虽然我们修改了原&quot;access.log&quot;文件，但是原文件描述符与文件本身的对应关系仍然存在，所以，单单对文件重命名是不够的，我们需要让nginx重新打开一个新文件，以便将新的日志写入到新文件中。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以手动执行日志切割</span></span><br><span class="line">logrotate -vf /etc/logrotate.d/nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看执行时间</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /var/lib/logrotate/logrotate.status		<span class="comment"># 查看上一次的 logrotate执行时间</span></span><br><span class="line"><span class="built_in">cat</span> /etc/anacrontab				<span class="comment"># 编辑此文件，可以修改logrotate执行时间，但是不建议	</span></span><br><span class="line"></span><br><span class="line">SHELL=/bin/sh</span><br><span class="line">PATH=/sbin:/bin:/usr/sbin:/usr/bin</span><br><span class="line">MAILTO=root</span><br><span class="line"><span class="comment"># the maximal random delay added to the base delay of the jobs</span></span><br><span class="line">RANDOM_DELAY=45</span><br><span class="line"><span class="comment"># the jobs will be started during the following hours only</span></span><br><span class="line">START_HOURS_RANGE=03-22</span><br><span class="line"></span><br><span class="line"><span class="comment">#period in days   delay in minutes   job-identifier   command</span></span><br><span class="line">1       5       cron.daily              <span class="built_in">nice</span> run-parts /etc/cron.daily</span><br><span class="line">7       25      cron.weekly             <span class="built_in">nice</span> run-parts /etc/cron.weekly</span><br><span class="line">@monthly 45     cron.monthly            <span class="built_in">nice</span> run-parts /etc/cron.monthly</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="源码安装Nginx实现日志切割"><a href="#源码安装Nginx实现日志切割" class="headerlink" title="源码安装Nginx实现日志切割"></a>源码安装Nginx实现日志切割</h4><ol>
+<li><p>创建shell脚本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vim /server/scripts/cut_nginx_log.sh		<span class="comment"># 创建shell脚本</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment"># nginx 日志存放路径</span></span><br><span class="line">LOG_PATH=<span class="string">&quot;/var/log/nginx/&quot;</span></span><br><span class="line"><span class="comment"># 切割文件后缀</span></span><br><span class="line">RECORD_TIME=$(<span class="built_in">date</span> -d <span class="string">&quot;yesterday&quot;</span> +%Y-%m-%d)</span><br><span class="line"><span class="comment"># nginx.pid</span></span><br><span class="line">PID=/var/run/nginx/nginx.pid</span><br><span class="line"></span><br><span class="line"><span class="built_in">mv</span> <span class="variable">$&#123;LOG_PATH&#125;</span>/access.log <span class="variable">$&#123;LOG_PATH&#125;</span>/access.<span class="variable">$&#123;RECORD_TIME&#125;</span>.<span class="built_in">log</span> </span><br><span class="line"><span class="built_in">mv</span> <span class="variable">$&#123;LOG_PATH&#125;</span>/error.log <span class="variable">$&#123;LOG_PATH&#125;</span>/error.<span class="variable">$&#123;RECORD_TIME&#125;</span>.<span class="built_in">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#向Nginx主进程发送信号，用于重新日志文件</span></span><br><span class="line"><span class="built_in">kill</span> -USR1 `<span class="built_in">cat</span> <span class="variable">$PID</span>`</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> +x cut_nginx_log.sh		<span class="comment"># 添加可执行权限</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建定时任务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">crontab -e			<span class="comment"># 创建定时任务，每天23：59分执行</span></span><br><span class="line">59 23 * * * /usr/local/nginx/sbin/cut_my_log.sh	</span><br><span class="line">service crond restart   <span class="comment"># 重启服务</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-26</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Nginx/'>
+                            Nginx
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

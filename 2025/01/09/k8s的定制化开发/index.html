@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="K8S定制化开发" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            K8S定制化开发
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#k8s%E7%9A%84%E5%AE%9A%E5%88%B6%E5%8C%96%E5%BC%80%E5%8F%91"><span class="post-toc-text">k8s的定制化开发</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#webhook%E5%BC%80%E5%8F%91"><span class="post-toc-text">webhook开发</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#mutate"><span class="post-toc-text">mutate</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#validate"><span class="post-toc-text">validate</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#webhook%E6%B5%81%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="post-toc-text">webhook流程总结</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#operator%E5%BC%80%E5%8F%91"><span class="post-toc-text">operator开发</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E7%9A%84%E5%AE%9A%E5%88%B6%E5%BC%80%E5%8F%91"><span class="post-toc-text">核心组件的定制开发</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="k8s的定制化开发"><a href="#k8s的定制化开发" class="headerlink" title="k8s的定制化开发"></a>k8s的定制化开发</h2><p>k8s的定制化开发主要有三种：webhook开发、operator开发、核心组件的定制化开发</p>
+<h3 id="webhook开发"><a href="#webhook开发" class="headerlink" title="webhook开发"></a>webhook开发</h3><p>webhook 指的是在apiserver将请求数据写入到etcd的链路中，拦截请求做定制化处理，本质上也是 api-server 的一个 webhook 调用。主要有<code>mutating webhook</code>和<code>admission Webhook</code>两种，一般是<code>mutating webhook</code>在前，<code>admission Webhook</code>在后。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apiserver --------------------------|--------------------------|--------------------------------&gt;&gt; etcd</span><br><span class="line">									|						   |</span><br><span class="line">						   mutating webhook关卡        admission Webhook关卡</span><br></pre></td></tr></table></figure>
+
+<h4 id="mutate"><a href="#mutate" class="headerlink" title="mutate"></a>mutate</h4><p>在 API Server 接收到请求、执行授权检查后触发，拦截请求并做修改，之后扔回原链路。</p>
+<p>一般有以下应用场景</p>
+<ul>
+<li>自动注入sidecar容器</li>
+<li>自动配置资源限制</li>
+<li>注入配置或者标签等。</li>
+</ul>
+<blockquote>
+<p><strong>实战案例：为所有新创建的pod打上标签：environment: production</strong></p>
+</blockquote>
+<ol>
+<li><p>基于flask框架开发一个web程序<code>webhook.py</code>，对外提供api接口</p>
+<p>需要先安装python3解释器，为解释器环境安装flask代码包<code>pip3 install flask</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, jsonify  <span class="comment"># 导入 Flask 框架、请求处理和 JSON 响应模块</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> ssl</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)  <span class="comment"># 创建一个 Flask 应用实例</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_patch</span>(<span class="params">metadata</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    创建 JSON Patch 以添加 &#x27;mutate&#x27; 注释。</span></span><br><span class="line"><span class="string">    如果 metadata.annotations 不存在，则首先创建该路径。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;labels&#x27;</span> <span class="keyword">in</span> metadata:</span><br><span class="line">        dic = metadata[<span class="string">&#x27;labels&#x27;</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        dic = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    patch = [</span><br><span class="line">        <span class="comment"># 添加 &#x27;labels&#x27; 键，如果不存在</span></span><br><span class="line">        &#123;<span class="string">&#x27;op&#x27;</span>: <span class="string">&#x27;add&#x27;</span>, <span class="string">&#x27;path&#x27;</span>: <span class="string">&#x27;/metadata/labels&#x27;</span>, <span class="string">&#x27;value&#x27;</span>: dic&#125;,</span><br><span class="line">        <span class="comment"># 添加 &#x27;environment&#x27; 标签</span></span><br><span class="line">        &#123;<span class="string">&#x27;op&#x27;</span>: <span class="string">&#x27;add&#x27;</span>, <span class="string">&#x27;path&#x27;</span>: <span class="string">&#x27;/metadata/labels/environment&#x27;</span>, <span class="string">&#x27;value&#x27;</span>: <span class="string">&#x27;production&#x27;</span>&#125;</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    patch_json = json.dumps(patch)</span><br><span class="line">    patch_base64 = base64.b64encode(patch_json.encode(<span class="string">&#x27;utf-8&#x27;</span>)).decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> patch_base64</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/mutate&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)  </span><span class="comment"># https://webhook-service.default.svc:443/mutate</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mutate</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    处理 Mutating Webhook 的请求，对 Pod 对象应用 JSON Patch。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    admission_review = request.get_json()  <span class="comment"># 从请求中提取 AdmissionReview 对象</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 验证 AdmissionReview 格式是否正确</span></span><br><span class="line">    <span class="comment"># admission_review[&#x27;request&#x27;][&#x27;object&#x27;]</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;request&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> admission_review <span class="keyword">or</span> <span class="string">&#x27;object&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> admission_review[<span class="string">&#x27;request&#x27;</span>]:</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;</span><br><span class="line">            <span class="string">&#x27;kind&#x27;</span>: <span class="string">&#x27;AdmissionReview&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;apiVersion&#x27;</span>: <span class="string">&#x27;admission.k8s.io/v1&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;response&#x27;</span>: &#123;</span><br><span class="line">                <span class="string">&#x27;allowed&#x27;</span>: <span class="literal">False</span>,  <span class="comment"># 如果格式无效，则禁止当前提交过来的资源请求</span></span><br><span class="line">                <span class="string">&#x27;status&#x27;</span>: &#123;<span class="string">&#x27;message&#x27;</span>: <span class="string">&#x27;Invalid AdmissionReview format&#x27;</span>&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    req = admission_review[<span class="string">&#x27;request&#x27;</span>]  <span class="comment"># 提取请求对象</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;---&gt;&#x27;</span>,req)</span><br><span class="line">    <span class="comment"># 生成 JSON Patch</span></span><br><span class="line">    metata = req[<span class="string">&#x27;object&#x27;</span>][<span class="string">&#x27;metadata&#x27;</span>]</span><br><span class="line">    patch_json = create_patch(metata)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 准备 AdmissionResponse 响应</span></span><br><span class="line">    admission_response = &#123;</span><br><span class="line">        <span class="string">&#x27;kind&#x27;</span>: <span class="string">&#x27;AdmissionReview&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;apiVersion&#x27;</span>: <span class="string">&#x27;admission.k8s.io/v1&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;response&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;uid&#x27;</span>: req[<span class="string">&#x27;uid&#x27;</span>],</span><br><span class="line">            <span class="string">&#x27;allowed&#x27;</span>: <span class="literal">True</span>,</span><br><span class="line">            <span class="string">&#x27;patchType&#x27;</span>: <span class="string">&#x27;JSONPatch&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;patch&#x27;</span>: patch_json  <span class="comment"># 直接包含 Patch 数据作为 JSON 字符串</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(admission_response)</span><br><span class="line">    <span class="keyword">return</span> jsonify(admission_response)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># 加载 SSL 证书和私钥</span></span><br><span class="line">    context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)</span><br><span class="line">    context.load_cert_chain(<span class="string">&#x27;/certs/tls.crt&#x27;</span>, <span class="string">&#x27;/certs/tls.key&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Run the Flask application with SSL</span></span><br><span class="line">    app.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">443</span>, ssl_context=context)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>制作镜像（包含webhook.py的运行环境，依赖python3解释器、依赖flask框架）</p>
+<p>Dockerfile文件如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用官方 Python 镜像作为基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.9</span>-slim</span><br><span class="line"><span class="comment"># 设置工作目录</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"><span class="comment"># 将当前目录的所有文件复制到容器的 /app 目录</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> webhook.py .</span></span><br><span class="line"><span class="comment"># 安装 Flask 及其依赖</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip install Flask</span></span><br><span class="line"><span class="comment"># 启动 Flask 应用</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;webhook.py&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置 Webhook 的 Secret</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成 CA 私钥</span></span><br><span class="line">openssl genrsa -out ca.key 2048</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成自签名 CA 证书，有效期为 100 年</span></span><br><span class="line">openssl req -x509 -new -nodes -key ca.key -subj <span class="string">&quot;/CN=webhook-service.default.svc&quot;</span> -days 36500 -out ca.crt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建证书请求的配置文件</span></span><br><span class="line"><span class="built_in">cat</span> &gt; webhook-openssl.cnf &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">[req]</span><br><span class="line">default_bits = 2048</span><br><span class="line">prompt = no</span><br><span class="line">default_md = sha256</span><br><span class="line">req_extensions = req_ext</span><br><span class="line">distinguished_name = dn</span><br><span class="line"></span><br><span class="line">[ dn ]</span><br><span class="line">C = CN</span><br><span class="line">ST = Shanghai</span><br><span class="line">L = Shanghai</span><br><span class="line">O = egonlin</span><br><span class="line">OU = egonlin</span><br><span class="line">CN = webhook-service.default.svc</span><br><span class="line"></span><br><span class="line">[ req_ext ]</span><br><span class="line">subjectAltName = @alt_names</span><br><span class="line"></span><br><span class="line">[alt_names]</span><br><span class="line">DNS.1 = webhook-service</span><br><span class="line">DNS.2 = webhook-service.default</span><br><span class="line">DNS.3 = webhook-service.default.svc</span><br><span class="line">DNS.4 = webhook-service.default.svc.cluster.local</span><br><span class="line"></span><br><span class="line">[req_distinguished_name]</span><br><span class="line">CN = webhook-service.default.svc</span><br><span class="line"></span><br><span class="line">[v3_req]</span><br><span class="line">keyUsage = critical, digitalSignature, keyEncipherment</span><br><span class="line">extendedKeyUsage = serverAuth</span><br><span class="line">subjectAltName = @alt_names</span><br><span class="line"></span><br><span class="line">[ v3_ext ]</span><br><span class="line">authorityKeyIdentifier=keyid,issuer:always</span><br><span class="line">basicConstraints=CA:FALSE</span><br><span class="line">keyUsage=keyEncipherment,dataEncipherment</span><br><span class="line">extendedKeyUsage=serverAuth,clientAuth</span><br><span class="line">subjectAltName=@alt_names</span><br><span class="line"></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成 Webhook 服务的私钥</span></span><br><span class="line">openssl genrsa -out webhook.key 2048</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 OpenSSL 配置文件生成证书签名请求(CSR)</span></span><br><span class="line">openssl req -new -key webhook.key -out webhook.csr -config webhook-openssl.cnf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用CA证书签署webhook服务证书，生成webhook.crt文件</span></span><br><span class="line">openssl x509 -req -<span class="keyword">in</span> webhook.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out webhook.crt -days 36500 -extensions v3_ext -extfile webhook-openssl.cnf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将生成的证书和私钥存储在 Kubernetes Secret 中</span></span><br><span class="line">kubectl create secret tls webhook-certs --cert=webhook.crt --key=webhook.key --namespace=default --dry-run=client -o yaml | kubectl apply -f -</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建deployment来部署webhook服务</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">webhook-deployment</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">webhook</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">webhook</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">webhook</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">registry.cn-shanghai.aliyuncs.com/dengjinjun-mute-webhook:v1.0</span> <span class="comment"># webhook服务镜像</span></span><br><span class="line">        <span class="attr">volumeMounts:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">webhook-certs</span></span><br><span class="line">          <span class="attr">mountPath:</span> <span class="string">/certs</span></span><br><span class="line">          <span class="attr">readOnly:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">webhook-certs</span></span><br><span class="line">        <span class="attr">secret:</span></span><br><span class="line">          <span class="attr">secretName:</span> <span class="string">webhook-certs</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">webhook-service</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">443</span></span><br><span class="line">    <span class="attr">targetPort:</span> <span class="number">443</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">webhook</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建mutatingwebhookconfiguration 资源，声明把请求转给的目标webhook程序的api地址</p>
+<p>基于脚本来生成yaml文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">base64</span> -w 0 ca.crt &gt; ca.crt.base64</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义文件路径</span></span><br><span class="line">ca_base64_file=<span class="string">&quot;ca.crt.base64&quot;</span></span><br><span class="line">yaml_file=<span class="string">&quot;m-w-c.yaml&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取 ca.crt.base64 的内容</span></span><br><span class="line">ca_base64_content=$(<span class="built_in">cat</span> <span class="string">&quot;<span class="variable">$ca_base64_file</span>&quot;</span> | <span class="built_in">tr</span> -d <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成替换后的 YAML 文件内容</span></span><br><span class="line"><span class="comment"># 将 base64 内容插入到 YAML 文件中</span></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt;<span class="string">EOF &gt; &quot;$yaml_file&quot;</span></span><br><span class="line"><span class="string">apiVersion: admissionregistration.k8s.io/v1</span></span><br><span class="line"><span class="string">kind: MutatingWebhookConfiguration</span></span><br><span class="line"><span class="string">metadata:</span></span><br><span class="line"><span class="string">  name: example-mutating-webhook</span></span><br><span class="line"><span class="string">webhooks:</span></span><br><span class="line"><span class="string">  - name: example.webhook.com</span></span><br><span class="line"><span class="string">    clientConfig:</span></span><br><span class="line"><span class="string">      service:</span></span><br><span class="line"><span class="string">        name: webhook-service</span></span><br><span class="line"><span class="string">        namespace: default</span></span><br><span class="line"><span class="string">        path: &quot;/mutate&quot;</span></span><br><span class="line"><span class="string">      # 替换为 cat ca.crt.base64的内容</span></span><br><span class="line"><span class="string">      caBundle: &quot;$ca_base64_content&quot;</span></span><br><span class="line"><span class="string">    rules:</span></span><br><span class="line"><span class="string">      - operations: [&quot;CREATE&quot;]</span></span><br><span class="line"><span class="string">        apiGroups: [&quot;&quot;]</span></span><br><span class="line"><span class="string">        apiVersions: [&quot;v1&quot;]</span></span><br><span class="line"><span class="string">        resources: [&quot;pods&quot;]</span></span><br><span class="line"><span class="string">    admissionReviewVersions: [&quot;v1&quot;]</span></span><br><span class="line"><span class="string">    sideEffects: None</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;YAML 文件已更新。&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部署完上述服务后，可以创建一个Pod进行测试，观察是否自动添加了<code>environment: production</code>标签</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test-pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx:1.18</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="validate"><a href="#validate" class="headerlink" title="validate"></a>validate</h4><p>请求持久化到 etcd 之前触发，对请求的数据做校验，不符合规定的直接扔掉。一般是先对资源进行修改，然后再进行验证。</p>
+<p>一般有以下应用场景：</p>
+<ul>
+<li>强制标签和注解策略</li>
+<li>必须用私有仓库的镜像</li>
+<li>安全策略审计：例如不允许使用特权模式</li>
+</ul>
+<blockquote>
+<p><strong>实战案例：仅允许创建具有environment标签的Pod</strong>		</p>
+</blockquote>
+<p>其他步骤基本相同，此处仅给出<code>webhook.py</code>的代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, jsonify</span><br><span class="line"><span class="keyword">import</span> ssl</span><br><span class="line"><span class="keyword">import</span> logging		</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">logging.basicConfig(level=logging.INFO)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">validate</span>():</span><br><span class="line">    admission_review = request.get_json()</span><br><span class="line">    </span><br><span class="line">	<span class="keyword">if</span> <span class="string">&#x27;request&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> admission_review <span class="keyword">or</span> <span class="string">&#x27;object&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> admission_review[<span class="string">&#x27;request&#x27;</span>]:</span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;</span><br><span class="line">        <span class="string">&#x27;kind&#x27;</span>: <span class="string">&#x27;AdmissionReview&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;apiVersion&#x27;</span>: <span class="string">&#x27;admission.k8s.io/v1&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;response&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;allowed&#x27;</span>: <span class="literal">False</span>,</span><br><span class="line">            <span class="string">&#x27;status&#x27;</span>: &#123;<span class="string">&#x27;message&#x27;</span>: <span class="string">&#x27;Invalid AdmissionReview format&#x27;</span>&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">	req = admission_review[<span class="string">&#x27;request&#x27;</span>]</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 只处理 Pod</span></span><br><span class="line">	<span class="keyword">if</span> req[<span class="string">&#x27;kind&#x27;</span>][<span class="string">&#x27;kind&#x27;</span>] == <span class="string">&#x27;Pod&#x27;</span>:</span><br><span class="line">        pod = req[<span class="string">&#x27;object&#x27;</span>]</span><br><span class="line">        labels = pod.get(<span class="string">&#x27;metadata&#x27;</span>, &#123;&#125;).get(<span class="string">&#x27;labels&#x27;</span>, &#123;&#125;)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 检查是否有 &#x27;environment&#x27; 标签</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;environment&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> labels:</span><br><span class="line">            <span class="keyword">return</span> jsonify(&#123;</span><br><span class="line">                <span class="string">&#x27;kind&#x27;</span>: <span class="string">&#x27;AdmissionReview&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;apiVersion&#x27;</span>: <span class="string">&#x27;admission.k8s.io/v1&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;response&#x27;</span>: &#123;</span><br><span class="line">                    <span class="string">&#x27;uid&#x27;</span>: req[<span class="string">&#x27;uid&#x27;</span>],</span><br><span class="line">                    <span class="string">&#x27;allowed&#x27;</span>: <span class="literal">False</span>,</span><br><span class="line">                    <span class="string">&#x27;status&#x27;</span>: &#123;</span><br><span class="line">                        <span class="string">&#x27;metadata&#x27;</span>: &#123;&#125;,</span><br><span class="line">                        <span class="string">&#x27;code&#x27;</span>: <span class="number">400</span>,</span><br><span class="line">                        <span class="string">&#x27;message&#x27;</span>: <span class="string">&#x27;Pod must have an &quot;environment&quot; label&#x27;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;</span><br><span class="line">            <span class="string">&#x27;kind&#x27;</span>: <span class="string">&#x27;AdmissionReview&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;apiVersion&#x27;</span>: <span class="string">&#x27;admission.k8s.io/v1&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;response&#x27;</span>: &#123;</span><br><span class="line">                <span class="string">&#x27;uid&#x27;</span>: req[<span class="string">&#x27;uid&#x27;</span>],</span><br><span class="line">                <span class="string">&#x27;allowed&#x27;</span>: <span class="literal">True</span>,</span><br><span class="line">                <span class="string">&#x27;status&#x27;</span>: &#123;</span><br><span class="line">                    <span class="string">&#x27;metadata&#x27;</span>: &#123;&#125;,</span><br><span class="line">                    <span class="string">&#x27;code&#x27;</span>: <span class="number">200</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;</span><br><span class="line">    <span class="string">&#x27;kind&#x27;</span>: <span class="string">&#x27;AdmissionReview&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;apiVersion&#x27;</span>: <span class="string">&#x27;admission.k8s.io/v1&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;response&#x27;</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;allowed&#x27;</span>: <span class="literal">True</span>,</span><br><span class="line">        <span class="string">&#x27;status&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;metadata&#x27;</span>: &#123;&#125;,</span><br><span class="line">            <span class="string">&#x27;code&#x27;</span>: <span class="number">200</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)</span><br><span class="line">    context.load_cert_chain(<span class="string">&#x27;/certs/tls.crt&#x27;</span>, <span class="string">&#x27;/certs/tls.key&#x27;</span>)</span><br><span class="line">    app.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">443</span>, ssl_context=context)    </span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="webhook流程总结"><a href="#webhook流程总结" class="headerlink" title="webhook流程总结"></a>webhook流程总结</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">1. 用户提交请求：kubectl apply -f test.yaml</span><br><span class="line">    |</span><br><span class="line">    |</span><br><span class="line">2. API Server 接收请求：API Server 解析并检查请求是否匹配 Mutating Webhook 的规则</span><br><span class="line">    |</span><br><span class="line">    |</span><br><span class="line">3. 触发 Mutating Webhook：如果请求匹配 Webhook 规则，API Server 中断正常流程，准备将请求发送给 Webhook 服务</span><br><span class="line">    |</span><br><span class="line">    |</span><br><span class="line">4. 转换请求为 AdmissionReview：API Server 将原始请求转换为 AdmissionReview 格式</span><br><span class="line">    |</span><br><span class="line">    |</span><br><span class="line">5. 通过 HTTPS 发送请求：API Server 通过 HTTPS 将请求转发到 clientConfig 中指定的 URL</span><br><span class="line">    |</span><br><span class="line">    |</span><br><span class="line">6. Webhook Service 接收请求：Kubernetes Service 监听端口（如 443），并将请求路由到 Webhook Pod</span><br><span class="line">    |</span><br><span class="line">    |</span><br><span class="line">7. Webhook Pod 处理请求：Webhook Pod 内的应用（例如 Flask 服务器）接收到 AdmissionReview 请求，执行相应的逻辑</span><br><span class="line">    |</span><br><span class="line">    |</span><br><span class="line">8. Webhook 返回 AdmissionResponse：Webhook 处理完成后，生成 AdmissionResponse，并通过 HTTPS 返回给 API Server </span><br><span class="line">    |</span><br><span class="line">    |</span><br><span class="line">9. API Server 处理 AdmissionResponse：API Server 接收到 Webhook 的响应，根据响应内容决定是否允许操作或进行其他变更  </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="operator开发"><a href="#operator开发" class="headerlink" title="operator开发"></a>operator开发</h3><blockquote>
+<p><strong>CRD和CR</strong></p>
+</blockquote>
+<p>当k8s中内置的资源类型无法满足我的业务需求，那就需要定制自己的新的资源类型，这时需要用到CRD机制。</p>
+<p>CRD全称<code>Custom Resource Define</code>，是k8s中用来自定义新的资源类型的机制，新建CRD，即声明一个关于CRD的yaml清单，相当于在etcd中定义了一张表，就可以得到一个新的resource type。</p>
+<p>CR，全称<code>Custom Resource</code>，通过声明式yaml文件得到一种自定义的资源，kind指定为上面创建的CRD，相当于在表中插入了记录。</p>
+<blockquote>
+<p><strong>自定义控制器</strong></p>
+</blockquote>
+<p>虽然我们可以自定义资源类型，并创建这种自定义资源，但是每种资源类型背后必须有控制器来负责维护其状态，这就要求我们为这种资源类型开发专门的控制器逻辑，也称为自定义控制器。</p>
+<p>自定义控制器主要有以下几种开发框架：</p>
+<ul>
+<li><p>Client-Go </p>
+<p>最底层的库，提供了对Kubernetes API的原生支持，适合需要高度自定义控制器的开发者。</p>
+</li>
+<li><p>Controller-Runtime</p>
+<p>在 Client-Go 之上提供了更高层次的抽象，简化了控制器的开发过程，适合大多数控制器开发需求。</p>
+</li>
+<li><p>Kubebuilder</p>
+<p>最高层次的框架，基于 Controller-Runtime，提供了完整的控制器开发工具链，非常适合快速开发和部署。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>Operator</strong></p>
+</blockquote>
+<p>Operator是一种开发模型，可以理解为 <code>Operator</code> &#x3D; <code>自定义资源(CRD)</code>  +  <code>自定义的控制逻辑(controller)</code>。</p>
+<p>Operator框架指的是实现开发模型的具体框架，基于该框架可以非常方便的自定义资源和控制逻辑。不用去记忆CRD每个字段的含义，直接按照框架规定的标准去定义一些字段即可，框架可以自动生成CRD.yaml文件。对于控制逻辑，只需要去固定函数中填充代码即可。</p>
+<p>Operator的开发步骤：</p>
+<ol>
+<li><p>按照框架依赖的环境，下载好框架（就是一个代码文件夹）。</p>
+</li>
+<li><p>去指定文件中按照规定填写好新资源类型应该有的字段，框架会帮你自动生成CRD.yaml。</p>
+</li>
+<li><p>去指定的文件中填写你的控制器业务逻辑。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 伪代码如下：</span></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        desired := getDesiredState()</span><br><span class="line">        current := getCurrentState()</span><br><span class="line">        makeChanges(desired, current)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>裸跑控制器不方便管理，通常会容器化之后以pod+deployment的形式跑在k8s中。</p>
+</li>
+<li><p>基于CRD来创建CR，创建成功之后，控制器就会从apiserver中watch到该数据或者变更，完成调谐，确保其始终处于预期状态。</p>
+</li>
+</ol>
+<h3 id="核心组件的定制开发"><a href="#核心组件的定制开发" class="headerlink" title="核心组件的定制开发"></a>核心组件的定制开发</h3><p>对k8s中的核心组件，比如apiserver，etcd等，进行定制开发。一般是top大厂才有能力组建k8s核心组件的定制化开发团队。		</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2025-01-09</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8S/'>
+                            K8S
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="什么是Iac" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            什么是Iac
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="post-toc-text">基本概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IaC-%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="post-toc-text">IaC 的好处</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IaC-%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="post-toc-text">IaC 的两种实现方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%91%E6%9C%9F%E6%B5%81%E8%A1%8C%E7%9A%84%E9%83%BD%E6%98%AF%E5%A3%B0%E6%98%8E%E5%BC%8F%E7%9A%84-IaC"><span class="post-toc-text">为什么近期流行的都是声明式的 IaC?</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IaC-%E5%B7%A5%E5%85%B7"><span class="post-toc-text">IaC 工具</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-IaC-%E5%AF%B9-DevOps-%E5%BE%88%E9%87%8D%E8%A6%81%EF%BC%9F"><span class="post-toc-text">为什么 IaC 对 DevOps 很重要？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Terraform-%E6%98%AF-IaC-%E9%A2%86%E5%9F%9F%E4%BA%8B%E5%AE%9E%E4%B8%8A%E7%9A%84%E9%A2%86%E5%AF%BC%E8%80%85"><span class="post-toc-text">Terraform 是 IaC 领域事实上的领导者</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%80%BB%E7%BB%93"><span class="post-toc-text">总结</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>基础架构即代码 (Infrastructure as Code, IaC) 是指通过<strong>代码</strong>而不是手动流程&#x2F;控制台点击来管理和配置基础架构。</p>
+<p>这里有 2 个关键词：</p>
+<ul>
+<li>Infrastructure</li>
+<li>Code</li>
+</ul>
+<p>Infrastructure 是被管理对象，在这里，主要是指公有云（还有私有云、混合云等）.<br>Code 是管理方式，即像管理代码一样管理公有云资源。那么管理代码最重要的部分： 版本管理是绕不开的。</p>
+<p>使用 IaC，创建的配置文件包含了基础设施的 spec，这使得编辑和分发配置变得更加容易。IaC 还确保每次都提供相同的环境、相同的资源、相同的配置。通过编辑和记录配置的 spec，IaC 有助于避免未记录的、临时的配置更改（当然，前提是所有人都使用 IaC，而不是还会有人在控制台点击修改导致配置漂移）。</p>
+<p><strong>版本控制</strong>是 IaC 的重要组成部分，配置文件应该像任何其他软件源代码文件一样受到源代码控制。<br>另外，随着公有云的发展，公有云的标准化的 API 也使得将基础架构组件模块化 (Terraform 里叫做 modules) 成为可能，使用者可以像搭积木一样组合这些基础的组件。比如：在 AWS 上建个静态博客，就可以组合以下组件：</p>
+<ul>
+<li>Route53</li>
+<li>CloudFront</li>
+<li>S3</li>
+</ul>
+<h3 id="IaC-的好处"><a href="#IaC-的好处" class="headerlink" title="IaC 的好处"></a>IaC 的好处</h3><p>IaC（特别是声明式的）是随着公有云而发展起来的。</p>
+<p>置备基础设施历来是一个耗时且成本高昂的手动过程。现在基础设施管理已经从数据中心的物理硬件、虚拟化转移到容器和云计算。</p>
+<p>借助云计算，基础设施组件的数量不断增加，每天都有更多的应用程序发布到生产环境中，并且基础设施需要能够频繁地启动、扩展和关闭。如果没有适当的 IaC 实践，管理当今基础设施的规模会变得越来越困难。</p>
+<p>IaC 可以帮助您的组织管理 IT 基础设施需求，同时提高一致性并减少错误和手动配置。这就是 IaC 的必要性。</p>
+<ul>
+<li>降低成本</li>
+<li>提高部署速度</li>
+<li>减少（手动配置）错误</li>
+<li>提高基础设施一致性</li>
+<li>消除配置漂移</li>
+</ul>
+<h3 id="IaC-的两种实现方式"><a href="#IaC-的两种实现方式" class="headerlink" title="IaC 的两种实现方式"></a>IaC 的两种实现方式</h3><p>有两种实现 IaC 的方法：<strong>声明式</strong>和<strong>命令式</strong>。</p>
+<p>声明式方法定义了系统的理想状态，包括需要的资源以及它们应该具有的任何属性，IaC 工具将自动配置它。</p>
+<p>Terraform 就是基于 IaC 声明式的理念。在 Terraform 流行之前，另一个将声明式发扬光大的当然是：Kubernetes!</p>
+<p>声明式方法还保留系统对象当前状态的列表，这使得拆除基础架构更易于管理。</p>
+<p>相反，命令式方法定义了实现所需配置所需的特定命令，然后需要以正确的顺序执行这些命令。</p>
+<p>典型的就是 Ansible.</p>
+<p>IaC 工具通常能够在两种方法中运行，但往往更喜欢一种方法而不是另一种方法。</p>
+<p>如 Terraform, 它更喜欢声明式的方法，但是它的 Provider、Modules、函数中仍然残留不少命令式的方法， 如：<code>local-exec</code></p>
+<h3 id="为什么近期流行的都是声明式的-IaC"><a href="#为什么近期流行的都是声明式的-IaC" class="headerlink" title="为什么近期流行的都是声明式的 IaC?"></a>为什么近期流行的都是声明式的 IaC?</h3><p>我觉得主要有以下原因：</p>
+<ol>
+<li>Kubernetes 的标杆作用</li>
+<li>公有云云资源以及 API 的标准化、规模化</li>
+<li>具体到云主机，cloud-init、packer（制作云镜像越来越方便）、不可变基础设施也是原因之一。</li>
+</ol>
+<h3 id="IaC-工具"><a href="#IaC-工具" class="headerlink" title="IaC 工具"></a>IaC 工具</h3><p>IaC 工具有哪些？目前主流的有：</p>
+<p>声明式：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.terraform.io/">Terraform</a></li>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/cn/cloudformation/">AWS CloudFormation(🐾: 绑定 AWS)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.pulumi.com/product/">Pulumi</a></li>
+<li><a target="_blank" rel="noopener" href="https://ewhisper.cn/posts/17747/">CrossPlane</a></li>
+</ul>
+<p>命令式：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.puppet.com/">Puppet</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.chef.io/">Chef</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ansible.com/">Ansible</a></li>
+<li><a target="_blank" rel="noopener" href="https://saltproject.io/">SaltStack</a></li>
+</ul>
+<h2 id="为什么-IaC-对-DevOps-很重要？"><a href="#为什么-IaC-对-DevOps-很重要？" class="headerlink" title="为什么 IaC 对 DevOps 很重要？"></a>为什么 IaC 对 DevOps 很重要？</h2><p>IaC 是实施 DevOps 实践和 CI&#x2F;CD 的重要组成部分。DevOps 和 CI&#x2F;CD 主要是应用和组件层面的， 而 IaC 消除了开发人员的大部分配置工作，开发人员可以执行脚本让他们的基础设施准备就绪。</p>
+<p>这样一来，应用程序部署就不会因等待基础架构而停止，系统管理员也不需要管理耗时的手动流程。那么整个开发部署迭代的流程就会越来越快， 越来越快。..</p>
+<p>IaC 帮助您协调开发和运维，因为两个团队可以在代码仓库中看到基础架构全貌。</p>
+<p>而且每个环境都可以使用相同的部署过程。环境一致性也有保障，开发上测试通过的，生产上出问题的概率也小。</p>
+<p>DevOps 最佳实践也适用于 IaC 中的基础架构。基础设施可以通过与应用程序在软件开发期间相同的 CI&#x2F;CD 管道，对基础设施代码应用相同的测试和版本控制。将 IaC 的 modules 代码也引入 DevOps 理念，快速测试，快速迭代。</p>
+<h2 id="Terraform-是-IaC-领域事实上的领导者"><a href="#Terraform-是-IaC-领域事实上的领导者" class="headerlink" title="Terraform 是 IaC 领域事实上的领导者"></a>Terraform 是 IaC 领域事实上的领导者</h2><p>毋庸置疑的，Terraform 是 IaC 领域事实上的领导者。</p>
+<p>所有主流公有云，私有云，虚拟化，K8s, 容器都有在维护对应的 Terraform Provider 和 Modules.</p>
+<p><a href="/../pic/0808efcb35ed46964542865e764001c1-20230411113435.png" title="Terraform Providers" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/0808efcb35ed46964542865e764001c1-20230411113435.png" alt="Terraform Providers"></a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>IaC 是什么？基础架构即代码 (Infrastructure as Code, IaC) 是指通过<strong>代码</strong>而不是手动流程&#x2F;控制台点击来管理和配置基础架构。</p>
+<p>IaC 有声明式和命令式两种实现方式，现在更主流的是声明式的。</p>
+<p>为什么需要 IaC? 随着云计算带来的大量基础设施，IaC 已成必备工具。</p>
+<p>IaC 也可以和 DevOps 流程&#x2F;理念相契合。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-29</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E6%8B%93%E5%B1%95%E8%A7%86%E9%87%8E/'>
+                            拓展视野
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

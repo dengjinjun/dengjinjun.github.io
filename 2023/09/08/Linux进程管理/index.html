@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Linux进程管理" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Linux进程管理
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="post-toc-text">进程管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ps%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B"><span class="post-toc-text">ps查看进程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#top%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B"><span class="post-toc-text">top查看进程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AE%A1%E7%90%86%E8%BF%9B%E7%A8%8B"><span class="post-toc-text">管理进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AE%BE%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7%E5%92%8C%E5%8F%91%E9%80%81%E4%BF%A1%E5%8F%B7"><span class="post-toc-text">设置优先级和发送信号</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B3%E4%BA%8EHUP%E4%BF%A1%E5%8F%B7"><span class="post-toc-text">关于HUP信号</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%E8%BF%9B%E7%A8%8B"><span class="post-toc-text">管理后台进程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B"><span class="post-toc-text">僵尸进程与孤儿进程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="post-toc-text">服务管理</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h1><h2 id="ps查看进程"><a href="#ps查看进程" class="headerlink" title="ps查看进程"></a>ps查看进程</h2><ul>
+<li><p>查看系统所有进程：<code>ps</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux			# 观察固定时刻下的进程状态，process status</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://qny.oss.dengjinjun.site/image-20230908012926895.png" title="image-20230908012926895" class="gallery-item" style="box-shadow: none;"> <img src="https://qny.oss.dengjinjun.site/image-20230908012926895.png" alt="image-20230908012926895"></a></p>
+<p>各字段介绍</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">USER:    运行进程的用户</span><br><span class="line"> </span><br><span class="line">PID：    进程ID</span><br><span class="line"> </span><br><span class="line">%CPU:    CPU占用率</span><br><span class="line"> </span><br><span class="line">%MEM:    内存占用率</span><br><span class="line"> </span><br><span class="line">VSZ：    占用虚拟内存，单位：kb（killobytes）</span><br><span class="line">         VSZ是指已分配的线性空间大小，这个大小通常并不等于程序实际用到的内存大小，产生这个的可能性很多 </span><br><span class="line">         比如内存映射，共享的动态库，或者向系统申请了更多的堆，都会扩展线性空间大小。</span><br><span class="line"> </span><br><span class="line">RSS:    占用实际内存，单位：kb（killobytes）</span><br><span class="line">        RSZ是Resident Set Size，常驻内存大小，即进程实际占用的物理内存大小</span><br><span class="line"> </span><br><span class="line">TTY：    进程运行的终端</span><br><span class="line"> </span><br><span class="line">STAT：   进程状态     man ps (/STATE)            </span><br><span class="line">      R     运行</span><br><span class="line">      S     可中断睡眠 Sleep，即在睡眠的过程中可以接收信号唤醒=》执行的IO操作可以得到硬件设备的响应</span><br><span class="line">      D     不可中断睡眠，即在睡眠的过程中不可以接收信号唤醒=》执行的IO操作得不到硬件设备的响应</span><br><span class="line">      T     停止的进程 </span><br><span class="line">      Z     僵尸进程</span><br><span class="line">      X     死掉的进程(几乎看不见，因为死了就立即回收了)</span><br><span class="line"> </span><br><span class="line">      &lt;  标注了&lt;小于号代表优先级较高的进程</span><br><span class="line">      N     N代表优先级较低的进程</span><br><span class="line"> </span><br><span class="line">      s     包含子进程</span><br><span class="line"> </span><br><span class="line">      +     +表示是前台的进程组</span><br><span class="line"> </span><br><span class="line">      l     小写字母l，代表以线程的方式运行，即多线程</span><br><span class="line">      |     管道符号代表多进程</span><br><span class="line"> </span><br><span class="line">START:    进程的启动时间</span><br><span class="line">TIME：    进程占用CPU的总时间</span><br><span class="line"> </span><br><span class="line">COMMAND： 进程文件，进程名</span><br><span class="line">          带[]号的代表内核态进程</span><br><span class="line">          不带[]号的代表用户态进程</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看进程树</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pstree [进程id]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看父进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -elf			# 列出进程相关信息，以及pid和ppid(parent pid)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="top查看进程"><a href="#top查看进程" class="headerlink" title="top查看进程"></a>top查看进程</h2><ul>
+<li><p>top命令基础用法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">top											# 动态查看进程信息</span><br><span class="line">top -d 1									# 每一秒钟刷新一次</span><br><span class="line">top -d 1 -p [pid]							# 通过pid指定查看进程</span><br><span class="line">top -d 1 -p `pgrep nginx | head -1`			# 通过管道符筛选查看指定进程</span><br><span class="line">top -d 1 -p `pgrep sshd | head -1`,33		# 筛选条件叠加，查看sshd以及pid为33的进程</span><br><span class="line">top -d 1 -u root							# 查看指定用户的进程</span><br><span class="line">top -b -n 2 &gt; top.txt						# 将两次top的信息写入文件中</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://qny.oss.dengjinjun.site/image-20230908102348422.png" title="image-20230908102348422" class="gallery-item" style="box-shadow: none;"> <img src="https://qny.oss.dengjinjun.site/image-20230908102348422.png" alt="image-20230908102348422"></a></p>
+<ul>
+<li><p>展示信息解释：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">第一行：系统整体统计信息，使用 `uptime` 命令也可以查看</span><br><span class="line">up左边的代表当前的时间，up右边代表运行了多长时间</span><br><span class="line">user: 当前登录的用户数量</span><br><span class="line">load average: 0.86, 0.56, 0.78    CPU 1分钟，5分钟，15分钟平均负载</span><br><span class="line"></span><br><span class="line">假设现在在4，2，1核的CPU上，平均负载为2</span><br><span class="line">------------------------------------------------</span><br><span class="line">核心数      平均负载        含义</span><br><span class="line">4             2         有一半(50%)的CPU是空闲状态</span><br><span class="line">2             2         CPU刚好完全被占用</span><br><span class="line">1             2         至少一半的进程是抢不到CPU</span><br><span class="line">-------------------------------------------------</span><br><span class="line"> </span><br><span class="line">三个值相当于三个样本，我们应该统筹地看</span><br><span class="line">1、如果1分钟，5分钟，15分钟的负载数值相差不大，代表系统的负载很&#x27;稳定&#x27;</span><br><span class="line">2、如果1分钟的值，远小于15分钟的值，那么证明系统的平均负载逐渐降低，即我们的系统刚刚经历过大风浪，但目前已逐渐趋于平均。至于15分钟区间内，系统负载上升的原因，还需要我们认真查明</span><br><span class="line">3、如果15分钟的值，远小于1分钟的值，那么证明系统的平均负载逐渐升高，有可能是临时的也有可能持续上升，需要观察</span><br><span class="line">4、一旦1分钟的平均负载接近或超过了CPU的个数，就意味着，系统正在发生过载的问题，这时候就得分析问题了， 并且要想办法优化。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">第二行：任务情况</span><br><span class="line">进程总个数、正在运行的进程个数、睡眠中的进程个数、停止的进程个数、僵尸进程个数</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">第三行：CPU占用</span><br><span class="line">	us User，用户态进程占用cpu时间的百分比，不包括低优先级进程的用户态时间（nice值1-19）</span><br><span class="line">	sys System，内核态进程占用cpu时间的百分比</span><br><span class="line">	ni Nice，nice值1-19的进程用户态占cpu时间的百分比</span><br><span class="line">	id Idle，系统空闲cpu的百分比</span><br><span class="line">    wa Iowait，系统等待I/O的cpu时间占比，该时间不计入进程的CPU时间</span><br><span class="line">    hi Hardware irq，处理硬件中断所占用CPU的时间，该时间同样不计入进程的CPU时间</span><br><span class="line">    si Softtirq，处理软件中断的时间，该时间不计入进程的CPU时间</span><br><span class="line">    st Steal，表示同一宿主机上的其他虚拟机抢走的CPU时间</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">第四行：物理内存的使用情况</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">第五行：虚拟内存的使用情况</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>top界面命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">M   按内存的使用排序</span><br><span class="line">P   按CPU使用排序</span><br><span class="line">N   以PID的大小排序</span><br><span class="line">R   对排序进行反转</span><br><span class="line">f   自定义显示字段</span><br><span class="line">1   显示所有CPU的负载</span><br><span class="line">s   改变画面更新频率</span><br><span class="line">&lt;    向前</span><br><span class="line">&gt;   向后</span><br><span class="line">z   彩色</span><br><span class="line"></span><br><span class="line">h|?帮助</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">r 调整进程的优先级（Nice Level） </span><br><span class="line">优先级的数值为-20~19，其中数值越小优先级越高，数值越大优先级越低，-20的优先级最高，19的优先级最低。</span><br><span class="line">需要注意的是普通用户只能在0～19之间调整应用程序的优先权值，只有超级用户有权调整更高的优先权值（从-20～19）。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">k 给进程发送信号 1,2(^C),9,15,18,19(^Z)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="管理进程"><a href="#管理进程" class="headerlink" title="管理进程"></a>管理进程</h2><h3 id="设置优先级和发送信号"><a href="#设置优先级和发送信号" class="headerlink" title="设置优先级和发送信号"></a>设置优先级和发送信号</h3><ul>
+<li><p>设置优先级：<code>nice</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">命令启动时设置该命令的优先级</span><br><span class="line">nice -n [优先级] [命令]			# 优先级是一个数字，在-20到20之间，数字越大优先级越低。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">命令启动后设置新的优先级</span><br><span class="line">renice [优先级] [进程id]			# 进程id可以通过top命令查看</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给进程发送信号：<code>kill</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill [-信号] [进程id]			# 给进程发送信号</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -l							# 列出所有可以发送给进程的信号</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://qny.oss.dengjinjun.site/image-20230910023038845.png" title="image-20230910023038845" class="gallery-item" style="box-shadow: none;"> <img src="https://qny.oss.dengjinjun.site/image-20230910023038845.png" alt="image-20230910023038845"></a></p>
+<p>重点关注：</p>
+<p>1	HUP:  1、挂起信号 2、往往可以让进程重新加载配置</p>
+<p>9	KILL：强制杀死进程。效果等同于<code>pkill -9 [进程名字]</code>	</p>
+<p>19	STOP：暂停进程</p>
+<p>18	CONT：恢复进程</p>
+</li>
+</ul>
+<h3 id="关于HUP信号"><a href="#关于HUP信号" class="headerlink" title="关于HUP信号"></a>关于HUP信号</h3><p>用户登录后，会在该用户的bash进程上运行命令，该用户的所有命令的父进程都是该用户的bash进程，当该用户登出时，该用户的bash进程终止，bash进程会给它的所有子进程发送hup信号，所有子进程都会终止。</p>
+<p>让进程脱离当前会话窗口而独立运行的方法：</p>
+<blockquote>
+<p><strong>单条命令脱离会话窗口运行：&amp;、nohup、setsid、子shell</strong></p>
+</blockquote>
+<ul>
+<li><p>方案1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[命令] &amp;						# 在命令的后面加上 &amp; 符号，让进程在后台运行</span><br><span class="line">exit						# 退出当前用户，该进程的父进程变为 systemd ，而保持在后台运行。</span><br><span class="line">logout						# 等同于exit命令，两者运行一个即可。</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>方案2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup [命令] &amp;				</span><br><span class="line"># 在命令运行时，前面加上nohup指令，即忽略bash进程发出的hup信号。直接关闭会话窗口，该进程的父进程变为 systemd，该进程也能在后台运行。</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>方案3</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setsid [命令] &amp;				# 直接将该进程的父进程设置为 systemd ，在后台运行。</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>方案</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">([命令] &amp;)					# 在 `命令 &amp;` 的外围加上一个括号，表示在子shell中启动进程</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p><strong>多条命令脱离会话窗口运行：screen</strong></p>
+</blockquote>
+<p>screen让进程脱离会话窗口运行的原理是：</p>
+<p>screen进程会创建一个窗口：SCREEN窗口，让所有进程在SCREEN窗口里来运行，即所有进程的父进程是SCREEN窗口，SCREEN窗口帮助我们管理进程。screen进程基于用户的bash进程在后台运行，当关闭会话窗口时，screen进程被杀掉，而SCREEN窗口的父进程自动变为 systemd，SCREEN窗口仍然在运行，仍然在管理着它的所有子进程在后台运行。从而实现多条命令脱离会话窗口运行。</p>
+<p><a target="_blank" rel="noopener" href="https://qny.oss.dengjinjun.site/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20230910200314.png" class="gallery-item" style="box-shadow: none;"> <img src="https://qny.oss.dengjinjun.site/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20230910200314.png"></a></p>
+<ul>
+<li><p>安装软件包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install screen -y</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">screen [命令]</span><br><span class="line">screen -S [自定义窗口名]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>恢复进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen -ls				# 查看screen管理的所有子进程</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">screen -r [pid]			# 恢复子进程到前台运行</span><br><span class="line">screen -r [窗口名]			# 恢复SCREEN窗口到前台运行</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="管理后台进程"><a href="#管理后台进程" class="headerlink" title="管理后台进程"></a>管理后台进程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jobs					# 显示当前系统的任务列表</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fg %[任务序号]			# fg 命令用于将作业（被挂起或者在后台运行的作业）放到前台运行</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bg %[任务序号]			# bg 命令用于将作业放到后台运行，使前台可以执行其他任务</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill %[任务序号]		# 结束任务，强制结束可以在kill之后加 -9 </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="僵尸进程与孤儿进程"><a href="#僵尸进程与孤儿进程" class="headerlink" title="僵尸进程与孤儿进程"></a>僵尸进程与孤儿进程</h3><p>僵尸进程：一个进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中。这种进程称之为僵尸进程。</p>
+<p>孤儿进程：一个父进程退出，而它的一个或多个子进程还在运行，那么那些子进程将成为孤儿进程。孤儿进程将被 systemd 进程(进程号为1)所收养，并由systemd 进程对它们完成状态收集工作。</p>
+<p>僵尸进程因为资源不会完全释放，因此有可能会造成占用大量pid，导致无法开启新的进程，但是孤儿进程不会。</p>
+<p>如果出现僵尸进程，首先尝试让父进程去回收它的僵尸进程：<code>kill -CHLD [父进程pid]</code>，让父进程调用wait或waitpid来清理僵尸儿子，如果无效，再考虑杀死父进程，让僵尸进程变成孤儿进程，由systemd进程来回收。</p>
+<h2 id="服务管理"><a href="#服务管理" class="headerlink" title="服务管理"></a>服务管理</h2><p><strong>systemctl命令</strong> 是系统服务管理器指令，它实际上将 service 和 chkconfig 这两个命令组合到一起。</p>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>旧指令</th>
+<th>新指令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开启某服务自启</td>
+<td>chkconfig –level 3 httpd on</td>
+<td>systemctl enable httpd.service</td>
+</tr>
+<tr>
+<td>关闭某服务自启</td>
+<td>chkconfig –level 3 httpd off</td>
+<td>systemctl disable httpd.service</td>
+</tr>
+<tr>
+<td>检查服务状态</td>
+<td>service httpd status</td>
+<td>systemctl status httpd.service （服务详细信息） systemctl is-active httpd.service （仅显示是否 Active)</td>
+</tr>
+<tr>
+<td>显示所有已启动的服务</td>
+<td>chkconfig –list</td>
+<td>systemctl list-units –type&#x3D;service</td>
+</tr>
+<tr>
+<td>启动服务</td>
+<td>service httpd start</td>
+<td>systemctl start httpd.service</td>
+</tr>
+<tr>
+<td>停止服务</td>
+<td>service httpd stop</td>
+<td>systemctl stop httpd.service</td>
+</tr>
+<tr>
+<td>重启服务</td>
+<td>service httpd restart</td>
+<td>systemctl restart httpd.service</td>
+</tr>
+<tr>
+<td>重载服务</td>
+<td>service httpd reload</td>
+<td>systemctl reload httpd.service</td>
+</tr>
+</tbody></table>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-09-08</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

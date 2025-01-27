@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="docker环境的fix处理流程" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            docker环境的fix处理流程
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>如图所示，一个fix任务，客户环境是张家港瓦克，任务是更新积木后端。</p>
+<p><a href="/../pic/image-20240508222454086.png" title="image-20240508222454086" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240508222454086.png" alt="image-20240508222454086"></a></p>
+<blockquote>
+<p><strong>找到目标服务器</strong></p>
+</blockquote>
+<p>处理fix任务的第一步是先找到客户的服务器，客户是张家港瓦克，于是可以在远程工具中先搜索一下张家港瓦克，可以发现有如下服务器：<a href="/../pic/image-20240508222813213.png" title="image-20240508222813213" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240508222813213.png" alt="image-20240508222813213"></a></p>
+<p>需要进一步确认这些服务器是干嘛的，可以在飞书中搜索一下有没有相关客户文档，</p>
+<p><a href="/../pic/image-20240508222931336.png" title="image-20240508222931336" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240508222931336.png" alt="image-20240508222931336"></a></p>
+<p>可以很明显的找到服务器信息，然后确认一下自己要操作的机器，应该就是IP为101.132.157.163的web机器。</p>
+<blockquote>
+<p><strong>准备镜像</strong></p>
+</blockquote>
+<p>在fix任务中可以看到，要更新的是积木的后端包，所以需要先找到更新包。</p>
+<p>在<code>99lowcode</code>服务器中可以找到除了工智道以外的所有服务的软件包版本</p>
+<p><a href="/../pic/ba73842d4bca0d611edaf7c53e3c983.jpg" title="ba73842d4bca0d611edaf7c53e3c983" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/ba73842d4bca0d611edaf7c53e3c983.jpg" alt="ba73842d4bca0d611edaf7c53e3c983"></a></p>
+<p>把软件包（zip压缩包）复制到本地，然后上传到artifactory站点，需要注意，压缩包不能包含两层目录，解压下来之后必须就是资源文件。<a href="/../pic/image-20240508224509592.png" title="image-20240508224509592" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240508224509592.png" alt="image-20240508224509592"></a></p>
+<p>Artifactory的作用就是一个中转站，把压缩包上传到Artifactory的目的是为了在Jenkins中能够拉取这个压缩包。我们来到Jenkins网站，搜索<code>镜像制作</code>，可以看到下面的一些构建流程，是一些组件的镜像制作流程，以patch或者path（前同事打错单词了）开头的是修补流程</p>
+<p><a href="/../pic/image-20240508224857684.png" title="image-20240508224857684" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240508224857684.png" alt="image-20240508224857684"></a></p>
+<p>选择正确的流程，进入带参数构建，只需要更改包的下载地址为Artifactory中包的地址，然后版本号更改一下，开始构建就好了。</p>
+<p>构建的流程主要是把压缩包下载下来，然后解压，然后使用dockerfile构建镜像，上传到CODING制品仓库。</p>
+<p><a href="/../pic/image-20240508225427963.png" title="image-20240508225427963" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240508225427963.png" alt="image-20240508225427963"></a></p>
+<p>在CODING制品仓库中查看，确认已经上传成功之后，登录目标服务器，更改docker-compose.yml文件，找到需要更新的服务（本次是lowcode），修改它的镜像版本号，保存之后，<code>docker-compose up -d</code>平滑升级即可。升级之后<code>docker ps</code>查看一下运行状态。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-05-08</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

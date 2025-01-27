@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Tomcat维护" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Tomcat维护
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tomcat%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">Tomcat的工作模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tomcat%E7%9A%84I-O%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">Tomcat的I&#x2F;O模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BIO%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">BIO模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NIO%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">NIO模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NIO2%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">NIO2模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#APR%E6%A8%A1%E5%9E%8B"><span class="post-toc-text">APR模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#I-O%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%80%89%E6%8B%A9"><span class="post-toc-text">I&#x2F;O模型的选择</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tomcat%E5%A4%9A%E5%AE%9E%E4%BE%8B"><span class="post-toc-text">Tomcat多实例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%BF%90%E8%A1%8C%E4%BF%A1%E6%81%AF"><span class="post-toc-text">查看运行信息</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="Tomcat的工作模式"><a href="#Tomcat的工作模式" class="headerlink" title="Tomcat的工作模式"></a>Tomcat的工作模式</h2><p>Tomcat有三种工作模式：</p>
+<blockquote>
+<p><strong>Tomcat作为一个独立的web服务器</strong>。</p>
+</blockquote>
+<p>在这种模式下，Tomcat在一个Java虚拟机进程中运行，此时客户端直接和tomcat通信。Tomcat可看作是能运行Servlet的独立Web服务器。Servlet容器组件作为Web服务器中的一部分而存在。<strong>这是Tomcat的默认工作模式。</strong></p>
+<p><a href="/../pic/image-20240302190934653.png" title="image-20240302190934653" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240302190934653.png" alt="image-20240302190934653"></a></p>
+<blockquote>
+<p><strong>Tomcat作为应用程序服务器，与其他web服务器集成，servlet容器运行在web服务器进程内</strong>。</p>
+</blockquote>
+<p>在这种模式下，Tomcat分为Web服务器插件和Servlet容器组件两部分。如下图所示，Web服务器插件在其他Web服务器进程的<strong>内部地址空间</strong>启动一个JVM进程，Servlet容器组件在此JVM进程中运行。如有客户端发出调用Servlet的请求，Web服务器插件获得对此请求的控制并将它转发（使用JNI通信机制）给Servlet容器组件。Tomcat不直接和客户端通信，仅仅为其他Web服务器处理客户端访问Servlet的请求。</p>
+<p><strong>进程内的Servlet容器对于单进程、多线程的Web服务器非常合适，可以提供较高的运行速度，但缺乏伸缩性。</strong></p>
+<p><a href="/../pic/image-20240302190943133.png" title="image-20240302190943133" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240302190943133.png" alt="image-20240302190943133"></a></p>
+<blockquote>
+<p><strong>Tomcat作为应用程序服务器，与其他web服务器集成，servlet容器运行在web服务器进程外</strong>。</p>
+</blockquote>
+<p>在这种模式下，Tomcat同样分为Web服务器插件和Servlet容器组件两部分。如下图所示，Web服务器插件在其他Web服务器的<strong>外部地址空间</strong>启动一个JVM进程，Servlet容器组件在此JVM进程中运行。如有客户端发出调用Servlet的请求，Web服务器插件获得对此请求的控制并将它转发（使用IPC通信机制）给Servlet容器组件。Tomcat不直接和客户端通信，仅仅为与它集成的其他Web服务器处理客户端访问Servlet的请求。</p>
+<p><strong>进程外Servlet容器对客户请求的响应速度不如进程内Servlet容器，但进程外容器具有更好的伸缩性和稳定性。</strong></p>
+<p><a href="/../pic/image-20240302190947908.png" title="image-20240302190947908" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240302190947908.png" alt="image-20240302190947908"></a></p>
+<h2 id="Tomcat的I-O模型"><a href="#Tomcat的I-O模型" class="headerlink" title="Tomcat的I&#x2F;O模型"></a>Tomcat的I&#x2F;O模型</h2><p>通过查看Tomcat的启动日志，或者登录Tomcat网页的Server Status页可以查看使用的I&#x2F;O模型。</p>
+<p>Tomcat的I&#x2F;O模型主要有以下几种：BIO、NIO、NIO2、APR</p>
+<h3 id="BIO模型"><a href="#BIO模型" class="headerlink" title="BIO模型"></a>BIO模型</h3><p>BIO模型即阻塞式I&#x2F;O操作，表示Tomcat使用的是 Java 的 IO类库，是传统的Java I&#x2F;O操作(即java.io包及其子包)。是基于 Java 的HTTP&#x2F;1.1连接器。</p>
+<p><strong>BIO的特点是一个线程处理一个请求，并发量高时，线程数较多，浪费资源。</strong>Tomcat7以下版本在默认情况下是以bio模式运行的。一般而言，BIO模型是几种运行模式中性能最低的一种。</p>
+<blockquote>
+<p><strong>在server.xml中配置BIO模型</strong></p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">&quot;8080&quot;</span> <span class="attr">protocol</span>=<span class="string">&quot;HTTP/1.1&quot;</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">connectionTimeout</span>=<span class="string">&quot;20000&quot;</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">redirectPort</span>=<span class="string">&quot;8443&quot;</span>  </span></span><br><span class="line"><span class="tag">  <span class="attr">URIEncoding</span>=<span class="string">&quot;UTF-8&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="NIO模型"><a href="#NIO模型" class="headerlink" title="NIO模型"></a>NIO模型</h3><p>NIO模型即同步非阻塞I&#x2F;O操作，表示Tomcat使用的是 Java 的NIO类库，是Java SE 1.4及后续版本提供的一种新的I&#x2F;O操作方式(即java.nio包及其子包)。</p>
+<p>Java nio是一个基于缓冲区、并能提供非阻塞I&#x2F;O操作的Java API，因此nio也被看成是non-blocking I&#x2F;O的缩写。<strong>NIO模型利用 Java 的异步请求 IO 处理，可以通过少量的线程处理大量的请求。</strong>它拥有比传统I&#x2F;O操作(bio)更好的并发运行性能。</p>
+<blockquote>
+<p><strong>在server.xml中配置NIO模型</strong></p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">&quot;8080&quot;</span> <span class="attr">protocol</span>=<span class="string">&quot;org.apache.coyote.http11.Http11NioProtocol&quot;</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">connectionTimeout</span>=<span class="string">&quot;20000&quot;</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">redirectPort</span>=<span class="string">&quot;8443&quot;</span>  </span></span><br><span class="line"><span class="tag">  <span class="attr">URIEncoding</span>=<span class="string">&quot;UTF-8&quot;</span>/&gt;</span> </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="NIO2模型"><a href="#NIO2模型" class="headerlink" title="NIO2模型"></a>NIO2模型</h3><p>NIO2模型即异步非阻塞I&#x2F;O操作，是在Java 7中引入的，构建在NIO的基础之上，引入了异步通道来实现异步IO操作，因此也叫AIO（Asynchronous I&#x2F;O），提供了包括对AsynchronousChannelGroup的支持、异步文件I&#x2F;O、自定义文件系统提供程序、套接字选项和更好的性能等。</p>
+<p>因此，NIO2相对于NIO来说，<strong>提供了更强大和灵活的异步I&#x2F;O功能，能够更好地满足高性能和并发需求</strong>。</p>
+<blockquote>
+<p><strong>在server.xml中配置NIO2模型</strong></p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">&quot;8080&quot;</span> <span class="attr">protocol</span>=<span class="string">&quot;org.apache.coyote.http11.Http11Nio2Protocol&quot;</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">connectionTimeout</span>=<span class="string">&quot;20000&quot;</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">redirectPort</span>=<span class="string">&quot;8443&quot;</span>  </span></span><br><span class="line"><span class="tag">  <span class="attr">URIEncoding</span>=<span class="string">&quot;UTF-8&quot;</span>/&gt;</span> </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="APR模型"><a href="#APR模型" class="headerlink" title="APR模型"></a>APR模型</h3><p>APR模型即 “Apache可移植运行时(Apache Portable Runtime)” ，是Apache HTTP服务器的支持库。</p>
+<p>APR是使用原生C语言编写的非堵塞I&#x2F;O，利用了操作系统的网络连接功能，速度很快。最初，APR是作为Apache HTTP服务器的一部分而存在的，后来成为一个单独的项目。 <strong>Tomcat将以 JNI 的形式调用Apache HTTP服务器的核心动态链接库来处理文件读取或网络传输操作，从操作系统级别来解决异步的IO问题，从而大大地提高Tomcat对静态文件的处理性能。</strong>Tomcat apr是在Tomcat上运行高并发应用的首选模式。</p>
+<blockquote>
+<p><strong>在server.xml中配置APR模型</strong></p>
+</blockquote>
+<p>APR模型的配置比较复杂，本次仅介绍yum安装，编译安装的方式可自行谷歌。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先安装三个软件包</span></span><br><span class="line">yum install apr apr-util tomcat-native</span><br></pre></td></tr></table></figure>
+
+<p>修改<code>server.xml</code>文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">&quot;8080&quot;</span> <span class="attr">protocol</span>=<span class="string">&quot;org.apache.coyote.http11.Http11AprProtocol&quot;</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">connectionTimeout</span>=<span class="string">&quot;20000&quot;</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">redirectPort</span>=<span class="string">&quot;8443&quot;</span>  </span></span><br><span class="line"><span class="tag">  <span class="attr">URIEncoding</span>=<span class="string">&quot;UTF-8&quot;</span>/&gt;</span> </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="I-O模型的选择"><a href="#I-O模型的选择" class="headerlink" title="I&#x2F;O模型的选择"></a>I&#x2F;O模型的选择</h3><p>在几种I&#x2F;O模型的选择上，BIO性能是最差的这是毋庸置疑的，NIO2模型是基于NIO模型的优化，所以表现是优于NIO模型的。如果是考虑到高并发的情况，显然异步非阻塞I&#x2F;O模式的NIO2和APR库在性能上更有优势，实际上NIO2的性能表现也和APR不相上下，但是<strong>NIO2要求Tomcat的版本要在8.0以上，而APR只需要5.5以上即可，但是APR需要额外配置库环境，相对于内置集成的NIO2来说APR这个操作比较麻烦，两者各有优劣。</strong>具体使用哪个还是需要结合实际业务需求和环境进行测试才能决定。</p>
+<h2 id="Tomcat多实例"><a href="#Tomcat多实例" class="headerlink" title="Tomcat多实例"></a>Tomcat多实例</h2><p>实际场景中，一台服务器可能只需要运行一个web应用，也经常有在一台服务器上运行多个web应用的需求，所以tomcat有几种部署方式：</p>
+<ul>
+<li><strong>单实例单应用</strong>：比较常用的一种方式，只需要把  war 包丢在 <code>webapps</code>目录下，执行启动 Tomcat 的脚本就行了。</li>
+<li><strong>单实例多应用</strong>：有两个不同的 Web 项目 war 包，还是只需要丢在<code>webapps</code>目录下，执行启动 Tomcat 的脚本，访问不同项目加上不同的虚拟目录。这种方式要慎用在生产环境，因为重启或挂掉 Tomcat 后会影响另外一个应用的访问。</li>
+<li><strong>多实例单应用</strong>：多个 Tomcat 部署同一个项目，端口号不同，可以利用 Nginx 这么做负载均衡，当然意义不大。</li>
+<li><strong>多实例多应用</strong>：多个 Tomcat 部署多个不同的项目。这种模式在服务器资源有限，或者对服务器要求并不是很高的情况下，可以实现多个不同项目部署在同一台服务器上的需求，来实现资源使用的最大化。</li>
+</ul>
+<p>本次介绍多实例多应用的部署方式。</p>
+<p>比较简单的方式是复制出多个 Tomcat 目录然后改一下端口，这样做并不能最大化利用服务器资源，也不方便管理。</p>
+<p>比较优雅的部署多实例的方式是多个Tomcat实例独立存放各自的web应用相关的目录，同时共享Tomcat的bin目录和lib目录。下面是图解：</p>
+<p><a href="/../pic/539095-20170416163223415-1771861133.png" title="部署结构" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/539095-20170416163223415-1771861133.png" alt="部署结构"></a></p>
+<p>上图中的 <code>CATALINA_HOME</code> 指Tomcat安装路径，<code>CATALINA_BASE</code> 指实例所在位置。<br><code>CATALINA_HOME</code> 路径下只需要包含 <code>bin</code> 和 <code>lib</code> 目录，而 <code>CATALINA_BASE</code> 只存放 <code>conf、webapps、logs</code> 等这些文件，这样部署的好处在于升级方便，配置及安装文件间互不影响，在不影响 Tomcat 实例的前提下，替换掉 <code>CATALINA_HOME</code> 中的安装文件。</p>
+<p>另外还需要创建一个<code>tomcat-shell</code>目录，存放启动脚本和停止脚本</p>
+<p>目录结构如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@web03 app]$ tree -L 2</span><br><span class="line">.</span><br><span class="line">├── apache-tomcat-8.5.66</span><br><span class="line">│   ├── bin</span><br><span class="line">│   └── lib</span><br><span class="line">├── tomcat-1</span><br><span class="line">│   ├── conf</span><br><span class="line">│   ├── logs</span><br><span class="line">│   ├── temp</span><br><span class="line">│   ├── webapps</span><br><span class="line">│   └── work</span><br><span class="line">├── tomcat-2</span><br><span class="line">│   ├── conf</span><br><span class="line">│   ├── logs</span><br><span class="line">│   ├── temp</span><br><span class="line">│   ├── webapps</span><br><span class="line">│   └── work</span><br><span class="line">└── tomcat-shell</span><br><span class="line">    ├── start_tomcat.sh</span><br><span class="line">    └── stop_tomcat.sh</span><br></pre></td></tr></table></figure>
+
+<p>之后替换掉不同tomcat目录中的<code>Server Port</code>端口（用于监听关闭tomcat的shutdown命令，默认为8005）和<code>Connector Port</code>端口（用于监听HTTP的请求，默认为8080）即可。</p>
+<p>启动脚本<code>start_tomcat.sh</code>，使用方法：<code>sh start_tomcat.sh 实例路径(比如：/app/tomcat-1) </code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> CATALINA_HOME=/app/apache-tomcat-8.5.66</span><br><span class="line"><span class="built_in">export</span> CATALINA_BASE=<span class="variable">$&#123;1%/&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$CATALINA_BASE</span></span><br><span class="line"></span><br><span class="line">TOMCAT_ID=`ps aux |grep <span class="string">&quot;java&quot;</span>|grep <span class="string">&quot;Dcatalina.base=<span class="variable">$CATALINA_BASE</span> &quot;</span>|grep -v <span class="string">&quot;grep&quot;</span>|awk <span class="string">&#x27;&#123; print $2&#125;&#x27;</span>`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">&quot;<span class="variable">$TOMCAT_ID</span>&quot;</span> ] ; <span class="keyword">then</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;tomcat(<span class="variable">$&#123;TOMCAT_ITOMCAT_ID&#125;</span>) still running now , please shutdown it firest&quot;</span>;</span><br><span class="line">    <span class="built_in">exit</span> 2;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">TOMCAT_START_LOG=`<span class="variable">$CATALINA_HOME</span>/bin/startup.sh`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;$?&quot;</span> = <span class="string">&quot;0&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$0</span> <span class="variable">$&#123;1%/&#125;</span> start succeed&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$0</span> <span class="variable">$&#123;1%/&#125;</span> start failed&quot;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$TOMCAT_START_LOG</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>停止脚本<code>stop_tomcat.sh</code>，使用方法：<code>sh stop_tomcat.sh 实例路径(比如：/app/tomcat-1) </code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> CATALINA_HOME=/app/apache-tomcat-8.5.66</span><br><span class="line"><span class="built_in">export</span> CATALINA_BASE=<span class="variable">$&#123;1%/&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$CATALINA_BASE</span></span><br><span class="line"></span><br><span class="line">TOMCAT_ID=`ps aux |grep <span class="string">&quot;java&quot;</span>|grep <span class="string">&quot;[D]catalina.base=<span class="variable">$CATALINA_BASE</span> &quot;</span>|awk <span class="string">&#x27;&#123; print $2&#125;&#x27;</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">&quot;<span class="variable">$TOMCAT_ID</span>&quot;</span> ] ; <span class="keyword">then</span></span><br><span class="line">TOMCAT_STOP_LOG=`<span class="variable">$CATALINA_HOME</span>/bin/shutdown.sh`</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Tomcat instance not found : <span class="variable">$&#123;1%/&#125;</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;$?&quot;</span> = <span class="string">&quot;0&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$0</span> <span class="variable">$&#123;1%/&#125;</span> stop succeed&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$0</span> <span class="variable">$&#123;1%/&#125;</span> stop failed&quot;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$TOMCAT_STOP_LOG</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="查看运行信息"><a href="#查看运行信息" class="headerlink" title="查看运行信息"></a>查看运行信息</h2><blockquote>
+<p><strong>查看tomcat进程信息</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 系统命令查看tomcat进程信息 </span></span><br><span class="line">[root@web03 tomcat]$ ps -ef | grep java</span><br><span class="line">root       1492      1  0 01:04 pts/0    00:00:07 /app/jdk/bin/java -Djava.util.logging.config.file=/app/tomcat/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /app/tomcat/bin/bootstrap.jar:/app/tomcat/bin/tomcat-juli.jar -Dcatalina.base=/app/tomcat -Dcatalina.home=/app/tomcat -Djava.io.tmpdir=/app/tomcat/temp org.apache.catalina.startup.Bootstrap start</span><br><span class="line"></span><br><span class="line"><span class="comment"># java命令查看tomcat进程信息,出现两个进程，第一个是tomcat进程，第二个是jps进程</span></span><br><span class="line">[root@web03 tomcat]$ jps -lvm</span><br><span class="line">1492 org.apache.catalina.startup.Bootstrap start -Djava.util.logging.config.file=/app/tomcat/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -Dcatalina.base=/app/tomcat -Dcatalina.home=/app/tomcat -Djava.io.tmpdir=/app/tomcat/temp</span><br><span class="line">1930 sun.tools.jps.Jps -lvm -Denv.class.path=.:/app/jdk/lib:/app/jdk/jre/lib:/app/jdk/lib/tools.jar -Dapplication.home=/app/jdk -Xms8m</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>查看java运行的状态信息（内存，线程，请求等）</strong></p>
+</blockquote>
+<p>可以通过shell脚本根据下述信息获取详细数据，然后进行下一步处理，生成监控信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jmap -heap [tomcat进程的pid]		<span class="comment"># jmap是java的高级调试工具，-heap表示堆相关选项，tomcat进程pid通过上一步获取</span></span><br><span class="line"></span><br><span class="line">jstack		<span class="comment"># 待详解</span></span><br><span class="line"></span><br><span class="line">jstat		<span class="comment"># 待详解</span></span><br></pre></td></tr></table></figure>
+
+<p>查看Java进程相关命令以及故障分析详解博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43849415/article/details/110631837">https://blog.csdn.net/weixin_43849415/article/details/110631837</a></p>
+<p>Java性能分析以及shell脚本仓库：<a target="_blank" rel="noopener" href="https://github.com/oldratlee/useful-scripts">https://github.com/oldratlee/useful-scripts</a></p>
+<blockquote>
+<p><strong>查看日志信息</strong></p>
+</blockquote>
+<p><code>conf</code>目录下会存储tomcat的日志信息</p>
+<p><code>catalina.out</code>会存储所有运行信息，并且切割后文件大小不会删减，是需要优化的内容。具体日期的日志可以查看其切割日志。</p>
+<p><code>localhost_access_log</code>会存储访问信息，具体日期的日志可以查看其切割日志。</p>
+<p>另外管理端的日志信息，也会存储在响应文件中。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-13</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Tomcat/'>
+                            Tomcat
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

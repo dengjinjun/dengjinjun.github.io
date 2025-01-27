@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Linux权限管理" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Linux权限管理
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="post-toc-text">基本权限管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户和组管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="post-toc-text">用户管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86"><span class="post-toc-text">组管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90"><span class="post-toc-text">文件与目录权限</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%89%B9%E6%AE%8A%E6%9D%83%E9%99%90"><span class="post-toc-text">特殊权限</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%AB%98%E7%BA%A7%E6%9D%83%E9%99%90%EF%BC%9AACL"><span class="post-toc-text">高级权限：ACL</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#su%E7%94%A8%E6%88%B7%E5%88%87%E6%8D%A2%E5%92%8Csudo%E6%8F%90%E6%9D%83"><span class="post-toc-text">su用户切换和sudo提权</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#su%E7%94%A8%E6%88%B7%E5%88%87%E6%8D%A2"><span class="post-toc-text">su用户切换</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sudo%E6%8F%90%E6%9D%83"><span class="post-toc-text">sudo提权</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="基本权限管理"><a href="#基本权限管理" class="headerlink" title="基本权限管理"></a>基本权限管理</h1><p>Linux把权限分为了三类：</p>
+<ol>
+<li>属主对应的权限</li>
+<li>属组对应的权限</li>
+<li>其他人对应的权限</li>
+</ol>
+<h2 id="用户和组管理"><a href="#用户和组管理" class="headerlink" title="用户和组管理"></a>用户和组管理</h2><h3 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h3><ul>
+<li><p>查看用户信息：<code>id</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id [用户名]		# 查看用户的uid, 主组的gid, 所在组信息</span><br><span class="line">id					# 查看当前本人用户信息</span><br></pre></td></tr></table></figure>
+
+<p>关于uid：在CentOS 7中，uid&#x3D;0代表超级管理员；uid在1-999代表虚拟系统用户，其中1-200用于运行系统自带的进程，201-999用于运行安装的程序；uid在1000+，代表普通用户，可以正常登录系统，能进行的操作有限。</p>
+</li>
+<li><p>查看当前登陆人：<code>who</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">whoami			# 显示当前本人的用户名</span><br><span class="line">who				# 显示当前登陆系统的所有人的用户名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建用户：<code>useradd</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd [用户名]		# 每创建一个用户，都会创建一个该用户的主组，以该用户名命名组名，组文件在：/etc/group,组密码文件在：/etc/gshadow</span><br></pre></td></tr></table></figure>
+
+<p><code>useradd</code>的选项</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-u		# 指定用户的uid</span><br><span class="line">-g		# 指定用户的主群组id</span><br><span class="line">-G		# 指定用户所属的附加组</span><br><span class="line">-d		# 指定用户的家目录</span><br><span class="line">-e		# 指定过期时间</span><br></pre></td></tr></table></figure>
+
+
+
+<p>新建用户后会把用户信息写入<code>/etc/passwd</code>文件中，这是保存用户信息的文件，具体结构如下：</p>
+<p>​																用户名 ：密码占位符 ：uid ：gid ：所在组 ：用户家目录 ：提供给用户的终端</p>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828224334713.png" title="image-20230828224334713" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828224334713.png" alt="image-20230828224334713"></a></p>
+</li>
+<li><p>修改用户信息：<code>usermod</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">usermod [用户名]					# 修改用户的相关信息，必须是已存在的用户，相关选项与useradd的选项相同</span><br><span class="line">usermod -g [组号] [用户名]		# 给用户指定主组</span><br><span class="line">usermod -a -G [组1,组2，组3] [用户名]	# 给用户添加附加组，-a是添加(append)的意思，如果不加-a则会覆盖附加组</span><br><span class="line">usermod -l [新登录名] [旧登录名]	# 修改用户的登录名</span><br><span class="line">usermod -L [用户名]				# 锁定用户，不可登录</span><br><span class="line">usermod -U [用户名]				# 解锁用户</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给用户创建密码：<code>passwd</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd [用户名]</span><br></pre></td></tr></table></figure>
+
+<p>创建密码之后会把用户的密码写入<code>/etc/shadow</code>文件中，这是保存用户密码的文件，具体结构如下：</p>
+<p>​                   用户名 ： 密码密文 ：距离上一次变更过去的天数：更改密码的最少天数 ：更改密码的最长天数 ：过期提醒天数：预警天数：失效日期：</p>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828225507166.png" title="image-20230828225507166" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828225507166.png" alt="image-20230828225507166"></a></p>
+</li>
+<li><p>用户的家目录</p>
+<p>每个用户都有自己的家目录：<code>/home/用户名</code></p>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828231904711.png" title="image-20230828231904711" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230828231904711.png" alt="image-20230828231904711"></a></p>
+<p>除了当前目录<code>.</code>和上级目录<code>..</code>之外，其他文件均是创建用户时附带的文件，来自于家目录模板：<code>/etc/skel</code></p>
+</li>
+<li><p>用户的邮箱文件</p>
+<p>每个用户都有自己的邮箱文件：<code>/var/spool/mail/用户名</code>，用于收发邮件</p>
+</li>
+<li><p>删除用户：<code>userdel</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">userdel [用户名]			# 会删掉用户的账号和密码以及主组，但是会保留用户的家目录以及邮箱文件</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">userdel -r [用户名]		</span><br><span class="line"># 彻底清除与该用户相关的文件，包括/etc/passwd,/etc/shadow,/etc/group,/etc/gshadow,/home/用户名,/var/spool/mail/用户名</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="组管理"><a href="#组管理" class="headerlink" title="组管理"></a>组管理</h3><ul>
+<li><p>创建组：<code>groupadd</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupadd [组名]				# 创建一个组</span><br><span class="line">groupadd  -g [组号] [组名]		# 创建一个组，指定组号(gid)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改组：<code>groupmod</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupmod -g [组号] [组名]		# 修改组号</span><br><span class="line">groupmod -n [组新名] [组名]		# 修改组名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给组创建密码和修改组成员：<code>gpasswd</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">gpasswd [组名]							# 给组创建密码</span><br><span class="line">gpasswd -a [用户名] [组名]					# 将某个用户添加进组中，与 usermod -a -G [组名] [用户名] 效果相同</span><br><span class="line">gpasswd -d [用户名] [组名]					# 将某个用户从组中删除</span><br><span class="line">gpasswd -M [用户1,用户2,用户3] [组名]		# 将多个用户添加进组中</span><br><span class="line">gpasswd -A [用户名] [组名]					# 指定某用户为组长</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用户临时进组：<code>newgrp</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">newgrp [组名]			# 当前登录用户，临时获取该组的权限，临时进组需要密码</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除组：<code>groupdel</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupdel [组号/组名]			# 删除一个组，但是这个组不能是某个用户的主组</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="文件与目录权限"><a href="#文件与目录权限" class="headerlink" title="文件与目录权限"></a>文件与目录权限</h2><p>使用<code>ls -al</code>查看所有文件的详细信息</p>
+<p>下图是文件或目录的详细信息各部分的解释：</p>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/0b53cb8ae1932466ae2e8a1f5f361047.gif" title="文件属性的示意图" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/0b53cb8ae1932466ae2e8a1f5f361047.gif" alt="文件属性的示意图"></a></p>
+<ul>
+<li><p>档案类型权限的解释</p>
+<p>例如：<code>-rw-r--r--</code></p>
+<ul>
+<li><p>第一个字符代表文件类型，</p>
+<p>Linux系统不是以后缀名区分文件类型的，在详细信息中，各种不同的文件类型如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">当为[ d ]则是目录，例如上表文件名为“.config”的那一行；</span><br><span class="line">当为[ - ]则是文本文件，例如上表文件名为“initial-setup-ks.cfg”那一行；</span><br><span class="line">若是[ l ]则表示为链接文件（link file）；</span><br><span class="line">若是[ b ]则表示为设备文件里面的可供储存的周边设备（可随机存取设备）；</span><br><span class="line">若是[ c ]则表示为设备文件里面的序列埠设备，例如键盘、鼠标（一次性读取设备）。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>后面九个字符分为三组，分别代表<code>文件拥有者</code>，<code>群组</code>，<code>其他人</code>所拥有的权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r代表读权限，w代表修改权限，x代表执行权限</span><br></pre></td></tr></table></figure>
+
+<p>而对于文件类型和目录类型，这三种权限又有不同，详细如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">元件</th>
+<th align="left">内容</th>
+<th align="left">叠代物件</th>
+<th align="left">r</th>
+<th align="left">w</th>
+<th align="left">x</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">文件</td>
+<td align="left">详细数据data</td>
+<td align="left">文件数据夹</td>
+<td align="left">读到文件内容</td>
+<td align="left">修改文件内容</td>
+<td align="left">执行文件内容</td>
+</tr>
+<tr>
+<td align="left">目录</td>
+<td align="left">文件名</td>
+<td align="left">可分类抽屉</td>
+<td align="left">读到文件名</td>
+<td align="left">创建、删除、移动文件，修改文件名</td>
+<td align="left">进入该目录的权限（key）</td>
+</tr>
+</tbody></table>
+<p>操作某个文件夹下的文件内容，当前用户首先需要具有沿途所有文件夹的执行权限，如果是想要读目标文件，需要具有读权限，如果想要创建、删除、移动目标文件，需要具有写权限。</p>
+<p>如果要执行一个二进制的文本文件，只需要执行权限，如果文本文件是shell命令，则还需要读权限，读取shell命令后编译成二进制文件再执行。</p>
+</li>
+</ul>
+</li>
+<li><p>改变文件拥有者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown [账号名称] [文件或目录]					# change owner</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R [账号名称：群组名称] [文件或目录]		# 同时改变文件拥有者和群组， -R表示递归修改，用于目录的修改。</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>改变文件所属群组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chgrp [-R] [群组名] [文件或目录]					# change group ,-R表示递归，用于目录</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>改变文件权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod				# change mode</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>数字形式改变文件权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod [-R] xyz [文件或目录]		# xyz分别代表文件拥有者，群组和其他人的权限</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字母方式改变文件权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod [-R] u=rwx,go=rx [文件或目录]	# u指user，g指代group，o指代others</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod [-R] a-x [文件或目录]			# a代表三种身份，a-x表示三种身份都拿掉执行权限	</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h1 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h1><ul>
+<li><p>SUID：Set User ID</p>
+<p>给可执行文件的拥有者增加一个<code>SUID</code>权限，那么当前用户都将以文件拥有者身份操作该可执行文件（前提是需要具有x权限）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod u+s [文件名]					# 给可执行文件的拥有者增加SUID权限</span><br></pre></td></tr></table></figure>
+
+<p>注意：SUID权限仅对可执行文件有效，且仅在执行该文件时有效</p>
+</li>
+<li><p>SGID：Set Group ID</p>
+<p>给文件&#x2F;目录的群组增加一个<code>SGID</code>权限，那么当前用户都将以文件属组成员身份操作该文件&#x2F;目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod g+s [文件名/目录名]			# 给文件/目录的属组增加SGID权限</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SBIT： Sticky Bit(防删除)</p>
+<p>给目录的其他人角色增加一个<code>SBIT</code>权限，那么当前用户在此目录下，将只能针对自己创建的文件进行删除、重命名等操作，而无法删除其他人的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod o+t [目录]					# 给目录的其他人角色增加SBIT权限</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>umask：权限掩码</p>
+<p>umask 命令用来控制权限掩码，为新建的文件或目录设置一个初始权限。文件&#x2F;目录创建时的初始权限 &#x3D; 默认权限 - 权限掩码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">umask			# 以数字的形式展示权限掩码</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/image-20230903023129866.png" title="image-20230903023129866" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230903023129866.png" alt="image-20230903023129866"></a></p>
+<p><code>0022</code>中的后三位<code>022</code>分别表示属主、属组和其他人的权限掩码，假设默认权限为<code>777</code>，则创建新文件&#x2F;目录时的初始权限为<code>755</code>，即<code>rwxr-xr-x</code></p>
+<p>临时设置权限掩码需要使用命令<code>umask [022]</code>即可，永久设置权限掩码需要修改配置文件<code>/etc/bashrc</code></p>
+<p>第一位的<code>0</code>表示的是特殊权限，SUID&#x3D;4，SGID&#x3D;2，SBIT&#x3D;1，与后三位不同，第一位的数字表示的就是需要设置的权限，<code>0</code>就是不加任何特殊权限。</p>
+</li>
+</ul>
+<h1 id="高级权限：ACL"><a href="#高级权限：ACL" class="headerlink" title="高级权限：ACL"></a>高级权限：ACL</h1><p>ACL的全称是 Access Control List (访问控制列表) ，一个针对文件&#x2F;目录的访问控制列表。它在UGO权限（属主，属组，其他人）管理的基础上为文件系统提供一个额外的、更灵活的权限管理机制。它被设计为UNIX文件权限管理的一个补充。ACL允许你给任何的用户或用户组设置任何文件&#x2F;目录的访问权限。</p>
+<ul>
+<li><p>查看文件&#x2F;目录的角色权限信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getfcal [文件/目录]</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/image-20230903204230830.png" title="image-20230903204230830" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/image-20230903204230830.png" alt="image-20230903204230830"></a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">展示了文件名、属主、属组以及各个角色的权限，还包括给其他用户dengpangpang设置的额外权限：rwx, 以及mask值。</span><br><span class="line">mask值表示特殊角色对这个文件不能超出的最高权限，如果mask值为---，那么特殊角色没有任何额外权限。</span><br></pre></td></tr></table></figure>
+
+<p>注意：一旦设置了ACL权限，那么再查看文件权限信息的时候，不必使用<code>ll</code>命令了，使用<code>getfacl</code>才能查看到准确的权限。</p>
+<p>权限的查找顺序：先查找额外权限，再查找基础权限。</p>
+</li>
+<li><p>设置mask值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setfacl -m m:[具体权限] [文件]			# 给某个文件设置mask值</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setfacl -m m:r-x a.txt			# 给用户dengpangpang设置对文件a.txt的读和执行权限</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>给某个用户设置额外权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setfacl -m u:[用户名]:[具体权限] [文件名]		</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>给某个组设置额外权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setfacl -m g:[组名]:[具体权限] [文件名]	</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>设置基本角色的权限</p>
+<p>设置了ACL权限之后，不建议再使用<code>chmod</code>去改变基本角色的权限，避免引起权限混乱。应该使用<code>setfacl</code>设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setfacl -m u::[具体权限] [文件名]				# 设置属主的权限，即相对于其他用户，省略了用户名</span><br><span class="line">setfacl -m g::[具体权限] [文件名]				# 设置属组的权限，即相对于其他组，省略了组名</span><br><span class="line">setfacl -m o::[具体权限] [文件名]				# 设置其他人的权限</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>清理ACL权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setfacl -b [文件名]					# 清理掉文件的所有ACL权限</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setfacl -x u:[用户名] [文件名]			# 清理掉某个用户额外权限</span><br><span class="line">setfacl -x g:[组名] [文件名]				# 清理掉某个组的额外权限</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>ACL的继承</p>
+<p>以上命令均是针对文件进行说明的，针对目录的操作与文件相同，但是又有补充，即目录内的文件，可以继承目录的ACL权限。比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setfacl -m d:m:[具体权限] [目录]					# 给某个目录设置mask值</span><br><span class="line">setfacl -m d:u:[用户名]:[具体权限] [目录]			# 针对目录设置某个用户的额外权限</span><br><span class="line">setfacl -m d:g:[组名]:[具体权限] [目录]				# 针对目录设置某个组的额外权限</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="su用户切换和sudo提权"><a href="#su用户切换和sudo提权" class="headerlink" title="su用户切换和sudo提权"></a>su用户切换和sudo提权</h1><h2 id="su用户切换"><a href="#su用户切换" class="headerlink" title="su用户切换"></a>su用户切换</h2><p>su：<code>set user</code>	用于切换用户身份，从一个用户切换到另一个用户，有两种方式</p>
+<ol>
+<li><p>登陆级别shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su -用户名				# 直接以该用户身份登录，进入该用户主文件夹。root用户切换到其他用户下无需输入密码，反之需要</span><br><span class="line">su -用户名 -c &quot;命令&quot;		# 切换身份并执行命令</span><br></pre></td></tr></table></figure>
+
+<p>需要加载的文件：</p>
+<blockquote>
+<p>&#x2F;etc&#x2F;profile  —&gt;  &#x2F;etc&#x2F;profile.d&#x2F;*.sh  —&gt;  ~&#x2F;.bash_profile  —&gt;  ~&#x2F;.bashrc  —&gt;  &#x2F;etc&#x2F;bashrc</p>
+</blockquote>
+</li>
+<li><p>非登录级别shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su 用户名				# 不进入该用户主文件夹，仍停留在原文件夹内</span><br></pre></td></tr></table></figure>
+
+<p>需要加载的文件：</p>
+<blockquote>
+<p>~&#x2F;.bashrc  —&gt;  &#x2F;etc&#x2F;bashrc  —&gt;  &#x2F;etc&#x2F;profile.d&#x2F;*.sh</p>
+</blockquote>
+</li>
+</ol>
+<p>如果想针对所有用户以及登录非登录的shell设置统一的配置，就把配置命令写到  <code>/etc/bashrc</code> 文件中</p>
+<h2 id="sudo提权"><a href="#sudo提权" class="headerlink" title="sudo提权"></a>sudo提权</h2><p>su指令的优点是简单粗暴，但是缺点是容易造成root密码泄露，普通用户获得所有管理权限风险也比较大</p>
+<p>sudo指令可以实现普通用户在当前身份下获得部分管理权限，且不需要输入root密码，缺点是相对复杂。</p>
+<blockquote>
+<p>如何配置权限？</p>
+</blockquote>
+<p>将普通用户添加为管理员可以使用vim编辑器来修改配置文件<code>/etc/sudoers</code>来分配权限。配置之后可以使用<code>visudo -c</code>命令来检查语法，确保配置正确。</p>
+<p>也可以将用户添加进<code>wheel</code>组即可:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">usermod -a -G wheel [用户名]</span><br><span class="line">gpasswd -a [用户名] wheel</span><br></pre></td></tr></table></figure>
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-28</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

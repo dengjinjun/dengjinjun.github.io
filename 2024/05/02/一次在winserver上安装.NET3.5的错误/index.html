@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="一次在winserver上安装.NET3.5的错误" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            一次在winserver上安装.NET3.5的错误
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="post-toc-text">问题描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="post-toc-text">解决办法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%80%9D%E8%80%83"><span class="post-toc-text">思考</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>服务器版本：Windows Server 2022 DataCenter</p>
+<p>在安装一些功能时出现下面截图中出现的错误，经过排查发现其他功能都可以正常安装，只有安装.NET Framework 3.5功能时出现报错，因此尝试解决这个错误。</p>
+<p><a href="/../pic/37c4113db60a4ac8953dc9ef76589d9f.png" title="在这里插入图片描述" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/37c4113db60a4ac8953dc9ef76589d9f.png" alt="在这里插入图片描述"></a></p>
+<p>经过多次尝试，总结下网上的解决思路：</p>
+<ol>
+<li>编辑组策略，选择直接从Windows Update更新组件，而不是从Windows Server 更新服务（WSUS）来更新，我发现这种方式只适用于较老的版本 Windows Server 2012 ，win 8 或者win RT ；</li>
+<li>另一种说法是微软在2023年更新了一些补丁，导致.NET3.5框架安装失败，卸载掉那三个补丁之后就可以正常安装了，但是我尝试卸载的时候发现我的服务器并没有安装那三个补丁。</li>
+</ol>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>直到发现一篇CSDN博客提到Windows Server 2019版本也遇到了和我几乎一样的问题，是由于缺少sxs组件引起的，于是我下载了适用于</p>
+<p>Windows Server 2022的sxs组件，按照博客中的方式安装了之后，果然问题解决了（再次尝试安装.NET Framework 3.5时发现功能已经安装），安装该功能下的其他功能也没有报错。下面是解决步骤：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">第一步，下载 windows 2019 server sxs 组件，并解压，可以自行去网上下载，也可使用 笔者准备好的 windows 2019 server sxs 组件：https://pan.baidu.com/s/1o9J-mkbBoolH9uoLVxCwuQ?pwd=42sy</span><br><span class="line"></span><br><span class="line">第二步，使用管理员身份，运行powershell ，采用DISM 安装 windows 2019 server sxs 组件</span><br><span class="line">安装命令：DISM /Online /Enable-Feature /all /FeatureName:NetFx3 /Source:C:\windows_server_2022_sxs\sxs</span><br><span class="line"></span><br><span class="line">注意： C:\windows_server_2019_sxs\sxs 路径需要替换为自己的解压目录。</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>问了一下Chat GPT</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q: windows 2019 server系统的sxs 组件是什么，它有什么作用</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">A: </span><br><span class="line">Windows Server 2019系统中的SXS组件</span><br><span class="line"></span><br><span class="line">SXS组件是Windows操作系统中的“Side by Side”（并行）组件的简称。它是一种技术，用于在同一台计算机上同时运行多个版本的动态链接库（DLL）文件，同时保持它们之间的隔离和独立性。这种并行部署技术允许应用程序在不干扰其他应用程序或系统组件的情况下使用它们所需的特定版本的DLL文件。</span><br><span class="line"></span><br><span class="line">SXS组件的作用</span><br><span class="line"></span><br><span class="line">1. 版本隔离：SXS组件使不同版本的DLL文件能够在同一系统中并存，避免了不同应用程序之间可能出现的版本冲突问题。</span><br><span class="line">2. 应用程序兼容性：它提供了应用程序所需的特定版本DLL文件的隔禩环境，从而帮助确保应用程序的兼容性和稳定性。</span><br><span class="line">3. 系统安全性：通过隔离不同版本的DLL文件，SXS组件有助于提高系统的安全性，减少潜在的冲突和漏洞。</span><br><span class="line"></span><br><span class="line">总的来说，SXS组件在Windows Server 2019系统中起着至关重要的作用，确保了系统的稳定性、可靠性和安全性。</span><br></pre></td></tr></table></figure>
+
+
+
+<p>另外给出三个.NET组件的下载链接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">https://download.visualstudio.microsoft.com/download/pr/5aad9c2c-7bb6-45b1-97e7-98f12cb5b63b/6f6d7944c81b043bdb9a7241529a5504/dotnet-sdk-3.1.102-win-x64.exe</span><br><span class="line"></span><br><span class="line">https://download.visualstudio.microsoft.com/download/pr/326b33d1-6bbd-4149-ba35-c94784700674/c06386c2b09401fa94f9595617899d5d/aspnetcore-runtime-3.1.2-win-x64.exe</span><br><span class="line"></span><br><span class="line">https://download.visualstudio.microsoft.com/download/pr/dd119832-dc46-4ccf-bc12-69e7bfa61b18/990843c6e0cbd97f9df68c94f6de6bb6/dotnet-hosting-3.1.2-win.exe</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-05-02</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Windows/'>
+                            Windows
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/TroubleShooting/'>
+                            TroubleShooting
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

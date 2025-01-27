@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Nginx缓存详解" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Nginx缓存详解
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98"><span class="post-toc-text">客户端缓存</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BC%93%E5%AD%98%E6%A0%A1%E9%AA%8C%E6%B5%81%E7%A8%8B"><span class="post-toc-text">缓存校验流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%BC%BA%E5%88%B6%E7%BC%93%E5%AD%98"><span class="post-toc-text">强制缓存</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98"><span class="post-toc-text">协商缓存</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E5%AF%B9%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="post-toc-text">用户行为对浏览器缓存的影响</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Cache-Control%E5%AD%97%E6%AE%B5%E5%9C%A8%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94%E4%B8%AD%E7%9A%84%E5%90%AB%E4%B9%89"><span class="post-toc-text">Cache-Control字段在请求和响应中的含义</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%B7%E6%B1%82"><span class="post-toc-text">客户端请求</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%93%8D%E5%BA%94"><span class="post-toc-text">服务端响应</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%BC%93%E5%AD%98"><span class="post-toc-text">服务端缓存</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E7%BC%93%E5%AD%98"><span class="post-toc-text">配置缓存</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86nginx%E9%85%8D%E7%BD%AE"><span class="post-toc-text">反向代理nginx配置</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%A2%AB%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="post-toc-text">被代理服务器配置</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E9%AA%8C%E8%AF%81%E7%BC%93%E5%AD%98"><span class="post-toc-text">验证缓存</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE%E7%BB%BC%E5%90%88%E4%BE%8B%E5%AD%90"><span class="post-toc-text">缓存配置综合例子</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B6%E4%BB%96%E7%BC%93%E5%AD%98%E5%8F%82%E6%95%B0"><span class="post-toc-text">其他缓存参数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E9%80%9A%E8%BF%87nginx%E5%8F%98%E9%87%8F%E9%99%90%E5%88%B6%E6%98%AF%E5%90%A6%E4%BD%BF%E7%94%A8%E7%BC%93%E5%AD%98"><span class="post-toc-text">通过nginx变量限制是否使用缓存</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%AE%9A%E4%B9%89%E7%BC%93%E5%AD%98%E4%B8%8E%E8%AF%B7%E6%B1%82%E9%97%B4%E5%8C%B9%E9%85%8D%E7%9A%84%E5%85%B3%E9%94%AE%E5%AD%97"><span class="post-toc-text">定义缓存与请求间匹配的关键字</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%BD%B1%E5%93%8D%E7%BC%93%E5%AD%98%E7%9A%84HTTP-method"><span class="post-toc-text">影响缓存的HTTP method</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%BD%B1%E5%93%8D%E7%BC%93%E5%AD%98%E7%9A%84HTTP-header"><span class="post-toc-text">影响缓存的HTTP header</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%BD%B1%E5%93%8D%E7%BC%93%E5%AD%98%E7%9A%84HTTP-%E5%93%8D%E5%BA%94"><span class="post-toc-text">影响缓存的HTTP 响应</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E7%BC%93%E5%AD%98%E8%AF%B7%E6%B1%82%E6%AC%A1%E6%95%B0"><span class="post-toc-text">缓存请求次数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E7%BC%93%E5%AD%98%E5%A4%A7%E5%B0%8F"><span class="post-toc-text">缓存大小</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="post-toc-text">超时时间</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%B9%B6%E5%8F%91%E5%9B%9E%E6%BA%90%E8%AF%B7%E6%B1%82"><span class="post-toc-text">并发回源请求</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%8E%86%E5%8F%B2%E7%BC%93%E5%AD%98"><span class="post-toc-text">历史缓存</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%BF%87%E6%9C%9F%E7%BC%93%E5%AD%98"><span class="post-toc-text">过期缓存</span></a></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>缓存对于Web服务至关重要，尤其对于大型高负载Web站点。缓存作为性能优化的一个重要手段，可以在极大程度上减轻后端服务器的负载。通常对于静态资源，即不经常更新的资源，如图片，CSS或JS等进行缓存，而不用每次都向服务器请求，这样就可以减轻服务器的压力。</p>
+<p>缓存可以分为<code>客户端缓存</code>和<code>服务端缓存</code>。</p>
+<ul>
+<li>客户端缓存指的是<code>浏览器缓存</code>, 浏览器缓存是最快的缓存, 因为它直接从本地获取(但有可能需要发送一个协商缓存的请求), 它的优势是可以减少网络流量, 加快请求速度。</li>
+<li>服务端缓存指的是反向代理服务器或CDN的缓存, 他的作用是用于减轻后端实际的Web Server的压力。</li>
+</ul>
+<h2 id="客户端缓存"><a href="#客户端缓存" class="headerlink" title="客户端缓存"></a>客户端缓存</h2><p>浏览器缓存可以分为两种模式，<code>强缓存</code>和<code>协商缓存</code>。</p>
+<ul>
+<li><p>强缓存（无HTTP请求，无需协商）</p>
+<p>直接读取本地缓存，无需向服务端发送请求确认，HTTP返回状态码是200（from memory cache或者from disk cache ，不同浏览器返回的信息不一致的）。</p>
+<p>相关的<code>HTTP Header</code>有:</p>
+<ul>
+<li>Cache-Control</li>
+<li>Expires</li>
+</ul>
+</li>
+<li><p>协商缓存（有HTTP请求，需协商）</p>
+<p>浏览器虽然发现了本地有该资源的缓存，但是缓存已经过期，于是向服务器询问缓存内容是否还可以使用，若服务器认为浏览器的缓存内容还可用，那么便会返回304（Not Modified）HTTP状态码，告诉浏览器读取本地缓存；如果服务器认为浏览器的缓存内容已经改变，则返回新的请求的资源。</p>
+<p>相关的<code>HTTP Header</code>有:</p>
+<ul>
+<li>Last-Modified</li>
+<li>ETag</li>
+</ul>
+</li>
+</ul>
+<h3 id="缓存校验流程"><a href="#缓存校验流程" class="headerlink" title="缓存校验流程"></a>缓存校验流程</h3><p>由于网站内容的经常变化，为了保持缓存的内容与网站服务器的内容一致，客户端会通过**内容缓存的有效期（强制缓存）**以及**Web服务器提供的访问请求的校验（协商缓存）**，快速判断请求的内容是否已经更新。客户端缓存校验流程图如下：</p>
+<p><a href="/../pic/f82f205a69284453bb05817541ab66abtplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/f82f205a69284453bb05817541ab66abtplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp" alt="img"></a></p>
+<h4 id="强制缓存"><a href="#强制缓存" class="headerlink" title="强制缓存"></a>强制缓存</h4><p><strong>强制缓存原理：</strong> 浏览器在加载资源的时候，会先根据本地缓存资源的header中的信息(Expires 和 Cache-Control)来判断缓存是否过期。如果缓存没有过期，则会直接使用缓存中的资源；否则，会向服务端发起协商缓存的请求。</p>
+<p>客户端判断缓存是否过期和先前请求时服务端返回的HTTP消息头字段有关：</p>
+<table>
+<thead>
+<tr>
+<th>服务端返回字段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Cache-Control: max-age=x</code></td>
+<td>客户端缓存时间超出x秒后则缓存过期。</td>
+</tr>
+<tr>
+<td><code>Cache-Control: no-cache</code></td>
+<td>客户端不能直接使用本地缓存的响应，需要进行协商缓存，发送请求到服务器确认是否可以使用缓存。如果Web服务器返回304，则客户端使用本地缓存，如果返回200，则使用Web服务器返回的新的数据。</td>
+</tr>
+<tr>
+<td><code>Cache-Control: no-store</code></td>
+<td>客户端不能对响应进行缓存。</td>
+</tr>
+<tr>
+<td><code>Cache-Control: public</code></td>
+<td>可以被所有的用户缓存，包括终端用户和 CDN 等中间代理服务器。</td>
+</tr>
+<tr>
+<td><code>Cache-Control:private</code></td>
+<td>只能被终端用户的浏览器缓存，不允许 CDN 等中继缓存服务器对其缓存。</td>
+</tr>
+<tr>
+<td><code>expires x</code></td>
+<td>客户端缓存时间超出x秒后则缓存过期，优先级比Cache-Control: max-age&#x3D;x低。</td>
+</tr>
+</tbody></table>
+<h4 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h4><p><strong>协商缓存原理：</strong> 当客户端向服务端发起请求时，服务端会检查请求中是否有对应的标识（If-Modified-Since或Etag），如果没有对应的标识，服务器端会返回标识给客户端，客户端下次再次请求的时候，把该标识带过去，然后服务器端会验证该标识，如果验证通过了，则会响应304，告诉浏览器读取缓存。如果标识没有通过，则返回请求的资源。</p>
+<p><code>Last-Modified</code>与<code>If-Modified-Since</code>属于HTTP&#x2F;1.0，是用于服务端对响应数据修改时间进行校验的服务端校验方法。Last-Modified的值是由服务端生成后传递给客户端的，客户端发送请求时，会将本地内容缓存中的Last-Modified的值由请求消息头的If-Modified-Since字段传递给服务端，如果服务端的被请求的内容的最后修改时间和If-Modified-Since的（默认是exact精确匹配）值不一致，则将返回新的内容，否则返回响应状态码304，客户端将使用本地缓存。</p>
+<p><code>Etag</code>与<code>If-None-Match</code>属于HTTP&#x2F;1.1，优先级高于Last-Modified的验证，是用于服务端对响应数据进行实体标签校验的服务端校验方法。Etag类似于身份指纹，是一个可以与Web资源关联的记号。当客户端第一次发起请求时，Etag的值在响应头中传递给客户端；当客户端再次发起请求时，如果验证完本地内容缓存后需要发起服务端验证，Etag的值将由请求消息头的If-None-Match字段传递给服务端。如果服务端验证If-None-Match的值与服务端的Etag值不匹配，则认为请求的内容已经更新，服务端将会返回新的内容，否则返回响应状态码304，客户端将使用本地缓存。</p>
+<p>下图可以看到客户端第一次请求时，客户端请求中没有If-Modified-Since和Etag标识，服务端响应了200，并且返回了Etag和Last-Modified消息头。</p>
+<p><a href="/../pic/1ea1a023bfa441699893a89da5c67ecftplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1ea1a023bfa441699893a89da5c67ecftplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp" alt="img"></a> 当第二次客户端请求时，带上了If-Modified-Since和If-None-Match消息头，并且服务端经过校验后返回了304让客户端使用本地缓存。 <a href="/../pic/54ca50c5f05e4e888508150755b649e6tplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/54ca50c5f05e4e888508150755b649e6tplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp" alt="img"></a></p>
+<h4 id="用户行为对浏览器缓存的影响"><a href="#用户行为对浏览器缓存的影响" class="headerlink" title="用户行为对浏览器缓存的影响"></a>用户行为对浏览器缓存的影响</h4><p>当按下F5或者刷新时，客户端浏览器会添加请求消息头字段Cache-Control: max-age&#x3D;0，该请求不进行内容缓存的本地验证，会直接向Web服务器发起请求，服务端根据If-Modified-Since或者If-None-Match的值进行验证。</p>
+<p>当按下Ctrl+F5或者强制刷新时，客户端浏览器会添加请求消息头字段Cache-Control: no-cache，并且忽略所有服务端验证的消息头字段(Etag和Last-Modified)，该请求不进行内容缓存的本地验证，它会直接向Web服务器发起请求，因为请求中没有携带服务端验证的消息头字段，服务端会直接返回新的内容。</p>
+<h3 id="Cache-Control字段在请求和响应中的含义"><a href="#Cache-Control字段在请求和响应中的含义" class="headerlink" title="Cache-Control字段在请求和响应中的含义"></a>Cache-Control字段在请求和响应中的含义</h3><h4 id="客户端请求"><a href="#客户端请求" class="headerlink" title="客户端请求"></a>客户端请求</h4><ul>
+<li><strong>max-age</strong>：不想要在代理服务器中缓存了太长时间(&gt;max-age seconds)的资源。</li>
+<li><strong>max-stale</strong>：可以接收代理服务器上的过期缓存。若max-stable后没有值，则表示无论过期多久客户端都可以使用。</li>
+<li><strong>min-fresh</strong>：要求服务器使用其缓存时，至少保证在min-fresh秒内不会过期。</li>
+<li><strong>no-cache</strong>：告诉代理服务器，不能直接使用已有缓存作为响应返回，除非带着缓存条件到上游服务端得到 304 验证返回码才可使用现有缓存。</li>
+<li><strong>no-store</strong>：告诉各代理服务器不得缓存这个请求及其相应。</li>
+<li><strong>no-transform</strong>： 告诉代理服务器不要修改消息包体的内容。</li>
+<li><strong>only-if-cached</strong>：告诉代理服务器仅能返回缓存，没有缓存的话就返回 504。</li>
+</ul>
+<h4 id="服务端响应"><a href="#服务端响应" class="headerlink" title="服务端响应"></a>服务端响应</h4><ul>
+<li><strong>max-age</strong>：告诉客户端缓存 Age 超出 max-age 秒后则缓存过期。</li>
+<li><strong>s-maxage</strong>：与max-age相似，但仅针对共享缓存，且优先级高于max-age和Expires。</li>
+<li><strong>public</strong>：可以被所有的用户缓存，包括终端用户和 CDN 等中间代理服务器。</li>
+<li><strong>private</strong>： 只能被终端用户的浏览器缓存，不允许 CDN 等中继缓存服务器对其缓存。</li>
+<li><strong>no-store</strong>：告诉所有下游节点不能对响应进行缓存。</li>
+<li><strong>no-cache</strong>： 告诉客户端不能直接使用缓存的响应，使用前必须在源服务器验证得到304返回码。</li>
+<li><strong>no-transform</strong>：告诉代理服务器不能修改消息包体的内容。</li>
+<li><strong>must-revalidate</strong>：告诉客户端一旦缓存过期，必须向服务器验证后才可使用。</li>
+<li><strong>proxy-revalidate</strong>：与 must-revalidate 类似，但它仅对代理服务器的共享缓存有效。</li>
+</ul>
+<h2 id="服务端缓存"><a href="#服务端缓存" class="headerlink" title="服务端缓存"></a>服务端缓存</h2><p>proxy cache属于服务端缓存，主要实现 nginx 服务器对客户端数据请求的快速响应。 nginx 服务器在接收到被代理服务器的响应数据之后，一方面将数据传递给客户端，另一方面根据proxy cache的配置将这些数据缓存到本地硬盘上。 当客户端再次访问相同的数据时，nginx服务器直接从硬盘检索到相应的数据返回给用户，从而减少与被代理服务器交互的时间。</p>
+<p><a href="/../pic/e4b90309407e48c8b47a46fd6a8da1d6tplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/e4b90309407e48c8b47a46fd6a8da1d6tplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp" alt="img"></a></p>
+<h3 id="配置缓存"><a href="#配置缓存" class="headerlink" title="配置缓存"></a>配置缓存</h3><h4 id="反向代理nginx配置"><a href="#反向代理nginx配置" class="headerlink" title="反向代理nginx配置"></a>反向代理nginx配置</h4><p>首先需要指定proxy_cache_path，可以指定多条：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">proxy_cache_path</span>  /tmp/nginx/cache levels=<span class="number">1</span>:<span class="number">2</span> inactive=<span class="number">60s</span> keys_zone=mycache:<span class="number">10m</span> max_size=<span class="number">10g</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>&#x2F;tmp&#x2F;nginx&#x2F;cache：缓存文件存放的路径。</li>
+<li>levels : 默认所有缓存文件都放在同一个目录下时，会影响缓存的性能，大部分场景推荐使用2级目录来存储缓存文件，1和2表示用1位和2位16进制来命名目录名称。第一级目录用1位16进制命名，如b；第二级目录用2位16进制命名，如2b。所以一级目录有16个，二级目录有16<em>16&#x3D;256个，总目录数为16</em>256&#x3D;4096个。</li>
+<li>key_zone : 在<strong>共享内存</strong>中设置一块存储区域来存放缓存的key字符串，这样nginx可以快速判断一个request是否命中或者未命中缓存，1m可以存储8000个key，10m可以存储80000个key；</li>
+<li>max_size（可选） : 最大cache空间，如果不指定，会使用掉所有磁盘空间。当达到配额后，会删除最少使用的cache文件。</li>
+<li>inactive（可选） : 未被访问文件在缓存中保留时间，本配置中如果60秒未被访问则不论状态是否为expired，缓存控制程序会删掉文件，默认为10分钟。</li>
+</ul>
+<p>然后在http,server或者location上下文中通过proxy_cache引用前面定义的proxy_cache_path：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">user</span> nginx;</span><br><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">  <span class="attribute">proxy_cache_path</span> /tmp/nginx/cache levels=<span class="number">1</span>:<span class="number">2</span> inactive=<span class="number">60s</span> keys_zone=mycache:<span class="number">10m</span> max_size=<span class="number">10g</span>;</span><br><span class="line">  <span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="section">location</span> /cache &#123;</span><br><span class="line">      <span class="attribute">proxy_pass</span> http://192.168.1.135:8080;</span><br><span class="line">      <span class="comment">#proxy_cache_valid 200 302 80s; #代理服务器本身设置对200 302响应缓存80s</span></span><br><span class="line">      <span class="attribute">proxy_cache</span> mycache; <span class="comment">#引用前面定义的proxy_cache_path</span></span><br><span class="line">      <span class="attribute">add_header</span> cache <span class="variable">$upstream_cache_status</span>; <span class="comment">#这个不是必须的，只是方便我们测试的时候查看是否命中缓存</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="被代理服务器配置"><a href="#被代理服务器配置" class="headerlink" title="被代理服务器配置"></a>被代理服务器配置</h4><p>被代理服务器上需要通知代理服务器缓存内容的时间，否则代理服务器不会对内容进行缓存，通过X-Accel-Expires，expires，Cache-Control “max-age&#x3D;”其中一个参数指定时间。如果代理服务器上配置了proxy_cache_valid的时间，那么被代理服务器可以不指定缓存内容的时间。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">  <span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">8080</span>;</span><br><span class="line">    <span class="section">location</span> /cache &#123;</span><br><span class="line">      <span class="attribute">add_header</span> X-Accel-Expires <span class="number">100</span>; <span class="comment">#通知代理服务器缓存100s</span></span><br><span class="line">      <span class="comment">#expires 50;   #通知代理服务器缓存50s</span></span><br><span class="line">      <span class="comment">#add_header Cache-Control &quot;max-age=50&quot;; #通知代理服务器缓存50s</span></span><br><span class="line">      <span class="attribute">alias</span> /www/html/docs/ ;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>设置缓存时间的字段</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数（优先级从高到低）</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>inactive</td>
+<td>代理服务器</td>
+</tr>
+<tr>
+<td>X-Accel-Expires</td>
+<td>被代理服务器</td>
+</tr>
+<tr>
+<td>Cache-Control</td>
+<td>被代理服务器</td>
+</tr>
+<tr>
+<td>expires</td>
+<td>被代理服务器</td>
+</tr>
+<tr>
+<td>proxy_cache_valid</td>
+<td>代理服务器</td>
+</tr>
+</tbody></table>
+<h4 id="验证缓存"><a href="#验证缓存" class="headerlink" title="验证缓存"></a>验证缓存</h4><p>客户端连续两次去访问代理服务器，可以看到第一次请求未命中缓存，第二次请求命中缓存。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">❯ curl http://192.168.1.134/cache/  -I</span><br><span class="line"></span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">......</span><br><span class="line">Cache-Control: max-age=50</span><br><span class="line">cache: MISS  		<span class="comment"># 第一次请求未命中缓存</span></span><br><span class="line">Accept-Ranges: bytes</span><br><span class="line"></span><br><span class="line">❯ curl http://192.168.1.134/cache/  -I</span><br><span class="line"></span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">......</span><br><span class="line">Cache-Control: max-age=50</span><br><span class="line">cache: HIT  		<span class="comment"># 第二次请求命中缓存</span></span><br><span class="line">Accept-Ranges: bytes</span><br></pre></td></tr></table></figure>
+
+<p><strong>缓存状态</strong></p>
+<p><code>$upstream_cache_status</code>中包含以下几个状态：</p>
+<ul>
+<li><strong>MISS</strong>:未命中缓存，请求被传送到后端服务器。</li>
+<li><strong>HIT</strong>: 命中缓存，使用缓存响应客户端。</li>
+<li><strong>EXPIRED</strong>: 缓存已经过期，请求被传送到后端。</li>
+<li><strong>UPDATING</strong>: 正在更新缓存，将使用旧缓存的应答客户端。</li>
+<li><strong>STALE</strong>: 客户端将得到过期的应答。</li>
+<li><strong>BYPASS</strong>: 缓存被绕过了，请求被传送到后端服务器。</li>
+<li><strong>REVALIDATED</strong>: nginx通过过期缓存中的Etag和Last-Modified字段的值向被代理服务器发起验证请求。</li>
+</ul>
+<p>并且在代理服务器上我们之前指定的缓存文件路径下可以看到该文件。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@nginx-plus1 e2] <span class="built_in">ls</span> /tmp/nginx/cache/9/e2</span><br><span class="line"></span><br><span class="line">b5ba0009996f20ce25cbca96ac976e29</span><br></pre></td></tr></table></figure>
+
+<h4 id="缓存配置综合例子"><a href="#缓存配置综合例子" class="headerlink" title="缓存配置综合例子"></a>缓存配置综合例子</h4><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">user</span> nginx;</span><br><span class="line">events&#123;</span><br><span class="line"> <span class="attribute">worker_connections</span> <span class="number">1024</span>;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="comment">#设置缓存路径和相关参数（必选）</span></span><br><span class="line">    <span class="attribute">proxy_cache_path</span>  /tmp/nginx/cache levels=<span class="number">1</span>:<span class="number">2</span>  keys_zone=mycache:<span class="number">10m</span> max_size=<span class="number">10g</span>;</span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">        <span class="section">location</span> /cache  &#123;</span><br><span class="line">            <span class="attribute">proxy_pass</span> http://192.168.1.135:8080;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">#引用缓存配置（必选）</span></span><br><span class="line">            <span class="attribute">proxy_cache</span> mycache;</span><br><span class="line">      </span><br><span class="line">            <span class="comment">#对响应状态码为200 302的响应缓存100s</span></span><br><span class="line">            <span class="attribute">proxy_cache_valid</span> <span class="number">200</span> <span class="number">302</span> <span class="number">100s</span>;</span><br><span class="line">            <span class="comment">#对响应状态码为404的响应缓存200</span></span><br><span class="line">            <span class="attribute">proxy_cache_valid</span> <span class="number">404</span> <span class="number">200s</span>;</span><br><span class="line">      </span><br><span class="line">            <span class="comment">#请求参数带有nocache或者comment时不使用缓存</span></span><br><span class="line">            <span class="attribute">proxy_cache_bypass</span> <span class="variable">$arg_nocache</span> <span class="variable">$arg_comment</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">#忽略被代理服务器设置的&quot;Cache-Control&quot;头信息</span></span><br><span class="line">            <span class="attribute">proxy_ignore_headers</span> <span class="string">&quot;Cache-Control&quot;</span>; </span><br><span class="line">      </span><br><span class="line">            <span class="comment">#对GET HEAD POST方法进行缓存 </span></span><br><span class="line">            <span class="attribute">proxy_cache_methods</span> GET HEAD POST;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">#当缓存过期时，当构造上游请求时，添加If-Modified-Since和If-None-Match头部，值为过期缓存中的Last-Modified值和Etag值。</span></span><br><span class="line">            <span class="attribute">proxy_cache_revalidate</span> <span class="literal">on</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">#当被代理服务器返回403时，nginx可以使用历史缓存来响应客户端，该功能在一定程度上能能够为客户端提供不间断访问</span></span><br><span class="line">            <span class="attribute">proxy_cache_use_stale</span> http_403;</span><br><span class="line">      </span><br><span class="line">            <span class="comment">#默认开启，开启代理缓冲区（内存）</span></span><br><span class="line">            <span class="attribute">proxy_buffering</span> <span class="literal">on</span>;</span><br><span class="line">            <span class="comment">#设置响应头的缓冲区设为8k</span></span><br><span class="line">            <span class="attribute">proxy_buffer_size</span> <span class="number">8k</span>;</span><br><span class="line">            <span class="comment">#设置网页内容缓冲区个数为8，单个大小为8k</span></span><br><span class="line">            <span class="attribute">proxy_buffers</span> <span class="number">8</span> <span class="number">8k</span>;</span><br><span class="line">            <span class="comment">#设置当nginx还在读取被代理服务器的数据响应的同时间一次性向客户端响应的数据的最大为16k</span></span><br><span class="line">            <span class="attribute">proxy_busy_buffers_size</span> <span class="number">16k</span>;</span><br><span class="line">            <span class="comment">#临时文件最大为1024m</span></span><br><span class="line">            <span class="attribute">proxy_max_temp_file_size</span> <span class="number">1024m</span>;</span><br><span class="line">            <span class="comment">#设置一次往临时文件的大小最大为16k</span></span><br><span class="line">            <span class="attribute">proxy_temp_file_write_size</span> <span class="number">16k</span>;</span><br><span class="line">            <span class="comment">#设置临时文件存放目录</span></span><br><span class="line">            <span class="attribute">proxy_temp_path</span> /tmp/proxy_temp;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">#设置和被代理服务器连接的超时时间为60s</span></span><br><span class="line">            <span class="attribute">proxy_connect_timeout</span> <span class="number">60</span>;</span><br><span class="line">            <span class="comment">#设置向被代理服务器发送请求的超时时间为60s</span></span><br><span class="line">            <span class="attribute">proxy_send_timeout</span> <span class="number">60</span>;</span><br><span class="line">            <span class="comment">#设置从被代理服务器读取响应的超时时间为60s</span></span><br><span class="line">            <span class="attribute">proxy_read_timeout</span> <span class="number">60</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">#添加缓存状态参数，方便测试是否命中缓存</span></span><br><span class="line">            <span class="attribute">add_header</span> cache <span class="variable">$upstream_cache_status</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h3 id="其他缓存参数"><a href="#其他缓存参数" class="headerlink" title="其他缓存参数"></a>其他缓存参数</h3><h4 id="通过nginx变量限制是否使用缓存"><a href="#通过nginx变量限制是否使用缓存" class="headerlink" title="通过nginx变量限制是否使用缓存"></a>通过nginx变量限制是否使用缓存</h4><blockquote>
+<p><strong>proxy_cache_bypass</strong></p>
+</blockquote>
+<p>该参数设定，什么情况下的请求不读取cache而是直接从后端的服务器上获取资源。这里的string通常为nginx的的一些内置变量或者自己定义的变量。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Syntax:</span>  proxy_cache_bypass <span class="type">string</span> ...;</span><br><span class="line"><span class="symbol">Default:</span> —</span><br><span class="line"><span class="symbol">Context:</span> http, server, location</span><br></pre></td></tr></table></figure>
+
+<p>例如：当客户端访问请求中带有nocache或者comment参数时，不使用缓存数据。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxy_cache_bypass <span class="variable">$arg_nocache</span> <span class="variable">$arg_comment</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>proxy_no_cache</strong></p>
+</blockquote>
+<p>该参数和proxy_cache_bypass类似，用来设定什么情况下不缓存。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Syntax:</span>  proxy_no_cache <span class="type">string</span> ...;</span><br><span class="line"><span class="symbol">Default:</span> —</span><br><span class="line"><span class="symbol">Context:</span> http, server, location</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxy_no_cache <span class="variable">$cookie_nocache</span> <span class="variable">$arg_nocache</span> <span class="variable">$arg_comment</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="定义缓存与请求间匹配的关键字"><a href="#定义缓存与请求间匹配的关键字" class="headerlink" title="定义缓存与请求间匹配的关键字"></a>定义缓存与请求间匹配的关键字</h4><blockquote>
+<p><strong>proxy_cache_key</strong></p>
+</blockquote>
+<p>设置遇到哪些关键字nginx服务器在共享内存中为缓存数据建立索引。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Syntax:</span>  proxy_cache_key <span class="type">string</span>;</span><br><span class="line"><span class="symbol">Default:</span> proxy_cache_key $scheme$proxy_host$request_uri;</span><br><span class="line"><span class="symbol">Context:</span> http, server, location</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="影响缓存的HTTP-method"><a href="#影响缓存的HTTP-method" class="headerlink" title="影响缓存的HTTP method"></a>影响缓存的HTTP method</h4><blockquote>
+<p><strong>proxy_cache_methods</strong></p>
+</blockquote>
+<p>设置哪些HTTP请求方法，可以建立缓存。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Syntax:</span>  proxy_cache_methods <span class="keyword">GET</span> | HEAD | POST ...;</span><br><span class="line"><span class="symbol">Default:</span> proxy_cache_methods <span class="keyword">GET</span> HEAD;</span><br><span class="line"><span class="symbol">Context:</span> http, server, location</span><br><span class="line">This directive appeared <span class="keyword">in</span> version <span class="number">0.7</span>.<span class="number">59</span>.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>proxy_cache_convert_head</strong></p>
+</blockquote>
+<p>当客户端一次使用HEAD方法请求时，nginx会通过GET方法向上游请求完整的header和body，只返回header给客户端。 当客户端下次使用GET方法请求时，nginx会把缓存好的body返回给客户端，就不用去请求上游了。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Syntax:</span>  proxy_cache_convert_head <span class="keyword">on</span> | <span class="keyword">off</span>;</span><br><span class="line"><span class="symbol">Default:</span> proxy_cache_convert_head <span class="keyword">on</span>;</span><br><span class="line"><span class="symbol">Context:</span> http, server, location</span><br><span class="line">This directive appeared <span class="keyword">in</span> version <span class="number">1.9</span>.<span class="number">7</span>.</span><br></pre></td></tr></table></figure>
+
+<h4 id="影响缓存的HTTP-header"><a href="#影响缓存的HTTP-header" class="headerlink" title="影响缓存的HTTP header"></a>影响缓存的HTTP header</h4><blockquote>
+<p><strong>proxy_ignore_headers</strong></p>
+</blockquote>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">Syntax:  proxy_ignore_headers field ...;</span></span><br><span class="line"><span class="section">Default: —</span></span><br><span class="line"><span class="section">Context: http, server, location</span></span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxy_ignore_headers Set-Cookie Cache-Control;</span><br></pre></td></tr></table></figure>
+
+<p>当被代理服务器的响应存在以下头部时，nginx不会缓存：</p>
+<ul>
+<li>Set-Cookie</li>
+<li>Cache-Control中存在以下项之一：<ul>
+<li>private</li>
+<li>no-cache</li>
+<li>no-store</li>
+</ul>
+</li>
+</ul>
+<p>可以设置忽略被代理服务器的响应头。</p>
+<h4 id="影响缓存的HTTP-响应"><a href="#影响缓存的HTTP-响应" class="headerlink" title="影响缓存的HTTP 响应"></a>影响缓存的HTTP 响应</h4><blockquote>
+<p><strong>proxy_cache_valid</strong></p>
+</blockquote>
+<p>通过该参数，可以配置相应的http code类型的请求，生成的缓存的过期时间，可以配置多条。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">Syntax:  proxy_cache_valid [code ...] time;</span></span><br><span class="line"><span class="section">Default: —</span></span><br><span class="line"><span class="section">Context: http, server, location</span></span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">proxy_cache_valid 200 302 10m;</span><br><span class="line">proxy_cache_valid 404      1m;</span><br></pre></td></tr></table></figure>
+
+<h4 id="缓存请求次数"><a href="#缓存请求次数" class="headerlink" title="缓存请求次数"></a>缓存请求次数</h4><blockquote>
+<p><strong>proxy_cache_min_uses</strong></p>
+</blockquote>
+<p>当客户端请求发送的次数达到设置次数后才会缓存该请求的响应数据，如果不想缓存低频请求可以设置此项。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">Syntax:  proxy_cache_min_uses number;</span></span><br><span class="line"><span class="section">Default: proxy_cache_min_uses 1;</span></span><br><span class="line"><span class="section">Context: http, server, location</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="缓存大小"><a href="#缓存大小" class="headerlink" title="缓存大小"></a>缓存大小</h4><blockquote>
+<p><strong>proxy_buffering</strong></p>
+</blockquote>
+<p>默认是开启状态，当关闭时，nginx将不会对任何响应做缓存。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Syntax:</span>  proxy_buffering <span class="keyword">on</span> | <span class="keyword">off</span>;</span><br><span class="line"><span class="symbol">Default:</span> proxy_buffering <span class="keyword">on</span>;</span><br><span class="line"><span class="symbol">Context:</span> http, server, location</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>proxy_buffers</strong></p>
+</blockquote>
+<p>在内存中设置缓冲区存储被代理服务器响应的body所占用的buffer个数和每个buffer大小，默认情况下buffer size等于一个memory page，32为操作系统为4k,64位为8k。<strong>当buffer大小（内存）无法容纳被代理服务器响应数据时，会将响应数据存放在proxy_temp_path中定义的临时目录（硬盘）中</strong>。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">Syntax:  proxy_buffers number size;</span></span><br><span class="line"><span class="section">Default: proxy_buffers 8 4k|8k;</span></span><br><span class="line"><span class="section">Context: http, server, location</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>proxy_buffer_size</strong></p>
+</blockquote>
+<p>proxy_buffer_size 用来接受被代理服务器<strong>响应头</strong>，如果响应头超过了这个长度，nginx会报upstream sent too big header错误，然后client收到的是502。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">Syntax:  proxy_buffer_size size;</span></span><br><span class="line"><span class="section">Default: proxy_buffer_size 4k|8k;</span></span><br><span class="line"><span class="section">Context: http, server, location</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>proxy_busy_buffers_size</strong></p>
+</blockquote>
+<p>nginx将会尽可能的读取被代理服务器的数据到buffer，直到proxy_buffers设置的所有buffer被写满或者数据被读取完，此时nginx开始向客户端传输数据。如果数据很大的话，nginx会接收并把他们写入到temp_file里去，大小由proxy_max_temp_file_size 控制。<strong>当数据没有完全读完的时候,nginx同时向客户端传送的buffer大小不能超过 proxy_busy_buffers_size</strong>。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">Syntax:  proxy_busy_buffers_size size;</span></span><br><span class="line"><span class="section">Default: proxy_busy_buffers_size 8k|16k;</span></span><br><span class="line"><span class="section">Context: http, server, location</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>proxy_temp_path</strong></p>
+</blockquote>
+<p>定义proxy的临时文件存在目录以及目录的层级。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:  proxy_temp_path path <span class="section">[level1 [level2 [level3]]]</span><span class="comment">;</span></span><br><span class="line">Default: proxy_temp_path proxy_temp<span class="comment">;</span></span><br><span class="line">Context: http, server, location</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">proxy_temp_path /spool/nginx/proxy_temp 1 2;</span><br><span class="line"></span><br><span class="line">那么临时文件将会类似：</span><br><span class="line">/spool/nginx/proxy_temp/7/45/00000123457</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>proxy_temp_file_write_size</strong></p>
+</blockquote>
+<p>设置一次写入临时文件的数据的最大的大小。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">Syntax:  proxy_temp_file_write_size size;</span></span><br><span class="line"><span class="section">Default: proxy_temp_file_write_size 8k|16k;</span></span><br><span class="line"><span class="section">Context: http, server, location</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>proxy_max_temp_file_size</strong></p>
+</blockquote>
+<p>设置临时文件的最大的大小。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">Syntax:  proxy_max_temp_file_size size;</span></span><br><span class="line"><span class="section">Default: proxy_max_temp_file_size 1024m;</span></span><br><span class="line"><span class="section">Context: http, server, location</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="超时时间"><a href="#超时时间" class="headerlink" title="超时时间"></a>超时时间</h4><blockquote>
+<p><strong>proxy_connect_timeout</strong></p>
+</blockquote>
+<p>设置和被代理服务器建立连接超时时间。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">Syntax:  proxy_connect_timeout time;</span></span><br><span class="line"><span class="section">Default: proxy_connect_timeout 60s;</span></span><br><span class="line"><span class="section">Context: http, server, location</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>proxy_read_timeout</strong></p>
+</blockquote>
+<p>设置从被代理服务器读取响应的时间。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">Syntax:  proxy_read_timeout time;</span></span><br><span class="line"><span class="section">Default: proxy_read_timeout 60s;</span></span><br><span class="line"><span class="section">Context: http, server, location</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>proxy_send_timeout</strong></p>
+</blockquote>
+<p>设置发送请求给被代理服务器的超时时间。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">Syntax:  proxy_send_timeout time;</span></span><br><span class="line"><span class="section">Default: proxy_send_timeout 60s;</span></span><br><span class="line"><span class="section">Context: http, server, location</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="并发回源请求"><a href="#并发回源请求" class="headerlink" title="并发回源请求"></a>并发回源请求</h4><blockquote>
+<p><strong>proxy_cache_lock</strong></p>
+</blockquote>
+<p>针对同一个key，仅允许一个请求回源去更新缓存，用于锁住并发回源请求。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Syntax:</span>  proxy_cache_lock <span class="keyword">on</span> | <span class="keyword">off</span>;</span><br><span class="line"><span class="symbol">Default:</span> proxy_cache_lock <span class="keyword">off</span>;</span><br><span class="line"><span class="symbol">Context:</span> http, server, location</span><br><span class="line">This directive appeared <span class="keyword">in</span> version <span class="number">1.1</span>.<span class="number">12</span>.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>proxy_cache_lock_timeout</strong></p>
+</blockquote>
+<p>锁住请求的最长等待时间，超时后直接回源，但不会以此响应更新缓存。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">Syntax:  proxy_cache_lock_timeout time;</span></span><br><span class="line"><span class="section">Default: proxy_cache_lock_timeout 5s;</span></span><br><span class="line"><span class="section">Context: http, server, location</span></span><br><span class="line">This directive appeared in version 1.1.12.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>proxy_cache_lock_age</strong></p>
+</blockquote>
+<p>更新缓存的回源请求最大超时时间，超时后放行其他请求更新缓存。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">Syntax:  proxy_cache_lock_age time;</span></span><br><span class="line"><span class="section">Default: proxy_cache_lock_age 5s;</span></span><br><span class="line"><span class="section">Context: http, server, location</span></span><br><span class="line">This directive appeared in version 1.7.8.</span><br></pre></td></tr></table></figure>
+
+<h4 id="历史缓存"><a href="#历史缓存" class="headerlink" title="历史缓存"></a>历史缓存</h4><blockquote>
+<p><strong>proxy_cache_use_stale</strong></p>
+</blockquote>
+<p>​	如果nginx在访问被代理服务器过程中出现被代理服务器无法访问或者访问出错等现象时，nginx服务器可以使用历史缓存响应客户端的请求，这些数据不一定和被代理服务器上最新的数据相一致，但对于更新频率不高的后端服务器来说，nginx服务器的该功能在一定程度上能够为客户端提供不间断访问。该指令用来设置一些状态，当被代理服务器处于这些状态时，nginx服务器启用该功能。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Syntax:</span>  proxy_cache_use_stale <span class="keyword">error</span> | timeout | invalid_header | updating | http_500 | http_502 | http_503 | http_504 | http_403 | http_404 | http_429 | <span class="keyword">off</span> ...;</span><br><span class="line"><span class="symbol">Default:</span> proxy_cache_use_stale <span class="keyword">off</span>;</span><br><span class="line"><span class="symbol">Context:</span> http, server, location</span><br></pre></td></tr></table></figure>
+
+<p>例如： 配置当被代理服务器返回404 HTTP响应码时，nginx可以使用历史缓存来响应客户端。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxy_cache_use_stale http_404<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="过期缓存"><a href="#过期缓存" class="headerlink" title="过期缓存"></a>过期缓存</h4><blockquote>
+<p><strong>proxy_cache_revalidate</strong></p>
+</blockquote>
+<p>当缓存过期时，当nginx构造上游请求时，添加If-Modified-Since和If-None-Match头部，值为过期缓存中的Last-Modified值和Etag值。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Syntax:</span>  proxy_cache_revalidate <span class="keyword">on</span> | <span class="keyword">off</span>;</span><br><span class="line"><span class="symbol">Default:</span> proxy_cache_revalidate <span class="keyword">off</span>;</span><br><span class="line"><span class="symbol">Context:</span> http, server, location</span><br><span class="line">This directive appeared <span class="keyword">in</span> version <span class="number">1.5</span>.<span class="number">7</span>.</span><br></pre></td></tr></table></figure>
+
+<p>当接收到被代理服务器的304响应时，且打开了proxy_cache_revalidate功能，则用缓存来响应客户端，并且更新缓存状态。</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6921175807146590216">https://juejin.cn/post/6921175807146590216</a><br>来源：稀土掘金</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-09</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Nginx/'>
+                            Nginx
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E6%8B%93%E5%B1%95%E8%A7%86%E9%87%8E/'>
+                            拓展视野
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

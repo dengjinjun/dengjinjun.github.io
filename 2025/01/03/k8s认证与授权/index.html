@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="K8S认证与授权" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            K8S认证与授权
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#k8s%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83"><span class="post-toc-text">k8s认证与授权</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#API%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84"><span class="post-toc-text">API设计结构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AE%A4%E8%AF%81%E3%80%81%E6%8E%88%E6%9D%83%E3%80%81%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6"><span class="post-toc-text">认证、授权、准入控制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#APIServer%E9%AA%8C%E8%AF%81%E6%B5%81%E7%A8%8B"><span class="post-toc-text">APIServer验证流程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RBAC%E6%9C%BA%E5%88%B6"><span class="post-toc-text">RBAC机制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#context%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="post-toc-text">context上下文</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ServiceAccount"><span class="post-toc-text">ServiceAccount</span></a></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="k8s认证与授权"><a href="#k8s认证与授权" class="headerlink" title="k8s认证与授权"></a>k8s认证与授权</h1><h2 id="API设计结构"><a href="#API设计结构" class="headerlink" title="API设计结构"></a>API设计结构</h2><p>apiserver的核心功能：</p>
+<ol>
+<li><p>对组件的贡献</p>
+<p>对下封装了对etcd数据库的操作、对上提供了list-watch机制</p>
+</li>
+<li><p>对客户端的贡献</p>
+<p>对客户端提供了api接口（总体来是基于RESTFul风格设计api）</p>
+</li>
+<li><p>对安全的贡献</p>
+<p>认证：检查凭证，验证用户是否是一个合法账号</p>
+<p>授权：验证账号对请求中指定的api有没有操作权限</p>
+<p>准入控制：提供了两种webhook：mutate和validate</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>API组织形式</strong></p>
+</blockquote>
+<p>为了方便扩展与演进，API接口支持分组与多版本，这些组织形式直接体现在访问资源的RESTful API上：</p>
+<p><a href="/../pic/image-20250102224445019.png" title="image-20250102224445019" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20250102224445019.png" alt="image-20250102224445019"></a></p>
+<ul>
+<li><p>顶级路径<code>/</code>：所有资源的起始路径</p>
+</li>
+<li><p>顶级大类：顶级路径下面有若干顶级大类，主要包括：</p>
+<ul>
+<li><p>核心资源 <code>/api</code> ：包含kubernetes的基础资源和功能，下面没有分组</p>
+</li>
+<li><p>扩展资源 <code>/apis </code>：包含核心资源之外的资源，下面细分为<code>apps</code>，<code>batch</code>等资源组，比如各种控制器等，使用<code>/apis/&#123;group&#125;/</code>路径。</p>
+</li>
+<li><p>健康检查类 <code>/healthz </code>：用于检查 Kubernetes API Server 的健康状态</p>
+</li>
+<li><p>性能指标类 <code>/metrics </code>：用于获取 Kubernetes API Server 的性能指标数据</p>
+</li>
+</ul>
+</li>
+<li><p>细分组：顶级大类下面又细分为<code>apps</code>，<code>batch</code>等资源组，也就是使用<code>kubectl explain 资源</code>看到的Group字段的值。资源组主要存在于扩展资源大类下面，核心资源直接使用<code>/api/v1</code>路径</p>
+</li>
+<li><p>版本号：某种资源的版本号，为了支持独立的演进，kubernetes API 支持不同的版本，代表不同的成熟度</p>
+<ul>
+<li><p><code>alpha1</code>级别：比如<code>v1alpha1</code>，测试功能，默认情况下是禁用的</p>
+</li>
+<li><p><code>Beta</code>级别：比如<code>v2beta1</code>，表示功能已经它通过了很好的测试，但是在随后的版本中仍有可能发生更改，默认情况下是启用的。</p>
+</li>
+<li><p>稳定级别，比如<code>v1</code>，当前以及后续的很多版本会持续稳定的版本。</p>
+</li>
+</ul>
+</li>
+<li><p>资源类型：具体的资源类型，比如<code>Pods</code>，<code>namespaces</code>等，不多介绍。</p>
+</li>
+</ul>
+<p>查看当前版本 kubernetes 中的 api 层级</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl get --raw /</span><br><span class="line">kubectl get --raw /apis</span><br><span class="line">kubectl get --raw /apis/apps</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<h2 id="认证、授权、准入控制"><a href="#认证、授权、准入控制" class="headerlink" title="认证、授权、准入控制"></a>认证、授权、准入控制</h2><h3 id="APIServer验证流程"><a href="#APIServer验证流程" class="headerlink" title="APIServer验证流程"></a>APIServer验证流程</h3><ol start="0">
+<li><p>识别(Identification)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">APIServer首先需要识别用户实体(Subject),识别的关键是用户实体具有一个访问APIServer的identity身份，但是准确来说，识别这一步并不在APIServer的验证流程里面，因为用户实体只是一个代号，真正用于认证的东西是用户实体关联的凭证，比如token,secret等。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>认证(Authentication)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">APIServer需要对用户实体所关联的凭证进行认证，包括但不限于token,secret,证书，http+ssl/tls等方式，用于确认用户身份。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>授权(Authorization)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户认证成功之后，APIServer还需要确认该用户是否具有执行相关请求操作的权限。在这一步中，kubernetes提供了几种授权模式，比如基于角色访问控制（RBAC）或基于属性的访问控制（ABAC）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>准入控制(Admission Controllers)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请求达到APIServer之后，通过了认证和授权，但是在将数据持久化到etcd之前，还需要进行准入控制，这一阶段发生的事情是拦截请求进行mutate或者validate操作，也就是之前介绍的APIServer提供的两种webhook。</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="RBAC机制"><a href="#RBAC机制" class="headerlink" title="RBAC机制"></a>RBAC机制</h3><p>RBAC(Role Base Access Control)，基于角色的访问控制。</p>
+<p>简单来说，kubernetes 并不会直接把权限赋给某个用户或者某个用户组，而是把权限赋给某个角色(<code>Role</code>或者<code>Cluster Role</code>)，用户如果需要相关权限，可以通过<code>RoleBinding</code>或者<code>ClusterRoleBinding</code>来绑定到具体的某个角色。</p>
+<p>RBAC的核心概念</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">						绑定										关联</span><br><span class="line">用户实体(用户、组、sa)----------------&gt; 角色(Role、ClusterRole) ----------------&gt; 权限(rules)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>角色和绑定</strong></p>
+</blockquote>
+<p>角色分为两大类：Role和ClusterRole</p>
+<ul>
+<li><p>Role</p>
+<p>私有的角色，<strong>此类角色只能够在单个名称空间内被看到并加以引用</strong>，代表该角色是该命名空间私有的，但是私有角色Role并不一定只拥有单个命名空间的权限，它是否拥有所有命名空间的权限，取决于它的绑定方式。</p>
+</li>
+<li><p>Cluster Role</p>
+<p>公共的角色，<strong>此类角色能够被所有的名称空间看到并加以引用</strong>，代表此类角色是公共的。</p>
+</li>
+</ul>
+<p>绑定是将用户实体与某个角色进行关联的操作。绑定方式也分为两种：rolebinding和clusterrolebinding。</p>
+<ul>
+<li><p>rolebinding</p>
+<p>用户实体通过rolebinding的方式绑定某个Role角色，<strong>可以将用户锁定在某个命名空间内</strong>，此时该用户只具有单个命名空间的相关操作。</p>
+</li>
+<li><p>clusterrolebinding</p>
+<p>用户实体通过clusterrolebinding的方式绑定某个Cluster Role角色，<strong>那么该用户的权限范围在整个集群</strong>。</p>
+</li>
+</ul>
+<p><strong>扩展：</strong></p>
+<p>另外还有一种特殊的绑定方式：用户实体以rolebinding的方式绑定某个Cluster Role角色，这时用户是否具有所有命名空间的权限？</p>
+<p>其实并没有，用户权限仍然被锁定在单个命名空间内，因为是否拥有所有命名空间的权限，并不是角色决定的，而是由绑定方式决定的。这种操作看似没什么用，但是又一个场景，是集群内许多个用户，需要具有各自的单个命名空间下相同的权限，如果不采取这种方式，只能给每个用户创建一个Role，然后一对一绑定，管理和控制很麻烦。如果采用这种多个用户通过rolebinding的绑定方式来绑定同一个Cluster Role，可以方便地实现需求，也不会造成权限溢出。</p>
+<blockquote>
+<p><strong>rules</strong></p>
+</blockquote>
+<p>rules是规则集，定义在Role和Cluster Role的yaml文件中，代表某个角色对那些API资源组具有哪些操作权限。</p>
+<p>以下面的一个Role角色的资源清单为例</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiversion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test-role</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">rules:</span>		<span class="comment"># 规则集</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&#x27;&#x27;</span>,<span class="string">&#x27;apps&#x27;</span>]	<span class="comment"># 具体的资源组，资源组会自动关联资源大类，&#x27;&#x27;代表/api下没有细分资源组</span></span><br><span class="line">    <span class="attr">resources:</span> [<span class="string">&#x27;pods&#x27;</span>]		<span class="comment"># 具体的资源类型</span></span><br><span class="line">    <span class="attr">verbs:</span> [<span class="string">&#x27;get&#x27;</span>,<span class="string">&#x27;watch&#x27;</span>,<span class="string">&#x27;list&#x27;</span>]	<span class="comment"># 具体的操作，查询操作</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&#x27;apps&#x27;</span>]</span><br><span class="line">    <span class="attr">resources:</span> [<span class="string">&#x27;deployments&#x27;</span>]</span><br><span class="line">    <span class="attr">verbs:</span> [<span class="string">&#x27;get&#x27;</span>,<span class="string">&#x27;watch&#x27;</span>,<span class="string">&#x27;list&#x27;</span>,<span class="string">&#x27;create&#x27;</span>,<span class="string">&#x27;update&#x27;</span>,<span class="string">&#x27;patch&#x27;</span>,<span class="string">&#x27;delete&#x27;</span>]	<span class="comment"># 增删改查</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="context上下文"><a href="#context上下文" class="headerlink" title="context上下文"></a>context上下文</h3><p>基于RBAC机制，我们可以创建一个用户和Role类型的角色，然后进行绑定，该用户就具有了某个命名空间下的一些权限，大致操作如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先创建一个私钥文件</span></span><br><span class="line">openssl genrsa -out dengjinjun.key 2048</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用私钥文件创建证书签名请求文件，dengjinjun表示用户，devops表示组</span></span><br><span class="line">openssl req -new -key dengjinjun.key -out dengjinjun.csr -subj <span class="string">&quot;/CN=dengjinjun/O=devops&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用k8s的ca证书来签署csr文件，得到crt文件。k8s的ca证书一般位于/etc/kubernetes/pki目录下面</span></span><br><span class="line">openssl x509 -req -<span class="keyword">in</span> dengjinjun.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out dengjinjun.crt -days 500</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用证书文件和私钥文件在集群中为用户创建凭证</span></span><br><span class="line">kubectl config set-credentials dengjinjun --client-certificate=./dengjinjun.crt --client-key=./dengjinjun.key --embed-certs=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 为用户创建上下文context，此时可以指定命名空间也可以不指定</span></span><br><span class="line">kubectl config set-context dengjinjun-context --cluster=kubernetes --namespace=<span class="built_in">test</span> --user=egon</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看集群中有哪些上下文</span></span><br><span class="line">kubectl config get-context</span><br><span class="line">kubectl config view</span><br><span class="line"><span class="comment"># 切换kubectl命令使用的上下文</span></span><br><span class="line">kubectl config use-context dengjinjun-context</span><br><span class="line"><span class="comment"># 此时使用命令`kubectl get pod`操作apiserver会发现没有任何权限</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个Role类型的角色，生成一个模板自己修改需要的权限</span></span><br><span class="line">kubectl create role devops-role --verbget,list,watch --resource=pods --dry-run=client -o yaml &gt; role-demo.yaml</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 使用rolebinding方式将用户与角色绑定，生成一个模板自己修改</span></span><br><span class="line">kubectl create rolebinding devops-rolebinding --role=devops-role --user=dengjinjun --dry-run=client -o yaml &gt; rolebinding-demo.yaml </span><br><span class="line"></span><br><span class="line"><span class="comment"># 把上下文导出，可以传递给别人去使用</span></span><br><span class="line">kubectl config view --minify --flatten --context=dengjinjun-context &gt; dengjinjun.yaml</span><br></pre></td></tr></table></figure>
+
+<p>清理与删除</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除某个用户的上下文</span></span><br><span class="line">kubectl config delete-context dengjinjun-context</span><br><span class="line"><span class="comment"># 删除用户</span></span><br><span class="line">kubectl config <span class="built_in">unset</span> users.dengjinjun</span><br></pre></td></tr></table></figure>
+
+
+
+<p>拓展：</p>
+<p>kubectl命令执行的时候，会按照优先级来查找上下文</p>
+<ol>
+<li>命令行中指定<code>kubectl --context=/path/to/your-kubeconfig.yaml get pods</code>，具有最高的优先级。</li>
+<li>环境变量次之：<code>export KUBECONFIG=/path/to/your-kubeconfig.yaml</code></li>
+<li>当前用户的家目录下的<code>.kube/config</code>文件</li>
+</ol>
+<h3 id="ServiceAccount"><a href="#ServiceAccount" class="headerlink" title="ServiceAccount"></a>ServiceAccount</h3><p>context上下文是给人使用的，kubernetes中还有一种账号是给Pod使用的，<code>ServiceAccount</code> ，简称<code>sa</code></p>
+<p>sa的授权方式跟上文类似，但是它不需要手动签发证书，所以它比创建账户要方便的多</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意，创建sa这里一定要指定命名空间，因为Pod是命名空间下的资源，该sa账号一定要在该命名空间存在</span></span><br><span class="line">kubectl create sa dengjinjun-sa -n <span class="built_in">test</span></span><br><span class="line"><span class="comment"># 后面创建role或rolebinding不再赘述</span></span><br></pre></td></tr></table></figure>
+
+<p>ServiceAccount的同样采用RBAC的授权机制，但是不生成上下文，它的使用方式是在Pod的template清单中指定<code>.spec.serviceAccountName</code></p>
+<p><code>ServiceAcount</code>权限测试：</p>
+<ol>
+<li><p>在Pod外通过kubectl命令检测sa权限，根据返回值是yes或者no判断</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl auth can-i get pods --as=system:serviceaccount:&lt;namespace&gt;:&lt;serviceaccount-name&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在Pod内通过curl命令带token访问apiserver</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># token值通过令牌卷投影机制挂载到Pod的/var/run/secrets/kubernetes.io/serviceaccount目录中，可以先把token值声明成一个bian&#x27;l</span></span><br><span class="line">curl --header <span class="string">&quot;Authorization: Bearer <span class="variable">$TOKEN</span>&quot;</span> --insecure https://kubernetes.default.svc/api/v1/namespaces/default/pods</span><br></pre></td></tr></table></figure></li>
+</ol>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2025-01-03</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8S/'>
+                            K8S
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

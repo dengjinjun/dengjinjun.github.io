@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="K8S创建Pod完整流程" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            K8S创建Pod完整流程
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#k8s%E4%B8%AD%E7%9A%84List-Watch%E6%9C%BA%E5%88%B6%E4%BB%A5%E5%8F%8A%E5%88%9B%E5%BB%BApod%E7%9A%84%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="post-toc-text">k8s中的List-Watch机制以及创建pod的完整流程</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="k8s中的List-Watch机制以及创建pod的完整流程"><a href="#k8s中的List-Watch机制以及创建pod的完整流程" class="headerlink" title="k8s中的List-Watch机制以及创建pod的完整流程"></a>k8s中的List-Watch机制以及创建pod的完整流程</h2><blockquote>
+<p><strong>List-Watch机制</strong></p>
+</blockquote>
+<p>k8s中各组件间的协同都采用list-watch机制进行通信，主要是两个操作：</p>
+<ul>
+<li>List：客户端定期执行list操作来获取资源状态，短连接，一次通信完成之后tcp链接就断开</li>
+<li>Watch：通过watch操作来持续接收资源后续的更新，长连接，一次通信完成之后tcp链接依然保留</li>
+</ul>
+<p>在k8s中，组件长时间都处于watch状态，关注实时信息，但仍然有可能因为一些网络抖动故障导致watch丢失了某些事件，于是组件会定期发起list操作来获取最新的全量状态，弥补watch的不足。通过这种机制，k8s可以更有效地获取资源状态的更新，并减少了网络流量和APIserver服务器的负载。</p>
+<blockquote>
+<p><strong>k8s中创建pod的完整流程</strong></p>
+</blockquote>
+<p><a href="/../pic/1036857-20211018160628418-499688503.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1036857-20211018160628418-499688503.png" alt="img"></a></p>
+<ol start="0">
+<li>controller-manager组件、scheduler组件、kubelet组件都watch监听apiserver、监听自己的关注的资源状态。只要有更新，apiserver就会上报该更新给对应的组件。</li>
+<li>客户端命令kubectl提交创建pod的请求（以控制器Replicaset为例）。</li>
+<li>apiserver收到该请求，会把创建replicaset的请求写入etcd。</li>
+<li>上报事件replicaset created给controller-mamanger。</li>
+<li>controller-mamanger收到replicaset created事件，进入调谐阶段，发现当前该pod是0副本，预期要创建1个副本。</li>
+<li>controller-mamanger发起要创建一个pod的请求给apiserver。</li>
+<li>apiserver将创建pod的事件存入etcd中。</li>
+<li>apiserver上报Pod created事件给scheduler。</li>
+<li>scheduler组件收到Pod created事件，经过预选与优选来选出一台合适的物理节点来创建新pod。</li>
+<li>scheduler把调度结果（要在某一台物理节点上创建新pod）发送给apiserver。</li>
+<li>apiserver将事件存入etcd中。</li>
+<li>apiserver上报该事件给某一个物理节点上的kubelet。</li>
+<li>kubelet会收到该事件，进入pod创建环节。</li>
+<li>kubelet会调用容器引擎以及网络插件创建出pod。<ul>
+<li>会先调用容器引擎创建出一个pause容器</li>
+<li>调用网络插件来把pause容器的网络打通</li>
+<li>调用容器引擎来创建出业务容器，并且业务容器采用的container网络模式与pause容器共享网络</li>
+</ul>
+</li>
+</ol>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-16</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8S/'>
+                            K8S
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

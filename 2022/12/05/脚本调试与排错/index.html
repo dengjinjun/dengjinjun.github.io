@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="脚本调试与排错" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            脚本调试与排错
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#set%E5%91%BD%E4%BB%A4%E8%B0%83%E8%AF%95"><span class="post-toc-text">set命令调试</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#set-u%EF%BC%88%E5%8F%98%E9%87%8F%E6%A3%80%E6%9F%A5%EF%BC%89"><span class="post-toc-text">set -u（变量检查）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#set-x%EF%BC%88%E5%91%BD%E4%BB%A4%E8%BE%93%E5%87%BA%EF%BC%89"><span class="post-toc-text">set -x（命令输出）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#set-e%EF%BC%88%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%EF%BC%89"><span class="post-toc-text">set -e（错误处理）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#set-o-pipefail%EF%BC%88%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%EF%BC%9A%E7%AE%A1%E9%81%93%E7%AC%A6%EF%BC%89"><span class="post-toc-text">set -o pipefail（错误处理：管道符）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#set-E%EF%BC%88%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%EF%BC%9Atrap%EF%BC%89"><span class="post-toc-text">set -E（错误处理：trap）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B6%E4%BB%96%E5%8F%82%E6%95%B0"><span class="post-toc-text">其他参数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shopt-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">shopt 命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%8E%92%E9%94%99"><span class="post-toc-text">环境变量排错</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LINENO"><span class="post-toc-text">LINENO</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FUNCNAME"><span class="post-toc-text">FUNCNAME</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BASH-SOURCE"><span class="post-toc-text">BASH_SOURCE</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BASH-LINENO"><span class="post-toc-text">BASH_LINENO</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>调试与排错是Bash 脚本的重要环节，可以帮助写出更安全的 Bash 脚本。</p>
+<h2 id="set命令调试"><a href="#set命令调试" class="headerlink" title="set命令调试"></a>set命令调试</h2><p>Bash 执行脚本时，会创建一个子 Shell，脚本将会在子Shell中执行，这个子 Shell 就是脚本的执行环境，Bash 默认给定了这个环境的各种参数。</p>
+<p><code>set</code>命令用来修改子 Shell 环境的运行参数，即定制环境。直接运行<code>set</code>，会显示所有的环境变量和 Shell 函数。</p>
+<h3 id="set-u（变量检查）"><a href="#set-u（变量检查）" class="headerlink" title="set -u（变量检查）"></a>set -u（变量检查）</h3><p>默认情况下，bash在执行脚本时，如果遇到不存在的变量，将忽略它继续执行下一步。</p>
+<p><code>set -u</code>就用来改变这种行为。脚本在头部加上它，遇到不存在的变量就会报错，并停止执行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"><span class="built_in">set</span> -u</span><br></pre></td></tr></table></figure>
+
+<p><code>set -u</code>还有另一种写法<code>set -o nounset</code>，两者是等价的。</p>
+<h3 id="set-x（命令输出）"><a href="#set-x（命令输出）" class="headerlink" title="set -x（命令输出）"></a>set -x（命令输出）</h3><p><code>set -x</code>用来在执行命令之前，先输出执行的那一条命令。</p>
+<p>比如，在执行脚本中的<code>echo bar</code>之前，该命令会先打印出来。行首以<code>+</code>表示。</p>
+<p>输出的命令之前的<code>+</code>号，是由系统变量<code>PS4</code>决定，可以修改这个变量。这对于调试复杂的脚本是很有用的。</p>
+<p>如果想要对特定的代码段打开命令输出，可以使用<code>set +x</code>。比如下面例子中 只对<code>if</code>代码段进行调试。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">number=1</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -x</span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$number</span> = <span class="string">&quot;1&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;Number equals 1&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;Number does not equal 1&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">set</span> +x</span><br></pre></td></tr></table></figure>
+
+<p><code>set -x</code>还有另一种写法<code>set -o xtrace</code>。</p>
+<h3 id="set-e（错误处理）"><a href="#set-e（错误处理）" class="headerlink" title="set -e（错误处理）"></a>set -e（错误处理）</h3><p>默认情况下，如果脚本里面有运行失败的命令（返回值非<code>0</code>），Bash 只是显示有错误，然后会继续执行后面的命令。</p>
+<p>这种行为很不利于脚本安全和除错。实际开发中，如果某个命令失败，往往需要脚本停止执行，防止错误累积。这时，一般采用下面的写法。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只要`command`有非零返回值，脚本就会停止执行。</span></span><br><span class="line"><span class="built_in">command</span> || <span class="built_in">exit</span> 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果停止执行之前需要完成多个操作，可以采用下面的写法</span></span><br><span class="line"><span class="built_in">command</span> || &#123; <span class="built_in">echo</span> <span class="string">&quot;command failed&quot;</span>; <span class="built_in">exit</span> 1; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面这些写法多少有些麻烦。<code>set -e</code>从根本上解决了这个问题，根据返回值判断命令是否运行失败。只要脚本发生错误，就终止执行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"><span class="built_in">set</span> -e</span><br></pre></td></tr></table></figure>
+
+<p><code>set -e</code>但是，某些命令的非零返回值可能不表示失败，或者开发者希望在命令失败的情况下，脚本继续执行下去。这时可以暂时关闭<code>set -e</code>，该命令执行结束后，再重新打开<code>set -e</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> +e</span><br><span class="line">command1</span><br><span class="line">command2</span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使命令即使执行失败，脚本也不终止执行</span></span><br><span class="line"><span class="built_in">command</span> || <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p><code>set -e</code>还有另一种写法<code>set -o errexit</code>。</p>
+<h3 id="set-o-pipefail（错误处理：管道符）"><a href="#set-o-pipefail（错误处理：管道符）" class="headerlink" title="set -o pipefail（错误处理：管道符）"></a>set -o pipefail（错误处理：管道符）</h3><p><code>set -e</code>有一个例外情况，就是不适用于管道命令。</p>
+<p>所谓管道命令，就是多个子命令通过管道运算符（<code>|</code>）组合成为一个大的命令。Bash 会把最后一个子命令的返回值，作为整个命令的返回值。也就是说，只要最后一个子命令不失败，管道命令总是会执行成功，因此它后面命令依然会执行，<code>set -e</code>就失效了。</p>
+<p>请看下面这个例子。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line">foo | <span class="built_in">echo</span> a</span><br><span class="line"><span class="built_in">echo</span> bar</span><br></pre></td></tr></table></figure>
+
+<p>执行结果如下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ bash script.sh</span><br><span class="line">a</span><br><span class="line">script.sh:行4: foo: 未找到命令</span><br><span class="line">bar</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，<code>foo</code>是一个不存在的命令，但是<code>foo | echo a</code>这个管道命令会执行成功，导致后面的<code>echo bar</code>会继续执行。</p>
+<p><code>set -o pipefail</code>用来解决这种情况，只要一个子命令失败，整个管道命令就失败，脚本就会终止执行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"><span class="built_in">set</span> -eo pipefail</span><br><span class="line"></span><br><span class="line">foo | <span class="built_in">echo</span> a</span><br><span class="line"><span class="built_in">echo</span> bar</span><br></pre></td></tr></table></figure>
+
+<p>运行后，结果如下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ bash script.sh</span><br><span class="line">a</span><br><span class="line">script.sh:行4: foo: 未找到命令</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，<code>echo bar</code>没有执行。</p>
+<h3 id="set-E（错误处理：trap）"><a href="#set-E（错误处理：trap）" class="headerlink" title="set -E（错误处理：trap）"></a>set -E（错误处理：trap）</h3><p>一旦设置了<code>-e</code>参数，会导致函数内的错误不会被<code>trap</code>命令捕获（参考《trap 命令》一章）。<code>-E</code>参数可以纠正这个行为，使得函数也能继承<code>trap</code>命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line"><span class="built_in">trap</span> <span class="string">&quot;echo ERR trap fired!&quot;</span> ERR</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">myfunc</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment"># &#x27;foo&#x27; 是一个不存在的命令</span></span><br><span class="line">  foo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">myfunc</span><br></pre></td></tr></table></figure>
+
+<p>上面示例中，<code>myfunc</code>函数内部调用了一个不存在的命令<code>foo</code>，导致执行这个函数会报错。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ bash test.sh</span><br><span class="line">test.sh:行9: foo：未找到命令</span><br></pre></td></tr></table></figure>
+
+<p>但是，由于设置了<code>set -e</code>，函数内部的报错并没有被<code>trap</code>命令捕获，需要加上<code>-E</code>参数才可以。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> -Eeuo pipefail</span><br><span class="line"></span><br><span class="line"><span class="built_in">trap</span> <span class="string">&quot;echo ERR trap fired!&quot;</span> ERR</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">myfunc</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment"># &#x27;foo&#x27; 是一个不存在的命令</span></span><br><span class="line">  foo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">myfunc</span><br></pre></td></tr></table></figure>
+
+<p>执行上面这个脚本，就可以看到<code>trap</code>命令生效了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ bash test.sh</span><br><span class="line">test.sh:行9: foo：未找到命令</span><br><span class="line">ERR <span class="built_in">trap</span> fired!</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他参数"><a href="#其他参数" class="headerlink" title="其他参数"></a>其他参数</h3><p>上面重点介绍的<code>set</code>命令的几个参数，一般都放在一起使用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 写在所有 Bash 脚本的头部</span></span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line"><span class="built_in">set</span> -Eeuxo pipefail</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以在执行 Bash 脚本的时候，从命令行传入这些参数</span></span><br><span class="line">$ bash -euxo pipefail script.sh</span><br></pre></td></tr></table></figure>
+
+<p><code>set</code>命令还有一些其他参数。</p>
+<ul>
+<li><code>set -n</code>：等同于<code>set -o noexec</code>，不运行命令，只检查语法是否正确。</li>
+<li><code>set -f</code>：等同于<code>set -o noglob</code>，表示不对通配符进行文件名扩展。</li>
+<li><code>set -v</code>：等同于<code>set -o verbose</code>，表示打印 Shell 接收到的每一行输入。</li>
+<li><code>set -o noclobber</code>：防止使用重定向运算符<code>&gt;</code>覆盖已经存在的文件。</li>
+</ul>
+<p>上面的<code>-f</code>和<code>-v</code>参数，可以分别使用<code>set +f</code>、<code>set +v</code>关闭。</p>
+<h3 id="shopt-命令"><a href="#shopt-命令" class="headerlink" title="shopt 命令"></a>shopt 命令</h3><p><code>shopt</code>命令用来调整 Shell 的参数，跟<code>set</code>命令的作用很类似。之所以会有这两个类似命令的主要原因是，<code>set</code>是从 Ksh 继承的，属于 POSIX 规范的一部分，而<code>shopt</code>是 Bash 特有的。</p>
+<p>直接输入<code>shopt</code>可以查看所有参数，以及它们各自打开和关闭的状态。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">shopt</span></span><br></pre></td></tr></table></figure>
+
+<p><code>shopt</code>命令后面跟着参数名，可以查询该参数是否打开。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">shopt</span> globstar</span><br><span class="line">globstar  off</span><br></pre></td></tr></table></figure>
+
+<p>上面例子表示<code>globstar</code>参数默认是关闭的。</p>
+<p><strong>（1）-s</strong></p>
+<p><code>-s</code>用来打开某个参数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">shopt</span> -s optionNameHere</span><br></pre></td></tr></table></figure>
+
+<p><strong>（2）-u</strong></p>
+<p><code>-u</code>用来关闭某个参数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">shopt</span> -u optionNameHere</span><br></pre></td></tr></table></figure>
+
+<p>举例来说，<code>histappend</code>这个参数表示退出当前 Shell 时，将操作历史追加到历史文件中。这个参数默认是打开的，如果使用下面的命令将其关闭，那么当前 Shell 的操作历史将替换掉整个历史文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">shopt</span> -u histappend</span><br></pre></td></tr></table></figure>
+
+<p><strong>（3）-q</strong></p>
+<p><code>-q</code>的作用也是查询某个参数是否打开，但不是直接输出查询结果，而是通过命令的执行状态（<code>$?</code>）表示查询结果。如果状态为<code>0</code>，表示该参数打开；如果为<code>1</code>，表示该参数关闭。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">shopt</span> -q globstar</span><br><span class="line">$ <span class="built_in">echo</span> $?</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p>上面命令查询<code>globstar</code>参数是否打开。返回状态为<code>1</code>，表示该参数是关闭的。</p>
+<p>这个用法主要用于脚本，供<code>if</code>条件结构使用。下面例子是如果打开了这个参数，就执行<code>if</code>结构内部的语句。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">shopt</span> -q globstar); <span class="keyword">then</span></span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="环境变量排错"><a href="#环境变量排错" class="headerlink" title="环境变量排错"></a>环境变量排错</h2><p>有一些环境变量常用于除错。</p>
+<h3 id="LINENO"><a href="#LINENO" class="headerlink" title="LINENO"></a>LINENO</h3><p>变量<code>LINENO</code>返回它在脚本里面的行号。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;This is line <span class="variable">$LINENO</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>执行上面的脚本<code>test.sh</code>，<code>$LINENO</code>会返回<code>3</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./test.sh</span><br><span class="line">This is line 3</span><br></pre></td></tr></table></figure>
+
+<h3 id="FUNCNAME"><a href="#FUNCNAME" class="headerlink" title="FUNCNAME"></a>FUNCNAME</h3><p>变量<code>FUNCNAME</code>返回一个数组，内容是当前的函数调用堆栈。该数组的0号成员是当前调用的函数，1号成员是调用当前函数的函数，以此类推。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">func1</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func1: FUNCNAME0 is <span class="variable">$&#123;FUNCNAME[0]&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func1: FUNCNAME1 is <span class="variable">$&#123;FUNCNAME[1]&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func1: FUNCNAME2 is <span class="variable">$&#123;FUNCNAME[2]&#125;</span>&quot;</span></span><br><span class="line">  func2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">func2</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func2: FUNCNAME0 is <span class="variable">$&#123;FUNCNAME[0]&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func2: FUNCNAME1 is <span class="variable">$&#123;FUNCNAME[1]&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func2: FUNCNAME2 is <span class="variable">$&#123;FUNCNAME[2]&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func1</span><br></pre></td></tr></table></figure>
+
+<p>执行上面的脚本<code>test.sh</code>，结果如下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ./test.sh</span><br><span class="line">func1: FUNCNAME0 is func1</span><br><span class="line">func1: FUNCNAME1 is main</span><br><span class="line">func1: FUNCNAME2 is</span><br><span class="line">func2: FUNCNAME0 is func2</span><br><span class="line">func2: FUNCNAME1 is func1</span><br><span class="line">func2: FUNCNAME2 is main</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，执行<code>func1</code>时，变量<code>FUNCNAME</code>的0号成员是<code>func1</code>，1号成员是调用<code>func1</code>的主脚本<code>main</code>。执行<code>func2</code>时，变量<code>FUNCNAME</code>的0号成员是<code>func2</code>，1号成员是调用<code>func2</code>的<code>func1</code>。</p>
+<h3 id="BASH-SOURCE"><a href="#BASH-SOURCE" class="headerlink" title="BASH_SOURCE"></a>BASH_SOURCE</h3><p>变量<code>BASH_SOURCE</code>返回一个数组，内容是当前的脚本调用堆栈。该数组的0号成员是当前执行的脚本，1号成员是调用当前脚本的脚本，以此类推，跟变量<code>FUNCNAME</code>是一一对应关系。</p>
+<p>下面有两个子脚本<code>lib1.sh</code>和<code>lib2.sh</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># lib1.sh</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">func1</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func1: BASH_SOURCE0 is <span class="variable">$&#123;BASH_SOURCE[0]&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func1: BASH_SOURCE1 is <span class="variable">$&#123;BASH_SOURCE[1]&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func1: BASH_SOURCE2 is <span class="variable">$&#123;BASH_SOURCE[2]&#125;</span>&quot;</span></span><br><span class="line">  func2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># lib2.sh</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">func2</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func2: BASH_SOURCE0 is <span class="variable">$&#123;BASH_SOURCE[0]&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func2: BASH_SOURCE1 is <span class="variable">$&#123;BASH_SOURCE[1]&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func2: BASH_SOURCE2 is <span class="variable">$&#123;BASH_SOURCE[2]&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，主脚本<code>main.sh</code>调用上面两个子脚本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># main.sh</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> lib1.sh</span><br><span class="line"><span class="built_in">source</span> lib2.sh</span><br><span class="line"></span><br><span class="line">func1</span><br></pre></td></tr></table></figure>
+
+<p>执行主脚本<code>main.sh</code>，会得到下面的结果。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ./main.sh</span><br><span class="line">func1: BASH_SOURCE0 is lib1.sh</span><br><span class="line">func1: BASH_SOURCE1 is ./main.sh</span><br><span class="line">func1: BASH_SOURCE2 is</span><br><span class="line">func2: BASH_SOURCE0 is lib2.sh</span><br><span class="line">func2: BASH_SOURCE1 is lib1.sh</span><br><span class="line">func2: BASH_SOURCE2 is ./main.sh</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，执行函数<code>func1</code>时，变量<code>BASH_SOURCE</code>的0号成员是<code>func1</code>所在的脚本<code>lib1.sh</code>，1号成员是主脚本<code>main.sh</code>；执行函数<code>func2</code>时，变量<code>BASH_SOURCE</code>的0号成员是<code>func2</code>所在的脚本<code>lib2.sh</code>，1号成员是调用<code>func2</code>的脚本<code>lib1.sh</code>。</p>
+<h3 id="BASH-LINENO"><a href="#BASH-LINENO" class="headerlink" title="BASH_LINENO"></a>BASH_LINENO</h3><p>变量<code>BASH_LINENO</code>返回一个数组，内容是每一轮调用对应的行号。<code>$&#123;BASH_LINENO[$i]&#125;</code>跟<code>$&#123;FUNCNAME[$i]&#125;</code>是一一对应关系，表示<code>$&#123;FUNCNAME[$i]&#125;</code>在调用它的脚本文件<code>$&#123;BASH_SOURCE[$i+1]&#125;</code>里面的行号。</p>
+<p>下面有两个子脚本<code>lib1.sh</code>和<code>lib2.sh</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># lib1.sh</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">func1</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func1: BASH_LINENO is <span class="variable">$&#123;BASH_LINENO[0]&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func1: FUNCNAME is <span class="variable">$&#123;FUNCNAME[0]&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func1: BASH_SOURCE is <span class="variable">$&#123;BASH_SOURCE[1]&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  func2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># lib2.sh</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">func2</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func2: BASH_LINENO is <span class="variable">$&#123;BASH_LINENO[0]&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func2: FUNCNAME is <span class="variable">$&#123;FUNCNAME[0]&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;func2: BASH_SOURCE is <span class="variable">$&#123;BASH_SOURCE[1]&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，主脚本<code>main.sh</code>调用上面两个子脚本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># main.sh</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> lib1.sh</span><br><span class="line"><span class="built_in">source</span> lib2.sh</span><br><span class="line"></span><br><span class="line">func1</span><br></pre></td></tr></table></figure>
+
+<p>执行主脚本<code>main.sh</code>，会得到下面的结果。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ./main.sh</span><br><span class="line">func1: BASH_LINENO is 7</span><br><span class="line">func1: FUNCNAME is func1</span><br><span class="line">func1: BASH_SOURCE is main.sh</span><br><span class="line">func2: BASH_LINENO is 8</span><br><span class="line">func2: FUNCNAME is func2</span><br><span class="line">func2: BASH_SOURCE is lib1.sh</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，函数<code>func1</code>是在<code>main.sh</code>的第7行调用，函数<code>func2</code>是在<code>lib1.sh</code>的第8行调用的。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2022-12-05</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Bash/'>
+                            Bash
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

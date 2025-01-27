@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Zabbix概述" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Zabbix概述
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%91%E6%8E%A7%E6%9C%8D%E5%8A%A1%E6%A6%82%E8%BF%B0"><span class="post-toc-text">监控服务概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%BB%E6%B5%81%E7%9B%91%E6%8E%A7%E8%BD%AF%E4%BB%B6"><span class="post-toc-text">主流监控软件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Zabbix"><span class="post-toc-text">Zabbix</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Open-Falcon"><span class="post-toc-text">Open-Falcon</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Prometheus"><span class="post-toc-text">Prometheus</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%80%BB%E7%BB%93"><span class="post-toc-text">总结</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Zabbix%E7%AE%80%E4%BB%8B"><span class="post-toc-text">Zabbix简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Zabbix%E7%9A%84%E7%9B%91%E6%8E%A7%E5%AF%B9%E8%B1%A1"><span class="post-toc-text">Zabbix的监控对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Zabbix%E7%9A%84%E6%9E%84%E6%88%90"><span class="post-toc-text">Zabbix的构成</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Zabbix%E7%9A%84%E6%A1%86%E6%9E%B6"><span class="post-toc-text">Zabbix的框架</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Zabbix%E7%9A%84%E8%BF%9B%E7%A8%8B"><span class="post-toc-text">Zabbix的进程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Zabbix%E5%B8%B8%E7%94%A8%E6%9C%AF%E8%AF%AD"><span class="post-toc-text">Zabbix常用术语</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="监控服务概述"><a href="#监控服务概述" class="headerlink" title="监控服务概述"></a>监控服务概述</h2><p>无监控，不运维，监控是自动化运维的重要组成部分。下面是常用的监控对象以及监控指标：</p>
+<p><a href="/../pic/moifpvj056.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/moifpvj056.png" alt="img"></a></p>
+<blockquote>
+<p><strong>硬件监控</strong></p>
+</blockquote>
+<p>电源状态、CPU状态、机器温度、风扇状态、物理磁盘、raid状态、内存状态、网卡状态</p>
+<blockquote>
+<p><strong>服务器基础监控</strong></p>
+</blockquote>
+<ul>
+<li>CPU：单个CPU以及整体的使用情况</li>
+<li>内存：已用内存、可用内存</li>
+<li>磁盘：磁盘使用率、磁盘读写的吞吐量</li>
+<li>网络：出口流量、入口流量、TCP连接状态</li>
+</ul>
+<blockquote>
+<p><strong>数据库监控</strong></p>
+</blockquote>
+<p>数据库连接数、QPS、TPS、并行处理的会话数、缓存命中率、主从延时、锁状态、慢查询</p>
+<blockquote>
+<p><strong>中间件监控</strong></p>
+</blockquote>
+<ul>
+<li>Nginx：活跃连接数、等待连接数、丢弃连接数、请求量、耗时、5XX错误率</li>
+<li>Tomcat：最大线程数、当前线程数、请求量、耗时、错误量、堆内存使用情况、GC次数和耗时</li>
+<li>缓存 ：成功连接数、阻塞连接数、已使用内存、内存碎片率、请求量、耗时、缓存命中率</li>
+<li>消息队列：连接数、队列数、生产速率、消费速率、消息堆积量</li>
+</ul>
+<blockquote>
+<p><strong>应用监控</strong></p>
+</blockquote>
+<ul>
+<li>HTTP接口：URL存活、请求量、耗时、异常量</li>
+<li>RPC接口：请求量、耗时、超时量、拒绝量</li>
+<li>JVM ：GC次数、GC耗时、各个内存区域的大小、当前线程数、死锁线程数</li>
+<li>线程池：活跃线程数、任务队列大小、任务执行耗时、拒绝任务数</li>
+<li>连接池：总连接数、活跃连接数</li>
+<li>日志监控：访问日志、错误日志</li>
+<li>业务指标：视业务来定，比如PV、订单量等</li>
+</ul>
+<h2 id="主流监控软件"><a href="#主流监控软件" class="headerlink" title="主流监控软件"></a>主流监控软件</h2><p>目前主流的监控软件比如zabbix、Prometheus、Nagios等各有优劣。选择监控工具的原则是根据公司业务场景选择。</p>
+<p><a href="/../pic/dht30ha4ob.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/dht30ha4ob.png" alt="img"></a></p>
+<h3 id="Zabbix"><a href="#Zabbix" class="headerlink" title="Zabbix"></a>Zabbix</h3><p>Zabbix是老牌监控软件的优秀代表，监控功能很全面，使用也很广泛。核心组件采用C语言开发，Web端采用PHP开发。</p>
+<p><a href="/../pic/73c0sfu9ef.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/73c0sfu9ef.png" alt="img"></a></p>
+<p>优势：</p>
+<ul>
+<li><strong>产品成熟：</strong>由于诞生时间长且使用广泛，拥有丰富的文档资料以及各种开源的数据采集插件，能覆盖绝大部分监控场景。</li>
+<li><strong>采集方式丰富：</strong>支持Agent、SNMP、JMX、SSH等多种采集方式，以及主动和被动的数据传输方式。</li>
+<li><strong>较强的扩展性</strong>：支持Proxy分布式监控，有agent自动发现功能，插件式架构支持用户自定义数据采集脚本。</li>
+<li><strong>配置管理方便</strong>：能通过Web界面进行监控和告警配置，操作方便，上手简单。</li>
+</ul>
+<p>劣势：</p>
+<ul>
+<li><strong>性能瓶颈：</strong>机器量或者业务量大了后，关系型数据库的写入一定是瓶颈，官方给出的单机上限是5000台，个人感觉达不到，尤其现在应用层的指标越来越多。虽然最新版已经开始支持时序数据库，不过成熟度还不高。</li>
+<li><strong>应用层监控支持有限：</strong>如果想对应用程序做侵入式的埋点和采集（比如监控线程池或者接口性能），zabbix没有提供对应的sdk，通过插件式的脚本也能曲线实现此功能，个人感觉zabbix就不是做这个事的。</li>
+<li><strong>数据模型不强大</strong>：不支持tag，因此没法按多维度进行聚合统计和告警配置，使用起来不灵活。</li>
+<li><strong>方便二次开发难度大</strong>：Zabbix采用的是C语言，二次开发往往需要熟悉它的数据表结构，基于它提供的API更多只能做展示层的定制。</li>
+</ul>
+<h3 id="Open-Falcon"><a href="#Open-Falcon" class="headerlink" title="Open-Falcon"></a>Open-Falcon</h3><p>Open-falcon 是小米2015年开源的企业级监控工具，采用Go和Python语言开发。小米初期也使用的Zabbix进行监控，但是机器量和业务量上来后，Zabbix就有些力不从心了。因此，后来自主研发了Open-Falcon，在架构设计上吸取了Zabbix的经验，同时很好地解决了Zabbix的诸多痛点。这是一款灵活、高性能且易扩展的新一代监控方案，目前小米、美团、滴滴等超过200家公司在使用它。</p>
+<p><a href="/../pic/6wgtlfh6fq.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/6wgtlfh6fq.png" alt="img"></a></p>
+<p>优势：</p>
+<ul>
+<li><strong>自动采集能力：</strong>Falcon-agent 能自动采集服务器的200多个基础指标（比如CPU、内存等），无需在server上做任何配置，这一点可以秒杀Zabbix.</li>
+<li><strong>强大的存储能力</strong>：底层采用RRDTool，并且通过一致性hash进行数据分片，构建了一个分布式的<a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/ctsdb?from_column=20065&from=20065">时序数据存储</a>系统，可扩展性强。</li>
+<li><strong>灵活的数据模型：</strong>借鉴OpenTSDB，数据模型中引入了tag，这样能支持多维度的聚合统计以及告警规则设置，大大提高了使用效率。</li>
+<li><strong>插件统一管理：</strong>Open-Falcon的插件机制实现了对用户自定义脚本的统一化管理，可通过HeartBeat Server分发给agent，减轻了使用者自主维护脚本的成本。</li>
+<li><strong>个性化监控支持</strong>：基于Proxy-gateway，很容易通过自主埋点实现应用层的监控（比如监控接口的访问量和耗时）和其他个性化监控需求，集成方便。</li>
+</ul>
+<p>劣势：</p>
+<ul>
+<li><strong>整体发展一般：</strong>社区活跃度不算高，同时版本更新慢，有些大厂是基于它的稳定版本直接做二次开发的，关于以后的前景其实有点担忧。</li>
+<li><strong>UI不够友好</strong>：对于业务线的研发来说，可能只想便捷地完成告警配置和业务监控，但是它把机器分组、策略模板、模板继承等概念全部暴露在UI上，感觉在围绕这几个概念设计UI，理解有点费劲。</li>
+<li><strong>安装比较复杂：</strong>个人的亲身感受，由于它是从小米内部衍生出来的，虽然去掉了对小米内部系统的依赖，但是组件还是比较多，如果对整个架构不熟悉，安装很难一蹴而就。</li>
+</ul>
+<h3 id="Prometheus"><a href="#Prometheus" class="headerlink" title="Prometheus"></a>Prometheus</h3><p>Prometheus（普罗米修斯）是2015年正式发布的开源监控系统，采用Go语言开发。它有Google与k8s的强力支持，开源社区异常火爆。</p>
+<p>Prometheus 的未来前景被相当看好，号称下一代监控，它和Open-Falcon最大不同在于：数据采集是基于Pull模式的，而不是Push模式，并且架构非常简单。</p>
+<p><a href="/../pic/yhr5rs2bh8.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/yhr5rs2bh8.png" alt="img"></a></p>
+<p>优势：</p>
+<ul>
+<li><strong>轻量管理：</strong>架构简单，不依赖外部存储，单个服务器节点可直接工作，二进制文件启动即可，属于轻量级的Server，便于迁移和维护。</li>
+<li><strong>较强的处理能力</strong>：监控数据直接存储在Prometheus Server本地的时序数据库中，单个实例可以处理数百万的metrics。</li>
+<li><strong>灵活的数据模型：</strong>同Open-Falcon，引入了tag，属于多维数据模型，聚合统计更方便。</li>
+<li><strong>强大的查询语句：</strong>PromQL允许在同一个查询语句中，对多个metrics进行加法、连接和取分位值等操作。</li>
+<li><strong>很好地支持云环境</strong>：能自动发现容器，同时k8s和etcd等项目都提供了对Prometheus的原生支持，<strong>是目前容器监控最流行的方案</strong>。</li>
+</ul>
+<p>劣势：</p>
+<ul>
+<li><strong>功能不够完善：</strong>Prometheus从一开始的架构设计就是要做到简单，不提供集群化方案，长期的持久化存储和用户管理，而这些是企业变大后所必须的特性，目前要做到这些只能在Prometheus之上进行扩展。</li>
+<li><strong>网络规划变复杂</strong>：由于Prometheus采用的是Pull模型拉取数据，意味着所有被监控的endpoint必须是可达的，需要合理规划网络的安全配置。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>面对监控系统的选型问题，需要先明确清楚监控需求：要监控的对象有哪些？机器数量和监控指标有多少？需要具备什么样的告警功能？ </p>
+<ol>
+<li>从系统成熟度上看，Zabbix属于老牌的监控系统，资料多，功能全面且稳定，如果机器数量在几百台以内，不用太担心性能问题。</li>
+<li>Zabbix在服务器监控方面占绝对优势，可以满足90%以上的监控场景，但是应用层的监控似乎并不擅长，比如要监控线程池的状态、某个内部接口的执行时间等，这种通常都要做侵入式埋点。相反，新一代的监控系统Open-Falcon和Prometheus在这一点做得很好。</li>
+<li>Open-Falcon的核心优势在于数据分片功能，能支撑更多的机器和监控项。</li>
+<li>Prometheus则是容器监控方面的标配，有Google和k8s加持。</li>
+<li>随着机器数据增加和个性化需求增多（比如希望统一监控平台、打通公司的CMDB和组织架构关系），往往需要二次开发或者通过监控系统提供的API做集成，从这点来看，Open-Falcon或者Prometheus更合适</li>
+<li>Zabbix、Open-Falcon和Prometheus都支持和Grafana做快速集成，想要美观且强大的可视化体验，可以和Grafana进行组合。</li>
+</ol>
+<h2 id="Zabbix简介"><a href="#Zabbix简介" class="headerlink" title="Zabbix简介"></a>Zabbix简介</h2><p><a target="_blank" rel="noopener" href="https://www.zabbix.com/">Zabbix</a>是一个监控软件，其可以监控各种网络参数，支持灵活的告警机制，可以使得运维人员快速定位故障、解决问题。</p>
+<p>Zabbix支持分布式功能，支持主动和被动两种数据收集模式，支持复杂架构下的监控解决方案，也支持web页面，为主机监控提供了良好直观的展现。</p>
+<h3 id="Zabbix的监控对象"><a href="#Zabbix的监控对象" class="headerlink" title="Zabbix的监控对象"></a>Zabbix的监控对象</h3><p>zabbix支持监控各种系统平台，包括Linux和Windows等主流操作系统，也可以借助SNMP或者是SSH协议监控路由交换设备。zabbix如果部署在服务器上，可以监控其CPU、内存、网络性能等硬件参数，也可以监控具体的服务或者应用程序、服务运行情况及性能。</p>
+<blockquote>
+<p><strong>硬件监控</strong></p>
+</blockquote>
+<p>Zabbix IPMI Interface ，通过IPMI接口进行监控，我们可以通过标准的IPMI硬件接口，监控被监控对象的物理特征，比如电压、温度、风扇状态、电源状态等。</p>
+<blockquote>
+<p><strong>系统监控</strong></p>
+</blockquote>
+<p>Zabbix Agent Interface ，通过专用的代理程序进行监控，与常见的master&#x2F;agent模型类似，如果被监控对象支持对应的agent，推荐首选这种方式。</p>
+<blockquote>
+<p><strong>Java监控</strong></p>
+</blockquote>
+<p>Zabbix JMX Interface ，通过JMX进行监控，JMX（java management extensions，即java管理扩展），监控JVM虚拟机时，使用这种方法是非常不错的选择。</p>
+<blockquote>
+<p><strong>网络设备监控</strong></p>
+</blockquote>
+<p>Zabbix SNMP Interface ，通过SNMP协议与被监控对象进行通信，SNMP协议的全称为simple network management protocol，被译为简单网络管理协议，通常来说，我们无法在路由器、交换机这种硬件上安装agent，但是这些硬件都支持SNMP协议。</p>
+<blockquote>
+<p><strong>应用服务监控</strong></p>
+</blockquote>
+<p>Zabbix Agent UserParameter</p>
+<blockquote>
+<p><strong>MySQL数据库监控</strong></p>
+</blockquote>
+<p>percona-monitoring-plulgins</p>
+<blockquote>
+<p><strong>URL监控</strong></p>
+</blockquote>
+<p>Zabbix Web 监控</p>
+<h3 id="Zabbix的构成"><a href="#Zabbix的构成" class="headerlink" title="Zabbix的构成"></a>Zabbix的构成</h3><p><a href="/../pic/0ovp7iavv7.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/0ovp7iavv7.png" alt="img"></a></p>
+<p>zabbix主要由以下5个组件构成：</p>
+<blockquote>
+<p><strong>Server</strong></p>
+</blockquote>
+<p>zabbix server是zabbix的核心组件，server内部存储了所有的配置信息、统计信息和操作信息。zabbix agent会向zabbix server报告可用性、完整性及其他统计信息。</p>
+<blockquote>
+<p><strong>web页面</strong></p>
+</blockquote>
+<p>web页面也是zabbix的一部分，通常和zabbix server位于一台物理设备上，但是在特殊情况下也可以分开配置。web页面主要提供了直观的监控信息，以方便运维人员监控管理。</p>
+<blockquote>
+<p><strong>数据库</strong></p>
+</blockquote>
+<p>zabbix数据库内存储了配置信息、统计信息等zabbix的相关内容。</p>
+<blockquote>
+<p><strong>proxy</strong></p>
+</blockquote>
+<p>zabbix proxy可以根据具体生产环境进行采用或者放弃。如果使用了zabbix proxy，则其会替代zabbix server采集数据信息，可以很好的分担zabbix server的负载。zabbix proxy通常运用与架构过大、zabbix server负载过重，或者是企业设备跨机房、跨网段、zabbix server无法与zabbix agent直接通信的场景。</p>
+<blockquote>
+<p><strong>Agent</strong></p>
+</blockquote>
+<p>zabbix agent通常部署在被监控目标上，用于主动监控本地资源和应用程序，并将监控的数据发送给zabbix server。</p>
+<h3 id="Zabbix的框架"><a href="#Zabbix的框架" class="headerlink" title="Zabbix的框架"></a>Zabbix的框架</h3><p>在实际的工作环境中，根据网络环境和监控的规模不同，zabbix一共有三种框架，分别是server_client架构、master_node_client架构和server_proxy_client架构。</p>
+<p><a href="/../pic/3022475-20230411143003786-1184981057-170612336171221.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/3022475-20230411143003786-1184981057-170612336171221.png" alt="img"></a></p>
+<blockquote>
+<p><strong>server_client架构</strong></p>
+</blockquote>
+<p>zabbix最简单的架构，监控设备和被监控设备之间直接相连，zabbix_server 和 zabbix_client 之间直接进行数据交互。</p>
+<blockquote>
+<p><strong>zabbix_proxy_client架构</strong></p>
+</blockquote>
+<p>proxy是连接 server 和 client 之间的桥梁，其本身不存放数据，只是将zabbix_agent端发来的数据暂存，然后再提交给server。这种架构一般用于跨机房、跨网络的中型网络架构。</p>
+<p>在server_proxy_client架构中，server设备的宕机会导致整个系统瘫痪而无法正常工作。</p>
+<blockquote>
+<p><strong>master_node_client架构</strong></p>
+</blockquote>
+<p>master_node_client架构是zabbix最复杂的架构。一般用于跨机房、跨网络、监控设备较多的大型网络架构。与server_proxy_client架构相比，master_node_client架构的主要区别在于node与proxy上.</p>
+<p>在master_node_client架构中，每个node可以理解为一个小的server端，在自己的配置文件和数据库，node下游可以直接连接client，也可以再次经过proxy代理后连接client。</p>
+<p>在master_node_client架构中，master设备宕机不会影响node节点的正常工作。</p>
+<h3 id="Zabbix的进程"><a href="#Zabbix的进程" class="headerlink" title="Zabbix的进程"></a>Zabbix的进程</h3><p>Zabbix在进行监控时，zabbix客户端要安装在被监控设备上，负责定期收集数据，并将其发送给zabbix服务端；Zabbix服务端要安装在监控设备上，其将zabbix客户端发送的数据存储的数据库中，zabbix web根据数据在前端进行展示和绘图。</p>
+<p>在默认的情况下，zabbix有6个工作进程；分别是 zabbix_agentd，zabbix_get，zabbix_proxy，zabbix_sender，zabbix_server 和 zabbix_gateway。</p>
+<p>其中，zabbix_java_gateway是可选进程。这6个进程的作用如下：</p>
+<blockquote>
+<p><strong>zabbix_agentd</strong></p>
+</blockquote>
+<p>zabbix-agentd为zabbix客户端守护进程 ，主要负责收集客户端监控项数据。</p>
+<blockquote>
+<p><strong>zabbix_server</strong></p>
+</blockquote>
+<p>zabbix_server为zabbix服务端守护进程，主要负责收集zabbix客户端数据。（端口为10051）</p>
+<blockquote>
+<p><strong>zabbix_proxy</strong></p>
+</blockquote>
+<p>zabbix_proxy是zabbix的代理程序，其功能类似于server，作用上类似于一个中转站，最终会把收集的数据再次提交给zabbix_server。</p>
+<blockquote>
+<p><strong>zabbix_get</strong></p>
+</blockquote>
+<p>zabbix_get作为zabbix工具，通常运行在zabbix_server或者zabbix_proxy上，用于远程获取客户端信息，通常用于排错。</p>
+<blockquote>
+<p><strong>zabbix_sender</strong></p>
+</blockquote>
+<p>zabbix_sender也是zabbix的一个工具，通常运行在zabbix的客户端，用于耗时比较长的检查，其作用是主动发送数据。</p>
+<blockquote>
+<p><strong>zabbix_java_gateway</strong></p>
+</blockquote>
+<p>zabbix_java_gateway是zabbix2.0以后引入的新功能，可以用于JAVA方面的设备；但是只能主动获取数据，而不能被动获取数据。</p>
+<h3 id="Zabbix常用术语"><a href="#Zabbix常用术语" class="headerlink" title="Zabbix常用术语"></a>Zabbix常用术语</h3><p>zabbix的学习需要掌握一些zabbix的常用术语，zabbix常用术语列举如下：</p>
+<p><strong>主机（host）</strong>：要监控的设备，可以由IP或者是主机名（必须可解析）指定。</p>
+<p><strong>主机组（host group）</strong>：主机的逻辑容器，包含主机和模板，主机组通常在给用户或者是用户组指派监控权限时使用。</p>
+<p><strong>监控项（item）</strong>：一个特定监控指标的相关数据，比如内存的大小、CPU的使用率，甚至是服务的运行状态等等。监控项数据来源于被监控对象，并且每个监控项都由一个key来标识。</p>
+<p><strong>触发器（trigger）</strong>：一个表达式，用于评估监控项的值是否在合理的范围内。当接收的值超出触发器的规定时，就被认为是故障，如果超出后再次符合，就被认为是正常。</p>
+<p><strong>事件（event）</strong>：触发器触发的一个特定事件，或者是zabbix定义的一个自动上线注册主机的事件。</p>
+<p><strong>动作（action）</strong>：指根据配置，zabbix对于触发器触发的特定事件进行处理的具体措施，如执行某个脚本，或者是向管理员邮箱发送邮件等等。</p>
+<p><strong>报警升级（escalation）</strong>：发送警报或者是执行远程命令的自定义方案。</p>
+<p><strong>媒介（media）</strong>：发送通知（告警）的手段，如微信、邮件、钉钉等等。</p>
+<p><strong>通知（notification）</strong>：通过指定的媒介，向用户发送的有关事件的信息。</p>
+<p><strong>远程命令（remote command）</strong>：指运维人员提前写好的命令，可以让被监控主机在触发事件后执行。</p>
+<p><strong>模板（template）</strong>：用于快速定义被监控主机的预设条目集合，通常包括了监控项、触发器、应用等，模板可以直接链接至某个主机。</p>
+<p><strong>应用（application）</strong>：一组监控项的集合。</p>
+<p><strong>web场景（web scennario）</strong>：用于检测web站点可用性的一个或多个HTTP请求。</p>
+<p><strong>前端（frontend）</strong>：zabbix的web接口。</p>
+<p>这些术语，后文中直接使用而不过多赘述，在企业技术交流中也会经常使用。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-01-21</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Zabbix/'>
+                            Zabbix
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

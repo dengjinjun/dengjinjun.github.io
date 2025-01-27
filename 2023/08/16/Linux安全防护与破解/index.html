@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Linux安全防护与破解" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Linux安全防护与破解
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Linux%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E4%B8%8E%E7%A0%B4%E8%A7%A3"><span class="post-toc-text">Linux安全防护与破解</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B"><span class="post-toc-text">操作系统启动流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%85%B3%E9%97%ADLinux%E9%98%B2%E7%81%AB%E5%A2%99"><span class="post-toc-text">关闭Linux防火墙</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%85%B3%E9%97%ADSELinux"><span class="post-toc-text">关闭SELinux</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%BF%9B%E5%85%A5%E5%8D%95%E7%94%A8%E6%88%B7%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">进入单用户模式</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#grub%E5%8A%A0%E5%AF%86"><span class="post-toc-text">grub加密</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%89%E7%9B%98%E4%BF%AE%E5%A4%8D%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">光盘修复模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%AE%BE%E7%BD%AEBIOS%E5%AF%86%E7%A0%81"><span class="post-toc-text">设置BIOS密码</span></a></li></ol></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="Linux安全防护与破解"><a href="#Linux安全防护与破解" class="headerlink" title="Linux安全防护与破解"></a>Linux安全防护与破解</h1><h2 id="操作系统启动流程"><a href="#操作系统启动流程" class="headerlink" title="操作系统启动流程"></a>操作系统启动流程</h2><ul>
+<li><p>加电</p>
+</li>
+<li><p>启动<code>BIOS</code>，检测启动项目</p>
+</li>
+<li><p>读取启动盘的第一个扇区，大小：521Bytes。包含<code>MBR</code>主引导记录（446引导程序<code>bootloader</code>-&gt;<code>grub</code>    64分区信息    2结束标记）</p>
+</li>
+<li><p><code>grub</code>启动</p>
+</li>
+<li><p>加载内核，读取运行级别，<code>/etc/systemd/system/default.target</code></p>
+<ul>
+<li><code>0</code>  &#x3D;&gt; 关机</li>
+<li><code>1</code>  &#x3D;&gt; 单用户模式，不需要账号密码进入管理员账号，用于破解管理员密码</li>
+<li><code>2</code>  &#x3D;&gt; 多用户模式，没有网络</li>
+<li><code>3</code>  &#x3D;&gt; 多用户模式，有网络</li>
+<li><code>4</code> &#x3D;&gt; 系统未使用，保留</li>
+<li><code>5</code>  &#x3D;&gt; 图形界面模式，有网络</li>
+<li><code>6</code>  &#x3D;&gt; 重启</li>
+</ul>
+</li>
+<li><p>启动第一个进程：<code>systemd</code>,<code>pid=0</code></p>
+</li>
+<li><p>启动其他服务</p>
+</li>
+</ul>
+<p><a href="/../pic/image-20230808001401565-17087949886392.png" title="image-20230808001401565" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20230808001401565-17087949886392.png" alt="image-20230808001401565"></a></p>
+<h4 id="关闭Linux防火墙"><a href="#关闭Linux防火墙" class="headerlink" title="关闭Linux防火墙"></a>关闭Linux防火墙</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld		--关闭本次防火墙</span><br><span class="line">systemctl disable firewalld		--永久关闭防火墙功能</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="关闭SELinux"><a href="#关闭SELinux" class="headerlink" title="关闭SELinux"></a>关闭SELinux</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setenforce 0					--本次关闭selinux(将selinux设置为Permissive状态，会告警但不会拦截)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysconfig/selinux		--修改配置文件</span><br><span class="line">SELINUX=enforcing ==&gt; SELINUX=disabled	修改此行</span><br><span class="line">重启机器</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getenforce						--查看selinux状态</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="进入单用户模式"><a href="#进入单用户模式" class="headerlink" title="进入单用户模式"></a>进入单用户模式</h4><p>1、开机时进入如下界面，（按下方向键盘，阻止系统自动继续）</p>
+<p><a href="/../pic/059.jpg" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/059.jpg" alt="img"></a></p>
+<p>按e键出现下面界面</p>
+<p><a href="/../pic/060.jpg" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/060.jpg" alt="img"></a></p>
+<p>按方向键下，定位到最后，找到“ro”一行，ro的意思是read only，将“ro”替换成 rw init&#x3D;&#x2F;sysroot&#x2F;bin&#x2F;sh，如下图</p>
+<p><a href="/../pic/061.jpg" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/061.jpg" alt="img"></a></p>
+<p>2、按Ctrl-x 进入单用户模式</p>
+<p>3、执行chroot &#x2F;sysroot。其中chroot命令用来切换系统，&#x2F;sysroot&#x2F;目录就是原始系统</p>
+<p>4、如果要修改root密码</p>
+<p>passwd是修改root密码的命令,touch &#x2F;.autorelabel 执行这行命令作用是让SELinux生效（或者干脆关闭SELinux）<br>如果不行，密码不会生效。按Ctrl+D，执行reboot重启生效。如下图</p>
+<p><a href="/../pic/062.jpg" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/062.jpg" alt="img"></a></p>
+<p> 5、如果因为启用x-window或者显卡驱动更新，无法进入桌面，可以修改默认启动级别（开机进入命令行模式）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl set-default multi-user.target  #设置成命令模式</span><br><span class="line">init 3 # 切换到字符模式，有时只使用上面的语句没有效果</span><br><span class="line">按下Ctrl+D后，执行reboot</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="grub加密"><a href="#grub加密" class="headerlink" title="grub加密"></a>grub加密</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grub2-setpassword				--给grub设置密码</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /boot/grub2/grub.cfg		--修改配置文件</span><br><span class="line">找到并删除 --unrestricted</span><br><span class="line">重启，进入grub菜单时，会要求输入grub密码</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="光盘修复模式"><a href="#光盘修复模式" class="headerlink" title="光盘修复模式"></a>光盘修复模式</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1、进入bios、从光盘启动</span></span><br><span class="line"><span class="comment">#2、点击Troubleshooting</span></span><br><span class="line"><span class="comment">#3、进入到Troubleshooting界面</span></span><br><span class="line">选择：Rescue a CentOS Linux system</span><br><span class="line"> </span><br><span class="line"><span class="comment">#4、三:进入到Rescue选项   按 ENTER键 选1 ，其他选项意思如下</span></span><br><span class="line"><span class="number">1</span>)<span class="keyword">continue</span>:救援模式程序会自动查找系统中已有的文件系统，并可读写挂载到/mnt/sysimage目录下。</span><br><span class="line"><span class="number">2</span>)Read-Only:会以只读的方式挂载已有的文件系统。</span><br><span class="line"><span class="number">3</span>)Skip to shell: 手动挂载</span><br><span class="line"> </span><br><span class="line"><span class="comment">#5、sh切换bash模式</span></span><br><span class="line">chroot /mnt/sysimage/</span><br><span class="line"> </span><br><span class="line"><span class="comment">#6、执行命令</span></span><br><span class="line">passwd root</span><br><span class="line"></span><br><span class="line"><span class="comment">#7、退出并重启</span></span><br><span class="line">exit</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="设置BIOS密码"><a href="#设置BIOS密码" class="headerlink" title="设置BIOS密码"></a>设置BIOS密码</h4><p>进入BIOS、进入security选项、选择Supervisor Password，输入密码。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-16</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Linux软件包管理" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Linux软件包管理
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86"><span class="post-toc-text">软件包管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RPM%E5%8C%85%E7%AE%A1%E7%90%86"><span class="post-toc-text">RPM包管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%80%9A%E8%BF%87RPM%E5%91%BD%E4%BB%A4%E7%AE%A1%E7%90%86RPM%E5%8C%85"><span class="post-toc-text">通过RPM命令管理RPM包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%80%9A%E8%BF%87yum%E5%91%BD%E4%BB%A4%E7%AE%A1%E7%90%86RPM%E5%8C%85"><span class="post-toc-text">通过yum命令管理RPM包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AEyum%E6%BA%90"><span class="post-toc-text">配置yum源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%BC%80%E5%90%AFyum%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%BC%93%E5%AD%98"><span class="post-toc-text">开启yum软件包缓存</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0%E6%BA%90"><span class="post-toc-text">配置本地源</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E7%BD%91%E7%BB%9C%E6%BA%90"><span class="post-toc-text">创建网络源</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%B0%83%E6%95%B4yum%E6%BA%90%E4%BC%98%E5%85%88%E7%BA%A7"><span class="post-toc-text">调整yum源优先级</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%BA%90%E7%A0%81%E5%8C%85%E7%AE%A1%E7%90%86"><span class="post-toc-text">源码包管理</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="软件包管理"><a href="#软件包管理" class="headerlink" title="软件包管理"></a>软件包管理</h1><p>与Windows系统类似，Linux系统上也可以安装各种应用程序，称为软件包。Linux中软件包分为三类：</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>安装</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rpm包</td>
+<td>预先编译打包，安装简单</td>
+<td>通常软件的稳定版本会被官方做成rpm包，所以软件版本偏低</td>
+</tr>
+<tr>
+<td>源码包</td>
+<td>手动编译打包，安装繁琐</td>
+<td>软件版本丰富，可选择性强</td>
+</tr>
+<tr>
+<td>二进制包</td>
+<td>解压即可使用</td>
+<td>不能修改原代码</td>
+</tr>
+</tbody></table>
+<p>对于源码，如果是解释性语言（shell,python等）编写的源码包，需要：</p>
+<ol>
+<li>下载解释器：bash，python解释器等</li>
+<li>在自己的Linux主机上安装对应版本的解释器以及依赖包。</li>
+<li>在解释器的基础上运行：python a.py</li>
+</ol>
+<p>如果是编译型语言（c,go等）编写的源码包，需要：</p>
+<pre><code>1. 下载源码包
+1. 在自己的Linux主机上安装好编译器
+1. 用编译器把源码包编译成可执行的命令
+</code></pre>
+<h2 id="RPM包管理"><a href="#RPM包管理" class="headerlink" title="RPM包管理"></a>RPM包管理</h2><blockquote>
+<p>RPM包介绍</p>
+</blockquote>
+<p>RPM 是Red-Hat Package Manager（RPM软件包管理器）的缩写，起源于RedHat，但其原始设计理念是开放式的，适用于 redhat &#x2F; centos &#x2F; redora &#x2F; suse 。</p>
+<p><a target="_blank" rel="noopener" href="http://rz7v85ras.hd-bkt.clouddn.com/rpm.png" title="rpm包格式" class="gallery-item" style="box-shadow: none;"> <img src="http://rz7v85ras.hd-bkt.clouddn.com/rpm.png" alt="rpm包格式"></a></p>
+<blockquote>
+<p>RPM包的获取方式</p>
+</blockquote>
+<ol>
+<li>本地的ISO镜像光盘</li>
+<li>自行网络下载</li>
+<li>联网从yum仓库中获取rpm包</li>
+</ol>
+<h3 id="通过RPM命令管理RPM包"><a href="#通过RPM命令管理RPM包" class="headerlink" title="通过RPM命令管理RPM包"></a>通过RPM命令管理RPM包</h3><ul>
+<li><p>安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh [RPM包名全称]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>升级</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -Uvh [RPM包名]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>卸载</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -e [RPM包名]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm -q [包名]				# 查询某个RPM包是否已安装</span><br><span class="line">rpm -qa					# 查询系统中安装过的所有RPM包</span><br><span class="line">rpm -qa | grep xxx		# 利用管道符筛选</span><br><span class="line">rpm -qc [RPM包名]			# 查询指定RPM包的配置文件</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm -qi [RPM包名]			# 查询指定RPM包的描述信息</span><br><span class="line">rpm -ql [RPM包名]			# 查询指定RPM包里所包含的文件</span><br><span class="line">rpm -qf [文件路径]			# 查询系统中指定文件所属的软件包</span><br><span class="line">rpm -qd [RPM包名]				# 查询指定RPM包的帮助文档</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在上述命令中加上 -p 选项，能够查看未安装RPM软件包的信息</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="通过yum命令管理RPM包"><a href="#通过yum命令管理RPM包" class="headerlink" title="通过yum命令管理RPM包"></a>通过yum命令管理RPM包</h3><p>yum是一个存放了所有相关RPM软件包的文件夹，称为yum仓库。</p>
+<ol>
+<li>文件下涵盖了所有相关的软件</li>
+<li>文件夹下有一个文件记录了本文件夹所包含软件包的依赖关系</li>
+</ol>
+<ul>
+<li><p>查询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum repolist				# 查看可用仓库</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum repolist all			# 查看所有仓库状态，包括启用和禁用状态的仓库</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list					# 查看可用仓库中的所有软件包</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum grouplist				# 查看可用仓库中的所有软件包组</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum provides [路径/命令名]			# 查看命令所属的软件包</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install [包名]				# 安装软件包</span><br><span class="line">yum install [包名] -y				# 非交互式安装软件包</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum groupinstall [软件组名]	-y		# 非交互式安装软件包组</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum reinstall [包名]				# 重装软件包，通常在配置文件损坏时重装，谨慎操作</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum check-update				# 检查软件包是否有更新</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum update -y						# 更新所有已安装软件包，通常刚装完系统之后更新。</span><br><span class="line">yum update [包名] -y					# 更新指定软件包</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>缓存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum makecache					# 制作元数据缓存</span><br><span class="line">yum clean all					# 清理元数据缓存</span><br></pre></td></tr></table></figure>
+
+<p>yum的一个配置文件<code>/etc/yum.conf</code>，在文件中设置keepcache&#x3D;1，即开启了软件包缓存，缓存目录为cachedir指定的目录。</p>
+</li>
+<li><p>卸载</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum remove [包名] -y				# 非交互式卸载软件包</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum groupremove [软件组名] -y		# 非交互式卸载软件包组</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>历史记录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum history					# 显示历史yum操作记录，会记录每条yum操作的id号、时间、具体操作、执行人和变更文件数</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum history info [id]		# 查看某条操作的详细信息</span><br><span class="line">yum history undo [id]		# 撤销执行某条操作</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="配置yum源"><a href="#配置yum源" class="headerlink" title="配置yum源"></a>配置yum源</h3><p>yum源有两种：</p>
+<ol>
+<li><p>本地源：把本地的一个文件夹做成了yum源</p>
+</li>
+<li><p>网络源：</p>
+<ol>
+<li>base基础源</li>
+<li>epel扩展源</li>
+<li>某一个软件包官网提供的源</li>
+</ol>
+</li>
+</ol>
+<h4 id="开启yum软件包缓存"><a href="#开启yum软件包缓存" class="headerlink" title="开启yum软件包缓存"></a>开启yum软件包缓存</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/yum.conf				# 编辑yum配置文件添加以下内容</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">keepcahce=1						# 开启缓存</span><br><span class="line">installonlypkgs=*				# 缓存所有依赖</span><br><span class="line">cachedir=/var/cache/yum			# 设置缓存文件保存的目录</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="配置本地源"><a href="#配置本地源" class="headerlink" title="配置本地源"></a>配置本地源</h4><p>创建本地源方式1：</p>
+<ol>
+<li><p>自己采集一系列软件包放在一个本地目录下</p>
+</li>
+<li><p>在此目录下创建仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install createrepo			# 安装createrepo命令</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>创建本地源方式2：</p>
+<ol>
+<li><p>挂载</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sr0 /opt				# 把一个含有rpm包的镜像文件或光驱挂载到一个目录下，此处镜像文件是/dev/sr0，挂载到了/opt目录下</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入本地目录<code>/etc/yum.repos.d</code>，再次目录下创建文件<code>local.repo</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/yum.repos.d</span><br><span class="line">vim local.repo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[local]							# 本地yum源的名字</span><br><span class="line">name=&quot;this is local repo&quot;		# 说明信息</span><br><span class="line">baseurl=file:///opt				# yum仓库所在目录，file://是固定格式，代表本地源，后面跟目录，此目录必定是repodata文件夹的父级目录</span><br><span class="line">enabled=1						# 是否开启yum仓库</span><br><span class="line">gpgcheck=0						# 是否开启校验</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="创建网络源"><a href="#创建网络源" class="headerlink" title="创建网络源"></a>创建网络源</h4><p>网上下载一个配置文件即可,比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -0 /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
+
+<h4 id="调整yum源优先级"><a href="#调整yum源优先级" class="headerlink" title="调整yum源优先级"></a>调整yum源优先级</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install yum-plugin-priorities			# 安装yum优先级插件</span><br><span class="line">cat /etc/yum/pluginconf.d/priorities		# 查看配置文件，确认插件是否开启</span><br><span class="line">vim /etc/yum.repos.d/nginx.repo				# 编辑每个yum源repo文件,添加priorities的值</span><br><span class="line">priorities=1								# priorities的值越小，优先级越高</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="源码包管理"><a href="#源码包管理" class="headerlink" title="源码包管理"></a>源码包管理</h2><ol>
+<li><p>下载源码并解压</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget [下载地址]</span><br><span class="line">tar xvf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>预先安装编译器，安装依赖库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc gcc-c++ autoconf automake make      </span><br><span class="line">yum -y install zlib zlib-devel openssl openssl-devel pcre pcre-devel</span><br><span class="line">或者</span><br><span class="line">LANG=C yum -y groupinstall &quot;Development tools&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd [源码包目录]</span><br><span class="line">./configure --prefix=[自定义安装路径]			# 指定安装路径</span><br></pre></td></tr></table></figure>
+
+<p>此过程中如果报错，需要执行<code>make clean all</code>,清理出错文件，然后再安装好提示的依赖库，然后重新执行生成配置文件的步骤</p>
+</li>
+<li><p>编译安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>清理安装包</p>
+</li>
+</ol>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-09-05</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

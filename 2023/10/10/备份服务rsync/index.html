@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="备份服务rsync" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            备份服务rsync
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rsync%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">rsync介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">rsync三种工作模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="post-toc-text">rsync工具的优缺点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rsync%E9%80%89%E9%A1%B9%E8%AF%B4%E6%98%8E"><span class="post-toc-text">rsync选项说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">客户端服务器端模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="post-toc-text">服务器端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="post-toc-text">客户端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7%E6%A0%A1%E9%AA%8C"><span class="post-toc-text">数据完整性校验</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%80%E5%90%AF%E9%82%AE%E4%BB%B6"><span class="post-toc-text">开启邮件</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%B6%E4%BB%96%E4%BC%81%E4%B8%9A%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88"><span class="post-toc-text">其他企业运维场景数据同步方案</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="rsync介绍"><a href="#rsync介绍" class="headerlink" title="rsync介绍"></a>rsync介绍</h2><p>Rsync（Remote Synchronize）：远程同步。是开源的、高速的，可实现本地以及远程，全量以及增量的数据复制工具。</p>
+<p>官方资料：<a target="_blank" rel="noopener" href="http://www.samba.org/ftp/rsync/rsync.html">http://www.samba.org/ftp/rsync/rsync.html</a></p>
+<blockquote>
+<p>为什么要使用rsync</p>
+</blockquote>
+<ol>
+<li><p>工作中需要定时&#x2F;实时进行数据备份</p>
+</li>
+<li><p>本地服务器目录、不同机器、不同机房之间的数据备份</p>
+</li>
+</ol>
+<blockquote>
+<p>rsync功能特性</p>
+</blockquote>
+<ol>
+<li>支持拷贝普通文件和特殊文件，比如链接文件、设备文件等。</li>
+<li>支持排除指定文件或目录进行同步。</li>
+<li>可以做到保持原文件或目录的权限、时间、软硬链接、属主、属组均不改变。</li>
+<li>可以实现增量复制（全量拷贝：完整地拷贝所有文件；增量拷贝：只拷贝变化的部分）。</li>
+<li>可以使用rcp，rsh，ssh等方式来配合进行隧道加密传输文件（rsync本身不对文件进行加密）。</li>
+<li>可以通过socket（守护进程方式）来传输文件和数据（客户端和服务端）。</li>
+<li>支持匿名或无需系统用户认证的方式进行传输，安全地进行数据备份以及镜像。</li>
+</ol>
+<blockquote>
+<p>rsync增量复制原理</p>
+</blockquote>
+<p>使用 quick check 算法，只对增量的部分进行复制，该算法查找<strong>文件大小</strong>或者<strong>上次修改时间</strong>已经变化的文件，进行增量复制。</p>
+<h3 id="rsync三种工作模式"><a href="#rsync三种工作模式" class="headerlink" title="rsync三种工作模式"></a>rsync三种工作模式</h3><blockquote>
+<p>本地模式</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync [options] [source] [destination]			# 相当于将source中的文件，备份到destination目录中</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>远程shell模式</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">远程shell模式分为采用隧道和不采用隧道，隧道模式适用于没有搭建服务端的场景，或者需要传输重要数据的场景，需要加上-e选项</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">user@host 使用的是所连接主机的系统用户和密码</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">关于 <span class="built_in">source</span> 和 destination ,如果目录后加 / ，表示只是目录下的内容；如果不加 / ，表示包含目录本身以及目录下的内容</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">pull:从远程拉取到本地</span></span><br><span class="line">rsync [options] [user@host:source] [destination]		# 不采用隧道</span><br><span class="line">rsync [options] -e &quot;ssh -p 22&quot; [user@host:source] [destination]		# 采用隧道,使用ssh方式加密，端口号为22</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">push:从本地推送到远程</span></span><br><span class="line">rsync [options] [source] [user@host:destination]		# 不采用隧道</span><br><span class="line">rsync [options] -e &quot;ssh -p 22&quot; [source] [user@host:destination]		# 采用隧道,使用ssh方式加密，端口号为22</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>客户端服务端方式</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">所有拉取和推送操作操作均在客户端进行，服务端需要提前配置并开启进程</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">pull:从服务端拉取到客户端</span></span><br><span class="line">rsync [options] [user@host::模块名] [本地路径]</span><br><span class="line">rsync [options] rsync://[user@host:port/模块名] [本地路径]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">push:从客户端推送到服务端</span></span><br><span class="line">rsync [options] [本地路径] [user@host::模块名]</span><br><span class="line">rsync [options] [本地路径] rsync://[user@host:port/模块名]</span><br></pre></td></tr></table></figure>
+
+<h3 id="rsync工具的优缺点"><a href="#rsync工具的优缺点" class="headerlink" title="rsync工具的优缺点"></a>rsync工具的优缺点</h3><blockquote>
+<p>优点</p>
+</blockquote>
+<ol>
+<li>增量备份，支持C&#x2F;S模式和推拉模式。</li>
+<li>远程shell模式可实现加密传输（ssh）。</li>
+<li>若C&#x2F;S模式需要加密传输，可以利用vpn服务或ipsec服务。</li>
+</ol>
+<blockquote>
+<p>缺点</p>
+</blockquote>
+<ol>
+<li>大量小文件复制的时候，rsync进程可能或效率不高或者僵死。</li>
+<li>一次新远程拷贝可以使用scp，如果大量小文件可以打包压缩之后再拷贝。</li>
+</ol>
+<h3 id="rsync选项说明"><a href="#rsync选项说明" class="headerlink" title="rsync选项说明"></a>rsync选项说明</h3><p>rsync选项非常多，但最常用的选项组合是”avz”，即压缩和显示部分信息，并以归档模式传输。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">-a --archive 归档模式，表示递归传输并保持文件属性。等同于&quot;-rtopgDl&quot;。 </span><br><span class="line">-v 显示rsync过程中详细信息。可以使用&quot;-vvvv&quot;获取更详细信息。</span><br><span class="line">-z 传输时进行压缩提高效率。</span><br><span class="line"></span><br><span class="line">-r --recursive 递归到目录中去。</span><br><span class="line">-t --times 保持mtime属性。强烈建议任何时候都加上&quot;-t&quot;，否则目标文件mtime会设置为系统时间，导致下次更新检查出mtime不同从而导致增量传输无效。</span><br><span class="line">-o --owner 保持owner属性(属主)。</span><br><span class="line">-g --group 保持group属性(属组)。</span><br><span class="line">-p --perms 保持perms属性(权限，不包括特殊权限)。</span><br><span class="line">-D 是&quot;–device --specials&quot;选项的组合，即也拷贝设备文件和特殊文件。</span><br><span class="line">-l --links如果文件是软链接文件，则拷贝软链接本身而非软链接所指向的对象。</span><br><span class="line"></span><br><span class="line">-e, --rsh=COMMAND 指定使用rsh、ssh方式进行数据同步  </span><br><span class="line">--existing 仅仅更新那些已经存在于DST的文件，而不备份那些新创建的文件  </span><br><span class="line">--delete 删除那些DST中SRC没有的文件，有数据丢失的风险！ </span><br><span class="line">--delete-excluded 同样删除接收端那些被该选项指定排除的文件 </span><br><span class="line">--delete-after 传输结束以后再删除 </span><br><span class="line">--ignore-errors 及时出现IO错误也进行删除 </span><br><span class="line">--max-delete=NUM 最多删除NUM个文件 </span><br><span class="line">--partial 保留那些因故没有完全传输的文件，也是加快随后的再次传输 </span><br><span class="line">--force 强制删除目录，即使不为空 </span><br><span class="line">--timeout=TIME IP超时时间，单位为秒  </span><br><span class="line">--progress 显示备份过程 </span><br><span class="line">--exclude=PATTERN 指定排除不需要传输的文件模式 </span><br><span class="line">--include=PATTERN 指定不排除而需要传输的文件模式 </span><br><span class="line">--exclude-from=FILE 排除FILE中指定模式的文件 </span><br><span class="line">--include-from=FILE 不排除FILE指定模式匹配的文件 </span><br><span class="line">--version 打印版本信息 </span><br><span class="line">--port=PORT 指定其他的rsync服务端口 </span><br><span class="line">--password-file=FILE 从FILE中得到密码</span><br><span class="line">-n, --dry-run 仅测试传输，而不实际传输。常和&quot;-vvvv&quot;配合使用来查看rsync是如何工作的。</span><br><span class="line">-h, --help 显示帮助信息</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="客户端服务器端模式"><a href="#客户端服务器端模式" class="headerlink" title="客户端服务器端模式"></a>客户端服务器端模式</h2><h3 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h3><p>rsync守护进程模式应用实践</p>
+<p><a href="/../pic/b7dbe2edb3532dc6e9bb286caa4cdd2.png" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/b7dbe2edb3532dc6e9bb286caa4cdd2.png"></a></p>
+<blockquote>
+<p>安装rsync</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install rsync -y			# 安装</span><br><span class="line">rsync --version					# 检验安装</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>配置文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/rsyncd.conf		# 编辑配置文件</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">/etc/rsyncd: configuration file <span class="keyword">for</span> rsync daemon mode</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">See rsyncd.conf man page <span class="keyword">for</span> more options.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">configuration example:</span></span><br><span class="line"></span><br><span class="line">uid = rsync						# rsync访问本地数据目录的一个用户，下一步要创建的用户。有坑，默认是nobody</span><br><span class="line">gid = rsync						# 用户组</span><br><span class="line">read only = false				# 要写上这一句，要不然无法推送。有坑</span><br><span class="line">fake super = yes				# 如果出现操作不被允许等提示，可以添加这一句，允许不在root用户下复制文件属性</span><br><span class="line">use chroot = no						# 是否使用chroot选项</span><br><span class="line">max connections = 200				# 并发最大连接数</span><br><span class="line">pid file = /var/run/rsyncd.pid		# 进程启动后，将进程pid写入这个文件</span><br><span class="line">exclude = lost+found/				# 排除的文件或目录，此处为相对路径</span><br><span class="line">log file = /var/log/rsyncd.log		# 指定日志文件存放路径</span><br><span class="line">secrets file = /etc/rsyncd.password	# 指定虚拟用户的密码存放的文件，格式为，用户名:密码</span><br><span class="line">lock file = /var/run/rsyncd.lock	# 锁文件，用来支持max connections参数，此处为默认值</span><br><span class="line">auth users = rsync					# 允许认证的用户，有坑。</span><br><span class="line">timeout = 900						# 超时时间</span><br><span class="line">hosts only = 192.168.110.0/24		# 白名单，此处表示仅允许该局域网内访问</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">hosts deny = 0.0.0.0/32			<span class="comment"># 黑名单，此处表示不拒绝。0.0.0.0/32是一个无效IP地址，</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">通常hosts only和hosts deny只需要选择一个进行配置，否则可能造成配置混乱，都配置的时候默认白名单优先级最高。</span></span><br><span class="line"></span><br><span class="line">[backup]									# 此处为一个模块，用[模块名]表示，下面是此模块的配置</span><br><span class="line">       path = /home/backup					# 此模块的文件路径</span><br><span class="line">       comment = backup export area			# 备注</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>创建目录和用户</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir /home/backup -p			# 创建目录</span><br><span class="line"></span><br><span class="line">useradd -s /sbin/nologin -M rsync		# 创建一个rsync用户，-s指定shell,-M不创建家目录</span><br><span class="line">chown -R rsync.rsync /home/backup			# 授权rsync用户管理此目录</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>创建密码文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/rsyncd.password					# 指定虚拟用户的密码存放的文件，格式为，用户名:密码</span><br><span class="line"></span><br><span class="line">rsync:123456</span><br><span class="line"></span><br><span class="line">chmod 600 /etc/rsyncd.password				# 修改密码文件的权限</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>启动服务</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable rsyncd			# 设置开机自启</span><br><span class="line">systemctl start rsyncd			# 启动服务</span><br><span class="line">systemctl status rsyncd			# 查看状态</span><br><span class="line">ps -ef | grep sync | grep -v grep	# 查看进程</span><br><span class="line">netstat -tunlp | grep rsync			# 检查端口</span><br><span class="line">lsof -i :873						# 查看默认端口873</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><blockquote>
+<p>认证密码文件</p>
+</blockquote>
+<p>客户端的配置相对简单，只需要创建一个密码文件，不需要指定用户，只保存密码即可。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;123456&quot; &gt; /etc/rsyncd.password		# 客户端的密码文件要与服务端相同</span><br><span class="line">chmod 600 /etc/rsyncd.password				# 修改密码文件的权限</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>测试</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">拉取实践</span></span><br><span class="line">rsync -avz rsync@192.168.110.142::backup ./ --password-file=/etc/rsyncd.password</span><br><span class="line">rsync -avz rsync://rsync@192.168.110.142/backup ./ --password-file=/etc/rsyncd.password</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">推送实践</span></span><br><span class="line">rsync -avz ./test  rsync@192.168.110.142::backup --password-file=/etc/rsyncd.password</span><br><span class="line">rsync -avz ./test rsync://192.168.110.142/backup --password-file=/etc/rsyncd.password</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">排除指定文件</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在命令中写出排除指定文件，文件路径是相对于模块所在目录</span></span><br><span class="line">rsync -avz --exclude=&#123;1..3&#125;.txt rsync@192.168.110.142::backup ./ --password-file=/etc/rsyncd.password</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在命令中指定一个本地文件，将需要排除的目录或文件写在本地文件中</span></span><br><span class="line">rsync -avz --exclude-from=/opt/exclude.txt rsync@192.168.110.142::backup ./ --password-file=/etc/rsyncd.password</span><br><span class="line">echo &#123;1..3&#125;.txt | xargs -n 1 &gt; a.txt			# 在本地文件中写入想要排除的文件</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="数据完整性校验"><a href="#数据完整性校验" class="headerlink" title="数据完整性校验"></a>数据完整性校验</h3><p>可以利用md5sum命令对文件做数据完整性校验，具体原理如下：</p>
+<ol>
+<li>在文件打包之后，传输之前获取指纹。</li>
+<li>在传到服务器之后，重新对文件获取指纹。</li>
+<li>对比文件传输前后的指纹，如果没有发生变化，则说明数据完整。</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">md5sum a.txt				# 使用md5sum对文件a.txt做数据完整性校验</span><br><span class="line">342sdf89s7d9svs9879sdasa7fs9fsd89   a.txt			# 生成一个指纹，后跟该文件名</span><br><span class="line">md5sum a.txt &gt; fingerprint.log			# 把输出结果写到指纹文件中</span><br><span class="line">md5sum -c fingerprint		# 校验指纹</span><br><span class="line">a.txt:确定					# 输出结果</span><br></pre></td></tr></table></figure>
+
+<h3 id="开启邮件"><a href="#开启邮件" class="headerlink" title="开启邮件"></a>开启邮件</h3><p>CentOS 7默认使用postfix邮件服务，开启方式 <code>systemctl start postfix</code>。本机作为邮件服务器的配置比较麻烦。</p>
+<p>可以通过修改配置文件<code>/etc/mail.rc</code>，把Linux设备当作邮件服务的客户端来使用，使用外部SMTP服务发送邮件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/mail.rc		# 编辑配置文件，最后一行加入以下内容</span><br><span class="line"></span><br><span class="line">set from=dengjinjun0805@126.com smtp=smtp.126.com smtp-auth-user=dengjinjun0805@126.com smtp-auth-password=xxxx amtp-auth=login</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">from 是发送方的邮件地址</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">smtp 是发送邮件的外部smtp服务器的地址</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">smtp-auth-user 是外部的smtp服务器认证的用户名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">smtp-auth-password 是外部smtp服务器认证的用户密码（授权码）</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">smtp-auth 是邮件认证的方式</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">测试</span></span><br><span class="line">echo &quot;hello&quot; | mail -s &quot;测试&quot; dengjinjun0805@126.com 498790885@qq.com </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="其他企业运维场景数据同步方案"><a href="#其他企业运维场景数据同步方案" class="headerlink" title="其他企业运维场景数据同步方案"></a>其他企业运维场景数据同步方案</h2><ol>
+<li><p>文件级别数据同步方案</p>
+<p>scp</p>
+<p>NFS</p>
+<p>sftp</p>
+<p>http</p>
+<p>samba</p>
+</li>
+<li><p>文件系统级别同步方案</p>
+<p>drbd(基于文件系统同步网络RAID1)，复制block</p>
+</li>
+<li><p>数据库同步方案</p>
+<p>mysql replication</p>
+<p>oracle dataguard(物理的&#x2F;逻辑的)</p>
+</li>
+</ol>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-10</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

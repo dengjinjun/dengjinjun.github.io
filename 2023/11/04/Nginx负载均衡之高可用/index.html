@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Nginx负载均衡之高可用" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Nginx负载均衡之高可用
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="post-toc-text">相关概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="post-toc-text">什么是高可用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Keepalived"><span class="post-toc-text">Keepalived</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Keepalived%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="post-toc-text">Keepalived配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%83%A8%E7%BD%B2keepalived"><span class="post-toc-text">部署keepalived</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E5%A4%9A%E7%BB%84Keepalived%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98"><span class="post-toc-text">局域网内多组Keepalived冲突问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%A3%82%E8%84%91%E9%97%AE%E9%A2%98"><span class="post-toc-text">裂脑问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%8F%AA%E9%92%88%E5%AF%B9%E7%89%A9%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%97%AE%E9%A2%98"><span class="post-toc-text">高可用服务只针对物理服务器问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%80%E6%9C%BA%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">开机执行脚本实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Keepalived%E7%9B%91%E6%8E%A7%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0"><span class="post-toc-text">Keepalived监控脚本实现</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="什么是高可用"><a href="#什么是高可用" class="headerlink" title="什么是高可用"></a>什么是高可用</h3><p>在使用 Nginx 做反向代理或者负载均衡的时候，都是以 Nginx 为入口，如果 Nginx 宕机了，那么所有的服务都无法正常提供，影响非常严重。所有我们需要保证 nginx 高可用，就是配置备份机，前一个挂了，还有后一个。</p>
+<p>为了避免负载均衡服务器宕机造成严重影响，就需要建立一个备份机。主服务器和备份机上都运行高可用（High Availability）监控程序，通过传送诸如“I am alive”这样的信息来监控对方的运行状况。当备份机不能在一定的时间内收到这样的信息时，它就接管主服务器的服务IP并继续提供负载均衡服务；当备份管理器又从主管理器收到“I am alive”这样的信息时，它就释放服务IP地址，这样的主服务器就开始再次提供负载均衡服务。</p>
+<p>高可用（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。如果一个系统能够一直提供服务，那么这个可用性则是百分之百，但是我们不能保证一个系统能永远不出问题，所以我们只能通过设计来尽可能的去减少由于系统的故障所造成的影响。</p>
+<h3 id="Keepalived"><a href="#Keepalived" class="headerlink" title="Keepalived"></a>Keepalived</h3><p>Keepalived软件起初是专为LVS负载均衡软件设计的，用来管理并监控LVS集群系统中各个服务节点的状态，后来又加入了可以实现高可用的VRRP功能。因此，keepalived除了能够管理LVS软件外，还可以作为其他服务的高可用解决方案软件。</p>
+<p>keepalived软件主要是通过VRRP协议实现高可用功能的。VRRP是Virtual Router Redundancy Protocol（虚拟路由冗余协议）的缩写，VRRP出现的目的就是为了解决静态路由的单点故障问题的，它能保证当个别节点宕机时，整个网络可以不间断地运行。</p>
+<p>所以，Keepalived的三个功能：</p>
+<ol>
+<li>配置管理LVS</li>
+<li>对LVS下面节点进行健康检查（Health Check）</li>
+<li>通过VRRP实现系统网络服务的高可用功能。</li>
+</ol>
+<p>本篇主要讲解通过VRRP实现系统网络服务的高可用功能。Keepalived官网：<a target="_blank" rel="noopener" href="http://www.keepalived.org/">http://www.keepalived.org</a></p>
+<h2 id="Keepalived配置文件"><a href="#Keepalived配置文件" class="headerlink" title="Keepalived配置文件"></a>Keepalived配置文件</h2><p> keepalived的安装比较简单，可以选用yum安装和源码安装，不再赘述。</p>
+<p>安装完成后，对Keepalived进行配置，打开配置文件<code>/etc/keepalived/keepalived.conf</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File <span class="keyword">for</span> keepalived</span><br><span class="line"></span><br><span class="line"><span class="comment"># 全局定义开始</span></span><br><span class="line">global_defs &#123;</span><br><span class="line">   <span class="comment"># 定义邮件收发相关配置已省略</span></span><br><span class="line">   </span><br><span class="line">   router_id LVS_DEVEL			<span class="comment"># 当前主机节点的Keepalived实例的ID，可以理解为标识主机的</span></span><br><span class="line">   vrrp_skip_check_adv_addr</span><br><span class="line">   vrrp_strict</span><br><span class="line">   vrrp_garp_interval 0</span><br><span class="line">   vrrp_gna_interval 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># vrrp实例配置</span></span><br><span class="line">vrrp_instance VI_1 &#123;		<span class="comment"># vrrp_instance 实例名称</span></span><br><span class="line">    state MASTER				<span class="comment"># 节点状态</span></span><br><span class="line">    interface eth0				<span class="comment"># 绑定的网卡</span></span><br><span class="line">    virtual_router_id 51		<span class="comment"># 虚拟路由id，主备节点要一致</span></span><br><span class="line">    priority 100				<span class="comment"># 优先级</span></span><br><span class="line">    advert_int 1				<span class="comment"># 通告报文时间间隔（心跳间隔）</span></span><br><span class="line">    authentication &#123;			<span class="comment"># 认证方式</span></span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;			<span class="comment"># 虚拟出来的IP，一般配置一个，可以有多个</span></span><br><span class="line">        192.168.200.16 label eth0:3	 <span class="comment"># 可以定义一个标签，使用ifconfig命令查看此IP。否则只能用 ip addr show 命令查看</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 其余部分为LVS相关配置，已省略</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="部署keepalived"><a href="#部署keepalived" class="headerlink" title="部署keepalived"></a>部署keepalived</h2><blockquote>
+<p><strong>环境准备</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>主机</strong></th>
+<th><strong>IP</strong></th>
+<th><strong>角色</strong></th>
+<th><strong>备注</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lb01</td>
+<td>192.168.110.135</td>
+<td>负载均衡服务器</td>
+<td>主服务</td>
+</tr>
+<tr>
+<td>lb02</td>
+<td>192.168.110.136</td>
+<td>负载均衡服务器</td>
+<td>热备</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>lb01</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">global_defs &#123;</span><br><span class="line">   router_id lb01				</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface eth0</span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;	</span><br><span class="line">        192.168.110.130 label eth0:3</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>lb02</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">global_defs &#123;</span><br><span class="line">   router_id lb02</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state BACKUP						<span class="comment"># 状态必须不同</span></span><br><span class="line">    interface eth0</span><br><span class="line">    virtual_router_id 51				<span class="comment"># 虚拟路由id必须相同</span></span><br><span class="line">    priority 50							<span class="comment"># 优先级必须不同</span></span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;	</span><br><span class="line">        192.168.110.130 label eth0:3	<span class="comment"># 虚拟IP地址必须相同</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="局域网内多组Keepalived冲突问题"><a href="#局域网内多组Keepalived冲突问题" class="headerlink" title="局域网内多组Keepalived冲突问题"></a>局域网内多组Keepalived冲突问题</h2><p>当在同一个局域网内部署了多组Keepalived服务器对，而又未使用专门的心跳线通信时，可能会发生高可用接管的严重故障问题。之前已经讲解过Keepalived高可用功能是通过VRRP协议实现的，VRRP协议默认通过IP多播的形式实现高可用对之间的通信，如果同一个局域网内存在多组Keepalived服务器对，就会造成IP多播地址冲突问题，导致接管错乱，不同组的Keepalived都会使用默认的224.0.0.18作为多播地址。此时的解决办法是，在同组的Keepalived服务器所有的配置文件里指定独一无二的多播地址，配置如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">global_defs &#123;                               </span><br><span class="line">	router_id LVS_19                        <span class="comment">#主机标识</span></span><br><span class="line">	vrrp_mcast_group4 224.0.0.19    		<span class="comment">#这个就是指定多播地址的配置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong><br>1）不同实例的通信认证密码也最好不同，以确保接管正常。</p>
+<p>2）另一款高可用软件Heartbeat，如果采用多播方式实现主备通信，同样会有多播地址冲突问题。</p>
+<h2 id="裂脑问题"><a href="#裂脑问题" class="headerlink" title="裂脑问题"></a>裂脑问题</h2><blockquote>
+<p><strong>什么是裂脑</strong></p>
+</blockquote>
+<p>  脑裂（split-brain）：在高可用（HA）系统中，当联系2个节点的“心跳线”断开时，本来为一整体分裂成为2个独立的个体。由于相互失去了联系，都以为是对方出了故障。两个节点上的HA软件像“裂脑人”一样，争抢“共享资源”、争起“应用服务”，就会发生严重后果——或者共享资源被瓜分、2边“服务”都起不来了；或者2边“服务”都起来了，但同时读写“共享存储”，导致数据损坏。</p>
+<blockquote>
+<p><strong>脑裂现象发生的原因</strong></p>
+</blockquote>
+<p>（1）高可用服务器对之间心跳线链路发生故障，导致无法正常通信。</p>
+<p>（2）因心跳线坏了（包括断了，老化）。</p>
+<p>（3）因网卡及相关驱动坏了，ip配置及冲突问题（网卡直连）。</p>
+<p>（4）因心跳线间连接的设备故障（网卡及交换机）。</p>
+<p>（5）因仲裁的机器出问题（采用仲裁的方案）。</p>
+<p>（6）高可用服务器上开启了 iptables防火墙阻挡了心跳消息传输。</p>
+<p>（7）高可用服务器上心跳网卡地址等信息配置不正确，导致发送心跳失败。</p>
+<p>（8）其他服务配置不当等原因，如心跳方式不同，心跳广插冲突、软件Bug等。</p>
+<p>（9）Keepalived配置里同一 VRRP实例如果virtual_router_id两端参数配置不一致也会导致裂脑问题发生。</p>
+<p>（10）keepalived 进程被强制kill后，虚拟 ip 移除不掉，导致脑裂的现象。</p>
+<blockquote>
+<p><strong>如何避免裂脑问题</strong></p>
+</blockquote>
+<p>在实际生产环境中，可以从以下几个方面来防止裂脑问题的发生：</p>
+<p>（1）同时使用串行电缆和以太网电缆连接，同时用两条心跳线路，这样一条线路坏了，另一个还是好的，依然能传送心跳消息。</p>
+<p>（2）当检测到裂脑时强行关闭一个心跳节点（这个功能需特殊设备支持，如Stonith、feyce）。相当于备节点接收不到心跳消患，通过单独的线路发送关机命令关闭主节点的电源。</p>
+<p>（3）做好对裂脑的监控报警（如邮件及手机短信等或值班）.在问题发生时人为第一时间介入仲裁，降低损失。例如，百度的监控报警短倍就有上行和下行的区别。报警消息发送到管理员手机上，管理员可以通过手机回复对应数字或简单的字符串操作返回给服务器.让服务器根据指令自动处理相应故障，这样解决故障的时间更短。</p>
+<h2 id="高可用服务只针对物理服务器问题"><a href="#高可用服务只针对物理服务器问题" class="headerlink" title="高可用服务只针对物理服务器问题"></a>高可用服务只针对物理服务器问题</h2><p>默认情况下 Keepalived 软件仅仅在对方机器宕机或 Keepalived停掉的时候才会接管业务。但在实际工作中，有业务服务停止而Keepalived服务还在工作的情况，比如服务器不宕机，nginx负载服务异常停止了，此时没法分发请求，致用户访问的VIP无法找到对应的服务。</p>
+<p>下面的方式是实现Keepalived搭配Nginx使用的方案：<br>keepalived判断nginx服务是否异常，如果nginx服务异常，实现虚拟IP漂移到备用服务器。</p>
+<h3 id="开机执行脚本实现"><a href="#开机执行脚本实现" class="headerlink" title="开机执行脚本实现"></a>开机执行脚本实现</h3><p>分别在lb01,lb02上配置如下脚本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /server/tools/chk_nginx_proxy.sh		<span class="comment"># 编写脚本</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ `netstat -lntup|grep nginx|<span class="built_in">wc</span> -l` -ne 1 ];<span class="keyword">then</span></span><br><span class="line">        systemctl stop keepalived.service</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">        <span class="built_in">sleep</span> 5</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x chk_nginx_proxy.sh 	<span class="comment"># 通过将此脚本加入开机启动命令中，实现对Nginx的监控</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Keepalived监控脚本实现"><a href="#Keepalived监控脚本实现" class="headerlink" title="Keepalived监控脚本实现"></a>Keepalived监控脚本实现</h3><p>分别在<code>lb01</code>，<code>lb02</code>上配置<code>keepalived.conf</code>，以<code>lb01</code>为例，</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">global_defs &#123;</span><br><span class="line">   router_id lb01				</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#定义一个vrrp脚本，由Keepalived执行上述编写的脚本文件</span></span><br><span class="line">vrrp_script chk_nginx_proxy &#123;		</span><br><span class="line">    script <span class="string">&quot;/server/scripts/chk_nginx_proxy.sh&quot;</span>	</span><br><span class="line">    interval 2 			<span class="comment"># 间隔2秒。</span></span><br><span class="line">    weight 2			<span class="comment"># 权重，多个脚本存在时，决定脚本的执行顺序</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface eth0</span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    virtual_ipaddress &#123;	</span><br><span class="line">        192.168.110.130 label eth0:3</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 需要在vrrp实例的配置中添加此脚本</span></span><br><span class="line">    track_script &#123;</span><br><span class="line">    chk_nginx_proxy</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-11-04</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Nginx/'>
+                            Nginx
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

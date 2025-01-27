@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="数组" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            数组
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E7%BB%84"><span class="post-toc-text">创建数组</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AF%BB%E5%8F%96%E6%95%B0%E7%BB%84"><span class="post-toc-text">读取数组</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AF%BB%E5%8F%96%E5%8D%95%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="post-toc-text">读取单个元素</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%AF%BB%E5%8F%96%E6%89%80%E6%9C%89%E6%88%90%E5%91%98"><span class="post-toc-text">读取所有成员</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%BB%98%E8%AE%A4%E4%BD%8D%E7%BD%AE"><span class="post-toc-text">默认位置</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E9%95%BF%E5%BA%A6"><span class="post-toc-text">数组的长度</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%8F%90%E5%8F%96%E6%95%B0%E7%BB%84%E5%BA%8F%E5%8F%B7"><span class="post-toc-text">提取数组序号</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%8F%90%E5%8F%96%E6%95%B0%E7%BB%84%E6%88%90%E5%91%98"><span class="post-toc-text">提取数组成员</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%BF%BD%E5%8A%A0%E6%95%B0%E7%BB%84%E6%88%90%E5%91%98"><span class="post-toc-text">追加数组成员</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%A0%E9%99%A4%E6%95%B0%E7%BB%84"><span class="post-toc-text">删除数组</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%B3%E8%81%94%E6%95%B0%E7%BB%84"><span class="post-toc-text">关联数组</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>:x::x::x:解析有误，请查阅本地md文件</p>
+<p>数组（array）是一个包含多个值的变量。成员的编号从0开始，数量没有上限，也没有要求成员被连续索引。</p>
+<h2 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h2><p>数组可以采用逐个赋值的方法创建。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ARRAY[INDEX]=value</span><br></pre></td></tr></table></figure>
+
+<p>上面语法中，<code>ARRAY</code>是数组的名字，可以是任意合法的变量名。<code>INDEX</code>是一个大于或等于零的整数，也可以是算术表达式。注意数组第一个元素的下标是0， 而不是1。</p>
+<p>下面创建一个三个成员的数组。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ array[0]=val</span><br><span class="line">$ array[1]=val</span><br><span class="line">$ array[2]=val</span><br></pre></td></tr></table></figure>
+
+<p>数组也可以采用一次性赋值的方式创建。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ARRAY=(value1 value2 ... valueN)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等同于</span></span><br><span class="line"></span><br><span class="line">ARRAY=(</span><br><span class="line">  value1</span><br><span class="line">  value2</span><br><span class="line">  value3</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>采用上面方式创建数组时，可以按照默认顺序赋值，也可以在每个值前面指定位置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ array=(a b c)</span><br><span class="line">$ array=([2]=c [0]=a [1]=b)</span><br><span class="line"></span><br><span class="line">$ days=(Sun Mon Tue Wed Thu Fri Sat)</span><br><span class="line">$ days=([0]=Sun [1]=Mon [2]=Tue [3]=Wed [4]=Thu [5]=Fri [6]=Sat)</span><br></pre></td></tr></table></figure>
+
+<p>只为某些值指定位置，也是可以的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">names=(hatter [5]=duchess alice)</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，<code>hatter</code>是数组的0号位置，<code>duchess</code>是5号位置，<code>alice</code>是6号位置。</p>
+<p>没有赋值的数组元素的默认值是空字符串。</p>
+<p>定义数组的时候，可以使用通配符。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mp3s=( *.mp3 )</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，将当前目录的所有 MP3 文件，放进一个数组。</p>
+<p>先用<code>declare -a</code>命令声明一个数组，也是可以的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">declare</span> -a ARRAYNAME</span><br></pre></td></tr></table></figure>
+
+<p><code>read -a</code>命令则是将用户的命令行输入，存入一个数组。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">read</span> -a dice</span><br></pre></td></tr></table></figure>
+
+<p>上面命令将用户的命令行输入，存入数组<code>dice</code>。</p>
+<h2 id="读取数组"><a href="#读取数组" class="headerlink" title="读取数组"></a>读取数组</h2><h3 id="读取单个元素"><a href="#读取单个元素" class="headerlink" title="读取单个元素"></a>读取单个元素</h3><p>读取数组指定位置的成员，要使用下面的语法。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;array[i]&#125;</span>     <span class="comment"># i 是索引</span></span><br></pre></td></tr></table></figure>
+
+<p>上面语法里面的大括号是必不可少的，否则 Bash 会把索引部分<code>[i]</code>按照原样输出。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ array[0]=a</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;array[0]&#125;</span></span><br><span class="line">a</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$array</span>[0]</span><br><span class="line">a[0]</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，数组的第一个元素是<code>a</code>。如果不加大括号，Bash 会直接读取<code>$array</code>首成员的值，然后将<code>[0]</code>按照原样输出。</p>
+<h3 id="读取所有成员"><a href="#读取所有成员" class="headerlink" title="读取所有成员"></a>读取所有成员</h3><p><code>@</code>和<code>*</code>是数组的特殊索引，表示返回数组的所有成员。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ foo=(a b c d e f)</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;foo[@]&#125;</span></span><br><span class="line">a b c d e f</span><br></pre></td></tr></table></figure>
+
+<p>这两个特殊索引配合<code>for</code>循环，就可以用来遍历数组。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;names[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p><code>@</code>和<code>*</code>放不放在双引号之中，是有差别的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ activities=( swimming <span class="string">&quot;water skiing&quot;</span> canoeing <span class="string">&quot;white-water rafting&quot;</span> surfing )</span><br><span class="line">$ <span class="keyword">for</span> act <span class="keyword">in</span> <span class="variable">$&#123;activities[@]&#125;</span>; \</span><br><span class="line"><span class="keyword">do</span> \</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Activity: <span class="variable">$act</span>&quot;</span>; \</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">Activity: swimming</span><br><span class="line">Activity: water</span><br><span class="line">Activity: skiing</span><br><span class="line">Activity: canoeing</span><br><span class="line">Activity: white-water</span><br><span class="line">Activity: rafting</span><br><span class="line">Activity: surfing</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子中，数组<code>activities</code>实际包含5个成员，但是<code>for...in</code>循环直接遍历<code>$&#123;activities[@]&#125;</code>，导致返回7个结果。为了避免这种情况，一般把<code>$&#123;activities[@]&#125;</code>放在双引号之中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">for</span> act <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;activities[@]&#125;</span>&quot;</span>; \</span><br><span class="line"><span class="keyword">do</span> \</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Activity: <span class="variable">$act</span>&quot;</span>; \</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">Activity: swimming</span><br><span class="line">Activity: water skiing</span><br><span class="line">Activity: canoeing</span><br><span class="line">Activity: white-water rafting</span><br><span class="line">Activity: surfing</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，<code>$&#123;activities[@]&#125;</code>放在双引号之中，遍历就会返回正确的结果。</p>
+<p><code>$&#123;activities[*]&#125;</code>不放在双引号之中，跟<code>$&#123;activities[@]&#125;</code>不放在双引号之中是一样的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">for</span> act <span class="keyword">in</span> <span class="variable">$&#123;activities[*]&#125;</span>; \</span><br><span class="line"><span class="keyword">do</span> \</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Activity: <span class="variable">$act</span>&quot;</span>; \</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">Activity: swimming</span><br><span class="line">Activity: water</span><br><span class="line">Activity: skiing</span><br><span class="line">Activity: canoeing</span><br><span class="line">Activity: white-water</span><br><span class="line">Activity: rafting</span><br><span class="line">Activity: surfing</span><br></pre></td></tr></table></figure>
+
+<p><code>$&#123;activities[*]&#125;</code>放在双引号之中，所有成员就会变成单个字符串返回。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">for</span> act <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;activities[*]&#125;</span>&quot;</span>; \</span><br><span class="line"><span class="keyword">do</span> \</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Activity: <span class="variable">$act</span>&quot;</span>; \</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">Activity: swimming water skiing canoeing white-water rafting surfing</span><br></pre></td></tr></table></figure>
+
+<p>所以，拷贝一个数组的最方便方法，就是写成下面这样。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hobbies=( <span class="string">&quot;<span class="variable">$&#123;activities[@]&#125;</span>&quot;</span> )</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，数组<code>activities</code>被拷贝给了另一个数组<code>hobbies</code>。</p>
+<p>这种写法也可以用来为新数组添加成员。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hobbies=( <span class="string">&quot;<span class="variable">$&#123;activities[@]&#125;</span>&quot;</span> diving )</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，新数组<code>hobbies</code>在数组<code>activities</code>的所有成员之后，又添加了一个成员。</p>
+<h3 id="默认位置"><a href="#默认位置" class="headerlink" title="默认位置"></a>默认位置</h3><p>如果读取数组成员时，没有读取指定哪一个位置的成员，默认使用<code>0</code>号位置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">declare</span> -a foo</span><br><span class="line">$ foo=A</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;foo[0]&#125;</span></span><br><span class="line">A</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，<code>foo</code>是一个数组，赋值的时候不指定位置，实际上是给<code>foo[0]</code>赋值。</p>
+<p>引用一个不带下标的数组变量，则引用的是<code>0</code>号位置的数组元素。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ foo=(a b c d e f)</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;foo&#125;</span></span><br><span class="line">a</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$foo</span></span><br><span class="line">a</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，引用数组元素的时候，没有指定位置，结果返回的是<code>0</code>号位置。</p>
+<h2 id="数组的长度"><a href="#数组的长度" class="headerlink" title="数组的长度"></a>数组的长度</h2><p>要想知道数组的长度（即一共包含多少成员），可以使用下面两种语法。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$&#123;#array[*]&#125;</span></span><br><span class="line"><span class="variable">$&#123;#array[@]&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>下面是一个例子。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ a[100]=foo</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;#a[*]&#125;</span></span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;#a[@]&#125;</span></span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，把字符串赋值给<code>100</code>位置的数组元素，这时的数组只有一个元素。</p>
+<p>注意，如果用这种语法去读取具体的数组成员，就会返回该成员的字符串长度。这一点必须小心。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ a[100]=foo</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;#a[100]&#125;</span></span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，<code>$&#123;#a[100]&#125;</code>实际上是返回数组第100号成员<code>a[100]</code>的值（<code>foo</code>）的字符串长度。</p>
+<h2 id="提取数组序号"><a href="#提取数组序号" class="headerlink" title="提取数组序号"></a>提取数组序号</h2><p><code>$&#123;!array[@]&#125;</code>或<code>$&#123;!array[*]&#125;</code>，可以返回数组的成员序号，即哪些位置是有值的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ arr=([5]=a [9]=b [23]=c)</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;!arr[@]&#125;</span></span><br><span class="line">5 9 23</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;!arr[*]&#125;</span></span><br><span class="line">5 9 23</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，数组的5、9、23号位置有值。</p>
+<p>利用这个语法，也可以通过<code>for</code>循环遍历数组。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">arr=(a b c d)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$&#123;!arr[@]&#125;</span>;<span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$&#123;arr[i]&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="提取数组成员"><a href="#提取数组成员" class="headerlink" title="提取数组成员"></a>提取数组成员</h2><p><code>$&#123;array[@]:position:length&#125;</code>的语法可以提取数组成员。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ food=( apples bananas cucumbers dates eggs fajitas grapes )</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;food[@]:1:1&#125;</span></span><br><span class="line">bananas</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;food[@]:1:3&#125;</span></span><br><span class="line">bananas cucumbers dates</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，<code>$&#123;food[@]:1:1&#125;</code>返回从数组1号位置开始的1个成员，<code>$&#123;food[@]:1:3&#125;</code>返回从1号位置开始的3个成员。</p>
+<p>如果省略长度参数<code>length</code>，则返回从指定位置开始的所有成员。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;food[@]:4&#125;</span></span><br><span class="line">eggs fajitas grapes</span><br></pre></td></tr></table></figure>
+
+<p>上面例子返回从4号位置开始到结束的所有成员。</p>
+<h2 id="追加数组成员"><a href="#追加数组成员" class="headerlink" title="追加数组成员"></a>追加数组成员</h2><p>数组末尾追加成员，可以使用<code>+=</code>赋值运算符。它能够自动地把值追加到数组末尾。否则，就需要知道数组的最大序号，比较麻烦。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ foo=(a b c)</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;foo[@]&#125;</span></span><br><span class="line">a b c</span><br><span class="line"></span><br><span class="line">$ foo+=(d e f)</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;foo[@]&#125;</span></span><br><span class="line">a b c d e f</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除数组"><a href="#删除数组" class="headerlink" title="删除数组"></a>删除数组</h2><p>删除一个数组成员，使用<code>unset</code>命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ foo=(a b c d e f)</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;foo[@]&#125;</span></span><br><span class="line">a b c d e f</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">unset</span> foo[2]</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;foo[@]&#125;</span></span><br><span class="line">a b d e f</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，删除了数组中的第三个元素，下标为2。</p>
+<p>将某个成员设为空值，可以从返回值中“隐藏”这个成员。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ foo=(a b c d e f)</span><br><span class="line">$ foo[1]=<span class="string">&#x27;&#x27;</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;foo[@]&#125;</span></span><br><span class="line">a c d e f</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，将数组的第二个成员设为空字符串，数组的返回值中，这个成员就“隐藏”了。</p>
+<p>注意，这里是“隐藏”，而不是删除，因为这个成员仍然存在，只是值变成了空值。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ foo=(a b c d e f)</span><br><span class="line">$ foo[1]=<span class="string">&#x27;&#x27;</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;#foo[@]&#125;</span></span><br><span class="line">6</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;!foo[@]&#125;</span></span><br><span class="line">0 1 2 3 4 5</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，第二个成员设为空值后，数组仍然包含6个成员。</p>
+<p>由于空值就是空字符串，所以下面这样写也有隐藏效果，但是不建议这种写法。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ foo[1]=</span><br></pre></td></tr></table></figure>
+
+<p>上面的写法也相当于“隐藏”了数组的第二个成员。</p>
+<p>直接将数组变量赋值为空字符串，相当于“隐藏”数组的第一个成员。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ foo=(a b c d e f)</span><br><span class="line">$ foo=<span class="string">&#x27;&#x27;</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;foo[@]&#125;</span></span><br><span class="line">b c d e f</span><br></pre></td></tr></table></figure>
+
+<p>上面的写法相当于“隐藏”了数组的第一个成员。</p>
+<p><code>unset ArrayName</code>可以清空整个数组。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">unset</span> ARRAY</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$&#123;ARRAY[*]&#125;</span></span><br><span class="line">&lt;--no output--&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="关联数组"><a href="#关联数组" class="headerlink" title="关联数组"></a>关联数组</h2><p>Bash 的新版本支持关联数组。关联数组使用字符串而不是整数作为数组索引。</p>
+<p><code>declare -A</code>可以声明关联数组。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">declare</span> -A colors</span><br><span class="line">colors[<span class="string">&quot;red&quot;</span>]=<span class="string">&quot;#ff0000&quot;</span></span><br><span class="line">colors[<span class="string">&quot;green&quot;</span>]=<span class="string">&quot;#00ff00&quot;</span></span><br><span class="line">colors[<span class="string">&quot;blue&quot;</span>]=<span class="string">&quot;#0000ff&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>关联数组必须用带有<code>-A</code>选项的<code>declare</code>命令声明创建。相比之下，整数索引的数组，可以直接使用变量名创建数组，关联数组就不行。</p>
+<p>访问关联数组成员的方式，几乎与整数索引数组相同。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;colors[&quot;blue&quot;]&#125;</span></span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2022-11-28</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Bash/'>
+                            Bash
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

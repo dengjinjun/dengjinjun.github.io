@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="工智道内存占用" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            工智道内存占用
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#k8s%E5%8D%95%E4%B8%AApod%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6"><span class="post-toc-text">k8s单个pod资源限制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9C%A8%E6%AF%94%E6%A0%BC%E4%BA%91%E4%B8%BB%E6%9C%BA%E4%B8%8A%E9%80%9A%E8%BF%87docker-compose%E7%AE%A1%E7%90%86%E7%9A%84%E5%AE%B9%E5%99%A8"><span class="post-toc-text">在比格云主机上通过docker-compose管理的容器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#gc%E4%B8%8A%E9%80%9A%E8%BF%87k8s%E7%AE%A1%E7%90%86%E7%9A%84%E5%AE%B9%E5%99%A8%EF%BC%88%E5%8D%95pod%E5%A4%9A%E5%AE%B9%E5%99%A8%EF%BC%89"><span class="post-toc-text">gc上通过k8s管理的容器（单pod多容器）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%AF%94%E6%A0%BC%E4%BA%91%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4%EF%BC%88%E5%A4%9Apod%E5%A4%9A%E5%AE%B9%E5%99%A8%EF%BC%89"><span class="post-toc-text">比格云测试集群（多pod多容器）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="post-toc-text">结论</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>1</p>
+<h2 id="k8s单个pod资源限制"><a href="#k8s单个pod资源限制" class="headerlink" title="k8s单个pod资源限制"></a>k8s单个pod资源限制</h2><h3 id="在比格云主机上通过docker-compose管理的容器"><a href="#在比格云主机上通过docker-compose管理的容器" class="headerlink" title="在比格云主机上通过docker-compose管理的容器"></a>在比格云主机上通过docker-compose管理的容器</h3><blockquote>
+<p>华熙生物-300人用</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NAME             CPU %     MEM USAGE / LIMIT    MEM % </span><br><span class="line">hxsw-todo-1      0.17%     124.3MiB / 3.81GiB   3.19% </span><br><span class="line">hxsw-lowcode-1   0.71%     972.5MiB / 3.81GiB   24.93%</span><br><span class="line">hxsw-oaa-1       0.07%     190.9MiB / 3.81GiB   4.89% </span><br><span class="line">hxsw-timejob-1   0.39%     81.33MiB / 3.81GiB   2.08%</span><br><span class="line">hxsw-nginx-1     0.00%     52.87MiB / 3.81GiB   1.36% </span><br><span class="line">hxsw-pointer-1   0.08%     38.64MiB / 3.81GiB   0.99% </span><br><span class="line">hxsw-inroad-1    0.07%     503.3MiB / 3.81GiB   12.90%</span><br><span class="line">合计				1.49%		1961MB</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>健坤化学，250人用量</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NAME             CPU %     MEM USAGE / LIMIT    MEM %     NET I/O           BLOCK I/O        PIDS</span><br><span class="line">jkhx-inroad-1    1.49%     767.1MiB / 3.81GiB   19.66%    6.8GB / 13.1GB    25.7MB / 271MB   45</span><br><span class="line">jkhx-nginx-1     0.00%     94.47MiB / 3.81GiB   2.42%     2.95GB / 16.3GB   247MB / 8.19kB   3</span><br><span class="line">jkhx-lowcode-1   0.48%     356.1MiB / 3.81GiB   9.13%     6.69GB / 8.6GB    70.2MB / 0B      44</span><br><span class="line">jkhx-timejob-1   0.12%     89.02MiB / 3.81GiB   2.28%     1.7GB / 1.25GB    9.97MB / 0B      23</span><br><span class="line">jkhx-oaa-1       0.09%     216.9MiB / 3.81GiB   5.56%     227MB / 252MB     37MB / 19.3MB    21</span><br><span class="line">jkhx-todo-1      0.20%     170MiB / 3.81GiB     4.36%     444MB / 606MB     51.9MB / 0B      23</span><br><span class="line">jkhx-pointer-1   0.08%     30.17MiB / 3.81GiB   0.77%     438kB / 0B        17.4MB / 0B      14</span><br><span class="line">合计				2.5%	  1723</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>福邦新材料</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NAME      CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS</span><br><span class="line">pointer   0.13%     35.14MiB / 3.682GiB   0.93%     76.4kB / 0B       55.6MB / 0B       15</span><br><span class="line">timejob   0.08%     45.75MiB / 3.682GiB   1.21%     84.4MB / 91.6MB   8.76MB / 0B       19</span><br><span class="line">oaa       0.08%     200MiB / 3.682GiB     5.31%     364MB / 354MB     4.97MB / 0B       21</span><br><span class="line">inroad    0.26%     1.212GiB / 3.682GiB   32.93%    39.9GB / 39.1GB   33.6MB / 0B       44</span><br><span class="line">nginx     0.00%     46.57MiB / 3.682GiB   1.24%     11.6GB / 113GB    50.1MB / 30.7kB   2</span><br><span class="line">todo      0.19%     285.6MiB / 3.682GiB   7.58%     309MB / 309MB     32.5MB / 0B       21</span><br><span class="line">总计		0.74%		1854</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<h3 id="gc上通过k8s管理的容器（单pod多容器）"><a href="#gc上通过k8s管理的容器（单pod多容器）" class="headerlink" title="gc上通过k8s管理的容器（单pod多容器）"></a>gc上通过k8s管理的容器（单pod多容器）</h3><blockquote>
+<p><strong>bach正式环境</strong>，300人规模</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">POD                               NAME       CPU(cores)   MEMORY(bytes)   </span><br><span class="line">inroadweb-bach-768565bfc7-n24jh   inroad     8m           561Mi           </span><br><span class="line">inroadweb-bach-768565bfc7-n24jh   lowcode    111m         1073Mi          </span><br><span class="line">inroadweb-bach-768565bfc7-n24jh   nginx      1m           6Mi             </span><br><span class="line">inroadweb-bach-768565bfc7-n24jh   oaa        1m           304Mi           </span><br><span class="line">inroadweb-bach-768565bfc7-n24jh   pointer    1m           34Mi            </span><br><span class="line">inroadweb-bach-768565bfc7-n24jh   promtail   6m           48Mi             </span><br><span class="line">总计   										126m         2028Mi </span><br><span class="line"></span><br><span class="line">POD                               NAME       CPU(cores)   MEMORY(bytes)   </span><br><span class="line">inroadweb-bach-768565bfc7-q8g57   inroad     3m           517Mi           </span><br><span class="line">inroadweb-bach-768565bfc7-q8g57   lowcode    20m          1721Mi          </span><br><span class="line">inroadweb-bach-768565bfc7-q8g57   nginx      1m           16Mi            </span><br><span class="line">inroadweb-bach-768565bfc7-q8g57   oaa        9m           238Mi           </span><br><span class="line">inroadweb-bach-768565bfc7-q8g57   pointer    1m           50Mi            </span><br><span class="line">inroadweb-bach-768565bfc7-q8g57   promtail   4m           43Mi </span><br><span class="line">总计										   35m          2588Mi    </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>zjcm正式环境</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">POD                               NAME       CPU(cores)   MEMORY(bytes)   </span><br><span class="line">inroadweb-zjcm-78d7ddc9bf-mpmjq   inroad     2m           432Mi           </span><br><span class="line">inroadweb-zjcm-78d7ddc9bf-mpmjq   lowcode    2m           1100Mi          </span><br><span class="line">inroadweb-zjcm-78d7ddc9bf-mpmjq   nginx      1m           8Mi             </span><br><span class="line">inroadweb-zjcm-78d7ddc9bf-mpmjq   oaa        1m           245Mi           </span><br><span class="line">inroadweb-zjcm-78d7ddc9bf-mpmjq   pointer    1m           69Mi            </span><br><span class="line">inroadweb-zjcm-78d7ddc9bf-mpmjq   promtail   2m           47Mi </span><br><span class="line">合计										   9m           1900Mi</span><br><span class="line"></span><br><span class="line">inroadweb-zjcm-78d7ddc9bf-8mcxk   inroad     2m           496Mi           </span><br><span class="line">inroadweb-zjcm-78d7ddc9bf-8mcxk   lowcode    3m           1441Mi          </span><br><span class="line">inroadweb-zjcm-78d7ddc9bf-8mcxk   nginx      1m           4Mi             </span><br><span class="line">inroadweb-zjcm-78d7ddc9bf-8mcxk   oaa        1m           259Mi           </span><br><span class="line">inroadweb-zjcm-78d7ddc9bf-8mcxk   pointer    1m           62Mi            </span><br><span class="line">inroadweb-zjcm-78d7ddc9bf-8mcxk   promtail   5m           36Mi </span><br><span class="line">合计										   9m           2300Mi</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>bach测试环境，没几个人用</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POD                               NAME      CPU(cores)   MEMORY(bytes)   </span><br><span class="line">inroadweb-bach-68d88fdbcb-2dh2c   inroad    2m           381Mi           </span><br><span class="line">inroadweb-bach-68d88fdbcb-2dh2c   lowcode   4m           721Mi           </span><br><span class="line">inroadweb-bach-68d88fdbcb-2dh2c   nginx     0m           9Mi             </span><br><span class="line">inroadweb-bach-68d88fdbcb-2dh2c   oaa       1m           199Mi           </span><br><span class="line">inroadweb-bach-68d88fdbcb-2dh2c   pointer   1m           51Mi </span><br><span class="line">总计										   7m           1363Mi </span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>zjcm测试环境，没几个人用</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">POD                               NAME       CPU(cores)   MEMORY(bytes)   </span><br><span class="line">inroadweb-zjcm-7c97cfbdf8-lfjx7   inroad     5m           336Mi           </span><br><span class="line">inroadweb-zjcm-7c97cfbdf8-lfjx7   lowcode    3m           230Mi           </span><br><span class="line">inroadweb-zjcm-7c97cfbdf8-lfjx7   nginx      1m           6Mi             </span><br><span class="line">inroadweb-zjcm-7c97cfbdf8-lfjx7   oaa        1m           172Mi           </span><br><span class="line">inroadweb-zjcm-7c97cfbdf8-lfjx7   pointer    1m           50Mi            </span><br><span class="line">inroadweb-zjcm-7c97cfbdf8-lfjx7   promtail   10m          56Mi</span><br><span class="line">合计										   19m          853Mi </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="比格云测试集群（多pod多容器）"><a href="#比格云测试集群（多pod多容器）" class="headerlink" title="比格云测试集群（多pod多容器）"></a>比格云测试集群（多pod多容器）</h3><blockquote>
+<p>xsd，0人使用</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NAME             CPU %     MEM USAGE</span><br><span class="line">hxsw-todo-1      0    		115</span><br><span class="line">hxsw-lowcode-1   0    		254</span><br><span class="line">hxsw-oaa-1       0   		173</span><br><span class="line">hxsw-timejob-1   0    		106</span><br><span class="line">hxsw-nginx-1     0    		4 </span><br><span class="line">hxsw-pointer-1   0     		33</span><br><span class="line">hxsw-inroad-1    0     		393</span><br><span class="line">合计				0		  1078</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>:star:无论时单容器但是多容器，创建一套服务的成本大概是1G内存，用于deployment的资源请求配额</p>
+<p>:star:内存占用排序：积木、工智道、oaa、todo、pointer、timejob、nginx</p>
+<table>
+<thead>
+<tr>
+<th>服务</th>
+<th>inroad</th>
+<th>lowcode</th>
+<th>oaa</th>
+<th>todo</th>
+<th>pointer</th>
+<th>timejob</th>
+<th>nginx</th>
+<th>deployment</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成本</td>
+<td>400MB</td>
+<td>300M</td>
+<td>180M</td>
+<td>120M</td>
+<td>50M</td>
+<td>120M</td>
+<td>10M</td>
+<td>1200M</td>
+</tr>
+<tr>
+<td>峰值</td>
+<td>1241M</td>
+<td>1800M</td>
+<td>360M</td>
+<td>300M</td>
+<td>100M</td>
+<td>none</td>
+<td>none</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>CPU 请求：200m &#x3D; 0.2 核心</p>
+<blockquote>
+<p><strong>资源request</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">resources:</span></span><br><span class="line">  <span class="attr">requests:</span></span><br><span class="line">    <span class="attr">cpu:</span> <span class="string">200m</span>    </span><br><span class="line">    <span class="attr">memory:</span> <span class="string">256Mi</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>弹性伸缩规则</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">autoscaling/v2beta2</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">HorizontalPodAutoscaler</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-hpa</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">scaleTargetRef:</span></span><br><span class="line">    <span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line">    <span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">my-deployment</span></span><br><span class="line">  <span class="attr">minReplicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">maxReplicas:</span> <span class="number">5</span></span><br><span class="line">  <span class="attr">metrics:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">Resource</span></span><br><span class="line">      <span class="attr">resource:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">memory</span></span><br><span class="line">        <span class="attr">target:</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">Utilization</span></span><br><span class="line">          <span class="attr">averageUtilization:</span> <span class="number">70</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>inroad</p>
+<p>工智道随便开几个页面访问，内存就能达到一个G</p>
+<p>要求，大概没人访问的时候，大概占用内存400M，只有一个pod，请求2个G，达到80%扩容新的pod</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">resources:</span><br><span class="line">  requests:</span><br><span class="line">    cpu: 200m    </span><br><span class="line">    memory: 1200Mi</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p>收集dump文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://zhuanlan.zhihu.com/p/639610440</span><br><span class="line">https://learn.microsoft.com/zh-cn/dotnet/core/diagnostics/dotnet-dump</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">mkdir /opt/$1 $$ cd /opt/$1</span><br><span class="line">unzip config.zip</span><br><span class="line">wget -q https://3dview-1251252938.cos.ap-shanghai.myqcloud.com/dengjinjun/scripts/install_docker.sh</span><br><span class="line">chmod +x install_docker.sh</span><br><span class="line">sh install_docker.sh</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-07-27</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

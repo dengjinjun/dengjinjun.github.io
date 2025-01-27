@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="云服务器ECS概念" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            云服务器ECS概念
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFECS"><span class="post-toc-text">什么是ECS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%B4%AD%E4%B9%B0ECS%E5%AE%9E%E4%BE%8B"><span class="post-toc-text">购买ECS实例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5"><span class="post-toc-text">重要概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%93%E6%9C%89%E7%BD%91%E7%BB%9C%E5%92%8C%E4%BA%A4%E6%8D%A2%E6%9C%BA"><span class="post-toc-text">专有网络和交换机</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9C%B0%E5%9F%9F"><span class="post-toc-text">地域</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8F%AF%E7%94%A8%E5%8C%BA"><span class="post-toc-text">可用区</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="什么是ECS"><a href="#什么是ECS" class="headerlink" title="什么是ECS"></a>什么是ECS</h2><p>云服务器本质是一种商业模式，由于传统物理服务器的拥有、维护成本比较高，于是就出现了一种公司，比如阿里云、华为云等，他们大量购买服务器，在全世界建设服务器机房，通过专业的技术人员管理、维护这些服务器，然后将这些服务器在通过池化、虚拟化等技术手段给用户提供各种规格的虚拟服务器，因为这些服务器用户看不见其实体，感觉就像是在“云端”，所以又称为<strong>“云服务器”</strong>。</p>
+<p>云服务器是按需租赁的，是一种虚拟服务器，其配置可以随时调整，比如：CPU处理能力不足、内存不够、存储空间不足，都可以根据实际情况进行扩大，所以阿里云的云服务器又叫 <strong>ECS</strong>（Elastic Compute Service），即弹性计算服务。</p>
+<p><a href="/../pic/likugzusndwchirrjnbp.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/likugzusndwchirrjnbp.png" alt="img"></a></p>
+<p><strong>相关术语：</strong></p>
+<ul>
+<li>实例：等同于一台虚拟服务器，内含vCPU、内存、磁盘、网络配置、操作系统等基础的计算组件。</li>
+<li>快照：某一时间点云盘的实时副本，常用于数据备份&#x2F;恢复、应用容灾、制作镜像等。</li>
+<li>镜像：等同于”装机盘“，为ECS实例提供操作系统和预装的组件。</li>
+<li>网络：主要是专有网络VPC，在逻辑上课彻底隔离的云上私有网络。</li>
+<li>块存储：分布式数据存储设备，为ECS实例提供数据存储，可以分为系统盘和数据盘。</li>
+<li>安全组：一种虚拟防火墙，划分安全隔离区域，实现网络访问控制。</li>
+</ul>
+<h2 id="购买ECS实例"><a href="#购买ECS实例" class="headerlink" title="购买ECS实例"></a>购买ECS实例</h2><p>阿里云ECS产品页面：<a target="_blank" rel="noopener" href="https://www.aliyun.com/product/ecs?spm=a2cwt.28120018.317192.19.f5481ee94Mc3DK">https://www.aliyun.com/product/ecs</a>，点击立即购买，进入购买页面，购买配置说明：</p>
+<ul>
+<li><p><strong>付费类型</strong>：包年包月、按量付费、抢占式实例三种，其中：</p>
+<ul>
+<li><strong>包年包月</strong>模式为先付费后使用，相较于按量付费价格较低，适合搭建网站长期使用；</li>
+<li><strong>按量付费</strong>模式为先使用后付费，按需开通和释放资源；</li>
+<li><strong>抢占式实例</strong>操作与按量付费实例相同，在实例保护期外市场价格超过了个人出价，将被释放，相对于按量付费实例价格有一定的折扣；</li>
+</ul>
+</li>
+<li><p><strong>地域</strong>：云服务器所在的城市，<strong>选择靠近访问者的地域可以有效提升访问速度。</strong></p>
+</li>
+<li><p><strong>网络及可用区</strong>：指定专有网络、可用区、交换机，选择<strong>默认</strong>即可，如有自定义需求，可以点击“创建专有网络”和“创建交换机”进行快速创建。</p>
+<ul>
+<li><strong>专有网络VPC</strong>（Virtual Private Cloud）：是基于阿里云创建的自定义私有网络，不同的专有网络之间二层逻辑隔离，个人可以完全掌控自己的专有网络，例如选择IP地址范围、配置路由表和网关等，可以在自己创建的专有网络内创建和管理云产品实例。</li>
+<li><strong>交换机</strong>：组成专有网络的基础网络设备，用来连接不同的云资源。创建专有网络后，您可以通过创建交换机为专有网络划分一个或多个子网。同一专有网络内的不同交换机之间内网互通。</li>
+<li><strong>可用区</strong>：可用区是指在同一地域内，电力和网络互相独立的物理区域。</li>
+</ul>
+<p><a href="/../pic/fyhazynzqknmueabcxvi.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/fyhazynzqknmueabcxvi.png" alt="img"></a></p>
+</li>
+<li><p><strong>实例</strong>：实例是能够为业务提供计算服务的最小单位，不同的实例规格可以提供的计算能力不同。</p>
+<ul>
+<li>实例规格：实例规格包含了vCPU核心数、内存大小和对应的芯片架构。同时，实例规格族名称上带有数字，一般来说，数字越大代表该实例规格使用的芯片越新，性价比越高。</li>
+</ul>
+</li>
+<li><p><a href="/../pic/ttbuljpvflhjaxovyhzy.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/ttbuljpvflhjaxovyhzy.png" alt="img"></a></p>
+</li>
+<li><p><strong>镜像</strong>：云服务器ECS的“装机盘”，为ECS实例提供操作系统、初始化应用数据、预装的软件。</p>
+<p><a href="/../pic/nijpabhyrsalpcwuhmpn.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/nijpabhyrsalpcwuhmpn.png" alt="img"></a></p>
+</li>
+<li><p><strong>系统盘</strong>：用于安装操作系统的存储，为必选项，只能随实例创建，生命周期与挂载的ECS实例相同。</p>
+</li>
+<li><p><strong>数据盘</strong>：为可额外增加的存储，用于存储应用数据，可选，可以与ECS实例同时创建，也可以单独创建。</p>
+</li>
+<li><p><strong>快照服务</strong>：能定时对云盘进行备份，可应对病毒感染、数据误删等风险。</p>
+<p><a href="/../pic/sphidslafcxakjetvhsd-17050457958611.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/sphidslafcxakjetvhsd-17050457958611.png" alt="img"></a></p>
+</li>
+<li><p><strong>公网IP</strong>：勾选“<strong>分配公网IPv4地址</strong>”选项后，系统会为ECS实例分配公网IP，并出现“<strong>带宽计费模式</strong>”配置项，可按需进行配置。</p>
+<ul>
+<li>带宽计费模式为“<strong>按固定带宽</strong>”时，按指定的带宽值收费，实际的出网带宽不会高于指定的<strong>带宽值</strong>，适用于对网络带宽要求比较稳定的业务场景。</li>
+<li>带宽计费模式为“<strong>按使用流量</strong>”时，按实际产生的网络流量进行收费，且可设置出网<strong>带宽峰值</strong>，适用于对网络带宽需求变化较大的业务场景。</li>
+</ul>
+</li>
+<li><p><strong>安全组</strong>：一种虚拟防火墙，用于控制ECS实例出&#x2F;入方向流量，保障ECS安全。</p>
+<p> <a href="/../pic/hidbbvfgcjsubiqvpfjl.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/hidbbvfgcjsubiqvpfjl.png" alt="img"></a></p>
+</li>
+<li><p><strong>登录凭证</strong>：为用户登录ECS实例的方式方法，本例选择<strong>自定义密码</strong>，登录名勾选<strong>root</strong>，并设置登录密码。</p>
+<p><a href="/../pic/mjwqbxxchfchndiqkuvx-17050461098184.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/mjwqbxxchfchndiqkuvx-17050461098184.png" alt="img"></a></p>
+</li>
+</ul>
+<p>勾选《云服务器ECS服务条款》并确认下单，创建成功后，点击<strong>管理控制台</strong>可以查看已创建的ECS服务器。</p>
+<ul>
+<li><p><strong>释放ECS实例</strong></p>
+<p>点击云服务器ECS控制台中实例管理页面的“<strong>释放设置</strong>”，可以选择释放的方式：<strong>手动释放</strong>（立即释放）、<strong>自动释放</strong>（定时释放）。</p>
+<p>注意：</p>
+<ol>
+<li>建议在释放之前先<strong>创建快照备份数据</strong>。释放实例不影响已经手动创建好的快照和镜像。</li>
+<li>如果按量付费实例承载了关键业务，可以为按量付费实例开启<strong>实例释放保护</strong>，防止手动释放按量付费实例。</li>
+<li>到期未续费的实例会因欠费而被自动停机，<strong>停机15天内实例将保留</strong>，15天后实例和数据都将被自动释放。</li>
+</ol>
+</li>
+</ul>
+<h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2><h3 id="专有网络和交换机"><a href="#专有网络和交换机" class="headerlink" title="专有网络和交换机"></a>专有网络和交换机</h3><p>专有网络（VPC）是用户独有的云上虚拟网络，云上大部分的产品都需要放入到VPC中才能工作。</p>
+<p>交换机（vSwitch）是组成专有网络的基础网络设备，用来连接不同的云资源实例。专有网络是地域级别的资源，<strong>专有网络不可以跨地域，但包含所属地域的所有可用区</strong>。可以在每个可用区内创建一个或多个交换机来划分子网。</p>
+<p>每个专有网络都由至少一个私网网段、一个路由器和至少一个交换机组成。交换机是可用区级别的子网，一个VPC中，可以包含一个或多个交换机，每个可用区想要投入使用，都必须至少创建一个交换机，当然，也可以在一个可用区创建多个交换机。</p>
+<p><a href="/../pic/p241558.png" title="交换机和VPC" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/p241558.png" alt="交换机和VPC"></a></p>
+<h3 id="地域"><a href="#地域" class="headerlink" title="地域"></a>地域</h3><p>地域指数据中心所在的地理区域，通常按照数据中心所在的城市划分。例如，华北1（青岛）地域表示数据中心所在的城市是青岛。</p>
+<p>在创建或者购买阿里云资源时需要选择部署地域，资源创建或购买成功后不能更换地域。</p>
+<p><strong>在选择地域时，需要考虑以下几个因素：</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>考虑因素</strong></th>
+<th><strong>选择说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>地理位置</td>
+<td>用户和资源部署地域的距离越近，网络时延越低，访问速度越快。建议基于业务场景对时延的要求选择地域。</td>
+</tr>
+<tr>
+<td>多产品使用时的内网互通要求</td>
+<td>如果您已经通过购买云网络产品解决了多个云产品之间的网络连接限制，请忽略该因素。如果您的服务没有内网互通要求，可以将其部署在不同地域或同一地域。<strong>如果您的服务要求内网互通，请将其部署在同一地域。</strong></td>
+</tr>
+<tr>
+<td>资源价格</td>
+<td>根据您的预算选择合适的地域。不同地域的资源价格可能有差异，请参见阿里云产品详情页或者产品购买页的价格信息。</td>
+</tr>
+<tr>
+<td>经营性备案</td>
+<td>如果您在北京或者广东使用ECS实例，并用作Web服务器，您需要完成经营性备案，同时需要在指定的地域购买ECS实例。以当地管理局经营性备案网站公示内容为准。</td>
+</tr>
+</tbody></table>
+<h3 id="可用区"><a href="#可用区" class="headerlink" title="可用区"></a>可用区</h3><p>可用区是指在同一地域内，电力和网络互相独立的物理区域。例如，华北1（青岛）地域支持2个可用区，包括青岛 可用区B和青岛 可用区C。同一可用区内实例之间的网络延时更小，其用户访问速度更快。</p>
+<p>在创建或者购买阿里云资源时需要选择部署的可用区，资源创建或购买成功后不能更换可用区。</p>
+<p>一个地域通常由多个可用区组成，在同一地域内，可用区与可用区之间内网互通，且使用低时延链路相连。</p>
+<p><a href="/../pic/image-20240112161414209.png" title="image-20240112161414209" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240112161414209.png" alt="image-20240112161414209"></a></p>
+<p>各可用区之间可以实现故障隔离，即如果一个可用区出现故障，则不会影响其他可用区的正常运行。<strong>是否将实例放在同一可用区内，主要取决于业务对容灾能力和网络延时的要求。</strong></p>
+<ul>
+<li>如果业务需要较高的容灾能力，建议将实例部署在同一地域的不同可用区内。</li>
+<li>如果业务要求实例之间的网络延时较低，建议将实例创建在同一可用区内。</li>
+</ul>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-18</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E9%98%BF%E9%87%8C%E4%BA%91/'>
+                            阿里云
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

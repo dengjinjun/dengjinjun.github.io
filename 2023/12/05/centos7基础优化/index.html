@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="centos7基础优化" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            centos7基础优化
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A6%82%E8%A7%88"><span class="post-toc-text">概览</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6"><span class="post-toc-text">文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#tasks"><span class="post-toc-text">tasks</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#handlers"><span class="post-toc-text">handlers</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#files"><span class="post-toc-text">files</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>对初始状态的服务器进行基础系统优化，包括分发hosts文件、关闭selinux、调整yum源、分发yum配置文件、更新系统工具、下载必备工具、调整时区，设置时间同步，关闭无用服务，优化SSH。</p>
+<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><blockquote>
+<p><strong>入口文件</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">|root@m01</span> <span class="string">ansible|$</span> <span class="string">cat</span> <span class="string">basic_optimization.yml</span> </span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">all</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">dengpangpang</span></span><br><span class="line">  <span class="attr">become:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">become_method:</span> <span class="string">sudo</span></span><br><span class="line">  <span class="attr">roles:</span> </span><br><span class="line">    <span class="bullet">-</span> <span class="string">basic_optimization</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>角色目录结构</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">|root@m01 roles|$ tree -F</span><br><span class="line">.</span><br><span class="line">└── basic_optimization/</span><br><span class="line">    ├── files/</span><br><span class="line">    │   ├── hosts</span><br><span class="line">    │   └── yum.conf</span><br><span class="line">    ├── handlers/</span><br><span class="line">    │   └── main.yml</span><br><span class="line">    └── tasks/</span><br><span class="line">        └── main.yml</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><h3 id="tasks"><a href="#tasks" class="headerlink" title="tasks"></a>tasks</h3><blockquote>
+<p><strong>main.yml</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Distribute</span> <span class="string">hosts</span> <span class="string">file</span></span><br><span class="line">  <span class="attr">copy:</span> </span><br><span class="line">    <span class="attr">src:</span> <span class="string">hosts</span></span><br><span class="line">    <span class="attr">dest:</span> <span class="string">/etc/hosts</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Disable</span> <span class="string">selinux</span></span><br><span class="line">  <span class="attr">selinux:</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">disabled</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Back</span> <span class="string">up</span> <span class="string">yum</span> <span class="string">Base</span> <span class="string">repo</span></span><br><span class="line">  <span class="attr">copy:</span> <span class="string">src=/etc/yum.repos.d/CentOS-Base.repo</span> <span class="string">dest=/etc/yum.repos.d/CentOS-Base.repo.backup</span> <span class="string">remote_src=true</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Update</span> <span class="string">yum</span> <span class="string">repo</span></span><br><span class="line">  <span class="attr">get_url:</span> <span class="string">url=&#123;&#123;</span> <span class="string">item.url</span> <span class="string">&#125;&#125;</span> <span class="string">dest=&#123;&#123;</span> <span class="string">item.dest</span> <span class="string">&#125;&#125;</span></span><br><span class="line">  <span class="attr">with_items:</span></span><br><span class="line">    <span class="bullet">-</span> &#123; <span class="attr">url:</span> <span class="string">&#x27;http://mirrors.aliyun.com/repo/Centos-7.repo&#x27;</span>, <span class="attr">dest:</span> <span class="string">&#x27;/etc/yum.repos.d/CentOS-Base.repo&#x27;</span> &#125;</span><br><span class="line">    <span class="bullet">-</span> &#123; <span class="attr">url:</span> <span class="string">&#x27;http://mirrors.aliyun.com/repo/epel-7.repo&#x27;</span>, <span class="attr">dest:</span> <span class="string">&#x27;/etc/yum.repos.d/epel.repo&#x27;</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Distribute</span> <span class="string">yum</span> <span class="string">conf</span></span><br><span class="line">  <span class="attr">copy:</span> <span class="string">src=yum.conf</span> <span class="string">dest=/etc/yum.conf</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Update</span> <span class="string">yum</span> <span class="string">packages</span></span><br><span class="line">  <span class="attr">yum:</span> </span><br><span class="line">    <span class="attr">name:</span> <span class="string">&#x27;*&#x27;</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">latest</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">essential</span> <span class="string">packages</span></span><br><span class="line">  <span class="attr">yum:</span> </span><br><span class="line">    <span class="attr">name:</span> [<span class="string">&#x27;tree&#x27;</span>, <span class="string">&#x27;nmap&#x27;</span>, <span class="string">&#x27;sysstat&#x27;</span>, <span class="string">&#x27;lrzsz&#x27;</span>, <span class="string">&#x27;telnet&#x27;</span>, <span class="string">&#x27;bash-completion&#x27;</span>, <span class="string">&#x27;bash-completion-extras&#x27;</span>, <span class="string">&#x27;vim&#x27;</span>, <span class="string">&#x27;lsof&#x27;</span>, <span class="string">&#x27;net-tools&#x27;</span>, <span class="string">&#x27;ntpdate&#x27;</span>,  <span class="string">&#x27;wget&#x27;</span>] </span><br><span class="line">    <span class="attr">state:</span> <span class="string">present</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">timezone</span> <span class="string">to</span> <span class="string">Asia/Shanghai</span></span><br><span class="line">  <span class="attr">timezone:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">Asia/Shanghai</span></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Disable</span> <span class="string">unused</span> <span class="string">services</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">name=&#123;&#123;</span> <span class="string">item</span> <span class="string">&#125;&#125;</span> <span class="string">enabled=false</span> <span class="string">state=stopped</span></span><br><span class="line">  <span class="attr">with_items:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">firewalld.service</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">postfix.service</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">NetworkManager.service</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cron</span> <span class="string">for</span> <span class="string">sync</span> <span class="string">time</span></span><br><span class="line">  <span class="attr">cron:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">sync</span> <span class="string">time</span></span><br><span class="line">    <span class="attr">hour:</span> <span class="string">&#x27;*/1&#x27;</span></span><br><span class="line">    <span class="attr">job:</span> <span class="string">&quot;/usr/sbin/ntpdate ntp.aliyun.com &amp;&gt; /dev/null&quot;</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">present</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Configure</span> <span class="string">SSH</span></span><br><span class="line">  <span class="attr">lineinfile:</span> <span class="string">path=/etc/ssh/sshd_config</span> <span class="string">regexp=&#123;&#123;</span> <span class="string">item.regexp</span> <span class="string">&#125;&#125;</span> <span class="string">line=&#123;&#123;</span> <span class="string">item.line</span> <span class="string">&#125;&#125;</span></span><br><span class="line">  <span class="attr">with_items:</span></span><br><span class="line">    <span class="bullet">-</span> &#123; <span class="attr">regexp:</span> <span class="string">&#x27;^PermitRootLogin&#x27;</span>, <span class="attr">line:</span> <span class="string">&#x27;PermitRootLogin yes&#x27;</span> &#125;</span><br><span class="line">    <span class="bullet">-</span> &#123; <span class="attr">regexp:</span> <span class="string">&#x27;^PasswordAuthentication&#x27;</span>, <span class="attr">line:</span> <span class="string">&#x27;PasswordAuthentication yes&#x27;</span> &#125;</span><br><span class="line">    <span class="bullet">-</span> &#123; <span class="attr">regexp:</span> <span class="string">&#x27;^UseDNS&#x27;</span>, <span class="attr">line:</span> <span class="string">&#x27;UseDNS no&#x27;</span> &#125;</span><br><span class="line">    <span class="bullet">-</span> &#123; <span class="attr">regexp:</span> <span class="string">&#x27;^GSSAPIAuthentication&#x27;</span>, <span class="attr">line:</span> <span class="string">&#x27;GSSAPIAuthentication no&#x27;</span> &#125;</span><br><span class="line">    <span class="bullet">-</span> &#123; <span class="attr">regexp:</span> <span class="string">&#x27;^PermitEmptyPasswords&#x27;</span>, <span class="attr">line:</span> <span class="string">&#x27;PermitEmptyPasswords no&#x27;</span> &#125;</span><br><span class="line">  <span class="attr">notify:</span> <span class="string">restart</span> <span class="string">sshd</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="handlers"><a href="#handlers" class="headerlink" title="handlers"></a>handlers</h3><blockquote>
+<p><strong>main.yml</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">restart</span> <span class="string">sshd</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">name=sshd</span> <span class="string">state=restarted</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="files"><a href="#files" class="headerlink" title="files"></a>files</h3><blockquote>
+<p><strong>hosts</strong></p>
+</blockquote>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line"><span class="section">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span></span><br><span class="line">192.168.110.144 lb401</span><br><span class="line">192.168.110.145 lb402</span><br><span class="line">192.168.110.135 lb01    </span><br><span class="line">192.168.110.136 lb02</span><br><span class="line">192.168.110.137 web01</span><br><span class="line">192.168.110.138 web02</span><br><span class="line">192.168.110.139 sweb01</span><br><span class="line">192.168.110.140 sweb02</span><br><span class="line">192.168.110.141 nfs</span><br><span class="line">192.168.110.142 backup</span><br><span class="line">192.168.110.143 db01</span><br><span class="line">192.168.110.128 m01</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>yum.conf</strong></p>
+</blockquote>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[main]</span><br><span class="line">keepcache=1</span><br><span class="line">installonlypkgs=*</span><br><span class="line">cachedir=/var/cache/yum/$basearch/$releasever</span><br><span class="line">debuglevel=2</span><br><span class="line">logfile=/var/log/yum.log</span><br><span class="line">exactarch=1</span><br><span class="line">obsoletes=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">plugins=1</span><br><span class="line">installonly_limit=5</span><br><span class="line">bugtracker_url=http://bugs.centos.org/set_project.php?project_id=23&amp;ref=http://bugs.centos.org/bug_report_page.php?category=yum</span><br><span class="line">distroverpkg=centos-release</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-05</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Ansible%E5%89%A7%E6%9C%AC/'>
+                            Ansible剧本
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

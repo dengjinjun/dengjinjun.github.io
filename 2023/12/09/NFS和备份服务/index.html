@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="NFS和备份服务" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            NFS和备份服务
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Rsync%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Rsync服务端部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%A6%82%E8%A7%88"><span class="post-toc-text">概览</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6"><span class="post-toc-text">文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#tasks"><span class="post-toc-text">tasks</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#handlers"><span class="post-toc-text">handlers</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#templates"><span class="post-toc-text">templates</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#files"><span class="post-toc-text">files</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#vars"><span class="post-toc-text">vars</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Rsync%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%9A%E6%97%B6%E5%A4%87%E4%BB%BD%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Rsync客户端定时备份部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%A6%82%E8%A7%88-1"><span class="post-toc-text">概览</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6-1"><span class="post-toc-text">文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#tasks-1"><span class="post-toc-text">tasks</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#files-1"><span class="post-toc-text">files</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NFS%E9%83%A8%E7%BD%B2-Sersync%E5%AE%9E%E6%97%B6%E5%A4%87%E4%BB%BD%E9%83%A8%E7%BD%B2"><span class="post-toc-text">NFS部署+Sersync实时备份部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%A6%82%E8%A7%88-2"><span class="post-toc-text">概览</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6-nfs-deploy"><span class="post-toc-text">文件(nfs_deploy)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#tasks-2"><span class="post-toc-text">tasks</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#handlers-1"><span class="post-toc-text">handlers</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#templates-1"><span class="post-toc-text">templates</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#vars-1"><span class="post-toc-text">vars</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6-real-time-backup"><span class="post-toc-text">文件(real_time_backup)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#tasks-3"><span class="post-toc-text">tasks</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#handlers-2"><span class="post-toc-text">handlers</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#files-2"><span class="post-toc-text">files</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#templates-2"><span class="post-toc-text">templates</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#vars-2"><span class="post-toc-text">vars</span></a></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="Rsync服务端部署"><a href="#Rsync服务端部署" class="headerlink" title="Rsync服务端部署"></a>Rsync服务端部署</h2><h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><blockquote>
+<p><strong>入口文件</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">rsync_deploy</span></span><br><span class="line">  <span class="attr">hosts:</span> <span class="string">backup</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">dengpangpang</span></span><br><span class="line">  <span class="attr">become:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">become_method:</span> <span class="string">sudo</span></span><br><span class="line">  <span class="attr">roles:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">rsync_deploy</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>角色目录结构</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">|root@m01 rsync_deploy|$ tree -F</span><br><span class="line">.</span><br><span class="line">├── files/</span><br><span class="line">│   └── rsyncd.password</span><br><span class="line">├── handlers/</span><br><span class="line">│   └── main.yml</span><br><span class="line">├── tasks/</span><br><span class="line">│   └── main.yml</span><br><span class="line">├── templates/</span><br><span class="line">│   └── rsyncd.conf.j2</span><br><span class="line">└── vars/</span><br><span class="line">    └── main.yml</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><h4 id="tasks"><a href="#tasks" class="headerlink" title="tasks"></a>tasks</h4><blockquote>
+<p><strong>main.yml</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">rsync</span></span><br><span class="line">  <span class="attr">yum:</span> <span class="string">name=rsync</span> <span class="string">state=present</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Create</span> <span class="string">rsync</span> <span class="string">user</span> <span class="string">and</span> <span class="string">group</span></span><br><span class="line">  <span class="attr">user:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; rsync_user &#125;&#125;</span>&quot;</span></span><br><span class="line">    <span class="attr">comment:</span> <span class="string">rsync_user</span></span><br><span class="line">    <span class="attr">group:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; rsync_group &#125;&#125;</span>&quot;</span></span><br><span class="line">    <span class="attr">create_home:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">present</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Create</span> <span class="string">backup</span> <span class="string">and</span> <span class="string">nfs</span> <span class="string">data</span> <span class="string">directory</span></span><br><span class="line">  <span class="attr">file:</span> </span><br><span class="line">    <span class="attr">path:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; item &#125;&#125;</span>&quot;</span></span><br><span class="line">    <span class="attr">owner:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; rsync_user &#125;&#125;</span>&quot;</span></span><br><span class="line">    <span class="attr">group:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; rsync_group &#125;&#125;</span>&quot;</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">directory</span></span><br><span class="line">  <span class="attr">loop:</span> </span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; web_backup_dir &#125;&#125;</span>&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; nfs_data_dir &#125;&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Distribute</span> <span class="string">rysncd</span> <span class="string">conf</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">src:</span> <span class="string">rsyncd.conf.j2</span></span><br><span class="line">    <span class="attr">dest:</span> <span class="string">/etc/rsyncd.conf</span></span><br><span class="line">  <span class="attr">notify:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">restart</span> <span class="string">rsyncd</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Distribute</span> <span class="string">rsync</span> <span class="string">password_file</span></span><br><span class="line">  <span class="attr">copy:</span></span><br><span class="line">    <span class="attr">src:</span> <span class="string">rsyncd.password</span></span><br><span class="line">    <span class="attr">dest:</span> <span class="string">/etc/rsyncd.password</span></span><br><span class="line">    <span class="attr">mode:</span> <span class="string">&#x27;600&#x27;</span></span><br><span class="line">  <span class="attr">notify:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">restart</span> <span class="string">rsyncd</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Start</span> <span class="string">rsyncd</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">name=rsyncd</span> <span class="string">enabled=true</span> <span class="string">state=started</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="handlers"><a href="#handlers" class="headerlink" title="handlers"></a>handlers</h4><blockquote>
+<p><strong>main.yml</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">restart</span> <span class="string">rsyncd</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">name=rsyncd</span> <span class="string">state=restarted</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="templates"><a href="#templates" class="headerlink" title="templates"></a>templates</h4><blockquote>
+<p><strong>rsyncd.conf.j2</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> uid = rsync</span><br><span class="line"> gid = rsync</span><br><span class="line"> read only = false</span><br><span class="line"> fake super = yes</span><br><span class="line"> max connections = 200</span><br><span class="line"> pid file = /var/run/rsyncd.pid</span><br><span class="line"> exclude = lost+found/</span><br><span class="line"> timeout = 900</span><br><span class="line"> log file = /var/log/rsyncd.log</span><br><span class="line"> secrets file = /etc/rsyncd.password</span><br><span class="line"> lock file = /var/run/rsyncd.lock</span><br><span class="line"> auth users = rsync</span><br><span class="line"># dont compress   = *.gz *.tgz *.zip *.z *.Z *.rpm *.deb *.bz2</span><br><span class="line"></span><br><span class="line">&#123;# 用于web服务器定时备份 #&#125;</span><br><span class="line">[&#123;&#123; rsync_web_backup_module &#125;&#125;]</span><br><span class="line">	path = &#123;&#123; web_backup_dir &#125;&#125;</span><br><span class="line">	comment = web backup dir</span><br><span class="line">	</span><br><span class="line">&#123;# 用于nfs服务器实时备份 #&#125;</span><br><span class="line">[&#123;&#123; rsync_nfs_data_module &#125;&#125;]</span><br><span class="line">	path = &#123;&#123; nfs_data_dir &#125;&#125;</span><br><span class="line">	comment = nfs backup dir</span><br></pre></td></tr></table></figure>
+
+<h4 id="files"><a href="#files" class="headerlink" title="files"></a>files</h4><blockquote>
+<p><strong>rsyncd.password</strong></p>
+</blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync:123456</span><br></pre></td></tr></table></figure>
+
+<h4 id="vars"><a href="#vars" class="headerlink" title="vars"></a>vars</h4><blockquote>
+<p><strong>main.yml</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rsync_web_backup_module:</span> <span class="string">web_backup</span></span><br><span class="line"><span class="attr">rsync_nfs_data_module:</span> <span class="string">nfs_data</span></span><br><span class="line"><span class="attr">web_backup_dir:</span> <span class="string">/backup</span></span><br><span class="line"><span class="attr">nfs_data_dir:</span> <span class="string">/data</span></span><br><span class="line"><span class="attr">rsync_user:</span> <span class="string">rsync</span></span><br><span class="line"><span class="attr">rsync_group:</span> <span class="string">rsync</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Rsync客户端定时备份部署"><a href="#Rsync客户端定时备份部署" class="headerlink" title="Rsync客户端定时备份部署"></a>Rsync客户端定时备份部署</h2><h3 id="概览-1"><a href="#概览-1" class="headerlink" title="概览"></a>概览</h3><blockquote>
+<p>入口文件</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">client_backup</span></span><br><span class="line">  <span class="attr">hosts:</span> <span class="string">web</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">dengpangpang</span></span><br><span class="line">  <span class="attr">become:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">become_method:</span> <span class="string">sudo</span></span><br><span class="line">  <span class="attr">roles:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">client_backup</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>角色目录结构</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">|root@m01 client_backup|$ tree -F</span><br><span class="line">.</span><br><span class="line">├── files/</span><br><span class="line">│   ├── backup.sh</span><br><span class="line">│   └── rsyncd.password</span><br><span class="line">├── tasks/</span><br><span class="line">    └── main.yml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="文件-1"><a href="#文件-1" class="headerlink" title="文件"></a>文件</h3><h4 id="tasks-1"><a href="#tasks-1" class="headerlink" title="tasks"></a>tasks</h4><blockquote>
+<p><strong>main.yml</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">rysnc</span></span><br><span class="line">  <span class="attr">yum:</span> <span class="string">name=rsync</span> <span class="string">state=present</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Distribute</span> <span class="string">rsync</span> <span class="string">password</span> <span class="string">file</span></span><br><span class="line">  <span class="attr">copy:</span> </span><br><span class="line">    <span class="attr">src:</span> <span class="string">rsyncd.password</span></span><br><span class="line">    <span class="attr">dest:</span> <span class="string">/etc/rsyncd.password</span></span><br><span class="line">    <span class="attr">mode:</span> <span class="string">&#x27;600&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">create</span> <span class="string">backup</span> <span class="string">directory</span></span><br><span class="line">  <span class="attr">file:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/backup</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">directory</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Distribute</span> <span class="string">backup</span> <span class="string">script</span></span><br><span class="line">  <span class="attr">copy:</span></span><br><span class="line">    <span class="attr">src:</span> <span class="string">backup.sh</span></span><br><span class="line">    <span class="attr">dest:</span> <span class="string">/server/scripts/</span></span><br><span class="line">    <span class="attr">mode:</span> <span class="string">&#x27;755&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Create</span> <span class="string">crontab</span></span><br><span class="line">  <span class="attr">cron:</span> </span><br><span class="line">    <span class="attr">name:</span> <span class="string">timing</span> <span class="string">backup</span></span><br><span class="line">    <span class="attr">job:</span> <span class="string">&#x27;/bin/sh /server/scripts/backup.sh &amp;&gt;/dev/null&#x27;</span></span><br><span class="line">    <span class="attr">minute:</span> <span class="string">&#x27;50&#x27;</span></span><br><span class="line">    <span class="attr">hour:</span> <span class="string">&#x27;01&#x27;</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">present</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="files-1"><a href="#files-1" class="headerlink" title="files"></a>files</h4><blockquote>
+<p><strong>backup.sh</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 本机备份路径</span></span><br><span class="line">backup=<span class="string">&quot;/backup&quot;</span></span><br><span class="line"><span class="comment"># 以主机IP地址命名的文件夹</span></span><br><span class="line">path=<span class="string">&quot;/backup/<span class="subst">$(hostname -i)</span>&quot;</span></span><br><span class="line"><span class="comment"># 如果不存在此文件夹则创建文件夹</span></span><br><span class="line">[ -f <span class="variable">$path</span> ] || <span class="built_in">mkdir</span> -p <span class="variable">$path</span></span><br><span class="line"><span class="comment"># 判断是不是周一</span></span><br><span class="line"><span class="keyword">if</span> [ $(<span class="built_in">date</span> +%w -eq 2)];<span class="keyword">then</span></span><br><span class="line">    <span class="built_in">date</span>=<span class="string">&quot;<span class="subst">$(date +%F -d -1day)</span>_week1&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">date</span>=<span class="string">&quot;<span class="subst">$(date +%F -d -1day)</span>&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># 进入此文件夹</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$path</span></span><br><span class="line"><span class="comment"># 将配置文件和脚本打包进一个压缩包</span></span><br><span class="line">tar -cvhf conf_<span class="variable">$&#123;date&#125;</span>.tar.gz /var/spool/cron/root /etc/rc.d/rc.local  /server/scripts 2&gt;/dev/null</span><br><span class="line"><span class="comment"># 将站点目录打包进一个压缩包</span></span><br><span class="line">tar -cvf www_<span class="variable">$&#123;date&#125;</span>.tar.gz /var/html/www 2&gt;/dev/null</span><br><span class="line"><span class="comment"># 将app日志打包进一个压缩包</span></span><br><span class="line">tar -cvf logs_<span class="variable">$&#123;date&#125;</span>.tar.gz /app/logs 2&gt;/dev/null</span><br><span class="line"><span class="comment"># 获取所有打包文件的原始指纹</span></span><br><span class="line">find <span class="variable">$path</span> -<span class="built_in">type</span> f -name <span class="string">&quot;*_<span class="variable">$&#123;date&#125;</span>.tar.gz&quot;</span> | xargs <span class="built_in">md5sum</span> &gt; <span class="variable">$path</span>/$(hostname -i)_fingerprint_<span class="variable">$&#123;date&#125;</span>.<span class="built_in">log</span></span><br><span class="line"><span class="comment"># 推送</span></span><br><span class="line">rsync -avz <span class="variable">$backup</span>/ rsync@backup::backup --password-file=/etc/rsyncd.password</span><br><span class="line"><span class="comment"># 删除7天前的备份</span></span><br><span class="line">find <span class="variable">$backup</span>/ -<span class="built_in">type</span> f -name <span class="string">&quot;*.tar.gz&quot;</span> -mtime +7 -o -name <span class="string">&quot;*.log&quot;</span> -mtime +7 | xargs <span class="built_in">rm</span> -f	</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>rsyncd.password</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">123456</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="NFS部署-Sersync实时备份部署"><a href="#NFS部署-Sersync实时备份部署" class="headerlink" title="NFS部署+Sersync实时备份部署"></a>NFS部署+Sersync实时备份部署</h2><h3 id="概览-2"><a href="#概览-2" class="headerlink" title="概览"></a>概览</h3><blockquote>
+<p><strong>入口文件</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">|root@m01 ansible|$ <span class="built_in">cat</span> nfs_and_sersync.yml </span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">- name: nfs and sersync</span><br><span class="line">  hosts: nfs</span><br><span class="line">  remote_user: dengpangpang</span><br><span class="line">  become: <span class="literal">true</span></span><br><span class="line">  become_method: <span class="built_in">sudo</span></span><br><span class="line">  roles:</span><br><span class="line">    - nfs_deploy</span><br><span class="line">    - real_time_backup</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>角色目录结构</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">|root@m01 ansible|$ tree -F</span><br><span class="line"></span><br><span class="line"> ├── nfs_deploy/</span><br><span class="line">     ├── files/</span><br><span class="line">     ├── handlers/</span><br><span class="line">     │   └── main.yml</span><br><span class="line">     ├── tasks/</span><br><span class="line">     │   └── main.yml</span><br><span class="line">     ├── templates/</span><br><span class="line">     │   └── exports.j2</span><br><span class="line">     └── vars/</span><br><span class="line">         └── main.yml</span><br><span class="line">         </span><br><span class="line"> ├── real_time_backup/</span><br><span class="line">     ├── files/</span><br><span class="line">     │   ├── rsyncd.password</span><br><span class="line">     │   └── sersync2.5.4_64bit_binary_stable_final.tar.gz</span><br><span class="line">     ├── handlers/</span><br><span class="line">     │   └── main.yml</span><br><span class="line">     ├── tasks/</span><br><span class="line">     │   └── main.yml</span><br><span class="line">     ├── templates/</span><br><span class="line">     │   └── confxml.xml.j2</span><br><span class="line">     └── vars/</span><br><span class="line">         └── main.yml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="文件-nfs-deploy"><a href="#文件-nfs-deploy" class="headerlink" title="文件(nfs_deploy)"></a>文件(nfs_deploy)</h3><h4 id="tasks-2"><a href="#tasks-2" class="headerlink" title="tasks"></a>tasks</h4><blockquote>
+<p><strong>main.yml</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">nfs-utils</span> <span class="string">rpcbind</span></span><br><span class="line">  <span class="attr">yum:</span> </span><br><span class="line">    <span class="attr">name:</span> [ <span class="string">&#x27;nfs-utils&#x27;</span>, <span class="string">&#x27;rpcbind&#x27;</span> ] </span><br><span class="line">    <span class="attr">state:</span> <span class="string">present</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Create</span> <span class="string">shared</span> <span class="string">directories</span></span><br><span class="line">  <span class="attr">file:</span> </span><br><span class="line">    <span class="attr">path:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; item &#125;&#125;</span>&quot;</span></span><br><span class="line">    <span class="attr">owner:</span> <span class="string">nfsnobody</span></span><br><span class="line">    <span class="attr">group:</span> <span class="string">nfsnobody</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">directory</span></span><br><span class="line">    <span class="attr">recurse:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">with_items:</span> </span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; php_static_dir &#125;&#125;</span>&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; tomcat_static_dir &#125;&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Distribute</span> <span class="string">nfs</span> <span class="string">exports</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">src:</span> <span class="string">exports.j2</span> </span><br><span class="line">    <span class="attr">dest:</span> <span class="string">/etc/exports</span></span><br><span class="line">  <span class="attr">notify:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">reload</span> <span class="string">exports</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">start</span> <span class="string">rpcbind</span> <span class="string">service</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">name=rpcbind</span> <span class="string">state=started</span> <span class="string">enabled=true</span></span><br><span class="line">  </span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">start</span> <span class="string">nfs-server</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">name=nfs-server</span> <span class="string">state=started</span> <span class="string">enabled=true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="handlers-1"><a href="#handlers-1" class="headerlink" title="handlers"></a>handlers</h4><blockquote>
+<p><strong>main.yml</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">reload</span> <span class="string">exports</span></span><br><span class="line">  <span class="attr">command:</span> <span class="string">&#x27;exportfs -r&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="templates-1"><a href="#templates-1" class="headerlink" title="templates"></a>templates</h4><blockquote>
+<p><strong>exports.j2</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; php_static_dir &#125;&#125; &#123;&#123; ip_segment &#125;&#125;(rw)</span><br><span class="line">&#123;&#123; tomcat_static_dir &#125;&#125; &#123;&#123; ip_segment &#125;&#125;(rw)</span><br></pre></td></tr></table></figure>
+
+<h4 id="vars-1"><a href="#vars-1" class="headerlink" title="vars"></a>vars</h4><blockquote>
+<p><strong>main.yml</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ip_segment:</span> <span class="number">192.168</span><span class="number">.110</span><span class="number">.0</span><span class="string">/24</span></span><br><span class="line"><span class="attr">php_static_dir:</span> <span class="string">/data/php/</span></span><br><span class="line"><span class="attr">tomcat_static_dir:</span> <span class="string">/data/tomcat/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="文件-real-time-backup"><a href="#文件-real-time-backup" class="headerlink" title="文件(real_time_backup)"></a>文件(real_time_backup)</h3><h4 id="tasks-3"><a href="#tasks-3" class="headerlink" title="tasks"></a>tasks</h4><blockquote>
+<p><strong>main.yml</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">rysnc</span></span><br><span class="line">  <span class="attr">yum:</span> <span class="string">name=rsync</span> <span class="string">state=present</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Distribute</span> <span class="string">rsync</span> <span class="string">password</span> <span class="string">file</span></span><br><span class="line">  <span class="attr">copy:</span> </span><br><span class="line">    <span class="attr">src:</span> <span class="string">rsyncd.password</span></span><br><span class="line">    <span class="attr">dest:</span> <span class="string">/etc/rsyncd.password</span></span><br><span class="line">    <span class="attr">mode:</span> <span class="string">&#x27;600&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Create</span> <span class="string">real_time</span> <span class="string">sync</span> <span class="string">directory</span></span><br><span class="line">  <span class="attr">file:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; nfs_data_dir &#125;&#125;</span>&quot;</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">directory</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Create</span> <span class="string">tools</span> <span class="string">directory</span></span><br><span class="line">  <span class="attr">file:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/server/tools/</span></span><br><span class="line">    <span class="attr">recurse:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">directory</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Unarchive</span> <span class="string">package</span></span><br><span class="line">  <span class="attr">unarchive:</span></span><br><span class="line">    <span class="attr">src:</span> <span class="string">sersync2.5.4_64bit_binary_stable_final.tar.gz</span></span><br><span class="line">    <span class="attr">dest:</span> <span class="string">/server/tools/</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Distribute</span> <span class="string">sersync</span> <span class="string">conf</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">src:</span> <span class="string">confxml.xml.j2</span></span><br><span class="line">    <span class="attr">dest:</span> <span class="string">/server/tools/GNU-Linux-x86/confxml.xml</span></span><br><span class="line">  <span class="attr">notify:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">start</span> <span class="string">sersync</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="handlers-2"><a href="#handlers-2" class="headerlink" title="handlers"></a>handlers</h4><blockquote>
+<p><strong>main.yml</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">start</span> <span class="string">sersync</span></span><br><span class="line">  <span class="attr">shell:</span> <span class="string">&quot;/server/tools/GNU-Linux-x86/sersync2 -r -o /server/tools/GNU-Linux-x86/confxml.xml -d&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="files-2"><a href="#files-2" class="headerlink" title="files"></a>files</h4><blockquote>
+<p><strong>rsyncd.password</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">123456</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>sersync2.5.4_64bit_binary_stable_final.tar.gz</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">下载地址：https://github.com/wsgzao/sersync/blob/master/sersync2.5.4_64bit_binary_stable_final.tar.gz</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="templates-2"><a href="#templates-2" class="headerlink" title="templates"></a>templates</h4><blockquote>
+<p><strong>confxml.xml.j2</strong> </p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;ISO-8859-1&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">version</span>=<span class="string">&quot;2.5&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">host</span> <span class="attr">hostip</span>=<span class="string">&quot;localhost&quot;</span> <span class="attr">port</span>=<span class="string">&quot;&#123;&#123; sersync_port &#125;&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">host</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">debug</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fileSystem</span> <span class="attr">xfs</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line"><span class="comment">&lt;!--过滤功能，排除指定的文件不进行复制--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclude</span> <span class="attr">expression</span>=<span class="string">&quot;(.*)\.svn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclude</span> <span class="attr">expression</span>=<span class="string">&quot;(.*)\.gz&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclude</span> <span class="attr">expression</span>=<span class="string">&quot;^info/*&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclude</span> <span class="attr">expression</span>=<span class="string">&quot;^static/*&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--过滤功能结束--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--监控指定事件信息--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">inotify</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">delete</span> <span class="attr">start</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">createFolder</span> <span class="attr">start</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">createFile</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">closeWrite</span> <span class="attr">start</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">moveFrom</span> <span class="attr">start</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">moveTo</span> <span class="attr">start</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attrib</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modify</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">inotify</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--监控指定事件信息结束--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--sersync主要参数配置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sersync</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">localpath</span> <span class="attr">watch</span>=<span class="string">&quot;&#123;&#123; nfs_data_dir &#125;&#125;&quot;</span>&gt;</span>					    <span class="comment">&lt;!--监控的本地目录--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">remote</span> <span class="attr">ip</span>=<span class="string">&quot;&#123;&#123; backup_host_ip &#125;&#125;&quot;</span> <span class="attr">name</span>=<span class="string">&quot;&#123;&#123; rsync_nfs_data_module &#125;&#125;&quot;</span>/&gt;</span>	    <span class="comment">&lt;!--远程备份服务器的IP和模块名，下面可以添加多台--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;remote ip=&quot;192.168.8.39&quot; name=&quot;tongbu&quot;/&gt;--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">localpath</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rsync</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">commonParams</span> <span class="attr">params</span>=<span class="string">&quot;-artuz&quot;</span>/&gt;</span>					<span class="comment">&lt;!--rsync的命令行参数--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">auth</span> <span class="attr">start</span>=<span class="string">&quot;true&quot;</span> <span class="attr">users</span>=<span class="string">&quot;&#123;&#123; rsync_user &#125;&#125;&quot;</span> <span class="attr">passwordfile</span>=<span class="string">&quot;/etc/rsyncd.password&quot;</span>/&gt;</span>	<span class="comment">&lt;!--认证用户和密码文件--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">userDefinedPort</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span> <span class="attr">port</span>=<span class="string">&quot;874&quot;</span>/&gt;</span>		<span class="comment">&lt;!-- 支持修改端口 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">timeout</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span> <span class="attr">time</span>=<span class="string">&quot;100&quot;</span>/&gt;</span>				<span class="comment">&lt;!-- 超时时间t=100 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ssh</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>/&gt;</span>							<span class="comment">&lt;!--支持ssh通道--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">rsync</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">failLog</span> <span class="attr">path</span>=<span class="string">&quot;/tmp/rsync_fail_log.sh&quot;</span> <span class="attr">timeToExecute</span>=<span class="string">&quot;60&quot;</span>/&gt;</span><span class="comment">&lt;!--default every 60mins execute once--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">crontab</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span> <span class="attr">schedule</span>=<span class="string">&quot;600&quot;</span>&gt;</span>				<span class="comment">&lt;!--定时任务部分配置--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">crontabfilter</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclude</span> <span class="attr">expression</span>=<span class="string">&quot;*.php&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclude</span> <span class="attr">expression</span>=<span class="string">&quot;info/*&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">crontabfilter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">crontab</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span> <span class="attr">name</span>=<span class="string">&quot;command&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">sersync</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--sersync主要参数配置结束--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span> <span class="attr">name</span>=<span class="string">&quot;command&quot;</span>&gt;</span>			<span class="comment">&lt;!--脚本部分配置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param</span> <span class="attr">prefix</span>=<span class="string">&quot;/bin/sh&quot;</span> <span class="attr">suffix</span>=<span class="string">&quot;&quot;</span> <span class="attr">ignoreError</span>=<span class="string">&quot;true&quot;</span>/&gt;</span>	<span class="comment">&lt;!--prefix /opt/tongbu/mmm.sh suffix--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter</span> <span class="attr">start</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">expression</span>=<span class="string">&quot;(.*)\.php&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">expression</span>=<span class="string">&quot;(.*)\.sh&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="vars-2"><a href="#vars-2" class="headerlink" title="vars"></a>vars</h4><blockquote>
+<p><strong>main.yml</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sersync_port:</span> <span class="string">&quot;8008&quot;</span></span><br><span class="line"><span class="attr">rsync_nfs_data_module:</span> <span class="string">nfs_data</span></span><br><span class="line"><span class="attr">backup_host_ip:</span> <span class="number">192.168</span><span class="number">.110</span><span class="number">.142</span></span><br><span class="line"><span class="attr">nfs_data_dir:</span> <span class="string">/data</span></span><br><span class="line"><span class="attr">rsync_user:</span> <span class="string">rsync</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-09</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Ansible%E5%89%A7%E6%9C%AC/'>
+                            Ansible剧本
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

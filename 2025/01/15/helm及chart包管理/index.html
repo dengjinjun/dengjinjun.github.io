@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Helm及Chart开发" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Helm及Chart开发
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#helm%E5%91%BD%E4%BB%A4"><span class="post-toc-text">helm命令</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#chart%E5%8C%85%E8%AF%A6%E8%A7%A3"><span class="post-toc-text">chart包详解</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#chart%E5%8C%85%E5%BC%80%E5%8F%91"><span class="post-toc-text">chart包开发</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="post-toc-text">内置对象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%87%BD%E6%95%B0%E4%B8%8E%E7%AE%A1%E9%81%93"><span class="post-toc-text">函数与管道</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="post-toc-text">流程控制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD"><span class="post-toc-text">条件判断</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#with%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="post-toc-text">with作用域</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#range%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="post-toc-text">range作用域</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%A9%BA%E8%A1%8C%E6%8E%A7%E5%88%B6"><span class="post-toc-text">空行控制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%91%BD%E5%90%8D%E6%A8%A1%E6%9D%BF"><span class="post-toc-text">命名模板</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>安装helm</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash</span><br></pre></td></tr></table></figure>
+
+<h1 id="helm命令"><a href="#helm命令" class="headerlink" title="helm命令"></a>helm命令</h1><blockquote>
+<p><strong>repo相关</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">helm repo list [-o yaml]				<span class="comment"># 列出所有的chart仓库，可以指定yaml格式或json格式</span></span><br><span class="line">helm repo add &lt;repo_name&gt; &lt;repo_url&gt;	<span class="comment"># 添加一个chart仓库</span></span><br><span class="line">helm repo update [REPO]					<span class="comment"># 更新仓库中的最新信息，也可以指定一个或多个仓库，信息会缓存在本地</span></span><br><span class="line">helm repo remove [REPO]					<span class="comment"># 删除chart仓库，可以指定一个或多个</span></span><br><span class="line">helm repo index	&lt;chart_path&gt;			<span class="comment"># 基于chart目录，生成索引文件</span></span><br><span class="line">	--merge &lt;已有的index.yaml&gt;		<span class="comment"># 根据已有的index文件进行合并</span></span><br><span class="line">	--url &lt;url&gt;				  	  <span class="comment"># 设置仓库url</span></span><br><span class="line">helm registry							<span class="comment"># 远程仓库的登录和登出</span></span><br><span class="line">	helm registry login &lt;host&gt; -u &lt;username&gt; -p &lt;password&gt;		<span class="comment"># 登录</span></span><br><span class="line">    helm registry <span class="built_in">logout</span> &lt;host&gt;									<span class="comment"># 登出</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>chart相关</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">helm search</span><br><span class="line">	helm search repo [repo_name] &lt;keyword&gt;		<span class="comment"># 从指定仓库中搜索包含关键字的chart</span></span><br><span class="line">	helm search hub  &lt;keyword&gt;					<span class="comment"># 在Artifact Hub或自己的hub实例中搜索chart</span></span><br><span class="line">helm show </span><br><span class="line">	helm show chart &lt;chart_path&gt;		<span class="comment"># 显示指定chart包的chart.yaml内容</span></span><br><span class="line">	helm show values &lt;chart_path&gt;		<span class="comment"># 显示指定chart包的value.yaml内容</span></span><br><span class="line">	helm show crds &lt;chart_path&gt;			<span class="comment"># 显示指定chart包的CRD</span></span><br><span class="line">	helm show all &lt;chart_path&gt;			<span class="comment"># 显示指定chart包的所有信息</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">helm create	&lt;chart_path&gt;				<span class="comment"># 给定目录名创建新的chart目录</span></span><br><span class="line">helm package &lt;chart_path&gt;				<span class="comment"># 将chart目录打包成chart归档，用于helm仓库</span></span><br><span class="line">helm pull &lt;repo/chart_name&gt;	[--version]	<span class="comment"># 从远程仓库拉取chart包，也可以是从一个url下载chart包，可以指定版本</span></span><br><span class="line">helm push &lt;chart_path&gt; &lt;repo&gt;			<span class="comment"># 将chart推送到远程仓库</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Dependency相关</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">helm dep list &lt;chart_path&gt;				<span class="comment"># 列出chart包或chart目录中声明的依赖</span></span><br><span class="line">helm dep update &lt;chart_path&gt;			<span class="comment"># 更新chart目录中chart.yaml指定的依赖</span></span><br><span class="line">helm dep build &lt;chart_path&gt;				<span class="comment"># 将chart目录中chart.lock指定的依赖，输出到chart目录</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Release相关</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">helm list				<span class="comment"># 列举出指定命名空间下的所有Release版本</span></span><br><span class="line">	-a					<span class="comment"># 获取所有的Release ，默认只会列举出已部署的或失败的Release</span></span><br><span class="line">	-A					<span class="comment"># 获取所有命名空间下的Release</span></span><br><span class="line">	-n					<span class="comment"># 指定命名空间，不指定默认是default命名空间</span></span><br><span class="line">    --deployed			<span class="comment"># 显示已部署的版本。如果没有指定其他版本，将自动启用</span></span><br><span class="line">    --failed       		<span class="comment"># 显示失败的Release</span></span><br><span class="line">    --pending      		<span class="comment"># 显示Pending的Release</span></span><br><span class="line">    --superseded    	<span class="comment"># 显示superseded Release</span></span><br><span class="line">    --uninstalled     	<span class="comment"># 显示已经uninstall的Release(如果使用了`helm uninstall ——keep-history `)</span></span><br><span class="line">    --uninstalling   	<span class="comment"># 显示当前正在uninstall的Release</span></span><br><span class="line">helm get 								<span class="comment"># 用来获取Release的扩展信息，包含多个子命令</span></span><br><span class="line">	helm get values &lt;release_name&gt;		<span class="comment"># 显示values.yaml文件</span></span><br><span class="line">			--revision int				<span class="comment"># 指定revision版本</span></span><br><span class="line">			-o, --output format  		<span class="comment"># 指定输出格式，可选yaml，json，默认是table</span></span><br><span class="line">	helm get notes &lt;release_name&gt;		<span class="comment"># 显示注释信息</span></span><br><span class="line">	helm get manifest &lt;release_name&gt;	<span class="comment"># 显示yaml资源清单</span></span><br><span class="line">	helm get hooks &lt;release_name&gt;		<span class="comment"># 显示所有hooks</span></span><br><span class="line">	helm get metadata &lt;release_name&gt;	<span class="comment"># 显示元数据</span></span><br><span class="line">	helm get all &lt;release_name&gt;			<span class="comment"># 输出信息集合，包括notes，hooks，values，以及给定版本生成的清单文件    </span></span><br><span class="line">helm status  &lt;release_name&gt; 				<span class="comment"># 显示指定Release的当前状态</span></span><br><span class="line">helm install &lt;release_name&gt; &lt;chart_path&gt;	<span class="comment"># 安装chart包，可以是chart包路径，chart目录或者是一个URL</span></span><br><span class="line">helm template &lt;release_name&gt; &lt;chart_path&gt; 	<span class="comment"># 在本地渲染模板并输出	</span></span><br><span class="line">helm uninstall &lt;release_name&gt;				<span class="comment"># 卸载已安装的Release，会删除与最新版本chart相关的所有资源以及发布历史</span></span><br><span class="line">helm upgrade &lt;release_name&gt; &lt;chart_path&gt;	<span class="comment"># 升级Release，指定chart包中的内容来升级</span></span><br><span class="line">helm <span class="built_in">history</span> &lt;release_name&gt; 				<span class="comment"># 输出给定Release的历史revision    </span></span><br><span class="line">helm rollback &lt;release_name&gt; &lt;revision&gt;		<span class="comment"># 将Release回滚到指定的revision版本，如不指定则回滚到上一个版本</span></span><br><span class="line">helm <span class="built_in">test</span> &lt;release_name&gt;					<span class="comment"># 对已发布的Release进行测试，使用chart/templates/tests下定义的模板</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="chart包详解"><a href="#chart包详解" class="headerlink" title="chart包详解"></a>chart包详解</h1><p>helm工具安装的都是chart包，chart包是一组相关联的 Kubernetes 资源文件集合，一个大文件夹里包含了很多资源配置文件。</p>
+<p>以wordpress为例：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">wordpress/</span><br><span class="line">    ├── Chart.lock</span><br><span class="line">    ├── Chart.yaml					<span class="comment"># 包含当前chart包信息的yaml文件</span></span><br><span class="line">    ├── README.md					<span class="comment"># 说明信息，可选</span></span><br><span class="line">    ├── charts/						<span class="comment"># 依赖包的chart目录，下面的每个目录都是一个chart依赖包</span></span><br><span class="line">    │   ├── common/</span><br><span class="line">    │   ├── mariadb/</span><br><span class="line">    │   └── memcached/</span><br><span class="line">    ├── crds/   						<span class="comment"># 自定义资源文件目录</span></span><br><span class="line">    ├── templates/					<span class="comment"># 当前chart包的模板文件，里面包含k8s中的资源清单文件，与values.yaml结合使用</span></span><br><span class="line">    │   ├── NOTES.txt						<span class="comment"># 在chart安装后输出的提示信息</span></span><br><span class="line">    │   ├── _helpers.tpl					<span class="comment"># 为templates内的资源清单文件提供全局的命名</span></span><br><span class="line">    │   ├── deployment.yaml					<span class="comment"># k8s中的资源清单文件，安装时将被渲染</span></span><br><span class="line">    │   ├── ...........yaml</span><br><span class="line">    ├── values.schema.json			<span class="comment"># values.yaml的格式校验文件，可选</span></span><br><span class="line">    └── values.yaml					<span class="comment"># 当前chart包的默认配置文件</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Chart.yaml</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 必须要有的三个字段  </span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v2</span>				<span class="comment"># 指定Helm Chart的API版本，帮助Helm识别Chart的结构</span></span><br><span class="line"><span class="attr">appVersion:</span> <span class="number">6.7</span><span class="number">.1</span>			<span class="comment"># chart包自身的版本</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">wordpress</span>				<span class="comment"># chart名称</span></span><br><span class="line"><span class="attr">version:</span> <span class="number">24.1</span><span class="number">.5</span>				<span class="comment"># 应用版本（可选）</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">application</span>			<span class="comment"># application(应用类型，用于部署具体应用)或library(库类型，通常作为依赖项)（可选）</span></span><br><span class="line"><span class="attr">dependencies:</span>												<span class="comment"># 依赖列表（按需）</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">memcached</span>												<span class="comment"># 依赖chart的名称</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">7.</span><span class="string">x.x</span>												<span class="comment"># 依赖chart的版本</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">&quot;file://../memcached&quot;</span>								<span class="comment"># 依赖chart的仓库地址  </span></span><br><span class="line"><span class="attr">description:</span> <span class="string">functional</span> <span class="string">websites</span>							<span class="comment"># 描述信息（可选）</span></span><br><span class="line"><span class="attr">keywords:</span>													<span class="comment"># 搜索优化，决定哪些关键字能搜索到自己（可选）</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">blog</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">wordpress</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>templates目录</strong></p>
+</blockquote>
+<p>所有的模板文件都在chart包的templates目录下面，当Helm渲染templates目录中的模板文件的时候，模板文件依赖外部提供的value值，主要有三种方式提供：</p>
+<ol>
+<li>命令行中指定的 <code>--set </code>参数，这种方式优先级最高，但并不常用</li>
+<li>用户使用 <code>helm install -f</code> 来指定的value文件</li>
+<li>默认的 <code>values.yaml</code> 文件</li>
+</ol>
+<p>上面的三种方式按照优先级对低优先级提供的值有覆盖效果。除此之外，模板中还可以预定义一些value值，比如<code>Release.Name</code>，<code>Chart.Version</code>等内置对象。</p>
+<p>templates目录中的模板文件遵循Go模板的标准约定，详细语法参考</p>
+<blockquote>
+<p><strong>values.yaml</strong></p>
+</blockquote>
+<p>下面是一个values.yaml的示例：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">global:</span>						<span class="comment"># 全局参数</span></span><br><span class="line">  <span class="attr">imageRegistry:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="attr">imagePullSecrets:</span> []</span><br><span class="line"></span><br><span class="line"><span class="attr">image:</span></span><br><span class="line">  <span class="attr">registry:</span> <span class="string">docker.io</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">bitnami/wordpress</span></span><br><span class="line">  <span class="attr">tag:</span> <span class="number">6.7</span><span class="number">.1</span><span class="string">-debian-12-r9</span></span><br><span class="line"></span><br><span class="line"><span class="attr">memcached:</span>		<span class="comment"># 明确定义传递给某个依赖chart包的参数</span></span><br><span class="line">  <span class="attr">max_connections:</span> <span class="number">100</span></span><br><span class="line">  <span class="attr">password:</span> <span class="string">xxxxxx</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>values.yaml</code>对模板文件进行传值的时候，有作用域的概念：</p>
+<ol>
+<li><p>对于当前应用的模板文件来说，可以访问一切<code>values.yaml</code>文件中的内容，用法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.Values.image.registry</span><br><span class="line">.Values.memcached.password</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对于依赖chart包中的模板文件来说，它所能访问的内容，只包含全局参数，以它的chart包命名的键名包含的参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.Values.global.imageRegistry</span><br><span class="line">.Values.max_connections</span><br><span class="line">.Values.password</span><br></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p><strong>dependencies包</strong></p>
+</blockquote>
+<p>在 Helm 中，一个 chart 包可能会依赖许多其他的 chart，可以在Chart.yaml文件中通过<code>dependencies</code>字段指定，定义了依赖项后，可以运行  <code>helm dependency update</code> 来更新依赖项，它会解析 Chart.yaml 中定义的依赖项，会将他们作为 chart 包文件下载存放到  charts&#x2F; 目录。</p>
+<p>在某些场景下，一个业务Chart需要对一个依赖Chart复用多次，此时可以通过<code>alias</code>字段实现</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v2</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">logapp</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">A</span> <span class="string">Helm</span> <span class="string">chart</span> <span class="string">for</span> <span class="string">a</span> <span class="string">logging</span> <span class="string">application</span></span><br><span class="line"><span class="attr">version:</span> <span class="number">1.0</span><span class="number">.0</span></span><br><span class="line"><span class="attr">dependencies:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">log-component</span></span><br><span class="line">    <span class="attr">version:</span> <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line">    <span class="attr">repository:</span> <span class="string">&quot;file://../log-component&quot;</span></span><br><span class="line">    <span class="attr">alias:</span> <span class="string">log-collector</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">log-component</span></span><br><span class="line">    <span class="attr">version:</span> <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line">    <span class="attr">repository:</span> <span class="string">&quot;file://../log-component&quot;</span></span><br><span class="line">    <span class="attr">alias:</span> <span class="string">log-processor</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面这个Chart.yaml文件中，可以看到对同一个依赖chart包引用了两次，指定了不同的<code>alias</code>字段，可以看作是不同的chart包，然后通过Values.yaml文件传值的时候，可以根据<code>alias</code>定义不同的作用域</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">log-collector:</span></span><br><span class="line">  <span class="attr">replicaCount:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">log-processor:</span></span><br><span class="line">  <span class="attr">replicaCount:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="chart包开发"><a href="#chart包开发" class="headerlink" title="chart包开发"></a>chart包开发</h1><h2 id="内置对象"><a href="#内置对象" class="headerlink" title="内置对象"></a>内置对象</h2><p>除了从values.yaml文件中取值，还可以从一些内置对象中取值</p>
+<blockquote>
+<p><strong>Release</strong></p>
+</blockquote>
+<p>获取Release信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.Release.Name			# Release名称</span><br><span class="line">.Release.Namespace		# Release所在的名称空间</span><br><span class="line">.Release.IsInstall		# 是否是首次安装</span><br><span class="line">.Release.IsUpgrade		# 是否是升级</span><br><span class="line">.Release.Revision		# 修订号</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Chart</strong></p>
+</blockquote>
+<p>获取Chart包信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.Chart.Name				# Chart包的名称</span><br><span class="line">.Chart.Version			# Chart包的版本号</span><br><span class="line">.Chart.AppVersion		# Chart包的应用版本号</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Files</strong></p>
+</blockquote>
+<p>获取其他文件的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.Files.Get &quot;username.txt&quot; | trim	# 获取username.txt文件的内容，并通过管道和trim函数去除空白</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Capabilities</strong></p>
+</blockquote>
+<p>获取有关 Kubernetes 集群的信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.Capabilities.KubeVersion			# 当前kubernetes版本</span><br><span class="line">.Capabilities.KubeVersion.Major		# 主版本号</span><br><span class="line">.Capabilities.KubeVersion.Minor		# 次版本号</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Template</strong></p>
+</blockquote>
+<p>获取Template目录信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.Template.Name						# 当前模板文件的路径，精确到当前yaml文件</span><br><span class="line">.Template.BasePath					# 当前模板文件的目录</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数与管道"><a href="#函数与管道" class="headerlink" title="函数与管道"></a>函数与管道</h2><p>用法：<code>	&#123;&#123; 函数名 参数1 参数2 &#125;&#125;</code></p>
+<p>结合管道：<code>&#123;&#123; 值 | 函数名 &#125;&#125;</code></p>
+<p>常见函数：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;.Values.favorite.drink | quote&#125;&#125;						<span class="comment"># 加引号</span></span><br><span class="line">&#123;&#123;.Values.favorite.food | upper | quote&#125;&#125;				<span class="comment"># 转大写，加引号</span></span><br><span class="line">&#123;&#123;.Values.favorite.drink | repeat 5&#125;&#125;					<span class="comment"># 重复5次</span></span><br><span class="line">&#123;&#123;.Values.favorite.drink | default <span class="string">&quot;tea&quot;</span> | quote&#125;&#125;		<span class="comment"># 指定默认值</span></span><br><span class="line"><span class="comment"># 大多数时候，默认值都是在values.yaml文件中指定的，default函数可以用来做一些更复杂的处理，比如</span></span><br><span class="line">&#123;&#123; .Values.favorite.food | default (<span class="built_in">printf</span> <span class="string">&quot;%s-tea&quot;</span> (include <span class="string">&quot;mychart.name&quot;</span> .)) &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><h3 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h3><p>语法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; <span class="keyword">if</span> 条件<span class="number">1</span> &#125;&#125;</span><br><span class="line">  # Do something</span><br><span class="line">&#123;&#123; <span class="keyword">else</span> <span class="keyword">if</span> 条件<span class="number">2</span> &#125;&#125;</span><br><span class="line">  # Do something <span class="keyword">else</span></span><br><span class="line">&#123;&#123; <span class="keyword">else</span> &#125;&#125;</span><br><span class="line">  # Default <span class="keyword">case</span></span><br><span class="line">&#123;&#123; end &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;- <span class="keyword">if</span> .Values.db.debugMode | not&#125;&#125;		# 判断值是否存在，然后对结果取反</span><br><span class="line">    name: DB_DEBUG1</span><br><span class="line">    value: <span class="string">&quot;false&quot;</span></span><br><span class="line">&#123;&#123;- <span class="keyword">else</span> &#125;&#125;</span><br><span class="line">    name: DB_DEBUG2</span><br><span class="line">    value: <span class="string">&quot;true&quot;</span></span><br><span class="line">&#123;&#123;- end &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>判断条件可以是比较运算符：<code>eq</code>、<code>ne</code>、<code>lt</code>、gt</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> &#123;&#123; <span class="string">.Release.Name</span> &#125;&#125;<span class="string">-configmap</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  &#123;&#123; <span class="string">if</span> <span class="string">eq</span> <span class="string">.Values.favorite.drink</span> <span class="string">&quot;coffee&quot;</span> &#125;&#125;<span class="attr">mug:</span> <span class="literal">true</span>&#123;&#123; <span class="string">end</span> &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>判断条件里也可以引入and、or ，也可以用括号<code>（）</code>进行分割</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> &#123;&#123; <span class="string">.Release.Name</span> &#125;&#125;<span class="string">-configmap</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  &#123;&#123;<span class="bullet">-</span> <span class="string">if</span> <span class="string">and</span> <span class="string">(eq</span> <span class="string">.Values.favorite.drink</span> <span class="string">&quot;coffee&quot;</span><span class="string">)</span> <span class="string">(gt</span> <span class="string">(int</span> <span class="string">.Values.replicaCount)</span> <span class="number">3</span><span class="string">)</span> &#125;&#125;</span><br><span class="line">  <span class="attr">mug:</span> <span class="literal">true</span></span><br><span class="line">  &#123;&#123;<span class="bullet">-</span> <span class="string">end</span> &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="with作用域"><a href="#with作用域" class="headerlink" title="with作用域"></a>with作用域</h3><p>需要连续地渲染一些层级比较多的参数，可以把公共的层级放到with作用域里面</p>
+<p>values.yaml：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">db:</span></span><br><span class="line">  <span class="attr">debugMode:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">dbinfo:</span></span><br><span class="line">    <span class="attr">user:</span> <span class="string">egon</span></span><br><span class="line">    <span class="attr">pass:</span> <span class="string">&quot;123&quot;</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">3306</span></span><br></pre></td></tr></table></figure>
+
+<p>yaml清单：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> &#123;&#123; <span class="string">.Release.Name</span> &#125;&#125;<span class="string">-configmap</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  &#123;&#123;<span class="bullet">-</span> <span class="string">with</span> <span class="string">.Values.db.dbinfo</span> &#125;&#125;</span><br><span class="line">  <span class="attr">user:</span> &#123;&#123; <span class="string">.user</span> &#125;&#125;</span><br><span class="line">  <span class="attr">pass:</span> &#123;&#123; <span class="string">.pass</span> &#125;&#125;</span><br><span class="line">  <span class="attr">port:</span> &#123;&#123; <span class="string">.port</span> &#125;&#125;</span><br><span class="line">  &#123;&#123;<span class="bullet">-</span> <span class="string">end</span> &#125;&#125;</span><br><span class="line">  <span class="attr">release:</span> &#123;&#123; <span class="string">.Release.Name</span> &#125;&#125;  <span class="comment"># 内置对象的访问要从with内拿出来 ，或者使用变量的方式，在range作用域中举例</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="range作用域"><a href="#range作用域" class="headerlink" title="range作用域"></a>range作用域</h3><p>可以从给定的一组对象中遍历取参数</p>
+<p>values.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">favorite:</span></span><br><span class="line">  <span class="attr">drink:</span> <span class="string">coffee</span></span><br><span class="line">  <span class="attr">food:</span> <span class="string">pizza</span></span><br><span class="line"><span class="attr">names:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">egon</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">lili</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">jack</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">tom</span></span><br></pre></td></tr></table></figure>
+
+<p>资源清单</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> &#123;&#123; <span class="string">.Release.Name</span> &#125;&#125;<span class="string">-configmap</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">myvalue:</span> <span class="string">&quot;Hello World&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">nameList1:</span> <span class="string">|-</span></span><br><span class="line"><span class="string">    &#123;&#123;- $relname := .Release.Name -&#125;&#125;		# 这里定义了一个变量，代替了一个对象的值</span></span><br><span class="line"><span class="string">    &#123;&#123;- range .Values.names &#125;&#125;</span></span><br><span class="line"><span class="string">    - &quot;&#123;&#123; . | title &#125;&#125;-&#123;&#123; $relname &#125;&#125;&quot;		# 在作用域中使用变量，解决了作用域中不能使用内置对象的缺陷</span></span><br><span class="line"><span class="string">    &#123;&#123;- end &#125;&#125;   </span></span><br><span class="line"><span class="string"></span></span><br><span class="line">  <span class="attr">nameList2:</span> <span class="string">|-</span></span><br><span class="line"><span class="string">    &#123;&#123;- range tuple &quot;EGON1&quot; &quot;EGON2&quot; &quot;EGON3&quot; &#125;&#125; # 直接声明一个数组来遍历</span></span><br><span class="line"><span class="string">    - &#123;&#123; . &#125;&#125;-&#123;&#123; $relname &#125;&#125;</span></span><br><span class="line"><span class="string">    &#123;&#123;- end &#125;&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">  <span class="attr">nameList3:</span> <span class="string">|-</span></span><br><span class="line"><span class="string">    &#123;&#123;- range .Values.favorite &#125;&#125;</span></span><br><span class="line"><span class="string">    - &#123;&#123; . | quote &#125;&#125;</span></span><br><span class="line"><span class="string">    &#123;&#123;- end &#125;&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">  <span class="attr">nameList4:</span> <span class="string">|-</span></span><br><span class="line"><span class="string">    &#123;&#123;- range $key,$value := .Values.favorite &#125;&#125;</span></span><br><span class="line"><span class="string">    &#123;&#123; $key &#125;&#125;: &#123;&#123; $value | quote &#125;&#125;</span></span><br><span class="line"><span class="string">    &#123;&#123;- end &#125;&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"></span><br><span class="line">  <span class="attr">nameList5:</span> <span class="string">|-</span></span><br><span class="line"><span class="string">    &#123;&#123;- range $index,$value := .Values.names &#125;&#125;</span></span><br><span class="line"><span class="string">    &#123;&#123; $index &#125;&#125;: &#123;&#123; $value | quote &#125;&#125;</span></span><br><span class="line"><span class="string">    &#123;&#123;- end &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="空行控制"><a href="#空行控制" class="headerlink" title="空行控制"></a>空行控制</h2><ol>
+<li><p>模版语法渲染之后遗留的换行符用 <code>-</code>去掉</p>
+</li>
+<li><p>内容部分的缩进空格，可以自己人为控制缩进空格数，也可以使用 <code>indent</code> 和 <code>nindent</code> 控制</p>
+<p><code>indent</code>往右缩进n个空格</p>
+<p><code>nindent</code>往左缩进n个空格</p>
+</li>
+</ol>
+<p>示例：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> &#123;&#123; <span class="string">.Release.Name</span> &#125;&#125;<span class="string">-configmap</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">myvalue:</span> <span class="string">&quot;Hello World&quot;</span></span><br><span class="line">  <span class="attr">drink:</span> &#123;&#123; <span class="string">.Values.favorite.drink</span> <span class="string">|</span> <span class="string">default</span> <span class="string">&quot;tea&quot;</span> <span class="string">|</span> <span class="string">quote</span> &#125;&#125;</span><br><span class="line">  <span class="attr">food:</span> &#123;&#123; <span class="string">.Values.favorite.food</span> <span class="string">|default</span> <span class="string">&quot;abc&quot;</span> <span class="string">|</span> <span class="string">upper</span> <span class="string">|</span> <span class="string">quote</span> &#125;&#125;</span><br><span class="line">  &#123;&#123;<span class="bullet">-</span> <span class="string">if</span> <span class="string">and</span> <span class="string">(eq</span> <span class="string">.Values.favorite.drink</span> <span class="string">&quot;coffee&quot;</span><span class="string">)</span> <span class="string">(gt</span> <span class="string">(int</span> <span class="string">.Values.replicaCount)</span> <span class="number">3</span><span class="string">)</span>&#125;&#125;</span><br><span class="line">  &#123;&#123; <span class="string">nindent</span> <span class="number">2</span> <span class="string">&quot;mug: true&quot;</span> &#125;&#125;</span><br><span class="line">  &#123;&#123;<span class="bullet">-</span> <span class="string">end</span> &#125;&#125;</span><br><span class="line">  <span class="attr">xxx:</span> <span class="string">aaaa</span></span><br><span class="line">  <span class="attr">yyy:</span> <span class="string">bbbb</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="命名模板"><a href="#命名模板" class="headerlink" title="命名模板"></a>命名模板</h2><p>可以在templates目录中创建一个<code>__helpers.tpl</code>文件，里面定义一些可复用的模板，可以被其他资源清单文件直接引用</p>
+<p>_helpers.tpl</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;<span class="string">/*</span> <span class="string">Generate</span> <span class="string">basic</span> <span class="string">labels</span> <span class="string">*/</span>&#125;&#125;</span><br><span class="line">&#123;&#123;<span class="bullet">-</span> <span class="string">define</span> <span class="string">&quot;mychart.labels&quot;</span> &#125;&#125;</span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">generator:</span> <span class="string">helm</span></span><br><span class="line">    <span class="attr">date:</span> &#123;&#123; <span class="string">now</span> <span class="string">|</span> <span class="string">htmlDate</span> &#125;&#125;</span><br><span class="line">&#123;&#123;<span class="bullet">-</span> <span class="string">end</span> &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>清单文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> &#123;&#123; <span class="string">.Release.Name</span> &#125;&#125;<span class="string">-configmap</span></span><br><span class="line">  &#123;&#123;<span class="bullet">-</span> <span class="string">template</span> <span class="string">&quot;mychart.labels&quot;</span> &#125;&#125;			<span class="comment"># 通过template方式引用，不支持管道，可以使用include替代</span></span><br><span class="line">  &#123;&#123; <span class="string">include</span> <span class="string">&quot;mychart.app&quot;</span> <span class="string">.</span> <span class="string">|</span> <span class="string">indent</span> <span class="number">4</span> &#125;&#125;		<span class="comment"># 可以使用管道</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">myvalue:</span> <span class="string">&quot;Hello World&quot;</span></span><br><span class="line">  &#123;&#123;<span class="bullet">-</span> <span class="string">range</span> <span class="string">$key</span>, <span class="string">$val</span> <span class="string">:=</span> <span class="string">.Values.favorite</span> &#125;&#125;</span><br><span class="line">  &#123;&#123; <span class="string">$key</span> &#125;&#125;<span class="string">:</span> &#123;&#123; <span class="string">$val</span> <span class="string">|</span> <span class="string">quote</span> &#125;&#125;</span><br><span class="line">  &#123;&#123;<span class="bullet">-</span> <span class="string">end</span> &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如果命名模板中包含了类似与.Chart.Version的全局参数，需要在清单文件中提供一个模板范围，否则无法渲染</span><br><span class="line">&#123;&#123;- template <span class="string">&quot;mychart.labels&quot;</span> . &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2025-01-15</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8S/'>
+                            K8S
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

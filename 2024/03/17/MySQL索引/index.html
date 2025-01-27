@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="MySQL索引" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            MySQL索引
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%B4%A2%E5%BC%95%E4%BB%8B%E7%BB%8D"><span class="post-toc-text">索引介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%B4%A2%E5%BC%95%E4%BD%BF%E7%94%A8%E8%A7%84%E8%8C%83"><span class="post-toc-text">索引使用规范</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%B4%A2%E5%BC%95%E7%AE%A1%E7%90%86"><span class="post-toc-text">索引管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%B2%A1%E6%9C%89%E8%B5%B0%E7%B4%A2%E5%BC%95%E7%9A%84%E6%83%85%E5%86%B5%E5%88%86%E6%9E%90"><span class="post-toc-text">查询没有走索引的情况分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mysqlslap%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7"><span class="post-toc-text">mysqlslap测试工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0"><span class="post-toc-text">常用参数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BB%93%E6%9E%9C%E5%88%86%E6%9E%90"><span class="post-toc-text">结果分析</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="索引介绍"><a href="#索引介绍" class="headerlink" title="索引介绍"></a>索引介绍</h2><p>　　索引是一个单独的、存储在磁盘上的数据库结构，它们包含着对数据表里所有记录的引用指针。使用索引用于快速找出在某个或多个列中有一特定值的行，所有MySQL列类型都可以被索引，对相关列使用索引是提高查询操作速度的最佳途径。</p>
+<blockquote>
+<p><strong>优缺点</strong></p>
+</blockquote>
+<p>优点：索引大大提高了查询速度</p>
+<p>缺点：占用空间，降低更新表的速度，如对表进行INSERT、UPDATE和DELETE。</p>
+<blockquote>
+<p><strong>索引类型</strong></p>
+</blockquote>
+<p>基于InnoDB存储引擎的索引类型包括单列索引和组合索引，基于MyISAM</p>
+<blockquote>
+<p><strong>单列索引</strong></p>
+</blockquote>
+<p>单列索引即一个索引只包含单个列，单列索引包括普通索引、唯一索引、主键索引</p>
+<ul>
+<li><p><strong>Key（普通索引）</strong>：是MySQL中的基本索引类型，允许在定义索引的列中插入重复值和空值</p>
+</li>
+<li><p><strong>Unique（唯一索引）</strong>：索引列的值必须唯一，但允许有空值。</p>
+</li>
+<li><p><strong>Primary Key（主键索引）</strong>：也称为聚集索引，主键索引是一种特殊的唯一索引，不允许有空值。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>组合索引</strong></p>
+</blockquote>
+<p>组合索引指在表的多个字段组合上创建的索引，使用组合索引时<strong>遵循最左前缀集合</strong></p>
+<blockquote>
+<p><strong>全文索引</strong></p>
+</blockquote>
+<p>全文索引类型为FULLTEXT，在定义索引的列上支持值的全文查找，允许在这些索引列中插入重复值和空值。全文索引可以在CHAR、VARCHAR或者TEXT类型的列上创建</p>
+<blockquote>
+<p><strong>空间索引</strong></p>
+</blockquote>
+<p>空间索引（SPATIAL）是对空间数据类型的字段建立的索引，MySQL中的空间数据类型有4种，分别是GEOMETRY、POINT、LINESTRING和POLYGON。MySQL使用SPATIAL关键字进行扩展，使得能够用于创建正规索引类似的语法创建空间索引。创建空间索引的列必须声明为NOT NULL</p>
+<h2 id="索引使用规范"><a href="#索引使用规范" class="headerlink" title="索引使用规范"></a>索引使用规范</h2><ol>
+<li><p><strong>最左前缀匹配原则</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查询条件中，MySQL会一直向右匹配直到遇到范围查询(&gt;、&lt;、between、like)就停止匹配，比如a = 1 and b = 2 and c &gt; 3 and d = 4 如果建立(a,b,c,d)顺序的索引，d是用不到索引的，如果建立(a,b,d,c)的索引则都可以用到，a,b,d的顺序可以任意调整。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>尽量选择区分度高的列作为索引</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">区分度就是字段不重复的比例，区分度越高，扫描的记录数越少，唯一键的区分度是1，优先选择唯一性索引可以更快速地确定某条记录。而一些状态、性别字段可能区分度很低。如果非要使用重复值较多的列作为查询条件，可以考虑联合其他列做组合索引，区分度高的列放在前面。也可以选择拆分表。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>为经常查询的条件建立索引</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如查询语句经常需要使用`WHERE`，`ORDER BY`，`GROUP BY`，`JOIN ON`等操作，为它们查询的条件建立索引是非常有效的一种优化手段。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>如果字段很长，可以考虑建立前缀索引</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">前缀索引的目的主要是减少字符串作为索引占用的空间，提高查询速度，组合索引中也可以使用前缀索引。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>限制索引的数目</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">索引的数目并不是越多越好，当我们为一个表创建了过多的索引，可能会存在以下几个常见的问题:</span><br><span class="line">        (1)索引数目越多，MySQL优化器的负担会加重，有可能会影响到优化器的选择;</span><br><span class="line">        (2)修改表时，对索引的重构和更新很麻烦，这意味着索引数目越多会增加更多的耗时;</span><br><span class="line">        (3)当然，每个索引都需要占用磁盘空间，索引越多，需要的磁盘空间就越大;</span><br><span class="line"></span><br><span class="line">所以尽量地扩展索引，不要新建索引。比如表中已经有a的索引，现在要加(a,b)的索引，那么只需要扩展原来的索引即可。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>定期删除不需要的索引</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数据的使用方式被改变后，原有的一些索引可能不在需要，应该定期找出这些索引，并将它们删除，从而减少索引对更新操作的影响。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>少在更新频繁的字段上创建索引</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">维护索引是需要一定成本的，在修改表时，对索引的重构和更新很麻烦，如果我们为修改表的某个字段过于频繁建立了索引，这意味着会频繁的更新索引信息，导致较多的IOPS的递增。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>在业务不繁忙期间添加索引</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">不仅仅用在建立索引，凡是对生产表做修改操作时，都应该尽量选择在低峰期做维护操作，这样尽管做了不当操作导致数据库宕机，也可以将成本降到最低。</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="索引管理"><a href="#索引管理" class="headerlink" title="索引管理"></a>索引管理</h2><blockquote>
+<p><strong>获取查询信息</strong></p>
+</blockquote>
+<p>Explain是MySQL中的一个关键词，用于获取有关查询执行计划的信息。通过在SQL语句前面加上EXPLAIN关键词，MySQL会解释并展示关于如何执行查询的详细信息，包括执行顺序、使用的索引、表的连接类型等。。这对于优化查询性能非常有用。</p>
+<p>使用EXPLAIN的语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> <span class="keyword">condition</span>;</span><br></pre></td></tr></table></figure>
+
+<p>输出的列包括：</p>
+<ul>
+<li>id: 查询的唯一标识符</li>
+<li>select_type: 查询类型，如简单查询、子查询等</li>
+<li>table: 涉及的表</li>
+<li>type: 表示连接类型，如ALL、index、range等</li>
+<li>possible_keys: 可能用到的索引</li>
+<li>key: 实际使用的索引</li>
+<li>key_len: 使用的索引长度</li>
+<li>ref: 连接使用的列</li>
+<li>rows: 表示MySQL认为查询需要检索的行数</li>
+<li>Extra: 额外的信息，如使用的临时表、使用了文件排序等</li>
+</ul>
+<p>通过查看EXPLAIN的输出信息，可以识别查询中的性能问题，并进行优化，例如添加合适的索引、重构查询语句等。</p>
+<blockquote>
+<p><strong>查看索引</strong></p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 如果查看索引前，没有使用<span class="keyword">user</span> db_name等命令指定具体的数据库，则必须加上<span class="keyword">FROM</span> db_name</span><br><span class="line"><span class="keyword">SHOW</span> INDEX <span class="keyword">FROM</span> table_name [<span class="keyword">FROM</span> db_name]</span><br><span class="line"></span><br><span class="line"># 或者db_name.table_name</span><br><span class="line"><span class="keyword">SHOW</span> INDEX <span class="keyword">FROM</span> [db_name.]table_name</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>创建索引</strong></p>
+</blockquote>
+<p>索引可以在创建表的时候一同创建，也可以在创建表之后在创建索引</p>
+<ul>
+<li><p>创建表的时候创建索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"># 创建普通索引</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> test.`user2` (</span><br><span class="line">  `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  `username` <span class="type">varchar</span>(<span class="number">50</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `sex` <span class="type">varchar</span>(<span class="number">5</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `score_num` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">UNIQUE</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`id`),</span><br><span class="line">  index idx1(username)		# index 索引名(字段名)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 创建唯一索引</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> test.`user2` (</span><br><span class="line">  `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  `username` <span class="type">varchar</span>(<span class="number">50</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `sex` <span class="type">varchar</span>(<span class="number">5</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `address` <span class="type">varchar</span>(<span class="number">100</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `score_num` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">UNIQUE</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`id`),</span><br><span class="line">  <span class="keyword">unique</span> index idx1(username)		# <span class="keyword">unique</span> index 索引名(字段名)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 创建组合索引</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> test.`user2` (</span><br><span class="line">  `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  `username` <span class="type">varchar</span>(<span class="number">50</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `sex` <span class="type">varchar</span>(<span class="number">5</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `address` <span class="type">varchar</span>(<span class="number">100</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `score_num` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">UNIQUE</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`id`),</span><br><span class="line">  index idx1(id,score_num,username)		# index 索引名(字段名组合，以逗号分隔不同字段)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 创建全文索引，可以用于全文搜索，并且只为<span class="type">CHAR</span>、<span class="type">VARCHAR</span>和TEXT列创建索引。索引总是对整个列进行，不支持前缀索引</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> test.`user2` (</span><br><span class="line">  `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  `username` <span class="type">varchar</span>(<span class="number">50</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `sex` <span class="type">varchar</span>(<span class="number">5</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `address` <span class="type">varchar</span>(<span class="number">100</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `score_num` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">UNIQUE</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`id`),</span><br><span class="line">  fulltext index idx1(username)		# fulltext index 索引名(字段名)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 创建空间索引</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test.test(</span><br><span class="line">    position geometry <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">    spatial index idx1(position)		# spatial index 索引名(字段名)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 创建前缀索引</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> test.t1 (</span><br><span class="line">  col1 <span class="type">VARCHAR</span>(<span class="number">10</span>),</span><br><span class="line">  col2 <span class="type">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  INDEX (col1, col2(<span class="number">10</span>))		# index (字段名(索引长度))</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建表之后创建索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 使用`<span class="keyword">create</span>`关键字创建索引</span><br><span class="line"><span class="keyword">CREATE</span> [<span class="keyword">UNIQUE</span><span class="operator">|</span>FULLTEXT<span class="operator">|</span>SPATIAL] INDEX 索引名 <span class="keyword">ON</span> 数据表名 (字段名[索引长度],...) [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>]</span><br><span class="line"></span><br><span class="line"># 使用`<span class="keyword">alter</span>`关键字创建索引</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 数据表名 <span class="keyword">ADD</span> [<span class="keyword">UNIQUE</span><span class="operator">|</span>FULLTEXT<span class="operator">|</span>SPATIAL] [INDEX<span class="operator">|</span>KEY] [索引名] (字段名[索引长度],...) [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>]</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p><strong>修改索引名称</strong></p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 数据表名 RENAME [INDEX<span class="operator">|</span>KEY] 旧索引名 <span class="keyword">TO</span> 新索引名;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>删除索引</strong></p>
+</blockquote>
+<p>添加<code>AUTO_INCREMENT</code>约束字段的唯一索引不能被删除</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 使用`<span class="keyword">drop</span>`关键字删除索引</span><br><span class="line"><span class="keyword">DROP</span> INDEX 索引名 <span class="keyword">ON</span> 数据表名;</span><br><span class="line"></span><br><span class="line"># 使用`<span class="keyword">alter</span>`关键字删除索引</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 数据表名 <span class="keyword">DROP</span> INDEX 索引名;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="查询没有走索引的情况分析"><a href="#查询没有走索引的情况分析" class="headerlink" title="查询没有走索引的情况分析"></a>查询没有走索引的情况分析</h2><ol>
+<li><p>没有查询条件或查询条件没有做索引</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如果sql语句没有添加查询条件，就会进行全表扫描。数据量比较大的表不应该存在全表扫描这种需求的，应该尽量避免全表扫描</span><br><span class="line">如果查询条件没有做索引，可以考虑为其建立索引，如果其区分度较低，可以考虑联合主键做组合索引</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询结果集占原表比例较大</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查询的结果集，超过了总行数的15%-30%时，优化器觉得就没有必要走索引了，这个百分比跟数据库的预读能力及其相关参数设置有关</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>索引失效</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">索引有自我维护的能力，对于表内容变化比较频繁的情况下，有可能会出现统计信息不准确(数据过旧)，从而导致索引失效。通常的解决方案就是删除该索引后重建索引即可解决。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询条件中使用了运算</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查询条件中使用了算术运算或函数运算，比如`SELECT * FROM oldboyedu.student WHERE id-1=9998;`，不会使用索引</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询语句使用了隐式转换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">开发经常犯的错误，比如test表中的mobile_number字段是char类型，并且为此字段建立了索引，当使用查询语句`SELECT * FROM test WHERE mobile_number=&#x27;110&#x27;;`时，会正常使用索引。</span><br><span class="line">而使用查询语句`SELECT * FROM test WHERE mobile_number=110;`时，默认认为110是int类型数据，需要将其转换为char类型再进行查询，这种情况是不走索引的。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>模糊查询不走索引</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当查询语句使用了like关键字，结合`%`进行模糊查询，这种情况是不走索引的</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其他特殊查询条件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!=,	&gt;,	&lt;,	not in 这些条件也可能不使用索引</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="mysqlslap测试工具"><a href="#mysqlslap测试工具" class="headerlink" title="mysqlslap测试工具"></a>mysqlslap测试工具</h2><p>mysqlslap是官方提供的压力测试工具。通过模拟多个并发客户端并发访问MySQL来执行压力测试，同时提供了较详细的SQL执行数据性能报告，并且能很好的对比多个存储引擎（MyISAM，InnoDB等）在相同环境下的相同并发压力下的性能差别。<a target="_blank" rel="noopener" href="http://dev.mysql.com/doc/refman/5.6/en/mysqlslap.html">mysqlslap 官方介绍</a></p>
+<h3 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--host=hostname,	-h [hostname]		# MySQL服务器的主机名</span></span><br><span class="line"><span class="comment">--port=port_num,	-P [port]           # 数据库端口</span></span><br><span class="line"><span class="comment">--socket=path,	-S [path]		# 连接服务器的socket</span></span><br><span class="line"><span class="comment">--user=user_name,	-u [username]		# 登录MySQL服务的用户名</span></span><br><span class="line"><span class="comment">--password=password,	-p [password]		# 登录密码</span></span><br><span class="line"><span class="comment">--create-schema=&#x27;数据库名&#x27;		# 指定数据库</span></span><br><span class="line"><span class="comment">--query=&#x27;sql语句&#x27;			# 要执行的sql语句,也可以直接指定一个sql脚本的路径，比如 --query=/tmp/test.sql</span></span><br><span class="line"><span class="comment">--create=&#x27;sql语句&#x27; 		# 创建表所需的SQL,也可以直接指定一个sql脚本的路径，比如 --query=/tmp/test.sql</span></span><br><span class="line"><span class="comment">--concurrency=N,	-c N 		# 表示并发量，也就是模拟多少个客户端同时执行query。可指定多个值，以逗号分隔</span></span><br><span class="line"><span class="comment">--iterations=N,		-i N 		# 测试执行的迭代次数，代表要在不同的并发环境中，各自运行测试多少次；多次运行以便让结果更加准确</span></span><br><span class="line"><span class="comment">--number-of-queries=N</span></span><br><span class="line"># 总的测试查询次数(并发客户数×每客户查询次数)，可以通过<span class="comment">--concurrency、--number-of-queries等选项的值查看每次测试的结果，通过反复测试、优化得出mysql server的最大并发数。如果mysqlslap工具输出结果为Segmentation fault (core dumped)基本表示超出mysql server的负载。</span></span><br><span class="line">	</span><br><span class="line"></span><br><span class="line"><span class="comment">--engine=engine_name,	-e engine_name 	# 代表要测试的引擎，可以有多个，用分隔符隔开。例如：--engines=myisam,innodb,memory。</span></span><br><span class="line"><span class="comment">--auto-generate-sql,	-a		# 自动生成MySQL测试语句</span></span><br><span class="line"><span class="comment">--auto-generate-sql-add-autoincrement	# 对生成的表自动添加自增的列</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--auto-generate-sql-load-type=type</span></span><br><span class="line"># 测试语句的类型。代表要测试的环境是读操作还是写操作还是两者混合的。取值包括：read (扫描数据表), write (写入数据表), key (读主键列), <span class="keyword">update</span> (更新主键列), <span class="keyword">or</span> mixed (一半写入，一般查询). 默认值是mixed.</span><br><span class="line"></span><br><span class="line"><span class="comment">--debug-info		# 额外输出CPU以及内存的相关信息</span></span><br><span class="line"><span class="comment">--number-int-cols		# 创建测试表的int型字段数量</span></span><br><span class="line"><span class="comment">--number-char-cols		# 创建测试表的chat型字段数量</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Average number <span class="keyword">of</span> …</span><br><span class="line">运行所有语句的平均秒数</span><br><span class="line"></span><br><span class="line">Minimum number <span class="keyword">of</span> …</span><br><span class="line">运行所有语句的最小秒数</span><br><span class="line"></span><br><span class="line">Maximum number <span class="keyword">of</span> …</span><br><span class="line">运行所有语句的最大秒数</span><br><span class="line"></span><br><span class="line">Number <span class="keyword">of</span> clients …</span><br><span class="line">客户端数量</span><br><span class="line"></span><br><span class="line">Average number <span class="keyword">of</span> queries <span class="keyword">per</span> client</span><br><span class="line">每个客户端运行查询的平均数</span><br></pre></td></tr></table></figure></div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-03-17</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/MySQL/'>
+                            MySQL
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="文本处理三剑客" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            文本处理三剑客
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="post-toc-text">正则表达式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#grep"><span class="post-toc-text">grep</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%80%89%E9%A1%B9"><span class="post-toc-text">选项</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%BC%94%E7%A4%BA"><span class="post-toc-text">演示</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sed"><span class="post-toc-text">sed</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%80%89%E9%A1%B9-1"><span class="post-toc-text">选项</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9C%B0%E5%9D%80%E5%AE%9A%E7%95%8C"><span class="post-toc-text">地址定界</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="post-toc-text">命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%AB%98%E7%BA%A7%E5%91%BD%E4%BB%A4"><span class="post-toc-text">高级命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%BC%94%E7%A4%BA-1"><span class="post-toc-text">演示</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#awk"><span class="post-toc-text">awk</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#awk%E8%AF%AD%E6%B3%95"><span class="post-toc-text">awk语法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#awk%E9%80%89%E9%A1%B9"><span class="post-toc-text">awk选项</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#awk%E5%8F%98%E9%87%8F"><span class="post-toc-text">awk变量</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%86%85%E7%BD%AE%E5%8F%98%E9%87%8F"><span class="post-toc-text">内置变量</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="post-toc-text">自定义变量</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#awk%E5%8F%98%E9%87%8F%E6%BC%94%E7%A4%BA"><span class="post-toc-text">awk变量演示</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#printf%E5%91%BD%E4%BB%A4"><span class="post-toc-text">printf命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#printf%E5%91%BD%E4%BB%A4%E6%BC%94%E7%A4%BA"><span class="post-toc-text">printf命令演示</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#awk%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="post-toc-text">awk操作符</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#awk%E6%93%8D%E4%BD%9C%E7%AC%A6%E6%BC%94%E7%A4%BA"><span class="post-toc-text">awk操作符演示</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#awk%E5%8C%B9%E9%85%8D%E6%A8%A1%E5%BC%8F"><span class="post-toc-text">awk匹配模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%8C%B9%E9%85%8D%E6%A8%A1%E5%BC%8F%E6%BC%94%E7%A4%BA"><span class="post-toc-text">匹配模式演示</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#grep-awk-sed%E5%AF%B9%E6%AF%94"><span class="post-toc-text">grep awk sed对比</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%85%B6%E4%BB%96"><span class="post-toc-text">其他</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#sort"><span class="post-toc-text">sort</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#sort%E8%AF%AD%E6%B3%95"><span class="post-toc-text">sort语法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#sort%E9%80%89%E9%A1%B9"><span class="post-toc-text">sort选项</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#sort%E6%BC%94%E7%A4%BA"><span class="post-toc-text">sort演示</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cut"><span class="post-toc-text">cut</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#cut%E8%AF%AD%E6%B3%95"><span class="post-toc-text">cut语法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#cut%E9%80%89%E9%A1%B9"><span class="post-toc-text">cut选项</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#cut%E6%BC%94%E7%A4%BA"><span class="post-toc-text">cut演示</span></a></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>文本处理三剑客——sed、awk、grep </p>
+<p>天然支持管道符和正则表达式</p>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>正则表达式，又称规则表达式：Regular Expression，在代码中常简写为regex、regexp或RE。</p>
+<p>正则表达式是对字符串（包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为“元字符”））操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。正则表达式是一种文本模式，该模式描述在搜索文本时要匹配的一个或多个字符串。</p>
+<p><strong>1、常用的元字符</strong></p>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.</td>
+<td>匹配除换行符以外的任意字符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配字母或数字或下划线或汉字</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任意的空白符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配数字</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配单词的开始或结束</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配字符串的开始</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配字符串的结束</td>
+</tr>
+</tbody></table>
+<p>其他：</p>
+<ul>
+<li>[:alnum:] 或 [0-9a-zA-Z]</li>
+<li>[:alpha:] 或 [a-zA-Z]</li>
+<li>[:upper:] 或 [A-Z]</li>
+<li>[:lower:] 或 [a-z]</li>
+<li>[:blank:] 空白字符（空格和制表符）</li>
+<li>[:space:] 水平和垂直的空白字符（比[:blank:]包含的范围广）</li>
+<li>[:cntrl:] 不可打印的控制字符（退格、删除、警铃…）</li>
+<li>[:digit:] 十进制数字 或[0-9]</li>
+<li>[:xdigit:]十六进制数字</li>
+<li>[:graph:] 可打印的非空白字符</li>
+<li>[:print:] 可打印字符</li>
+<li>[:punct:] 标点符号</li>
+</ul>
+<p><strong>2、常用的限定符</strong></p>
+<table>
+<thead>
+<tr>
+<th>代码&#x2F;语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*</td>
+<td>重复零次或更多次</td>
+</tr>
+<tr>
+<td>.*</td>
+<td>任意字符的一次或多次</td>
+</tr>
+<tr>
+<td>\+</td>
+<td>重复一次或更多次</td>
+</tr>
+<tr>
+<td>\?</td>
+<td>重复零次或一次</td>
+</tr>
+<tr>
+<td>\{n\}</td>
+<td>重复n次</td>
+</tr>
+<tr>
+<td>\{n,\}</td>
+<td>重复n次或更多次</td>
+</tr>
+<tr>
+<td>\{n,m\}</td>
+<td>重复n到m次</td>
+</tr>
+</tbody></table>
+<p>注意：***** 默认是量词而不是元字符，所以一般不需要加转义符号</p>
+<p><strong>3、常用的反义代码</strong></p>
+<table>
+<thead>
+<tr>
+<th>代码&#x2F;语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\W</td>
+<td>匹配任意不是字母，数字，下划线，汉字的字符</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任意不是空白符的字符</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配任意非数字的字符</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>匹配不是单词开头或结束的位置</td>
+</tr>
+<tr>
+<td>[^aeiou]</td>
+<td>匹配除了aeiou这几个字母以外的任意字符</td>
+</tr>
+</tbody></table>
+<p><strong>4、分组和后向引用</strong></p>
+<p>分组：</p>
+<p>\(\) 将一个或多个字符捆绑在一起，当作一个整体进行处理</p>
+<p>　　分组括号中的模式匹配到的内容会被正则表达式引擎记录于内部的变量中，这些变量的命名方式为: \1, \2, \3, …</p>
+<p>后向引用：</p>
+<p>引用前面的分组括号中的模式所匹配字符，而非模式本身</p>
+<p>\1 表示从左侧起第一个左括号以及与之匹配右括号之间的模式所匹配到的字符</p>
+<p>\2 表示从左侧起第2个左括号以及与之匹配右括号之间的模式所匹配到的字符，以此类推</p>
+<p>&amp; 表示前面的分组中所有字符</p>
+<p>流程分析如下：</p>
+<p><a href="/../pic/1216496-20190213090906435-1889784692.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1216496-20190213090906435-1889784692.png" alt="img"></a></p>
+<p>示例：</p>
+<p><a href="/../pic/1216496-20190213090916442-579082373.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1216496-20190213090916442-579082373.png" alt="img"></a></p>
+<p><strong>4、锚定</strong></p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>代码&#x2F;语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单词模式</td>
+<td>\&lt;或者\b</td>
+<td>词首锚定，用于单词模式的左侧</td>
+</tr>
+<tr>
+<td></td>
+<td>\&gt;或者\b</td>
+<td>词尾锚定，用于单词模式的右侧</td>
+</tr>
+<tr>
+<td>捕获</td>
+<td>(exp)</td>
+<td>匹配exp,并捕获文本到自动命名的组里</td>
+</tr>
+<tr>
+<td></td>
+<td>(?&lt;name&gt;exp)</td>
+<td>匹配exp,并捕获文本到名称为name的组里，也可以写成(?’name’exp)</td>
+</tr>
+<tr>
+<td></td>
+<td>(?:exp)</td>
+<td>匹配exp,不捕获匹配的文本，也不给此分组分配组号</td>
+</tr>
+<tr>
+<td>零宽断言</td>
+<td>(?&#x3D;exp)</td>
+<td>匹配exp前面的位置</td>
+</tr>
+<tr>
+<td></td>
+<td>(?&lt;&#x3D;exp)</td>
+<td>匹配exp后面的位置</td>
+</tr>
+<tr>
+<td></td>
+<td>(?!exp)</td>
+<td>匹配后面跟的不是exp的位置</td>
+</tr>
+<tr>
+<td></td>
+<td>(?&lt;!exp)</td>
+<td>匹配前面不是exp的位置</td>
+</tr>
+<tr>
+<td>注释</td>
+<td>(?#comment)</td>
+<td>这种类型的分组不对正则表达式的处理产生任何影响，用于提供注释让人阅读</td>
+</tr>
+</tbody></table>
+<p><strong>零宽断言</strong>是一种特殊的正则匹配，本身表达式不匹配任何字符(零个字符，所以称为零宽)，而是满足某种条件(称为断言)。断言用来声明一个应该为真的事实。前面的 ^ , $ , \b 等等就属于零宽断言的范畴。 </p>
+<p><strong>5、懒惰限定符</strong></p>
+<table>
+<thead>
+<tr>
+<th>代码&#x2F;语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*?</td>
+<td>重复任意次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>+?</td>
+<td>重复1次或更多次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>??</td>
+<td>重复0次或1次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>{n,m}?</td>
+<td>重复n到m次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>{n,}?</td>
+<td>重复n次以上，但尽可能少重复</td>
+</tr>
+</tbody></table>
+<p><strong>6、其他</strong></p>
+<table>
+<thead>
+<tr>
+<th>代码&#x2F;语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\t</td>
+<td>制表符，Tab</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>换行符</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>换页符</td>
+</tr>
+<tr>
+<td>\e</td>
+<td>Escape</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>通常是单词分界位置，但如果在字符类里使用代表退格</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>竖向制表符</td>
+</tr>
+<tr>
+<td>\A</td>
+<td>字符串开头(类似^，但不受处理多行选项的影响)</td>
+</tr>
+<tr>
+<td>\Z</td>
+<td>字符串结尾或行尾(不受处理多行选项的影响)</td>
+</tr>
+<tr>
+<td>\z</td>
+<td>字符串结尾(类似$，但不受处理多行选项的影响)</td>
+</tr>
+<tr>
+<td>\G</td>
+<td>当前搜索的开头</td>
+</tr>
+</tbody></table>
+<p>在线正则表达式测验：<a target="_blank" rel="noopener" href="https://tool.oschina.net/regex/">https://tool.oschina.net/regex/</a></p>
+<h2 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h2><p>​	grep全称是Global Regular Expression Print，表示全局正则表达式版本。Linux系统中grep命令是一种强大的文本搜索工具，它能使用<strong>正则表达式</strong>搜索文本，并把匹配的行打印出来（匹配到的标红）。</p>
+<p>​	grep可用于shell脚本，因为grep通过返回一个状态值来说明搜索的状态，如果模板搜索成功，则返回0，如果搜索不成功，则返回1，如果搜索的文件不存在，则返回2。我们利用这些返回值就可进行一些自动化的文本处理工作。</p>
+<p>​	<strong>egrep &#x3D; grep -E：扩展的正则表达式</strong> （除了<strong>&lt; , &gt; , \b</strong> 使用其他正则都可以去掉）</p>
+<p>基本用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep [-options] &#x27;过滤规则&#x27; [文件]			# 过滤规则本质上是正则表达式</span><br></pre></td></tr></table></figure>
+
+<p><code>grep</code>擅长过滤</p>
+<h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-A&lt;显示行数&gt;</td>
+<td>除了显示符合范本样式的那一行之外，并显示该行之后的内容。</td>
+</tr>
+<tr>
+<td>-B&lt;显示行数&gt;</td>
+<td>除了显示符合样式的那一行之外，并显示该行之前的内容。</td>
+</tr>
+<tr>
+<td>-C&lt;显示行数&gt;</td>
+<td>除了显示符合样式的那一行之外，并显示该行之前后的内容。</td>
+</tr>
+<tr>
+<td><strong>-e</strong></td>
+<td><strong>实现多个选项间的逻辑or 关系</strong></td>
+</tr>
+<tr>
+<td><strong>-E</strong></td>
+<td><strong>扩展的正则表达式</strong></td>
+</tr>
+<tr>
+<td><strong>-v</strong></td>
+<td><strong>显示不被pattern 匹配到的行，相当于[^] 反向匹配</strong></td>
+</tr>
+<tr>
+<td>-c</td>
+<td>统计匹配的行数</td>
+</tr>
+<tr>
+<td>-f 文件名</td>
+<td>从文本文件内容中获取PATTERN匹配</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>忽略字符大小写的差别。</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>显示匹配的行号</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>仅显示匹配到的字符串</td>
+</tr>
+<tr>
+<td>-q</td>
+<td>静默模式，不输出任何信息</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>不显示错误信息</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>匹配 整个单词</td>
+</tr>
+</tbody></table>
+<h3 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h3><p><a href="/../pic/image-20231025173650706.png" title="image-20231025173650706" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20231025173650706.png" alt="image-20231025173650706"></a></p>
+<h2 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h2><p>​	sed意为流编辑器(Stream Editor)，它一次处理一行内容。处理时，把当前处理的行存储在临时缓冲区中，称为“<strong>模式空间</strong>”（patternspace ），接着用sed 命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。然后读入下行，执行下一个循环。如果没有使诸如‘D’ 的特殊命令，那会在两个循环之间清空模式空间，但不会清空<strong>保留空间</strong>。这样不断重复，直到文件末尾。<strong>文件内容并没有改变</strong>，除非使用<strong>重定向存储输出或-i</strong>。</p>
+<p>（保持空间是模式空间一个临时存放数据的缓冲区，协助模式空间进行数据处理）</p>
+<p>原理：</p>
+<p><a href="/../pic/sed.png" title="sed原理图" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/sed.png" alt="sed原理图"></a></p>
+<p>功能：主要用来自动编辑一个或多个文件, 简化对文件的反复操作</p>
+<p>输出：**<code>sed</code>会将文本内容逐行读取到内存中，没有匹配到行的直接输出到屏幕上；匹配到的行利用规则处理之后输出到屏幕上。**</p>
+<p>基本用法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed [-options] <span class="string">&#x27;script&#x27;</span> [文件]		<span class="comment"># script由地址定界和编辑命令组成，二者不能有空格</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="选项-1"><a href="#选项-1" class="headerlink" title="选项"></a>选项</h3><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>-n</strong></td>
+<td>不打印模式空间中的内容</td>
+</tr>
+<tr>
+<td><strong>-e</strong></td>
+<td>多点编辑，对每行处理时，可以有多个Script</td>
+</tr>
+<tr>
+<td><strong>-i</strong></td>
+<td>直接将处理的结果写入文件</td>
+</tr>
+<tr>
+<td>-i.bak</td>
+<td>在将处理的结果写入文件之前备份一份原文件</td>
+</tr>
+<tr>
+<td>-f file</td>
+<td>把Script写到文件当中，在执行sed时-f 指定文件路径，如果是多个Script，换行写</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>支持扩展的正则表达式</td>
+</tr>
+</tbody></table>
+<h3 id="地址定界"><a href="#地址定界" class="headerlink" title="地址定界"></a>地址定界</h3><p>没有地址则是对全文进行处理</p>
+<table>
+<thead>
+<tr>
+<th>形式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>空地址</td>
+<td>默认处理全文所有行</td>
+</tr>
+<tr>
+<td>m</td>
+<td>指定第m行</td>
+</tr>
+<tr>
+<td>$</td>
+<td>最后一行</td>
+</tr>
+<tr>
+<td>m,n</td>
+<td>从第m行到第n行</td>
+</tr>
+<tr>
+<td>m,+n</td>
+<td>从第m行到第m+n行</td>
+</tr>
+<tr>
+<td>m,&#x2F;pattern&#x2F;</td>
+<td>从第m行到<strong>第一次</strong>模式匹配到的行</td>
+</tr>
+<tr>
+<td>&#x2F;partner&#x2F;</td>
+<td>此模式能匹配的每一行</td>
+</tr>
+<tr>
+<td>&#x2F;partner1&#x2F;,&#x2F;partner2&#x2F;</td>
+<td>第一次被模式1匹配的行到第一次被模式2匹配到的行</td>
+</tr>
+<tr>
+<td>1~2</td>
+<td>奇数行，从第一行开始，一次加两行</td>
+</tr>
+<tr>
+<td>2~2</td>
+<td>偶数行，从第二行开始，一次加两行</td>
+</tr>
+</tbody></table>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ul>
+<li><p><strong>d：删除</strong>模式空间匹配的行，delete</p>
+</li>
+<li><p><strong>p：打印</strong>当前模式空间匹配的行，print</p>
+</li>
+<li><p><strong>a \test <strong>：在指定行</strong>后面追加</strong>文本，支持使用\n实现多行追加，append</p>
+</li>
+<li><p><strong>i  \test</strong>：在行<strong>前面插入</strong>文本，支持使用\n实现多行追加，insert</p>
+</li>
+<li><p><strong>c  \test</strong>：<strong>替换</strong>行为单行或多行文本，支持使用\n实现多行追加，change</p>
+</li>
+<li><p>w  file：保存模式匹配的行另存到指定文件</p>
+</li>
+<li><p>r  file：读取指定文件的文本至模式空间中匹配到的行后</p>
+</li>
+<li><p>&#x3D;：为模式空间中的行打印行号</p>
+</li>
+<li><p><strong>!<strong>：模式空间中匹配行</strong>取反</strong>处理，格式为<strong>地址定界！编辑命令</strong>，如’5!d’表第5行不删</p>
+</li>
+<li><p><strong>s&#x2F;partner&#x2F;str&#x2F;[修饰符]<strong>：</strong>查找替换</strong>，支持使用其它分隔符，如：s@@@，s###；</p>
+<ul>
+<li><strong>加g表示行内全局替换；</strong>而不是只替换每行的第一个</li>
+<li>加i表示不区分大小写</li>
+<li>加p显示替换成功的行</li>
+<li>在替换时，可以加一下命令，实现大小写转换</li>
+<li>\l：把下个字符转换成小写。</li>
+<li>\L：把replacement字母转换成小写，直到\U或\E出现。</li>
+<li>\u：把下个字符转换成大写。</li>
+<li>\U：把replacement字母转换成大写，直到\L或\E出现。</li>
+<li>\E：停止以\L或\U开始的大小写转换</li>
+<li>后向引用：<code>\(**\)</code>，<code>\1，\2...</code>对应括号内容，**&amp;表示引用匹配到整个**</li>
+</ul>
+</li>
+</ul>
+<h3 id="高级命令"><a href="#高级命令" class="headerlink" title="高级命令"></a>高级命令</h3><ul>
+<li>h：把模式空间中的内容覆盖至保持空间中</li>
+<li>H：把模式空间中的内容追加至保持空间中</li>
+<li>g：从保持空间取出数据覆盖至模式空间</li>
+<li>G：从保持空间取出内容追加至模式空间</li>
+<li>x：把模式空间中的内容与保持空间中的内容进行互换</li>
+<li>n：读取匹配到的行的下一行覆盖 至模式空间</li>
+<li>N：读取匹配到的行的下一行追加 至模式空间</li>
+<li>d：删除模式空间中的所有行</li>
+<li>D：它用于删除模式空间中匹配到的第一行，并在删除后对剩余的文本重新执行 sed 脚本，以进行进一步的处理。</li>
+</ul>
+<h3 id="演示-1"><a href="#演示-1" class="headerlink" title="演示"></a>演示</h3><blockquote>
+<p>选项演示</p>
+</blockquote>
+<p><a href="/../pic/image-20231025114332594.png" title="image-20231025114332594" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20231025114332594.png" alt="image-20231025114332594"></a></p>
+<blockquote>
+<p>地址定界演示</p>
+</blockquote>
+<p><a href="/../pic/image-20231025151447661.png" title="image-20231025151447661" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20231025151447661.png" alt="image-20231025151447661"></a></p>
+<blockquote>
+<p>命令演示</p>
+</blockquote>
+<p><a href="/../pic/image-20231025160746738.png" title="image-20231025160746738" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20231025160746738.png" alt="image-20231025160746738"></a></p>
+<blockquote>
+<p>高级选项演示</p>
+</blockquote>
+<p><a href="/../pic/1216496-20190213091449198-704428171.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1216496-20190213091449198-704428171.png" alt="img"></a></p>
+<h2 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h2><p>​	awk，全称GNU awk，此命令的设计者有 3 位，他们的姓分别是 Aho、Weingberger 和 Kernighan，awk 就取自这 3 为大师姓的首字母。</p>
+<p>　awk是一种编程语言，用于在linux&#x2F;unix下对文本和数据进行处理。数据可以来自标准输入(stdin)、一个或多个文件，或其它命令的输出。它<strong>支持用户自定义函数</strong>和<strong>动态正则表达式</strong>等先进功能，是linux&#x2F;unix下的一个强大编程工具。<strong>awk有很多内建的功能</strong>，比如数组、函数等，这是它和C语言的相同之处，灵活性是awk最大的优势。它在命令行中使用，但更多是作为脚本来使用。本文只介绍它的命令行用法，对于大多数场合，应该足够用了。</p>
+<h3 id="awk语法"><a href="#awk语法" class="headerlink" title="awk语法"></a>awk语法</h3><p>在脚本之中，awk的语法大致可以分为三种：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">awk [options]  <span class="string">&#x27;scripts&#x27;</span> var=value file		<span class="comment"># scripts由匹配模式和操作命令组成</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 一个通用的awk脚本语句</span></span><br><span class="line">awk <span class="string">&#x27;BEGIN&#123; commands &#125; pattern&#123; commands &#125; END&#123; commands &#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="awk选项"><a href="#awk选项" class="headerlink" title="awk选项"></a>awk选项</h3><ul>
+<li>-F fs：fs指定输入分隔符，fs可以是字符串或正则表达式，如-F:</li>
+<li>-v var&#x3D;value：赋值一个用户定义变量，将外部变量传递给awk</li>
+<li>-f scripfile：从脚本文件中读取awk命令</li>
+</ul>
+<h3 id="awk变量"><a href="#awk变量" class="headerlink" title="awk变量"></a>awk变量</h3><p>awk的变量分为内置变量和自定义变量。每个变量前加 -v 选项。</p>
+<h4 id="内置变量"><a href="#内置变量" class="headerlink" title="内置变量"></a>内置变量</h4><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>FS</strong></td>
+<td><strong>Field Separator</strong>，输入字段分隔符， 默认是空格或Tab。</td>
+</tr>
+<tr>
+<td><strong>OFS</strong></td>
+<td><strong>Out Field Separator</strong>，输出字段分隔符， 默认也是空格</td>
+</tr>
+<tr>
+<td>$0</td>
+<td>当前行的所有内容</td>
+</tr>
+<tr>
+<td>$1~$n</td>
+<td>当前行的第n个字段，字段间由 FS变量 分隔</td>
+</tr>
+<tr>
+<td><strong>NF</strong></td>
+<td><strong>Number of Fields</strong>，当前行中的字段个数，就是有多少列</td>
+</tr>
+<tr>
+<td>RS</td>
+<td><strong>Record Separator</strong>，输入的行分隔符， 默认为换行符</td>
+</tr>
+<tr>
+<td>ORS</td>
+<td><strong>Out Record Separator</strong>，输出的行分隔符，默认为换行符</td>
+</tr>
+<tr>
+<td><strong>NR</strong></td>
+<td><strong>Number of Record</strong>，已经读出的行数，就是行号，从1开始，如果有多个文件的话，这个值也是不断累加中。</td>
+</tr>
+<tr>
+<td>FNR</td>
+<td><strong>File Number of Record</strong>，文件记录数，与NR不同的是，这个值会是各个文件自己的行号，有多个文件的话，各自从1开始。</td>
+</tr>
+<tr>
+<td>FILENAME</td>
+<td>当前输入文件的名字</td>
+</tr>
+<tr>
+<td>ARGC</td>
+<td><strong>命令行参数</strong>的个数</td>
+</tr>
+<tr>
+<td>ARGV</td>
+<td>数组，保存的是命令行所给定的各参数，<strong>查看参数</strong></td>
+</tr>
+</tbody></table>
+<h4 id="自定义变量"><a href="#自定义变量" class="headerlink" title="自定义变量"></a>自定义变量</h4><p>自定义变量( 区分字符大小写)，格式：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-v var=value</span><br></pre></td></tr></table></figure>
+
+<h4 id="awk变量演示"><a href="#awk变量演示" class="headerlink" title="awk变量演示"></a>awk变量演示</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">[root@along ~]# <span class="built_in">cat</span> awkdemo</span><br><span class="line">hello:world</span><br><span class="line">linux:redhat:lalala:hahaha</span><br><span class="line">along:love:youou</span><br><span class="line">[root@along ~]# awk -v FS=<span class="string">&#x27;:&#x27;</span> <span class="string">&#x27;&#123;print $1,$2&#125;&#x27;</span> awkdemo  <span class="comment">#FS指定输入分隔符</span></span><br><span class="line">hello world</span><br><span class="line">linux redhat</span><br><span class="line">along love</span><br><span class="line">[root@along ~]# awk -v FS=<span class="string">&#x27;:&#x27;</span> -v OFS=<span class="string">&#x27;---&#x27;</span> <span class="string">&#x27;&#123;print $1,$2&#125;&#x27;</span> awkdemo  <span class="comment">#OFS指定输出分隔符</span></span><br><span class="line">hello---world</span><br><span class="line">linux---redhat</span><br><span class="line">along---love</span><br><span class="line">[root@along ~]# awk -v RS=<span class="string">&#x27;:&#x27;</span> <span class="string">&#x27;&#123;print $1,$2&#125;&#x27;</span> awkdemo</span><br><span class="line">hello</span><br><span class="line">world linux</span><br><span class="line">redhat</span><br><span class="line">lalala</span><br><span class="line">hahaha along</span><br><span class="line">love</span><br><span class="line">you</span><br><span class="line">[root@along ~]# awk -v FS=<span class="string">&#x27;:&#x27;</span> -v ORS=<span class="string">&#x27;---&#x27;</span> <span class="string">&#x27;&#123;print $1,$2&#125;&#x27;</span> awkdemo</span><br><span class="line">hello world---linux redhat---along love---</span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;&#123;print NF&#125;&#x27;</span> awkdemo</span><br><span class="line">2</span><br><span class="line">4</span><br><span class="line">3</span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;&#123;print $(NF-1)&#125;&#x27;</span> awkdemo  <span class="comment">#显示倒数第2列</span></span><br><span class="line">hello</span><br><span class="line">lalala</span><br><span class="line">love</span><br><span class="line">[root@along ~]# awk <span class="string">&#x27;&#123;print NR&#125;&#x27;</span> awkdemo awkdemo1</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">[root@along ~]# awk END<span class="string">&#x27;&#123;print NR&#125;&#x27;</span> awkdemo awkdemo1</span><br><span class="line">5</span><br><span class="line">[root@along ~]# awk <span class="string">&#x27;&#123;print FNR&#125;&#x27;</span> awkdemo awkdemo1</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">[root@along ~]# awk <span class="string">&#x27;&#123;print FILENAME&#125;&#x27;</span> awkdemo</span><br><span class="line">awkdemo</span><br><span class="line">awkdemo</span><br><span class="line">awkdemo</span><br><span class="line">[root@along ~]# awk <span class="string">&#x27;BEGIN &#123;print ARGC&#125;&#x27;</span> awkdemo awkdemo1</span><br><span class="line">3</span><br><span class="line">[root@along ~]# awk <span class="string">&#x27;BEGIN &#123;print ARGV[0]&#125;&#x27;</span> awkdemo awkdemo1</span><br><span class="line">awk</span><br><span class="line">[root@along ~]# awk <span class="string">&#x27;BEGIN &#123;print ARGV[1]&#125;&#x27;</span> awkdemo awkdemo1</span><br><span class="line">awkdemo</span><br><span class="line">[root@along ~]# awk <span class="string">&#x27;BEGIN &#123;print ARGV[2]&#125;&#x27;</span> awkdemo awkdemo1</span><br><span class="line">awkdemo1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 先定义变量，后执行动作print</span></span><br><span class="line">[root@along ~]# awk -v name=<span class="string">&quot;along&quot;</span> -F: <span class="string">&#x27;&#123;print name&quot;:&quot;$0&#125;&#x27;</span> awkdemo</span><br><span class="line">along:hello:world</span><br><span class="line">along:linux:redhat:lalala:hahaha</span><br><span class="line">along:along:love:you</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在执行动作print后定义变量</span></span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;&#123;print name&quot;:&quot;$0;name=&quot;along&quot;&#125;&#x27;</span> awkdemo</span><br><span class="line">:hello:world</span><br><span class="line">along:linux:redhat:lalala:hahaha</span><br><span class="line">along:along:love:you</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以把执行的动作放在脚本中，直接调用脚本 -f</span></span><br><span class="line">[root@along ~]# <span class="built_in">cat</span> awk.txt</span><br><span class="line">&#123;name=<span class="string">&quot;along&quot;</span>;<span class="built_in">print</span> name,<span class="variable">$1</span>&#125;</span><br><span class="line">[root@along ~]# awk -F: -f awk.txt awkdemo</span><br><span class="line">along hello</span><br><span class="line">along linux</span><br><span class="line">along along</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="printf命令"><a href="#printf命令" class="headerlink" title="printf命令"></a>printf命令</h3><p>格式化输出命令。</p>
+<p>printf命令可以比print命令输出更多形式的内容</p>
+<blockquote>
+<p>格式：</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span> <span class="string">&quot;FORMAT&quot;</span>, item1,item2, ...</span><br></pre></td></tr></table></figure>
+
+<p>①  必须指定FORMAT</p>
+<p>②  <strong>不会自动换行，需要显式给出换行控制符，\n</strong></p>
+<p>③  FORMAT 中需要分别为后面每个item 指定格式符</p>
+<blockquote>
+<p>格式符：与item 一一对应</p>
+</blockquote>
+<ul>
+<li>%c:  显示字符的ASCII码</li>
+<li>%d, %i:  显示十进制整数</li>
+<li>%e, %E: 显示科学计数法数值</li>
+<li><strong>%f ：显示为浮点数，小数</strong>  %5.1f，带整数、小数点、整数共5位，小数1位，不够用空格补上</li>
+<li>%g, %G ：以科学计数法或浮点形式显示数值</li>
+<li><strong>%s ：显示字符串</strong>；例：%5s最少5个字符，不够用空格补上，超过5个还继续显示</li>
+<li><strong>%u ：无符号整数</strong></li>
+<li>%%:  显示% 自身</li>
+</ul>
+<blockquote>
+<p>修饰符：放在%与格式符之间</p>
+</blockquote>
+<ul>
+<li>#.#	：第一个数字控制显示的宽度；第二个# 表示小数点后精度，%5.1f</li>
+<li>-       ：左对齐（<strong>默认右对齐</strong>） %-15s</li>
+<li>+      ：显示数值的正负符号 %+d</li>
+</ul>
+<h4 id="printf命令演示"><a href="#printf命令演示" class="headerlink" title="printf命令演示"></a>printf命令演示</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;&#123;print $1,$3&#125;&#x27;</span> /etc/passwd</span><br><span class="line">root 0</span><br><span class="line">bin 1</span><br><span class="line">---第一列显示小于20的字符串；第2列显示整数并换行</span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;&#123;printf &quot;%20s---%u\n&quot;,$1,$3&#125;&#x27;</span> /etc/passwd</span><br><span class="line">                root---0</span><br><span class="line">                 bin---1</span><br><span class="line">---使用-进行左对齐；第2列显示浮点数</span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;&#123;printf &quot;%-20s---%-10.3f\n&quot;,$1,$3&#125;&#x27;</span> /etc/passwd</span><br><span class="line">root                ---0.000    </span><br><span class="line">bin                 ---1.000</span><br><span class="line">---使用<span class="built_in">printf</span>做表格</span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;BEGIN&#123;printf &quot;username            userid\n-----------------------------\n&quot;&#125;&#123;printf &quot;%-20s|%-10.3f\n&quot;,$1,$3&#125;&#x27;</span> /etc/passwd</span><br><span class="line">username            userid</span><br><span class="line">-----------------------------</span><br><span class="line">root                |0.000    </span><br><span class="line">bin                 |1.000</span><br></pre></td></tr></table></figure>
+
+<h3 id="awk操作符"><a href="#awk操作符" class="headerlink" title="awk操作符"></a>awk操作符</h3><blockquote>
+<p>算术操作符：</p>
+</blockquote>
+<ul>
+<li>x+y, x-y, x*y, x&#x2F;y, x^y, x%y</li>
+<li>-x:  转换为负数</li>
+<li>+x:  转换为数值</li>
+</ul>
+<blockquote>
+<p>赋值操作符：</p>
+</blockquote>
+<ul>
+<li>&#x3D;, +&#x3D;, -&#x3D;, *&#x3D;, &#x2F;&#x3D;, %&#x3D;, ^&#x3D;</li>
+<li>++, –</li>
+</ul>
+<blockquote>
+<p>比较操作符：</p>
+</blockquote>
+<ul>
+<li>&#x3D;&#x3D;, !&#x3D;, &gt;, &gt;&#x3D;, &lt;, &lt;&#x3D;</li>
+</ul>
+<blockquote>
+<p>模式匹配符：~ </p>
+</blockquote>
+<p>操作符~是用于执行模式匹配的操作符。它用于检查一个字符串是否与指定的模式匹配。</p>
+<p>语法格式如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">string ~ pattern</span><br></pre></td></tr></table></figure>
+
+<p>其中，string表示要进行匹配的字符串，pattern表示要匹配的模式。<strong>pattern即匹配模式，在下一部分详细介绍</strong></p>
+<p>操作符~返回一个布尔值，如果字符串string符合模式pattern，则返回真（true），否则返回假（false）。</p>
+<p>例如，以下是一个使用~操作符进行匹配的示例 awk程序：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;$0 ~ /apple/ &#123; print &quot;Found apple!&quot; &#125;&#x27;</span>Copy</span><br></pre></td></tr></table></figure>
+
+<p>上述awk程序将遍历输入的每一行，如果某一行包含字符串”apple”，则输出”Found apple!”。</p>
+<p>请注意，~操作符是区分大小写的，如果要进行不区分大小写的模式匹配，可以使用操作符~~（两个波浪线）来执行不区分大小写的匹配。</p>
+<blockquote>
+<p>逻辑操作符</p>
+</blockquote>
+<p>与&amp;&amp; ，或|| ，非!</p>
+<blockquote>
+<p>函数调用</p>
+</blockquote>
+<p> function_name(argu1, argu2, …)</p>
+<blockquote>
+<p>条件表达式（三目表达式）</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注释：先判断selector，如果符合执行 ? 后的操作；否则执行 : 后的操作</span></span><br><span class="line">selector?if-true-expression:if-false-expression</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="awk操作符演示"><a href="#awk操作符演示" class="headerlink" title="awk操作符演示"></a>awk操作符演示</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模式匹配符</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询以/dev开头的磁盘信息</span></span><br><span class="line">[root@along ~]# <span class="built_in">df</span> -h |awk -F: <span class="string">&#x27;$0 ~ /^\/dev/&#x27;</span></span><br><span class="line">/dev/mapper/cl-root   17G  7.3G  9.7G  43% /</span><br><span class="line">/dev/sda1           1014M  121M  894M  12% /boot</span><br><span class="line"><span class="comment"># 只显示磁盘使用状况和磁盘名</span></span><br><span class="line">[root@along ~]# <span class="built_in">df</span> -h |awk <span class="string">&#x27;$0 ~ /^\/dev/&#123;print $(NF-1)&quot;---&quot;$1&#125;&#x27;</span></span><br><span class="line">43%---/dev/mapper/cl-root</span><br><span class="line">12%---/dev/sda1</span><br><span class="line"><span class="comment"># 查找磁盘大于40%的</span></span><br><span class="line">[root@along ~]# <span class="built_in">df</span> -h |awk <span class="string">&#x27;$0 ~ /^\/dev/&#123;print $(NF-1)&quot;---&quot;$1&#125;&#x27;</span> |awk -F% <span class="string">&#x27;$1 &gt; 40&#x27;</span></span><br><span class="line">43%---/dev/mapper/cl-root</span><br><span class="line">　　</span><br><span class="line"></span><br><span class="line"><span class="comment"># 逻辑操作符</span></span><br><span class="line"></span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;$3&gt;=0 &amp;&amp; $3&lt;=1000 &#123;print $1,$3&#125;&#x27;</span> /etc/passwd</span><br><span class="line">root 0</span><br><span class="line">bin 1</span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;$3==0 || $3&gt;=1000 &#123;print $1&#125;&#x27;</span> /etc/passwd</span><br><span class="line">root</span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;!($3==0) &#123;print $1&#125;&#x27;</span> /etc/passwd</span><br><span class="line">bin</span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;!($0 ~ /bash$/) &#123;print $1,$3&#125;&#x27;</span> /etc/passwd</span><br><span class="line">bin 1</span><br><span class="line">daemon 2</span><br><span class="line">　　</span><br><span class="line"></span><br><span class="line"><span class="comment"># 条件表达式（三目表达式）</span></span><br><span class="line"></span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;&#123;$3 &gt;= 1000?usertype=&quot;common user&quot;:usertype=&quot;sysadmin user&quot;;print usertype,$1,$3&#125;&#x27;</span> /etc/passwd</span><br><span class="line">sysadmin user root 0</span><br><span class="line">common user along 1000</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="awk匹配模式"><a href="#awk匹配模式" class="headerlink" title="awk匹配模式"></a>awk匹配模式</h3><p>PATTERN：根据pattern 条件，过滤匹配的行，再做处理</p>
+<blockquote>
+<p>未指定</p>
+</blockquote>
+<p>​		空模式，匹配每一行</p>
+<blockquote>
+<p>&#x2F;regular expression&#x2F; </p>
+</blockquote>
+<p>​		<strong>正则表达式</strong>，仅处理能够模式匹配到的行，<strong>需要用&#x2F; &#x2F; 括起来</strong></p>
+<blockquote>
+<p>relational expression</p>
+</blockquote>
+<p>​		<strong>关系表达式，结果为“真”才会被处理</strong></p>
+<p>​				真：结果为非0值，非空字符串</p>
+<p>​				假：结果为空字符串或0值</p>
+<blockquote>
+<p>line ranges</p>
+</blockquote>
+<p>​		<strong>行范围</strong></p>
+<p>​			startline(起始行),endline(结束行)：&#x2F;pat1&#x2F;,&#x2F;pat2&#x2F;  不支持直接给出数字，可以有多段，中间可以有间隔</p>
+<blockquote>
+<p>BEGIN&#x2F;END 模式</p>
+</blockquote>
+<p>　　BEGIN{}:  仅在开始处理文件中的文本之前执行一次</p>
+<p>　　END{} ：仅在文本处理完成之后执行</p>
+<h4 id="匹配模式演示"><a href="#匹配模式演示" class="headerlink" title="匹配模式演示"></a>匹配模式演示</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> awkdemo</span><br><span class="line">hello</span><br><span class="line">linux</span><br><span class="line">along</span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;/along/&#123;print $1&#125;&#x27;</span> awkdemo</span><br><span class="line">along</span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;1&#123;print $1&#125;&#x27;</span> awkdemo</span><br><span class="line">hello</span><br><span class="line">linux</span><br><span class="line">along</span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;0&#123;print $1&#125;&#x27;</span> awkdemo</span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;/^h/,/^a/&#123;print $1&#125;&#x27;</span> awkdemo</span><br><span class="line">hello</span><br><span class="line">linux</span><br><span class="line">along</span><br><span class="line">[root@along ~]# awk -F: <span class="string">&#x27;BEGIN&#123;print &quot;第一列&quot;&#125;&#123;print $1&#125; END&#123;print &quot;结束&quot;&#125;&#x27;</span> awkdemo</span><br><span class="line">第一列</span><br><span class="line">hello</span><br><span class="line">linux</span><br><span class="line">along</span><br><span class="line">结束</span><br></pre></td></tr></table></figure>
+
+<h2 id="grep-awk-sed对比"><a href="#grep-awk-sed对比" class="headerlink" title="grep awk sed对比"></a>grep awk sed对比</h2><p>grep 主要用于搜索某些字符串；sed，awk 用于处理文本 ；</p>
+<p>　　<strong>grep基本是以行为单位处理文本的，grep可以理解为主要作用是根据正则表达式过滤内容</strong>。</p>
+<p>​	　<strong>sed是一个非交互性文本流编辑器，每次读入一行来处理的，sed 适合简单的文本替换和搜索</strong></p>
+<p>​		<strong>awk是一个文本处理工具，以字段为单位，把一个有规律的文件处理成想要的格式。</strong></p>
+<p>　　awk提供了极其强大的功能：<strong>它几乎可以完成grep和sed所能完成的全部工作</strong>，同时，它还可以可以进行样式装入、流控制、数学运算符、进程控制语句甚至于内置的变量和函数。实际上，awk的确拥有自己的语言：awk程序设计语言，awk的三位创建者已将它正式定义为：样式扫描和处理语言。基于以上理由，再加上awk强大的功能，如果要处理与文本样式扫描相关的工作，awk应该是第一选择。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><p>sort 是Linux中的排序工具，它完美贯彻了 Unix 哲学：”只做一件事，并做到完美”。它的排序功能极强、极完整，只要文件中的数据足够规则，它几乎可以排出所有想要的排序结果，是一个非常优质的工具。</p>
+<p>虽然 sort 很强大，但它的选项很少，使用方法也很简单。</p>
+<h4 id="sort语法"><a href="#sort语法" class="headerlink" title="sort语法"></a>sort语法</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sort</span> [-Options]... [File]</span><br></pre></td></tr></table></figure>
+
+<h4 id="sort选项"><a href="#sort选项" class="headerlink" title="sort选项"></a>sort选项</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-b：	忽略字段的前导空白字符。空格数量不固定时，该选项几乎是必须要使用的。&quot;-n&quot;选项隐含该选项。</span><br><span class="line">-n：按数值排序。空字符串&quot;&quot;或&quot;\0&quot;被当作空。该选项除了能识别负号&quot;-&quot;，其他所有非数字字符都不识别。</span><br><span class="line">-f：忽略字母大小写。其实是将所有小写字母当成大写字母。比如将&quot;b&quot;看作&quot;B&quot;。</span><br><span class="line">-u：去除重复行。结合&quot;-f&quot;使用时，重复的小写行将被丢弃。该选项隐含 &quot;-s&quot; 选项。</span><br><span class="line">-r：将结果倒序。默认是升序排序，使用该选项将得到降序排序的结果。注意，虽然 &quot;r&quot; 选项是降序结果，但它不影响排序过程，只影响最终排序结果。也就是		说，在按照升序排序结束得到最终结果后，再反转第 2 列顺序，也就是得到了降序的结果。同样也说明，sort 在排序的时候，一定且只能按照升序排序，只	 有排序动作结束了 &quot;r&quot; 选项才开始工作。</span><br><span class="line">-t：指定字段分隔符。</span><br><span class="line">-k：指定要排序的key，key由字段组成。key格式为&quot;POS1[,POS2]&quot;，POS1为key起始位置，POS2为key结束位置。</span><br><span class="line">-o：将结果输出到指定文件中。</span><br><span class="line">-c：检测给定的文件是否已经已经排序。如已排序，状态码为0；未排序，状态码为1，会输出诊断信息，提示从哪一行开始乱序。</span><br><span class="line">-C：类似于&quot;-c&quot;，只不过不输出任何诊断信息。可以通过退出状态码1判断出文件未排序。</span><br><span class="line">-s：禁止sort做&quot;最后的排序&quot;。禁止 &quot;最后的排序&quot; 后，对那些排序 key 相同的行，将保留被读取时相对顺序。</span><br><span class="line">-h：按照文件容量大小规则排序。</span><br></pre></td></tr></table></figure>
+
+<h4 id="sort演示"><a href="#sort演示" class="headerlink" title="sort演示"></a>sort演示</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxidc tmp]# <span class="built_in">cat</span> system.txt			<span class="comment"># 空白部分为单个制表符</span></span><br><span class="line">1       mac     2000    500</span><br><span class="line">2       winxp   4000    300</span><br><span class="line">3       bsd     1000    600</span><br><span class="line">4       linux   1000    200</span><br><span class="line">5       SUSE    4000    300</span><br><span class="line">6       Debian  600     200</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不加任何选项时，将对整行从第一个字符开始依次向后直到行尾按照默认的字符集排序规则做升序排序。</span></span><br><span class="line">[root@linuxidc tmp]# <span class="built_in">sort</span> system.txt</span><br><span class="line">1       mac     2000    500</span><br><span class="line">2       winxp   4000    300</span><br><span class="line">3       bsd     1000    600</span><br><span class="line">4       linux   1000    200</span><br><span class="line">5       SUSE    4000    300</span><br><span class="line">6       Debian  600     200</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以第三列为排序列进行排序。由于要划分字段，所以指定字段分隔符。指定制表符这种无法直接输入的特殊字符的方式是 $&#x27;\t&#x27;。</span></span><br><span class="line">[root@linuxidc tmp]# <span class="built_in">sort</span> -t $<span class="string">&#x27;\t&#x27;</span> -k3 system.txt  </span><br><span class="line">4       linux   1000    200</span><br><span class="line">3       bsd     1000    600</span><br><span class="line">1       mac     2000    500</span><br><span class="line">2       winxp   4000    300</span><br><span class="line">5       SUSE    4000    300</span><br><span class="line">6       Debian  600     200</span><br><span class="line"></span><br><span class="line"><span class="comment"># 上个排序按照默认字符集进行排序，虽然 1000&lt;2000&lt;4000 的顺序是对了，但 600 却排在最后面，下面对第三列按数值排序规则进行排序。</span></span><br><span class="line">[root@linuxidc tmp]# <span class="built_in">sort</span> -t $<span class="string">&#x27;\t&#x27;</span> -k3 -n system.txt</span><br><span class="line">6       Debian  600     200</span><br><span class="line">3       bsd     1000    600</span><br><span class="line">4       linux   1000    200</span><br><span class="line">1       mac     2000    500</span><br><span class="line">2       winxp   4000    300</span><br><span class="line">5       SUSE    4000    300</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在对第3列按数值排序规则排序的基础上，仍有第三列重复的行，使用第四列作为决胜属性，且是以数值排序规则对第四列排序。</span></span><br><span class="line">[root@linuxidc tmp]# <span class="built_in">sort</span> -t $<span class="string">&#x27;\t&#x27;</span> -k3 -k4 -n system.txt</span><br><span class="line">6       Debian  600     200</span><br><span class="line">4       linux   1000    200</span><br><span class="line">3       bsd     1000    600</span><br><span class="line">1       mac     2000    500</span><br><span class="line">2       winxp   4000    300</span><br><span class="line">5       SUSE    4000    300</span><br><span class="line"><span class="comment"># 默认情况下，在命令行中指定的排序行为结束后，sort还会做最后一次排序，这最后一次排序是对整行按照完全默认规则进行排序的，也就是按字符集升序排序。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在第3列按数值排序后，以第2列非数值字段作为决胜列，并且第二段按照降序排序。</span></span><br><span class="line">[root@linuxidc tmp]# <span class="built_in">sort</span> -t $<span class="string">&#x27;\t&#x27;</span> -k3n -k2r system.txt</span><br><span class="line">6       Debian  600     200</span><br><span class="line">4       linux   1000    200</span><br><span class="line">3       bsd     1000    600</span><br><span class="line">1       mac     2000    500</span><br><span class="line">2       winxp   4000    300</span><br><span class="line">5       SUSE    4000    300</span><br><span class="line"><span class="comment"># 由于既要对第 3 列按数值升序排序，又要对第 2 列按默认规则降序排序，因此只能对每个字段单独分配选项。</span></span><br><span class="line"><span class="comment"># 紧跟在字段后的选项 (如 &quot;-k3n&quot; 的 &quot;n&quot; 和 &quot;-k2r&quot; 的 &quot;r&quot;) 称为私有选项，使用短横线写在字段外的选项 (如 &quot;-n&quot;、&quot;-r&quot;) 为全局选项。当没有为字段分配私有选项时，该排序字段将继承全局选项。当然，只有像 &quot;-n&quot;、&quot;-r&quot; 这样的排序性的选项才能继承和分配给字段，&quot;-t&quot; 这样的选项则无法分配。</span></span><br><span class="line"><span class="comment"># 因此，&quot;-n -k3 -k4&quot;、&quot;-n -k3n -k4&quot; 和 &quot;-k3n -k4n&quot; 是等价的，&quot;-r -k3n -k4&quot; 和 &quot;-k3nr -k4r&quot; 是等价的。</span></span><br><span class="line"><span class="comment"># 实际上，上面的命令写法并不严谨。更标准的写法应该如下：</span></span><br><span class="line">	<span class="built_in">sort</span> -t $<span class="string">&#x27;\t&#x27;</span> -k3n -k2,2r system.txt</span><br><span class="line"><span class="comment"># &quot;-k2,2&quot; 表示排序对象从第 2 个字段开始到第 2 个字段结束，也就是限定了只对第二个字段排序。它的格式为 &quot;POS1,POS2&quot;，如果省略 POS2，将自动扩展到行尾，即 &quot;-k2&quot; 等价于 &quot;-k2,4&quot;，也就是说，对整个第 2 列到第 4 列进行排序。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在对第 3 列按数值排序规则排序的基础上，使用第 2 列的第 2 个字符作为决胜属性，且以默认排序规则对此列升序排序。</span></span><br><span class="line">[root@linuxidc tmp]# <span class="built_in">sort</span> -t $<span class="string">&#x27;\t&#x27;</span> -k3n -k2.2,2.2 system.txt</span><br><span class="line">6       Debian  600     200</span><br><span class="line">4       linux   1000    200</span><br><span class="line">3       bsd     1000    600</span><br><span class="line">1       mac     2000    500</span><br><span class="line">2       winxp   4000    300</span><br><span class="line">5       SUSE    4000    300</span><br><span class="line"><span class="comment"># 其中 &quot;-k2.2,2.2&quot; 表示从第 2 个字段的第 2 个字符开始，到第 2 个字段的第 2 个字符结束，即严格限定为第 2 个字段第 2 个字符。如果需要对此字符降序排序，则 &quot;-k2.2,2.2r&quot;。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 &quot;-u&quot; 去除重复字段所在的行。例如第 3 列有两行 1000，两行 4000，去除字段重复的行时，将只保留排在前面的第一行。</span></span><br><span class="line">[root@linuxidc tmp]# <span class="built_in">sort</span> -t $<span class="string">&#x27;\t&#x27;</span> -k3n -u system.txt</span><br><span class="line">6       Debian  600     200</span><br><span class="line">3       bsd     1000    600</span><br><span class="line">1       mac     2000    500</span><br><span class="line">2       winxp   4000    300</span><br><span class="line"><span class="comment"># 由于需要去除重复字段的行，因此使用 &quot;-u&quot; 时将禁止 sort 做 &quot;最后一次排序&quot;。至于字段重复的行中，如何判断哪一行是排在最前面的行，需要搞懂 sort 的整个工作机制。</span></span><br><span class="line"><span class="comment"># &quot;sort -u&quot; 和 &quot;sort | uniq&quot; 是等价的，但是如果多指定几个选项，它们将不等价。例如，&quot;sort -n -u&quot; 只会检查排序字段数值部分的唯一性，但 &quot;sort -n | uniq&quot; 在 sort 对行中字段按数值排序后，uniq 将检查整个行的唯一性。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将排序结果保存到文件中。即可以使用重定向，也可以使用 &quot;-o&quot; 选项，但使用重定向不可保存到原文件，因为在 sort 开始执行前，原文件先被重定向截断。而使用 &quot;-o&quot; 则没有这样的问题，因为 sort 在打开文件前先完成数据的读取。但 &quot;-o&quot; 和 &quot;-m&quot; 一起使用时，同样不安全。</span></span><br><span class="line">[root@linuxidc tmp]# <span class="built_in">sort</span> -t $<span class="string">&#x27;\t&#x27;</span> -k3n -o system1.txt system.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 &quot;-c&quot; 或 &quot;-C&quot; 检测文件是否排过序</span></span><br><span class="line">[root@linuxidc tmp]# <span class="built_in">sort</span> -c -k3n system.txt ;<span class="built_in">echo</span> $?</span><br><span class="line"><span class="built_in">sort</span>: system.txt:3: disorder: 3 bsd     1000    600		<span class="comment"># 说明 system.txt 中的第 3 行开始出现乱序，且退出状态码为 1。</span></span><br><span class="line">1</span><br><span class="line">[root@linuxidc tmp]# <span class="built_in">sort</span> -C -k3n system.txt ;<span class="built_in">echo</span> $?</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h3><p><strong>cut</strong> 命令在Linux和Unix中的作用是从文件中的每一行中截取出一些部分，并输出到标准输出中。我们可以使用 <strong>cut</strong> 命令从一行字符串中于以字节，字符，字段（分隔符）等单位截取一部分内容出来。</p>
+<h4 id="cut语法"><a href="#cut语法" class="headerlink" title="cut语法"></a>cut语法</h4> <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cut</span> [-Options]... [File]</span><br></pre></td></tr></table></figure>
+
+<h4 id="cut选项"><a href="#cut选项" class="headerlink" title="cut选项"></a>cut选项</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-c : 提取指定的字符，可以是以逗号分隔的数字的列表，也可以是以连字符分隔的数字的范围。char</span><br><span class="line"></span><br><span class="line">-f : 提取指定的字段，<span class="built_in">cut</span> 命令使用 Tab 作为默认的分隔符。搭配 -d 指定字段分隔符</span><br><span class="line"></span><br><span class="line">-b : 提取指定的字节，也可以指定一个范围。搭配 -n 不要分割多字节字符。</span><br><span class="line"></span><br><span class="line">–complement : 不输出选中的部分，即反选。</span><br><span class="line"></span><br><span class="line">–output-delimiter : 指定输出时使用的分隔符。</span><br><span class="line"></span><br><span class="line">--only-delimited : 不输出不包含分隔符的列</span><br></pre></td></tr></table></figure>
+
+<h4 id="cut演示"><a href="#cut演示" class="headerlink" title="cut演示"></a>cut演示</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 演示文本内容</span></span><br><span class="line">$ <span class="built_in">cat</span> content.txt </span><br><span class="line">Ubuntu Linux</span><br><span class="line">Microsoft Windows</span><br><span class="line">OsX El Capitan</span><br><span class="line">Unix</span><br><span class="line">FreeBSD</span><br><span class="line"></span><br><span class="line"><span class="comment"># 按照字段输出并且指定分隔符为空格</span></span><br><span class="line">$ <span class="built_in">cut</span> -d <span class="string">&quot; &quot;</span> -f 1 content.txt </span><br><span class="line">Ubuntu</span><br><span class="line">Microsoft</span><br><span class="line">OsX</span><br><span class="line">Unix</span><br><span class="line">FreeBSD</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以字符的方式切割内容，输出1-7个字符，</span></span><br><span class="line">$ <span class="built_in">cut</span> -c 1-7 content.txt</span><br><span class="line">Ubuntu</span><br><span class="line">Microso</span><br><span class="line">OsX El</span><br><span class="line">Unix</span><br><span class="line">FreeBSD</span><br><span class="line"><span class="comment"># 第一个和第七个：1,7</span></span><br><span class="line"><span class="comment"># 第二个到最后一个：2-</span></span><br><span class="line"><span class="comment"># 第一个到第四个：-4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据字节选取，如果只有英文和数字等单字节字符，-b和-c的作用相同</span></span><br><span class="line"><span class="comment"># 如果内容中有中文（两个字节），搭配-b选项使用： 表示不要分割多字节字符。如果字符的最后一个字节落在由 -b 标志的 List 参数指示的范围之内，该字符将被写出；否则，该字符将被排除。</span></span><br></pre></td></tr></table></figure>
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-08-21</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Linux/'>
+                            Linux
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

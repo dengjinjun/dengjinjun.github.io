@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="条件判断" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            条件判断
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#if%E7%BB%93%E6%9E%84"><span class="post-toc-text">if结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#test%E5%88%A4%E6%96%AD"><span class="post-toc-text">test判断</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%A4%E6%96%AD"><span class="post-toc-text">文件判断</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%A4%E6%96%AD"><span class="post-toc-text">字符串判断</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B4%E6%95%B0%E5%88%A4%E6%96%AD"><span class="post-toc-text">整数判断</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%AD%A3%E5%88%99%E5%88%A4%E6%96%AD"><span class="post-toc-text">正则判断</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%80%BB%E8%BE%91%E5%88%A4%E6%96%AD"><span class="post-toc-text">逻辑判断</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%99%AE%E9%80%9A%E5%91%BD%E4%BB%A4%E5%88%A4%E6%96%AD"><span class="post-toc-text">普通命令判断</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="post-toc-text">命令执行结果</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%A4%9A%E6%9D%A1%E5%91%BD%E4%BB%A4%E7%9A%84%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97"><span class="post-toc-text">多条命令的逻辑运算</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AE%97%E6%9C%AF%E5%88%A4%E6%96%AD"><span class="post-toc-text">算术判断</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#case-%E7%BB%93%E6%9E%84"><span class="post-toc-text">case 结构</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>本章介绍 Shell 脚本的条件判断语法。</p>
+<h1 id="if结构"><a href="#if结构" class="headerlink" title="if结构"></a>if结构</h1><p><code>if</code>是最常用的条件判断结构，只有符合给定条件时，才会执行指定的命令。它的语法如下。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> commands</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  commands</span><br><span class="line"><span class="keyword">elif</span> commands</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  commands...</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  commands</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li><code>elif</code>和<code>else</code>结构并不是必须的，且<code>elif</code>结构可以有多个。</li>
+<li><code>if</code>和<code>then</code>写在同一行时，需要分号分隔。写成两行时不需要分号。</li>
+<li>除了多行的写法，<code>if</code>结构也可以写成单行：<code>if true; then echo &#39;hello world&#39;; fi</code></li>
+<li><code>if</code>关键字后面也可以是一条命令，该条命令执行成功（返回值<code>0</code>），就意味着判断条件成立。</li>
+<li><code>if</code>后面可以跟任意数量的命令。这时，所有命令都会执行，但是判断真伪只看最后一个命令的执行结果。</li>
+</ol>
+<h2 id="test判断"><a href="#test判断" class="headerlink" title="test判断"></a>test判断</h2><p><code>if</code>关键字后面，跟的是一个命令。这个命令可以是<code>test</code>命令，也可以是其他命令。命令的返回值为<code>0</code>表示判断成立，否则表示不成立。</p>
+<p>下面是<code>test</code>命令的形式。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 写法一</span></span><br><span class="line"><span class="built_in">test</span> expression</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写法二，`[ ]`与内部的表达式之间必须有空格。</span></span><br><span class="line">[ expression ]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写法三，支持正则判断，`[ ]`与内部的表达式之间必须有空格。</span></span><br><span class="line">[[ expression ]]</span><br></pre></td></tr></table></figure>
+
+<p><code>expression</code>是一个表达式。这个表达式为真，<code>test</code>命令执行成功（返回值为<code>0</code>）；表达式为伪，<code>test</code>命令执行失败（返回值为<code>1</code>）。</p>
+<p><code>test</code>命令中常用的判断表达式有下面这些</p>
+<h3 id="文件判断"><a href="#文件判断" class="headerlink" title="文件判断"></a>文件判断</h3><p>以下常用表达式用来判断文件状态。</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[ -e file ]</code></td>
+<td>exist 检测文件（包括目录）是否存在，如果是，则返回 true。</td>
+</tr>
+<tr>
+<td><code>[ -d file ]</code></td>
+<td>检测文件是否是目录，如果是，则返回 true。</td>
+</tr>
+<tr>
+<td><code>[ -f file ]</code></td>
+<td>检测文件是否是普通文件（既不是目录，也不是设备文件），如果是，则返回 true。</td>
+</tr>
+<tr>
+<td><code>[ -r file ]</code></td>
+<td>检测文件是否可读，如果是，则返回 true。</td>
+</tr>
+<tr>
+<td><code>[ -w file ]</code></td>
+<td>检测文件是否可写，如果是，则返回 true。</td>
+</tr>
+<tr>
+<td><code>[ -x file ]</code></td>
+<td>检测文件是否可执行，如果是，则返回 true。</td>
+</tr>
+<tr>
+<td><code>[ -s file ]</code></td>
+<td>space 检测文件是否为空（文件大小是否大于0），不为空返回 true。</td>
+</tr>
+</tbody></table>
+<p>注意：如果表达式中的<code>file</code>用变量<code>$FILE</code>来代替，那么表达式中的<code>$FILE</code>要放在双引号之中，这样可以防止变量<code>$FILE</code>为空，从而出错。因为<code>$FILE</code>如果为空，这时<code>[ -e $FILE ]</code>就变成<code>[ -e ]</code>，这会被判断为真。而<code>$FILE</code>放在双引号之中，<code>[ -e &quot;$FILE&quot; ]</code>就变成<code>[ -e &quot;&quot; ]</code>，这会被判断为伪。</p>
+<h3 id="字符串判断"><a href="#字符串判断" class="headerlink" title="字符串判断"></a>字符串判断</h3><p>以下表达式用来判断字符串。</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[ -n string ]</code></td>
+<td>如果字符串<code>string</code>的长度大于零，则判断为真</td>
+</tr>
+<tr>
+<td><code>[ -z string ]</code></td>
+<td>如果字符串<code>string</code>的长度为零，则判断为真</td>
+</tr>
+<tr>
+<td><code>[ string1 = string2 ]</code></td>
+<td>如果<code>string1</code>和<code>string2</code>相同，则判断为真</td>
+</tr>
+<tr>
+<td><code>[ string1 == string2 ]</code></td>
+<td>等同于<code>[ string1 = string2 ]</code></td>
+</tr>
+<tr>
+<td><code>[ string1 != string2 ]</code></td>
+<td>如果<code>string1</code>和<code>string2</code>不相同，则判断为真</td>
+</tr>
+<tr>
+<td><code>[ string1 &#39;&gt;&#39; string2 ]</code></td>
+<td>如果按照字典顺序<code>string1</code>排列在<code>string2</code>之后，则判断为真</td>
+</tr>
+<tr>
+<td><code>[ string1 &#39;&lt;&#39; string2 ]</code></td>
+<td>如果按照字典顺序<code>string1</code>排列在<code>string2</code>之前，则判断为真</td>
+</tr>
+</tbody></table>
+<p>注意，<code>test</code>命令内部的<code>&gt;</code>和<code>&lt;</code>，必须用引号引起来（或者是用反斜杠转义）。否则，它们会被 shell 解释为重定向操作符。</p>
+<h3 id="整数判断"><a href="#整数判断" class="headerlink" title="整数判断"></a>整数判断</h3><p>下面的表达式用于判断整数。</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[ integer1 -eq integer2 ]</code></td>
+<td><code>equal</code> 如果两个数相等，则返回<code> true</code>。</td>
+</tr>
+<tr>
+<td><code>[ integer1 -ne integer2 ]</code></td>
+<td><code>not equal</code> 如果两个数不相等，则返回<code>true</code>。</td>
+</tr>
+<tr>
+<td><code>[ integer1 -gt integer2 ]</code></td>
+<td><code>greater than</code> 如果前者大于后者，则返回<code>true</code>。</td>
+</tr>
+<tr>
+<td><code>[ integer1 -ge integer2 ]</code></td>
+<td><code>greater than or equal to</code> 如果前者大于等于后者，则返回<code>true</code></td>
+</tr>
+<tr>
+<td><code>[ integer1 -lt integer2 ]</code></td>
+<td><code>less than</code> 如果前者小于后者，则返回<code>true</code></td>
+</tr>
+<tr>
+<td><code>[ integer1 -le integer2 ]</code></td>
+<td><code>less than or equal to</code> 如果前者小于等于后者，则返回<code>true</code></td>
+</tr>
+</tbody></table>
+<h3 id="正则判断"><a href="#正则判断" class="headerlink" title="正则判断"></a>正则判断</h3><p><code>[[ expression ]]</code>这种判断形式，支持正则表达式。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[ string1 =~ regex ]]</span><br></pre></td></tr></table></figure>
+
+<p>上面的语法中，<code>regex</code>是一个正则表示式，<code>=~</code>是正则比较运算符。</p>
+<p>下面是一个例子。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">INT=-5</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">&quot;<span class="variable">$INT</span>&quot;</span> =~ ^-?[0-9]+$ ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;INT is an integer.&quot;</span></span><br><span class="line">  <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;INT is not an integer.&quot;</span> &gt;&amp;2</span><br><span class="line">  <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，先判断变量<code>INT</code>的字符串形式，是否满足<code>^-?[0-9]+$</code>的正则模式，如果满足就表明它是一个整数。</p>
+<h3 id="逻辑判断"><a href="#逻辑判断" class="headerlink" title="逻辑判断"></a>逻辑判断</h3><p>通过逻辑判断，可以把多个<code>test</code>判断表达式结合起来，创造更复杂的判断。三种逻辑运算<code>AND</code>，<code>OR</code>，和<code>NOT</code>，都有自己的专用符号。</p>
+<ul>
+<li><code>AND</code>运算：符号<code>&amp;&amp;</code>，也可使用参数<code>-a</code>。比如：<code>if [[ $INT -ge $MIN_VAL &amp;&amp; $INT -le $MAX_VAL ]]</code></li>
+<li><code>OR</code>运算：符号<code>||</code>，也可使用参数<code>-o</code>。</li>
+<li><code>NOT</code>运算：符号<code>!</code>。</li>
+</ul>
+<p>注意：使用否定操作符<code>!</code>时，最好用圆括号确定否定的范围。并且<code>test</code>命令内部使用的圆括号，必须使用引号或者转义，否则会被 Bash 解释。</p>
+<h2 id="普通命令判断"><a href="#普通命令判断" class="headerlink" title="普通命令判断"></a>普通命令判断</h2><h3 id="命令执行结果"><a href="#命令执行结果" class="headerlink" title="命令执行结果"></a>命令执行结果</h3><p>命令执行结束后，会有一个返回值。<code>0</code>表示执行成功，非<code>0</code>（通常是<code>1</code>）表示执行失败。环境变量<code>$?</code>可以读取前一个命令的返回值。</p>
+<p>利用这一点，可以在脚本中对命令执行结果进行判断。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">cd</span> /path/to/somewhere; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">rm</span> *</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;Could not change directory! Aborting.&quot;</span> 1&gt;&amp;2</span><br><span class="line">  <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，对命令的执行结果进行判断，虽然返回值是<code>0</code>，认为满足条件，这与对整数<code>0</code>进行判断不同。</p>
+<h3 id="多条命令的逻辑运算"><a href="#多条命令的逻辑运算" class="headerlink" title="多条命令的逻辑运算"></a>多条命令的逻辑运算</h3><p>如果<code>if</code>结构使用的不是<code>test</code>命令，而是普通命令，比如上一节的<code>((...))</code>算术运算，或者<code>test</code>命令与普通命令混用，那么可以使用 Bash 的命令控制操作符<code>&amp;&amp;</code>（AND）和<code>||</code>（OR），进行多个命令的逻辑运算。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ command1 &amp;&amp; command2		<span class="comment"># 先执行command1，只有command1执行成功后， 才会执行command2</span></span><br><span class="line">$ command1 || command2		<span class="comment"># 先执行command1，只有command1执行失败后， 才会执行command2</span></span><br></pre></td></tr></table></figure>
+
+<p>下面是一些普通命令使用逻辑运算的例子</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个名为temp的目录，执行成功后，才会执行第二个命令，进入这个目录</span></span><br><span class="line">$ <span class="built_in">mkdir</span> temp &amp;&amp; <span class="built_in">cd</span> temp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试目录temp是否存在，如果不存在，就会执行第二个命令，创建这个目录。这种写法非常有助于在脚本中处理错误。</span></span><br><span class="line">$ [ -d temp ] || <span class="built_in">mkdir</span> temp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果temp子目录不存在，脚本会终止，并且返回值为`1`</span></span><br><span class="line">[ ! -d temp ] &amp;&amp; <span class="built_in">exit</span> 1</span><br></pre></td></tr></table></figure>
+
+<p>下面是<code>if</code>与<code>&amp;&amp;</code>结合使用的写法的示例</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"></span><br><span class="line">filename=<span class="variable">$1</span></span><br><span class="line">word1=<span class="variable">$2</span></span><br><span class="line">word2=<span class="variable">$3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> grep <span class="variable">$word1</span> <span class="variable">$filename</span> &amp;&amp; grep <span class="variable">$word2</span> <span class="variable">$filename</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$word1</span> and <span class="variable">$word2</span> are both in <span class="variable">$filename</span>.&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="算术判断"><a href="#算术判断" class="headerlink" title="算术判断"></a>算术判断</h3><p>Bash 还提供了<code>((...))</code>作为算术条件，进行算术运算的判断。</p>
+<p>只要是算术表达式，都能用于<code>((...))</code>语法，详见《Bash 的算术运算》一章。</p>
+<p>注意:</p>
+<ol>
+<li>算术判断不需要使用<code>test</code>命令，而是直接使用<code>((...))</code>结构。这个结构的返回值，决定了判断的真伪。</li>
+<li>如果算术计算的结果是非零值，则表示判断成立。这一点跟命令的返回值正好相反，需要小心。</li>
+<li>算术条件<code>((...))</code>也可以用于变量赋值。<code>(( foo = 5 ))</code>返回5判断为真，<code>(( foo = 0 ))</code>返回0判断为假。</li>
+</ol>
+<h1 id="case-结构"><a href="#case-结构" class="headerlink" title="case 结构"></a>case 结构</h1><blockquote>
+<p><strong>用法</strong></p>
+</blockquote>
+<p><code>case</code>结构用于多值判断，可以为每个值指定对应的命令，跟包含多个<code>elif</code>的<code>if</code>结构等价，但是语义更好。<code>case</code>结构如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> expression <span class="keyword">in</span></span><br><span class="line">  pattern )</span><br><span class="line">    commands ;;</span><br><span class="line">  pattern )</span><br><span class="line">    commands ;;</span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，<code>expression</code>是一个表达式，<code>pattern</code>是表达式的值或者一个模式，后面跟半个圆括号<code>)</code>，可以有多条，每条以两个分号（<code>;;</code>）结尾。<code>esac</code>表示退出<code>case</code>结构。下面是一个简单的例子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">OS=$(<span class="built_in">uname</span> -s)</span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$OS</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">  FreeBSD) <span class="built_in">echo</span> <span class="string">&quot;This is FreeBSD&quot;</span> ;;</span><br><span class="line">  Darwin) <span class="built_in">echo</span> <span class="string">&quot;This is Mac OSX&quot;</span> ;;</span><br><span class="line">  AIX) <span class="built_in">echo</span> <span class="string">&quot;This is AIX&quot;</span> ;;</span><br><span class="line">  Minix) <span class="built_in">echo</span> <span class="string">&quot;This is Minix&quot;</span> ;;</span><br><span class="line">  Linux) <span class="built_in">echo</span> <span class="string">&quot;This is Linux&quot;</span> ;;</span><br><span class="line">  <span class="comment"># 最后一条匹配语句的模式是`*`，这个通配符可以匹配其他字符和没有输入字符的情况，类似`if`的`else`部分</span></span><br><span class="line">  *) <span class="built_in">echo</span> <span class="string">&quot;Failed to identify this OS&quot;</span> ;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>通配符</strong></p>
+</blockquote>
+<p><code>case</code>的匹配模式可以使用各种通配符</p>
+<ul>
+<li><code>a)</code>：匹配<code>a</code>。</li>
+<li><code>a|b)</code>：匹配<code>a</code>或<code>b</code>。</li>
+<li><code>[[:alpha:]])</code>：匹配单个字母。</li>
+<li><code>???)</code>：匹配3个字符的单词。</li>
+<li><code>*.txt)</code>：匹配<code>.txt</code>结尾。</li>
+<li><code>*)</code>：匹配任意输入，通过作为<code>case</code>结构的最后一个模式。</li>
+</ul>
+<p>比如下面的例子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -n <span class="string">&quot;输入一个字母或数字 &gt; &quot;</span></span><br><span class="line"><span class="built_in">read</span> character</span><br><span class="line"><span class="keyword">case</span> <span class="variable">$character</span> <span class="keyword">in</span></span><br><span class="line">  [[:lower:]] | [[:upper:]] ) <span class="built_in">echo</span> <span class="string">&quot;输入了字母 <span class="variable">$character</span>&quot;</span></span><br><span class="line">                              ;;</span><br><span class="line">  [0-9] )                     <span class="built_in">echo</span> <span class="string">&quot;输入了数字 <span class="variable">$character</span>&quot;</span></span><br><span class="line">                              ;;</span><br><span class="line">  * )                         <span class="built_in">echo</span> <span class="string">&quot;输入不符合要求&quot;</span></span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>匹配多条件</strong></p>
+</blockquote>
+<p>Bash 4.0之前，<code>case</code>结构匹配一个条件之后就会退出<code>case</code>结构。Bash 4.0之后，允许匹配多个条件，这时可以用<code>;;&amp;</code>终止每个条件块。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># test.sh</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">read</span> -n 1 -p <span class="string">&quot;Type a character &gt; &quot;</span></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$REPLY</span> <span class="keyword">in</span></span><br><span class="line">  [[:upper:]])    <span class="built_in">echo</span> <span class="string">&quot;&#x27;<span class="variable">$REPLY</span>&#x27; is upper case.&quot;</span> ;;&amp;</span><br><span class="line">  [[:lower:]])    <span class="built_in">echo</span> <span class="string">&quot;&#x27;<span class="variable">$REPLY</span>&#x27; is lower case.&quot;</span> ;;&amp;</span><br><span class="line">  [[:alpha:]])    <span class="built_in">echo</span> <span class="string">&quot;&#x27;<span class="variable">$REPLY</span>&#x27; is alphabetic.&quot;</span> ;;&amp;</span><br><span class="line">  [[:digit:]])    <span class="built_in">echo</span> <span class="string">&quot;&#x27;<span class="variable">$REPLY</span>&#x27; is a digit.&quot;</span> ;;&amp;</span><br><span class="line">  [[:graph:]])    <span class="built_in">echo</span> <span class="string">&quot;&#x27;<span class="variable">$REPLY</span>&#x27; is a visible character.&quot;</span> ;;&amp;</span><br><span class="line">  [[:punct:]])    <span class="built_in">echo</span> <span class="string">&quot;&#x27;<span class="variable">$REPLY</span>&#x27; is a punctuation symbol.&quot;</span> ;;&amp;</span><br><span class="line">  [[:space:]])    <span class="built_in">echo</span> <span class="string">&quot;&#x27;<span class="variable">$REPLY</span>&#x27; is a whitespace character.&quot;</span> ;;&amp;</span><br><span class="line">  [[:xdigit:]])   <span class="built_in">echo</span> <span class="string">&quot;&#x27;<span class="variable">$REPLY</span>&#x27; is a hexadecimal digit.&quot;</span> ;;&amp;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+
+<p>执行上面的脚本，会得到下面的结果。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ test.sh</span><br><span class="line">Type a character &gt; a</span><br><span class="line"><span class="string">&#x27;a&#x27;</span> is lower <span class="keyword">case</span>.</span><br><span class="line"><span class="string">&#x27;a&#x27;</span> is alphabetic.</span><br><span class="line"><span class="string">&#x27;a&#x27;</span> is a visible character.</span><br><span class="line"><span class="string">&#x27;a&#x27;</span> is a hexadecimal digit.</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2022-11-13</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Bash/'>
+                            Bash
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

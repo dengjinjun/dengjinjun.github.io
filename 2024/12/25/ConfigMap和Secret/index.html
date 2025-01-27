@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="ConfigMap和Secret" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            ConfigMap和Secret
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ConfigMap"><span class="post-toc-text">ConfigMap</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ConfigMap%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="post-toc-text">ConfigMap的创建</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ConfigMap%E4%B8%AD%E7%9A%84"><span class="post-toc-text">ConfigMap中的|</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Secret"><span class="post-toc-text">Secret</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Opaque%E7%B1%BB%E5%9E%8B"><span class="post-toc-text">Opaque类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#dockerconfigjson%E7%B1%BB%E5%9E%8B"><span class="post-toc-text">dockerconfigjson类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#tls%E7%B1%BB%E5%9E%8B"><span class="post-toc-text">tls类型</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ConfigMap%E5%92%8CSecret%E7%9A%84%E7%83%AD%E6%9B%B4%E6%96%B0"><span class="post-toc-text">ConfigMap和Secret的热更新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BB%A4%E7%89%8C%E5%8D%B7%E6%8A%95%E5%BD%B1%E6%9C%BA%E5%88%B6"><span class="post-toc-text">令牌卷投影机制</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>ConfigMap和Secret都是k8s中为Pod存放配置的资源，CongiMap与Secrets类似，但通常 ConfifgMap用来存放不敏感的字符串。</p>
+<h2 id="ConfigMap"><a href="#ConfigMap" class="headerlink" title="ConfigMap"></a>ConfigMap</h2><p>ConfigMap机制就相当于一个配置中心，一个ConfigMap资源可以关联给多个Pod。</p>
+<p>Pod中关联ConfigMap的方式主要有两种：引入环境变量和挂载存储卷。</p>
+<p>注意：</p>
+<ol>
+<li>只有通过 Kubernetes API 创建的 Pod 才能使用 ConfigMap，其他方式创建的（比如静态 Pod）不能使用。</li>
+<li>ConfigMap 文件大小限制为 1MB（ETCD 的要求）。</li>
+<li>Pod以环境变量的方式关联ConfigMap的时候，也可以在Pod的启动命令中使用。</li>
+<li>Pod以挂载存储卷的方式关联ConfigMap的时候，可以定制存储路径。</li>
+</ol>
+<blockquote>
+<p><strong>示例</strong></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test1-config</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">xxx:</span> <span class="string">&quot;111&quot;</span></span><br><span class="line">  <span class="attr">yyy:</span> <span class="string">&quot;222&quot;</span></span><br><span class="line">  <span class="attr">config:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    property.1=value-1</span></span><br><span class="line"><span class="string">    property.2=value-2</span></span><br><span class="line"><span class="string">    property.3=value-3</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ConfigMap的创建"><a href="#ConfigMap的创建" class="headerlink" title="ConfigMap的创建"></a>ConfigMap的创建</h3><p>ConfigMap具有多种创建方式，yaml文件的方式不再赘述，命令行的创建方式主要有三种，即ConfigMap中键值对的来源有三种：</p>
+<ul>
+<li><p>指定变量创建</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过在命令行中指定具体的变量名和变量值，在ConfigMap中创建键值对</span></span><br><span class="line">kubectl create cm test-cm --from-literal=db.host=localhost --from-literal=db.port=3306</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指定文件创建</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过一个具体的文件名来创建ConfigMap，创建后的ConfigMap中key值是文件名，value值是文件中的内容</span></span><br><span class="line">kubectl create cm test-cm --from-file=/etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指定目录创建</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过一个目录来创建ConfigMap，创建后的ConfigMap中包含多个键值对，key值分别是文件名，value值是各自文件中的内容</span></span><br><span class="line">kubectl create cm test-cm --from-file=/etc/nginx/conf.d</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="ConfigMap中的"><a href="#ConfigMap中的" class="headerlink" title="ConfigMap中的|"></a>ConfigMap中的<code>|</code></h3><p><code>|</code>用于放在ConfigMap中的key值之后，用于定义含有多行字符串的value值，可以根据需求保留或者除去多行文本后的换行符<code>\n</code></p>
+<ul>
+<li><p><code>|</code></p>
+<p>保留换行，行首的缩进和空白会被保留，行尾的会被去掉</p>
+</li>
+<li><p><code>|+</code></p>
+<p>表示保留文字块末尾的换行</p>
+</li>
+<li><p><code>|-</code></p>
+<p>表示删除文字块末尾的换行</p>
+</li>
+<li><p><code>&gt;</code></p>
+<p>表示折叠换行，内容最末尾的换行会保留，但文中部分只有空白行才会被识别为换行，原来的换行符都会被转换成空格。</p>
+</li>
+</ul>
+<p>综合示例</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">xxx:</span> <span class="string">&quot;111&quot;</span></span><br><span class="line">  <span class="attr">yyy:</span> <span class="string">&quot;222&quot;</span></span><br><span class="line">  <span class="attr">data.1:</span> <span class="string">hello</span></span><br><span class="line">  <span class="attr">data.2:</span> <span class="string">world</span></span><br><span class="line">  <span class="attr">config1:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    property.1=value-1</span></span><br><span class="line"><span class="string">    property.2=value-2</span></span><br><span class="line"><span class="string">    property.3=value-3</span></span><br><span class="line"><span class="string"></span>    </span><br><span class="line">  <span class="attr">config2:</span> <span class="string">|-</span></span><br><span class="line"><span class="string">    hello</span></span><br><span class="line"><span class="string">    world</span></span><br><span class="line"><span class="string"></span>    </span><br><span class="line">  <span class="attr">config3:</span> <span class="string">|+</span></span><br><span class="line"><span class="string">    hello</span></span><br><span class="line"><span class="string">    world</span></span><br><span class="line"><span class="string"></span>    </span><br><span class="line">  <span class="attr">config4:</span> <span class="string">&gt;</span></span><br><span class="line"><span class="string">    我是第一行</span></span><br><span class="line"><span class="string">    我也是第一行</span></span><br><span class="line"><span class="string">    我仍是第一行</span></span><br><span class="line"><span class="string">    我依旧是第一行</span></span><br><span class="line"><span class="string"></span>    </span><br><span class="line">    <span class="string">我是第二行</span></span><br><span class="line">    <span class="string">这么巧我也是第二行</span></span><br><span class="line"></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test1-config</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br></pre></td></tr></table></figure>
+
+<p>apply之后查看</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"><span class="attr">&quot;apiVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;v1&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;data&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line"><span class="attr">&quot;config1&quot;</span><span class="punctuation">:</span> <span class="string">&quot;property.1=value-1\nproperty.2=value-2\nproperty.3=value-3\n&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;config2&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hello\nworld&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;config3&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hello\nworld\n\n&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;config4&quot;</span><span class="punctuation">:</span> <span class="string">&quot;我是第一行 我也是第一行 我仍是第一行 我依旧是第一行\n我是第二行 这么巧我也是第二行\n&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;data.1&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hello&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;data.2&quot;</span><span class="punctuation">:</span> <span class="string">&quot;world&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;xxx&quot;</span><span class="punctuation">:</span> <span class="string">&quot;111&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;yyy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;222&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ConfigMap&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;metadata&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">......</span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Secret"><a href="#Secret" class="headerlink" title="Secret"></a>Secret</h2><p>Secret对象的数据存储和打印格式为Base64编码的字符串，因此用户在创建Secret对象时，也需要提供该类型的编码格式的数据。在容器中以环境变量或存储卷的方式访问时，会自动解码为明文格式。</p>
+<p>Pod中关联Secret和ConfigMap的方式基本相同，都是环境变量或者挂载存储卷的方式。</p>
+<p>Secret有多种类型：Opaque，kubernetes.io&#x2F;tls，kubernetes.io&#x2F;dockerconfigjson</p>
+<h3 id="Opaque类型"><a href="#Opaque类型" class="headerlink" title="Opaque类型"></a>Opaque类型</h3><p>Opaque ，读音<code>[əʊˈpeɪk]</code>，是默认是secret类型，也是最常用的secret类型。</p>
+<p>Opaque支持两种数据类型来定义secret中的键值对：<code>data </code>和 <code>stringData</code></p>
+<ul>
+<li><p><code>data</code></p>
+<p>字段的数据必须是经过base64编码的</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Secret</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test-secret</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">username:</span> <span class="string">ZWdvbg==</span></span><br><span class="line">  <span class="attr">password:</span> <span class="string">MTIzNDU2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>stringData</code></p>
+<p>某些场景下想将非base64编码的字符串放入Secret中，就需要用到stringData字段，字段的数据使用未编码的字符串。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"> <span class="attr">kind:</span> <span class="string">Secret</span></span><br><span class="line"> <span class="attr">metadata:</span></span><br><span class="line">   <span class="attr">name:</span> <span class="string">demo-secret</span></span><br><span class="line"> <span class="attr">type:</span> <span class="string">Opaque</span></span><br><span class="line"> <span class="attr">stringData:</span></span><br><span class="line">   <span class="attr">config.yaml:</span> <span class="string">|</span></span><br><span class="line"><span class="string">     apiUrl: &quot;https://my.api.com/api/v1&quot;</span></span><br><span class="line"><span class="string">     username: egon</span></span><br><span class="line"><span class="string">     password: 123</span></span><br></pre></td></tr></table></figure>
+
+<p>创建完成后，config.yaml整体会被base64编码，使用 <code>base64 -d</code> 反解可以查看明文。</p>
+</li>
+</ul>
+<h3 id="dockerconfigjson类型"><a href="#dockerconfigjson类型" class="headerlink" title="dockerconfigjson类型"></a>dockerconfigjson类型</h3><p>dockerconfigjson类型可以用来存储docker registy的认证信息，如果我们在下载镜像时需要登录账号密码，则需要设置它，这时候这个Secret称为 <code>imagePullSecret</code>，需要在yaml文件中指定 <code>Pod.spec.imagePullSecrets</code> ，然后可以拉取私有仓库的镜像。和普通的secret不同，它不是给Pod用的，不能挂载到Pod内，而是给kubelet拉取镜像使用的。</p>
+<p>创建docker仓库的 <code>imagePullSecret</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl create secret docker-registry secret名称 --docker-server=仓库域名 --docker-username=用户名 --docker</span><br><span class="line">-password=密码</span><br></pre></td></tr></table></figure>
+
+<p>扩展：</p>
+<ol>
+<li>除了上面直接在命令行中指定相关信息，也可以通过已经生成的dockerconfigjson文件生成通用的secret</li>
+</ol>
+   <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create secret generic secret名称 --from-file=.dockerconfigjson=/path/to/config.json  --<span class="built_in">type</span>=kubernetes.io/dockerconfigjson</span><br></pre></td></tr></table></figure>
+
+<p>   上面的<code>/path/to/config.json</code>是已经存在的docker镜像仓库的认证信息，比如在宿主机上通过<code>docker login</code>或者<code>nerdctl login</code>方式登陆了镜像仓库，宿主机上会生成一个docker镜像仓库的dockerconfigjson文件，基于这个文件可以直接生成imagePullSecret。</p>
+<ol start="2">
+<li><p>除了设置 <code>Pod.spec.imagePullSecrets</code> 这种方式来获取私有镜像之外，我们还可以通过在  ServiceAccount 中设置  imagePullSecrets 信息，这样无需额外在yaml文件中指定，可以直接拉取私有镜像</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">default</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">imagePullSecrets:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">secret名称</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="tls类型"><a href="#tls类型" class="headerlink" title="tls类型"></a>tls类型</h3><p>这种类型是用于存放证书文件的，专门用于secret通信，一般的场景是在ingress中使用</p>
+<p>创建tls类型的secret</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create secret tls secret名称 --key=./nginx.key --cert=./nginx.crt</span><br></pre></td></tr></table></figure>
+
+<p>在ingress中使用</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test-ingress</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"></span><br><span class="line">  <span class="string">......</span></span><br><span class="line">  </span><br><span class="line">  <span class="attr">tls:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">hosts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">example.com</span></span><br><span class="line">    <span class="attr">secretName:</span> <span class="string">inroad-tls</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="ConfigMap和Secret的热更新"><a href="#ConfigMap和Secret的热更新" class="headerlink" title="ConfigMap和Secret的热更新"></a>ConfigMap和Secret的热更新</h2><p>在 Kubernetes 中，如果 ConfigMap以存储卷的方式挂载到 Pod 内，此时对ConfigMap进行更新或删除重建，那么这些更新是可以被反映到 Pod 内的文件内容中，这也就是我们所说的”热更新”，但这只是ConfigMap的热更新。</p>
+<p>此时虽然Pod中的文件内容已经发生了变化，但是运行在Pod中的应用并不一定能感知到配置文件的变化，事实上，很多应用只会在启动时加载一次配置文件，运行后不会再对配置文件做任何检查和重载，所以Pod内的应用并没有实现热更新。</p>
+<p>要想实现Pod内应用的热更新，有两种方式，一种方式是在应用容器内添加自定义的脚本，检测配置文件的变更，然后重载对应的服务。另一种方式是 Kubernetes 提供的功能，使用注解搭配sidecar的方式，实现检测ConfigMap更新，重建Pod。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载reloader资源yaml文件,可以把里面的镜像换成自己的,然后部署即可</span></span><br><span class="line">wget https://raw.githubusercontent.com/stakater/Reloader/master/deployments/kubernetes/reloader.yaml</span><br></pre></td></tr></table></figure>
+
+<p>同一命名空间下的资源需要加上一个注解，然后可以实现应用的热更新。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">reloader.stakater.com/auto:</span> <span class="string">&quot;true&quot;</span> </span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li>上述仅介绍了ConfigMap，Secret具有相同机制。</li>
+<li>ConfigMap和Secret以环境变量的方式挂载进Pod后，不支持热更新。</li>
+</ol>
+<h2 id="令牌卷投影机制"><a href="#令牌卷投影机制" class="headerlink" title="令牌卷投影机制"></a>令牌卷投影机制</h2><p>Pod与Apiserver通讯的时候会用到一种访问凭证，包含了认证相关的密钥和证书等信息，这种访问凭证是绑定在Service Account中的。</p>
+<p>在Kubernetes v1.24.0版本之前，每创建一个sa，k8s都会自动为其创建对应的凭据，凭据默认会被创建成secret，而且是固定死的secrets，这种方式存在一些不便之处和安全隐患：</p>
+<ol>
+<li><p>存在泄露风险</p>
+<p>传统方式下每个 ServiceAccount 的 Secret 会以文件形式存储在对应的应用节点上，而集群的系统组件在运行过程中也会使用到一些权限很高的  ServiceAccount，其增大了集群管控平面的攻击面，攻击者可以通过获取这些管控组件使用的  ServiceAccount 非法提权。</p>
+</li>
+<li><p>扩容问题</p>
+<p>每个 ServiceAccount 都创建一个 Secret ，在大规模的应用部署下存在弹性和容量风险。</p>
+</li>
+<li><p>伪装攻击风险</p>
+<p>ServiceAccount 中的  JSON Web Token (JWT) 没有绑定 audience 身份，因此所有  ServiceAccount 的使用者都可以彼此扮演，存在伪装攻击的可能。并且 ServiceAccount 中的 JWT 没有设置过期时间，当上述 ServiceAccount 泄露情况发生时，只能通过轮转 ServiceAccount 的签发私钥来进行防范</p>
+</li>
+</ol>
+<p>为了解决上述问题，k8s专门为 ServiceAccount 这种账户提供了 ServiceAccount Token 投影机制即<strong>令牌卷投影机制</strong>，用于增强 ServiceAccount 的灵活性与安全性，具体做法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在Kubernetes v1.24.0及更高版本中，创建为 ServiceAccount 后，不再为其创建secret凭证，如果某个pod中引用了该ServiceAccount，k8s 都会自动为该 ServiceAccount 创建一个token然后挂载到 Pod 的`/var/run/secrets/kubernetes.io/serviceaccount` 目录中，该目录下存放有如下文件</span><br><span class="line">1. 存放着凭据所包含的ca证书</span><br><span class="line">2. sa账户关联的名称空间</span><br><span class="line">3. 定期更新的token值</span><br><span class="line"></span><br><span class="line">token值是由kubelet 组件维护的，在令牌快要到期的时候刷新它。</span><br></pre></td></tr></table></figure>
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-12-25</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/K8S/'>
+                            K8S
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

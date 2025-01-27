@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="服务器迁移上云" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            服务器迁移上云
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%81%E7%A7%BB%E6%A6%82%E8%BF%B0"><span class="post-toc-text">服务器迁移概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SMC%E8%BF%81%E7%A7%BB%E6%9C%8D%E5%8A%A1"><span class="post-toc-text">SMC迁移服务</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="post-toc-text">准备工作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AF%BC%E5%85%A5%E8%BF%81%E7%A7%BB%E6%BA%90"><span class="post-toc-text">导入迁移源</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B9%B6%E5%90%AF%E5%8A%A8%E8%BF%81%E7%A7%BB%E4%BB%BB%E5%8A%A1"><span class="post-toc-text">创建并启动迁移任务</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%BF%81%E7%A7%BB%E5%90%8E%E7%9A%84%E5%B7%A5%E4%BD%9C"><span class="post-toc-text">迁移后的工作</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="服务器迁移概述"><a href="#服务器迁移概述" class="headerlink" title="服务器迁移概述"></a>服务器迁移概述</h2><p>在企业中，服务器迁移的场景主要有以下几种：操作系统升级、服务器硬件更换、数据中心合并、机房搬迁、服务器上云等。</p>
+<p>本次主要介绍服务器迁移上云的场景，主要有以下几种：</p>
+<ol>
+<li><strong>构建混合云：</strong>将本地承载业务的部分老旧物理服务器迁移到公共云，现有其他服务器在生命周期内依旧运行在本地，后期再慢慢迁移至公共云，这种在本地和云端同时运行业务的情况又称为混合云。</li>
+<li><strong>迁移至公共云：</strong>将本地承载业务的所有服务器迁移到公共云，迁移结束后，本地不再拥有机房和服务器等设施。</li>
+<li><strong>公共云上的迁移：</strong>由于业务变更或客户群体地域的改变，将云上业务迁往其他地域，比如从深圳迁往北京。</li>
+<li><strong>不同公共云之间的迁移：</strong>为了方便统一管理，将部分云上业务从迁往其他公共云，比如从阿里云迁往华为云。</li>
+<li><strong>迁移到多个云：</strong>为了提升整体架构的可用性，规避单个云故障带来的损失，将公司中承载业务的服务器迁移到多个公共云上运营。</li>
+</ol>
+<p>迁移的方式：</p>
+<p>一般来说，都是通过镜像的方式将应用程序和数据迁移到云上，或者使用阿里云的服务器迁移服务（SMC）。</p>
+<p>无论采用哪种迁移，都有<strong>全量迁移</strong>和<strong>增量迁移</strong>两种方式，两者的比较如下：</p>
+<p><a href="/../pic/jvmlaqxbbvfxxaqwwveo.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/jvmlaqxbbvfxxaqwwveo.png" alt="img"></a></p>
+<h2 id="SMC迁移服务"><a href="#SMC迁移服务" class="headerlink" title="SMC迁移服务"></a>SMC迁移服务</h2><p>使用服务器迁移中心SMC将服务器迁移到阿里云，一般会经过以下四个步骤：</p>
+<ol>
+<li>完成迁移上云前的<strong>准备工作</strong></li>
+<li>根据迁移服务器的类型<strong>导入迁移源</strong>至阿里云</li>
+<li>使用导入的迁移源<strong>创建并启动迁移任务</strong></li>
+<li>完成迁移后进行<strong>迁移收尾</strong>工作</li>
+</ol>
+<p><a href="/../pic/1686909193062-f20fbd73-f40b-44c5-8111-1840ef4642de.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1686909193062-f20fbd73-f40b-44c5-8111-1840ef4642de.png" alt="img"></a></p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>迁移服务器确认，不同的迁移源需要准备不同的内容：</p>
+<ol>
+<li><p><strong>物理机&#x2F;虚拟机&#x2F;云服务器</strong></p>
+<p>当需要从本地机房将<strong>物理服务器和虚拟机</strong>迁移到阿里云，或者将<strong>位于其他公共云的云服务器</strong>迁移到阿里云时，需要选择“<strong>物理机&#x2F;虚拟机&#x2F;云服务器</strong>”作为迁移源类型，需要准备待迁移机器的<strong>公网IP地址、连接端口、管理员用户名和密码</strong>。</p>
+</li>
+<li><p><strong>阿里云ECS云服务器</strong></p>
+<p>当需要将位于<strong>阿里云上的ECS云服务器迁移到阿里云其他可用区或地域</strong>时，需要选择<strong>“阿里云ECS云服务器”</strong> 作为迁移源类型。如果选择此类型，需要准备的事项就很少，只需要选择源云服务器所在的地域后，<strong>选择需要迁移的云服务器即可</strong></p>
+</li>
+<li><p><strong>VMware虚拟机（无代理连接器导入）</strong></p>
+<p>当需要迁移 VMware 虚拟机到云服务器上，可以使用“<strong>物理机&#x2F;虚拟机&#x2F;云服务器</strong>”的方法迁移，操作相对简单便捷。但如果对服务器安全和性能有所顾虑，可以选择<strong>“VMware虚拟机”</strong>作为迁移源类型。如果选择此类型，需要准备“VMware 无代理连接器OVF模板”，并使用此模板在vCenter上部署虚拟机，然后在部署的虚拟机中运行命令进行迁移源注册。</p>
+</li>
+</ol>
+<p>确定目标区域及可用区规划、网络规划问题、服务器选型问题</p>
+<p>阿里云账号注册、实名认证、充值、ram授权等操作</p>
+<h3 id="导入迁移源"><a href="#导入迁移源" class="headerlink" title="导入迁移源"></a>导入迁移源</h3><p>找到服务器迁移中心，在SMC中<strong>选择迁移源</strong>，SMC支持<strong>物理机&#x2F;虚拟机&#x2F;云服务器</strong>、<strong>阿里云ECS云服务器</strong>、<strong>VMware虚拟机</strong>三种类型的迁移源。</p>
+<p>点击<strong>导入迁移源</strong>，SMC 支持<strong>控制台</strong>、<strong>命令行</strong>、<strong>客户端</strong>和<strong>无代理连接器</strong>等多种导入方式，其中<strong>控制台、命令行和客户端</strong>三种导入方式均为<strong>有代理方式</strong>导入，即需要<strong>在迁移源服务器上安装客户端</strong>后才能开始迁移任务，对于<strong>VMware虚拟机</strong>，SMC也提供了<strong>无代理迁移</strong>方式，能够有效消除用户对服务器安全和性能的顾虑。</p>
+<blockquote>
+<p><strong>控制台导入</strong></p>
+</blockquote>
+<p>这是最简单的一种方式，小云可以直接通过控制台导入迁移源，简单方便。</p>
+<ul>
+<li><p>当迁移源为<strong>物理机&#x2F;虚拟机&#x2F;云服务器</strong>类型时，只需要输入源主机的<strong>IP地址</strong>、<strong>连接端口</strong>、<strong>管理员用户和密码</strong>，即可导入成功。</p>
+<p>注意：迁移源需要对外开放<strong>22</strong>端口，且如果迁移源为Windows类型，需要在迁移源服务器上安装OpenSSH工具，如果对迁移安全性要求较高建议选择<strong>命令行导入</strong>或<strong>客户端导入</strong>方式。</p>
+</li>
+<li><p>当迁移源为<strong>阿里云ECS云服务器</strong>时，只需要选择地域以及需要迁移的源实例即可。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>命令行导入</strong></p>
+</blockquote>
+<p>这种方式比控制台导入方式操作略复杂，但是服务器数量增多时，使用控制台导入的效率降低，可以选择命令行导入方式。而且命令行导入源服务器无需开放22端口，Windows也无需提前安装OpenSSH工具，<strong>通用性与安全性更高</strong>。</p>
+<p>当迁移源为<strong>物理机&#x2F;虚拟机&#x2F;云服务器 或 阿里云ECS云服务器</strong>时，可以选择命令行导入，进入设置激活码额度、有效期，并生成激活码，保存生成的命令，在需要迁移的源服务器上执行，即可完成导入操作。</p>
+<p><a href="/../pic/1686655763604-4d78670d-311b-40e6-9f3b-6d75d6a40f0d.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1686655763604-4d78670d-311b-40e6-9f3b-6d75d6a40f0d.png" alt="img"></a></p>
+<blockquote>
+<p><strong>客户端导入</strong></p>
+</blockquote>
+<p>当迁移源为<strong>物理机&#x2F;虚拟机&#x2F;云服务器 或 阿里云ECS云服务</strong>时，可以下载相应版本的SMC客户端并将其安装到源服务器中，，然后在控制台页面填写激活额度和有效期来<strong>生成激活码</strong>，并在源服务器的客户端上<strong>输入激活码</strong>，即可<strong>开始导入迁移源</strong>。</p>
+<p><a href="/../pic/1686659059750-b1a4664e-9a33-4e01-bb1a-7a1529247ab8.png" title="Image" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1686659059750-b1a4664e-9a33-4e01-bb1a-7a1529247ab8.png" alt="Image"></a></p>
+<blockquote>
+<p><strong>VMware无代理连接器导入</strong></p>
+</blockquote>
+<p>通过VMware Agentless无侵入式迁移技术，可将VMware虚拟机的业务迁移到阿里云。操作相对复杂，但是有以下优点：</p>
+<ol>
+<li><strong>资源无占用</strong>，这种导入方式无需在虚拟机中安装SMC客户端，不占用虚拟机的各类资源</li>
+<li><strong>迁移效率高</strong>，无需为每台虚拟机单独安装代理，节省人力与时间成本、</li>
+<li><strong>安全性高</strong>，不在虚拟机操作系统内部进行任何操作，消除用户对安全的顾虑。</li>
+<li><strong>兼容性高</strong>，不依赖虚拟机操作系统内部环境，迁移成功率更高。</li>
+</ol>
+<h3 id="创建并启动迁移任务"><a href="#创建并启动迁移任务" class="headerlink" title="创建并启动迁移任务"></a>创建并启动迁移任务</h3><p>完成导入迁移源动作后，如果迁移源的状态为<strong>在线</strong>，则说明导入迁移源成功，接下来需要在控制台为迁移源<strong>创建迁移任务</strong>，并启动任务。</p>
+<p>创建迁移任务时，有多种迁移任务类型：</p>
+<ol>
+<li><strong>服务器迁移</strong>，当需要将源服务器迁移至<strong>云服务器ECS</strong>、<strong>云服务器镜像</strong>或<strong>容器镜像</strong>时，可以选择此种迁移方式</li>
+<li><strong>桌面迁移</strong>，当需要将源服务器迁移至<strong>阿里云无影云桌面</strong>时，可以选择此种迁移方式<strong>（注意：桌面迁移仅支持Windows，且不支持以下版本：Windows 11、Windows 8.1及以下版本、Windows Server 2016及以下版本）</strong></li>
+</ol>
+<p>本次介绍服务器迁移：</p>
+<ol>
+<li><p>登录<a target="_blank" rel="noopener" href="https://smcnext.console.aliyun.com/sourceServers">服务器迁移中心SMC控制台</a>。在左侧导航栏，单击<strong>迁移源</strong>。找到迁移源后，确认迁移源状态为<strong>在线</strong>，并单击<strong>操作</strong>列的<strong>创建迁移任务</strong>。<a target="_blank" rel="noopener" href="https://intranetproxy.alipay.com/skylark/lark/0/2023/png/342048/1686674110953-a884c859-63c3-4917-a07c-7ead62724f0f.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="https://intranetproxy.alipay.com/skylark/lark/0/2023/png/342048/1686674110953-a884c859-63c3-4917-a07c-7ead62724f0f.png" alt="img"></a></p>
+</li>
+<li><p>在创建迁移任务页面，迁移任务类型选择<strong>选择服务器迁移，</strong>小云需要填写<strong>目标地域</strong>和<strong>目标类型</strong>（云服务器镜像、云服务器实例）,并点击<strong>创建</strong>完成迁移任务。</p>
+<p><a href="/../pic/1686900666581-dd7c5e26-805a-4780-b1df-6f1593ec0f55.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1686900666581-dd7c5e26-805a-4780-b1df-6f1593ec0f55.png" alt="img"></a></p>
+<p><strong>目标类型：</strong></p>
+</li>
+<li><ol>
+<li><p>当目标类型为<strong>云服务器实例</strong>时，需要小云<strong>提前在指定地域和可用区下创建目标ECS实例</strong>。</p>
+<p>注意：</p>
+</li>
+</ol>
+</li>
+<li><ol>
+<li><ol>
+<li>如果目标实例的数据盘数量小于迁移源数据盘数量，迁移源的数据盘将不会全部迁移，建议先在目标实例上挂载等量的数据盘</li>
+<li>如果目标实例磁盘容量小于迁移源磁盘，建议先对目标实例的磁盘进行扩容</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>当目标类型为<strong>云服务器镜像</strong>时，<strong>无需提前创建目标ECS实例</strong>，在指定地域生成ECS镜像后，还可以基于镜像重复创建ECS实例，这样既可以帮助小云<strong>保留源服务器备份</strong>，也可以随时<strong>利用镜像创建新的ECS实例</strong>。<a href="/../pic/1686902554083-a6bce0d6-c512-476c-a062-aa4610cdb079.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1686902554083-a6bce0d6-c512-476c-a062-aa4610cdb079.png" alt="img"></a></li>
+</ol>
+</li>
+<li><p><strong>专家模式</strong>（可选），利用专家模式可以进行迁移细节的定制，比如：设置目标服务器的磁盘结构和大小、网络传输模式、传输限速、压缩迁移、自动增量同步等。</p>
+</li>
+<li><p><a href="/../pic/1686903785831-4100aa37-4b2f-42e1-b779-e36dfb21bfe7.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1686903785831-4100aa37-4b2f-42e1-b779-e36dfb21bfe7.png" alt="img"></a></p>
+</li>
+<li><ol>
+<li><strong>目标磁盘</strong>：根据业务需要进行目标磁盘容量的调整；</li>
+<li><strong>网络模式</strong>：SMC会自动创建中转实例以便进行迁移，中转实例会被创建在所选专有网络（VPC）、交换机（vSwitch）下。批量迁移时，为每个迁移任务指定相同的VPC和vSwitch，可提高VPC的复用率，每次批量迁移的最大值可达到100台迁移源。若不指定，SMC会为每个中转实例创建一个VPC，由于每个账号在一个地域下的VPC限额为10（包括您创建的VPC和SMC自动创建的VPC），因此每次批量迁移的最大值不超过10台迁移源。</li>
+<li><strong>传输限速</strong>：迁移过程中，数据传输的带宽上限限制，单位为Mbps。</li>
+<li><strong>压缩率</strong>：取值范围为0~10，数值越大压缩率越高，默认值为7，0表示不压缩传输数据。</li>
+<li><strong>Checksum验证</strong>：默认关闭，开启后，可增强数据一致性校验，但是可能会降低传输速度。</li>
+<li><strong>中转实例规格</strong>：可根据实际需求选择中转实例规格。仅当目标类型选择云服务器镜像和容器镜像时，才出现此参数。</li>
+<li><strong>自动增量同步</strong>：迁移任务是否自动同步源服务器增量数据至阿里云。默认关闭自动增量同步。</li>
+<li><strong>镜像检测</strong>：镜像检测功能主要检测镜像是否为有效镜像、镜像是否可以创建出功能齐全的ECS实例等。</li>
+<li><strong>执行方式</strong>：分为立即执行、预约执行和只创建（需手动启动迁移任务）三种。</li>
+<li><strong>迁移任务标签</strong>：为迁移任务绑定标签键值，便于查询与管理迁移任务。</li>
+</ol>
+</li>
+<li><p>1. </p>
+</li>
+<li><p>迁移需要较长的时间，请耐心等待完成，在迁移期间，如需查询当前正在进行的任务细项，可以点击<strong>操作</strong>列中的<strong>查看日志</strong>查询。当任务状态为 **已完成 **时表示迁移任务已经完成迁移。</p>
+<p>完成迁移后，使用新服务器（如果迁移类型为云服务器镜像，需要基于镜像创建新的ECS实例）的公网IP打开网站，迁移后的服务器保留了原有服务器的数据，小云的网站还是可以正常打开，说明迁移是成功的。</p>
+<p><a href="/../pic/1686894222790-3f2b1149-1d35-494e-903d-605d66d7f7be.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1686894222790-3f2b1149-1d35-494e-903d-605d66d7f7be.png" alt="img"></a></p>
+</li>
+</ol>
+<h3 id="迁移后的工作"><a href="#迁移后的工作" class="headerlink" title="迁移后的工作"></a>迁移后的工作</h3><p><strong>在完成迁移操作并检验完成后，需要进行彻底测试和报告以确认新环境的稳定性和可靠性。</strong></p>
+<p>主要包括以下几项工作：</p>
+<ol>
+<li><strong>迁移后需要做数据校验和验证</strong>，确保数据的完整性和正确性，采用服务器迁移上云后，需要验证源服务器中的业务是否正常运行，数据是否完整可以通过MD5校验等方式进行。</li>
+<li><strong>确认目标环境配置是否与源环境相同</strong>，包括操作系统版本、中间件版本等，可以登录迁移后的服务器，查询服务器的操作系统类型、版本以及其上安装的软件是否满足预期。</li>
+<li><strong>更新应用程序的配置信息</strong>，将应用程序切换至新的目标环境，需要特别注意检查数据库连接、缓存连接等配置信息，如果采取跨可用区迁移，源服务器的内网IP可能会发生变化，需要登陆服务器，在各种配置文件中，修改IP配置，指向新的内网IP地址。</li>
+<li><strong>执行全面测试以确保新环境下的应用程序正常运行</strong>，需要根据公司的业务情况，对迁移后的服务器进行全面检查，验证服务是否正常运行，例如查询迁移后的云服务器上的网站是否依旧正常运行。</li>
+<li>对于不再需要的迁移任务和迁移源等资源，及时进行清理和释放。</li>
+</ol>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-12-21</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E9%98%BF%E9%87%8C%E4%BA%91/'>
+                            阿里云
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

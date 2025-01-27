@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="搭建监控体系" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            搭建监控体系
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B7%A5%E4%BD%9C%E9%9C%80%E6%B1%82"><span class="post-toc-text">工作需求</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%9D%E6%AD%A5%E8%AE%A1%E5%88%92"><span class="post-toc-text">初步计划</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%9E%E6%96%BD%E9%83%A8%E7%BD%B2"><span class="post-toc-text">实施部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#nginx%E7%8A%B6%E6%80%81%E7%9B%91%E6%8E%A7"><span class="post-toc-text">nginx状态监控</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%97%A5%E5%BF%97%E4%B8%AD%E7%8A%B6%E6%80%81%E7%A0%81%E7%9A%84%E6%95%B0%E9%87%8F%E7%9B%91%E6%8E%A7"><span class="post-toc-text">日志中状态码的数量监控</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TCP%E7%8A%B6%E6%80%81%E7%9A%84%E6%95%B0%E9%87%8F%E7%9B%91%E6%8E%A7"><span class="post-toc-text">TCP状态的数量监控</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SSL%E8%AF%81%E4%B9%A6%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%E7%9B%91%E6%8E%A7"><span class="post-toc-text">SSL证书过期时间监控</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AB%AF%E5%8F%A3%E7%9A%84%E7%9B%91%E6%8E%A7"><span class="post-toc-text">端口的监控</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%95%B0%E7%9A%84%E7%9B%91%E6%8E%A7"><span class="post-toc-text">进程数的监控</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#php%E7%8A%B6%E6%80%81%E7%9B%91%E6%8E%A7"><span class="post-toc-text">php状态监控</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#web%E5%9C%BA%E6%99%AF%E7%9B%91%E6%8E%A7"><span class="post-toc-text">web场景监控</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Tomcat%E5%A4%9A%E5%AE%9E%E4%BE%8B%E7%9B%91%E6%8E%A7"><span class="post-toc-text">Tomcat多实例监控</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E7%9B%91%E6%8E%A7"><span class="post-toc-text">存储服务监控</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Redis%E7%9B%91%E6%8E%A7"><span class="post-toc-text">Redis监控</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MySQL%E7%9B%91%E6%8E%A7"><span class="post-toc-text">MySQL监控</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>步骤</p>
+<ol>
+<li>确认工作需求：从0到1的监控架构或监控完善</li>
+<li>计划和分析：会议分析，制定初步计划与文档</li>
+<li>实施：进行实际部署，定期汇报</li>
+<li>总结与培训：总结文档资料，对员工培训</li>
+</ol>
+<h2 id="工作需求"><a href="#工作需求" class="headerlink" title="工作需求"></a>工作需求</h2><p>从0搭建以下的监控体系：</p>
+<p>需要监控的细节：</p>
+<ol>
+<li>基础设施&#x2F;硬件：温度、风扇转速、raid状态、网络设备等</li>
+<li>系统基础指标：CPU、内存、磁盘、网络、负载等</li>
+<li>服务监控：不同服务如nginx&#x2F;php&#x2F;tomcat&#x2F;db&#x2F;nfs&#x2F;rsync等</li>
+<li>业务&#x2F;应用监控：检查业务&#x2F;应用是否可用，书写专用页面显示业务状态</li>
+<li>API接口&#x2F;网关：curl&#x2F;wget监控接口是否可用</li>
+</ol>
+<p>其他监控：</p>
+<ol>
+<li>DNS&#x2F;CDN监控：ping.chinaz.com(免费)、听云&#x2F;应用宝(商业)</li>
+<li>pv&#x2F;uv&#x2F;ip监控：第三方监控代码，如百度统计等</li>
+<li>用户行为监控：piwik&#x2F;maomo等</li>
+<li>舆情监控：第三方公司做</li>
+</ol>
+<h2 id="初步计划"><a href="#初步计划" class="headerlink" title="初步计划"></a>初步计划</h2><ul>
+<li><p>公司所有服务器的基础监控：使用zabbix自带的模板，比如：<code>Template os linux by zabbix agent</code></p>
+<ul>
+<li>CPU、内存、磁盘、网络、负载等</li>
+</ul>
+</li>
+<li><p>DNS&#x2F;CDN的监控：使用 ping.chinaz.com(免费) 或 听云&#x2F;应用宝(商业)</p>
+</li>
+<li><p>负载均衡的监控：</p>
+<ul>
+<li>nginx&#x2F;lvs&#x2F;haproxy状态监控</li>
+<li>keepalived进程监控</li>
+</ul>
+</li>
+<li><p>web服务器监控</p>
+<ul>
+<li>9000端口监控（nginx连接php）</li>
+<li>3306端口监控（php连接数据库）</li>
+<li>tomcat多实例&#x2F;单实例监控（JVM内存使用情况）</li>
+<li>日志中每种状态码的数量监控</li>
+<li>tcp11种状态的数量监控（当前网站并发）</li>
+<li>https证书过期时间</li>
+</ul>
+</li>
+<li><p>数据库服务监控</p>
+<ul>
+<li>进程、端口</li>
+<li>其他各种指标</li>
+</ul>
+</li>
+<li><p>存储服务</p>
+<ul>
+<li>nfs服务&#x2F;rpcbind服务监控</li>
+<li>共享了哪些目录，共享目录的大小</li>
+</ul>
+</li>
+<li><p>备份服务器监控</p>
+<ul>
+<li>rsync端口&#x2F;进程监控</li>
+<li>是否可以进行数据传输</li>
+</ul>
+</li>
+<li><p>Redis监控</p>
+<ul>
+<li>端口&#x2F;进程</li>
+<li>状态（命中率）</li>
+</ul>
+</li>
+<li><p>其他监控：openvpn、跳板机（非跳板机登录告警）等</p>
+</li>
+</ul>
+<h2 id="实施部署"><a href="#实施部署" class="headerlink" title="实施部署"></a>实施部署</h2><h3 id="nginx状态监控"><a href="#nginx状态监控" class="headerlink" title="nginx状态监控"></a>nginx状态监控</h3><p>负载均衡的监控（以nginx为例），获取每秒新增的连接数，采用zabbix内置模板。比如：<code>Template App Nginx By Zabbix Agent</code></p>
+<ol>
+<li><p>开启nginx状态网页</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在nginx配置文件中增加此区段</span></span><br><span class="line">location /nginx_status &#123;			<span class="comment"># /nginx_status这个目录不需要创建</span></span><br><span class="line">	stub_status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>模板的宏配置</p>
+<p><a href="/../pic/image-20240301165426061.png" title="image-20240301165426061" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240301165426061.png" alt="image-20240301165426061"></a></p>
+</li>
+<li><p>监控项配置</p>
+<p>找到模板里的监控项，此处以一例监控项<code>Nginx: Get stub status page: Nginx: Connections accepted per second</code>进行说明。</p>
+<p>下图中可以看到此监控项并不是<code>Zabbix客户端</code>类型，而是<code>相关项目</code>类型，所以它不是直接从Zabbix客户端获取数据的，而是从相关项<code>Nginx: Get stub status page</code>中获取数据的。</p>
+<p><a href="/../pic/image-20240301171250782.png" title="image-20240301171250782" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240301171250782.png" alt="image-20240301171250782"></a></p>
+<p>先看主要项<code>Nginx: Get stub status page</code>，它的类型是<code>Zabbix客户端</code>，它的动作是获取nginx的状态网页，从下图可以看到，它的键值是<code>web.page.get[里面是模板定义的宏，在第一步中已经修改完成]</code>。它获取到的内容类似于在浏览器中访问<code>nginx_status</code>获取的内容。</p>
+<p><a href="/../pic/image-20240301171547258.png" title="image-20240301171547258" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240301171547258.png" alt="image-20240301171547258"></a></p>
+<p>可以在服务端用<code>zabbix_get</code>测试一下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">|root@m01 zabbix|$ zabbix_get -s web01 -k web.page.get[<span class="string">&quot;web01&quot;</span>,<span class="string">&quot;nginx_status&quot;</span>,<span class="string">&quot;80&quot;</span>]</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Connection: close</span><br><span class="line">Content-Length: 109</span><br><span class="line">Content-Type: text/plain</span><br><span class="line">Date: Fri, 01 Mar 2024 09:00:22 GMT</span><br><span class="line">Server: nginx/1.24.0</span><br><span class="line"></span><br><span class="line">Active connections: 1 </span><br><span class="line">server accepts handled requests</span><br><span class="line"> 60201 60201 60201 </span><br><span class="line">Reading: 0 Writing: 1 Waiting: 0</span><br></pre></td></tr></table></figure>
+
+<p>再看监控项<code>Nginx: Get stub status page: Nginx: Connections accepted per second</code>做了什么</p>
+<p>下图可以看到它填写了一个键值(这个是自定义的键值，其实在客户端并不存在，可以随便写)，主要项这里填写了上面的<code>Nginx: Get stub status page</code>，意思是它的数据是从主要项这里来的</p>
+<p><a href="/../pic/image-20240301172515368.png" title="image-20240301172515368" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240301172515368.png" alt="image-20240301172515368"></a></p>
+<p>那么它想要获取网页中的某个数据，此处应该是每秒连接数，必定要对网页的内容进行提取，所以查看它预处理的内容：</p>
+<p><a href="/../pic/image-20240301172541976.png" title="image-20240301172541976" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240301172541976.png" alt="image-20240301172541976"></a></p>
+<p>先用<code>正则表达式</code>提取出累计连接总数，然后通过<code>每秒更改</code>获取出每秒变化的内容</p>
+</li>
+</ol>
+<h3 id="日志中状态码的数量监控"><a href="#日志中状态码的数量监控" class="headerlink" title="日志中状态码的数量监控"></a>日志中状态码的数量监控</h3><p>获取nginx日志中每种http状态码的数量，这个需要自定义监控项了</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim /server/scripts/log_status_code_count.sh</span><br><span class="line"></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 脚本中传入状态码参数，awk取日志中返回此状态码的访问记录的总数</span></span><br><span class="line"></span><br><span class="line">LOG=/var/log/nginx/access.log</span><br><span class="line">awk -v code=<span class="variable">$1</span> -v i=0 <span class="string">&#x27;$9==code&#123;i++&#125;END&#123;print i&#125;&#x27;</span> <span class="variable">$LOG</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在zabbix-agent2的变量配置文件中写入</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/zabbix/zabbix_agent2.d/nginx.conf</span><br><span class="line"></span><br><span class="line">UserParameter=nginx.status.code[*],<span class="built_in">sudo</span> sh /server/scripts/log_status_code_count.sh <span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>在服务端测试</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zabbix_get -s lb401 01 -k nginx.status.code[200]</span><br></pre></td></tr></table></figure>
+
+<p>然后在web界面创建监控项即可。</p>
+<p>同理，可以创建404、403等状态码的监控项，并设置触发器和图形。</p>
+<h3 id="TCP状态的数量监控"><a href="#TCP状态的数量监控" class="headerlink" title="TCP状态的数量监控"></a>TCP状态的数量监控</h3><p>此处只写脚本内容</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 利用ss工具，取80端口的监听状态、建立连接状态、等待关闭状态的数量</span></span><br><span class="line">status=<span class="variable">$1</span></span><br><span class="line">port=<span class="string">&quot;80&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$status</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">	listen) ss -ant | awk -v p=<span class="string">&quot;:$port$&quot;</span> <span class="string">&#x27;$4~p&#x27;</span> | grep -ic listen ;;</span><br><span class="line">	estab) ss -ant | awk -v p=<span class="string">&quot;:$port$&quot;</span> <span class="string">&#x27;$4~p&#x27;</span> | grep -ic estab ;;</span><br><span class="line">	time-wait) ss -ant | awk -v p=<span class="string">&quot;:$port$&quot;</span> <span class="string">&#x27;$4~p&#x27;</span> | grep -ic time-wait ;;</span><br><span class="line">	*) <span class="built_in">echo</span> <span class="string">&quot;please input: listen|estab|time-wait&quot;</span></span><br><span class="line">easc</span><br></pre></td></tr></table></figure>
+
+<h3 id="SSL证书过期时间监控"><a href="#SSL证书过期时间监控" class="headerlink" title="SSL证书过期时间监控"></a>SSL证书过期时间监控</h3><p>一般SSL证书到期之日前一个月告警</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 获取证书内容，并且用awk工具取得截至日期，使用date命令将截至日期和今天的日期都转换为秒数进行计算，然后再转换为天数</span></span><br><span class="line"></span><br><span class="line">Date=`openssl x509 -<span class="keyword">in</span> /root/ca-bundle.trust.crt -noout -text | awk <span class="string">&#x27;/After/&#123;for(i=4; i&lt;=NF; i++) printf(&quot;%s%s&quot;, $i, (i&lt;NF) ? &quot; &quot; : &quot;\n&quot;)&#125;&#x27;</span>`</span><br><span class="line">deadline_date=`<span class="built_in">date</span> -d <span class="string">&quot;<span class="variable">$Date</span>&quot;</span> +%s`</span><br><span class="line">today=`<span class="built_in">date</span> +%s`</span><br><span class="line">remain_sec=`<span class="built_in">echo</span> <span class="variable">$deadline_date</span> - <span class="variable">$today</span> | bc`</span><br><span class="line">remain_day=`<span class="built_in">echo</span> <span class="variable">$remain_sec</span>/60/60/24 | bc`</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$remain_day</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="端口的监控"><a href="#端口的监控" class="headerlink" title="端口的监控"></a>端口的监控</h3><p>内置键值：<code>net.tcp.port[&lt;ip&gt;,port]</code>，检查是否可以将TCP连接到指定端口</p>
+<p>ip：IP地址</p>
+<p>port：端口号</p>
+<h3 id="进程数的监控"><a href="#进程数的监控" class="headerlink" title="进程数的监控"></a>进程数的监控</h3><p>内置键值：<code>proc.num[&lt;name&gt;,&lt;user&gt;,&lt;state&gt;,&lt;cmdline&gt;]</code>获取进程数量</p>
+<p>name：进程名称</p>
+<p>user：用户名</p>
+<p>state：进程状态，disk(不间断休眠)&#x2F;run(运行中)&#x2F;sleep(间断休眠)&#x2F;trace(停止)&#x2F;zomb(僵尸)</p>
+<p>cmdline：按进程运行命令行过滤，这是一个正则表达式</p>
+<h3 id="php状态监控"><a href="#php状态监控" class="headerlink" title="php状态监控"></a>php状态监控</h3><p>与nginx状态的监控类似，采用主要项的方式先获取网页内容，然后再创建相关项目的监控项</p>
+<ol>
+<li><p>开启php状态网页</p>
+<p>与nginx状态的监控类似，在nginx配置文件中先添加显示php状态的网页</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在nginx配置文件中增加此区段</span></span><br><span class="line">location /php_status &#123;</span><br><span class="line">        fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">        fastcgi_index index.php;</span><br><span class="line">        fastcgi_param SCRIPT_FILENAME $document_root<span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">        include fastcgi_params;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在php的配置文件中定义此URL路径</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/php-fpm.d/www.conf		<span class="comment"># 找到`;pm.status_path`选项，修改为如下值，与nginx文件中定义的路径一致即可</span></span><br><span class="line"></span><br><span class="line">pm.status_path = /php_status</span><br></pre></td></tr></table></figure>
+
+<p>测试</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@web01 php-fpm.d]$ curl localhost/php_status</span><br><span class="line">pool:                 www</span><br><span class="line">process manager:      dynamic</span><br><span class="line">start time:           02/Mar/2024:01:24:31 +0800</span><br><span class="line">start since:          45</span><br><span class="line">accepted conn:        2</span><br><span class="line">listen queue:         0</span><br><span class="line">max listen queue:     0</span><br><span class="line">listen queue len:     128</span><br><span class="line">idle processes:       4</span><br><span class="line">active processes:     1</span><br><span class="line">total processes:      5</span><br><span class="line">max active processes: 1</span><br><span class="line">max children reached: 0</span><br><span class="line">slow requests:        0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建主要项</p>
+<p><a href="/../pic/image-20240302021026176.png" title="image-20240302021026176" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240302021026176.png" alt="image-20240302021026176"></a></p>
+</li>
+<li><p>创建相关项</p>
+<p>监控项信息</p>
+<p><a href="/../pic/image-20240302021114654.png" title="image-20240302021114654" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240302021114654.png" alt="image-20240302021114654"></a></p>
+<p>预处理</p>
+<p><a href="/../pic/image-20240302021158254.png" title="image-20240302021158254" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240302021158254.png" alt="image-20240302021158254"></a></p>
+</li>
+</ol>
+<h3 id="web场景监控"><a href="#web场景监控" class="headerlink" title="web场景监控"></a>web场景监控</h3><p>许多时候我们需要监测一些web场景，比如监测网站后端的php是否连接上了数据库以及一些网站的API，经常用到web场景的监测</p>
+<ol>
+<li><p>创建监控网页</p>
+<p>准备好一个文件mysqli.php，放到网站的访问目录中，文件内容如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="variable">$link_id</span>=<span class="title function_ invoke__">mysqli_connect</span>(<span class="string">&#x27;db01&#x27;</span>,<span class="string">&#x27;blog&#x27;</span>,<span class="string">&#x27;123456&#x27;</span>);</span><br><span class="line">	<span class="keyword">if</span>(<span class="variable">$link_id</span>)&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;mysql successful by blog&quot;</span></span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="title function_ invoke__">mysqli_error</span>();</span><br><span class="line">	&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建web场景监控</p>
+<p>web界面侧边栏&gt;<strong>配置</strong>&gt;<strong>主机</strong>，选择一个主机，上方选项中选择<strong>web场景</strong>，右上角<strong>创建web场景</strong>，填写以下信息</p>
+<p><a href="/../pic/image-20240302031833787.png" title="image-20240302031833787" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240302031833787.png" alt="image-20240302031833787"></a></p>
+<p>在步骤中，添加一个步骤，URL填写访问监控文件的URL</p>
+<p><a href="/../pic/image-20240302031915269.png" title="image-20240302031915269" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240302031915269.png" alt="image-20240302031915269"></a></p>
+<p>填写要访问的主机头，要求的字符串和要求的状态码，点击添加即可</p>
+<p><a href="/../pic/image-20240302031950815.png" title="image-20240302031950815" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240302031950815.png" alt="image-20240302031950815"></a></p>
+</li>
+<li><p>查看数据</p>
+<p>web页面侧边栏&gt;监测&gt;主机，点击相应主机的web监测，点击刚刚添加web监测场景，可以查看状态</p>
+<p><a href="/../pic/image-20240302032220621.png" title="image-20240302032220621" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240302032220621.png" alt="image-20240302032220621"></a></p>
+</li>
+</ol>
+<h3 id="Tomcat多实例监控"><a href="#Tomcat多实例监控" class="headerlink" title="Tomcat多实例监控"></a>Tomcat多实例监控</h3><p>Tomcat的多实例的监控的实现可以使用低级自动发现</p>
+<ol>
+<li><p>启动两个tomcat实例，查看</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sh /app/tomcat-shell/start_tomcat.sh /app/tomcat-1		<span class="comment"># 启动tomcat实例1</span></span><br><span class="line">sh /app/tomcat-shell/start_tomcat.sh /app/tomcat-2		<span class="comment"># 启动tomcat实例2</span></span><br><span class="line">ss -tunlp | grep java		<span class="comment"># 查看进程</span></span><br><span class="line"></span><br><span class="line">[root@web03 app]$ ss -tunlp | grep java</span><br><span class="line">tcp    LISTEN     0      1        [::ffff:127.0.0.1]:8005               [::]:*                   <span class="built_in">users</span>:((&quot;java&quot;,pid=<span class="number">1540</span>,fd=<span class="number">64</span>))</span><br><span class="line">tcp    LISTEN     0      1        [::ffff:127.0.0.1]:8006               [::]:*                   <span class="built_in">users</span>:((&quot;java&quot;,pid=<span class="number">1583</span>,fd=<span class="number">64</span>))</span><br><span class="line">tcp    LISTEN     0      100    [::]:8080               [::]:*                   <span class="built_in">users</span>:((&quot;java&quot;,pid=<span class="number">1540</span>,fd=<span class="number">52</span>))</span><br><span class="line">tcp    LISTEN     0      100    [::]:8081               [::]:*                   <span class="built_in">users</span>:((&quot;java&quot;,pid=<span class="number">1583</span>,fd=<span class="number">52</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写脚本<code>tomcat.port.discovery.sh</code>，发现tomcat的多个端口，作为自动发现项</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">port_list=(`ss -tunlp | grep -w java | awk -F<span class="string">&#x27;[ :]+&#x27;</span> <span class="string">&#x27;$7~/^808.$/&#123;print $7&#125;&#x27;</span>`)</span><br><span class="line">i=0</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&#123;&#x27;</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&#x27;\t&quot;data&quot;:[&#x27;</span></span><br><span class="line">	<span class="keyword">for</span> port <span class="keyword">in</span> <span class="variable">$&#123;port_list[*]&#125;</span></span><br><span class="line">	<span class="keyword">do</span></span><br><span class="line">		<span class="built_in">let</span> i++</span><br><span class="line">		<span class="keyword">if</span> [ <span class="variable">$i</span> -eq <span class="variable">$&#123;#port_list[*]&#125;</span> ]</span><br><span class="line">		<span class="keyword">then</span></span><br><span class="line">			<span class="built_in">echo</span> -e <span class="string">&quot;\t\t&#123;\&quot;&#123;#TOMCATPORT&#125;\&quot;:<span class="variable">$port</span>&#125;&quot;</span></span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="built_in">echo</span> -e <span class="string">&quot;\t\t&#123;\&quot;&#123;#TOMCATPORT&#125;\&quot;:<span class="variable">$port</span>&#125;,&quot;</span></span><br><span class="line">		<span class="keyword">fi</span></span><br><span class="line">	<span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&#x27;\t]&#x27;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写脚本<code>tomcat_status.sh</code>，获取内存使用情况，作为监控项原型使用</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 根据tomcat进程的端口取出对应的pid，使用jmap工具获取JVM内存使用状况，并提取百分率</span></span><br><span class="line"></span><br><span class="line">. /etc/profile		<span class="comment"># 如果不添加此句，可能会在服务端测试时遇到找不到脚本中的命令</span></span><br><span class="line"></span><br><span class="line">PORT=<span class="variable">$1</span></span><br><span class="line">JVM_NAME=<span class="variable">$2</span></span><br><span class="line"></span><br><span class="line">PID=`ss -tunlp | grep -w <span class="variable">$PORT</span> | awk -F<span class="string">&#x27;pid=|,&#x27;</span> <span class="string">&#x27;&#123;print $3&#125;&#x27;</span>`</span><br><span class="line">jmap -heap <span class="variable">$PID</span> | grep -wiA4 <span class="string">&quot;^<span class="variable">$&#123;JVM_NAME&#125;</span>&quot;</span> | awk <span class="string">&#x27;NR==5&#123;print $1&#125;&#x27;</span> | <span class="built_in">tr</span> -d <span class="string">&#x27;%&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改zabbix客户端键值配置文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@web03 scripts]$ vim /etc/zabbix/zabbix_agent2.d/tomcat.conf </span><br><span class="line"></span><br><span class="line">UserParameter=tomcat.port.discovery,<span class="built_in">sudo</span> sh /server/scripts/tomcat.port.discovery.sh</span><br><span class="line">UserParameter=tomcat.status[*],<span class="built_in">sudo</span> sh /server/scripts/tomcat_status.sh <span class="string">&quot;<span class="variable">$1</span>&quot;</span> <span class="string">&quot;<span class="variable">$2</span>&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>web界面创建lld规则，监控项原型、触发器和图形等，不再赘述。</p>
+</li>
+</ol>
+<h3 id="存储服务监控"><a href="#存储服务监控" class="headerlink" title="存储服务监控"></a>存储服务监控</h3><p>自动发现共享目录以及目录的占用空间</p>
+<p>系统模板中的低级自动发现已经存在</p>
+<p><a href="/../pic/image-20240303011032865.png" title="image-20240303011032865" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/image-20240303011032865.png" alt="image-20240303011032865"></a></p>
+<h3 id="Redis监控"><a href="#Redis监控" class="headerlink" title="Redis监控"></a>Redis监控</h3><p>可以使用模板，自定义监控项待补充</p>
+<h3 id="MySQL监控"><a href="#MySQL监控" class="headerlink" title="MySQL监控"></a>MySQL监控</h3><p>可以使用模板，自定义监控项待补充</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-02-19</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Zabbix/'>
+                            Zabbix
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

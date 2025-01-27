@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Bash双括号运算" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Bash双括号运算
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97"><span class="post-toc-text">算术运算</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97"><span class="post-toc-text">进制运算</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97"><span class="post-toc-text">位运算</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97"><span class="post-toc-text">逻辑运算</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97"><span class="post-toc-text">赋值运算</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B1%82%E5%80%BC%E8%BF%90%E7%AE%97"><span class="post-toc-text">求值运算</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#expr-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">expr 命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#let-%E5%91%BD%E4%BB%A4"><span class="post-toc-text">let 命令</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="算术运算"><a href="#算术运算" class="headerlink" title="算术运算"></a>算术运算</h2><p><code>((...))</code>语法可以进行整数的算术运算。支持的算术运算符如下：</p>
+<ul>
+<li><code>+</code>：加法</li>
+<li><code>-</code>：减法</li>
+<li><code>*</code>：乘法</li>
+<li><code>/</code>：除法（整除）</li>
+<li><code>%</code>：余数</li>
+<li><code>**</code>：指数</li>
+<li><code>++</code>：自增运算（前缀或后缀）</li>
+<li><code>--</code>：自减运算（前缀或后缀）</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ((...))会自动忽略内部的空格，所以写不写空格都可以</span></span><br><span class="line">$ ((foo = <span class="number">5</span> + <span class="number">5</span>))</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$foo</span></span><br><span class="line">10</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这个语法没有返回值，如果不在内部给变量赋值，命令执行的结果根据算术运算的结果而定。只要算术结果不是`0`，命令就算执行成功。</span></span><br><span class="line">$ (( <span class="number">3</span> - <span class="number">3</span> ))</span><br><span class="line">$ <span class="built_in">echo</span> $?</span><br><span class="line">1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果要读取算术运算的结果，需要在`((...))`前面加上美元符号`$((...))`，使其变成算术表达式，返回算术运算的值。</span></span><br><span class="line">$ <span class="built_in">echo</span> $((<span class="number">2</span> + <span class="number">2</span>))</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li>这个语法只能计算整数，否则会报错。</li>
+<li>除法运算符的返回结果总是整数，比如<code>5</code>除以<code>2</code>，得到的结果是<code>2</code>，而不是<code>2.5</code>。</li>
+<li><code>++</code>和<code>--</code>这两个运算符有前缀和后缀的区别。作为前缀是先运算后返回值，作为后缀是先返回值后运算。</li>
+<li><code>$((...))</code>结构可以嵌套，<code>$((...))</code>内部支持用圆括号改变运算顺序。</li>
+<li><code>$((...))</code>的圆括号之中，不需要在变量名之前加上<code>$</code>，不过加上也不报错。如果不存在同名变量，Bash 就会将其作为空值。</li>
+<li><code>$[...]</code>也可以做整数运算，是以前的语法，不建议使用。</li>
+</ol>
+<h2 id="进制运算"><a href="#进制运算" class="headerlink" title="进制运算"></a>进制运算</h2><p>Bash 的数值默认都是十进制，但是在<code>((...))</code>中，也可以使用其他进制，然后可以使用<code>$</code>把双括号中其他进制的数值转换为默认的10进制数</p>
+<ul>
+<li><code>number</code>：没有任何前缀的是默认的十进制数。</li>
+<li><code>0number</code>：以<code>0</code>开头，后面的数字会被认为是八进制数。</li>
+<li><code>0xnumber</code>：以<code>0x</code>开头，后面的数字会被认为是十六进制数。</li>
+<li><code>base#number</code>：以<code>base#</code>开头，<code>base</code>代表任意数字，比如<code>3#</code>，后面的数字会被认为是<code>base</code>进制的数。</li>
+</ul>
+<p>下面是一些例子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> $((<span class="number">0</span>xff))</span><br><span class="line">255</span><br><span class="line"></span><br><span class="line">foo=10</span><br><span class="line"><span class="comment"># 双括号中可以使用变量</span></span><br><span class="line">$ <span class="built_in">echo</span> $((<span class="number">0</span>x<span class="variable">$&#123;foo&#125;</span>))</span><br><span class="line">16</span><br></pre></td></tr></table></figure>
+
+<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><p><code>$((...))</code>支持以下的二进制位运算符。本质上是将10进制数转化为2进制数，进行位运算之后，再转化为10进制数。</p>
+<ul>
+<li><code>&lt;&lt;</code>：位左移运算，把一个数字的所有位向左移动指定的位。</li>
+<li><code>&gt;&gt;</code>：位右移运算，把一个数字的所有位向右移动指定的位。</li>
+<li><code>&amp;</code>：位的“与”运算，对于两个数字的每个位，都为<code>1</code>则结果为<code>1</code>，否则结果为<code>0</code></li>
+<li><code>|</code>：位的“或”运算，对于两个数字的每个位，只要有一个为<code>1</code>，则结果为<code>1</code></li>
+<li><code>^</code>：位的异或运算（exclusive or），对于两个数字的每个位，不同为<code>1</code>，相同为<code>0</code></li>
+<li><code>~</code>：位的“否”运算，对一个数字的所有位取反。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将16（二进制`10000`）的所有位向左移动2位，变成了4（二进制`100`）</span></span><br><span class="line">$ <span class="built_in">echo</span> $((<span class="number">16</span>&gt;&gt;<span class="number">2</span>))</span><br><span class="line">4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将16（二进制`10000`）的所有位向右移动2位，变成了64（二进制`1000000`）</span></span><br><span class="line">$ <span class="built_in">echo</span> $((<span class="number">16</span>&lt;&lt;<span class="number">2</span>))</span><br><span class="line">64</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将17（二进制`10001`）和3（二进制`11`）,进行与运算，变成了1（二进制`00001`）</span></span><br><span class="line">$ <span class="built_in">echo</span> $((<span class="number">17</span>&amp;<span class="number">3</span>))</span><br><span class="line">1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将17（二进制`10001`）和3（二进制`11`）,进行或运算，变成了19（二进制`10011`）</span></span><br><span class="line">$ <span class="built_in">echo</span> $((<span class="number">17</span>|<span class="number">3</span>))</span><br><span class="line">19</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将17（二进制`10001`）和3（二进制`11`）,进行异或运算，变成了18（二进制`10010`）</span></span><br><span class="line">$ <span class="built_in">echo</span> $((<span class="number">17</span>^<span class="number">3</span>))</span><br><span class="line">18</span><br></pre></td></tr></table></figure>
+
+<h2 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h2><p><code>$((...))</code>支持以下的逻辑运算符。</p>
+<ul>
+<li><code>&lt;</code>：小于</li>
+<li><code>&gt;</code>：大于</li>
+<li><code>&lt;=</code>：小于或相等</li>
+<li><code>&gt;=</code>：大于或相等</li>
+<li><code>==</code>：相等</li>
+<li><code>!=</code>：不相等</li>
+<li><code>&amp;&amp;</code>：逻辑与</li>
+<li><code>||</code>：逻辑或</li>
+<li><code>!</code>：逻辑否</li>
+<li><code>expr1?expr2:expr3</code>：三元条件运算符。若<code>expr1</code>的计算结果为非零值（算术真），则执行<code>expr2</code>，否则执行<code>expr3</code>。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果逻辑表达式为真，返回1，否则返回0</span></span><br><span class="line">$ <span class="built_in">echo</span> $((<span class="number">3</span> &gt; <span class="number">2</span>))</span><br><span class="line">1</span><br><span class="line">$ <span class="built_in">echo</span> $(( (<span class="number">3</span> &gt; <span class="number">2</span>) || (<span class="number">4</span> &lt;= <span class="number">1</span>) ))</span><br><span class="line">1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 三元运算符执行一个单独的逻辑测试。它用起来类似于`if/then/else`语句</span></span><br><span class="line">$ a=0</span><br><span class="line">$ <span class="built_in">echo</span> $((a&lt;<span class="number">1</span> ? <span class="number">1</span> : <span class="number">0</span>))</span><br><span class="line">1</span><br><span class="line">$ <span class="built_in">echo</span> $((a&gt;<span class="number">1</span> ? <span class="number">1</span> : <span class="number">0</span>))</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+
+<h2 id="赋值运算"><a href="#赋值运算" class="headerlink" title="赋值运算"></a>赋值运算</h2><p><code>$((...))</code>可以执行赋值运算，同时这个式子本身也是一个表达式，返回值就是运算后的值。</p>
+<p><code>$((...))</code>支持的赋值运算符，有以下这些。</p>
+<ul>
+<li><code>parameter = value</code>：简单赋值。</li>
+<li><code>parameter += value</code>：等价于<code>parameter = parameter + value</code>。</li>
+<li><code>parameter -= value</code>：等价于<code>parameter = parameter – value</code>。</li>
+<li><code>parameter *= value</code>：等价于<code>parameter = parameter * value</code>。</li>
+<li><code>parameter /= value</code>：等价于<code>parameter = parameter / value</code>。</li>
+<li><code>parameter %= value</code>：等价于<code>parameter = parameter % value</code>。</li>
+<li><code>parameter &lt;&lt;= value</code>：等价于<code>parameter = parameter &lt;&lt; value</code>。</li>
+<li><code>parameter &gt;&gt;= value</code>：等价于<code>parameter = parameter &gt;&gt; value</code>。</li>
+<li><code>parameter &amp;= value</code>：等价于<code>parameter = parameter &amp; value</code>。</li>
+<li><code>parameter |= value</code>：等价于<code>parameter = parameter | value</code>。</li>
+<li><code>parameter ^= value</code>：等价于<code>parameter = parameter ^ value</code>。</li>
+</ul>
+<p>下面是一个例子。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ foo=5</span><br><span class="line">$ <span class="built_in">echo</span> $((foo*=<span class="number">2</span>))</span><br><span class="line">10</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果在表达式内部赋值，可以放在圆括号中，否则会报错</span></span><br><span class="line">$ <span class="built_in">echo</span> $(( a&lt;<span class="number">1</span> ? (a+=<span class="number">1</span>) : (a-=<span class="number">1</span>) ))</span><br></pre></td></tr></table></figure>
+
+<h2 id="求值运算"><a href="#求值运算" class="headerlink" title="求值运算"></a>求值运算</h2><p>逗号<code>,</code>在<code>$((...))</code>内部是求值运算符，执行前后两个表达式，并返回后一个表达式的值。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> $((foo = <span class="number">1</span> + <span class="number">2</span>, <span class="number">3</span> * <span class="number">4</span>))</span><br><span class="line">12</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$foo</span></span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，逗号前后两个表达式都会执行，然后返回后一个表达式的值<code>12</code>。</p>
+<h2 id="expr-命令"><a href="#expr-命令" class="headerlink" title="expr 命令"></a>expr 命令</h2><p><code>expr</code>命令支持算术运算，可以不使用<code>((...))</code>语法。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">expr</span> 3 + 2</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+
+<p><code>expr</code>命令支持变量替换。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ foo=3</span><br><span class="line">$ <span class="built_in">expr</span> <span class="variable">$foo</span> + 2</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+
+<p>注意：<code>expr</code>命令也只支持整数运算</p>
+<h2 id="let-命令"><a href="#let-命令" class="headerlink" title="let 命令"></a>let 命令</h2><p><code>let</code>命令用于将算术运算的结果，赋予一个变量。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">let</span> x=2+3</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$x</span></span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+
+<p>注意，<code>x=2+3</code>这个式子里面不能有空格，否则会报错。<code>let</code>命令的详细用法参见《变量》一章。</p>
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2022-10-20</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Bash/'>
+                            Bash
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="容器核心技术基础" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            容器核心技术基础
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#star-%E5%AE%B9%E5%99%A8%E6%9E%B6%E6%9E%84"><span class="post-toc-text">:star:容器架构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#star-namespace"><span class="post-toc-text">:star:namespace</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="post-toc-text">基本概念</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E9%80%9A%E8%BF%87%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B"><span class="post-toc-text">通过系统调用创建一个进程</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#star-UnionFS"><span class="post-toc-text">:star:UnionFS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-1"><span class="post-toc-text">基本概念</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%AE%B9%E5%99%A8%E6%8C%82%E8%BD%BD%E5%88%86%E6%9E%90"><span class="post-toc-text">容器挂载分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#star-cgroup"><span class="post-toc-text">:star:cgroup</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-2"><span class="post-toc-text">基本概念</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#cpu-cgroup"><span class="post-toc-text">cpu cgroup</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-3"><span class="post-toc-text">基本概念</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#cpu-cgroup%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="post-toc-text">cpu cgroup的使用</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#memory-cgroup"><span class="post-toc-text">memory cgroup</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-4"><span class="post-toc-text">基本概念</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#memory-cgroup%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="post-toc-text">memory cgroup的使用</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#page-cache"><span class="post-toc-text">page cache</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#swap%E5%88%86%E5%8C%BA"><span class="post-toc-text">swap分区</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#blkio-cgroup"><span class="post-toc-text">blkio cgroup</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-5"><span class="post-toc-text">基本概念</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#blkio-cgroup%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="post-toc-text">blkio cgroup的使用</span></a></li></ol></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h3 id="star-容器架构"><a href="#star-容器架构" class="headerlink" title=":star:容器架构"></a>:star:容器架构</h3><blockquote>
+<p><strong>OCI</strong></p>
+</blockquote>
+<p>OCI全称为Open Container Initiative，开放容器倡议</p>
+<p>其目的主要是为了制定容器技术的通用技术标准，主要包含两种标准：</p>
+<ul>
+<li><p>容器运行时标准 （runtime spec）</p>
+</li>
+<li><p>容器镜像标准（image spec）</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>docker分层架构</strong></p>
+</blockquote>
+<p>Docker最初是一个单体系统，本身提供了尽可能完善的功能。OCI标准出现之后，为了实现解耦，Docker1.11版之后由单体分为了5大组成部分</p>
+<p><a href="/../pic/29.jpg" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/29.jpg" alt="img"></a></p>
+<ul>
+<li>docker-client：客户端命令</li>
+<li>docker daemon：docker守护进程，主要提供客户端命令接口，比如登陆镜像仓库，镜像构建、存储卷管理、日志操作等。</li>
+<li>containerd：独立负责容器运行时的生命周期（如创建、启动、停止、暂停、信号处理、删除）。</li>
+<li>containerd-shim：每创建一个容器，containerd服务都会创建一个containerd-shim进程，然后该进程调用runc来具体创建容器。</li>
+<li>runc：早期由Docker拿出来捐赠给了OCI来作为容器运行时的标准。使用runc创造出来的就是一个符合oci规范的标准容器。</li>
+</ul>
+<p>它们的层级关系如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dockerd</span><br><span class="line">    containerd</span><br><span class="line">        containerd-shim----runc----&gt;容器进程</span><br><span class="line">        containerd-shim----runc----&gt;容器进程</span><br><span class="line">        containerd-shim----runc----&gt;容器进程</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>runtime</strong></p>
+</blockquote>
+<p>runtime翻译为容器运行时，指的就是用来管理镜像或者容器的服务端软件。</p>
+<p>runtime分为两大类</p>
+<ul>
+<li><p>high-level runtime</p>
+<p>比如docker、containerd、podman等，支持更多高级功能（如镜像管理和gRPC &#x2F; Web API），对于高级别运行时来说，他们是通过调用低级别运行时来管理容器（可以简单的理解为高级别是在低级别基础上的上层封装），一般可以是runc作为低级别运行时。	</p>
+</li>
+<li><p>low-level runtime:</p>
+<p>比如lxc、runc、gvisor、kata等，只涉及到容器运行的一些基础细节，比如namespace创建、cgroup设置。</p>
+</li>
+</ul>
+<h3 id="star-namespace"><a href="#star-namespace" class="headerlink" title=":star:namespace"></a>:star:namespace</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>linux在2.4.19内核中开始引入名称空间（namespace），是内核中强大的特性，可以使每个进程看起来都拥有自己的隔离的全局系统资源，即每个进程都有自己的命名空间，每个进程中运行的应用程序都像是运行在一个独立的系统中一样。<br>区别与k8s中的命名空间，容器中命名空间的目的，是保证容器之间的运行环境（使用时资源）互相隔离，彼此互不影响</p>
+<p>namespace主要隔离了6钟关键资源：</p>
+<ul>
+<li><p>pid</p>
+<p>保证不同名称空间里拥有自己完全独立的一套pid号。在不同的名称空间里，即便pid号一样，也不会冲突</p>
+</li>
+<li><p>uts</p>
+<p>主机名与网络信息服务</p>
+</li>
+<li><p>ipc</p>
+<p>ipc的全称是进程间通信，是unix&#x2F;linux下进程直接通信的一种方式</p>
+</li>
+<li><p>mount</p>
+<p>容器内挂载点与系统分离开</p>
+</li>
+<li><p>network</p>
+<p>用于隔离网络资源（IP地址，网卡、路由），一个名称空间里可以有独立的网卡，监听的端口不会与其他名称空间冲突</p>
+</li>
+<li><p>user</p>
+<p>用户的id、组id不与其他名称空间冲突</p>
+</li>
+</ul>
+<h4 id="通过系统调用创建一个进程"><a href="#通过系统调用创建一个进程" class="headerlink" title="通过系统调用创建一个进程"></a>通过系统调用创建一个进程</h4><p>在Linux系统中，创建一个进程是通过clone()系统调用，下面的例子是以容器的方式，创建一个子进程</p>
+<p>用C语言编写一个文件<code>clone.c</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _GNU_SOURCE </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sched.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="comment">/* 定义一个给 clone 用的栈，栈大小1M */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> STACK_SIZE (1024 * 1024) </span></span><br><span class="line"><span class="type">static</span> <span class="type">char</span> container_stack[STACK_SIZE];</span><br><span class="line"> </span><br><span class="line"><span class="type">char</span>* <span class="type">const</span> container_args[] = &#123;</span><br><span class="line">    <span class="string">&quot;/bin/bash&quot;</span>,</span><br><span class="line">    <span class="literal">NULL</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="type">int</span> <span class="title function_">container_main</span><span class="params">(<span class="type">void</span>* arg)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Container - inside the container!\n&quot;</span>);</span><br><span class="line">    <span class="comment">/* 直接执行一个shell，以便我们观察这个进程空间里的资源是否被隔离了 */</span></span><br><span class="line">    execv(container_args[<span class="number">0</span>], container_args);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Something&#x27;s wrong!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Parent - start a container!\n&quot;</span>);</span><br><span class="line">    <span class="comment">/* 调用clone函数，其中传出一个函数，还有一个栈空间的（为什么传尾指针，因为栈是反着的） */</span></span><br><span class="line">    <span class="type">int</span> container_pid = clone(container_main, container_stack+STACK_SIZE, SIGCHLD, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="comment">/* 等待子进程结束 */</span></span><br><span class="line">    waitpid(container_pid, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Parent - container stopped!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译并运行<code>clone.c</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编译</span></span><br><span class="line">gcc -o <span class="built_in">clone</span> clone.c</span><br><span class="line"><span class="comment"># 运行</span></span><br><span class="line">./clone</span><br><span class="line"><span class="comment"># 退出</span></span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的例子仅仅是通过系统调用创建了一个进程，并没有涉及命名空间的隔离，事实上在创建容器进程的时候，还会传入下面的系统调用参数来实现名称空间隔离。</p>
+<p><a href="/../pic/9-1732963265866-3.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/9-1732963265866-3.png" alt="img"></a></p>
+<p>网上一直有一种说法，认为容器本质上是一个进程，其实这个说法并不准确。</p>
+<p>创建一个容器，本质上只是创建了一个命名空间，这个命名空间里面可以有不只一个进程，这些进程是通过clone()系统调用创建的，并且通过其他的系统调用使进程的其他资源都加入到了这个命名空间，实现资源隔离，并通过cgroup技术实现资源限制，与其他命名空间的进程互不影响。</p>
+<p>所以容器本质上是 <strong>命名空间+cgroup</strong> 的概念，不能单纯理解为一个进程。</p>
+<p>详细的例子参考：<a target="_blank" rel="noopener" href="https://egonlin.com/?p=7318">深入分析Linux名称空间</a></p>
+<h3 id="star-UnionFS"><a href="#star-UnionFS" class="headerlink" title=":star:UnionFS"></a>:star:UnionFS</h3><h4 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念"></a>基本概念</h4><blockquote>
+<p><strong>操作系统镜像</strong></p>
+</blockquote>
+<p>操作系统镜像的本质就是一个iso格式的压缩包，操作系统镜像里面存放了该系统所有的内容，具体来说分为两大部分</p>
+<p>一个典型的 Linux 文件系统由 bootfs 和 rootfs 两部分组成</p>
+<ul>
+<li><p>bootfs(boot file system) </p>
+<p>主要包含 bootloader 和 kernel，bootloader 主要用于引导加载 kernel，当 kernel 被加载到内存中后 bootfs 会被 umount 掉，从而释放内存，同样的内核版本不同Linux发行版，其bootfs都是一致的。</p>
+</li>
+<li><p>rootfs (root file system) </p>
+<p>包含典型 Linux 系统中的&#x2F;dev，&#x2F;proc，&#x2F;bin，&#x2F;etc 等标准目录和文件。Linux系统在启动时，rootfs首先会被挂载为只读模式，然后在启动完成后被修改为读写模式，随后它们就可以被修改了。不同的 linux 发行版（如 ubuntu 和 CentOS ) 在 rootfs 这一层会有所区别，体现发行版本的差异性。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>容器镜像</strong></p>
+</blockquote>
+<p>容器本质是没有内核的，它只有rootfs，至于下层的bootfs内核部分是共享自物理机的，容器镜像其实就是把rootfs打包到一起（镜像的本质就是一种压缩包），这个rootfs系统里包含了各种依赖文件，以及应用程序文件。</p>
+<p>如果想在宿主机上启动容器，让它们拥有操作系统，首先要做的就是把容器的镜像下载到宿主机，然后把容器的镜像文件关联给容器。这种关联的方式一定不能是把镜像文件解压到每一个容器的命名空间内，虽然这样也能实现，但是如果使用同一镜像启动多个容器的时候，会造成极大的存储空间浪费。</p>
+<p>所以对于容器来说，具体做法是把镜像里的rootfs目录都mount挂载到容器名称空间内。因为namespace中隔离的诸多资源中就包括mount挂载，如此，哪怕是同一个镜像，mount到了不同的容器或者说名称空间里，肯定是与其他容器&#x2F;名称空间隔离的。</p>
+<blockquote>
+<p><strong>联合文件系统</strong></p>
+</blockquote>
+<p>为了不影响镜像的一致性，镜像目录是以只读的方式挂载到容器内的，那么容器内也需要增删改查操作，这是通过联合文件系统UnionFS来实现的。</p>
+<p>容器内的rootfs根文件系统类型，并不是大在普通linux节点上看到的Ext4或者XFS之类的常见文件系统，而是Overlay，<strong>Overlay是一种联合文件系统UnionFS</strong>，联合文件系统顾名思义，可以把文件系统上多个目录(分支)内容联合挂载到同一个目录下，使用者也就是容器看起来认为是一个目录，而实际上在物理机里是由多个目录构成的。</p>
+<p>OverlayFS使用两个目录，把一个目录置放于另一个之上，并且对外提供单个统一的视角。这两个目录通常被称作层，这个分层的技术被称作union mount。术语上，下层的目录叫做lowerdir，上层的叫做upperdir。对外展示的统一视图称作merged</p>
+<p><a href="/../pic/3.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/3.png" alt="img"></a></p>
+<p>lowerdir就是镜像层，是只读的。</p>
+<p>upperdir是容器层，修改相关的内容都在这里存放。</p>
+<p>merged是容器映射层，我们在容器里看到的就是这一层，所以该层也可以称之为展现层。</p>
+<h4 id="容器挂载分析"><a href="#容器挂载分析" class="headerlink" title="容器挂载分析"></a>容器挂载分析</h4><p>OverlayFS 的一个 mount 命令牵涉到四类目录，分别是 lower，upper， merged 和 work</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看一个容器中的挂载情况</span></span><br><span class="line">docker inspect d8b276995aed</span><br><span class="line">...</span><br><span class="line">        <span class="string">&quot;GraphDriver&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;Data&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;LowerDir&quot;</span>: <span class="string">&quot;/data/lib/docker/overlay2/88e1b0b90bb66d9a8ac776d9b0d5b7592ed8ae87bf6e1ece9f0ea2f13e71bbd2-init/diff:/data/lib/docker/overlay2/4d63ee8ac0f861413e5967a40dae280fcbf8246074a8874d0b39c973d5dbc090/diff:/data/lib/docker/overlay2/c36eeee0e07fc6860a5dc256d7e22d1fa6299cfcea55c98ab964e73d3e9e8ee4/diff:/data/lib/docker/overlay2/1a2bb2ddb843d73079cb6eec9e7fa263a71537dabd62577465ea3b54523c5971/diff:/data/lib/docker/overlay2/58d4621796802f907d2ae47fa659893d4e6324bc420bb26010328de4d173504d/diff:/data/lib/docker/overlay2/82468953f9620bc7e2d856413f4cddaf082ed82e3a29325ffc94f0c486653fb4/diff:/data/lib/docker/overlay2/d944d92a7a3c5aa370839abbd2e2572d77ad93c318d850914bd5088c7ac2c012/diff:/data/lib/docker/overlay2/7a09eaf6a2e088ad4e2dcc9cf1b4e9151d33908d91767836d32db2d6c483cb7a/diff:/data/lib/docker/overlay2/dc17e395cd8f9b18eba1eb65a21378edb7dac2ac9732a43f9f19666f2a41f90e/diff:/data/lib/docker/overlay2/59991a646167d3288276fd3f923d4c619d28560b9e1b7cf3d8fe41718be1515d/diff:/data/lib/docker/overlay2/e20d342a1bca2ae9e16ba4861771a372d6b84e2c550af3e9a9131f5318f6a494/diff&quot;</span>,</span><br><span class="line">                <span class="string">&quot;MergedDir&quot;</span>: <span class="string">&quot;/data/lib/docker/overlay2/88e1b0b90bb66d9a8ac776d9b0d5b7592ed8ae87bf6e1ece9f0ea2f13e71bbd2/merged&quot;</span>,</span><br><span class="line">                <span class="string">&quot;UpperDir&quot;</span>: <span class="string">&quot;/data/lib/docker/overlay2/88e1b0b90bb66d9a8ac776d9b0d5b7592ed8ae87bf6e1ece9f0ea2f13e71bbd2/diff&quot;</span>,</span><br><span class="line">                <span class="string">&quot;WorkDir&quot;</span>: <span class="string">&quot;/data/lib/docker/overlay2/88e1b0b90bb66d9a8ac776d9b0d5b7592ed8ae87bf6e1ece9f0ea2f13e71bbd2/work&quot;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;Name&quot;</span>: <span class="string">&quot;overlay2&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line"> ....</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>LowerDir</p>
+<p>这层里的文件是不会被修改的（只读），在这个例子里我们只有一个 lower&#x2F; 目录，不过 OverlayFS 是支持多个 lowerdir 的。</p>
+</li>
+<li><p>UpperDir</p>
+<p>在 OverlayFS 中，如果有文件的创建，修改，删除操作，那么都会在这一层反映出来，它是可读写的。</p>
+</li>
+<li><p>MergedDir </p>
+<p>它是挂载点(mount point)目录，也是用户看到的目录， 用户的实际文件操作在这里进行。</p>
+</li>
+<li><p>WorkDir</p>
+<p>这个目录只是一个存放临时文件的目录， OverlayFS 中如果有文件修改，就会在中间过程中临时存放文件到这里。</p>
+</li>
+</ul>
+<p>补充：</p>
+<p>LowerDir可能只由一个目录组成，也可能由很多目录组成，一些从官网拿到的镜像，可能里面只包含一个目录，我们用该镜像启动一个容器，那lowerdir里只包含一个目录。然后我们对该容器进行一系列增删改操作，丢记录到了upperdir里，如果此时镜像销毁，那么uppdir里的内容就丢失，我们可以用docker commit把一个正在运行的容器导出为里一个新镜像，这样upperdir里的内容就保存下来，新镜像里的LowerDir有两个目录，一个是原始镜像的目录，一个是导出upperdir里的东西。</p>
+<p>详细分析参考：<a target="_blank" rel="noopener" href="https://egonlin.com/?p=7326">容器的镜像与UnionFS</a></p>
+<h3 id="star-cgroup"><a href="#star-cgroup" class="headerlink" title=":star:cgroup"></a>:star:cgroup</h3><h4 id="基本概念-2"><a href="#基本概念-2" class="headerlink" title="基本概念"></a>基本概念</h4><p>cgroup是一种用来限制容器对宿主机资源使用量的一种机制。</p>
+<p>使用cgroup来限制容器对宿主机资源的使用上限，避免单个容器无限占用宿主机资源而影响到其他容器，从而保证了宿主机上容器运行的稳定性。</p>
+<h4 id="cpu-cgroup"><a href="#cpu-cgroup" class="headerlink" title="cpu cgroup"></a>cpu cgroup</h4><h5 id="基本概念-3"><a href="#基本概念-3" class="headerlink" title="基本概念"></a>基本概念</h5><p>使用top命令可以查看操作系统中的cpu状态信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">us：用户态进程占用cpu时间的百分比，不包括低优先级进程的用户态时间（nice值1-19）</span><br><span class="line">sy：内核态进程占用cpu时间的百分比</span><br><span class="line">ni：nice值1-19的进程用户态占cpu时间的百分比，注意ni与us一样，都是在用户态</span><br><span class="line">id：系统空闲cpu的百分比</span><br><span class="line">wa：系统等待I/O的cpu时间占比，该时间不计入进程的CPU时间</span><br><span class="line">hi：处理硬件中断的总时间/CPU的总时间，该时间同样不计入进程的CPU时间</span><br><span class="line">si：处理软件中断的时间，该时间不计入进程的CPU时间</span><br><span class="line">st：表示同一宿主机上的其他虚拟机抢走的CPU时间</span><br></pre></td></tr></table></figure>
+
+<p>在Linux系统中，关于cpu的使用情况有两个参考指标：</p>
+<ul>
+<li><p>cpu使用率</p>
+<p>某个用户进程对cpu的利用率 &#x3D; 用户进程占用的cpu时间（包括用户态us+内核态sy） &#x2F; cpu经历的这段总时间， 利用率为100%代表使用1颗cpu，如果宿主机只有4颗cpu，那么某个进程对cpu的利用率最多400%。top命令上方可以显示所有进程总的cpu使用率，这个使用率是不会超过100%的。</p>
+</li>
+<li><p>load average</p>
+<p> load average是指在某段时间内平均活跃的进程数 &#x2F; cpu个数，它与cpu使用率不同的是，它统计的进程包括计算任务和io任务，即系统处于可运行状态以及不可中断状态的平均进程数（D状态）。</p>
+</li>
+</ul>
+<p>有些时候会遇到容器里的应用运行速度非常慢，但是所有容器进程、以及宿主机的cpu使用率都很低，内存也很充足的情况。这时候需要查看查看宿主机的load average，如果这个数值很高，说明系统中存在大量的不可中断状态的进程，大多是在等待IO，拖慢了系统运行速度。</p>
+<h5 id="cpu-cgroup的使用"><a href="#cpu-cgroup的使用" class="headerlink" title="cpu cgroup的使用"></a>cpu cgroup的使用</h5><p>每个cgroups的子系统都是通过一个虚拟文件系统挂载点来管理。在linux发行版里，cpu cgroup一般是挂载到<code>/sys/fs/cgroup/cpu</code>目录下。在该目录下，每个控制组都是一个子目录，各个控制组之间的关系是一个树状的层级关系</p>
+<p>例如，在子系统的最顶层目录开始创建两个控制组，其实就是创建两个目录group1与group2，然后再在group2下面创建两个控制组group3与group4，如此，便建立了一个树状的控制组层级，如下图所示</p>
+<p><a href="/../pic/10-1.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/10-1.png" alt="img"></a></p>
+<p>创建控制组后，会在目录下自动生成一系列文件，下面是一些关键文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cgroup.procs：把进程的pid号写到这个文件中，可以对这个进程做资源限制</span><br><span class="line"></span><br><span class="line">cpu.cfs_period_us：CFS算法的一个调度周期，以微秒为单位，默认值为100000微秒(100ms)，一般不会调整，而是调整下一个参数</span><br><span class="line"></span><br><span class="line">cpu.cfs_quota_us：一个调度周期内，此控制组被允许的运行时间，cpu.cfs_quota_us/cpu.cfs_period_us就是此控制组被允许使用cpu的最大配额，比如该值为50ms时，50ms/100ms=0.5，代表该控制组被允许使用的cpu最大配置为0.5个cpu。</span><br><span class="line"></span><br><span class="line">cpu.shares：该值用于控制在一个控制组目录树下，同一级控制组关于cpu的分配比例，例如上例中的group3与group4，如果group3下该值为1024，group4下该值为4096，则group3:group4比值为1:4，代表在一个5颗cpu的机器上，当group3与group4都需要5个cpu时，它们实际分配的cpu是：group3是1个，group4时候4个。注意：如果其控制的进程对cpu的占用超过了宿主机的实际cpu个数，cpu.shares才会生效。</span><br></pre></td></tr></table></figure>
+
+<p>补充：</p>
+<p>k8s中有两个资源申请参数</p>
+<ul>
+<li><p>request</p>
+<p>只是一个初始的申请量，实际使用量以进程占用位置，可以在request的基础上继续超用的</p>
+</li>
+<li><p>limit</p>
+<p>控制资源使用的上限，最多最多用到limit设置的值，但是能不能真的达到limit的限制，还需要考虑宿主机资源是否够用才行</p>
+</li>
+</ul>
+<h4 id="memory-cgroup"><a href="#memory-cgroup" class="headerlink" title="memory cgroup"></a>memory cgroup</h4><h5 id="基本概念-4"><a href="#基本概念-4" class="headerlink" title="基本概念"></a>基本概念</h5><p>介绍memory cgroup之前，需要先了解一下OOM机制。</p>
+<p>OOM 全称 Out of Memory（内存不足&#x2F;内存溢出），是linux系统的一种保护机制，当物理内存不够用时，linux系统的killer会杀死某个正在运行的进程来释放内存。OOM分为两种情况：整个系统级别，以及</p>
+<ol>
+<li><p>操作系统级别。无论如何，只要宿主机内存不足，肯定会触发OOM，站在整个系统的角度去杀进程，所有进程都可能是目标。</p>
+</li>
+<li><p>cgroup控制组级别。宿主机内存充足，但是控制组内的进程对内存的占用超过了限制，触发OOM，只能杀死本控制组内的进程。</p>
+</li>
+</ol>
+<h5 id="memory-cgroup的使用"><a href="#memory-cgroup的使用" class="headerlink" title="memory cgroup的使用"></a>memory cgroup的使用</h5><p>每创建一个容器都会创建一个容器的memory cgroup 控制组，在目录<code>/sys/fs/cgroup/memory/system.slice/docker-xxx</code>下。</p>
+<p>主要关注三个参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">memory.limit_in_bytes：控制容器内所有进程可以占用的物理内存上限，如果父级group设置的memory.limit_in_bytes为500M，那么子group最多只能设置到500M</span><br><span class="line"></span><br><span class="line">memory.oom_control：是否开启OOM机制，默认值为0代表开启，可以设置为1，代表关闭。关闭之后，进程的内存超过限制后不会被杀掉，但是也无法申请新的内存。</span><br><span class="line"></span><br><span class="line">memory.usage_in_bytes：只读参数，里面的内容是容器内所有进程占用的物理内存总量</span><br></pre></td></tr></table></figure>
+
+<p>OOM发生之后，还有一件重要的事情，就是查找OOM的日志，分析发生的原因，可以查看内核日志，执行<code>journal -k</code>或者查看<code>/var/log/messages</code>日志<br>三大块重要的内容：	</p>
+<pre><code>1、找到容器的进程mem_alloc,可以看到占用的rss（物理内的页数，默认每页4kB），还有就是oom_score_adj
+2、可以看到最后被oom killer杀死的进程的pid号
+3、可以看到发生OOM的容器或者控制组时什么，即可以断定到底是哪个容器发生了oom，如果罗列出的是整个操作系统的进程，那可以断定发生的一次系统级的oom
+</code></pre>
+<p>有两上述三部分信息作为依据之后，我们接下来的处理方案无法两种</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1、被OOM干掉的进程可能本身就是需要很大的内存，我们需要调大memory.limit_in_bytes</span><br><span class="line">2、被OOM干掉的额进程存在BUG，导致内存泄漏，从而达到了memory.limit_in_bytes的限制，此时就需要解决bug了</span><br></pre></td></tr></table></figure>
+
+<h5 id="page-cache"><a href="#page-cache" class="headerlink" title="page cache"></a>page cache</h5><p>首先给出一个现象：容器使用的内存达到了限制，并不一定会立刻启用OOM</p>
+<p>上面的现象中，容器使用的内存，是指<code>memory.usage_in_bytes</code>参数，实际上这个参数的值&#x3D;真正占用的物理内存rss+读写缓存page cache。</p>
+<p>所以在一些场景，容器内在进行大量的读写，容器的内存使用<code>memory_usage_in_bytes</code>虽然达到了限制也不会oom，反而还能继续申请到内存，因为这些读写的数据会大量缓存到page cache里，<code>memory_usage_in_bytes</code>随即升高，因此整体内存用量很快就达到了最大限制，但此时的容器物理内存其实并没有真的用满，因为容器使用掉的内存里多半是给了page cache，而page cache占用掉的内存，是会被linux系统释放掉的。所以容器再申请内存并不会oom，而会触发linux的内存回收机制、采用lru算法回收内存，page cache里因为是一些缓存内存无关紧要，比起关键数据，cache里的肯定符合lru的最近肯定最少使用，自然是被优先释放的，这样就可以继续分配给rss使用了。</p>
+<p>所以由于page cache的特性，一些读写频繁的容器会经常处于最大内存限制，这没问题，我们主要关注rss即可，只要rss没有接近最大限制，就不用担心。</p>
+<h5 id="swap分区"><a href="#swap分区" class="headerlink" title="swap分区"></a>swap分区</h5><p>swap分区本质是拓展出的内存，在物理内存不够时，才进行Swap交换。启用容器是默认关闭swap分区的，因为memory croup的存在是可以及时杀死内存达到限制的进程的，但因为swap分区的存在，并不会立刻杀死进程。宿主机操作系统会不断把进程的内存数据交换到磁盘swap分区上，产生大量的磁盘IO，这会带来宿主机整体性能的下降，进而影响宿主机上其他进程或容器的影响。</p>
+<p>但是有时候我们的程序是需要使用swap分区来防止内存突然暴涨，而被OOM killer干掉的。比如有些程序的启动需要进行大量的初始操作，需要占用很多内存，但是启动之后的内存没有那么大，所以我们如果给此类容器分配很大内存是不合理的，分配小了又会导致在启动阶段被OOM干掉，此时swap分区就显得很有用了。</p>
+<p>关于如何使用swap分区，以及平衡swap与page cache的使用，参考：<a target="_blank" rel="noopener" href="https://egonlin.com/?p=7401">容器中使用swap分区</a></p>
+<h4 id="blkio-cgroup"><a href="#blkio-cgroup" class="headerlink" title="blkio cgroup"></a>blkio cgroup</h4><h5 id="基本概念-5"><a href="#基本概念-5" class="headerlink" title="基本概念"></a>基本概念</h5><blockquote>
+<p><strong>VFS</strong></p>
+</blockquote>
+<p>VFS（Virtual Filesystem Switch）称为虚拟文件系统或虚拟文件系统转换，是一个内核软件层，是在具体的文件系统filesystem之上抽象的一层，用来处理与Posix文件系统相关的所有调用，表现为能够给各种文件系统提供一个通用的接口，使上层的应用程序能够使用<strong>通用的接口</strong>访问不同文件系统filesystem，同时也为不同文件系统的通信提供了媒介。</p>
+<p>通俗的讲，VFS 设计的初衷就是要支持所有的文件系统，处理与 Unix 标准文件系统相关的所有系统调用，为各种文件系统提供一个通用的接口。</p>
+<p>文件I&#x2F;O的流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户进程f.write() ----&gt; 系统调用sys_write() ----&gt; 虚拟文件系统VFS ----&gt; 文件系统(ext4、xfs) ----&gt; 缓存层page cache ----&gt; 块存储Block layer ---&gt; 硬件设备驱动 ----&gt; 硬件设备（硬盘、usb）</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>脏数据</strong></p>
+</blockquote>
+<p>介绍脏数据之前，需要先了解文件的io模式：</p>
+<ul>
+<li>Direct I&#x2F;O：直接写入</li>
+<li>Buffer I&#x2F;O：先把数据写到buff缓冲区,然后由内核异步把缓冲区的数据写入磁盘</li>
+</ul>
+<p>在Buffer I&#x2F;O的模式中，写数据是先写入了page cache，还没来得及写入磁盘，这部分数据称之为脏数据，即dirty pages。在linux内核中会有专门的内核线程（每个磁盘设备对应的kworker&#x2F;flush线程）会定期负责把脏数据落到磁盘中。bufferd IO的读写效率更高，所以大多数场景使用的都是该模式。</p>
+<p>该模式下，关于读和写需要考虑的内容还是有区别的：</p>
+<p>读缓存在绝大多数情况下是有益无害的（程序可以直接从RAM中读取数据）。</p>
+<p>写缓存比较复杂</p>
+<ol>
+<li>写操作先将数据写入buff缓冲区，然后会等待内核线程把buffer里的脏数据写入磁盘，在等待的这段周期内，出现了一些类似断电、崩溃这种问题，就可能导致数据丢失。</li>
+<li>一次性往磁盘写入过多数据，可能导致系统卡顿，因为系统缓存过大的情况下，操作系统可能会将异步写入切换为同步写入。</li>
+<li>可能存在缓存被写爆的情况。</li>
+</ol>
+<p>写缓存过大可能对系统造成影响，在不同场景下，可以通过修改内核参数来解决，参考 <a target="_blank" rel="noopener" href="https://egonlin.com/?p=7424">脏数据对容器读写性能的影响 </a></p>
+<h5 id="blkio-cgroup的使用"><a href="#blkio-cgroup的使用" class="headerlink" title="blkio cgroup的使用"></a>blkio cgroup的使用</h5><p>一台宿主机上运行的多个容器，容器的IO速率是彼此影响的，因为本质都是在用宿主机的I&#x2F;O资源，为了规避这种影响，应该给每个容器都设置合理的IO性能，这时需要用到 blkio cgroup。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">blkio.throttle.read_bps_device		# 限制设备的读带宽</span><br><span class="line">blkio.throttle.write_bps_device		# 限制设备的写带宽</span><br></pre></td></tr></table></figure></div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-12-13</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Docker/'>
+                            Docker
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

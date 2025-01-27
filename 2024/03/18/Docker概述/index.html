@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Docker概述" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Docker概述
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BA%91%E8%AE%A1%E7%AE%97"><span class="post-toc-text">云计算</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Docker%E6%9E%B6%E6%9E%84"><span class="post-toc-text">Docker架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="post-toc-text">Docker核心概念</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Docker%E9%87%8D%E8%A6%81%E7%BB%84%E4%BB%B6"><span class="post-toc-text">Docker重要组件</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Docker%E9%83%A8%E7%BD%B2"><span class="post-toc-text">Docker部署</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="云计算"><a href="#云计算" class="headerlink" title="云计算"></a>云计算</h2><p>云是一种能够抽象、汇集和共享整个网络中的可扩展资源的IT环境，云计算是指在云中运行工作负载的功能。云计算正在快速取代原本通过硬布线连接进行资源共享的方式。</p>
+<blockquote>
+<p><strong>云计算的环境</strong></p>
+</blockquote>
+<p>云计算的环境主要分为四种类型：私有云、公有云、混合云和多云。</p>
+<ul>
+<li><p>私有云<br>私有云是一种专为最终用户而创建，而且通常位于用户的防火墙内的云环境。如果底层 IT 基础架构归某个拥有完全独立访问权限的客户专有，那这种云就是私有云。</p>
+</li>
+<li><p>公共云:<br>公有云是云厂商资源创建的云环境，可分发给其他租户。全球规模最大的公共云提供商如：阿里云、Amazon Web Services（AWS）、Google云、IBM Cloud及Microsoft Azure等等。<br>公共云通常不会作为独立的基础架构解决方案来部署，而是被作为异构混合环境的一部分部署，这样即可以提高安全性和性能，降低成本，还可以改进基础架构、服务和应用的可用性。</p>
+</li>
+<li><p>混合云:<br>混合云是一种IT架构，在两个或更多环境中进行业务的编排和管理。混合云中的环境因企业而异，一般包括至少1个私有云与至少1个公共云。</p>
+</li>
+<li><p>多云:<br>多云是含有多个云环境(公共云或私有云)的IT系统，云与云之间可能联网也可能不联网。多云是一种云架构，由多个云供应商提供的多个云服务组合而成，既可以是公共云，也可以是私有云。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>云计算的服务</strong></p>
+</blockquote>
+<p>云计算服务主要有三种：SaaS、PaaS、IaaS</p>
+<ul>
+<li><p>SaaS</p>
+<p>软件服务，Software-as-a-service。<strong>SaaS 是软件的开发、管理、部署都交给第三方，不需要关心技术问题，可以拿来即用。</strong>普通用户接触到的互联网服务，几乎都是 SaaS</p>
+</li>
+<li><p>PaaS</p>
+<p>平台服务，Platform-as-a-service。<strong>PaaS 提供软件部署平台（runtime），抽象掉了硬件和操作系统细节，可以无缝地扩展（scaling）。开发者只需要关注自己的业务逻辑，不需要关注底层。</strong></p>
+</li>
+<li><p>IaaS</p>
+<p>基础设施服务，Infrastructure-as-a-service。<strong>IaaS 是云服务的最底层，主要提供一些基础资源。</strong>它与 PaaS 的区别是，用户需要自己控制底层，实现基础设施的使用逻辑。</p>
+</li>
+</ul>
+<p>三种云服务中，用户所承担的工作量：IaaS &gt; PaaS &gt; SaaS，如下图所示：</p>
+<p><a href="/../pic/bg2019081706.jpg" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/bg2019081706.jpg" alt="img"></a></p>
+<blockquote>
+<p><strong>虚拟化</strong></p>
+</blockquote>
+<p>虚拟化是以单个物理硬件系统为基础创建多个模拟环境或专用资源的技术，很明显，虚拟化是发生在IaaS层的技术。</p>
+<p>虚拟化和云计算经常被混为一谈，但是实际上虚拟化有助于创建云，但它并非实现云计算的决定性技术，云计算是一种方法，为用户提供多种虚拟资源访问服务的方法。</p>
+<h2 id="Docker架构"><a href="#Docker架构" class="headerlink" title="Docker架构"></a>Docker架构</h2><p>Docker 是一个C&#x2F;S架构程序。Docker 客户端只需要向 Docker 服务器发出请求，服务器将完成所有工作并返回结果。Docker 提供了一个命令行工具 Docker 以及一整套 RESTful API。整体架构如下图所示：</p>
+<p><a href="/../pic/7868545-060cc40d94102469.jpg" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/7868545-060cc40d94102469.jpg" alt="img"></a></p>
+<h3 id="Docker核心概念"><a href="#Docker核心概念" class="headerlink" title="Docker核心概念"></a>Docker核心概念</h3><p>容器是运行在一个隔离的环境里，使用起来好像在一个独立于宿主的系统下操作一样，拥有自己的root文件系统、自己的网络配置、自己的进程空间、甚至自己的用户ID。</p>
+<p>要理解Docker，首先需要明白Docker的三个核心概念：NameSpace、CGroups、UnionFS</p>
+<blockquote>
+<p><strong>NameSpace</strong></p>
+</blockquote>
+<p>NameSpace(命名空间)是Linux内核的一个强大的特性，它可以将某个特定的全局系统资源(global system resource)通过抽象方法使得namespace中的进程看起来拥有它们自己的隔离的全局系统资源实例，<strong>命名空间保证了容器之间实现了运行环境的隔离</strong>，互不影响。每个容器都有自己的命名空间，运行在其中的应用都是在独立操作系统中运行一样。</p>
+<blockquote>
+<p><strong>CGroups</strong></p>
+</blockquote>
+<p>Docker容器仅有运行环境的隔离还不够，因为这些进程还是可以不受限制地使用系统资源，比如网络、磁盘、CPU以及内存等，如果一个进程占用了太多的资源，会影响到其它进程；另一方面，在系统资源耗尽的时候，Linux内核会触发OOM (out of memory killer）机制，在系统内存耗尽的情况下，选择性地干掉一些进程以求释放一些内存，这会杀掉一些其他进程。因此为了让容器中的进程更加可控，Docker使用Linux CGroups来限制容器中的进程允许使用的系统资源。Linux Cgroup可以让系统中所运行进程的用户定义组分配资源，<strong>实现了容器之间的资源隔离</strong>。</p>
+<blockquote>
+<p><strong>UnionFS</strong></p>
+</blockquote>
+<p>要理解unionFS，需要先了解bootfs和rootfs</p>
+<ol>
+<li><p>boot file system (bootfs) 包含操作系统boot loader和kernel。用户不会修改这个文件系统，一旦启动成功后，整个Linux内核加载进内存，之后bootfs会被卸载掉，从而释放内存。同样的内核版本不同Linux发行版，其bootfs都是一样的。</p>
+</li>
+<li><p>root file system (rootfs) 包含典型的目录结构(&#x2F;dev&#x2F;,&#x2F;proc,&#x2F;bin,&#x2F;etc,&#x2F;lib,&#x2F;usr,&#x2F;tmp)Linux系统在启动时，rootfs首先会被挂载为只读模式，然后在启动完成后被修改为读写模式，随后它们就可以被修改了</p>
+</li>
+</ol>
+<p>镜像是分层的，通过镜像构建容器进行启动时，会在镜像的上方增加容器的初始层(init Layer)和读写层(Read-write Layer)，<strong>UnionFS的作用是把不同的文件系统中的文件和目录，透明地覆盖，联合挂载到一个单一、一致的文件系统服务中</strong>。UnionFS的思想是：如果一个资源是重复的，并且没有任何修改，这时并不需要立即创建一个新的资源，这个资源可以被新旧实例共享。UnionFS通过一个关键的资源管理技术：写时复制技术(copy-on-write)，当需要对文件进行操作的时候，它并没有改变原来的文件，而是写到了新的文件中，即容器中的读写层。</p>
+<p>Docker的UnionFS最初使用的存储驱动是AUFS，目前大多是overlay2，不过对于AUFS也是支持的。</p>
+<h3 id="Docker重要组件"><a href="#Docker重要组件" class="headerlink" title="Docker重要组件"></a>Docker重要组件</h3><blockquote>
+<p><strong>镜像</strong></p>
+</blockquote>
+<p>Docker镜像(<code>Images</code>)就是一个Linux的文件系统，这个文件系统里面包含可以运行在Linux内核的程序以及相应的数据，本质上是打包了一个用户空间，包含了运行的应用及其整个运行时环境(包括全部所需文件)。</p>
+<p>区别于Linux镜像，Linux镜像包括Linux内核和用户空间，比如CentOS和Ubuntu的镜像，它们本质上是在相同的Linux内核（Linux kernel）上封装了自己的软件和工具集（tools），形成了不同的发行版本（Linux Distribution）。</p>
+<p>Docker镜像打包的是用户空间，使用宿主机的Linux内核，所以能够在不同的Linux发行版上运行。</p>
+<p>需要注意的是，镜像的两个特征</p>
+<ol>
+<li>镜像是分层(<code>Layer</code>)的：即一个镜像可以多个中间层组成，多个镜像可以共享同一中间层，我们也可以通过在镜像添加多一层来生成一个新的镜像。</li>
+<li>镜像是只读的(<code>read-only</code>)：镜像在构建完成之后，便不可以再修改，而上面我们所说的添加一层构建新的镜像，这中间实际是通过创建一个临时的容器，在容器上增加或删除文件，从而形成新的镜像，因为容器是可以动态改变的。</li>
+</ol>
+<blockquote>
+<p><strong>容器</strong></p>
+</blockquote>
+<p>容器(<code>Containers</code>)是一个独立于宿主机的隔离进程，并且有属于容器自己的网络和命名空间。容器是通过镜像来创建的，所以必须先有镜像才能创建容器，通过镜像构建容器之后，在镜像上面添一层读写层(writer&#x2F;read layer)，也称为容器层，因此容器是可读可写的。</p>
+<p>所有对容器的改动，无论添加、删除、还是修改文件都只会发生在容器层中。<strong>只有容器层是可写的，容器层下面的所有镜像层都是只读的</strong>。</p>
+<table>
+<thead>
+<tr>
+<th align="left">文件操作</th>
+<th align="left">说明：只有当需要修改时才复制一份数据，这种特性被称作 Copy-on-Write。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">添加文件</td>
+<td align="left">在容器中创建文件时，新文件被添加到容器层中。</td>
+</tr>
+<tr>
+<td align="left">读取文件</td>
+<td align="left">在容器中读取某个文件时，Docker 会从上往下依次在各镜像层中查找此文件。找到后将其复制到容器层，然后打开并读入内存。</td>
+</tr>
+<tr>
+<td align="left">修改文件</td>
+<td align="left">在容器中修改已存在的文件时，Docker 会从上往下依次在各镜像层中查找此文件。找到后将其复制到容器层，然后修改之。</td>
+</tr>
+<tr>
+<td align="left">删除文件</td>
+<td align="left">在容器中删除文件时，Docker 也是从上往下依次在镜像层中查找此文件。找到后在容器层中记录下此删除操作，并不真正删除。</td>
+</tr>
+</tbody></table>
+<p>容器层保存的是镜像变化的部分，不会对镜像本身进行任何修改。所以镜像可以被多个容器共享</p>
+<blockquote>
+<p><strong>仓库</strong></p>
+</blockquote>
+<p>仓库(<code>Repository</code>)也称为注册中心(<code>Registry</code>)，是集中存储镜像的地方，仓库分为公共仓库和私有仓库</p>
+<p>公共仓库一般是指<code>Docker Hub</code>，我们可以从<code>Docker Hub</code>获取镜像，也可以将自己构建的镜像存放到<code>Docker Hub</code>，这样，别人也可以使用我们构建的镜像。</p>
+<p>私有仓库是自己搭建的私有仓库服务，用于存储和分布我们的镜像。</p>
+<blockquote>
+<p><strong>数据卷</strong></p>
+</blockquote>
+<p>容器中只安装了我们的程序运行所需要的环境，那么如果容器中的程序产生需要持久化的数据，就需要数据卷(<code>volume</code>)来解决。</p>
+<p>数据卷将数据持久化到宿主机上，简单的说就是将宿主机的目录映射到容器中的目录，应用程序在容器中的目录读写数据会同步到宿主机上，这样容器产生的数据就可以存储到我们宿主机上的真实磁盘中，与容器间实现数据共享。</p>
+<h2 id="Docker部署"><a href="#Docker部署" class="headerlink" title="Docker部署"></a>Docker部署</h2><p>安装Docker的方法较多，本次选用yum安装，在一台机器上安装服务端和客户端</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 卸载旧的软件包和依赖</span></span><br><span class="line">yum -y remove docker docker-client docker-client-latest docker-common docker-lastest docker-lastest-logrotate docker-logrotate  docker-engine</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置yum源</span></span><br><span class="line">curl -o /etc/yum.repos.d/docker-ce.repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装docker引擎、命令行工具和守护进程</span></span><br><span class="line">yum -y install docker-ce docker-ce-cli containerd.io</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">systemctl start docker</span><br><span class="line">systemctl <span class="built_in">enable</span> docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看docker的概要信息</span></span><br><span class="line">docker info</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装docker命令行自动补全的工具</span></span><br><span class="line">yum -y install bash-completion</span><br><span class="line"><span class="built_in">source</span> /usr/share/bash-completion/bash_completion</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改镜像仓库,编辑配置文件，添加以下内容</span></span><br><span class="line">vim /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;registry-mirrors&quot;</span>: [<span class="string">&quot;https://docker.mirrors.ustc.edu.cn&quot;</span>, <span class="string">&quot;https://hub-mirror.c.163.com&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果在不同的机器上分别安装服务端和客户端</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 服务端安装docker引擎和容器运行时</span></span><br><span class="line">yum install -y docker-ce container.io</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改服务端启动文件，更改ExecStart这行，这是docker容器的启动命令</span></span><br><span class="line">vim /lib/systemd/system/docker.service</span><br><span class="line"></span><br><span class="line">ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载服务模块，重启docker</span></span><br><span class="line">systemctl daemon-relaod</span><br><span class="line">systemctl restart docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 客户端安装命令行工具</span></span><br><span class="line">yum install -y docker-ce-cli</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在客户端通过docker命令控制服务端</span></span><br><span class="line">docker -H 服务端IP:2375 [<span class="built_in">command</span>]</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2024-03-18</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Docker/'>
+                            Docker
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

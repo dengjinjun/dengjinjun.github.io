@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="DHCP篇" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            DHCP篇
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DHCP%E9%83%A8%E7%BD%B2"><span class="post-toc-text">DHCP部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DHCP%E9%83%A8%E7%BD%B2%E5%91%BD%E4%BB%A4"><span class="post-toc-text">DHCP部署命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#dhcp%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3"><span class="post-toc-text">dhcp配置文件详解</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%A1%88%E4%BE%8B%EF%BC%9A%E4%B8%A4%E5%8F%B0%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2DHCP"><span class="post-toc-text">案例：两台虚拟机部署DHCP</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="DHCP部署"><a href="#DHCP部署" class="headerlink" title="DHCP部署"></a>DHCP部署</h2><p>DHCP（Dynamic Host Configuration Protocol）：动态主机配置协议。DHCP是一个很重要的局域网的网络协议，使用UDP协议工作，主要作用是为内部网络或网络服务供应商自动分配IP地址。</p>
+<h3 id="DHCP部署命令"><a href="#DHCP部署命令" class="headerlink" title="DHCP部署命令"></a>DHCP部署命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum install dhcp -y							# 安装dhcp软件包</span><br><span class="line">/usr/share/doc/dhcp*/dhcpd.conf.example		# dhcp配置的demo文件</span><br><span class="line">/ect/dhcp/dhcpd.conf						# dhcp配置文件，需要从demo文件中迁移过来</span><br><span class="line">cp /usr/share/doc/dhcp*/dhcpd.conf.exampl /ect/dhcp/dhcpd.conf		# 迁移配置文件</span><br><span class="line">systemctl enable dhcpd						# 设置开机启动</span><br><span class="line">systemctl start dhcpd						# 开启dhcp服务</span><br></pre></td></tr></table></figure>
+
+<h3 id="dhcp配置文件详解"><a href="#dhcp配置文件详解" class="headerlink" title="dhcp配置文件详解"></a>dhcp配置文件详解</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/dhcp/dhcpd.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># DHCP服务配置文件分为全局配置和作用域配置，很好区分：subnet的就是作用域 不在subnet里面的就是全局设置。</span></span><br><span class="line"><span class="comment"># dhcpd.conf</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Sample configuration file for ISC dhcpd</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#DNS全局选项，指定DNS服务器的地址，可以是IP，也可以是域名。</span></span><br><span class="line"><span class="comment"># option definitions common to all supported networks...</span></span><br><span class="line"><span class="comment"># DNS的域名</span></span><br><span class="line">option domain-name <span class="string">&quot;example.org&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">#具体的DNS服务器</span></span><br><span class="line">option domain-name-servers ns1.example.org, ns2.example.org;</span><br><span class="line"></span><br><span class="line"><span class="comment">#默认租约为600s</span></span><br><span class="line">default-lease-time 600;</span><br><span class="line"><span class="comment">#最大租约为7200s，客户机会在default-lease-time快到期时向服务器续租，如果此时客户机死机/重启，而默认租约时间到期了，服务器并不会立即回收IP地址，而是等到最大租约时间到期，客户机还没有过来续约，才会回收IP地址。</span></span><br><span class="line">max-lease-time 7200;</span><br><span class="line"></span><br><span class="line"><span class="comment">#动态DNS更新方式(none:不支持；interim:互动更新模式；ad-hoc:特殊更新模式)</span></span><br><span class="line"><span class="comment"># Use this to enble / disable dynamic dns updates globally.</span></span><br><span class="line"><span class="comment">#ddns-update-style none;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#如果该DHCP服务器是本地官方DHCP就将此选项打开，避免其他DHCP服务器的干扰。</span></span><br><span class="line"><span class="comment">#当一个客户端试图获得一个不是该DHCP服务器分配的IP信息，DHCP将发送一个拒绝消息，而不会等待请求超时。当请求被拒绝，客户端会重新向当前DHCP发送IP请求获得新地址。保证IP是自己发出去的</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># If this DHCP server is the official DHCP server for the local</span></span><br><span class="line"><span class="comment"># network, the authoritative directive should be uncommented.</span></span><br><span class="line"><span class="comment">#authoritative;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Use this to send dhcp log messages to a different log file (you also</span></span><br><span class="line"><span class="comment"># have to hack syslog.conf to complete the redirection).</span></span><br><span class="line"><span class="comment"># 日志级别</span></span><br><span class="line">log-facility local7;</span><br><span class="line"></span><br><span class="line"><span class="comment"># No service will be given on this subnet, but declaring it helps the </span></span><br><span class="line"><span class="comment"># DHCP server to understand the network topology.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#作用域相关设置指令</span></span><br><span class="line"><span class="comment">#subnet 定义一个作用域</span></span><br><span class="line"><span class="comment">#netmask 定义作用域的掩码</span></span><br><span class="line"><span class="comment">#range 允许发放的IP范围</span></span><br><span class="line"><span class="comment">#option routers 指定网关地址</span></span><br><span class="line"><span class="comment">#option domain-name-servers 指定DNS服务器地址</span></span><br><span class="line"><span class="comment">#option broadcast-address 广播地址</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#案例:定义一个作用域 网段为10.152.187.0 掩码为255.255.255.0</span></span><br><span class="line"><span class="comment">#此作用域不提供任何服务</span></span><br><span class="line">subnet 10.152.187.0 netmask 255.255.255.0 &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># This is a very basic subnet declaration.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#案例:定义一个基本的作用域</span></span><br><span class="line"><span class="comment">#网段10.254.239.0 掩码255.255.255.224</span></span><br><span class="line"><span class="comment">#分发范围10.254.239.10-20</span></span><br><span class="line"><span class="comment">#网关为rtr-239-0-1.example.org, rtr-239-0-2.example.org</span></span><br><span class="line">subnet 10.254.239.0 netmask 255.255.255.224 &#123;</span><br><span class="line">  range 10.254.239.10 10.254.239.20;</span><br><span class="line">  option routers rtr-239-0-1.example.org, rtr-239-0-2.example.org;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># This declaration allows BOOTP clients to get dynamic addresses,</span></span><br><span class="line"><span class="comment"># which we don&#x27;t really recommend.</span></span><br><span class="line"><span class="comment">#案例:允许采用bootp协议的客户端动态获得地址</span></span><br><span class="line"><span class="comment">#bootp DHCP的前身</span></span><br><span class="line"><span class="comment">#BOOTP用于无盘工作站的局域网中，可以让无盘工作站从一个中心服务器上获得IP地址。通过BOOTP协议可以为局域网中的无盘工作站分配动态IP地址，</span></span><br><span class="line"><span class="comment">#这样就不需要管理员去为每个用户去设置静态IP地址。</span></span><br><span class="line">subnet 10.254.239.32 netmask 255.255.255.224 &#123;</span><br><span class="line">  range dynamic-bootp 10.254.239.40 10.254.239.60;</span><br><span class="line">  option broadcast-address 10.254.239.31;</span><br><span class="line">  option routers rtr-239-32-1.example.org;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#案例:一个简单的作用域案例</span></span><br><span class="line"><span class="comment"># A slightly different configuration for an internal subnet.</span></span><br><span class="line">subnet 10.5.5.0 netmask 255.255.255.224 &#123;</span><br><span class="line">  range 10.5.5.26 10.5.5.30;</span><br><span class="line">  option domain-name-servers ns1.internal.example.org;</span><br><span class="line">  option domain-name <span class="string">&quot;internal.example.org&quot;</span>;</span><br><span class="line">  option routers 10.5.5.1;</span><br><span class="line">  option broadcast-address 10.5.5.31;</span><br><span class="line">  default-lease-time 600;</span><br><span class="line">  max-lease-time 7200;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Hosts which require special configuration options can be listed in</span></span><br><span class="line"><span class="comment"># host statements.   If no address is specified, the address will be</span></span><br><span class="line"><span class="comment"># allocated dynamically (if possible), but the host-specific information</span></span><br><span class="line"><span class="comment"># will still come from the host declaration.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#保留地址:可以将指定的IP分发给指定的机器，根据网卡的MAC地址来做触发</span></span><br><span class="line"><span class="comment">#host: 启用保留。</span></span><br><span class="line"><span class="comment">#hardware:指定客户端的mac地址</span></span><br><span class="line"><span class="comment">#filename:指定文件名</span></span><br><span class="line"><span class="comment">#server-name:指定下一跳服务器地址</span></span><br><span class="line"><span class="comment">#fixed-address: 指定保留IP地址</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#案例:这个案例中分发给客户端的不是IP地址信息，而是告诉客户端去找toccata.fugue.com服务器，并且下载vmunix.passacaglia文件</span></span><br><span class="line">host passacaglia &#123;</span><br><span class="line">  hardware ethernet 0:0:c0:5d:bd:95;</span><br><span class="line">  filename <span class="string">&quot;vmunix.passacaglia&quot;</span>;</span><br><span class="line">  server-name <span class="string">&quot;toccata.fugue.com&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Fixed IP addresses can also be specified for hosts.   These addresses</span></span><br><span class="line"><span class="comment"># should not also be listed as being available for dynamic assignment.</span></span><br><span class="line"><span class="comment"># Hosts for which fixed IP addresses have been specified can boot using</span></span><br><span class="line"><span class="comment"># BOOTP or DHCP.   Hosts for which no fixed address is specified can only</span></span><br><span class="line"><span class="comment"># be booted with DHCP, unless there is an address range on the subnet</span></span><br><span class="line"><span class="comment"># to which a BOOTP client is connected which has the dynamic-bootp flag</span></span><br><span class="line"><span class="comment"># set.</span></span><br><span class="line"><span class="comment"># 案例:保留地址，将指定IP(fantasia.fugue.com对应的IP)分给指定客户端网卡(MAC:08:00:07:26:c0:a5)</span></span><br><span class="line">host fantasia &#123;</span><br><span class="line">  hardware ethernet 08:00:07:26:c0:a5;</span><br><span class="line">  fixed-address fantasia.fugue.com;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#超级作用域</span></span><br><span class="line"><span class="comment">#超级作用域是DHCP服务中的一种管理功能，使用超级作用域，可以将多个作用域组合为单个管理实体。</span></span><br><span class="line"><span class="comment"># You can declare a class of clients and then do address allocation</span></span><br><span class="line"><span class="comment"># based on that.   The example below shows a case where all clients</span></span><br><span class="line"><span class="comment"># in a certain class get addresses on the 10.17.224/24 subnet, and all</span></span><br><span class="line"><span class="comment"># other clients get addresses on the 10.0.29/24 subnet.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#在局域网中，可以配置策略根据各个机器的具体信息分配IP地址和其他的网络参数，客户机的具体信息：客户机能够给dhcp服务提供的信息由有两个，</span></span><br><span class="line"><span class="comment">#第一个就是网卡的dhcp-client-identifier（mac地址），</span></span><br><span class="line"><span class="comment">#第二个就是设备的vendor-class-identifier。</span></span><br><span class="line"><span class="comment">#管理员可以根据这两个信息给不同的机器分组。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#案例:</span></span><br><span class="line"><span class="comment">#按client某种类型分组DHCP,而不是按物理接口网段</span></span><br><span class="line"><span class="comment">#例子: SUNW 分配地址段10.17.224.0/24</span></span><br><span class="line"><span class="comment"># 非SUNW的主机,分配地址段10.0.29.0/24</span></span><br><span class="line"><span class="comment">#定义一个dhcp类:foo</span></span><br><span class="line"><span class="comment">#request广播中vendor-class-identifier字段对应的值前四个字节如果是&quot;SUNW&quot;,则视合法客户端.</span></span><br><span class="line">class <span class="string">&quot;foo&quot;</span> &#123;</span><br><span class="line">  match <span class="keyword">if</span> substring (option vendor-class-identifier, 0, 4) = <span class="string">&quot;SUNW&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#定义一个超级作用域: 224-29</span></span><br><span class="line">shared-network 224-29 &#123;</span><br><span class="line"><span class="comment">#定义第一个作用域</span></span><br><span class="line">  subnet 10.17.224.0 netmask 255.255.255.0 &#123;</span><br><span class="line">    option routers rtr-224.example.org;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">#定义第二个作用域</span></span><br><span class="line">  subnet 10.0.29.0 netmask 255.255.255.0 &#123;</span><br><span class="line">    option routers rtr-29.example.org;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#关连池,如果客户端匹配foo类，将获得该池地址</span></span><br><span class="line">  pool &#123;</span><br><span class="line">    allow members of <span class="string">&quot;foo&quot;</span>;</span><br><span class="line">    range 10.17.224.10 10.17.224.250;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">#关连池,如果客户端配置foo类，则拒绝获得该段地址</span></span><br><span class="line">  pool &#123;</span><br><span class="line">    deny members of <span class="string">&quot;foo&quot;</span>;</span><br><span class="line">    range 10.0.29.10 10.0.29.230;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="案例：两台虚拟机部署DHCP"><a href="#案例：两台虚拟机部署DHCP" class="headerlink" title="案例：两台虚拟机部署DHCP"></a>案例：两台虚拟机部署DHCP</h3><p>VMware内使用两台Linux虚拟机，使用同一块网卡，一台作为DHCP服务端，一台作为客户端，部署DHCP服务，使得客户端能够获取服务端分发的IP地址。网卡设置中不能勾选”使用本地DHCP服务将IP地址分配给虚拟机”。</p>
+<blockquote>
+<p>服务端</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysconfig/network-scripts/ifcfg-ens33		<span class="comment"># 编辑网卡配置文件，设置指定IP地址</span></span><br><span class="line"></span><br><span class="line">vim /etc/dhcp/dhcpd.conf			<span class="comment"># 编辑DHCP配置文件</span></span><br><span class="line"></span><br><span class="line">subnet 192.168.11.0 netmask 255.255.255.0 &#123;</span><br><span class="line">  range 192.168.11.153 192.168.11.252;</span><br><span class="line">  option routers 192.168.11.254;</span><br><span class="line">  option broadcast-address 192.168.11.255;</span><br><span class="line">  default-lease-time 7200;</span><br><span class="line">  max-lease-time 10800;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">systemctl restart network			<span class="comment"># 重启网络服务</span></span><br><span class="line">systemctl start dhcpd				<span class="comment"># 开启DHCP服务</span></span><br><span class="line"><span class="built_in">tail</span> -f /var/log/messages			<span class="comment"># 查看日志</span></span><br><span class="line"><span class="built_in">cat</span> /var/lib/dhcpd/dhcpd.leases		<span class="comment"># 查看租约</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>客户端</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysconfig/network-scripts/ifcfg-ens33		<span class="comment"># 编辑网卡配置文件，设置动态获取IP地址</span></span><br><span class="line"></span><br><span class="line">systemctl restart network							<span class="comment"># 重启网络服务</span></span><br><span class="line"></span><br><span class="line">ipconfig											<span class="comment"># 查看分配的IP地址是否属于指定范围</span></span><br><span class="line"></span><br><span class="line">dhclient -r ens33									<span class="comment"># 释放获取的IP地址</span></span><br><span class="line"></span><br><span class="line">dhclient -d ens33									<span class="comment"># 将DHCP获取IP地址的进程放到前台运行</span></span><br></pre></td></tr></table></figure>
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-09-25</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/'>
+                            服务架构
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

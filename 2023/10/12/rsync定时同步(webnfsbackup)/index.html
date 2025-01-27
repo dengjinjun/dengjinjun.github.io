@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="rsync定时同步（web/nfs/backup）" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            rsync定时同步（web/nfs/backup）
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%A4%87%E4%BB%BD%E8%A6%81%E6%B1%82"><span class="post-toc-text">基本备份要求</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="post-toc-text">需求分析:</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%A4%A7%E6%A6%82%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="post-toc-text">大概思路：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%9E%E6%96%BD%E6%AD%A5%E9%AA%A4"><span class="post-toc-text">实施步骤</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%90%AD%E5%BB%BAbackup%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="post-toc-text">搭建backup服务器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%90%AD%E5%BB%BAweb01%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="post-toc-text">搭建web01服务器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%90%AD%E5%BB%BAnfs%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="post-toc-text">搭建nfs服务器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%A4%87%E4%BB%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A0%A1%E9%AA%8C%E3%80%81%E5%88%A0%E9%99%A4%E5%92%8C%E6%8A%A5%E8%AD%A6"><span class="post-toc-text">备份服务器校验、删除和报警</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h3 id="基本备份要求"><a href="#基本备份要求" class="headerlink" title="基本备份要求"></a>基本备份要求</h3><p>已知3 台服务器主机名分别为 web01、backup 、nfs01，主机信息见下表:</p>
+<table>
+<thead>
+<tr>
+<th>服务器说明</th>
+<th>外网IP(NAT)</th>
+<th>内网IP(NAT)</th>
+<th>主机名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nginx web 服务器</td>
+<td>192.168.110.135</td>
+<td>10.0.0.135&#x2F;24</td>
+<td>web01</td>
+</tr>
+<tr>
+<td>NFS存储服务器</td>
+<td>192.168.110.141</td>
+<td>10.0.0.141&#x2F;24</td>
+<td>nfs</td>
+</tr>
+<tr>
+<td>rsync备份服务器</td>
+<td>192.168.110.142</td>
+<td>10.0.0.142&#x2F;24</td>
+<td>backup</td>
+</tr>
+</tbody></table>
+<p>每天晚上 00 点整在 Web 服务器上打包备份<strong>系统配置文件</strong>、<strong>网站程序目录</strong>及<strong>访问日志</strong>并通过 rsync 命令推送备份服务器 backup 上备份保留(备份思路可以是先在本地按日期打包，然后再推到备份服务器 backup 上)。</p>
+<p><a href="/../pic/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20231011232535.png" title="微信截图_20231011232535" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20231011232535.png" alt="微信截图_20231011232535"></a></p>
+<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析:"></a>需求分析:</h3><ol>
+<li><p>Web 服务器和备份服务器的备份目录必须都为<code>/backup</code></p>
+</li>
+<li><p>要备份的系统配置文件包括但不限于:<br>a. 定时任务服务的配置文件<code>/var/spool/cron/root</code><br>b. 开机自启动的配置文件<code>/etc/rc.local</code><br>c. 日常脚本的目录 <code>/server/scripts</code></p>
+</li>
+<li><p>Web 服务器站点目录假定为<code>/var/html/www</code></p>
+</li>
+<li><p>Web 服务器A 访问日志路径假定为 <code>/app/logs</code></p>
+</li>
+<li><p>Web 服务器保留打包后的7天的备份数据即可（本地留存不能多于7天，因为太多硬盘会满）。</p>
+</li>
+<li><p>备份服务器上,保留每周一的所有数据副本，其它要保留 6 个月的数据副本。</p>
+</li>
+<li><p>备份服务器上要按照备份数据服务器的内网 IP 目录保存备份，备份的文件按照时间名字保存。</p>
+</li>
+<li><p>需要确保备份的数据尽量完整正确，在备份服务器上对备份的数据进行检查，把备份的成功及失败结果信息发给系统管理员邮箱中。</p>
+</li>
+</ol>
+<h3 id="大概思路："><a href="#大概思路：" class="headerlink" title="大概思路："></a>大概思路：</h3><p>做项目文档，画逻辑图，提交审核。</p>
+<ol>
+<li><p>搭建backup服务器</p>
+<p>配置rsync服务；</p>
+<p>启动rsync守护进程；</p>
+</li>
+<li><p>搭建web01服务器</p>
+<p>验证rsync能否推送成功；</p>
+<p>开发打包、备份、推送、校验、删除脚本；</p>
+<p>配置定时任务，每天0点定时推送；</p>
+</li>
+<li><p>同理搭建nfs服务器</p>
+</li>
+<li><p>backup服务器</p>
+<p>开发脚本实现校验、删除、报警；</p>
+<p>配置定时任务，每天6点执行；</p>
+</li>
+</ol>
+<h3 id="实施步骤"><a href="#实施步骤" class="headerlink" title="实施步骤"></a>实施步骤</h3><h4 id="搭建backup服务器"><a href="#搭建backup服务器" class="headerlink" title="搭建backup服务器"></a>搭建backup服务器</h4><blockquote>
+<p>安装rsync</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install rsync -y			# 安装</span><br><span class="line">rsync --version					# 检验安装</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>配置文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/rsyncd.conf		# 编辑配置文件</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">/etc/rsyncd: configuration file <span class="keyword">for</span> rsync daemon mode</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">See rsyncd.conf man page <span class="keyword">for</span> more options.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">configuration example:</span></span><br><span class="line"></span><br><span class="line">uid = rsync						# rsync访问本地数据目录的一个用户，下一步要创建的用户。有坑，默认是nobody</span><br><span class="line">gid = rsync						# 用户组</span><br><span class="line">read only = false				# 要写上这一句，要不然无法推送。有坑</span><br><span class="line">fake super = yes				# 如果出现操作不被允许等提示，可以添加这一句，允许不在root用户下复制文件属性</span><br><span class="line">use chroot = no						# 是否使用chroot选项</span><br><span class="line">max connections = 200				# 并发最大连接数</span><br><span class="line">pid file = /var/run/rsyncd.pid		# 进程启动后，将进程pid写入这个文件</span><br><span class="line">exclude = lost+found/				# 排除的文件或目录，此处为相对路径</span><br><span class="line">log file = /var/log/rsyncd.log		# 指定日志文件存放路径</span><br><span class="line">secrets file = /etc/rsyncd.password	# 指定虚拟用户的密码存放的文件，格式为，用户名:密码</span><br><span class="line">lock file = /var/run/rsyncd.lock	# 锁文件，用来支持max connections参数，此处为默认值</span><br><span class="line">auth users = rsync					# 允许认证的用户，有坑。</span><br><span class="line">timeout = 900						# 超时时间</span><br><span class="line">hosts only = 192.168.110.0/24		# 白名单，此处表示仅允许该局域网内访问</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">hosts deny = 0.0.0.0/32			<span class="comment"># 黑名单，此处表示不拒绝。0.0.0.0/32是一个无效IP地址，</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">通常hosts only和hosts deny只需要选择一个进行配置，否则可能造成配置混乱，都配置的时候默认白名单优先级最高。</span></span><br><span class="line"></span><br><span class="line">[backup]									# 此处为一个模块，用[模块名]表示，下面是此模块的配置</span><br><span class="line">       path = /home/backup					# 此模块的文件路径</span><br><span class="line">       comment = backup export area			# 备注</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>创建目录和用户</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir /home/backup -p			# 创建目录</span><br><span class="line"></span><br><span class="line">useradd -s /sbin/nologin -M rsync		# 创建一个rsync用户，-s指定shell,-M不创建家目录</span><br><span class="line">chown -R rsync.rsync /home/backup			# 授权rsync用户管理此目录</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>创建密码文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/rsyncd.password					# 指定虚拟用户的密码存放的文件，格式为，用户名:密码</span><br><span class="line"></span><br><span class="line">rsync:123456</span><br><span class="line"></span><br><span class="line">chmod 600 /etc/rsyncd.password				# 修改密码文件的权限</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>启动服务</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable rsyncd			# 设置开机自启</span><br><span class="line">systemctl start rsyncd			# 启动服务</span><br><span class="line">systemctl status rsyncd			# 查看状态</span><br><span class="line">ps -ef | grep sync | grep -v grep	# 查看进程</span><br><span class="line">netstat -tunlp | grep rsync			# 检查端口</span><br><span class="line">lsof -i :873						# 查看默认端口873</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h4 id="搭建web01服务器"><a href="#搭建web01服务器" class="headerlink" title="搭建web01服务器"></a>搭建web01服务器</h4><blockquote>
+<p>认证密码文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install rsync -y						# 安装</span><br><span class="line">rsync --version								# 检验安装</span><br><span class="line">echo &quot;123456&quot; &gt; /etc/rsyncd.password		# 客户端的密码文件要与服务端相同</span><br><span class="line">chmod 600 /etc/rsyncd.password				# 修改密码文件的权限</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>打包、备份、推送、删除脚本文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">本机备份路径</span></span><br><span class="line">backup=&quot;/backup&quot;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">以主机IP地址命名的文件夹</span></span><br><span class="line">path=&quot;/backup/$(hostname -i)&quot;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果不存在此文件夹则创建文件夹</span></span><br><span class="line">[ -f $path ] || mkdir -p $path</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">判断是不是周一</span></span><br><span class="line">if [ $(date +%w -eq 2)];then</span><br><span class="line">	date=&quot;$(date +%F -d -1day)_week1&quot;</span><br><span class="line">else</span><br><span class="line">	date=&quot;$(date +%F -d -1day)&quot;</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入此文件夹</span></span><br><span class="line">cd $path</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将配置文件和脚本打包进一个压缩包</span></span><br><span class="line">tar -cvhf conf_$&#123;date&#125;.tar.gz /var/spool/cron/root /etc/rc.d/rc.local  /server/scripts 2&gt;/dev/null</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将站点目录打包进一个压缩包</span></span><br><span class="line">tar -cvf www_$&#123;date&#125;.tar.gz /var/html/www 2&gt;/dev/null</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将app日志打包进一个压缩包</span></span><br><span class="line">tar -cvf logs_$&#123;date&#125;.tar.gz /app/logs 2&gt;/dev/null</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取所有打包文件的原始指纹</span></span><br><span class="line">find $path -type f -name &quot;*_$&#123;date&#125;.tar.gz&quot; | xargs md5sum &gt; $path/$(hostname -i)_fingerprint_$&#123;date&#125;.log</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">推送</span></span><br><span class="line">rsync -avz $backup/ rsync@backup::backup --password-file=/etc/rsyncd.password</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除7天前的备份</span></span><br><span class="line">find $backup/ -type f -name &quot;*.tar.gz&quot; -mtime +7 -o -name &quot;*.log&quot; -mtime +7 | xargs rm -f			</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>添加定时任务</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">crontab -e			# 创建定时任务,添加以下内容</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">时间同步</span></span><br><span class="line">*/5 * * * * /usr/sbin/ntpdate ntp3.aliyun.com &gt;/dev/null 2&gt;&amp;1</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">定时执行脚本</span></span><br><span class="line">00 00 * * * /bin/sh /server/scripts/bak.sh &amp;&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="搭建nfs服务器"><a href="#搭建nfs服务器" class="headerlink" title="搭建nfs服务器"></a>搭建nfs服务器</h4><p>参考web01服务器搭建步骤</p>
+<h4 id="备份服务器校验、删除和报警"><a href="#备份服务器校验、删除和报警" class="headerlink" title="备份服务器校验、删除和报警"></a>备份服务器校验、删除和报警</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vim /server/scripts/check.sh				# 添加校验脚本，添加以下内容</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">搜寻备份目录下的校验文件并把校验结果重定向到文件中</span></span><br><span class="line">find /backup/ -type f -name &quot;*.log&quot; | xargs md5sum -c &gt; /backup/result_$(date +%F -d -1day).log</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份结果写入邮件内容并发送</span></span><br><span class="line">mail -s &quot;$(date +%F -d -1day)_backup_result_notice&quot; dengjinjun0805@126.com  498790885@qq.com &lt; /backup/result_$(date +%F -d -1day).log</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<blockquote>
+<p>添加定时任务</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">crontab -e			# 添加定时任务</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">时间同步</span></span><br><span class="line">*/5 * * * * /usr/sbin/ntpdate ntp3.aliyun.com &gt;/dev/null 2&gt;&amp;1</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">定时执行脚本</span></span><br><span class="line">00 05 * * * /bin/sh /server/scripts/check.sh &amp;&gt;/dev/null</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除7天前的备份文件，但是保留周一的备份文件</span></span><br><span class="line">00 05 * * * /bin/sh find /backup -type f ! -name &quot;*week1*&quot; -mtime +7 | xargs rm -f $&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-10-12</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/'>
+                            操作流程
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/'>
+                            工作笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>
