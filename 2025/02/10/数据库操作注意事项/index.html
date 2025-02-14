@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="数据库操作注意事项" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            数据库操作注意事项
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BA%BF%E4%B8%8A%E6%89%A7%E8%A1%8CDDL%E8%AF%AD%E5%8F%A5"><span class="post-toc-text">线上执行DDL语句</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="post-toc-text">删除表的三种方式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%81%A2%E5%A4%8D%E8%A1%A8%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="post-toc-text">恢复表的方式</span></a></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="线上执行DDL语句"><a href="#线上执行DDL语句" class="headerlink" title="线上执行DDL语句"></a>线上执行DDL语句</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">在MySQL中，DDL语句在对表进行操作时要锁&quot;元数据表&quot;的，此时所有修改类的命令无法正常运行。所以对于大表，业务繁忙的表，进行线上DDL操作时，要谨慎，尽量避开业务高峰期间进行DDL。</span><br><span class="line"></span><br><span class="line">数据表是存储数据的，而元数据表就是存储定义数据表的数据。这类似于Linux的Inode信息。在MySQL中，DDL语句对表进行操作时，是要锁&quot;元数据表&quot;的。此时，所有修改类的命令无法正常运行。在对于达标，业务繁忙的表，进行线上DDL操作时，要谨慎。</span><br><span class="line">建议?</span><br><span class="line">尽量避开业务单独高峰期进行DDL操作，如果非要做请走流程(比如发送邮件，抄送领导，遇到生产故障也有据可查，防人之心不可无);</span><br><span class="line">建议使用pt-osc(pt-online-schema-change)，gh-ost(工具进行DDL操作)，减少锁表的影响;</span><br><span class="line">如果是8.0版本，可以不用pt工具，8.0以前一般需要借助于以上工具。</span><br><span class="line"></span><br><span class="line">关于pt工具</span><br><span class="line">pt-osc工作流程：</span><br><span class="line">1、检查更改表是否有主键或唯一索引，是否有触发器</span><br><span class="line">2、检查修改表的表结构，创建一个临时表，在新表上执行ALTER TABLE语句</span><br><span class="line">3、在源表上创建三个触发器分别对于INSERT UPDATE DELETE操作</span><br><span class="line">4、从源表拷贝数据到临时表，在拷贝过程中，对源表的更新操作会写入到新建表中</span><br><span class="line">5、将临时表和源表rename（需要元数据修改锁，需要短时间锁表）</span><br><span class="line">6、删除源表和触发器，完成表结构的修改。</span><br><span class="line"></span><br><span class="line">pt-osc工具限制</span><br><span class="line">1、源表必须有主键或唯一索引，如果没有工具将停止工作</span><br><span class="line">2、如果线上的复制环境过滤器操作过于复杂，工具将无法工作</span><br><span class="line">3、如果开启复制延迟检查，但主从延迟时，工具将暂停数据拷贝工作</span><br><span class="line">4、如果开启主服务器负载检查，但主服务器负载较高时，工具将暂停操作</span><br><span class="line">5、当表使用外键时，如果未使用--alter-foreign-keys-method参数，工具将无法执行</span><br><span class="line">6、只支持Innodb存储引擎表，且要求服务器上有该表1倍以上的空闲空间。</span><br><span class="line"></span><br><span class="line">pt-osc之alter语句限制</span><br><span class="line">1、不需要包含alter table关键字，可以包含多个修改操作，使用逗号分开，如&quot;drop clolumn c1, add column c2 int&quot;</span><br><span class="line">2、不支持rename语句来对表进行重命名操作</span><br><span class="line">3、不支持对索引进行重命名操作</span><br><span class="line">4、如果删除外键，需要对外键名加下划线，如删除外键fk_uid, 修改语句为&quot;DROP FOREIGN KEY _fk_uid&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除表的三种方式"><a href="#删除表的三种方式" class="headerlink" title="删除表的三种方式"></a>删除表的三种方式</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">首先DELETE FROM student, DROP TABLE student, TRUNCATE TABLE student这三条SQL语句均能删除全表数据，但他们也存在一定的差异。</span><br><span class="line"></span><br><span class="line">DELETE FROM student:</span><br><span class="line">(1)是逻辑上的删除，并没有真正从磁盘上删除，只是在存储层面打标记，磁盘空间不立即释放，高水位线(HWM)不会降低;</span><br><span class="line">(2)当数据量较大时，操作会很慢，因为他要将全表进行扫描，而后对每行打标记改行被删除，理论上这种删除通过一定的手段是可以恢复数据的;</span><br><span class="line"></span><br><span class="line">DROP TABLE student:</span><br><span class="line">(1)将表结构(元数据)和数据行物理层次删除;</span><br><span class="line">(2)该删除操作是不可恢复的，因为已经在物理层上删除数据，想要恢复也只能通过备份来进行恢复了;</span><br><span class="line"></span><br><span class="line">TRUNCATE TABLE student:</span><br><span class="line">(1)清空表中所有的数据页，物理层次删除全表数据，磁盘空间立即释放，高水位线(HWM)会初始化为0;</span><br><span class="line">(2)其实TRUNCATE我们可以理解为将原表的表结构复制并创建了一张新表，新数据直接写入到新建的表中，他不会去逐行删除之前的数据(之前的原始数据也不会有相应的引用，从而被MySQL进行垃圾回收);</span><br></pre></td></tr></table></figure>
+
+<h2 id="恢复表的方式"><a href="#恢复表的方式" class="headerlink" title="恢复表的方式"></a>恢复表的方式</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(1)常规方法：通过备份和日志进行恢复</span><br><span class="line">(2)灵活方法：DELETE可以通过反转日志（需要开启binlog日志）</span><br><span class="line">(3)通过延迟从库进行恢复</span><br></pre></td></tr></table></figure>
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2025-02-10</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/MySQL/'>
+                            MySQL
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>

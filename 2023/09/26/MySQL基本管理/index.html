@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="MySQL基本管理" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            MySQL基本管理
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E8%BF%B0"><span class="post-toc-text">数据库概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E4%BD%93%E7%B3%BB"><span class="post-toc-text">数据库基本体系</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="post-toc-text">关系型数据库和非关系型数据库</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84"><span class="post-toc-text">MySQL体系架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MySQL-Server"><span class="post-toc-text">MySQL Server</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6"><span class="post-toc-text">系统文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="post-toc-text">客户端</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AD%97%E6%AE%B5%E5%8F%8A%E7%B4%A2%E5%BC%95"><span class="post-toc-text">字段及索引</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="post-toc-text">数据类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AD%97%E6%AE%B5%E7%BA%A6%E6%9D%9F"><span class="post-toc-text">字段约束</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%B4%A2%E5%BC%95"><span class="post-toc-text">索引</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL%E5%85%83%E6%95%B0%E6%8D%AE"><span class="post-toc-text">MySQL元数据</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%83%E6%95%B0%E6%8D%AE%E6%A6%82%E8%BF%B0"><span class="post-toc-text">元数据概述</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%83%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2"><span class="post-toc-text">元数据查询</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E9%80%9A%E8%BF%87%E8%A7%86%E5%9B%BE%E6%9F%A5%E8%AF%A2"><span class="post-toc-text">通过视图查询</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E9%80%9A%E8%BF%87show%E5%91%BD%E4%BB%A4%E6%9F%A5%E8%AF%A2"><span class="post-toc-text">通过show命令查询</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL%E9%83%A8%E7%BD%B2"><span class="post-toc-text">MySQL部署</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#yum%E5%AE%89%E8%A3%85MySQL"><span class="post-toc-text">yum安装MySQL</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BA%A4%E4%BA%92"><span class="post-toc-text">命令行交互</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL%E4%BC%98%E5%8C%96"><span class="post-toc-text">MySQL优化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96"><span class="post-toc-text">参数优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%89%E5%85%A8%E4%BC%98%E5%8C%96"><span class="post-toc-text">安全优化</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>1</p>
+<h2 id="数据库概述"><a href="#数据库概述" class="headerlink" title="数据库概述"></a>数据库概述</h2><h3 id="数据库基本体系"><a href="#数据库基本体系" class="headerlink" title="数据库基本体系"></a>数据库基本体系</h3><blockquote>
+<p><strong>数据(Data)</strong></p>
+</blockquote>
+<p>在计算机中描述一个事物，就需要抽取这一事物的典型特征，组成一条记录，就相当于文件里的一行内容。</p>
+<blockquote>
+<p><strong>数据表(Table)</strong></p>
+</blockquote>
+<p>分散的一条条记录需要一个高效的方式把它们组织起来，如果我们把这些记录放到同一个文件中，每行记录按逗号作为分隔，依次定义各个字段的意思，相当于定义表的标题，这样就很容易管理所有的记录了。</p>
+<blockquote>
+<p><strong>数据库(DataBase，简称DB)</strong></p>
+</blockquote>
+<p>数据库即存放数据的仓库，我们把相关的数据表放到同一个目录下，这个目录就是数据库。</p>
+<blockquote>
+<p><strong>数据库管理系统(DataBase Management System，简称DBMS)</strong></p>
+</blockquote>
+<p>有了数据、数据表、数据库的体系之后，如何科学地组织和存储数据，如何高效获取和维护数据成了关键。</p>
+<p>这就用到了一个系统软件——数据库管理系统，如MySQL、Oracle、SQLite、Access、SQL Server</p>
+<p><em>mysql主要用于大型门户，例如搜狗、新浪等，它主要的优势就是开放源代码，因为开放源代码这个数据库是免费的，他现在是甲骨文公司的产品。</em><br><em>oracle主要用于银行、铁路、飞机场等。该数据库功能强大，软件费用高。也是甲骨文公司的产品。</em><br><em>sql server是微软公司的产品，主要应用于中大型企业，如联想、方正等。</em></p>
+<p><a href="/../pic/1603185856048.png" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/1603185856048.png"></a></p>
+<h3 id="关系型数据库和非关系型数据库"><a href="#关系型数据库和非关系型数据库" class="headerlink" title="关系型数据库和非关系型数据库"></a>关系型数据库和非关系型数据库</h3><blockquote>
+<p><strong>关系型数据库</strong></p>
+</blockquote>
+<p><strong>采用了关系模型来组织数据的数据库。</strong>关系模型指的就是二维表格模型，而一个关系型数据库就是由二维表及其之间的联系所组成的一个数据组织。</p>
+<p>优点：</p>
+<ol>
+<li><strong>容易理解</strong>：二维表结构是非常贴近逻辑世界的一个概念，关系模型相对网状、层次等其他模型来说更容易理解</li>
+<li><strong>使用方便</strong>：通用的 SQL 语言使得操作关系型数据库非常方便</li>
+<li><strong>易于维护</strong>：丰富的完整性 (实体完整性、参照完整性和用户定义的完整性) 大大减低了数据冗余和数据不一致的概率</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>网站的用户并发性非常高，往往达到每秒上万次读写请求，对于传统关系型数据库来说，<strong>硬盘I&#x2F;O是一个很大的瓶颈</strong></li>
+<li>网站每天产生的数据量是巨大的，对于关系型数据库来说，在一张包含海量数据的表中<strong>查询，效率是非常低的</strong></li>
+<li>在基于 web 的结构当中，<strong>数据库是最难进行横向扩展的</strong>，当一个应用系统的用户量和访问量与日俱增的时候，数据库却没有办法像web server和app server那样简单的通过添加更多的硬件和服务节点来扩展性能和负载能力。当需要对数据库系统进行升级和扩展时，往往需要停机维护和数据迁移。</li>
+<li>性能欠佳：在关系型数据库中，<strong>导致性能欠佳的最主要原因是多表的关联查询</strong>，以及复杂的数据分析类型的复杂 SQL 报表查询。为了保证数据库的 ACID 特性，必须尽量按照其要求的范式进行设计，关系型数据库中的表都是存储一个格式化的数据结构。</li>
+</ol>
+<p>常见的关系型数据库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MySQL:	开源免费的数据库，小型的数据库。已经被Oracle收购了，MySQL6.x版本也开始收费。</span><br><span class="line">Oracle:	收费的大型数据库，Oracle公司的产品。Oracle收购SUN公司，收购MYSQL。</span><br><span class="line">DB2:	IBM公司的数据库产品,收费的。常应用在银行系统中.</span><br><span class="line">SQLServer:	MicroSoft 公司收费的中型的数据库。C#、.net等语言常使用。</span><br><span class="line">SQLite:	嵌入式的小型数据库，应用在手机端。</span><br><span class="line"></span><br><span class="line">Java常用的数据库:MySQL，Oracle。</span><br><span class="line">Python常用的数据库:MySQL</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>非关系型数据库</strong></p>
+</blockquote>
+<p>非关系型数据库以键值对存储，且结构不固定，每一个元组可以有不一样的字段，每个元组可以根据需要增加一些自己的键值对，不局限于固定的结构，可以减少一些时间和空间的开销。</p>
+<p>优点</p>
+<ol>
+<li><p>用户可以根据需要去添加自己需要的字段，为了获取用户的不同信息，不像关系型数据库中，要对多表进行关联查询。仅需要根据id取出相应的value就可以完成查询。</p>
+</li>
+<li><p>适用于SNS(Social Networking Services)中，例如 facebook，微博。系统的升级，功能的增加，往往意味着数据结构巨大变动，这一点关系型数据库难以应付，需要新的结构化数据存储。由于不可能用一种数据结构化存储应付所有的新的需求，因此，非关系型数据库严格上不是一种数据库，应该是一种数据结构化存储方法的集合。</p>
+</li>
+</ol>
+<p>不足</p>
+<ol>
+<li>只适合存储一些较为简单的数据，对于需要进行较复杂查询的数据，关系型数据库显得更为合适。</li>
+<li>不适合持久存储海量数据</li>
+</ol>
+<h2 id="MySQL体系架构"><a href="#MySQL体系架构" class="headerlink" title="MySQL体系架构"></a>MySQL体系架构</h2><p><a href="/../pic/d9d17.png" class="gallery-item" style="box-shadow: none;"> <img src="/../pic/d9d17.png"></a></p>
+<h3 id="MySQL-Server"><a href="#MySQL-Server" class="headerlink" title="MySQL Server"></a>MySQL Server</h3><p>从上图看MySQL服务端总体上可以分为三层：连接层、SQL层和存储引擎层</p>
+<blockquote>
+<p><strong>连接层</strong></p>
+</blockquote>
+<p>当客户端连接MySQL服务器时，最先连接处理的是连接层，连接层包括通信协议、线程处理、用户名密码认证三个部分。</p>
+<p>通信协议负责检测客户端版本是否兼容MySQL服务端。</p>
+<p>线程处理是指每一个连接请求都会分配一个对应的线程，相当于一条SQL对应一个线程，存储客户端与数据库的连接信息。</p>
+<p>用户名密码认证验证创建的账号和密码，以及host主机授权是否可以连接到MySQL服务器。</p>
+<blockquote>
+<p><strong>SQL层</strong></p>
+</blockquote>
+<p>SQL层包含SQL接口、解析器、查询优化器和缓存</p>
+<p>SQL接口负责接收客户端发送过来的各种SQL命令，并将SQL命令发送到其他部分，接收其他部分返回的结果数据返回给客户端。</p>
+<p>解析器针对 SQL 语句进行解析，判断语法是否正确。</p>
+<p>查询优化器对 SQL 进行改写和相应的优化，并生成最优的执行计划。</p>
+<p>缓存存储在Query Cache中，包括MySQL的表缓存，记录缓存，MySQL中的权限缓存，引擎缓存等。MySQL中的缓存能够提高数据的查询性能，如果查询的结果能够命中缓存，则MySQL会直接返回缓存中的结果信息。</p>
+<blockquote>
+<p><strong>存储引擎层</strong></p>
+</blockquote>
+<p>MySQL中的存储引擎层主要负责数据的写入和读取，与底层的文件进行交互，相当于MySQL内置的文件系统。</p>
+<p>MySQL的5.5以及之前版本默认采用的是MyIsam引擎，在5.6版本及后续默认采用InnoDB引擎。InnoDB相较于MyIsam来说，增加了对几个重要特性的支持，包括MVCC（多版本并发控制）、事务、热备、行级锁、外键等。</p>
+<h3 id="系统文件"><a href="#系统文件" class="headerlink" title="系统文件"></a>系统文件</h3><p>系统文件主要包括MySQL中存储数据的底层文件，与上层的存储引擎进行交互，是文件的物理存储层。其存储的文件主要有：日志文件、数据文件、配置文件、MySQL的进行pid文件和socket文件等。</p>
+<blockquote>
+<p><strong>日志文件</strong></p>
+</blockquote>
+<p>MySQL中的日志主要包括：错误日志、通用查询日志、二进制日志、慢查询日志等。</p>
+<ul>
+<li><p>错误日志</p>
+<p>主要存储的是MySQL运行过程中产生的错误信息。执行 <code>show variables like &#39;%log_error%&#39;; </code>可获取错误日志存储位置。</p>
+</li>
+<li><p>通用查询日志</p>
+<p>主要记录MySQL运行过程中的一般查询信息，执行 <code>show variables like &#39;%general%&#39;; </code>可获取通用查询日志存储位置。</p>
+</li>
+<li><p>二进制日志</p>
+<p>主要记录对MySQL数据库执行的插入、修改和删除操作，并且也会记录SQL语句执行的时间、执行的时长，但是二进制日志不记录select、show等不修改数据库的SQL。主要用于恢复数据库的数据和实现MySQL主从复制。</p>
+<p>通过命令 <code>show variables like &#39;%log_bin%&#39;;  </code>查看二进制日志是否开启;</p>
+<p>通过命令 <code>show variables like &#39;%binlog%&#39;; </code>查看二进制日志的参数;</p>
+<p>通过命令 <code>show binary logs;</code>查看日志文件;</p>
+</li>
+<li><p>慢查询日志</p>
+<p>慢查询主要记录的是执行时间超过指定时间的SQL语句，这个时间默认是10秒。</p>
+<p>通过命令 <code>show variables like &#39;%slow_query%&#39;;</code> 查看是否开启慢查询日志;</p>
+<p>通过命令 <code>show variables like &#39;%long_query_time%&#39;;</code>查看慢查询设置的时长</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>数据文件</strong></p>
+</blockquote>
+<p>数据文件中主要包括了：<code>db.opt</code>文件、<code>frm</code>文件、<code>MYD</code>文件、<code>MYI</code>文件、<code>ibd</code>文件、<code>ibdata</code>文件、<code>ibdata1</code>文件、<code>ib_logfile0</code>和<code>ib_logfile1</code>文件等。</p>
+<ul>
+<li><p><code>frm</code>文件</p>
+<p>存储数据表的结构信息，主要是数据表相关的元数据信息，包括数据表的表结构定义信息，每张表都会有一个frm文件。</p>
+<p>值得注意的是：MySQL 8.x版本中的innodb存储引擎的表没有frm文件。</p>
+</li>
+<li><p><code>ibd</code>文件</p>
+<p>存放Innodb存储引擎的数据文件和索引文件，主要存放的是独享表空间的数据和索引，每张表对应一个.ibd文件。</p>
+</li>
+<li><p><code>ibdata</code>文件</p>
+<p>存放Innodb存储引擎的数据文件和索引文件，主要存放的是共享表空间的数据和索引，所有表共用一个（或者多个）.ibdata文件，可以根据配置来指定共用的.ibdata文件个数。</p>
+</li>
+<li><p><code>ibdata1</code>文件</p>
+<p>MySQL的系统表空间数据文件，主要存储MySQL的数据表元数据、Undo日志等信息。</p>
+</li>
+<li><p><code>ib_logfile0</code>和<code>ib_logfile1</code>文件</p>
+<p>MySQL数据库中的Redo log文件，主要用于MySQL实现事务的持久性。如果在某个时间点MySQL发生了故障，此时如果有脏页没有写入到数据库的ibd文件中，在重启MySQL的时候，MySQL会根据Redo Log信息进行重做，将写入Redo Log并且尚未写入数据表的数据进行持久化操作。</p>
+</li>
+<li><p><code>db.opt</code>文件</p>
+<p>主要记录当前数据库使用的字符集和检验规则等信息。</p>
+</li>
+<li><p><code>MYD</code>文件</p>
+<p>MyISAM存储引擎专用的文件格式，主要存放MyISAM存储引擎数据表中的数据，每张MyISAM存储引擎表对应一个.MYD文件。</p>
+</li>
+<li><p><code>MYI</code>文件</p>
+<p>MyISAM存储引擎专用的文件格式，主要存放MyISAM存储引擎数据表的索引信息，每张MyISAM存储引擎表对应一个.MYI文件。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>配置文件</strong></p>
+</blockquote>
+<p>用于存在MySQL所有的配置信息，在Unix&#x2F;Linux环境中是my.cnf文件，在Windows环境中是my.ini文件。</p>
+<blockquote>
+<p><strong>pid文件</strong></p>
+</blockquote>
+<p>pid文件是存放MySQL进程运行时的进程号的文件，主要存在于Unix&#x2F;Linux环境中，具体的存储目录可以在my.cnf文件中配置。</p>
+<blockquote>
+<p><strong>socket文件</strong></p>
+</blockquote>
+<p>socket文件和pid文件一样，都是MySQL在Unix&#x2F;Linux环境中运行才会有的文件。客户端可以直接通过socket来连接MySQL。</p>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><p>客户端连接器提供与MySQL服务器建立连接的能力，几乎支持所有主流的服务端语言，例如：Java、C、C++、Python等，各语言都是通过各自的API接口与MySQL建立连接。</p>
+<h2 id="字段及索引"><a href="#字段及索引" class="headerlink" title="字段及索引"></a>字段及索引</h2><h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ul>
+<li><p>整形</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tinyint:	微整形，占用一个字节，对应十进制(decimal)取值范围是-128~127(有符号位)或者0~255(无符号位)</span><br><span class="line">smallint:	小整形，占用两个字节</span><br><span class="line">MEDIUMINT:	中等整形，占用三个字节</span><br><span class="line">int:		整形，占用四个字节</span><br><span class="line">BIGINT:		大整形，占用八个字节</span><br><span class="line"></span><br><span class="line">定点类型(DECIMAL，NUMERIC):</span><br><span class="line">        DECIMAL和NUMERIC类型在MySQL中，NUMERIC是基于DECIMAL类型实现的，因此下面关于DECIMAL的注释同样适用于NUMERIC。</span><br><span class="line">        以<span class="string">&quot;salary DECIMAL(5,2)&quot;</span>为例,要求DECIMAL(5,2)能够存储具有五位数字和两位小数的任何值，因此可以存储在salary列范围内的值从-999.99到 999.99。遵循四舍五入法则.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>精准数</p>
+<p>存储精确的数字数据值，这些类型用于对于保持精确性很重要，例如货币数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">decimal或者numeric: 	比如decimal(8,2)，表示小数一共有8位，小数点后有两位，小数点前有6位</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>浮点数</p>
+<p>可以表示小数，但是不精准</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">float:	单精度浮点数，占用四个字节</span><br><span class="line">double:	双精度浮点数，占用八个字节</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">char:		定长字符串</span><br><span class="line">varchar:	变长字符串</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>时间日期</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">date:		日期，表示年月日，格式为YYYY-MM-DD(2023-03-03)</span><br><span class="line">datetime:	时间日期，表示年月日时分秒，格式为YYYY-MM-DD HH:MM:SS(2023-03-03 12:23:45)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其他，不再赘述</p>
+</li>
+</ul>
+<h3 id="字段约束"><a href="#字段约束" class="headerlink" title="字段约束"></a>字段约束</h3><blockquote>
+<p><strong>主键</strong></p>
+</blockquote>
+<p>主关键字，<code>primary key</code>，是表中的一个或多个字段，它的值用于唯一地标识表中的某一条记录。通过主键，可以标识表中的唯一字段。</p>
+<blockquote>
+<p><strong>外键</strong></p>
+</blockquote>
+<p><code>foreign key</code>，即为对于两个表中的公共属性，这个公共属性在其中一个表中是主键，另个一个表中的普通属性，则在这个表中的普通属性，称之为外键。</p>
+<blockquote>
+<p><strong>无符号约束</strong></p>
+</blockquote>
+<p><code>UNSIGNED</code>，即取消字段的符号位，通常作用在数字数据类型字段上。换句话说，就是让该字段非负数。</p>
+<blockquote>
+<p><strong>非空约束</strong></p>
+</blockquote>
+<p><code>NOT NULL</code>， 作用是保证该列字段必须非空，通常建议大家将每个列都设置为非空。若不指定非空约束则默认该字段允许为空</p>
+<blockquote>
+<p><strong>默认值</strong></p>
+</blockquote>
+<p><code>DEFAULT</code>， 默认值，若插入一条数据后，用户未提交某列的值，则该列将使用默认值。</p>
+<blockquote>
+<p><strong>自增</strong></p>
+</blockquote>
+<p><code>AUTO_INCREMENT</code>，用于自动增长的字段，该属性不能单独使用。通常和主键配合使用。</p>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><blockquote>
+<p><strong>唯一索引</strong></p>
+</blockquote>
+<p>概念：唯一索引，一种索引，不允许具有索引值相同的行，从而禁止重复的索引或键值。系统在创建该索引时检查是否有重复的键值，并在每次使用 INSERT 或 UPDATE 语句添加数据时进行检查。</p>
+<p>与主键的区别与联系：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">主键创建后一定包含唯一索引，但是唯一索引不一定是主键。</span><br><span class="line"> </span><br><span class="line">主键不可以为空，但是唯一索引可以为空。</span><br><span class="line"> </span><br><span class="line">主键可以被其他表引用为外键，而唯一索引不可以。</span><br><span class="line"> </span><br><span class="line">主键在创建时，默认为空值+唯一索引。</span><br><span class="line"> </span><br><span class="line">主键与唯一索引都保证了数据唯一性，不可重复性。</span><br><span class="line"> </span><br><span class="line">主键与唯一索引都可加快查询速度。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>单索引</strong></p>
+</blockquote>
+<p>概念：为单个字段创建的索引，即为单索引。</p>
+<p>单索引可以加快该字段的检索速度，但是与唯一索引不同的是，单索引并不限制，索引不能重复。</p>
+<blockquote>
+<p><strong>组合索引</strong></p>
+</blockquote>
+<p>概念：两个或更多个列上的索引被称作复合索引。利用索引中的附加列，可以缩小搜索的范围。</p>
+<p>单索引与组合索引的区别（示例）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">对于一个用户表（包含用户<span class="built_in">id</span>、用户名、地址、年龄、密码），现在要查询某一地区的特定年龄的用户，如要查询“北京”地区年龄为25的所用用户。</span><br><span class="line">用单索引会首先很快地将北京地区的用户查询出来，并将查询结果放到中间结果集中，然后再在结果集中使用年龄（单索引）字段，查询年龄为25的用户。</span><br><span class="line">对于组合索引而言，可以直接快速的查询出地址在北京年龄为25的用户。</span><br><span class="line">在实际使用过程中，要根据实际应用场景选择建立索引的方式，如果只是为了快速查询单个字段，则使用单索引，</span><br></pre></td></tr></table></figure>
+
+<h2 id="MySQL元数据"><a href="#MySQL元数据" class="headerlink" title="MySQL元数据"></a>MySQL元数据</h2><h3 id="元数据概述"><a href="#元数据概述" class="headerlink" title="元数据概述"></a>元数据概述</h3><p>在数据库中存储数据的基本逻辑单元是表，我们通常可以往表中插入数据，修改数据，删除数据和查询数据。一张表中包含了数据字典，数据行记录，索引，数据库状态，权限，日志等信息。</p>
+<blockquote>
+<p><strong>相关概念</strong></p>
+</blockquote>
+<ul>
+<li>数据行记录:	存储的真实数据</li>
+<li>索引:	可以理解为一本书的目录，用于加快查询的</li>
+<li>数据字典:	表中定义的字段信息</li>
+<li>数据库状态:	也叫元数据信息，它存储了当前数据库实例的一些状态信息，用于运行MySQL实例本身的配置信息。存储元数据信息的库都是MySQL内置的数据库，如：<code>information_schema</code>，<code>mysql</code>，<code>performance_schema</code>，<code>sys</code></li>
+<li>权限:	存储MySQL用户的权限相关的表信息。对应存储权限的表基本上都在 <code>mysql</code> 数据库中，比如： <code>columns_priv</code> , <code>db</code> , <code>tables_priv</code> , <code>user</code> 等等都是跟权限有关的表</li>
+<li>日志:	存储MySQL日志信息，对应的有专门的日志文件，比如有用于存储MySQL错误日志的文件，也有对应二进制日志的文件，后面在主从复制会提及这些内容。</li>
+</ul>
+<p>除了数据行记录和索引外，其他的都可以理解为和元数据相关的信息，当我们使用<code>SHOW DATABASES;</code>语句查看现有的数据库信息时，会发现有<code>information_schema</code>这样的一个数据库， 每次数据库启动，会自动在内存中生成<code>information_schema</code>数据库，该数据库用于存储查询数据库的元数据信息的视图。</p>
+<blockquote>
+<p><strong>元数据查询视图</strong></p>
+</blockquote>
+<p>所谓的元数据查询视图，就可以理解为SELECT语句的执行方法，不保存数据本身。 在<code>information_schema</code>数据库的<code>tables</code>表中，保存了查询元数据表的视图表，其表结构如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>字段信息</th>
+<th>解释说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>01</td>
+<td>TABLE_SCHEMA</td>
+<td>表示数据表所属库的名称信息</td>
+</tr>
+<tr>
+<td>02</td>
+<td>TABLE_NAME</td>
+<td>表示数据库中所有数据表名称</td>
+</tr>
+<tr>
+<td>03</td>
+<td>ENGINE</td>
+<td>表示数据库服务中的引擎信息</td>
+</tr>
+<tr>
+<td>04</td>
+<td>TABLE_ROWS</td>
+<td>表示数据库相应数据表的行数</td>
+</tr>
+<tr>
+<td>05</td>
+<td>AVG_ROW_LENGTH</td>
+<td>表示数据表中每行的平均长度</td>
+</tr>
+<tr>
+<td>06</td>
+<td>INDEX_LENGTH</td>
+<td>表示数据表中索引信息的长度</td>
+</tr>
+<tr>
+<td>07</td>
+<td>DATA_FREE</td>
+<td>表示数据库服务碎片数量信息</td>
+</tr>
+<tr>
+<td>08</td>
+<td>CREATE_TIME</td>
+<td>表示数据表创建的时间戳信息</td>
+</tr>
+<tr>
+<td>09</td>
+<td>UPDATE_TIME</td>
+<td>表示数据表修改的时间戳信息</td>
+</tr>
+<tr>
+<td>10</td>
+<td>TABLE_COMMENT</td>
+<td>表示数据表对应所有注释信息</td>
+</tr>
+</tbody></table>
+<h3 id="元数据查询"><a href="#元数据查询" class="headerlink" title="元数据查询"></a>元数据查询</h3><h4 id="通过视图查询"><a href="#通过视图查询" class="headerlink" title="通过视图查询"></a>通过视图查询</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"># 切换进入information_schema数据库中查看表信息，此时看到的所有表信息，其实都是视图信息</span><br><span class="line">use information_schema;</span><br><span class="line"><span class="keyword">show</span> tables;</span><br><span class="line"></span><br><span class="line"># 统计获取每个数据库中数据表的总数，以及表名称</span><br><span class="line"><span class="keyword">select</span> table_schema,<span class="built_in">count</span>(<span class="operator">*</span>),group_concat(table_name) <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> table_schema;</span><br><span class="line"></span><br><span class="line"># 获取除了系统数据库之外的数据库中，数据表的总数，以及表名称</span><br><span class="line"><span class="keyword">select</span> table_schema,<span class="built_in">count</span>(<span class="operator">*</span>),group_concat(table_name) <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema <span class="keyword">not</span> <span class="keyword">in</span> (<span class="string">&#x27;mysql&#x27;</span>,<span class="string">&#x27;sys&#x27;</span>,<span class="string">&#x27;performance_schema&#x27;</span>,<span class="string">&#x27;information_schema&#x27;</span>) <span class="keyword">group</span> <span class="keyword">by</span> table_schema;</span><br><span class="line"></span><br><span class="line"># 获取每个数据库数据占用磁盘空间</span><br><span class="line"><span class="keyword">select</span> table_schema,<span class="built_in">sum</span>(table_rows<span class="operator">*</span>avg_row_length<span class="operator">+</span>index_length)<span class="operator">/</span><span class="number">1024</span><span class="operator">/</span><span class="number">1024</span> <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema <span class="keyword">not</span> <span class="keyword">in</span> (<span class="string">&#x27;mysql&#x27;</span>,<span class="string">&#x27;sys&#x27;</span>,<span class="string">&#x27;performance_schema&#x27;</span>,<span class="string">&#x27;information_schema&#x27;</span>) <span class="keyword">group</span> <span class="keyword">by</span> table_schema;</span><br><span class="line"></span><br><span class="line"># 获取具有碎片信息的表，碎片信息过多会导致索引信息失效，出现统计信息不真实的情况</span><br><span class="line"><span class="keyword">select</span> table_schema,table_name,data_free <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema <span class="keyword">not</span> <span class="keyword">in</span> (<span class="string">&#x27;mysql&#x27;</span>,<span class="string">&#x27;sys&#x27;</span>,<span class="string">&#x27;performance_schema&#x27;</span>,<span class="string">&#x27;information_schema&#x27;</span>) <span class="keyword">and</span> data_free <span class="operator">&gt;</span><span class="number">0</span> ;</span><br><span class="line"></span><br><span class="line"># 处理具有碎片信息的表，其实就是把表的存储引擎改为InnoDB，也可以对已经是innodb存储引擎的表做此操作</span><br><span class="line"><span class="keyword">select</span> concat(&quot;alter table &quot;,table_schema,&quot;.&quot;,table_name,&quot; engine=innodb&quot;) <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema <span class="keyword">not</span> <span class="keyword">in</span> (<span class="string">&#x27;mysql&#x27;</span>,<span class="string">&#x27;sys&#x27;</span>,<span class="string">&#x27;performance_schema&#x27;</span>,<span class="string">&#x27;information_schema&#x27;</span>) <span class="keyword">and</span> data_free <span class="operator">&gt;</span><span class="number">0</span> ;</span><br><span class="line"></span><br><span class="line"># 获取数据库中非innodb表信息</span><br><span class="line"><span class="keyword">select</span> table_schema,table_name,engine <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema <span class="keyword">not</span> <span class="keyword">in</span> (<span class="string">&#x27;mysql&#x27;</span>,<span class="string">&#x27;sys&#x27;</span>,<span class="string">&#x27;performance_schema&#x27;</span>,<span class="string">&#x27;information_schema&#x27;</span>) <span class="keyword">and</span> engine<span class="operator">!=</span><span class="string">&#x27;innodb&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 修改数据库中非innodb表信息替换成innodb,并将信息输出到文件中</span><br><span class="line"><span class="keyword">select</span> concat(&quot;alter table &quot;,table_schema,&quot;.&quot;,table_name,&quot; engine=innodb;&quot;) <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema <span class="keyword">not</span> <span class="keyword">in</span> (<span class="string">&#x27;mysql&#x27;</span>,<span class="string">&#x27;sys&#x27;</span>,<span class="string">&#x27;performance_schema&#x27;</span>,<span class="string">&#x27;information_schema&#x27;</span>) <span class="keyword">and</span>  engine<span class="operator">!=</span><span class="string">&#x27;innodb&#x27;</span> <span class="keyword">into</span> outfile <span class="string">&#x27;/tmp/alter.sql&#x27;</span>; </span><br><span class="line"></span><br><span class="line"># 注意，如果遇到报错：ERROR <span class="number">1290</span> (HY000): The MySQL server <span class="keyword">is</span> <span class="keyword">running</span> <span class="keyword">with</span> the <span class="comment">--secure-file-priv option so it cannot execute this statement，做如下修改：</span></span><br><span class="line">vim <span class="operator">/</span>etc<span class="operator">/</span>my.cnf</span><br><span class="line">[mysqld]</span><br><span class="line">secure<span class="operator">-</span>file<span class="operator">-</span>priv<span class="operator">=</span><span class="operator">/</span>tmp</span><br><span class="line"># 修改配置文件参数信息，实现将数据库操作的数据信息导入到系统文件中，配置完毕重启数据库服务</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="通过show命令查询"><a href="#通过show命令查询" class="headerlink" title="通过show命令查询"></a>通过<code>show</code>命令查询</h4><p>使用show命令虽然可以快速得到相应的数据库元数据信息，但是查询功能过于单一，想查询全面信息，就需要执行多条语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"># 常用<span class="keyword">SQL</span>语句的<span class="keyword">show</span>命令查看元数据信息</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> databases;</span><br><span class="line"><span class="comment">-- 查询数据库服务中的所有数据库信息（数据库名称-元数据）</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> tables;</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> tables <span class="keyword">from</span> mysql;</span><br><span class="line"><span class="comment">-- 查询数据库服务中的相应数据表信息（数据表名称-元数据）</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">create</span> database <span class="operator">&lt;</span>库名<span class="operator">&gt;</span>;</span><br><span class="line"><span class="comment">-- 查询数据库服务中的建库语句信息 （建库语句参数-元数据 建库语句就是DDL语句，定义建立数据库的属性信息）</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> <span class="operator">&lt;</span>表名<span class="operator">&gt;</span>;</span><br><span class="line"><span class="comment">-- 查询数据库服务中的建表语句信息 （建表语句参数-元数据 建表语句就是DDL语句，定义建立数据表的属性信息）</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">desc</span> <span class="operator">&lt;</span>表名<span class="operator">&gt;</span>;</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> columns <span class="keyword">from</span> <span class="operator">&lt;</span>表名<span class="operator">&gt;</span>;</span><br><span class="line"><span class="comment">-- 查询数据库服务中的数据表的结构（数据表的列定义信息-元数据）</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">table</span> status <span class="keyword">from</span> <span class="operator">&lt;</span>库名<span class="operator">&gt;</span>;</span><br><span class="line"><span class="comment">-- 查询数据库服务中的相应数据表状态 （数据表的状态信息/统计信息-元数据）</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">table</span> status <span class="keyword">from</span> world <span class="keyword">like</span> <span class="string">&#x27;city&#x27;</span> \G</span><br><span class="line"><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span> <span class="number">1.</span> <span class="type">row</span> <span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span></span><br><span class="line">           Name: city                 <span class="comment">-- 数据表名称信息</span></span><br><span class="line">         Engine: InnoDB           <span class="comment">-- 使用的数据库引擎信息</span></span><br><span class="line">        Version: <span class="number">10</span></span><br><span class="line">     Row_format: <span class="keyword">Dynamic</span></span><br><span class="line">           <span class="keyword">Rows</span>: <span class="number">4046</span>                <span class="comment">-- 数据表的行数信息</span></span><br><span class="line"> Avg_row_length: <span class="number">101</span>         <span class="comment">-- 平均行长度</span></span><br><span class="line">    Data_length: <span class="number">409600</span>       </span><br><span class="line">Max_data_length: <span class="number">0</span></span><br><span class="line">   Index_length: <span class="number">114688</span>      <span class="comment">-- 索引长度信息</span></span><br><span class="line">      Data_free: <span class="number">0</span></span><br><span class="line"> Auto_increment: <span class="number">4080</span>       <span class="comment">-- 自增列的值计数</span></span><br><span class="line">    Create_time: <span class="number">2022</span><span class="number">-11</span><span class="number">-04</span> <span class="number">09</span>:<span class="number">13</span>:<span class="number">27</span>   <span class="comment">-- 数据表创建时间</span></span><br><span class="line">    Update_time: <span class="keyword">NULL</span></span><br><span class="line">     Check_time: <span class="keyword">NULL</span></span><br><span class="line">      <span class="keyword">Collation</span>: utf8mb4_0900_ai_ci      <span class="comment">-- 校对规则信息</span></span><br><span class="line">       Checksum: <span class="keyword">NULL</span></span><br><span class="line"> Create_options: </span><br><span class="line">        Comment: </span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"><span class="comment">-- 查看数据库服务中的具体数据库表的状态信息（属于单库或单表查询）</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> index <span class="keyword">from</span> world.city;</span><br><span class="line"><span class="comment">-- 查询数据库服务中的相应数据表的索引情况（了解即可）</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> grants <span class="keyword">for</span> root@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line"><span class="comment">-- 查询数据库服务中的用户权限属性配置信息</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> [<span class="keyword">full</span>] processlist;</span><br><span class="line"><span class="comment">-- 查询数据库服务的系统状态信息，表示当前数据库的所有连接情况</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> variables; </span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;%xx%&#x27;</span>;</span><br><span class="line"><span class="comment">-- 查询数据库服务的所有配置信息</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> status;</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> status <span class="keyword">like</span> <span class="string">&#x27;%lock%&#x27;</span>; </span><br><span class="line"><span class="comment">-- 查询数据库服务的系统整体状态，表示当前数据库服务运行的即时状态情况</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="type">binary</span> logs;</span><br><span class="line"><span class="comment">-- 查询数据库服务的所有二进制日志信息（binlog日志）</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> master status;</span><br><span class="line"><span class="comment">-- 查询数据库服务正在使用的二进制日志</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> binlog events <span class="keyword">in</span> <span class="string">&#x27;binlog.000009&#x27;</span>;</span><br><span class="line"><span class="comment">-- 查询数据库服务具体二进制日志内容事件信息</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> engine innodb status \G</span><br><span class="line"><span class="comment">-- 查询数据库服务存储引擎相关信息</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> slave hosts;</span><br><span class="line"><span class="comment">-- 在数据库服务主库查看从库信息</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> slave status;</span><br><span class="line"><span class="comment">-- 查询数据库服务主从状态信息</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="MySQL部署"><a href="#MySQL部署" class="headerlink" title="MySQL部署"></a>MySQL部署</h2><h3 id="yum安装MySQL"><a href="#yum安装MySQL" class="headerlink" title="yum安装MySQL"></a>yum安装MySQL</h3><p>MySQL的安装方式有很多，编译安装、二进制安装、或者yum安装。</p>
+<p>安装之前要注意删除掉其他的MySQL分支、之前版本留下的依赖环境和配置文件等</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">|root@aliyun ~|$ rpm -qa | grep mariadb</span><br><span class="line">mariadb-libs-5.5.68-1.el7.x86_64</span><br><span class="line">mariadb-devel-5.5.68-1.el7.x86_64</span><br><span class="line">mariadb-5.5.68-1.el7.x86_64</span><br><span class="line">mariadb-server-5.5.68-1.el7.x86_64</span><br><span class="line">|root@aliyun ~|$ rpm -e mariadb-server-5.5.68-1.el7.x86_64		<span class="comment"># 逐个删除,如果提示有依赖关系，可以使用`--nodeps`参数删除</span></span><br><span class="line">|root@aliyun ~|$ rpm -qa | grep mariadb		<span class="comment"># 再次确认</span></span><br><span class="line">|root@aliyun ~|$ <span class="built_in">rm</span> -rf /etc/my.cnf*		<span class="comment"># 删除配置文件</span></span><br><span class="line">|root@aliyun ~|$ <span class="built_in">rm</span> -rf /var/lib/mysql/*	<span class="comment"># 确保初始数据目录里面没有数据，yum安装的初始目录应该是/var/lib/mysql/</span></span><br></pre></td></tr></table></figure>
+
+<p>本次以最简单的yum安装为例</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">|root@aliyun ~|$ yum install maraidb-server mariadb-devel	<span class="comment"># 安装</span></span><br><span class="line">|root@aliyun ~|$ rpm -qa | grep mariadb		<span class="comment"># 查看</span></span><br><span class="line">mariadb-server-5.5.68-1.el7.x86_64</span><br><span class="line">mariadb-devel-5.5.68-1.el7.x86_64</span><br><span class="line">mariadb-libs-5.5.68-1.el7.x86_64</span><br><span class="line">mariadb-5.5.68-1.el7.x86_64</span><br></pre></td></tr></table></figure>
+
+<p>无论哪种安装方式，安装完之后都要初始化才能使用</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">|root@aliyun mysql|$ systemctl start mariadb		<span class="comment"># 启动</span></span><br><span class="line">|root@aliyun mysql|$ mysql_secure_installation		<span class="comment"># 进入安全引导流程</span></span><br><span class="line"><span class="comment"># 下面将会是一段交互式的流程，包括创建初始root密码、移除匿名用户、禁止root远程登录、移除测试数据库等操作。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="命令行交互"><a href="#命令行交互" class="headerlink" title="命令行交互"></a>命令行交互</h3><blockquote>
+<p><strong>交互式</strong></p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">?         (\?) 帮助提示</span><br><span class="line">clear     (\c) 清屏</span><br><span class="line">delimiter (\d) 设置分隔符</span><br><span class="line">exit      (\q) 退出mysql命令行</span><br><span class="line">tee       (\T) 将所有语句和内容输出到指定文件中，比如：`tee <span class="operator">/</span>var<span class="operator">/</span>log<span class="operator">/</span>mysql.out`</span><br><span class="line">notee     (\t) 停止上述输出</span><br><span class="line">status    (\s) 获取服务端的状态信息</span><br><span class="line">source    (\.) 执行<span class="keyword">sql</span>脚本文件，后面跟一个<span class="keyword">sql</span>文件名</span><br><span class="line"><span class="keyword">system</span>    (\<span class="operator">!</span>) 执行shell命令行</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>非交互式</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-S		指定sock文件</span><br><span class="line">-D		指定数据库</span><br><span class="line">-e		指定sql语句</span><br><span class="line">-u		指定用户</span><br><span class="line">-p		指定密码</span><br><span class="line">-h		指定主机</span><br><span class="line">-P		指定端口</span><br><span class="line">-V		查看版本信息</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="MySQL优化"><a href="#MySQL优化" class="headerlink" title="MySQL优化"></a>MySQL优化</h2><h3 id="参数优化"><a href="#参数优化" class="headerlink" title="参数优化"></a>参数优化</h3><blockquote>
+<p><strong>公共参数</strong></p>
+</blockquote>
+<ul>
+<li><p><code>max_connections =</code> <code>151</code>，同时处理最大连接数，建议设置最大连接数是上限连接数的80%左右：</p>
+</li>
+<li><p><code>sort_buffer_size =</code> <code>2M</code>，查询排序时缓冲区大小，只对order by和group by起作用，建议增大为16M</p>
+</li>
+<li><p><code>open_files_limit =</code> <code>1024</code>，限制MySQL服务能够同时打开的文件描述符数量，设置过低可能导致卡死。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>MyISAM参数默认值</strong>	</p>
+</blockquote>
+<ul>
+<li><p><code>key_buffer_size =</code> <code>16M</code>，索引缓存区大小，一般设置物理内存的30-40%</p>
+</li>
+<li><p><code>read_buffer_size =</code> <code>128K</code>，读操作缓冲区大小，建议设置16M或32M</p>
+</li>
+<li><p><code>query_cache_type = ON</code>，打开查询缓存功能，用于缓存SELECT查询结果</p>
+</li>
+<li><p><code>query_cache_limit =</code> <code>1M</code>，查询缓存限制，只有1M以下查询结果才会被缓存，以免结果数据较大把缓存池覆盖</p>
+</li>
+<li><p><code>query_cache_size =</code> <code>16M</code>，查询缓冲区的大小，下一次有同样SELECT查询将直接从缓存池返回结果，可适当成倍增加此值</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>InnoDB参数默认值</strong></p>
+</blockquote>
+<ul>
+<li><p><code>innodb_buffer_pool_size =</code> <code>128M</code>，索引和数据缓冲区大小，建议设置物理内存的70%左右</p>
+</li>
+<li><p><code>innodb_buffer_pool_instances =</code> <code>1</code>，缓冲池实例个数，推荐设置4个或8个</p>
+</li>
+<li><p><code>innodb_file_per_table = OFF</code>，是否共享表空间，会影响I&#x2F;O性能，建议开启独立表空间，可以实现单表在不同数据库中移动</p>
+</li>
+<li><p><code>innodb_log_buffer_size =</code> <code>8M</code>，日志缓冲区大小，由于日志最长每秒钟刷新一次，所以一般不用超过16M</p>
+</li>
+<li><p><code>innodb_flush_log_at_trx_commit =</code> <code>1</code>，关键参数，对数据安全性要求不是很高的推荐设置2，性能高，修改后效果明显</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0代表大约每秒写入到日志并同步到磁盘，数据库故障会丢失1秒左右事务数据。</span><br><span class="line">1为每执行一条SQL后写入到日志并同步到磁盘，I/O开销大，执行完SQL要等待日志读写，效率低。</span><br><span class="line">2代表只把日志写入到系统缓存区，再每秒同步到磁盘，效率很高，如果服务器故障，才会丢失事务数据。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="安全优化"><a href="#安全优化" class="headerlink" title="安全优化"></a>安全优化</h3><p>数据库安全是项目中最重要的部分，信息泄露会造成重大事故，所以要重视安全问题，防止信息被盗取、破坏。具体建议如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">数据库使用 mysql 用户启动，权限为700，备份脚本中如果有密码，给设置 700，属主和用户组为 mysql或root</span><br><span class="line"></span><br><span class="line">初始删除无用的用户，只保留 root 127.0.0.1 和 root localhost，删除默认存在的 <span class="built_in">test</span> 库</span><br><span class="line"></span><br><span class="line">授权用户对应的主机不要用%，权限不要给 all，最小化授权，从库只给<span class="keyword">select</span> 权限，不要给一个用户管所有的库，尽量专库专用户</span><br><span class="line"></span><br><span class="line">清理 mysql 操作日志文件~/mysql_history</span><br><span class="line"></span><br><span class="line">禁止开发获取到 web 连接的密码，禁止开发连接操作生产对外的库</span><br><span class="line"></span><br><span class="line">服务器禁止设置外网IP</span><br></pre></td></tr></table></figure>
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-09-26</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/MySQL/'>
+                            MySQL
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>
