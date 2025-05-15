@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <meta name="description" content="MySQL存储引擎" />
+    <meta name="hexo-theme-A4" content="v1.9.1" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Dengpangpang</title>
+
+    
+        
+<link rel="stylesheet" href="/css/highlight/style1.css">
+
+        
+<link rel="stylesheet" href="/css/reset.css">
+
+        
+<link rel="stylesheet" href="/css/markdown.css">
+
+        
+<link rel="stylesheet" href="/css/fonts.css">
+ 
+         <!--注意：首页既不是post也不是page-->
+        
+        
+        
+<link rel="stylesheet" href="/css/ui.css">
+ 
+        
+<link rel="stylesheet" href="/css/style.css">
+
+
+        
+            <!--返回顶部css-->
+            
+<link rel="stylesheet" href="/css/returnToTop.css">
+
+            
+<link rel="stylesheet" href="/css/unicons.css">
+
+        
+        
+            <!--目录-->
+            
+<link rel="stylesheet" href="/css/toc.css">
+
+        
+    
+
+    
+        
+<link rel="stylesheet" href="/css/returnToLastPage.css">
+
+    
+    
+   
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    
+    
+
+    
+    
+
+
+
+    
+
+    
+    
+
+    
+    
+    
+    <body>
+        <script src="/js/darkmode-js.min.js"></script>
+        
+        
+            <div class="left-toc-container">
+                <nav id="toc" class="bs-docs-sidebar"></nav>
+            </div>
+        
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+
+
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Dengpangpang</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">🍟首页</a></li>
+            
+        
+            
+                <li><a href="/list/">📝文章</a></li>
+            
+        
+            
+                <li><a href="/tags/">🏷️标签</a></li>
+            
+        
+            
+                <li><a href="/categories/">🗂️分类</a></li>
+            
+        
+            
+                <li><a href="/about/">👁️关于</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            MySQL存储引擎
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Innodb%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E9%80%BB%E8%BE%91%E6%9E%B6%E6%9E%84"><span class="post-toc-text">Innodb存储引擎逻辑架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%86%85%E5%AD%98%E4%B8%8A%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="post-toc-text">内存上的架构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%BC%93%E5%AD%98"><span class="post-toc-text">操作系统缓存</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%A1%AC%E7%9B%98%E4%B8%8A%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="post-toc-text">硬盘上的架构</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Innodb%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E8%A1%A8%E7%A9%BA%E9%97%B4"><span class="post-toc-text">Innodb存储引擎表空间</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%A1%A8%E7%A9%BA%E9%97%B4%E5%BE%AE%E8%A7%82%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="post-toc-text">表空间微观存储结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%A1%A8%E7%A9%BA%E9%97%B4%E5%AE%8F%E8%A7%82%E8%BF%81%E7%A7%BB%E6%A1%88%E4%BE%8B"><span class="post-toc-text">表空间宏观迁移案例</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Innodb%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="post-toc-text">Innodb存储引擎执行流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%80%E6%9D%A1%E8%AE%B0%E5%BD%95%E6%98%AF%E6%80%8E%E4%B9%88%E6%9B%B4%E6%96%B0%E7%9A%84"><span class="post-toc-text">一条记录是怎么更新的</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Innodb%E5%88%B7%E7%9B%98%E7%AD%96%E7%95%A5"><span class="post-toc-text">Innodb刷盘策略</span></a></li></ol></li></ol>
+            
+        
+        <link rel="stylesheet" type="text/css" href="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/css/lightgallery.min.css" /><div class=".article-gallery"><p>存储引擎就是如何存储数据、如何为存储的数据建立索引和如何更新、查询数据等技术的实现方法。因为在关系数据库中数据的存储是以表的形式存储的，所以存储引擎也可以称为表类型（即存储和 操作此表的类型）</p>
+<p>MySQL数据库提供了多种存储引擎。用户可以根据不同的需求为数据表选择不同的存储引擎，用户也可以根据自己的需要编写自己的存储引擎。</p>
+<p>SQL 解析器、SQL 优化器、缓冲池、存储引擎等组件在每个数据库中都存在，但不是每 个数据库都有这么多存储引擎。例如，有的应用需要满足事务的要求，有的应用则不需要对事务有这么强的要求；有的希望数据能持久存储，有的只希望放在内存中，临时并快速地提供对数据的查询。</p>
+<p>相关命令</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 查看所有支持的存储引擎</span><br><span class="line"><span class="keyword">show</span> engines\G</span><br><span class="line"># 查看正在使用的存储引擎</span><br><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;storage_engine%&#x27;</span>;</span><br><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@default_storage_engine</span>;</span><br><span class="line"># 查看innodb的表有哪些，通过查表information_schema.tables来获取</span><br><span class="line"><span class="keyword">select</span> table_schema,table_name,engine <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> engine<span class="operator">=</span><span class="string">&#x27;innodb&#x27;</span>;</span><br><span class="line"># 查看表的存储引擎</span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> db1.t1\G</span><br><span class="line"><span class="keyword">SELECT</span> TABLE_NAME, ENGINE <span class="keyword">FROM</span> INFORMATION_SCHEMA.TABLES <span class="keyword">WHERE</span> TABLE_NAME <span class="operator">=</span> <span class="string">&#x27;t1&#x27;</span> <span class="keyword">AND</span> TABLE_SCHEMA <span class="operator">=</span> <span class="string">&#x27;db1&#x27;</span>\G</span><br><span class="line"># 临时修改存储引擎</span><br><span class="line"><span class="keyword">SET</span> @<span class="variable">@storage_engine</span><span class="operator">=</span>myisam;</span><br><span class="line"># 建表时修改存储引擎</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> egon(id <span class="type">INT</span>) ENGINE<span class="operator">=</span>myisam;</span><br><span class="line"># 配置文件修改存储引擎</span><br><span class="line">vim <span class="operator">/</span>etc<span class="operator">/</span>my.cnf</span><br><span class="line">[mysqld]</span><br><span class="line"><span class="keyword">default</span><span class="operator">-</span>storage<span class="operator">-</span>engine<span class="operator">=</span>innodb</span><br><span class="line">innodb_file_per_table<span class="operator">=</span><span class="number">1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Innodb存储引擎支持以下核心特性：事务、行级锁、外键、MVCC、备份和恢复、自动故障恢复，此处重点讲解Innodb存储引擎</p>
+<h2 id="Innodb存储引擎逻辑架构"><a href="#Innodb存储引擎逻辑架构" class="headerlink" title="Innodb存储引擎逻辑架构"></a>Innodb存储引擎逻辑架构</h2><p>如下图所示，InnoDB的逻辑架构主要分为三个大的组成部分：</p>
+<ol>
+<li><p>在内存中的架构（In-Memory Structures）；</p>
+</li>
+<li><p>操作系统缓存（Operating System Cache）。</p>
+</li>
+<li><p>在硬盘上的架构（On-Disk Structures）；</p>
+</li>
+</ol>
+<p><a href="/..%5Cpic%5C15.png" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/..%5Cpic%5C15.png" alt="img"></a></p>
+<h3 id="内存上的架构"><a href="#内存上的架构" class="headerlink" title="内存上的架构"></a>内存上的架构</h3><p>InnoDB的内存架构分为4个部分：</p>
+<ul>
+<li><p>缓冲池（Buffer Pool）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">缓冲池是一块用于缓存被访问过的表和索引数据的内存区域，缓冲池允许在内存中处理一些被用户频繁访问的数据，在某一些专用的服务器上，甚至有可能使用80%的物理内存作为缓冲池。</span><br><span class="line">缓冲池的存在主要是为了通过降低磁盘IO的次数来提升数据的访问性能。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>写缓冲（Change Buffer）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">写缓冲是为了缓存缓冲池（Buffer Pool）中不存在的二级索引(Secondary Index)页的变更操作的一种特殊的内存数据结构。</span><br><span class="line">这些变更通常是一些Insert、Update、Delete等DML操作引发的，如果有一些其它的读操作将这些被变更的二级索引页加进了缓冲池（Buffer Pool)，则这些变更会被马上合并至缓冲池中以保证用户可以读取到一致的数据。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>日志缓冲（Log Buffer）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">InnoDB将数据的每次写优化为了批量写，这便以降低磁盘IO的次数，为了防止一些数据尚未写入硬盘就断电了，需要记录日志。</span><br><span class="line">而日志缓冲就是用来缓存一些即将要被写入磁盘日志文件（log files)中的数据。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自适应哈希索引（Adaptive Hash Index)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在InnoDB中，用户是不可以直接去创建哈希索引的，这个自适应哈希索引是InnoDB为了加速查询性能，会根据实际需要来决定是否对于一些频繁需要被访问的索引页构建哈希索引，它会利用key的前缀来构建哈希索引。这样做可以提高查询性能，因为索引采用类似B+树的结构进行存储，B+树的单key查询时间复杂度为O(log2n),但是优化为哈希索引后，单key的查询时间复杂度就为O(1)了。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="操作系统缓存"><a href="#操作系统缓存" class="headerlink" title="操作系统缓存"></a>操作系统缓存</h3><p>操作系统为了提升性能而降低磁盘IO的次数，在InnoDB的缓存体系与磁盘文件之间，加了一层操作系统的缓存&#x2F;页面缓存。用户态innodb存储引擎的进程向操作系统发起write系统调用时，在内核态完成页面缓存写入后即返回，如果想立即将页面缓存的内容立即刷入磁盘，innodb存储引擎需要发起fsync系统调用才可以。</p>
+<p>fsync和write操作是系统调用函数，在很多持久化场景都有使用到，比如 Redis 的AOF持久化中也使用到两个函数。</p>
+<ul>
+<li>write操作将数据写到系统的页面缓存后立即返回，后面依靠系统的调度机制将缓存数据刷到磁盘中去,其顺序是user buffer——&gt;page cache——&gt;disk。</li>
+<li>fsync操作将数据提交到硬盘中，强制硬盘同步，将一直阻塞到写入硬盘完成后返回，大量进行fsync操作就有性能瓶颈。</li>
+<li>另外还有O_DIRECT，该选项是在Linux系统中的选项，使用该选项后，对文件进行直接IO操作，不经过文件系统缓存，直接写入磁盘</li>
+</ul>
+<h3 id="硬盘上的架构"><a href="#硬盘上的架构" class="headerlink" title="硬盘上的架构"></a>硬盘上的架构</h3><p>InnoDB在硬盘上总共分为六个部分，也就是：</p>
+<ul>
+<li><p>表（Tables）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、如果已经指定了数据的默认存储引擎，那么创建表的时候，无需指定再指定存储引擎。</span><br><span class="line">2、默认情况下，创建InnoDB表的时候innodb_file_per_table参数是开启的，它表明用户创建的表和索引，会被以单表单文件的形式放入到file-per-table表空间中。</span><br><span class="line">3、如果禁用了该参数innodb_file_per_table，那么表及索引会被放入系统表空间(System Tablespaces)中。</span><br><span class="line">4、如果创建表的时候，想要把表创建在通用表空间（General Tablespaces)中，那么需要用户使用CREATE TABLE … TABLESPACE语法来创建表结构。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>表空间（Tablespaces）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">在InnoDB中，表空间总共分为：</span><br><span class="line">1、系统表空间（System Tablespaces）</span><br><span class="line">系统表空间主要用于存储双写缓冲、写缓存以及用户创建的表和索引（当innodb_file_per_table被禁用的情况下）</span><br><span class="line">2、file-per-table表空间（file-per-tableTablespaces）</span><br><span class="line">存储用户创建的表和索引数据，默认情况下（innodb_file_per_table参数是启用的）</span><br><span class="line">3、通用表空间（General Tablespaces）</span><br><span class="line">通用表空间允许用户存储一些自己想要放进通常表空间的表或数据，需要用户创建表的时候，自己指定采用通用表空间，上面讲表的时候已经介绍过。</span><br><span class="line">4、回滚表空间（Undo Tablespaces）</span><br><span class="line">回滚表空间是为了存储回滚日志，通常回滚日志在表空间会以回滚段(Undo Segments)的形式存在。</span><br><span class="line">5、临时表空间（Temporary Tablespaces）</span><br><span class="line">临时表空间用于存储用户创建的临时表，或者优化器内部自己创建的临时表。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>索引（Indexes）；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">按键的类别划分：主键索引和二级索引/辅助索引；</span><br><span class="line">按索引的类型分：BTree索引和自适应哈希索引；</span><br><span class="line">按存储结构划分：聚集索引和非聚集索引。</span><br><span class="line">索引存在的目的主要是为了加速数据的读取速度，InnoDB采用BTree（实际为优化改进后的B+树索引）。</span><br><span class="line">主键索引也是聚集索引，二级索引都是非聚集索引。</span><br><span class="line">自适应哈希索引是InnoDB为了加速查询性能，它自己按需在内存中对加载进内存的BTree索引优化为哈希索引的一种手段。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>双写缓冲（Doublewrite Buffer）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">双写缓冲是一个在系统表空间System Tablespaces中存储区，在这个存储区中，在InnoDB将页面写入InnoDB数据文件中的适当位置之前，会先从缓冲池中刷新页面 。如果在页面写入过程中发生操作系统，存储子系统或mysqld进程崩溃，则InnoDB可以在崩溃恢复期间从双写缓冲中找到页面的原来的数据。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Redo日志：记录的是尚未完成的操作，断电则用其重做</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redo即redo日志，是用于记录数据库中数据变化的日志，只要修改了数据块那么就会记录redo信息，当然nologging除外了。</span><br><span class="line">数据每次操作都会先记录到redo日志中，当出现实例故障（像断电），导致数据未能更新到数据文件，则数据库重启时须redo，重新把数据更新到数据文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Undo段：记录的改动之前的旧数据，一旦改错，可以回滚</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">undo即undo段，是指数据库为了保持读一致性，存储历史数据在一个位置。</span><br><span class="line">用于记录更改前的一份copy，用于回滚、撤销还原</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Innodb存储引擎表空间"><a href="#Innodb存储引擎表空间" class="headerlink" title="Innodb存储引擎表空间"></a>Innodb存储引擎表空间</h2><h3 id="表空间微观存储结构"><a href="#表空间微观存储结构" class="headerlink" title="表空间微观存储结构"></a>表空间微观存储结构</h3><p>InnoDB存储引擎的逻辑存储结构和 Oracle大致相同 ，所有数据都被逻辑地存放在一个空间中 ，我们称之为表空间 （ tablespace ） ，表空间又由：段 （ segment ） 、区 （ extent ） 、页 ( page ） 组成 。页在一些文档中有时也称为块（block)或磁盘块，一次io操作的是一个磁盘的数据，即一页数据。</p>
+<p>InnoDB存储引擎的逻辑存储结构大致如下图所示</p>
+<p><a href="/..%5Cpic%5C13-1024x689.jpg" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/..%5Cpic%5C13-1024x689.jpg" alt="img"></a></p>
+<p>详解如下</p>
+<ul>
+<li><p>Row行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">一个Row存放的是一行内容，有trx id，回滚指针，该行包含的n列内容</span><br><span class="line">InnoDB存储引擎是面向行的（row-oriented），也就是说数据的存放是按行进行存放的。</span><br><span class="line">这里提到面向行（row-oriented）的数据库，那么也就是说，还存在有面向列（column-orientied）的数据库。MySQL infobright储存引擎就是按列来存放数据的，这对于数据仓库下的分析类SQL语句的执行以及数据压缩很有好处。类似的数据库还有Sybase IQ、Google Big Table。面向列的数据库是当前数据库发展的一个方向。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Page页：最多包含7992行记录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">多个Row组织到一个Page页中，一个Page页即一个磁盘块大小，是io操作的最小物理存储单元，也就是我们读取一页内的数据时候，实际上才发生了一次IO，这个理论对于索引的数据结构设计非常有帮助。</span><br><span class="line">每个页存放的行记录也是有硬性定义的，最多允许存放16KB/2～200行的记录，即7992行记录。</span><br><span class="line">InnoDB存储引擎page页的大小为16KB，且不可以更改（也许通过更改源码可以）。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Extent区：由64个连续的页组成的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">区是由64个连续的页组成的，每个页大小为16KB，即每个区的大小为1MB。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Segment 段 ：最多由4个区组成</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对于大的数据段，InnoDB存储引擎最多每次可以申请4个区，以此来保证数据的顺序性能。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Tablespace 表空间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">表空间由三种段构成</span><br><span class="line">1、叶子节点数据段：即数据段</span><br><span class="line">2、非叶子节点数据段：即索引段</span><br><span class="line">3、回滚段</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>总结：</p>
+<p>7992行—&gt;一页（16kB）</p>
+<p>64个页—&gt;一个区（1MB）</p>
+<p>4个区—&gt; 一个数据段（4M）</p>
+<p>叶子节点数据段+非叶子节点数据段+回滚数据段-》一个表空间</p>
+<h3 id="表空间宏观迁移案例"><a href="#表空间宏观迁移案例" class="headerlink" title="表空间宏观迁移案例"></a>表空间宏观迁移案例</h3><p>从mysql5.6版本开始，引入了表空间传输的功能。可以把一张表从一个数据库移动到另一个数据库中或者另一台机器上。使用该功能必须满足如下条件：</p>
+<ul>
+<li><p>Mysql版本必须是5.6及以上</p>
+</li>
+<li><p>使用独立表空间方式，现在版本默认开启innodb_file_per_table</p>
+</li>
+<li><p>源库和目标库的page size必须一致，表结构必须一致，比如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 如果是把从<span class="number">5.6</span>迁移到<span class="number">5.7</span>，需要注意表的row_format也应该保持一致，可以用下述<span class="keyword">sql</span>查看</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">table</span> status <span class="keyword">like</span> &quot;t1&quot;;</span><br><span class="line"># 指定row_format与源表一致</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> ttt(id <span class="type">int</span>)row_format<span class="operator">=</span>compact;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果要做表的导出操作，该表只能进行只读操作</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>操作步骤</strong></p>
+</blockquote>
+<ol>
+<li><p>在原机器上为t1表加读锁（只能读，不能写，目的是保证数据一致性），然后把数据从内存导出到磁盘上。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FLUSH TABLES t1 <span class="keyword">FOR</span> EXPORT; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在新机器上创建与原表一样的表结构</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t1(字段<span class="number">1</span> 类型,字段<span class="number">2</span> 类型,...);</span><br></pre></td></tr></table></figure>
+
+<p>然后关闭t1表的数据空间，即删除.ibd文件</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> t1 DISCARD TABLESPACE;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在原机器上将原表的t1.cfg和t1.ibd拷贝到主机B的数据目录下。注意拷贝的ibd文件的属主属组与权限问题。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 拷贝完后原机器执行</span><br><span class="line">UNLOCK TABLES;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在新机器上恢复表空间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 导入表空间，自动进行恢复过程</span><br><span class="line">ALTER TABLE  t1 IMPORT TABLESPACE;</span><br><span class="line"># 检查</span><br><span class="line">check table t1;</span><br><span class="line"># 没问题的话，select * from t1 会发现数据恢复了。</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Innodb存储引擎执行流程"><a href="#Innodb存储引擎执行流程" class="headerlink" title="Innodb存储引擎执行流程"></a>Innodb存储引擎执行流程</h2><h3 id="一条记录是怎么更新的"><a href="#一条记录是怎么更新的" class="headerlink" title="一条记录是怎么更新的"></a>一条记录是怎么更新的</h3><p>如下图所示，一条数据记录的更新过程可以分为8个步骤：</p>
+<ol>
+<li>把该行数据从磁盘加载到buffer pool中，并对该行数据进行加锁</li>
+<li>把旧数据写入undo log，以便修改出错情况下的回滚</li>
+<li>在buffer pool中的数据更新，得到脏数据</li>
+<li>把修改后的数据写入到redo log buffer当中</li>
+<li>准备提交事务redo log刷入磁盘</li>
+<li>把修改的操作记录准备写入binlog日志</li>
+<li>把binlog的文件名和位置写入commit标记，commit标记写入redolog中（redo log中存放的修改后的数据与binlog中的修改操作对应上，双管齐下），事务才算提交成功；否则不会成功</li>
+<li>IO线程Buffer Pool中的脏数据刷入磁盘文件，完成最终修改</li>
+</ol>
+<p><a href="/..%5Cpic%5C19-1024x545.jpg" title="img" class="gallery-item" style="box-shadow: none;"> <img src="/..%5Cpic%5C19-1024x545.jpg" alt="img"></a></p>
+<p>各部分作用简介</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1、缓冲池 buffer pool</span></span><br><span class="line">1）会把一些磁盘上的数据加载到该内存当中</span><br><span class="line">2）查询数据的时候不从磁盘查，从该内存里查</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 2、undo log</span></span><br><span class="line">1）逻辑日志，可以认为当delete一条记录时，undo <span class="built_in">log</span>中会记录一条对应的insert记录，反之亦然，当update一条记录时，它记录一条对应相反的update记录</span><br><span class="line">2）用于数据回滚</span><br><span class="line">3）实现mvcc</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 3、redo log</span></span><br><span class="line">1）存储引擎层日志</span><br><span class="line">2）物理日志（类似于“对哪个数据页中的什么记录，做了个什么修改”）</span><br><span class="line">3）记录对数据做了什么修改，防止已提交事务的数据丢失。因为数据不是实时刷盘的，数据是在buffer pool当中，如果数据库宕机了并且buffer pool中的数据还没有刷盘，修改过的数据就丢失了，redo <span class="built_in">log</span>解决这一问题</span><br><span class="line">4）redo <span class="built_in">log</span> buffer是redo <span class="built_in">log</span>的缓冲区，数据做了什么修改，首先会写入到redo <span class="built_in">log</span> buffer中，再刷盘写入redo <span class="built_in">log</span>中</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 4、binlog</span></span><br><span class="line">归档日志，属于mysql server层，不属于存储引擎层</span><br><span class="line">逻辑性日志（类似于“对<span class="built_in">users</span>表中的<span class="built_in">id</span>=10的一行数据做了更新操作，更新以后的值是什么”）</span><br></pre></td></tr></table></figure>
+
+<p>综上，执行一条更新sql语句，存储引擎执行流程可以分为三大阶段</p>
+<ol>
+<li>执行阶段：数据加载到内存，写undo log，更新内存中数据，写redo log buffer</li>
+<li>事务提交阶段：redo log和binlog刷盘，commit标记写入redo log中</li>
+<li>最后：后台io线程随机把内存中脏数据刷到磁盘上</li>
+</ol>
+<h3 id="Innodb刷盘策略"><a href="#Innodb刷盘策略" class="headerlink" title="Innodb刷盘策略"></a>Innodb刷盘策略</h3><blockquote>
+<p><strong>redo log刷盘策略</strong></p>
+</blockquote>
+<ul>
+<li>当提交事务的时候，redo log buffer里的数据会根据一定规则刷到磁盘上</li>
+<li>通过innodb_flush_log_at_trx_commit参数来配置<ul>
+<li>0 提交事务的时候，不立即把 redo log buffer 里的数据刷入磁盘文件的，而是依靠 InnoDB 的主线程每秒执行一次刷新到磁盘。此时可能你提交事务了，结果 mysql 宕机了，然后此时内存里的数据全部丢失</li>
+<li>1 （默认值，建议）提交事务的时候，就必须把 redo log 从内存刷入到磁盘文件里去，只要事务提交成功，那么 redo log 就必然在磁盘里了</li>
+<li>2 提交事务的时候，把 redo 日志写入磁盘文件对应的 os cache 缓存里去，而不是直接进入磁盘文件，可能 1 秒后才会把 os cache 里的数据写入到磁盘文件里去。此时mysql宕机，数据不会丢失；如果机器宕机，数据会丢失</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>binlog刷盘策略</strong></p>
+</blockquote>
+<ul>
+<li>当提交事务的时候，binlog也会刷到磁盘上去</li>
+<li>通过sync_binlog参数来配置<ul>
+<li>0 默认值。事务提交后，将二进制日志写入了操作系统缓冲，若操作系统宕机则会丢失部分二进制日志</li>
+<li>1 （推荐）事务提交后，将二进制文件写入磁盘并立即执行刷新操作，相当于是同步写入磁盘，不经过操作系统的缓存</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>commit标记的意义</strong></p>
+</blockquote>
+<p>commit写入redo log，才能判定事务成功；因为此时，redo log中有这次更新记录，binlog也有这次更新记录，redo log和binlog保持了一致，否则</p>
+<ul>
+<li><p>redo log刷盘成功，binlog还没刷盘</p>
+<p>数据库宕机，没有commit标记写到redo log中，事务判定为失败。</p>
+<p>因为redolog中有这次更新日志，binlog中没有这次更新日志，会出现数据不一致问题</p>
+</li>
+<li><p>redo log刷盘成功，binlog刷盘成功</p>
+<p>commit标记还没来得及写入redo log中，数据库宕机，同样判定事务提交失败</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>内存(buffer pool)中更新过脏数据什么时候刷盘</strong></p>
+</blockquote>
+<p>后台io线程有时间会把内存buffer pool中更新过的脏数据(因为更新过，和磁盘上的数据不一样，所以叫脏数据)刷回到磁盘上，哪怕这时候mysql宕机，也没有关系，可通过redo log和binlog恢复数据到内存中，io线程有时间再把数据刷盘，那何时刷呢？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- 1、redo log满的情况下才会主动刷入磁盘</span><br><span class="line">- 2、系统内存不足时，需要将一部分数据页淘汰掉，如果淘汰的是脏页，需要先将脏页同步到磁盘；</span><br><span class="line">- 3、MySQL 认为空闲的时间，这种情况没有性能问题；</span><br><span class="line">- 4、MySQL 正常关闭之前，会把所有的脏页刷入到磁盘，这种情况也没有性能问题。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>LRU(Least Recently Used) 淘汰策略</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">以上我们了解了 InnoDB 的更新和插入操作的具体实现原理，接下来我们再来了解下它的实现和优化方式。</span><br><span class="line"></span><br><span class="line">InnoDB 存储引擎是基于集合索引实现的数据存储，也就是除了索引列以及主键是存储在 B + 树之外，其它列数据也存储在 B + 树的叶子节点中。而这里的索引页和数据页都会缓存在缓冲池中，在查询数据时，只要在缓冲池中存在该数据，InnoDB 就不用每次都去磁盘中读取页，从而提高数据库的查询性能。</span><br><span class="line"></span><br><span class="line">虽然缓冲池是一个很大的内存区域，但由于存放了各种类型的数据，加上存储数据量之大，缓冲池无法将所有的数据都存储在其中。因此，缓冲池需要通过 LRU 算法将最近且经常查询的数据缓存在其中，而不常查询的数据就淘汰出去。</span><br><span class="line"></span><br><span class="line">InnoDB 对 LRU 做了一些优化，我们熟悉的 LRU 算法通常是将最近查询的数据放到 LRU 列表的首部，而 InnoDB 则是将数据放在一个 midpoint 位置，通常这个 midpoint 为列表长度的 5/8。</span><br><span class="line"></span><br><span class="line">这种策略主要是为了避免一些不常查询的操作突然将热点数据淘汰出去，而热点数据被再次查询时，需要再次从磁盘中获取，从而影响数据库的查询性能。</span><br><span class="line"></span><br><span class="line">如果我们的热点数据比较多，我们可以通过调整 midpoint 值来增加热点数据的存储量，从而降低热点数据的淘汰率。</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</div><script src="https://jsd.cdn.zzko.cn/npm/hexo-theme-a4@latest/source/js/lightgallery.min.js"></script><script>if("undefined"!=typeof lightGallery) {
+        var options1 = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1);
+        }</script>
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2025-02-10</span>
+            
+                <span>该篇文章被 邓胖胖</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/MySQL/'>
+                            MySQL
+                        </a>
+                    
+                </span>
+             
+             
+                <span>归为分类:
+                    
+                    
+                        <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                            学习笔记
+                        </a>
+                    
+                </span>
+            
+        
+        </i>
+    </div>
+    <br>
+    
+    <!-- <div class="post-footer-pre-next">
+        <span>上一篇：<a href=""></a></span>
+        <span class="post-footer-pre-next-last-span-right">上一篇：<a href=""></a></span>
+    </div> -->
+
+    
+        
+
+     
+</div>
+
+
+
+                                      
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+             
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span></span>
+            
+    
+</div>
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!--目录-->
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
+        
+<script src="/js/toc.js"></script>
+
+    
+
+    
+<script src="/js/randomHeaderContent.js"></script>
+
+    <!--回到顶部按钮-->
+    
+        
+<script src="/js/returnToTop.js"></script>
+
+    
+
+    
+        
+<script src="/js/returnToLastPage.js"></script>
+
+    
+
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+
+
+
+                </div>
+            
+            
+                <!-- 回到顶部的按钮-->  
+                <div class="progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+            
+                <!-- 返回的按钮-->  
+                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
+                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    </svg>
+                </div>
+            
+    </body>
+</html>
